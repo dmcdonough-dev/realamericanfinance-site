@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real American Finance</title>
 
+    <!-- Favicon (replace /favicon.ico when you have it) -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -14,6 +17,7 @@
     <!-- Custom Tailwind Config -->
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -35,15 +39,38 @@
 
     <style>
         body { font-family: 'Inter', sans-serif; }
+        .logo-flag {
+            width: 20px;
+            height: 14px;
+            background: linear-gradient(to bottom, #B22234 50%, #FFFFFF 50%);
+            position: relative;
+            display: inline-block;
+            margin-right: 8px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .logo-flag::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40%;
+            height: 50%;
+            background: #0A1A2F;
+        }
     </style>
 </head>
 
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-50 text-gray-900 dark:bg-navy-900 dark:text-gray-100 transition-colors duration-300">
 
     <!-- NAVBAR -->
-    <header class="bg-navy-900 text-white shadow-lg fixed w-full z-20">
+    <header class="bg-navy-900 text-white dark:bg-black/80 shadow-lg fixed w-full z-20 backdrop-blur">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-heading tracking-wide">Real American Finance</h1>
+            <div class="flex items-center space-x-2">
+                <span class="logo-flag"></span>
+                <span class="text-xl md:text-2xl font-heading tracking-wide">Real American Finance</span>
+            </div>
+
             <ul class="hidden md:flex space-x-8 text-lg">
                 <li><a href="#home" class="hover:text-crimson transition">Home</a></li>
                 <li><a href="#about" class="hover:text-crimson transition">About</a></li>
@@ -52,8 +79,19 @@
                 <li><a href="#articles" class="hover:text-crimson transition">Articles</a></li>
                 <li><a href="#contact" class="hover:text-crimson transition">Contact</a></li>
             </ul>
+
+            <button id="theme-toggle" class="ml-4 px-3 py-1 rounded-full border border-white/40 text-sm hidden md:inline-flex items-center space-x-2 hover:bg-white/10 transition">
+                <span id="theme-label">Dark</span>
+            </button>
         </nav>
     </header>
+
+    <!-- MOBILE NAV + THEME -->
+    <div class="fixed top-4 right-4 md:hidden z-30 flex space-x-2">
+        <button id="theme-toggle-mobile" class="px-3 py-2 rounded-full bg-navy-900 text-white text-sm shadow hover:bg-navy-800 transition">
+            <span id="theme-label-mobile">Dark</span>
+        </button>
+    </div>
 
     <!-- HERO -->
     <section id="home" class="relative bg-navy-900 text-white pt-32 pb-32 px-6 overflow-hidden">
@@ -68,17 +106,22 @@
             <p class="text-xl md:text-2xl mb-10 opacity-90">
                 A disciplined, strategic path to wealth — built on responsibility, grit, and long-term thinking.
             </p>
-            <a href="#start-here" class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
-                Start Here
-            </a>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#start-here" class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
+                    Start Here
+                </a>
+                <a href="#newsletter" class="bg-white/10 hover:bg-white/20 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
+                    Join the Newsletter
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- WHY THIS MATTERS -->
-    <section id="why" class="py-20 px-6 bg-white">
+    <section id="why" class="py-20 px-6 bg-white dark:bg-navy-900">
         <div class="container mx-auto max-w-4xl text-center">
-            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900">Why This Matters</h3>
-            <p class="text-xl leading-relaxed text-gray-700">
+            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900 dark:text-white">Why This Matters</h3>
+            <p class="text-xl leading-relaxed text-gray-700 dark:text-gray-200">
                 America rewards discipline, responsibility, and long-term thinking — but most people never build the systems
                 that allow them to take control of their money and their future. Real American Finance exists to change that.
             </p>
@@ -86,39 +129,39 @@
     </section>
 
     <!-- CORE PRINCIPLES -->
-    <section id="principles" class="py-20 px-6 bg-gray-100">
+    <section id="principles" class="py-20 px-6 bg-gray-100 dark:bg-navy-800">
         <div class="container mx-auto max-w-6xl">
-            <h3 class="text-4xl font-heading font-bold mb-12 text-center text-navy-900">Core Principles</h3>
+            <h3 class="text-4xl font-heading font-bold mb-12 text-center text-navy-900 dark:text-white">Core Principles</h3>
 
             <div class="grid md:grid-cols-3 gap-10">
-                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
-                    <h4 class="text-2xl font-heading mb-4 text-navy-900">Discipline Over Emotion</h4>
-                    <p class="text-gray-700">Wealth is built through consistent action, not impulse or motivation.</p>
+                <div class="bg-white dark:bg-navy-900 p-8 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900 dark:text-white">Discipline Over Emotion</h4>
+                    <p class="text-gray-700 dark:text-gray-200">Wealth is built through consistent action, not impulse or motivation.</p>
                 </div>
 
-                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
-                    <h4 class="text-2xl font-heading mb-4 text-navy-900">Minimalism With Purpose</h4>
-                    <p class="text-gray-700">Cut the noise. Reduce the clutter. Focus on what moves you forward.</p>
+                <div class="bg-white dark:bg-navy-900 p-8 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900 dark:text-white">Minimalism With Purpose</h4>
+                    <p class="text-gray-700 dark:text-gray-200">Cut the noise. Reduce the clutter. Focus on what moves you forward.</p>
                 </div>
 
-                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
-                    <h4 class="text-2xl font-heading mb-4 text-navy-900">Strategic Wealth Building</h4>
-                    <p class="text-gray-700">Money grows when it’s directed by a plan, not by chance.</p>
+                <div class="bg-white dark:bg-navy-900 p-8 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900 dark:text-white">Strategic Wealth Building</h4>
+                    <p class="text-gray-700 dark:text-gray-200">Money grows when it’s directed by a plan, not by chance.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- WHO THIS IS FOR -->
-    <section id="who" class="py-20 px-6 bg-white">
+    <section id="who" class="py-20 px-6 bg-white dark:bg-navy-900">
         <div class="container mx-auto max-w-4xl text-center">
-            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900">Who This Is For</h3>
-            <p class="text-xl leading-relaxed text-gray-700 mb-8">
+            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900 dark:text-white">Who This Is For</h3>
+            <p class="text-xl leading-relaxed text-gray-700 dark:text-gray-200 mb-8">
                 Real American Finance is built for people who want to take ownership of their financial lives — not through shortcuts,
                 hacks, or hype, but through discipline, clarity, and long-term execution.
             </p>
 
-            <ul class="text-left max-w-2xl mx-auto text-lg space-y-4">
+            <ul class="text-left max-w-2xl mx-auto text-lg space-y-4 text-gray-800 dark:text-gray-200">
                 <li>• People tired of living paycheck to paycheck</li>
                 <li>• People who want a clear, strategic path to wealth</li>
                 <li>• People who value responsibility and personal autonomy</li>
@@ -128,10 +171,10 @@
     </section>
 
     <!-- START HERE -->
-    <section id="start-here" class="py-20 px-6 bg-gray-100">
+    <section id="start-here" class="py-20 px-6 bg-gray-100 dark:bg-navy-800">
         <div class="container mx-auto max-w-4xl text-center">
-            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900">Start Here</h3>
-            <p class="text-xl leading-relaxed text-gray-700 mb-10">
+            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900 dark:text-white">Start Here</h3>
+            <p class="text-xl leading-relaxed text-gray-700 dark:text-gray-200 mb-10">
                 If you're new, begin with the frameworks. They’re simple, structured, and built to give you clarity fast.
             </p>
             <a href="#frameworks" class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
@@ -141,34 +184,121 @@
     </section>
 
     <!-- FRAMEWORKS -->
-    <section id="frameworks" class="py-20 px-6 bg-white">
+    <section id="frameworks" class="py-20 px-6 bg-white dark:bg-navy-900">
         <div class="container mx-auto max-w-6xl">
-            <h3 class="text-4xl font-heading font-bold mb-12 text-center text-navy-900">Core Frameworks</h3>
+            <h3 class="text-4xl font-heading font-bold mb-12 text-center text-navy-900 dark:text-white">Core Frameworks</h3>
 
             <div class="grid md:grid-cols-3 gap-10">
-                <div class="bg-gray-100 p-8 rounded-xl shadow hover:shadow-lg transition">
-                    <h4 class="text-2xl font-heading mb-4 text-navy-900">Iron Pot Millionaire</h4>
-                    <p class="text-gray-700">A discipline-first wealth model built on minimalism, sacrifice, and long-term execution.</p>
+                <!-- Iron Pot -->
+                <div class="bg-gray-100 dark:bg-navy-800 p-8 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900 dark:text-white">Iron Pot Millionaire</h4>
+                    <p class="text-gray-700 dark:text-gray-200 mb-4">
+                        A discipline-first wealth model built on minimalism, sacrifice, and long-term execution.
+                    </p>
+                    <ul class="text-left text-sm text-gray-700 dark:text-gray-300 mb-4 space-y-1">
+                        <li>• Strip spending to essentials</li>
+                        <li>• Aggressive debt destruction</li>
+                        <li>• Relentless savings and investing</li>
+                    </ul>
+                    <a href="#iron-pot-details" class="text-crimson hover:underline font-semibold">
+                        View breakdown
+                    </a>
                 </div>
 
-                <div class="bg-gray-100 p-8 rounded-xl shadow hover:shadow-lg transition">
-                    <h4 class="text-2xl font-heading mb-4 text-navy-900">Wealth Architecture</h4>
-                    <p class="text-gray-700">A blueprint for building durable financial systems that survive volatility.</p>
+                <!-- Wealth Architecture -->
+                <div class="bg-gray-100 dark:bg-navy-800 p-8 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900 dark:text-white">Wealth Architecture</h4>
+                    <p class="text-gray-700 dark:text-gray-200 mb-4">
+                        A blueprint for building durable financial systems that survive volatility.
+                    </p>
+                    <ul class="text-left text-sm text-gray-700 dark:text-gray-300 mb-4 space-y-1">
+                        <li>• Cash, defense, offense layers</li>
+                        <li>• Automations and safeguards</li>
+                        <li>• Long-term allocation logic</li>
+                    </ul>
+                    <a href="#wealth-architecture-details" class="text-crimson hover:underline font-semibold">
+                        View breakdown
+                    </a>
                 </div>
 
-                <div class="bg-gray-100 p-8 rounded-xl shadow hover:shadow-lg transition">
-                    <h4 class="text-2xl font-heading mb-4 text-navy-900">Scenario Planning</h4>
-                    <p class="text-gray-700">A strategic approach to preparing for economic uncertainty and life’s financial ambushes.</p>
+                <!-- Scenario Planning -->
+                <div class="bg-gray-100 dark:bg-navy-800 p-8 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900 dark:text-white">Scenario Planning</h4>
+                    <p class="text-gray-700 dark:text-gray-200 mb-4">
+                        A strategic approach to preparing for economic uncertainty and life’s financial ambushes.
+                    </p>
+                    <ul class="text-left text-sm text-gray-700 dark:text-gray-300 mb-4 space-y-1">
+                        <li>• Job loss, recession, emergency paths</li>
+                        <li>• Pre-made playbooks</li>
+                        <li>• Stress-testing your plan</li>
+                    </ul>
+                    <a href="#scenario-planning-details" class="text-crimson hover:underline font-semibold">
+                        View breakdown
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- FRAMEWORK DETAILS (ANCHOR SECTIONS) -->
+    <section id="iron-pot-details" class="py-16 px-6 bg-gray-50 dark:bg-navy-800">
+        <div class="container mx-auto max-w-4xl">
+            <h3 class="text-3xl font-heading font-bold mb-4 text-navy-900 dark:text-white">Iron Pot Millionaire</h3>
+            <p class="text-lg text-gray-700 dark:text-gray-200 mb-4">
+                Iron Pot Millionaire is a ruthless, disciplined approach to building wealth by stripping life down to what actually matters.
+            </p>
+            <ol class="list-decimal list-inside text-gray-800 dark:text-gray-200 space-y-2 text-lg">
+                <li>Define your “iron pot” baseline — the absolute minimum version of your lifestyle.</li>
+                <li>Eliminate all non-essential spending for a defined season.</li>
+                <li>Channel every available dollar into debt destruction and asset acquisition.</li>
+                <li>Use clear milestones and timeframes to maintain intensity without burning out.</li>
+            </ol>
+            <!-- Placeholder for future PDF -->
+            <p class="mt-4 text-sm text-gray-600 dark:text-gray-300">
+                Soon: Downloadable Iron Pot Millionaire one-page PDF.
+            </p>
+        </div>
+    </section>
+
+    <section id="wealth-architecture-details" class="py-16 px-6 bg-white dark:bg-navy-900">
+        <div class="container mx-auto max-w-4xl">
+            <h3 class="text-3xl font-heading font-bold mb-4 text-navy-900 dark:text-white">Wealth Architecture</h3>
+            <p class="text-lg text-gray-700 dark:text-gray-200 mb-4">
+                Wealth Architecture is about designing your financial life like a system, not a series of random decisions.
+            </p>
+            <ul class="list-disc list-inside text-gray-800 dark:text-gray-200 space-y-2 text-lg">
+                <li>Cash layer: emergency fund, short-term reserves.</li>
+                <li>Defense layer: insurance, buffers, risk management.</li>
+                <li>Offense layer: investments, income expansion, asymmetric bets.</li>
+            </ul>
+            <p class="mt-4 text-sm text-gray-600 dark:text-gray-300">
+                Soon: Visual diagram and downloadable Wealth Architecture PDF.
+            </p>
+        </div>
+    </section>
+
+    <section id="scenario-planning-details" class="py-16 px-6 bg-gray-50 dark:bg-navy-800">
+        <div class="container mx-auto max-w-4xl">
+            <h3 class="text-3xl font-heading font-bold mb-4 text-navy-900 dark:text-white">Scenario Planning</h3>
+            <p class="text-lg text-gray-700 dark:text-gray-200 mb-4">
+                Scenario Planning gives you predefined playbooks for when life hits — so you’re not improvising under stress.
+            </p>
+            <ul class="list-disc list-inside text-gray-800 dark:text-gray-200 space-y-2 text-lg">
+                <li>Job loss: immediate, 30-day, 90-day actions.</li>
+                <li>Market downturn: how to respond, not react.</li>
+                <li>Unexpected expenses: where the money comes from, by design.</li>
+            </ul>
+            <p class="mt-4 text-sm text-gray-600 dark:text-gray-300">
+                Soon: Scenario Planning playbook PDF.
+            </p>
+        </div>
+    </section>
+
     <!-- ABOUT -->
-    <section id="about" class="py-20 px-6 bg-gray-100">
+    <section id="about" class="py-20 px-6 bg-white dark:bg-navy-900">
         <div class="container mx-auto max-w-4xl text-center">
-            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900">About Real American Finance</h3>
-            <p class="text-xl leading-relaxed text-gray-700">
+            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900 dark:text-white">About Real American Finance</h3>
+            <p class="text-xl leading-relaxed text-gray-700 dark:text-gray-200">
                 Real American Finance is a teaching-centered platform built to help people take control of their money,
                 build disciplined financial habits, and create long-term autonomy. No hype. No shortcuts. Just clarity,
                 structure, and execution.
@@ -176,65 +306,102 @@
         </div>
     </section>
 
+    <!-- BRAND GUIDE (LIGHTWEIGHT) -->
+    <section id="brand" class="py-20 px-6 bg-gray-100 dark:bg-navy-800">
+        <div class="container mx-auto max-w-5xl">
+            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900 dark:text-white text-center">Brand Guide (Snapshot)</h3>
+            <div class="grid md:grid-cols-3 gap-10 text-gray-800 dark:text-gray-200">
+                <div>
+                    <h4 class="text-2xl font-heading mb-3">Voice</h4>
+                    <ul class="space-y-1 text-lg">
+                        <li>• Direct, honest, no fluff</li>
+                        <li>• Patriotic, but grounded</li>
+                        <li>• Strategic and structured</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-2xl font-heading mb-3">Colors</h4>
+                    <ul class="space-y-1 text-lg">
+                        <li>• Navy 900: #0A1A2F</li>
+                        <li>• Navy 800: #11243F</li>
+                        <li>• Crimson: #B22234</li>
+                        <li>• Steel: #E5E7EB</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-2xl font-heading mb-3">Principles</h4>
+                    <ul class="space-y-1 text-lg">
+                        <li>• Discipline over emotion</li>
+                        <li>• Systems over guesswork</li>
+                        <li>• Autonomy over dependence</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CREDIBILITY -->
-    <section id="credibility" class="py-20 px-6 bg-white">
+    <section id="credibility" class="py-20 px-6 bg-white dark:bg-navy-900">
         <div class="container mx-auto max-w-6xl text-center">
-            <h3 class="text-4xl font-heading font-bold mb-12 text-navy-900">Why You Can Trust This</h3>
+            <h3 class="text-4xl font-heading font-bold mb-12 text-navy-900 dark:text-white">Why You Can Trust This</h3>
 
             <div class="grid md:grid-cols-3 gap-10">
-                <div class="p-8 rounded-xl shadow bg-gray-100">
-                    <h4 class="text-2xl font-heading mb-4 text-navy-900">Built on Real Experience</h4>
-                    <p class="text-gray-700">These frameworks come from real financial discipline, not theory.</p>
+                <div class="p-8 rounded-xl shadow bg-gray-100 dark:bg-navy-800">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900 dark:text-white">Built on Real Experience</h4>
+                    <p class="text-gray-700 dark:text-gray-200">These frameworks come from real financial discipline, not theory.</p>
                 </div>
 
-                <div class="p-8 rounded-xl shadow bg-gray-100">
-                    <h4 class="text-2xl font-heading mb-4 text-navy-900">Clear, Actionable Systems</h4>
-                    <p class="text-gray-700">Everything is designed to be simple, repeatable, and effective.</p>
+                <div class="p-8 rounded-xl shadow bg-gray-100 dark:bg-navy-800">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900 dark:text-white">Clear, Actionable Systems</h4>
+                    <p class="text-gray-700 dark:text-gray-200">Everything is designed to be simple, repeatable, and effective.</p>
                 </div>
 
-                <div class="p-8 rounded-xl shadow bg-gray-100">
-                    <h4 class="text-2xl font-heading mb-4 text-navy-900">No Agenda, No Noise</h4>
-                    <p class="text-gray-700">Just honest, disciplined financial guidance for real people.</p>
+                <div class="p-8 rounded-xl shadow bg-gray-100 dark:bg-navy-800">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900 dark:text-white">No Agenda, No Noise</h4>
+                    <p class="text-gray-700 dark:text-gray-200">Just honest, disciplined financial guidance for real people.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ARTICLES -->
-    <section id="articles" class="py-20 px-6 bg-gray-100">
+    <section id="articles" class="py-20 px-6 bg-gray-100 dark:bg-navy-800">
         <div class="container mx-auto max-w-6xl">
-            <h3 class="text-4xl font-heading font-bold mb-12 text-center text-navy-900">Latest Articles</h3>
+            <h3 class="text-4xl font-heading font-bold mb-12 text-center text-navy-900 dark:text-white">Latest Articles</h3>
 
             <div class="grid md:grid-cols-3 gap-10">
-                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
-                    <h4 class="text-2xl font-heading mb-4 text-navy-900">The Discipline Dividend</h4>
-                    <p class="text-gray-700">Why consistency beats talent — and how disciplined financial habits compound over time.</p>
-                </div>
+                <article class="bg-white dark:bg-navy-900 p-8 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900 dark:text-white">The Discipline Dividend</h4>
+                    <p class="text-gray-700 dark:text-gray-200 mb-4">Why consistency beats talent — and how disciplined financial habits compound over time.</p>
+                    <a href="#" class="text-crimson hover:underline font-semibold text-sm">Read article</a>
+                </article>
 
-                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
-                    <h4 class="text-2xl font-heading mb-4 text-navy-900">Minimalism for Wealth</h4>
-                    <p class="text-gray-700">Cutting the noise, reducing expenses, and building a life that supports your goals.</p>
-                </div>
+                <article class="bg-white dark:bg-navy-900 p-8 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900 dark:text-white">Minimalism for Wealth</h4>
+                    <p class="text-gray-700 dark:text-gray-200 mb-4">Cutting the noise, reducing expenses, and building a life that supports your goals.</p>
+                    <a href="#" class="text-crimson hover:underline font-semibold text-sm">Read article</a>
+                </article>
 
-                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
-                    <h4 class="text-2xl font-heading mb-4 text-navy-900">The American Money Mindset</h4>
-                    <p class="text-gray-700">A patriotic approach to financial independence rooted in responsibility and grit.</p>
-                </div>
+                <article class="bg-white dark:bg-navy-900 p-8 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900 dark:text-white">The American Money Mindset</h4>
+                    <p class="text-gray-700 dark:text-gray-200 mb-4">A patriotic approach to financial independence rooted in responsibility and grit.</p>
+                    <a href="#" class="text-crimson hover:underline font-semibold text-sm">Read article</a>
+                </article>
             </div>
         </div>
     </section>
 
     <!-- EMAIL CAPTURE -->
-    <section id="newsletter" class="py-20 px-6 bg-white">
+    <section id="newsletter" class="py-20 px-6 bg-white dark:bg-navy-900">
         <div class="container mx-auto max-w-4xl text-center">
-            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900">Join the Newsletter</h3>
-            <p class="text-xl leading-relaxed text-gray-700 mb-10">
+            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900 dark:text-white">Join the Newsletter</h3>
+            <p class="text-xl leading-relaxed text-gray-700 dark:text-gray-200 mb-10">
                 Get weekly insights on discipline, wealth-building, and financial autonomy — straight to your inbox.
             </p>
 
             <form action="https://formspree.io/f/your-form-id" method="POST" class="max-w-lg mx-auto flex flex-col md:flex-row gap-4">
                 <input type="email" name="email" placeholder="Your email" required
-                       class="flex-1 px-6 py-4 rounded-lg border border-gray-300">
+                       class="flex-1 px-6 py-4 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-navy-800">
                 <button type="submit" class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-lg text-xl font-semibold transition">
                     Subscribe
                 </button>
@@ -243,13 +410,13 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="py-20 px-6 bg-gray-100">
+    <section id="contact" class="py-20 px-6 bg-gray-100 dark:bg-navy-800">
         <div class="container mx-auto max-w-4xl text-center">
-            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900">Contact</h3>
+            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900 dark:text-white">Contact</h3>
             <form action="https://formspree.io/f/your-form-id" method="POST" class="max-w-lg mx-auto space-y-6">
-                <input type="text" name="name" placeholder="Name" required class="w-full px-6 py-4 rounded-lg border border-gray-300">
-                <input type="email" name="email" placeholder="Email" required class="w-full px-6 py-4 rounded-lg border border-gray-300">
-                <textarea name="message" placeholder="Message" required class="w-full px-6 py-4 rounded-lg border border-gray-300 h-40"></textarea>
+                <input type="text" name="name" placeholder="Name" required class="w-full px-6 py-4 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-navy-900">
+                <input type="email" name="email" placeholder="Email" required class="w-full px-6 py-4 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-navy-900">
+                <textarea name="message" placeholder="Message" required class="w-full px-6 py-4 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-navy-900 h-40"></textarea>
                 <button type="submit" class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
                     Send Message
                 </button>
@@ -258,10 +425,49 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-navy-900 text-white py-10 text-center">
+    <footer class="bg-navy-900 dark:bg-black text-white py-10 text-center">
         <p class="text-lg">&copy; 2025 Real American Finance</p>
         <p class="opacity-70 mt-2">Built for Americans who refuse to be average.</p>
     </footer>
+
+    <!-- DARK MODE SCRIPT -->
+    <script>
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        const label = document.getElementById('theme-label');
+        const labelMobile = document.getElementById('theme-label-mobile');
+
+        function setTheme(dark) {
+            if (dark) {
+                html.classList.add('dark');
+                label.textContent = 'Light';
+                labelMobile.textContent = 'Light';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.remove('dark');
+                label.textContent = 'Dark';
+                labelMobile.textContent = 'Dark';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        const storedTheme = localStorage.getItem('theme');
+        if (storedTheme === 'dark') {
+            setTheme(true);
+        }
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                setTheme(!html.classList.contains('dark'));
+            });
+        }
+        if (themeToggleMobile) {
+            themeToggleMobile.addEventListener('click', () => {
+                setTheme(!html.classList.contains('dark'));
+            });
+        }
+    </script>
 
 </body>
 </html>
