@@ -1,28 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iron Pot Millionaire</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="book.html">Book</a></li>
-                <li><a href="resources.html">Resources</a></li>
-                <li><a href="contact.html">Contact</a></li>
+<body class="bg-gray-50 text-gray-900">
+    <header class="bg-navy-900 text-white shadow-lg fixed w-full z-10">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Iron Pot Millionaire</h1>
+            <ul class="flex space-x-8">
+                <li><a href="#home" class="hover:text-red-400 transition">Home</a></li>
+                <li><a href="#about" class="hover:text-red-400 transition">About</a></li>
+                <li><a href="#book" class="hover:text-red-400 transition">Book</a></li>
+                <li><a href="#resources" class="hover:text-red-400 transition">Resources</a></li>
+                <li><a href="#contact" class="hover:text-red-400 transition">Contact</a></li>
             </ul>
         </nav>
     </header>
-    <section class="hero">
-        <h1>Iron Pot Millionaire</h1>
-        <p>Real American Finance: Build Wealth with Discipline</p>
-        <a href="book.html" class="btn">Pre-Order Now</a>
+
+    <section id="home" class="bg-gradient-to-b from-navy-800 to-navy-900 text-white pt-32 pb-24 px-6">
+        <div class="container mx-auto text-center">
+            <h2 class="text-5xl md:text-6xl font-bold mb-6">Iron Pot Millionaire</h2>
+            <p class="text-2xl mb-10">Real American Finance: Build Wealth with Discipline</p>
+            <a href="#book" class="bg-red-600 hover:bg-red-700 text-white px-10 py-5 rounded-full text-xl font-semibold transition">Pre-Order Now</a>
+        </div>
+        <div class="absolute inset-0 opacity-30 bg-cover bg-center" style="background-image: url('https://i0.wp.com/picjumbo.com/wp-content/uploads/usa-flag-independence-day-background-free-photo.jpeg');"></div>
     </section>
-    <footer>© 2025 Real American Finance</footer>
+
+    <section id="about" class="py-20 px-6 bg-white">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-4xl font-bold mb-8 text-navy-900">About</h2>
+            <p class="text-xl leading-relaxed">Inspired by Dave Ramsey, Caleb Hammer, and Andy Frisella. Promoting minimalism and financial freedom through discipline and real American grit.</p>
+        </div>
+    </section>
+
+    <section id="book" class="py-20 px-6 bg-gray-100">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-4xl font-bold mb-8 text-navy-900">Iron Pot Millionaire</h2>
+            <p class="text-xl mb-8">Build wealth the hard way: discipline, minimalism, no excuses.</p>
+            <ul class="text-left max-w-2xl mx-auto text-lg mb-10 space-y-4">
+                <li>1. Mindset of Iron</li>
+                <li>2. Kill Debt</li>
+                <li>3. Live Below Means</li>
+                <li>4. Invest Aggressively</li>
+                <li>5. Build Multiple Streams</li>
+                <li>6. Protect Your Wealth</li>
+                <li>7. Legacy Building</li>
+            </ul>
+            <a href="https://example.com/buy" class="bg-red-600 hover:bg-red-700 text-white px-10 py-5 rounded-full text-xl font-semibold transition">Pre-Order Now</a>
+        </div>
+    </section>
+
+    <section id="resources" class="py-20 px-6 bg-white">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-4xl font-bold mb-8 text-navy-900">7 Baby Steps to Wealth</h2>
+            <ol class="text-left max-w-2xl mx-auto text-lg space-y-4 mb-10">
+                <li>Save $1,000 emergency fund</li>
+                <li>Pay off all debt (except house)</li>
+                <li>3-6 months expenses in savings</li>
+                <li>Invest 15% into retirement</li>
+                <li>College funding for kids</li>
+                <li>Pay off home early</li>
+                <li>Build wealth and give</li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 px-6 bg-gray-100">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-4xl font-bold mb-8 text-navy-900">Contact</h2>
+            <form action="https://formspree.io/f/your-form-id" method="POST" class="max-w-lg mx-auto space-y-6">
+                <input type="text" name="name" placeholder="Name" required class="w-full px-6 py-4 rounded-lg border border-gray-300">
+                <input type="email" name="email" placeholder="Email" required class="w-full px-6 py-4 rounded-lg border border-gray-300">
+                <textarea name="message" placeholder="Message" required class="w-full px-6 py-4 rounded-lg border border-gray-300 h-40"></textarea>
+                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-10 py-5 rounded-full text-xl font-semibold transition">Send</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-navy-900 text-white py-10 text-center">
+        <p>&copy; 2025 Real American Finance</p>
+    </footer>
 </body>
 </html>
