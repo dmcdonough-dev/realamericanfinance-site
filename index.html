@@ -11,8 +11,8 @@
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts (Great Vibes for Copperplate-style script) -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Tailwind Config -->
     <script>
@@ -43,24 +43,29 @@
 
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .logo-flag {
-            width: 20px;
-            height: 14px;
-            background: linear-gradient(to bottom, #B22234 50%, #FFFFFF 50%);
-            position: relative;
-            display: inline-block;
-            margin-right: 8px;
-            border-radius: 2px;
-            overflow: hidden;
+
+        /* Copperplate-style script for the brand */
+        .brand-script {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            letter-spacing: 0.03em;
+            font-weight: 400;
+            line-height: 1;
         }
-        .logo-flag::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 40%;
-            height: 50%;
-            background: #0A1A2F;
+
+        .brand-subtitle {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-top: -4px;
+        }
+
+        .logo-flag-svg {
+            width: 36px;
+            height: 26px;
+            margin-right: 12px;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -70,11 +75,48 @@
     <!-- NAVBAR -->
     <header class="bg-navy-900 text-white shadow-lg fixed w-full z-20 backdrop-blur">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <span class="logo-flag"></span>
-                <span class="text-xl md:text-2xl font-heading tracking-wide">Real American Finance</span>
+
+            <!-- Updated Logo Block -->
+            <div class="flex items-center space-x-3">
+
+                <!-- Clean Minimal American Flag SVG -->
+                <svg class="logo-flag-svg" viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect width="64" height="48" fill="#B22234" />
+                    <g fill="#FFFFFF">
+                        <rect y="6" width="64" height="4" />
+                        <rect y="14" width="64" height="4" />
+                        <rect y="22" width="64" height="4" />
+                        <rect y="30" width="64" height="4" />
+                        <rect y="38" width="64" height="4" />
+                    </g>
+                    <rect width="26" height="18" fill="#0A1A2F" />
+                    <g fill="#FFFFFF">
+                        <circle cx="4" cy="3" r="1" />
+                        <circle cx="9" cy="3" r="1" />
+                        <circle cx="14" cy="3" r="1" />
+                        <circle cx="19" cy="3" r="1" />
+                        <circle cx="24" cy="3" r="1" />
+
+                        <circle cx="6.5" cy="7" r="1" />
+                        <circle cx="11.5" cy="7" r="1" />
+                        <circle cx="16.5" cy="7" r="1" />
+                        <circle cx="21.5" cy="7" r="1" />
+
+                        <circle cx="4" cy="11" r="1" />
+                        <circle cx="9" cy="11" r="1" />
+                        <circle cx="14" cy="11" r="1" />
+                        <circle cx="19" cy="11" r="1" />
+                        <circle cx="24" cy="11" r="1" />
+                    </g>
+                </svg>
+
+                <div class="flex flex-col leading-tight">
+                    <span class="brand-script text-white">Real American Finance</span>
+                    <span class="brand-subtitle text-gray-400">DISCIPLINE • AUTONOMY • WEALTH</span>
+                </div>
             </div>
 
+            <!-- Nav Links -->
             <ul class="hidden md:flex space-x-8 text-lg">
                 <li><a href="#home" class="hover:text-crimson transition">Home</a></li>
                 <li><a href="#about" class="hover:text-crimson transition">About</a></li>
@@ -83,27 +125,40 @@
                 <li><a href="#articles" class="hover:text-crimson transition">Articles</a></li>
                 <li><a href="#contact" class="hover:text-crimson transition">Contact</a></li>
             </ul>
+
         </nav>
     </header>
 
-    <!-- HERO -->
+
+   <!-- HERO -->
     <section id="home" class="relative bg-navy-900 text-white pt-32 pb-32 px-6 overflow-hidden">
-        <div class="absolute inset-0 opacity-20 bg-cover bg-center"
-             style="background-image: url('https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1950&q=80');">
+
+        <!-- Bold distressed American flag background with dark overlay -->
+        <div class="absolute inset-0 bg-cover bg-center"
+             style="
+                 background-image:
+                     linear-gradient(rgba(5,10,20,0.80), rgba(5,10,20,0.92)),
+                     url('https://images.unsplash.com/photo-1598387993441-77ec02b380a5?auto=format&fit=crop&w=1950&q=80');
+             ">
         </div>
 
         <div class="container mx-auto relative z-10 text-center max-w-3xl">
             <h2 class="text-5xl md:text-6xl font-heading font-bold mb-6 leading-tight">
                 Financial Autonomy for Americans Who Refuse to Be Average
             </h2>
+
             <p class="text-xl md:text-2xl mb-10 opacity-90">
                 A disciplined, strategic path to wealth — built on responsibility, grit, and long-term thinking.
             </p>
+
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#start-here" class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
+                <a href="#start-here"
+                   class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
                     Start Here
                 </a>
-                <a href="#newsletter" class="bg-white/10 hover:bg-white/20 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
+
+                <a href="#newsletter"
+                   class="bg-white/10 hover:bg-white/20 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
                     Join the Newsletter
                 </a>
             </div>
@@ -387,6 +442,7 @@
         </div>
     </section>
 
+
     <!-- NEWSLETTER -->
     <section id="newsletter" class="py-20 px-6 bg-navy-800">
         <div class="container mx-auto max-w-3xl text-center">
@@ -428,11 +484,21 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-black text-gray-400 py-10 px-6">
-        <div class="container mx-auto text-center">
-            <p class="text-lg">&copy; 2025 Real American Finance. All rights reserved.</p>
-            <p class="text-sm mt-2 text-gray-500">Built with discipline, clarity, and long-term thinking.</p>
+    <!-- FOOTER WITH DISTRESSED FLAG BACKGROUND -->
+    <footer class="relative text-gray-400 py-10 px-6 overflow-hidden">
+
+        <!-- Distressed American flag background with dark overlay -->
+        <div class="absolute inset-0 bg-cover bg-center"
+             style="
+                 background-image:
+                     linear-gradient(rgba(0,0,0,0.88), rgba(0,0,0,0.95)),
+                     url('https://images.unsplash.com/photo-1598387993441-77ec02b380a5?auto=format&fit=crop&w=1950&q=80');
+             ">
+        </div>
+
+        <div class="container mx-auto text-center relative z-10">
+            <p class="text-lg text-gray-200">&copy; 2025 Real American Finance. All rights reserved.</p>
+            <p class="text-sm mt-2 text-gray-400">Built with discipline, clarity, and long-term thinking.</p>
         </div>
     </footer>
 
