@@ -3,89 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iron Pot Millionaire</title>
+    <title>Real American Finance</title>
+
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            900: '#0A1A2F',
+                            800: '#11243F',
+                        },
+                        crimson: '#B22234',
+                        steel: '#E5E7EB',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900">
-    <header class="bg-navy-900 text-white shadow-lg fixed w-full z-10">
+
+    <!-- NAVBAR -->
+    <header class="bg-navy-900 text-white shadow-lg fixed w-full z-20">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Iron Pot Millionaire</h1>
-            <ul class="flex space-x-8">
-                <li><a href="#home" class="hover:text-red-400 transition">Home</a></li>
-                <li><a href="#about" class="hover:text-red-400 transition">About</a></li>
-                <li><a href="#book" class="hover:text-red-400 transition">Book</a></li>
-                <li><a href="#resources" class="hover:text-red-400 transition">Resources</a></li>
-                <li><a href="#contact" class="hover:text-red-400 transition">Contact</a></li>
+            <h1 class="text-2xl font-heading tracking-wide">Real American Finance</h1>
+            <ul class="hidden md:flex space-x-8 text-lg">
+                <li><a href="#home" class="hover:text-crimson transition">Home</a></li>
+                <li><a href="#about" class="hover:text-crimson transition">About</a></li>
+                <li><a href="#frameworks" class="hover:text-crimson transition">Frameworks</a></li>
+                <li><a href="#articles" class="hover:text-crimson transition">Articles</a></li>
+                <li><a href="#contact" class="hover:text-crimson transition">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="home" class="bg-gradient-to-b from-navy-800 to-navy-900 text-white pt-32 pb-24 px-6">
-        <div class="container mx-auto text-center">
-            <h2 class="text-5xl md:text-6xl font-bold mb-6">Iron Pot Millionaire</h2>
-            <p class="text-2xl mb-10">Real American Finance: Build Wealth with Discipline</p>
-            <a href="#book" class="bg-red-600 hover:bg-red-700 text-white px-10 py-5 rounded-full text-xl font-semibold transition">Pre-Order Now</a>
+    <!-- HERO -->
+    <section id="home" class="relative bg-navy-900 text-white pt-32 pb-32 px-6 overflow-hidden">
+        <div class="absolute inset-0 opacity-20 bg-cover bg-center"
+             style="background-image: url('https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1950&q=80');">
         </div>
-        <div class="absolute inset-0 opacity-30 bg-cover bg-center" style="background-image: url('https://i0.wp.com/picjumbo.com/wp-content/uploads/usa-flag-independence-day-background-free-photo.jpeg');"></div>
+
+        <div class="container mx-auto relative z-10 text-center max-w-3xl">
+            <h2 class="text-5xl md:text-6xl font-heading font-bold mb-6 leading-tight">
+                Financial Autonomy for Americans Who Refuse to Be Average
+            </h2>
+            <p class="text-xl md:text-2xl mb-10 opacity-90">
+                Real strategies. Real discipline. Real wealth — built the hard way.
+            </p>
+            <a href="#frameworks" class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
+                Explore the Frameworks
+            </a>
+        </div>
     </section>
 
+    <!-- VALUE PROP -->
+    <section class="py-20 px-6 bg-white">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900">The Mission</h3>
+            <p class="text-xl leading-relaxed text-gray-700">
+                Real American Finance exists to teach disciplined wealth-building rooted in personal responsibility,
+                strategic planning, and the kind of grit this country was built on. No shortcuts. No excuses.
+            </p>
+        </div>
+    </section>
+
+    <!-- FRAMEWORKS -->
+    <section id="frameworks" class="py-20 px-6 bg-gray-100">
+        <div class="container mx-auto max-w-6xl">
+            <h3 class="text-4xl font-heading font-bold mb-12 text-center text-navy-900">Core Frameworks</h3>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900">Iron Pot Millionaire</h4>
+                    <p class="text-gray-700">A discipline-first wealth model built on minimalism, sacrifice, and long-term execution.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900">Wealth Architecture</h4>
+                    <p class="text-gray-700">A blueprint for building durable financial systems that survive volatility.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900">Scenario Planning</h4>
+                    <p class="text-gray-700">A strategic approach to preparing for economic uncertainty and life’s financial ambushes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
     <section id="about" class="py-20 px-6 bg-white">
         <div class="container mx-auto max-w-4xl text-center">
-            <h2 class="text-4xl font-bold mb-8 text-navy-900">About</h2>
-            <p class="text-xl leading-relaxed">Inspired by Dave Ramsey, Caleb Hammer, and Andy Frisella. Promoting minimalism and financial freedom through discipline and real American grit.</p>
+            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900">About Real American Finance</h3>
+            <p class="text-xl leading-relaxed text-gray-700">
+                Inspired by the clarity of Dave Ramsey, the intensity of Andy Frisella, and the accountability of Caleb Hammer,
+                Real American Finance is a teaching-centered platform built for people who want to take ownership of their financial lives.
+            </p>
         </div>
     </section>
 
-    <section id="book" class="py-20 px-6 bg-gray-100">
-        <div class="container mx-auto max-w-4xl text-center">
-            <h2 class="text-4xl font-bold mb-8 text-navy-900">Iron Pot Millionaire</h2>
-            <p class="text-xl mb-8">Build wealth the hard way: discipline, minimalism, no excuses.</p>
-            <ul class="text-left max-w-2xl mx-auto text-lg mb-10 space-y-4">
-                <li>1. Mindset of Iron</li>
-                <li>2. Kill Debt</li>
-                <li>3. Live Below Means</li>
-                <li>4. Invest Aggressively</li>
-                <li>5. Build Multiple Streams</li>
-                <li>6. Protect Your Wealth</li>
-                <li>7. Legacy Building</li>
-            </ul>
-            <a href="https://example.com/buy" class="bg-red-600 hover:bg-red-700 text-white px-10 py-5 rounded-full text-xl font-semibold transition">Pre-Order Now</a>
+    <!-- ARTICLES -->
+    <section id="articles" class="py-20 px-6 bg-gray-100">
+        <div class="container mx-auto max-w-6xl">
+            <h3 class="text-4xl font-heading font-bold mb-12 text-center text-navy-900">Latest Articles</h3>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900">The Discipline Dividend</h4>
+                    <p class="text-gray-700">Why consistency beats talent — and how disciplined financial habits compound over time.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900">Minimalism for Wealth</h4>
+                    <p class="text-gray-700">Cutting the noise, reducing expenses, and building a life that supports your goals.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
+                    <h4 class="text-2xl font-heading mb-4 text-navy-900">The American Money Mindset</h4>
+                    <p class="text-gray-700">A patriotic approach to financial independence rooted in responsibility and grit.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="resources" class="py-20 px-6 bg-white">
+    <!-- CONTACT -->
+    <section id="contact" class="py-20 px-6 bg-white">
         <div class="container mx-auto max-w-4xl text-center">
-            <h2 class="text-4xl font-bold mb-8 text-navy-900">7 Baby Steps to Wealth</h2>
-            <ol class="text-left max-w-2xl mx-auto text-lg space-y-4 mb-10">
-                <li>Save $1,000 emergency fund</li>
-                <li>Pay off all debt (except house)</li>
-                <li>3-6 months expenses in savings</li>
-                <li>Invest 15% into retirement</li>
-                <li>College funding for kids</li>
-                <li>Pay off home early</li>
-                <li>Build wealth and give</li>
-            </ol>
-        </div>
-    </section>
-
-    <section id="contact" class="py-20 px-6 bg-gray-100">
-        <div class="container mx-auto max-w-4xl text-center">
-            <h2 class="text-4xl font-bold mb-8 text-navy-900">Contact</h2>
+            <h3 class="text-4xl font-heading font-bold mb-8 text-navy-900">Contact</h3>
             <form action="https://formspree.io/f/your-form-id" method="POST" class="max-w-lg mx-auto space-y-6">
                 <input type="text" name="name" placeholder="Name" required class="w-full px-6 py-4 rounded-lg border border-gray-300">
                 <input type="email" name="email" placeholder="Email" required class="w-full px-6 py-4 rounded-lg border border-gray-300">
                 <textarea name="message" placeholder="Message" required class="w-full px-6 py-4 rounded-lg border border-gray-300 h-40"></textarea>
-                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-10 py-5 rounded-full text-xl font-semibold transition">Send</button>
+                <button type="submit" class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
+                    Send Message
+                </button>
             </form>
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="bg-navy-900 text-white py-10 text-center">
-        <p>&copy; 2025 Real American Finance</p>
+        <p>&copy; 2025 Real American Finance. All rights reserved.</p>
     </footer>
+
 </body>
 </html>
