@@ -25,6 +25,10 @@
 </head>
 
 <body class="bg-gray-900 text-gray-200">
-  {{ content }}
+  {% include header.html %}
+  <main class="max-w-4xl mx-auto px-6 py-10">
+    {{ content }}
+  </main>
+  {% include footer.html %}
 </body>
 </html>
