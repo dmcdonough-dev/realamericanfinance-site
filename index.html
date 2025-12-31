@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real American Finance</title>
+    <title>Real American Finance - Financial Discipline & Wealth Building</title>
+    <meta name="description" content="Build financial autonomy through discipline, strategic thinking, and proven frameworks. Courses, resources, and community for Americans who refuse to be average.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     
@@ -40,7 +41,7 @@
     <header class="bg-navy-900/95 backdrop-blur text-white shadow-lg fixed w-full z-50">
         <nav class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <a href="#" onclick="nav('home')" class="flex items-center space-x-3">
+                <a href="#" onclick="nav('home'); return false;" class="flex items-center space-x-3">
                     <svg class="w-9 h-7" viewBox="0 0 64 48">
                         <rect width="64" height="48" fill="#B22234"/>
                         <g fill="#FFF">
@@ -72,26 +73,26 @@
                 </button>
 
                 <ul id="desktop-nav" class="hidden lg:flex space-x-6 text-sm">
-                    <li><a href="#" onclick="nav('home')" class="hover:text-crimson transition">Home</a></li>
-                    <li><a href="#" onclick="nav('courses')" class="hover:text-crimson transition">Courses</a></li>
-                    <li><a href="#" onclick="nav('podcast')" class="hover:text-crimson transition">Podcast</a></li>
-                    <li><a href="#" onclick="nav('youtube')" class="hover:text-crimson transition">YouTube</a></li>
-                    <li><a href="#" onclick="nav('products')" class="hover:text-crimson transition">Products</a></li>
-                    <li><a href="#" onclick="nav('merch')" class="hover:text-crimson transition">Merch</a></li>
-                    <li><a href="#" onclick="nav('newsletter')" class="hover:text-crimson transition">Newsletter</a></li>
-                    <li><a href="#" onclick="nav('about')" class="hover:text-crimson transition">About</a></li>
+                    <li><a href="#" onclick="nav('home'); return false;" class="hover:text-crimson transition">Home</a></li>
+                    <li><a href="#" onclick="nav('courses'); return false;" class="hover:text-crimson transition">Courses</a></li>
+                    <li><a href="#" onclick="nav('podcast'); return false;" class="hover:text-crimson transition">Podcast</a></li>
+                    <li><a href="#" onclick="nav('youtube'); return false;" class="hover:text-crimson transition">YouTube</a></li>
+                    <li><a href="#" onclick="nav('products'); return false;" class="hover:text-crimson transition">Products</a></li>
+                    <li><a href="#" onclick="nav('merch'); return false;" class="hover:text-crimson transition">Merch</a></li>
+                    <li><a href="#" onclick="nav('newsletter'); return false;" class="hover:text-crimson transition">Newsletter</a></li>
+                    <li><a href="#" onclick="nav('about'); return false;" class="hover:text-crimson transition">About</a></li>
                 </ul>
             </div>
 
             <ul id="mobile-nav" class="hidden pt-4 space-y-2 text-sm">
-                <li><a href="#" onclick="nav('home')" class="block py-2 hover:text-crimson">Home</a></li>
-                <li><a href="#" onclick="nav('courses')" class="block py-2 hover:text-crimson">Courses</a></li>
-                <li><a href="#" onclick="nav('podcast')" class="block py-2 hover:text-crimson">Podcast</a></li>
-                <li><a href="#" onclick="nav('youtube')" class="block py-2 hover:text-crimson">YouTube</a></li>
-                <li><a href="#" onclick="nav('products')" class="block py-2 hover:text-crimson">Products</a></li>
-                <li><a href="#" onclick="nav('merch')" class="block py-2 hover:text-crimson">Merch</a></li>
-                <li><a href="#" onclick="nav('newsletter')" class="block py-2 hover:text-crimson">Newsletter</a></li>
-                <li><a href="#" onclick="nav('about')" class="block py-2 hover:text-crimson">About</a></li>
+                <li><a href="#" onclick="nav('home'); return false;" class="block py-2 hover:text-crimson">Home</a></li>
+                <li><a href="#" onclick="nav('courses'); return false;" class="block py-2 hover:text-crimson">Courses</a></li>
+                <li><a href="#" onclick="nav('podcast'); return false;" class="block py-2 hover:text-crimson">Podcast</a></li>
+                <li><a href="#" onclick="nav('youtube'); return false;" class="block py-2 hover:text-crimson">YouTube</a></li>
+                <li><a href="#" onclick="nav('products'); return false;" class="block py-2 hover:text-crimson">Products</a></li>
+                <li><a href="#" onclick="nav('merch'); return false;" class="block py-2 hover:text-crimson">Merch</a></li>
+                <li><a href="#" onclick="nav('newsletter'); return false;" class="block py-2 hover:text-crimson">Newsletter</a></li>
+                <li><a href="#" onclick="nav('about'); return false;" class="block py-2 hover:text-crimson">About</a></li>
             </ul>
         </nav>
     </header>
@@ -100,13 +101,15 @@
 
         <!-- HOME PAGE -->
         <div id="page-home" class="page active">
-            <section class="bg-gradient-to-br from-navy-900 via-navy-800 to-gray-900 text-white py-32 px-6">
-                <div class="container mx-auto max-w-4xl text-center">
-                    <h1 class="text-5xl md:text-7xl font-heading font-bold mb-6">Financial Autonomy for Americans Who Refuse to Be Average</h1>
+            <section class="relative bg-navy-900 text-white py-32 px-6 overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(rgba(10, 26, 47, 0.85), rgba(10, 26, 47, 0.90)), url('/flag_distressed.jpg');"></div>
+                
+                <div class="container mx-auto max-w-4xl text-center relative z-10">
+                    <h1 class="text-5xl md:text-7xl font-heading font-bold mb-6 leading-tight">Financial Autonomy for Americans Who Refuse to Be Average</h1>
                     <p class="text-xl md:text-2xl mb-10 opacity-90">Build wealth through discipline, strategic thinking, and proven systems.</p>
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <a href="#" onclick="nav('courses')" class="bg-crimson hover:bg-red-700 px-10 py-4 rounded-full text-xl font-semibold transition">Explore Courses</a>
-                        <a href="#" onclick="nav('about')" class="bg-white/10 hover:bg-white/20 px-10 py-4 rounded-full text-xl font-semibold transition">Learn More</a>
+                        <a href="#" onclick="nav('courses'); return false;" class="bg-crimson hover:bg-red-700 px-10 py-4 rounded-full text-xl font-semibold transition">Explore Courses</a>
+                        <a href="#" onclick="nav('about'); return false;" class="bg-white/10 hover:bg-white/20 px-10 py-4 rounded-full text-xl font-semibold transition">Learn More</a>
                     </div>
                 </div>
             </section>
@@ -126,18 +129,94 @@
                         <div class="bg-navy-800 p-8 rounded-xl">
                             <div class="text-crimson text-4xl font-bold mb-4">01</div>
                             <h3 class="text-2xl font-heading mb-4 text-white">Discipline Over Emotion</h3>
-                            <p class="text-gray-300">Build systems that operate regardless of how you feel.</p>
+                            <p class="text-gray-300">Build systems that operate regardless of how you feel. Wealth is created through consistent action.</p>
                         </div>
                         <div class="bg-navy-800 p-8 rounded-xl">
                             <div class="text-crimson text-4xl font-bold mb-4">02</div>
                             <h3 class="text-2xl font-heading mb-4 text-white">Strategic Architecture</h3>
-                            <p class="text-gray-300">Design your financial life with intention.</p>
+                            <p class="text-gray-300">Design your financial life with intention. Every dollar has a job, every account has a purpose.</p>
                         </div>
                         <div class="bg-navy-800 p-8 rounded-xl">
                             <div class="text-crimson text-4xl font-bold mb-4">03</div>
                             <h3 class="text-2xl font-heading mb-4 text-white">Long-Term Execution</h3>
-                            <p class="text-gray-300">Build frameworks that compound over decades.</p>
+                            <p class="text-gray-300">Build frameworks that compound over decades. True wealth takes time and patience.</p>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 px-6 bg-navy-800">
+                <div class="container mx-auto max-w-6xl">
+                    <h2 class="text-4xl font-heading font-bold mb-12 text-center text-white">Featured Content</h2>
+
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg">
+                            <div class="aspect-video bg-gray-800 flex items-center justify-center">
+                                <svg class="w-20 h-20 text-crimson" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M10 8.64L15.27 12 10 15.36V8.64M21.8 8s-.2-1.5-.8-2.2c-.8-.8-1.7-.8-2.1-.9C15.9 4.5 12 4.5 12 4.5s-3.9 0-6.9.4c-.4 0-1.3.1-2.1.9C2.2 6.5 2 8 2 8s-.2 1.6-.2 3.3v1.4c0 1.7.2 3.3.2 3.3s.2 1.5.8 2.2c.8.8 1.9.8 2.4.9 1.8.2 6.7.2 6.7.2s3.9 0 6.9-.4c.4 0 1.3-.1 2.1-.9.6-.7.8-2.2.8-2.2s.2-1.6.2-3.3v-1.4c0-1.7-.2-3.3-.2-3.3z"/>
+                                </svg>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-heading mb-2 text-white">Latest YouTube Video</h3>
+                                <p class="text-gray-400 mb-4">Watch our newest breakdown on building financial discipline</p>
+                                <a href="#" onclick="nav('youtube'); return false;" class="text-crimson hover:underline font-semibold">Watch Now →</a>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg">
+                            <div class="aspect-video bg-gray-800 flex items-center justify-center">
+                                <svg class="w-20 h-20 text-crimson" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                                </svg>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-heading mb-2 text-white">Latest Podcast Episode</h3>
+                                <p class="text-gray-400 mb-4">Deep dive conversations on wealth, discipline, and strategy</p>
+                                <a href="#" onclick="nav('podcast'); return false;" class="text-crimson hover:underline font-semibold">Listen Now →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 px-6 bg-gray-900">
+                <div class="container mx-auto max-w-6xl">
+                    <h2 class="text-4xl font-heading font-bold mb-4 text-center text-white">Start Building Today</h2>
+                    <p class="text-xl text-gray-400 text-center mb-12">Proven frameworks and resources to transform your financial life</p>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-navy-800 p-6 rounded-xl shadow-lg border-2 border-crimson/20 hover:border-crimson/50 transition">
+                            <h3 class="text-xl font-heading mb-3 text-white">Iron Pot Millionaire Guide</h3>
+                            <p class="text-gray-400 mb-4 text-sm">Complete framework for aggressive wealth building through minimalism</p>
+                            <div class="text-2xl font-bold text-white mb-4">$47</div>
+                            <a href="#" onclick="nav('products'); return false;" class="block bg-crimson hover:bg-red-700 text-white text-center px-6 py-3 rounded-lg font-semibold transition">
+                                Get Access
+                            </a>
+                        </div>
+
+                        <div class="bg-navy-800 p-6 rounded-xl shadow-lg border-2 border-crimson/20 hover:border-crimson/50 transition">
+                            <h3 class="text-xl font-heading mb-3 text-white">Wealth Architecture Blueprint</h3>
+                            <p class="text-gray-400 mb-4 text-sm">Design your complete financial system from scratch</p>
+                            <div class="text-2xl font-bold text-white mb-4">$67</div>
+                            <a href="#" onclick="nav('products'); return false;" class="block bg-crimson hover:bg-red-700 text-white text-center px-6 py-3 rounded-lg font-semibold transition">
+                                Get Access
+                            </a>
+                        </div>
+
+                        <div class="bg-navy-800 p-6 rounded-xl shadow-lg border-2 border-crimson/20 hover:border-crimson/50 transition">
+                            <h3 class="text-xl font-heading mb-3 text-white">Scenario Planning Playbook</h3>
+                            <p class="text-gray-400 mb-4 text-sm">Pre-built responses for every financial crisis</p>
+                            <div class="text-2xl font-bold text-white mb-4">$37</div>
+                            <a href="#" onclick="nav('products'); return false;" class="block bg-crimson hover:bg-red-700 text-white text-center px-6 py-3 rounded-lg font-semibold transition">
+                                Get Access
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-10">
+                        <a href="#" onclick="nav('products'); return false;" class="text-crimson hover:underline text-lg font-semibold">
+                            View All Products →
+                        </a>
                     </div>
                 </div>
             </section>
@@ -145,15 +224,27 @@
             <section class="py-20 px-6 bg-navy-800">
                 <div class="container mx-auto max-w-3xl text-center">
                     <h2 class="text-4xl font-heading font-bold mb-6 text-white">Join 10,000+ Disciplined Americans</h2>
-                    <p class="text-xl text-gray-300 mb-8">Weekly insights on building wealth through discipline and strategy.</p>
+                    <p class="text-xl text-gray-300 mb-8">Get weekly insights on building wealth through discipline, strategy, and long-term thinking.</p>
+
                     <div class="bg-gray-900 p-8 rounded-xl">
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <input type="email" placeholder="Your email" class="px-6 py-4 rounded-lg bg-navy-900 text-gray-200 flex-grow focus:outline-none focus:ring-2 focus:ring-crimson">
-                            <button class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-lg font-semibold transition">Get Started</button>
-                        </div>
+                        <form class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <input 
+                                type="email" 
+                                placeholder="Your email address"
+                                class="px-6 py-4 rounded-lg bg-navy-900 text-gray-200 w-full sm:w-auto flex-grow focus:outline-none focus:ring-2 focus:ring-crimson"
+                            >
+                            <button 
+                                type="submit"
+                                class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-lg text-lg font-semibold transition whitespace-nowrap"
+                            >
+                                Get Started
+                            </button>
+                        </form>
+                        <p class="text-gray-500 text-sm mt-4">No spam. No BS. Just disciplined financial insight.</p>
                     </div>
                 </div>
             </section>
+
         </div>
 
         <!-- COURSES PAGE -->
@@ -175,9 +266,10 @@
                         <div class="p-8">
                             <p class="text-xl text-gray-300 mb-6">Master budgeting, debt elimination, emergency funds, and automated wealth systems.</p>
                             <ul class="space-y-3 text-gray-400 mb-8">
-                                <li class="flex"><span class="text-crimson mr-2">✓</span> 8 comprehensive modules</li>
-                                <li class="flex"><span class="text-crimson mr-2">✓</span> Downloadable templates</li>
-                                <li class="flex"><span class="text-crimson mr-2">✓</span> Lifetime access</li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>8 comprehensive modules</span></li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>Downloadable templates</span></li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>Lifetime access</span></li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>Private community</span></li>
                             </ul>
                             <div class="text-3xl font-bold text-white mb-6">$197</div>
                             <button class="w-full bg-crimson hover:bg-red-700 text-white px-8 py-4 rounded-lg font-semibold transition">Enroll Now</button>
@@ -192,11 +284,46 @@
                         <div class="p-8">
                             <p class="text-xl text-gray-300 mb-6">90-day intensive for radical financial transformation through extreme discipline.</p>
                             <ul class="space-y-3 text-gray-400 mb-8">
-                                <li class="flex"><span class="text-crimson mr-2">✓</span> Complete 90-day blueprint</li>
-                                <li class="flex"><span class="text-crimson mr-2">✓</span> Weekly accountability</li>
-                                <li class="flex"><span class="text-crimson mr-2">✓</span> Private community</li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>Complete 90-day blueprint</span></li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>Weekly accountability</span></li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>Daily tracking system</span></li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>Private community</span></li>
                             </ul>
                             <div class="text-3xl font-bold text-white mb-6">$397</div>
+                            <button class="w-full bg-crimson hover:bg-red-700 text-white px-8 py-4 rounded-lg font-semibold transition">Enroll Now</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-navy-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="bg-gradient-to-br from-gray-700 to-gray-900 p-10 text-center">
+                            <h2 class="text-3xl font-heading font-bold text-white">Advanced Wealth Architecture</h2>
+                        </div>
+                        <div class="p-8">
+                            <p class="text-xl text-gray-300 mb-6">Design a complete financial system: tax optimization, investment strategy, asset protection.</p>
+                            <ul class="space-y-3 text-gray-400 mb-8">
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>12 advanced modules</span></li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>Complete toolkit</span></li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>Monthly live Q&A</span></li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>1-on-1 strategy session</span></li>
+                            </ul>
+                            <div class="text-3xl font-bold text-white mb-6">$497</div>
+                            <button class="w-full bg-crimson hover:bg-red-700 text-white px-8 py-4 rounded-lg font-semibold transition">Enroll Now</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-navy-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="bg-gradient-to-br from-navy-900 to-navy-800 p-10 text-center">
+                            <h2 class="text-3xl font-heading font-bold text-white">Scenario Planning Mastery</h2>
+                        </div>
+                        <div class="p-8">
+                            <p class="text-xl text-gray-300 mb-6">Build pre-planned responses for job loss, market crashes, and financial emergencies.</p>
+                            <ul class="space-y-3 text-gray-400 mb-8">
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>6 scenario playbooks</span></li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>Decision trees & flowcharts</span></li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>Quarterly updates</span></li>
+                                <li class="flex items-start"><span class="text-crimson mr-2">✓</span><span>Community access</span></li>
+                            </ul>
+                            <div class="text-3xl font-bold text-white mb-6">$147</div>
                             <button class="w-full bg-crimson hover:bg-red-700 text-white px-8 py-4 rounded-lg font-semibold transition">Enroll Now</button>
                         </div>
                     </div>
@@ -235,6 +362,10 @@
                             <h4 class="text-xl font-semibold text-white mb-2">Episode 45: The Iron Pot Mindset</h4>
                             <p class="text-gray-400 text-sm">Aggressive wealth building through minimalism and sacrifice.</p>
                         </div>
+                        <div class="bg-navy-800 p-6 rounded-xl hover:bg-navy-800/80 transition cursor-pointer">
+                            <h4 class="text-xl font-semibold text-white mb-2">Episode 44: Scenario Planning 101</h4>
+                            <p class="text-gray-400 text-sm">Preparing for financial shocks before they happen.</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -252,123 +383,8 @@
 
             <section class="py-20 px-6 bg-gray-900">
                 <div class="container mx-auto max-w-6xl">
+                    <h2 class="text-3xl font-heading font-bold text-white mb-8">Featured Videos</h2>
                     <div class="grid md:grid-cols-3 gap-8">
                         <div class="bg-navy-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition cursor-pointer">
                             <div class="aspect-video bg-gray-900 flex items-center justify-center">
-                                <svg class="w-16 h-16 text-crimson" fill="currentColor" viewBox="0 0 24 24"><path d="M10 8.64L15.27 12 10 15.36V8.64M21.8 8s-.2-1.5-.8-2.2c-.8-.8-1.7-.8-2.1-.9C15.9 4.5 12 4.5 12 4.5s-3.9 0-6.9.4c-.4 0-1.3.1-2.1.9C2.2 6.5 2 8 2 8s-.2 1.6-.2 3.3v1.4c0 1.7.2 3.3.2 3.3s.2 1.5.8 2.2c.8.8 1.9.8 2.4.9 1.8.2 6.7.2 6.7.2s3.9 0 6.9-.4c.4 0 1.3-.1 2.1-.9.6-.7.8-2.2.8-2.2s.2-1.6.2-3.3v-1.4c0-1.7-.2-3.3-.2-3.3z"/></svg>
-                            </div>
-                            <div class="p-6">
-                                <h3 class="text-lg font-semibold text-white mb-2">How to Build an Emergency Fund in 90 Days</h3>
-                                <p class="text-gray-400 text-sm">Step-by-step blueprint for financial security.</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-navy-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition cursor-pointer">
-                            <div class="aspect-video bg-gray-900 flex items-center justify-center">
-                                <svg class="w-16 h-16 text-crimson" fill="currentColor" viewBox="0 0 24 24"><path d="M10 8.64L15.27 12 10 15.36V8.64M21.8 8s-.2-1.5-.8-2.2c-.8-.8-1.7-.8-2.1-.9C15.9 4.5 12 4.5 12 4.5s-3.9 0-6.9.4c-.4 0-1.3.1-2.1.9C2.2 6.5 2 8 2 8s-.2 1.6-.2 3.3v1.4c0 1.7.2 3.3.2 3.3s.2 1.5.8 2.2c.8.8 1.9.8 2.4.9 1.8.2 6.7.2 6.7.2s3.9 0 6.9-.4c.4 0 1.3-.1 2.1-.9.6-.7.8-2.2.8-2.2s.2-1.6.2-3.3v-1.4c0-1.7-.2-3.3-.2-3.3z"/></svg>
-                            </div>
-                            <div class="p-6">
-                                <h3 class="text-lg font-semibold text-white mb-2">The Iron Pot Method Explained</h3>
-                                <p class="text-gray-400 text-sm">Minimalism meets aggressive wealth building.</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-navy-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition cursor-pointer">
-                            <div class="aspect-video bg-gray-900 flex items-center justify-center">
-                                <svg class="w-16 h-16 text-crimson" fill="currentColor" viewBox="0 0 24 24"><path d="M10 8.64L15.27 12 10 15.36V8.64M21.8 8s-.2-1.5-.8-2.2c-.8-.8-1.7-.8-2.1-.9C15.9 4.5 12 4.5 12 4.5s-3.9 0-6.9.4c-.4 0-1.3.1-2.1.9C2.2 6.5 2 8 2 8s-.2 1.6-.2 3.3v1.4c0 1.7.2 3.3.2 3.3s.2 1.5.8 2.2c.8.8 1.9.8 2.4.9 1.8.2 6.7.2 6.7.2s3.9 0 6.9-.4c.4 0 1.3-.1 2.1-.9.6-.7.8-2.2.8-2.2s.2-1.6.2-3.3v-1.4c0-1.7-.2-3.3-.2-3.3z"/></svg>
-                            </div>
-                            <div class="p-6">
-                                <h3 class="text-lg font-semibold text-white mb-2">Why Lifestyle Creep Destroys Wealth</h3>
-                                <p class="text-gray-400 text-sm">How small upgrades sabotage your future.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- PRODUCTS PAGE -->
-        <div id="page-products" class="page">
-            <section class="bg-gradient-to-br from-navy-900 to-gray-900 text-white py-32 px-6">
-                <div class="container mx-auto max-w-4xl text-center">
-                    <h1 class="text-5xl font-heading font-bold mb-6">Digital Products</h1>
-                    <p class="text-xl opacity-90">High-impact templates, guides, and frameworks. Download instantly.</p>
-                </div>
-            </section>
-
-            <section class="py-20 px-6 bg-gray-900">
-                <div class="container mx-auto max-w-6xl grid md:grid-cols-3 gap-8">
-                    
-                    <div class="bg-navy-800 p-6 rounded-xl hover:border-2 hover:border-crimson/50 transition">
-                        <h3 class="text-2xl font-heading mb-3 text-white">Iron Pot Millionaire Guide</h3>
-                        <p class="text-gray-400 mb-4">Complete framework for aggressive wealth building through minimalism.</p>
-                        <div class="text-3xl font-bold text-white mb-4">$47</div>
-                        <button class="w-full bg-crimson hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition">Buy Now</button>
-                    </div>
-
-                    <div class="bg-navy-800 p-6 rounded-xl hover:border-2 hover:border-crimson/50 transition">
-                        <h3 class="text-2xl font-heading mb-3 text-white">Wealth Architecture Blueprint</h3>
-                        <p class="text-gray-400 mb-4">Design your complete financial system from scratch.</p>
-                        <div class="text-3xl font-bold text-white mb-4">$67</div>
-                        <button class="w-full bg-crimson hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition">Buy Now</button>
-                    </div>
-
-                    <div class="bg-navy-800 p-6 rounded-xl hover:border-2 hover:border-crimson/50 transition">
-                        <h3 class="text-2xl font-heading mb-3 text-white">Scenario Planning Playbook</h3>
-                        <p class="text-gray-400 mb-4">Pre-built responses for every financial crisis.</p>
-                        <div class="text-3xl font-bold text-white mb-4">$37</div>
-                        <button class="w-full bg-crimson hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition">Buy Now</button>
-                    </div>
-
-                    <div class="bg-navy-800 p-6 rounded-xl hover:border-2 hover:border-crimson/50 transition">
-                        <h3 class="text-2xl font-heading mb-3 text-white">Budget Mastery Toolkit</h3>
-                        <p class="text-gray-400 mb-4">Templates and tracking systems for complete control.</p>
-                        <div class="text-3xl font-bold text-white mb-4">$27</div>
-                        <button class="w-full bg-crimson hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition">Buy Now</button>
-                    </div>
-
-                    <div class="bg-navy-800 p-6 rounded-xl hover:border-2 hover:border-crimson/50 transition">
-                        <h3 class="text-2xl font-heading mb-3 text-white">Debt Destroyer System</h3>
-                        <p class="text-gray-400 mb-4">Step-by-step elimination strategy with calculators.</p>
-                        <div class="text-3xl font-bold text-white mb-4">$37</div>
-                        <button class="w-full bg-crimson hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition">Buy Now</button>
-                    </div>
-
-                    <div class="bg-navy-800 p-6 rounded-xl hover:border-2 hover:border-crimson/50 transition">
-                        <h3 class="text-2xl font-heading mb-3 text-white">Investment Starter Pack</h3>
-                        <p class="text-gray-400 mb-4">Beginner-friendly guide to building your portfolio.</p>
-                        <div class="text-3xl font-bold text-white mb-4">$47</div>
-                        <button class="w-full bg-crimson hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition">Buy Now</button>
-                    </div>
-
-                </div>
-            </section>
-        </div>
-
-        <!-- MERCH PAGE -->
-        <div id="page-merch" class="page">
-            <section class="bg-gradient-to-br from-navy-900 to-gray-900 text-white py-32 px-6">
-                <div class="container mx-auto max-w-4xl text-center">
-                    <h1 class="text-5xl font-heading font-bold mb-6">Merch</h1>
-                    <p class="text-xl opacity-90">Premium gear for the disciplined. Limited drops.</p>
-                </div>
-            </section>
-
-            <section class="py-20 px-6 bg-gray-900">
-                <div class="container mx-auto max-w-6xl">
-                    <p class="text-center text-gray-400 text-xl">Coming Soon - Sign up for the newsletter to get notified.</p>
-                </div>
-            </section>
-        </div>
-
-        <!-- NEWSLETTER PAGE -->
-        <div id="page-newsletter" class="page">
-            <section class="bg-gradient-to-br from-navy-900 to-gray-900 text-white py-32 px-6">
-                <div class="container mx-auto max-w-4xl text-center">
-                    <h1 class="text-5xl font-heading font-bold mb-6">The Newsletter</h1>
-                    <p class="text-xl opacity-90">Weekly insights on discipline, wealth building, and strategic thinking.</p>
-                </div>
-            </section>
-
-            <section class="py-20 px-6 bg-gray-900">
-                <div class="container mx-
+                                <svg class="w-16 h-
