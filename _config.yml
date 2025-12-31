@@ -1,6 +1,4 @@
 title: Real American Finance
-description: Discipline • Autonomy • Wealth
+description: A strategic, disciplined approach to money
 markdown: kramdown
 theme: minima
-plugins:
-  - jekyll-include-cache
