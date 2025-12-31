@@ -4,10 +4,643 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real American Finance</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts (Great Vibes for Copperplate-style script) -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            900: '#0A1A2F',
+                            800: '#11243F',
+                        },
+                        crimson: '#B22234',
+                        steel: '#E5E7EB',
+                        gray: {
+                            900: '#111827',
+                            800: '#1F2937',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Copperplate-style script for the brand */
+        .brand-script {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            letter-spacing: 0.03em;
+            font-weight: 400;
+            line-height: 1;
+        }
+
+        .brand-subtitle {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-top: -4px;
+        }
+
+        .logo-flag-svg {
+            width: 36px;
+            height: 26px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+    </style>
 </head>
-<body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-</body>
-</html>
+
+<body class="bg-navy-900 text-gray-200">
+
+    <!-- NAVBAR -->
+    <header class="bg-navy-900 text-white shadow-lg fixed w-full z-20 backdrop-blur">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+
+            <!-- Updated Logo Block -->
+            <div class="flex items-center space-x-3">
+
+                <!-- Clean Minimal American Flag SVG -->
+                <svg class="logo-flag-svg" viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect width="64" height="48" fill="#B22234" />
+                    <g fill="#FFFFFF">
+                        <rect y="6" width="64" height="4" />
+                        <rect y="14" width="64" height="4" />
+                        <rect y="22" width="64" height="4" />
+                        <rect y="30" width="64" height="4" />
+                        <rect y="38" width="64" height="4" />
+                    </g>
+                    <rect width="26" height="18" fill="#0A1A2F" />
+                    <g fill="#FFFFFF">
+                        <circle cx="4" cy="3" r="1" />
+                        <circle cx="9" cy="3" r="1" />
+                        <circle cx="14" cy="3" r="1" />
+                        <circle cx="19" cy="3" r="1" />
+                        <circle cx="24" cy="3" r="1" />
+
+                        <circle cx="6.5" cy="7" r="1" />
+                        <circle cx="11.5" cy="7" r="1" />
+                        <circle cx="16.5" cy="7" r="1" />
+                        <circle cx="21.5" cy="7" r="1" />
+
+                        <circle cx="4" cy="11" r="1" />
+                        <circle cx="9" cy="11" r="1" />
+                        <circle cx="14" cy="11" r="1" />
+                        <circle cx="19" cy="11" r="1" />
+                        <circle cx="24" cy="11" r="1" />
+                    </g>
+                </svg>
+
+                <div class="flex flex-col leading-tight">
+                    <span class="brand-script text-white">Real American Finance</span>
+                    <span class="brand-subtitle text-gray-400">DISCIPLINE • AUTONOMY • WEALTH</span>
+                </div>
+            </div>
+
+            <!-- Nav Links -->
+            <ul class="hidden md:flex space-x-8 text-lg">
+                <li><a href="#home" class="hover:text-crimson transition">Home</a></li>
+                <li><a href="#about" class="hover:text-crimson transition">About</a></li>
+                <li><a href="#principles" class="hover:text-crimson transition">Principles</a></li>
+                <li><a href="#frameworks" class="hover:text-crimson transition">Frameworks</a></li>
+                <li><a href="#articles" class="hover:text-crimson transition">Articles</a></li>
+                <li><a href="#contact" class="hover:text-crimson transition">Contact</a></li>
+            </ul>
+
+        </nav>
+    </header>
+
+<!-- HERO -->
+<section id="home" class="relative bg-navy-900 text-white pt-32 pb-32 px-6 overflow-hidden">
+
+    <!-- Local distressed American flag background with dark overlay -->
+    <div class="absolute inset-0 bg-cover bg-center"
+         style="
+             background-image:
+              linear-gradient(rgba(5,10,20,0.65), rgba(5,10,20,0.75)),
+url('./flag_distressed.jpg');
+
+         ">
+    </div>
+
+    <div class="container mx-auto relative z-10 text-center max-w-3xl">
+        <h2 class="text-5xl md:text-6xl font-heading font-bold mb-6 leading-tight">
+            Financial Autonomy for Americans Who Refuse to Be Average
+        </h2>
+
+        <p class="text-xl md:text-2xl mb-10 opacity-90">
+            A disciplined, strategic path to wealth — built on responsibility, grit, and long-term thinking.
+        </p>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="#start-here"
+               class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
+                Start Here
+            </a>
+
+            <a href="#newsletter"
+               class="bg-white/10 hover:bg-white/20 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
+                Join the Newsletter
+            </a>
+        </div>
+    </div>
+</section>
+
+
+    <!-- WHY THIS MATTERS -->
+    <section id="why" class="py-20 px-6 bg-navy-800">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h3 class="text-4xl font-heading font-bold mb-8 text-white">Why This Matters</h3>
+            <p class="text-xl leading-relaxed text-gray-300">
+                America rewards discipline, responsibility, and long-term thinking — but most people never build the systems
+                that allow them to take control of their money and their future. Real American Finance exists to change that.
+            </p>
+        </div>
+    </section>
+
+    <!-- PRINCIPLES -->
+    <section id="principles" class="py-20 px-6 bg-gray-900">
+        <div class="container mx-auto max-w-6xl">
+            <h3 class="text-4xl font-heading font-bold mb-12 text-center text-white">Core Principles</h3>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="bg-navy-800 p-8 rounded-xl shadow">
+                    <h4 class="text-2xl font-heading mb-4 text-white">Discipline Over Emotion</h4>
+                    <p class="text-gray-300">Wealth is built through consistent action, not impulse or motivation.</p>
+                </div>
+
+                <div class="bg-navy-800 p-8 rounded-xl shadow">
+                    <h4 class="text-2xl font-heading mb-4 text-white">Minimalism With Purpose</h4>
+                    <p class="text-gray-300">Cut the noise. Reduce the clutter. Focus on what moves you forward.</p>
+                </div>
+
+                <div class="bg-navy-800 p-8 rounded-xl shadow">
+                    <h4 class="text-2xl font-heading mb-4 text-white">Strategic Wealth Building</h4>
+                    <p class="text-gray-300">Money grows when it’s directed by a plan, not by chance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHO THIS IS FOR -->
+    <section id="who" class="py-20 px-6 bg-navy-800">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h3 class="text-4xl font-heading font-bold mb-8 text-white">Who This Is For</h3>
+            <p class="text-xl leading-relaxed text-gray-300 mb-8">
+                Real American Finance is built for people who want to take ownership of their financial lives — not through shortcuts,
+                hacks, or hype, but through discipline, clarity, and long-term execution.
+            </p>
+
+            <ul class="text-left max-w-2xl mx-auto text-lg space-y-4 text-gray-300">
+                <li>• People tired of living paycheck to paycheck</li>
+                <li>• People who want a clear, strategic path to wealth</li>
+                <li>• People who value responsibility and personal autonomy</li>
+                <li>• People who want to build a legacy, not just income</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- START HERE -->
+    <section id="start-here" class="py-20 px-6 bg-gray-900">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h3 class="text-4xl font-heading font-bold mb-8 text-white">Start Here</h3>
+            <p class="text-xl leading-relaxed text-gray-300 mb-10">
+                If you're new, begin with the frameworks. They’re simple, structured, and built to give you clarity fast.
+            </p>
+            <a href="#frameworks" class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-full text-xl font-semibold transition">
+                Explore the Frameworks
+            </a>
+        </div>
+    </section>
+
+    <!-- FRAMEWORKS -->
+    <section id="frameworks" class="py-20 px-6 bg-navy-800">
+        <div class="container mx-auto max-w-6xl">
+            <h3 class="text-4xl font-heading font-bold mb-12 text-center text-white">Core Frameworks</h3>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Iron Pot -->
+                <div class="bg-navy-900 p-8 rounded-xl shadow">
+                    <h4 class="text-2xl font-heading mb-4 text-white">Iron Pot Millionaire</h4>
+                    <p class="text-gray-300 mb-4">
+                        A discipline-first wealth model built on minimalism, sacrifice, and long-term execution.
+                    </p>
+                    <ul class="text-left text-sm text-gray-400 mb-4 space-y-1">
+                        <li>• Strip spending to essentials</li>
+                        <li>• Aggressive debt destruction</li>
+                        <li>• Relentless savings and investing</li>
+                    </ul>
+                    <a href="#iron-pot-details" class="text-crimson hover:underline font-semibold">
+                        View breakdown
+                    </a>
+                </div>
+
+                <!-- Wealth Architecture -->
+                <div class="bg-navy-900 p-8 rounded-xl shadow">
+                    <h4 class="text-2xl font-heading mb-4 text-white">Wealth Architecture</h4>
+                    <p class="text-gray-300 mb-4">
+                        A blueprint for building durable financial systems that survive volatility.
+                    </p>
+                    <ul class="text-left text-sm text-gray-400 mb-4 space-y-1">
+                        <li>• Cash, defense, offense layers</li>
+                        <li>• Automations and safeguards</li>
+                        <li>• Long-term allocation logic</li>
+                    </ul>
+                    <a href="#wealth-architecture-details" class="text-crimson hover:underline font-semibold">
+                        View breakdown
+                    </a>
+                </div>
+
+                <!-- Scenario Planning -->
+                <div class="bg-navy-900 p-8 rounded-xl shadow">
+                    <h4 class="text-2xl font-heading mb-4 text-white">Scenario Planning</h4>
+                    <p class="text-gray-300 mb-4">
+                        A strategic approach to preparing for economic uncertainty and life’s financial ambushes.
+                    </p>
+                    <ul class="text-left text-sm text-gray-400 mb-4 space-y-1">
+                        <li>• Job loss, recession, emergency paths</li>
+                        <li>• Pre-made playbooks</li>
+                        <li>• Stress-testing your plan</li>
+                    </ul>
+                    <a href="#scenario-planning-details" class="text-crimson hover:underline font-semibold">
+                        View breakdown
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FRAMEWORK DETAILS: Iron Pot -->
+    <section id="iron-pot-details" class="py-16 px-6 bg-navy-900">
+        <div class="container mx-auto max-w-4xl">
+            <h3 class="text-3xl font-heading font-bold mb-4 text-white">Iron Pot Millionaire</h3>
+            <p class="text-lg text-gray-300 mb-4">
+                Iron Pot Millionaire is a ruthless, disciplined approach to building wealth by stripping life down to
+                what actually matters. It’s not about being cheap — it’s about being surgical.
+            </p>
+
+            <h4 class="text-2xl font-heading mb-3 text-white">Core Idea</h4>
+            <p class="text-lg text-gray-300 mb-4">
+                You define the leanest, most focused version of your life — your "iron pot" baseline — and run that
+                version long enough to radically change your financial trajectory.
+            </p>
+
+            <h4 class="text-2xl font-heading mb-3 text-white">How to Run It</h4>
+            <ol class="list-decimal list-inside text-gray-300 space-y-2 text-lg mb-4">
+                <li>Define your non-negotiables: housing, food, basic transport, essential tools.</li>
+                <li>Cut everything else for a defined season: subscriptions, lifestyle fluff, status spending.</li>
+                <li>Stack cash aggressively and attack debt or build assets with intentional intensity.</li>
+                <li>Track progress weekly, not emotionally — numbers only.</li>
+            </ol>
+
+            <h4 class="text-2xl font-heading mb-3 text-white">When to Use It</h4>
+            <ul class="list-disc list-inside text-gray-300 space-y-2 text-lg">
+                <li>You're buried in debt and want out fast.</li>
+                <li>You need to build an emergency fund now, not someday.</li>
+                <li>You want to aggressively fund investments or a big opportunity.</li>
+            </ul>
+
+            <p class="mt-4 text-sm text-gray-500">
+                Soon: Downloadable Iron Pot Millionaire one-page PDF with template and tracking sheet.
+            </p>
+        </div>
+    </section>
+
+    <!-- FRAMEWORK DETAILS: Wealth Architecture -->
+    <section id="wealth-architecture-details" class="py-16 px-6 bg-navy-800">
+        <div class="container mx-auto max-w-4xl">
+            <h3 class="text-3xl font-heading font-bold mb-4 text-white">Wealth Architecture</h3>
+            <p class="text-lg text-gray-300 mb-4">
+                Wealth Architecture is about designing your financial life like a system, not a series of reactions.
+                Every dollar has a job. Every account has a purpose. Nothing is random.
+            </p>
+
+            <h4 class="text-2xl font-heading mb-3 text-white">Three-Layer Model</h4>
+            <ul class="list-disc list-inside text-gray-300 space-y-2 text-lg mb-4">
+                <li><strong>Cash layer:</strong> emergency fund, operating cash, short-term reserves.</li>
+                <li><strong>Defense layer:</strong> insurance, buffers, legal structure, risk management.</li>
+                <li><strong>Offense layer:</strong> investments, income expansion, asymmetric opportunities.</li>
+            </ul>
+
+            <h4 class="text-2xl font-heading mb-3 text-white">How to Use It</h4>
+            <ol class="list-decimal list-inside text-gray-300 space-y-2 text-lg">
+                <li>Map your current accounts and assets into the three layers.</li>
+                <li>Identify gaps: missing emergency fund, weak defense, or no offense.</li>
+                <li>Set clear targets for each layer (months of expenses, coverage levels, allocation percentages).</li>
+                <li>Automate contributions so the system builds itself over time.</li>
+            </ol>
+
+            <p class="mt-4 text-sm text-gray-500">
+                Soon: Visual Wealth Architecture diagram and downloadable PDF walkthrough.
+            </p>
+        </div>
+    </section>
+
+    <!-- FRAMEWORK DETAILS: Scenario Planning -->
+    <section id="scenario-planning-details" class="py-16 px-6 bg-navy-900">
+        <div class="container mx-auto max-w-4xl">
+            <h3 class="text-3xl font-heading font-bold mb-4 text-white">Scenario Planning</h3>
+            <p class="text-lg text-gray-300 mb-4">
+                Scenario Planning gives you pre-built responses to the financial shocks most people never prepare for.
+                When something hits, you don’t improvise — you execute.
+            </p>
+
+            <h4 class="text-2xl font-heading mb-3 text-white">Key Scenarios</h4>
+            <ul class="list-disc list-inside text-gray-300 space-y-2 text-lg mb-4">
+                <li><strong>Job loss:</strong> income disappears, expenses stay.</li>
+                <li><strong>Market downturn:</strong> assets drop, emotions spike.</li>
+                <li><strong>Unexpected expense:</strong> health, car, family, or legal hits.</li>
+            </ul>
+
+            <h4 class="text-2xl font-heading mb-3 text-white">How to Build Your Playbooks</h4>
+            <ol class="list-decimal list-inside text-gray-300 space-y-2 text-lg">
+                <li>Define what “day 1, day 30, day 90” looks like for each scenario.</li>
+                <li>Pre-decide what you will cut, sell, pause, or double down on.</li>
+                <li>Tie each scenario to your Wealth Architecture layers so funding sources are clear.</li>
+                <li>Review annually and adjust as your life and numbers change.</li>
+            </ol>
+
+            <p class="mt-4 text-sm text-gray-500">
+                Soon: Scenario Planning playbook PDF with fillable templates.
+            </p>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-20 px-6 bg-navy-800">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h3 class="text-4xl font-heading font-bold mb-8 text-white">About Real American Finance</h3>
+            <p class="text-xl leading-relaxed text-gray-300 mb-8">
+                Real American Finance is a discipline-first financial platform built for people who want clarity,
+                autonomy, and a strategic path to wealth. No hype. No shortcuts. Just systems that work.
+            </p>
+
+            <p class="text-lg text-gray-300 mb-6">
+                The mission is simple: help Americans build durable financial lives through responsibility, structure,
+                and long-term thinking. If you want to take ownership of your money — and your future — you’re in the right place.
+            </p>
+
+            <p class="text-lg text-gray-300">
+                Everything here is built to be clear, actionable, and brutally practical.
+            </p>
+        </div>
+    </section>
+
+    <!-- ARTICLES -->
+    <section id="articles" class="py-20 px-6 bg-gray-900">
+        <div class="container mx-auto max-w-6xl">
+            <h3 class="text-4xl font-heading font-bold mb-12 text-center text-white">Articles & Insights</h3>
+
+            <div class="grid md:grid-cols-3 gap-10">
+
+                <!-- Article 1 -->
+                <div class="bg-gray-800 p-8 rounded-xl shadow">
+                    <h4 class="text-2xl font-heading mb-4 text-white">The Discipline Gap</h4>
+                    <p class="text-gray-300 mb-4">
+                        Why most financial problems aren’t math problems — they’re discipline problems.
+                    </p>
+                    <a href="#" class="text-crimson hover:underline font-semibold">Read more</a>
+                </div>
+
+                <!-- Article 2 -->
+                <div class="bg-gray-800 p-8 rounded-xl shadow">
+                    <h4 class="text-2xl font-heading mb-4 text-white">The 3-Layer Emergency Fund</h4>
+                    <p class="text-gray-300 mb-4">
+                        A smarter way to build financial resilience without slowing down your goals.
+                    </p>
+                    <a href="#" class="text-crimson hover:underline font-semibold">Read more</a>
+                </div>
+
+                <!-- Article 3 -->
+                <div class="bg-gray-800 p-8 rounded-xl shadow">
+                    <h4 class="text-2xl font-heading mb-4 text-white">Lifestyle Creep: Silent Wealth Killer</h4>
+                    <p class="text-gray-300 mb-4">
+                        How small upgrades sabotage long-term wealth — and how to stop it.
+                    </p>
+                    <a href="#" class="text-crimson hover:underline font-semibold">Read more</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- NEWSLETTER -->
+    <section id="newsletter" class="py-20 px-6 bg-navy-800">
+        <div class="container mx-auto max-w-3xl text-center">
+            <h3 class="text-4xl font-heading font-bold mb-8 text-white">Join the Newsletter</h3>
+            <p class="text-xl text-gray-300 mb-8">
+                Get disciplined financial insights, frameworks, and strategy — straight to your inbox.
+            </p>
+
+            <form class="flex flex-col sm:flex-row gap-4 justify-center">
+                <input 
+                    type="email" 
+                    placeholder="Your email address"
+                    class="px-6 py-4 rounded-lg bg-gray-900 text-gray-200 w-full sm:w-auto flex-grow focus:outline-none focus:ring-2 focus:ring-crimson"
+                >
+                <button 
+                    type="submit"
+                    class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-lg text-lg font-semibold transition"
+                >
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-20 px-6 bg-gray-900">
+        <div class="container mx-auto max-w-3xl text-center">
+            <h3 class="text-4xl font-heading font-bold mb-8 text-white">Contact</h3>
+            <p class="text-xl text-gray-300 mb-8">
+                Have a question, collaboration idea, or want to get in touch?
+            </p>
+
+            <a 
+                href="mailto:contact@realamericanfinance.com"
+                class="inline-block bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-full text-xl font-semibold transition"
+            >
+                Email Me
+            </a>
+        </div>
+    </section>
+
+
+<!-- PREMIUM ENTERPRISE FOOTER -->
+<footer class="relative text-gray-300 py-20 px-6 overflow-hidden border-t border-white/20">
+
+    <!-- Local distressed flag background with tuned overlay -->
+    <div class="absolute inset-0 bg-cover bg-center"
+         style="
+             background-image:
+                 linear-gradient(rgba(5,10,20,0.70), rgba(5,10,20,0.85)),
+                 url('./flag_distressed.jpg');
+         ">
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-12 text-sm">
+
+        <!-- Quick Links -->
+        <div>
+            <h3 class="text-white font-semibold tracking-wide mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+                <li><a href="#start-here" class="hover:text-white">Start Here</a></li>
+                <li><a href="#courses" class="hover:text-white">Courses</a></li>
+                <li><a href="#resources" class="hover:text-white">Resources</a></li>
+                <li><a href="#about" class="hover:text-white">About</a></li>
+                <li><a href="#careers" class="hover:text-white">Careers</a></li>
+            </ul>
+        </div>
+
+        <!-- Support -->
+        <div>
+            <h3 class="text-white font-semibold tracking-wide mb-4">Support</h3>
+            <ul class="space-y-2">
+                <li><a href="#contact" class="hover:text-white">Contact Us</a></li>
+                <li><a href="#faq" class="hover:text-white">FAQ</a></li>
+            </ul>
+        </div>
+
+        <!-- Real American Finance -->
+        <div>
+            <h3 class="text-white font-semibold tracking-wide mb-4">Real American Finance</h3>
+            <ul class="space-y-2">
+                <li><a href="#newsletter" class="hover:text-white">Newsletter</a></li>
+                <li><a href="#blog" class="hover:text-white">Blog</a></li>
+                <li><a href="#press" class="hover:text-white">Press</a></li>
+            </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+            <h3 class="text-white font-semibold tracking-wide mb-4">Legal</h3>
+            <ul class="space-y-2">
+                <li><a href="#terms" class="hover:text-white">Terms of Service</a></li>
+                <li><a href="#privacy" class="hover:text-white">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        <!-- Branding + Social -->
+        <div class="flex flex-col items-start md:items-end space-y-4">
+
+            <!-- Mini RAF Wordmark -->
+<!-- Real American Finance stacked mark -->
+<!-- Real American Finance full brand mark -->
+<!-- Real American Finance full brand mark (horizontal) -->
+<div class="flex flex-col items-start md:items-end leading-tight space-y-2">
+
+    <!-- Flag + Scripted Brand -->
+    <!-- Flag + Scripted Brand (horizontal) -->
+    <div class="flex items-center space-x-3">
+        <!-- Same SVG flag used in header -->
+        <svg class="logo-flag-svg" viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="64" height="48" fill="#B22234" />
+            <g fill="#FFFFFF">
+                <rect y="6" width="64" height="4" />
+                <rect y="14" width="64" height="4" />
+                <rect y="22" width="64" height="4" />
+                <rect y="30" width="64" height="4" />
+                <rect y="38" width="64" height="4" />
+            </g>
+            <rect width="26" height="18" fill="#0A1A2F" />
+            <g fill="#FFFFFF">
+                <circle cx="4" cy="3" r="1" />
+                <circle cx="9" cy="3" r="1" />
+                <circle cx="14" cy="3" r="1" />
+                <circle cx="19" cy="3" r="1" />
+                <circle cx="24" cy="3" r="1" />
+
+                <circle cx="6.5" cy="7" r="1" />
+                <circle cx="11.5" cy="7" r="1" />
+                <circle cx="16.5" cy="7" r="1" />
+                <circle cx="21.5" cy="7" r="1" />
+
+                <circle cx="4" cy="11" r="1" />
+                <circle cx="9" cy="11" r="1" />
+                <circle cx="14" cy="11" r="1" />
+                <circle cx="19" cy="11" r="1" />
+                <circle cx="24" cy="11" r="1" />
+            </g>
+        </svg>
+
+        <!-- Horizontal brand text -->
+        <div class="flex flex-col leading-tight">
+            <span class="brand-script text-white">Real American Finance</span>
+            <span class="brand-script text-white whitespace-nowrap">Real American Finance</span>
+            <span class="brand-subtitle text-gray-400">DISCIPLINE • AUTONOMY • WEALTH</span>
+        </div>
+    </div>
+
+</div>
+
+
+
+            <!-- Social Icons -->
+            <div class="flex space-x-4">
+
+                <!-- Facebook -->
+                <a href="#" aria-label="Facebook" class="hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2v-2.3c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2V12h2.3l-.4 3h-1.9v7A10 10 0 0 0 22 12"/>
+                    </svg>
+                </a>
+    
+
+                <!-- Instagram -->
+                <a href="#" aria-label="Instagram" class="hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.5A4.5 4.5 0 1 0 16.5 12 4.5 4.5 0 0 0 12 7.5zm0 7.3A2.8 2.8 0 1 1 14.8 12 2.8 2.8 0 0 1 12 14.8zm4.8-8.8a1.1 1.1 0 1 1-1.1-1.1 1.1 1.1 0 0 1 1.1 1.1z"/>
+                    </svg>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="#" aria-label="LinkedIn" class="hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5zM3 9h4v12H3zm7 0h3.8v1.7h.1a4.1 4.1 0 0 1 3.7-2c4 0 4.7 2.6 4.7 6v6h-4v-5.3c0-1.3 0-3-1.8-3s-2.2 1.4-2.2 2.9V21h-4z"/>
+                    </svg>
+                </a>
+
+                <!-- YouTube -->
+                <a href="#" aria-label="YouTube" class="hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M21.8 8s-.2-1.5-.8-2.2c-.8-.8-1.7-.8-2.1-.9C15.9 4.5 12 4.5 12 4.5h-.1s-3.9 0-6.9.4c-.4 0-1.3.1-2.1.9C2.2 6.5 2 8 2 8S1.8 9.6 1.8 11.3v1.4C1.8 14.4 2 16 2 16s.2 1.5.8 2.2c.8.8 1.9.8 2.4.9 1.8.2 7.8.4 7.8.4s3.9 0 6.9-.4c.4 0 1.3-.1 2.1-.9.6-.7.8-2.2.8-2.2s.2-1.6.2-3.3v-1.4c0-1.7-.2-3.3-.2-3.3zM10 14.7V9.3l5.2 2.7z"/>
+                    </svg>
+                </a>
+
+                <!-- X -->
+                <a href="#" aria-label="X" class="hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M18 2h3l-7.5 8.5L22 22h-6l-4.5-6L7 22H2l7.5-8.5L2 2h6l4 5.5z"/>
+                    </svg>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="relative z-10 mt-12 text-center text-xs text-gray-400">
+        &copy; 2025 Real American Finance. All rights reserved. Built with discipline, clarity, and long-term thinking.
+    </div>
+
+</footer>
