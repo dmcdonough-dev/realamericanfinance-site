@@ -1,72 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Academy | Real American Finance</title>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Academy | RAF</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: { extend: {
-                fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Oswald', 'sans-serif'] },
-                colors: { navy: { 900: '#0A1A2F', 800: '#11243F' }, crimson: '#B22234' }
-            }}
-        }
-    </script>
+    <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Oswald', 'sans-serif'] }, colors: { navy: { 900: '#0A1A2F' }, crimson: '#B22234' } } } }</script>
 </head>
 <body class="bg-navy-900 text-white font-sans">
-    <nav class="p-6 border-b border-white/5 flex justify-between items-center bg-navy-900/50 backdrop-blur fixed w-full z-50">
-        <a href="index.html" class="font-heading tracking-widest uppercase text-xs hover:text-crimson">← Return to Command</a>
-        <div class="font-heading uppercase tracking-[0.2em] text-sm">RAF <span class="text-crimson">Academy</span></div>
+    <nav class="p-6 flex justify-between items-center bg-navy-900 fixed w-full z-50">
+        <a href="index.html" class="font-heading tracking-widest uppercase text-sm border-b-2 border-crimson">← Return to Command</a>
+        <div class="font-heading uppercase tracking-widest text-lg">RAF <span class="text-crimson">ACADEMY</span></div>
     </nav>
-
-    <header class="pt-40 pb-20 px-6 text-center">
-        <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase mb-6">Forge <span class="text-crimson">Wealth.</span></h1>
-        <p class="text-gray-400 max-w-2xl mx-auto text-xl">The education the system withheld. Strategic training for financial autonomy.</p>
+    <header class="pt-40 pb-16 px-6 text-center">
+        <h1 class="text-7xl md:text-9xl font-heading font-bold uppercase mb-6">KILL THE <span class="text-crimson">LIES.</span></h1>
+        <p class="text-2xl text-gray-400 max-w-3xl mx-auto font-bold uppercase">Modern finance is a scam. Colonial discipline is the cure.</p>
     </header>
-
     <main class="container mx-auto px-6 pb-24">
-        <div class="mb-20">
-            <h2 class="font-heading text-2xl tracking-widest uppercase mb-10 border-b border-white/10 pb-2">01. The Blueprints (Pillar 11)</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-navy-800 p-8 border-l-4 border-crimson">
-                    <h3 class="text-3xl font-heading uppercase mb-2">The RAF Playbook</h3>
-                    <p class="text-gray-400 mb-6">The 100-page foundational text on Discipline, Autonomy, and Wealth.</p>
-                    <span class="text-sm font-heading text-gray-500 uppercase">Available Q4 2024</span>
-                </div>
-                <div class="bg-navy-800 p-8 border-l-4 border-gray-600">
-                    <h3 class="text-3xl font-heading uppercase mb-2">Iron Pot Millionaire</h3>
-                    <p class="text-gray-400 mb-6">The definitive guide to the "Iron Pot" strategy and compound grit.</p>
-                    <span class="text-sm font-heading text-gray-500 uppercase">In Editorial</span>
-                </div>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-navy-800 p-10 border-t-8 border-crimson shadow-2xl">
+                <h3 class="text-4xl font-heading uppercase mb-2">THE IRON POT MILLIONAIRE</h3>
+                <p class="text-xl font-bold text-crimson mb-6">Pillar 11: The Core Playbook</p>
+                <p class="text-gray-400 mb-8 text-lg">My upcoming book. This isn't about "stock picks." This is about how our ancestors used simple, brutal habits to build massive wealth while modern people stay in debt for a lifestyle they can't afford.</p>
+                <button class="w-full bg-white text-navy-900 py-4 font-heading text-lg font-bold uppercase tracking-widest hover:bg-crimson hover:text-white transition">Get on the List</button>
             </div>
-        </div>
-
-        <div class="mb-20">
-            <h2 class="font-heading text-2xl tracking-widest uppercase mb-10 border-b border-white/10 pb-2">02. Strategic Training (Pillar 1 & 9)</h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white text-navy-900 p-6 flex flex-col justify-between group cursor-pointer hover:bg-crimson hover:text-white transition-all">
-                    <div>
-                        <h4 class="font-heading text-2xl uppercase font-bold leading-tight">30-Day Financial Discipline</h4>
-                        <p class="text-sm mt-4 opacity-80">A reset for your habits. High-intensity financial auditing.</p>
-                    </div>
-                    <div class="mt-8 font-heading uppercase tracking-widest text-sm font-bold underline">Join Challenge</div>
-                </div>
-                <div class="bg-navy-800 p-6 border border-white/10">
-                    <h4 class="font-heading text-2xl uppercase font-bold text-white">Wealth Architecture 101</h4>
-                    <p class="text-sm text-gray-400 mt-4">The flagship course on building an autonomous financial fortress.</p>
-                    <div class="mt-8 font-heading uppercase tracking-widest text-sm text-crimson">Enrolling Soon</div>
-                </div>
+            <div class="bg-white text-navy-900 p-10 border-t-8 border-navy-900 shadow-2xl">
+                <h3 class="text-4xl font-heading uppercase mb-2">30-DAY DISCIPLINE</h3>
+                <p class="text-xl font-bold text-gray-500 mb-6">Pillar 09: The Audit</p>
+                <p class="text-gray-700 mb-8 text-lg">A 30-day "hell month" for your finances. We audit every penny. We kill every useless subscription. We find the leaks in your ship and plug them with lead.</p>
+                <button class="w-full bg-navy-900 text-white py-4 font-heading text-lg font-bold uppercase tracking-widest hover:bg-crimson transition">I'm Ready</button>
             </div>
-        </div>
-
-        <div class="bg-crimson p-12 text-center">
-            <h2 class="font-heading text-4xl uppercase mb-4">Elite Consulting</h2>
-            <p class="max-w-xl mx-auto mb-8 text-white/90 uppercase tracking-widest text-sm">Direct access. High-ticket 1:1 strategy for high-impact individuals.</p>
-            <a href="coming-soon.html" class="inline-block bg-navy-900 text-white px-12 py-4 font-heading tracking-[0.2em] hover:bg-white hover:text-navy-900 transition">Apply for Coaching</a>
         </div>
     </main>
+    <footer id="global-footer"></footer>
 </body>
 </html>
