@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategy Session | Real American Finance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Oswald', 'sans-serif'] },
+                    colors: { navy: { 900: '#0A1A2F', 800: '#11243F' }, crimson: '#B22234' }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-navy-900 text-white font-sans selection:bg-crimson">
+
+    <header class="fixed w-full z-50 bg-navy-900/95 border-b border-white/5 backdrop-blur-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex flex-col group">
+                <span style="font-family: 'Great Vibes';" class="text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
+                <span class="font-heading text-[11px] tracking-[0.4em] text-gray-300 uppercase font-bold mt-1">Discipline • Autonomy • Wealth</span>
+            </a>
+            <ul class="hidden lg:flex space-x-8 font-heading text-xs tracking-[0.2em] uppercase">
+                <li><a href="academy.html" class="hover:text-crimson transition">The Academy</a></li>
+                <li><a href="media.html" class="hover:text-crimson transition">Media</a></li>
+                <li><a href="the-lab.html" class="hover:text-crimson transition">Tools</a></li>
+                <li><a href="shop.html" class="hover:text-crimson transition">Shop</a></li>
+                <li><a href="strategy.html" class="bg-crimson px-4 py-2 hover:bg-red-700 transition">Strategy Call</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="pt-48 pb-20 text-center">
+        <div class="container mx-auto px-6">
+            <h1 class="text-7xl md:text-9xl font-heading font-bold uppercase tracking-tighter leading-none mb-6">THE <span class="text-crimson">INTERROGATION.</span></h1>
+            <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto font-bold uppercase tracking-widest leading-tight">
+                Reserved for those ready to execute. <br>Vetting is <span class="text-white font-bold">mandatory.</span>
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white text-navy-900">
+        <div class="container mx-auto max-w-3xl px-6">
+            <div class="bg-navy-900 p-8 md:p-12 shadow-2xl">
+                <h3 class="text-3xl font-heading text-white uppercase mb-8 text-center border-b border-white/10 pb-4 tracking-widest">Apply For Strategy</h3>
+                
+                <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="flex flex-col">
+                            <label class="text-[10px] font-bold text-gray-500 mb-2 uppercase tracking-widest">Full Name</label>
+                            <input type="text" name="name" required placeholder="EX: JOHN DOE" class="bg-navy-800 border-2 border-white/10 p-4 text-white focus:border-crimson outline-none font-heading uppercase">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-[10px] font-bold text-gray-500 mb-2 uppercase tracking-widest">Email Address</label>
+                            <input type="email" name="email" required placeholder="EX: SOLDIER@MISSION.COM" class="bg-navy-800 border-2 border-white/10 p-4 text-white focus:border-crimson outline-none font-heading uppercase">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label class="text-[10px] font-bold text-gray-500 mb-2 uppercase tracking-widest">Select Objective</label>
+                        <select name="objective" class="bg-navy-800 border-2 border-white/10 p-4 text-white focus:border-crimson outline-none font-heading uppercase">
+                            <option>Iron Pot Baseline Audit</option>
+                            <option>Wealth Architecture Setup</option>
+                            <option>Scenario Stress-Testing</option>
+                            <option>Other / High-Level Consulting</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label class="text-[10px] font-bold text-gray-500 mb-2 uppercase tracking-widest">Financial Mission Brief</label>
+                        <textarea name="message" rows="5" required placeholder="DESCRIBE YOUR CURRENT FINANCIAL ARCHITECTURE AND WHY YOU ARE READY TO SHIFT TO A DISCIPLINE-BASED MODEL." class="bg-navy-800 border-2 border-white/10 p-4 text-white focus:border-crimson outline-none font-heading uppercase"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-crimson py-6 text-white font-heading text-2xl uppercase tracking-[0.3em] hover:bg-red-800 transition shadow-xl">Submit Application</button>
+                    <p class="text-center text-[10px] text-gray-500 uppercase tracking-widest font-bold mt-4">Applications are reviewed within 48 hours. Lack of discipline in the application is an automatic rejection.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-navy-900 border-t-4 border-crimson pt-20 pb-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-16 uppercase font-heading tracking-widest text-sm text-center lg:text-left">
+                <div>
+                    <h4 class="text-white mb-6 border-b border-white/10 pb-2 mx-auto lg:mx-0 w-max">ACADEMY</h4>
+                    <ul class="text-gray-500 space-y-4 text-xs">
+                        <li><a href="academy.html" class="hover:text-crimson">The Playbook</a></li>
+                        <li><a href="strategy.html" class="hover:text-crimson">Strategy Call</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white mb-6 border-b border-white/10 pb-2 mx-auto lg:mx-0 w-max">MEDIA</h4>
+                    <ul class="text-gray-500 space-y-4 text-xs">
+                        <li><a href="media.html">Podcast</a></li>
+                        <li><a href="index.html">Newsletter</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white mb-6 border-b border-white/10 pb-2 mx-auto lg:mx-0 w-max">GEAR</h4>
+                    <ul class="text-gray-500 space-y-4 text-xs">
+                        <li><a href="the-lab.html">Tools</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                    </ul>
+                </div>
+                <div class="flex flex-col items-center lg:items-start">
+                    <span style="font-family: 'Great Vibes';" class="text-4xl text-white leading-none">Real American Finance</span>
+                    <p class="mt-4 text-gray-500 text-xs italic font-bold">"Discipline is the only way out."</p>
+                </div>
+            </div>
+            <p class="text-[10px] text-gray-800 uppercase tracking-[0.8em] text-center font-bold border-t border-white/5 pt-10">© 2026</p>
+        </div>
+    </footer>
+
+</body>
+</html>
