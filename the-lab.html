@@ -7,122 +7,66 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        .hero-bg { 
-            background: linear-gradient(rgba(10,26,47,0.95), rgba(10,26,47,0.95)), url('./flag_distressed.jpg'); 
-            background-size: cover; background-position: center;
-        }
-        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-        .lab-grid { background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 40px 40px; }
+        .hero-bg { background: linear-gradient(rgba(5,11,20,0.65), rgba(5,11,20,0.65)), url('./flag_distressed.jpg'); background-size: cover; background-position: center; }
     </style>
     <script>
         tailwind.config = {
             darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Oswald', 'sans-serif'] },
-                    colors: { navy: { 950: '#050B14', 900: '#0A1A2F', 800: '#11243F' }, crimson: '#B22234' }
-                }
-            }
+            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Oswald', 'sans-serif'] }, colors: { navy: { 950: '#050B14', 900: '#0A1A2F', 800: '#11243F' }, crimson: '#B22234' } } }
         }
     </script>
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson">
-
     <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="flex flex-col group">
                 <span style="font-family: 'Great Vibes';" class="text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
-                <span class="font-heading text-[10px] tracking-[0.4em] text-gray-400 uppercase mt-1 font-bold">Sovereignty Through Discipline</span>
+                <span class="font-heading text-[10px] tracking-[0.4em] text-gray-400 uppercase mt-1 font-bold">Discipline • Autonomy • Wealth</span>
             </a>
-            <ul class="hidden lg:flex space-x-8 font-heading text-xs tracking-[0.2em] uppercase font-bold">
-                <li><a href="academy.html" class="hover:text-crimson transition">The Academy</a></li>
-                <li><a href="media.html" class="hover:text-crimson transition">Media</a></li>
-                <li><a href="the-lab.html" class="text-crimson">Tools</a></li>
-                <li><a href="shop.html" class="hover:text-crimson transition">Shop</a></li>
-                <li><a href="strategy.html" class="bg-crimson px-5 py-2 hover:bg-red-700 transition">Strategy Call</a></li>
+            <ul class="hidden lg:flex space-x-8 font-heading text-xs tracking-[0.2em] uppercase font-bold text-gray-400">
+                <li><a href="academy.html" class="hover:text-white transition">The Academy</a></li>
+                <li><a href="media.html" class="hover:text-white transition">Media</a></li>
+                <li><a href="the-lab.html" class="text-white border-b border-crimson">Tools</a></li>
+                <li><a href="shop.html" class="hover:text-white transition">Shop</a></li>
+                <li><a href="strategy.html" class="bg-crimson px-5 py-2 text-white hover:bg-red-700 transition">Strategy Call</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="hero-bg pt-48 pb-24 border-b border-white/5 text-center">
-        <div class="container mx-auto px-6 max-w-4xl">
-            <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight leading-none mb-6">THE <span class="text-crimson">LAB.</span></h1>
-            <p class="text-lg md:text-xl text-gray-400 font-medium uppercase tracking-[0.2em] leading-relaxed">Tactical decision support systems for the sovereign individual.</p>
+    <section class="hero-bg pt-48 pb-24 text-center">
+        <div class="container mx-auto px-6">
+            <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight leading-none mb-6">TACTICAL <span class="text-crimson">LAB.</span></h1>
+            <p class="text-lg md:text-xl text-white font-heading font-bold uppercase tracking-[0.4em]">Own Your Outcomes.</p>
         </div>
     </section>
 
-    <main class="lab-grid py-24">
+    <section class="py-24">
         <div class="container mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-12">
-                
-                <div class="bg-navy-900/80 backdrop-blur-sm border border-white/10 rounded-sm p-8 flex flex-col h-full">
-                    <div class="flex justify-between items-start mb-8">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-navy-900 border border-white/10 p-8">
+                    <h3 class="text-xl font-heading font-bold uppercase mb-4 border-l-2 border-crimson pl-4">Surplus Velocity Calculator</h3>
+                    <div class="space-y-6">
                         <div>
-                            <span class="text-crimson font-heading font-bold text-xs uppercase tracking-widest">Protocol 01</span>
-                            <h2 class="text-4xl font-heading font-bold uppercase mt-2">Surplus Velocity</h2>
-                        </div>
-                        <div class="p-3 bg-white/5 border border-white/10">
-                            <svg class="w-6 h-6 text-crimson" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-                        </div>
-                    </div>
-                    <div class="space-y-6 flex-grow">
-                        <div>
-                            <label class="block text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">Monthly Gross Income</label>
-                            <input type="number" id="income" placeholder="0.00" class="w-full bg-navy-950 border border-white/10 p-4 font-heading text-xl focus:border-crimson outline-none transition">
+                            <label class="block text-[10px] uppercase text-gray-500 font-bold mb-2">Monthly Income</label>
+                            <input type="number" id="income" class="w-full bg-navy-950 border border-white/10 p-4 outline-none focus:border-crimson">
                         </div>
                         <div>
-                            <label class="block text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">Iron Pot (Essential) Expenses</label>
-                            <input type="number" id="expenses" placeholder="0.00" class="w-full bg-navy-950 border border-white/10 p-4 font-heading text-xl focus:border-crimson outline-none transition">
+                            <label class="block text-[10px] uppercase text-gray-500 font-bold mb-2">Monthly Overhead</label>
+                            <input type="number" id="expenses" class="w-full bg-navy-950 border border-white/10 p-4 outline-none focus:border-crimson">
                         </div>
-                        <button onclick="calculateSurplus()" class="w-full bg-white text-navy-950 font-heading font-bold uppercase tracking-widest py-4 hover:bg-crimson hover:text-white transition">Run Calculation</button>
-                    </div>
-                    <div id="surplus-result" class="mt-8 pt-8 border-t border-white/5 hidden">
-                        <div class="flex justify-between items-end">
-                            <span class="text-xs uppercase tracking-widest text-gray-500 font-bold">Monthly Surplus</span>
-                            <span id="monthly-surplus" class="text-4xl font-heading font-bold text-white leading-none">$0</span>
+                        <div class="bg-navy-950 p-6 border border-crimson/30">
+                            <span class="text-[10px] uppercase text-gray-400 block mb-1">Monthly Surplus</span>
+                            <span id="result" class="text-4xl font-heading font-bold text-crimson">$0.00</span>
                         </div>
                     </div>
                 </div>
-
-                <div class="bg-navy-900/80 backdrop-blur-sm border border-white/10 rounded-sm p-8 flex flex-col h-full">
-                    <div class="flex justify-between items-start mb-8">
-                        <div>
-                            <span class="text-crimson font-heading font-bold text-xs uppercase tracking-widest">Protocol 05</span>
-                            <h2 class="text-4xl font-heading font-bold uppercase mt-2">Asset Compounder</h2>
-                        </div>
-                        <div class="p-3 bg-white/5 border border-white/10">
-                            <svg class="w-6 h-6 text-crimson" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        </div>
-                    </div>
-                    <div class="space-y-6 flex-grow">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">Starting Capital</label>
-                                <input type="number" id="principal" value="10000" class="w-full bg-navy-950 border border-white/10 p-4 font-heading text-lg focus:border-crimson outline-none transition">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">Annual Yield (%)</label>
-                                <input type="number" id="yield" value="8" class="w-full bg-navy-950 border border-white/10 p-4 font-heading text-lg focus:border-crimson outline-none transition">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">Years to Sovereignty</label>
-                            <input type="range" id="years" min="1" max="30" value="10" class="w-full accent-crimson mt-4" oninput="document.getElementById('yearLabel').innerText = this.value">
-                            <div class="text-right text-[10px] text-gray-500 font-bold mt-1"><span id="yearLabel">10</span> YEARS</div>
-                        </div>
-                        <button onclick="calculateGrowth()" class="w-full bg-white text-navy-950 font-heading font-bold uppercase tracking-widest py-4 hover:bg-crimson hover:text-white transition">Project Growth</button>
-                    </div>
-                    <div id="growth-result" class="mt-8 pt-8 border-t border-white/5 hidden">
-                        <div class="flex justify-between items-end">
-                            <span class="text-xs uppercase tracking-widest text-gray-500 font-bold">Projected Value</span>
-                            <span id="final-balance" class="text-4xl font-heading font-bold text-white leading-none">$0</span>
-                        </div>
-                    </div>
+                <div class="flex flex-col justify-center">
+                    <h2 class="text-4xl font-heading font-bold uppercase mb-6 leading-tight">Data over <br><span class="text-crimson">emotion.</span></h2>
+                    <p class="text-gray-400 leading-relaxed">The Lab is designed to strip away the noise. Use these tools to identify your leakages and calculate your trajectory toward autonomy.</p>
                 </div>
-
             </div>
         </div>
-    </main>
+    </section>
 
     <footer class="bg-navy-950 border-t-8 border-crimson pt-20 pb-8">
         <div class="container mx-auto px-6">
@@ -130,22 +74,17 @@
                 <div class="lg:w-1/2">
                     <a href="index.html" class="flex flex-col mb-6">
                         <span style="font-family: 'Great Vibes';" class="text-5xl leading-none">Real American Finance</span>
-                        <span class="font-heading text-xs tracking-[0.5em] text-gray-500 uppercase font-bold mt-2">Sovereignty Through Discipline</span>
+                        <span class="font-heading text-xs tracking-[0.5em] text-gray-500 uppercase font-bold mt-2">Discipline • Autonomy • Wealth</span>
                     </a>
-                    <p class="text-gray-400 max-w-md text-sm leading-relaxed italic">
-                        Providing tactical frameworks for financial autonomy. We do not offer investment advice; we build systems for the self-reliant.
-                    </p>
+                    <p class="text-gray-400 max-w-md text-sm leading-relaxed italic">Providing tactical frameworks for financial autonomy. We do not offer investment advice; we build systems for the self-reliant.</p>
                 </div>
                 <div class="lg:w-1/3 w-full">
                     <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-white font-bold mb-4">Strategic Disclaimer</h4>
                     <div class="bg-white/5 border border-white/10 p-5 rounded-sm">
-                        <p class="text-[11px] text-gray-500 uppercase tracking-widest leading-relaxed font-bold">
-                            All materials provided are for educational purposes. Execution of these pillars requires individual discretion. Real American Finance assumes no liability for market outcomes.
-                        </p>
+                        <p class="text-[11px] text-gray-500 uppercase tracking-widest leading-relaxed font-bold">All materials provided are for educational purposes. Execution of these pillars requires individual discretion. Real American Finance assumes no liability for market outcomes.</p>
                     </div>
                 </div>
             </div>
-
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-20 border-t border-white/5 pt-12">
                 <div>
                     <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">The Academy</h4>
@@ -164,50 +103,39 @@
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Tactical Lab</h4>
+                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Provisioning</h4>
                     <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
-                        <li><a href="the-lab.html" class="text-white transition">Calculators</a></li>
                         <li><a href="shop.html" class="hover:text-white transition">Apparel</a></li>
-                        <li><a href="the-lab.html" class="hover:text-white transition">Toolsets</a></li>
+                        <li><a href="the-lab.html" class="hover:text-white transition">Tactical Tools</a></li>
+                        <li><a href="shop.html" class="hover:text-white transition">Equipment</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Inquiries</h4>
                     <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
                         <li><a href="mailto:hq@realamericanfinance.com" class="hover:text-white transition">Direct Liaison</a></li>
-                        <li><a href="strategy.html" class="text-crimson">Schedule Strategy</a></li>
-                        <li><a href="#" class="hover:text-white transition">Support</a></li>
+                        <li><a href="strategy.html" class="text-crimson hover:text-red-400 transition">Schedule Strategy</a></li>
+                        <li><a href="#" class="hover:text-white transition">Institutional</a></li>
                     </ul>
                 </div>
             </div>
-
             <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-4">
-                <p class="text-[9px] text-gray-700 uppercase tracking-[0.5em] font-bold">© 2026 Real American Finance. All Rights Reserved. Stay Sovereign.</p>
+                <p class="text-[9px] text-gray-700 uppercase tracking-[0.5em] font-bold">© 2026 Real American Finance. Own Your Outcomes. Stay Sovereign.</p>
                 <div class="flex gap-6">
-                    <span class="text-[9px] text-gray-800 uppercase tracking-widest cursor-pointer hover:text-white">Privacy Policy</span>
-                    <span class="text-[9px] text-gray-800 uppercase tracking-widest cursor-pointer hover:text-white">Terms of Engagement</span>
+                    <a href="#" class="text-[9px] text-gray-800 uppercase tracking-widest hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="text-[9px] text-gray-800 uppercase tracking-widest hover:text-white transition">Terms of Engagement</a>
                 </div>
             </div>
         </div>
     </footer>
-
     <script>
-        function calculateSurplus() {
-            const inc = document.getElementById('income').value || 0;
-            const exp = document.getElementById('expenses').value || 0;
-            const surplus = inc - exp;
-            document.getElementById('monthly-surplus').innerText = '$' + surplus.toLocaleString();
-            document.getElementById('surplus-result').classList.remove('hidden');
-        }
-
-        function calculateGrowth() {
-            const p = parseFloat(document.getElementById('principal').value) || 0;
-            const r = (parseFloat(document.getElementById('yield').value) / 100) || 0;
-            const n = parseInt(document.getElementById('years').value) || 10;
-            const final = p * Math.pow((1 + r), n);
-            document.getElementById('final-balance').innerText = '$' + Math.round(final).toLocaleString();
-            document.getElementById('growth-result').classList.remove('hidden');
-        }
+        const inc = document.getElementById('income');
+        const exp = document.getElementById('expenses');
+        const res = document.getElementById('result');
+        [inc, exp].forEach(el => el.addEventListener('input', () => {
+            const surplus = (inc.value || 0) - (exp.value || 0);
+            res.innerText = '$' + surplus.toLocaleString(undefined, {minimumFractionDigits: 2});
+        }));
     </script>
 </body>
 </html>
