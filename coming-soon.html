@@ -1,25 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coming Soon | Real American Finance</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon | Real American Finance</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: { 900: '#0A1A2F', 800: '#11243F' },
+                        crimson: '#B22234',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
-<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
-  <div class="text-center max-w-xl px-6">
-    <h1 class="text-4xl font-heading font-bold mb-6">
-      Coming Soon
-    </h1>
+<body class="bg-navy-900 text-white flex items-center justify-center min-h-screen relative overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center z-0"
+         style="background-image: linear-gradient(rgba(10,26,47,0.85), rgba(10,26,47,0.95)), url('./flag_distressed.jpg');">
+    </div>
 
-    <p class="text-lg text-gray-300 mb-8">
-      This section is under construction. The framework is being built deliberately — not rushed.
-    </p>
+    <div class="relative z-10 text-center max-w-xl px-6">
+        <div class="mb-10">
+            <h2 style="font-family: 'Great Vibes', cursive;" class="text-5xl text-white mb-2">Real American Finance</h2>
+            <p style="font-family: 'Oswald', sans-serif;" class="text-xs tracking-[0.25em] text-gray-400 uppercase">Discipline • Autonomy • Wealth</p>
+        </div>
 
-    <a href="/" class="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-full font-semibold transition">
-      Back to Home
-    </a>
-  </div>
+        <h1 class="text-4xl md:text-5xl font-heading font-bold mb-6 text-white uppercase tracking-tight">
+            Under Construction
+        </h1>
+
+        <p class="text-xl text-gray-300 mb-10 leading-relaxed">
+            This section is being built with the same discipline we preach. It isn't rushed—it's engineered for long-term wealth.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="index.html" class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-full font-semibold transition shadow-lg">
+                Back to Home
+            </a>
+        </div>
+    </div>
 </body>
 </html>
