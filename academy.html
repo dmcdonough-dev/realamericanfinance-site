@@ -6,22 +6,13 @@
     <title>The 12 Pillars | Real American Finance Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        .hero-bg { 
-            background: linear-gradient(rgba(30, 41, 59, 0.85), rgba(30, 41, 59, 0.85)), url('./flag_distressed.jpg'); 
-            background-size: cover; background-position: center;
-        }
-        .pillar-number { -webkit-text-stroke: 1px rgba(178, 34, 52, 0.3); color: transparent; line-height: 0.8; }
-        .zig-zag:nth-child(even) .content-box { order: 2; }
-        .zig-zag:nth-child(even) .visual-box { order: 1; }
-    </style>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Oswald', 'sans-serif'] },
                     colors: { 
-                        slate: { 800: '#1E293B', 900: '#0F172A', 950: '#020617' }, 
+                        slate: { 900: '#0F172A', 950: '#020617' }, 
                         crimson: '#B22234',
                         silver: '#F1F5F9'
                     }
@@ -30,16 +21,16 @@
         }
     </script>
 </head>
-<body class="bg-slate-900 text-silver font-sans selection:bg-crimson">
+<body class="bg-slate-950 text-silver font-sans selection:bg-crimson">
 
-    <header class="fixed w-full z-50 bg-slate-950/95 border-b border-white/5 backdrop-blur-md">
+    <header class="fixed w-full z-50 bg-slate-950/95 border-b border-white/10 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex flex-col group">
-                <span style="font-family: 'Great Vibes';" class="text-3xl text-white group-hover:text-crimson transition">Real American Finance</span>
+            <a href="index.html" class="flex flex-col">
+                <span style="font-family: 'Great Vibes';" class="text-3xl text-white">Real American Finance</span>
                 <span class="font-heading text-[10px] tracking-[0.4em] text-gray-500 uppercase mt-1 font-bold">Discipline • Autonomy • Wealth</span>
             </a>
             <ul class="hidden lg:flex space-x-8 font-heading text-xs tracking-[0.2em] uppercase font-bold text-gray-400">
-                <li><a href="academy.html" class="text-white border-b-2 border-crimson">The Academy</a></li>
+                <li><a href="academy.html" class="text-white border-b-2 border-crimson pb-1">The Academy</a></li>
                 <li><a href="media.html" class="hover:text-white transition">Media</a></li>
                 <li><a href="the-lab.html" class="hover:text-white transition">Tools</a></li>
                 <li><a href="shop.html" class="hover:text-white transition">Shop</a></li>
@@ -48,79 +39,94 @@
         </nav>
     </header>
 
-    <section class="hero-bg pt-64 pb-40 text-center">
+    <section class="pt-64 pb-32 text-center border-b border-white/5">
         <div class="container mx-auto px-6">
-            <h1 class="text-7xl md:text-9xl font-heading font-bold uppercase tracking-tighter leading-none mb-6">THE <span class="text-crimson">PILLARS.</span></h1>
-            <p class="text-lg md:text-xl font-heading font-bold uppercase tracking-[0.5em] text-silver/70">Tactical Blueprint for Financial Sovereignty</p>
+            <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tighter leading-none mb-6">THE <span class="text-crimson">PILLARS.</span></h1>
+            <p class="text-lg font-heading font-bold uppercase tracking-[0.4em] text-gray-400">The Blueprint for Financial Sovereignty</p>
         </div>
     </section>
 
-    <main>
-        
-        <section class="zig-zag py-32 border-b border-white/5 bg-slate-900">
-            <div class="container mx-auto px-6">
-                <div class="flex items-end gap-6 mb-20">
-                    <span class="pillar-number font-heading text-9xl font-bold">01</span>
-                    <h2 class="text-5xl font-heading font-bold uppercase pb-4">Iron Pot <span class="text-crimson">Baseline</span></h2>
-                </div>
-                <div class="space-y-32">
-                    <div class="grid lg:grid-cols-2 gap-20 items-center">
-                        <div class="content-box">
-                            <h4 class="font-heading text-crimson tracking-widest uppercase mb-4 font-bold text-sm">The Summary</h4>
-                            <p class="text-2xl text-white font-light leading-relaxed">Perform a surgical audit of your lifestyle to find the "Baseline"—the absolute minimum cost of survival. Every dollar above this is ammunition.</p>
-                        </div>
-                        <div class="visual-box bg-slate-800 aspect-video border border-white/5"></div>
-                    </div>
-                    <div class="grid lg:grid-cols-2 gap-20 items-center">
-                        <div class="content-box lg:order-2">
-                            <h4 class="font-heading text-crimson tracking-widest uppercase mb-4 font-bold text-sm">Tactical Execution</h4>
-                            <ul class="space-y-6">
-                                <li class="flex items-center gap-4"><span class="w-2 h-2 bg-crimson"></span> 90-Day Diet & Subscription Purge</li>
-                                <li class="flex items-center gap-4"><span class="w-2 h-2 bg-crimson"></span> Manual "Cashflow Friction" Accounting</li>
-                                <li class="flex items-center gap-4"><span class="w-2 h-2 bg-crimson"></span> Identification of the "Ammunition Multiplier"</li>
-                            </ul>
-                        </div>
-                        <div class="visual-box lg:order-1 bg-slate-800 aspect-video border border-white/5"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <main class="container mx-auto px-6">
 
-        <section class="zig-zag py-32 border-b border-white/5 bg-slate-800/30">
-            <div class="container mx-auto px-6">
-                <div class="flex items-end gap-6 mb-20">
-                    <span class="pillar-number font-heading text-9xl font-bold">02</span>
-                    <h2 class="text-5xl font-heading font-bold uppercase pb-4">Wealth <span class="text-crimson">Architecture</span></h2>
-                </div>
-                <div class="space-y-32">
-                    <div class="grid lg:grid-cols-2 gap-20 items-center">
-                        <div class="content-box">
-                            <h4 class="font-heading text-crimson tracking-widest uppercase mb-4 font-bold text-sm">The Summary</h4>
-                            <p class="text-2xl text-white font-light leading-relaxed">Build automated plumbing that moves capital from income to assets through tactical buffers. This is hands-off wealth creation.</p>
+        <div class="py-24 border-b border-white/5">
+            <div class="flex flex-col md:flex-row gap-12 items-start">
+                <span class="text-8xl font-heading font-bold text-white/20 leading-none">01</span>
+                <div class="flex-1">
+                    <h2 class="text-4xl font-heading font-bold uppercase tracking-widest mb-4">Iron Pot <span class="text-crimson">Baseline</span></h2>
+                    <p class="text-xl text-gray-300 font-light mb-8 max-w-3xl">Perform a surgical audit of your lifestyle to find the "Baseline"—the absolute minimum cost of survival. Every dollar above this is ammunition.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mt-12">
+                        <div class="bg-white/5 p-6 border-l-2 border-crimson">
+                            <h4 class="text-xs uppercase font-bold tracking-widest text-crimson mb-2">The Mission</h4>
+                            <p class="text-sm text-silver">Establish a minimum viable lifestyle that allows for maximum capital redirection. No fluff until the foundation is poured.</p>
                         </div>
-                        <div class="visual-box bg-slate-900 aspect-video border border-white/5"></div>
-                    </div>
-                    <div class="grid lg:grid-cols-2 gap-20 items-center">
-                        <div class="content-box lg:order-2">
-                            <h4 class="font-heading text-crimson tracking-widest uppercase mb-4 font-bold text-sm">Tactical Execution</h4>
-                            <ul class="space-y-6">
-                                <li class="flex items-center gap-4"><span class="w-2 h-2 bg-crimson"></span> Automated "Sovereign Sweep" Bank Logic</li>
-                                <li class="flex items-center gap-4"><span class="w-2 h-2 bg-crimson"></span> Tiered Buffer Account Segregation</li>
-                                <li class="flex items-center gap-4"><span class="w-2 h-2 bg-crimson"></span> High-Yield Automated Capture Protocols</li>
+                        <div class="bg-white/5 p-6 border-l-2 border-white/20">
+                            <h4 class="text-xs uppercase font-bold tracking-widest text-white mb-2">Tactical Execution</h4>
+                            <ul class="text-xs space-y-2 text-gray-400 font-bold uppercase tracking-tighter">
+                                <li>• 90-Day Diet & Subscription Purge</li>
+                                <li>• Manual "Cashflow Friction" Accounting</li>
+                                <li>• Direct-to-War-Chest Automation</li>
                             </ul>
                         </div>
-                        <div class="visual-box lg:order-1 bg-slate-900 aspect-video border border-white/5"></div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <div class="py-24 border-b border-white/5">
+            <div class="flex flex-col md:flex-row-reverse gap-12 items-start text-right md:text-right">
+                <span class="text-8xl font-heading font-bold text-white/20 leading-none">02</span>
+                <div class="flex-1">
+                    <h2 class="text-4xl font-heading font-bold uppercase tracking-widest mb-4">Wealth <span class="text-crimson">Architecture</span></h2>
+                    <p class="text-xl text-gray-300 font-light mb-8 max-w-3xl ml-auto">Build the automated plumbing that moves your capital from income to assets through tactical buffers. Hands-off wealth creation for high-velocity earners.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mt-12 text-left">
+                        <div class="bg-white/5 p-6 border-l-2 border-crimson">
+                            <h4 class="text-xs uppercase font-bold tracking-widest text-crimson mb-2">The Mission</h4>
+                            <p class="text-sm text-silver">Build a system so robust that wealth becomes a byproduct of your existence, not a daily chore.</p>
+                        </div>
+                        <div class="bg-white/5 p-6 border-l-2 border-white/20">
+                            <h4 class="text-xs uppercase font-bold tracking-widest text-white mb-2">Tactical Execution</h4>
+                            <ul class="text-xs space-y-2 text-gray-400 font-bold uppercase tracking-tighter">
+                                <li>• Sovereign Sweep Bank Logic</li>
+                                <li>• Tiered Buffer Account Segregation</li>
+                                <li>• High-Yield Liquidity Capture</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-24 border-b border-white/5">
+            <div class="flex flex-col md:flex-row gap-12 items-start">
+                <span class="text-8xl font-heading font-bold text-white/20 leading-none">03</span>
+                <div class="flex-1">
+                    <h2 class="text-4xl font-heading font-bold uppercase tracking-widest mb-4">Debt <span class="text-crimson">Neutralization</span></h2>
+                    <p class="text-xl text-gray-300 font-light mb-8 max-w-3xl">Neutralize high-interest liabilities using specific velocity math. Pivot that energy directly into cash-flowing assets.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mt-12">
+                        <div class="bg-white/5 p-6 border-l-2 border-crimson">
+                            <h4 class="text-xs uppercase font-bold tracking-widest text-crimson mb-2">The Mission</h4>
+                            <p class="text-sm text-silver">Eliminate the "Energy Leak" of interest and reclaim your primary tool: monthly cash flow.</p>
+                        </div>
+                        <div class="bg-white/5 p-6 border-l-2 border-white/20">
+                            <h4 class="text-xs uppercase font-bold tracking-widest text-white mb-2">Tactical Execution</h4>
+                            <ul class="text-xs space-y-2 text-gray-400 font-bold uppercase tracking-tighter">
+                                <li>• Velocity Math Paydown Schedule</li>
+                                <li>• Interest Arbitrage Refinancing</li>
+                                <li>• Permanent Liability Ceiling</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         </main>
 
-    <footer class="bg-slate-950 border-t-8 border-crimson pt-24 pb-12">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-[10px] text-gray-600 uppercase tracking-[0.5em] font-bold">© 2026 Real American Finance. Discipline is Freedom.</p>
-        </div>
+    <footer class="py-20 border-t border-white/5 text-center">
+        <p class="text-[10px] text-gray-600 uppercase tracking-[0.5em] font-bold">© 2026 Real American Finance. Stay Sovereign.</p>
     </footer>
 </body>
 </html>
