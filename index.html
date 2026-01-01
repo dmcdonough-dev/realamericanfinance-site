@@ -6,7 +6,6 @@
     <title>Real American Finance | Discipline • Autonomy • Wealth</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
-
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -18,103 +17,81 @@
             }
         }
     </script>
-    <style>
-        .brand-script { font-family: 'Great Vibes', cursive; font-size: 1.75rem; }
-        .hero-gradient { background: linear-gradient(rgba(10,26,47,0.8), rgba(10,26,47,0.95)), url('./flag_distressed.jpg'); background-size: cover; background-position: center; }
-    </style>
 </head>
-<body class="bg-navy-900 text-white font-sans">
+<body class="bg-navy-900 text-white font-sans selection:bg-crimson">
 
-    <header class="fixed w-full z-50 bg-navy-900/95 backdrop-blur border-b border-white/5">
+    <header class="fixed w-full z-50 bg-navy-900/95 border-b border-white/5 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="flex flex-col">
-                <span class="brand-script leading-none">Real American Finance</span>
+            <a href="index.html" class="flex flex-col group">
+                <span style="font-family: 'Great Vibes';" class="text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
                 <span class="font-heading text-[10px] tracking-[0.3em] text-gray-400 uppercase">Discipline • Autonomy • Wealth</span>
             </a>
-            
-            <ul class="hidden md:flex space-x-8 font-heading text-sm tracking-widest uppercase">
-                <li><a href="the-lab.html" class="hover:text-crimson transition">Academy</a></li>
-                <li><a href="the-lab.html" class="hover:text-crimson transition">Media</a></li>
+            <ul class="hidden lg:flex space-x-8 font-heading text-xs tracking-[0.2em] uppercase">
+                <li><a href="academy.html" class="hover:text-crimson transition">Academy</a></li>
+                <li><a href="media.html" class="hover:text-crimson transition">Media</a></li>
                 <li><a href="the-lab.html" class="hover:text-crimson transition">The Lab</a></li>
-                <li><a href="the-lab.html" class="hover:text-crimson transition">Armoury</a></li>
-                <li><a href="the-lab.html" class="border border-crimson px-4 py-2 hover:bg-crimson transition">Coaching</a></li>
+                <li><a href="shop.html" class="hover:text-crimson transition">Armoury</a></li>
+                <li><a href="coming-soon.html" class="bg-crimson px-4 py-2 hover:bg-red-700 transition">Consulting</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="hero-gradient min-h-screen flex items-center pt-20">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-6xl md:text-8xl font-heading font-bold mb-6 tracking-tighter uppercase">
-                Build Your <span class="text-crimson">Fortress.</span>
+    <section class="min-h-screen flex items-center relative overflow-hidden pt-20">
+        <div class="absolute inset-0 bg-[url('./flag_distressed.jpg')] bg-cover bg-center opacity-20 grayscale"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h1 class="text-7xl md:text-9xl font-heading font-bold uppercase tracking-tighter leading-none mb-6">
+                Total <span class="text-crimson">Financial</span><br>Sovereignty.
             </h1>
-            <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto mb-10 font-light">
-                The modern financial system is designed to keep you dependent. We provide the discipline and frameworks to achieve true autonomy.
+            <p class="text-xl md:text-2xl text-gray-400 max-w-2xl font-light mb-12">
+                We don't teach "budgeting." We build architectures for autonomy. Stop playing the system's game—build your own.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#hubs" class="bg-crimson hover:bg-red-700 text-white px-10 py-4 rounded-sm font-heading font-bold tracking-widest transition uppercase">Enter the Academy</a>
-                <a href="#transmission" class="bg-white/10 hover:bg-white/20 text-white px-10 py-4 rounded-sm font-heading font-bold tracking-widest transition uppercase">View the Media</a>
+            <div class="flex flex-wrap gap-6">
+                <a href="academy.html" class="bg-crimson text-white px-12 py-5 font-heading text-lg tracking-widest hover:scale-105 transition transform uppercase">The Academy</a>
+                <a href="#about" class="border border-white/20 px-12 py-5 font-heading text-lg tracking-widest hover:bg-white hover:text-navy-900 transition uppercase">The Philosophy</a>
             </div>
         </div>
     </section>
 
-    <section id="hubs" class="py-24 bg-white text-navy-900">
+    <section id="about" class="py-32 bg-white text-navy-900">
         <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-3 gap-12">
-                <div class="group cursor-pointer">
-                    <div class="h-1 bg-crimson mb-6 w-12 group-hover:w-full transition-all duration-500"></div>
-                    <h3 class="text-3xl font-heading font-bold uppercase mb-4">The Academy</h3>
-                    <p class="text-gray-600 mb-6">Flagship courses and the "Iron Pot Millionaire" blueprint. Strategic education for serious operators.</p>
-                    <a href="the-lab.html" class="font-bold text-crimson uppercase tracking-widest text-sm">View Courses &rarr;</a>
-                </div>
-
-                <div class="group cursor-pointer">
-                    <div class="h-1 bg-navy-900 mb-6 w-12 group-hover:w-full transition-all duration-500"></div>
-                    <h3 class="text-3xl font-heading font-bold uppercase mb-4">The Lab</h3>
-                    <p class="text-gray-600 mb-6">Digital tools, investment trackers, and the "Wealth Architecture" toolkit. Execution starts here.</p>
-                    <a href="the-lab.html" class="font-bold text-navy-900 uppercase tracking-widest text-sm">Get Tools &rarr;</a>
-                </div>
-
-                <div class="group cursor-pointer">
-                    <div class="h-1 bg-gray-400 mb-6 w-12 group-hover:w-full transition-all duration-500"></div>
-                    <h3 class="text-3xl font-heading font-bold uppercase mb-4">The Armoury</h3>
-                    <p class="text-gray-600 mb-6">Identity, not swag. Premium gear and minimalist apparel for those who live the philosophy.</p>
-                    <a href="the-lab.html" class="font-bold text-gray-500 uppercase tracking-widest text-sm">Shop Identity &rarr;</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="transmission" class="py-24 bg-navy-800 border-y border-white/5">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
-                <div>
-                    <h2 class="text-5xl font-heading font-bold uppercase">Latest Transmissions</h2>
-                    <p class="text-crimson font-heading tracking-[0.3em] uppercase mt-2 text-sm">Distribution Machine: Podcast & YouTube</p>
-                </div>
-                <a href="the-lab.html" class="hidden md:block text-gray-400 hover:text-white uppercase tracking-widest text-xs border-b border-gray-600 pb-1">View Media Archive</a>
+            <div class="max-w-4xl mb-20">
+                <h2 class="text-5xl font-heading font-bold uppercase mb-6">The Infrastructure of Wealth</h2>
+                <p class="text-xl text-gray-600">The 12-pillar framework designed to move an individual from dependency to a legacy-scale movement.</p>
             </div>
             
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="aspect-video bg-navy-900 flex items-center justify-center border border-white/10 group overflow-hidden relative">
-                    <div class="absolute inset-0 bg-crimson/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <span class="font-heading text-xl text-gray-500">[ Latest YouTube Video ]</span>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-1">
+                <div class="p-8 bg-gray-50 border border-gray-100">
+                    <span class="text-crimson font-heading font-bold">01</span>
+                    <h4 class="font-heading text-xl uppercase mt-2">Academy</h4>
+                    <p class="text-sm text-gray-500 mt-2">Courses, Bootcamps, & Certifications.</p>
                 </div>
-                <div class="aspect-video bg-navy-900 flex items-center justify-center border border-white/10 group overflow-hidden relative">
-                    <div class="absolute inset-0 bg-crimson/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <span class="font-heading text-xl text-gray-500">[ Featured Podcast Episode ]</span>
+                <div class="p-8 bg-gray-50 border border-gray-100">
+                    <span class="text-crimson font-heading font-bold">02</span>
+                    <h4 class="font-heading text-xl uppercase mt-2">Media</h4>
+                    <p class="text-sm text-gray-500 mt-2">Podcasts & YouTube Distribution.</p>
+                </div>
+                <div class="p-8 bg-gray-50 border border-gray-100">
+                    <span class="text-crimson font-heading font-bold">03</span>
+                    <h4 class="font-heading text-xl uppercase mt-2">Tools</h4>
+                    <p class="text-sm text-gray-500 mt-2">The Lab: Trackers & Digital Assets.</p>
+                </div>
+                <div class="p-8 bg-gray-50 border border-gray-100">
+                    <span class="text-crimson font-heading font-bold">04</span>
+                    <h4 class="font-heading text-xl uppercase mt-2">Identity</h4>
+                    <p class="text-sm text-gray-500 mt-2">The Armoury: Premium Merch & Gear.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24 bg-navy-900 text-center">
-        <div class="container mx-auto px-6 max-w-4xl">
-            <h2 class="text-4xl font-heading font-bold uppercase mb-6">Join the Movement</h2>
-            <p class="text-gray-400 mb-10 text-lg">Weekly strategies on discipline and wealth. No fluff. Just the blueprint.</p>
-            <form class="flex flex-col sm:flex-row gap-2 max-w-lg mx-auto">
-                <input type="email" placeholder="Email Address" class="flex-grow bg-white/5 border border-white/10 px-6 py-4 focus:outline-none focus:border-crimson transition">
-                <button class="bg-crimson px-8 py-4 font-heading font-bold uppercase tracking-widest">Subscribe</button>
+    <section class="py-32 bg-navy-800 text-center">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 class="text-5xl font-heading font-bold uppercase mb-8 leading-tight">Join the 100-Year<br>Wealth Movement</h2>
+            <form class="flex flex-col md:flex-row gap-4">
+                <input type="email" placeholder="ENTER EMAIL ADDRESS" class="flex-grow bg-navy-900 border border-white/10 px-8 py-5 text-lg focus:border-crimson outline-none transition">
+                <button class="bg-crimson px-12 py-5 font-heading text-lg tracking-widest uppercase hover:bg-red-700 transition">Enlist</button>
             </form>
+            <p class="mt-6 text-gray-500 font-heading text-xs tracking-widest uppercase">Pillar 07: The Private Newsletter</p>
         </div>
     </section>
 
