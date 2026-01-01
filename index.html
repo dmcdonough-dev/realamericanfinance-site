@@ -7,8 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Lightened the overlay from 0.92 to 0.65 to let the flag show through */
         .hero-bg { 
-            background: linear-gradient(rgba(5,11,20,0.92), rgba(5,11,20,0.92)), url('./flag_distressed.jpg'); 
+            background: linear-gradient(rgba(5,11,20,0.65), rgba(5,11,20,0.65)), url('./flag_distressed.jpg'); 
             background-size: cover; background-position: center;
         }
     </style>
@@ -45,17 +46,17 @@
     <section class="hero-bg min-h-screen flex items-center justify-center pt-20 text-center">
         <div class="container mx-auto px-6">
             <div class="max-w-5xl mx-auto">
-                <h1 class="text-7xl md:text-9xl font-heading font-bold uppercase tracking-tight leading-[0.85] mb-8">
+                <h1 class="text-7xl md:text-9xl font-heading font-bold uppercase tracking-tight leading-[0.85] mb-8 drop-shadow-2xl">
                     OWN YOUR <br><span class="text-crimson">OUTCOMES.</span>
                 </h1>
                 
-                <p class="text-lg md:text-xl text-gray-400 font-heading font-bold uppercase tracking-[0.5em] mb-12">
+                <p class="text-lg md:text-xl text-white font-heading font-bold uppercase tracking-[0.5em] mb-12 drop-shadow-md">
                     Sovereignty Through Discipline
                 </p>
 
                 <div class="flex flex-wrap gap-6 justify-center">
-                    <a href="academy.html" class="bg-white text-navy-950 px-10 py-5 font-heading font-bold uppercase tracking-widest hover:bg-crimson hover:text-white transition text-lg">Enter the Academy</a>
-                    <a href="strategy.html" class="border border-white/20 px-10 py-5 font-heading font-bold uppercase tracking-widest hover:bg-white/10 transition text-lg">Strategy Briefing</a>
+                    <a href="academy.html" class="bg-white text-navy-950 px-10 py-5 font-heading font-bold uppercase tracking-widest hover:bg-crimson hover:text-white transition text-lg shadow-xl">Enter the Academy</a>
+                    <a href="strategy.html" class="border-2 border-white px-10 py-5 font-heading font-bold uppercase tracking-widest hover:bg-white hover:text-navy-950 transition text-lg backdrop-blur-sm">Strategy Briefing</a>
                 </div>
             </div>
         </div>
