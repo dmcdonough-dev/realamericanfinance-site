@@ -6,6 +6,14 @@
     <title>The Lab | Real American Finance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .hero-bg { 
+            background: linear-gradient(rgba(10,26,47,0.95), rgba(10,26,47,0.95)), url('./flag_distressed.jpg'); 
+            background-size: cover; background-position: center;
+        }
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        .lab-grid { background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 40px 40px; }
+    </style>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -17,10 +25,6 @@
             }
         }
     </script>
-    <style>
-        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-        .lab-grid { background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 40px 40px; }
-    </style>
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson">
 
@@ -30,37 +34,37 @@
                 <span style="font-family: 'Great Vibes';" class="text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
                 <span class="font-heading text-[10px] tracking-[0.4em] text-gray-400 uppercase mt-1 font-bold">Sovereignty Through Discipline</span>
             </a>
-            <ul class="hidden lg:flex space-x-8 font-heading text-xs tracking-[0.2em] uppercase font-bold text-gray-400">
-                <li><a href="academy.html" class="hover:text-white transition">The Academy</a></li>
-                <li><a href="media.html" class="hover:text-white transition">Media</a></li>
+            <ul class="hidden lg:flex space-x-8 font-heading text-xs tracking-[0.2em] uppercase font-bold">
+                <li><a href="academy.html" class="hover:text-crimson transition">The Academy</a></li>
+                <li><a href="media.html" class="hover:text-crimson transition">Media</a></li>
                 <li><a href="the-lab.html" class="text-crimson">Tools</a></li>
-                <li><a href="shop.html" class="hover:text-white transition">Shop</a></li>
-                <li><a href="strategy.html" class="bg-crimson px-5 py-2 text-white hover:bg-red-700 transition">Strategy Call</a></li>
+                <li><a href="shop.html" class="hover:text-crimson transition">Shop</a></li>
+                <li><a href="strategy.html" class="bg-crimson px-5 py-2 hover:bg-red-700 transition">Strategy Call</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="lab-grid pt-32 pb-24">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mb-20">
-                <h1 class="text-6xl font-heading font-bold uppercase tracking-tight mb-4">THE <span class="text-crimson">LAB.</span></h1>
-                <p class="text-gray-400 font-heading text-xs uppercase tracking-[0.3em] font-bold">Tactical Calculators & Decision Support Systems</p>
-            </div>
+    <section class="hero-bg pt-48 pb-24 border-b border-white/5 text-center">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight leading-none mb-6">THE <span class="text-crimson">LAB.</span></h1>
+            <p class="text-lg md:text-xl text-gray-400 font-medium uppercase tracking-[0.2em] leading-relaxed">Tactical decision support systems for the sovereign individual.</p>
+        </div>
+    </section>
 
+    <main class="lab-grid py-24">
+        <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-12">
                 
-                <div class="bg-navy-900 border border-white/10 rounded-sm p-8 flex flex-col h-full">
+                <div class="bg-navy-900/80 backdrop-blur-sm border border-white/10 rounded-sm p-8 flex flex-col h-full">
                     <div class="flex justify-between items-start mb-8">
                         <div>
                             <span class="text-crimson font-heading font-bold text-xs uppercase tracking-widest">Protocol 01</span>
-                            <h2 class="text-3xl font-heading font-bold uppercase mt-2">Surplus Velocity</h2>
+                            <h2 class="text-4xl font-heading font-bold uppercase mt-2">Surplus Velocity</h2>
                         </div>
                         <div class="p-3 bg-white/5 border border-white/10">
                             <svg class="w-6 h-6 text-crimson" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
                         </div>
                     </div>
-                    <p class="text-gray-400 text-sm mb-8 leading-relaxed italic">Determine your actual capital flow after "Iron Pot" baseline costs are subtracted. This is your War Chest fueling capacity.</p>
-                    
                     <div class="space-y-6 flex-grow">
                         <div>
                             <label class="block text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">Monthly Gross Income</label>
@@ -72,7 +76,6 @@
                         </div>
                         <button onclick="calculateSurplus()" class="w-full bg-white text-navy-950 font-heading font-bold uppercase tracking-widest py-4 hover:bg-crimson hover:text-white transition">Run Calculation</button>
                     </div>
-
                     <div id="surplus-result" class="mt-8 pt-8 border-t border-white/5 hidden">
                         <div class="flex justify-between items-end">
                             <span class="text-xs uppercase tracking-widest text-gray-500 font-bold">Monthly Surplus</span>
@@ -81,18 +84,16 @@
                     </div>
                 </div>
 
-                <div class="bg-navy-900 border border-white/10 rounded-sm p-8 flex flex-col h-full">
+                <div class="bg-navy-900/80 backdrop-blur-sm border border-white/10 rounded-sm p-8 flex flex-col h-full">
                     <div class="flex justify-between items-start mb-8">
                         <div>
                             <span class="text-crimson font-heading font-bold text-xs uppercase tracking-widest">Protocol 05</span>
-                            <h2 class="text-3xl font-heading font-bold uppercase mt-2">Asset Compounder</h2>
+                            <h2 class="text-4xl font-heading font-bold uppercase mt-2">Asset Compounder</h2>
                         </div>
                         <div class="p-3 bg-white/5 border border-white/10">
                             <svg class="w-6 h-6 text-crimson" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </div>
                     </div>
-                    <p class="text-gray-400 text-sm mb-8 leading-relaxed italic">Simulate the growth of your Offense Reservoir across high-level Sovereign Allocations over time.</p>
-                    
                     <div class="space-y-6 flex-grow">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
@@ -111,7 +112,6 @@
                         </div>
                         <button onclick="calculateGrowth()" class="w-full bg-white text-navy-950 font-heading font-bold uppercase tracking-widest py-4 hover:bg-crimson hover:text-white transition">Project Growth</button>
                     </div>
-
                     <div id="growth-result" class="mt-8 pt-8 border-t border-white/5 hidden">
                         <div class="flex justify-between items-end">
                             <span class="text-xs uppercase tracking-widest text-gray-500 font-bold">Projected Value</span>
@@ -129,14 +129,13 @@
             <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-20">
                 <div class="lg:w-1/2">
                     <a href="index.html" class="flex flex-col mb-6">
-                        <span style="font-family: 'Great Vibes';" class="text-5xl leading-none text-white">Real American Finance</span>
+                        <span style="font-family: 'Great Vibes';" class="text-5xl leading-none">Real American Finance</span>
                         <span class="font-heading text-xs tracking-[0.5em] text-gray-500 uppercase font-bold mt-2">Sovereignty Through Discipline</span>
                     </a>
                     <p class="text-gray-400 max-w-md text-sm leading-relaxed italic">
                         Providing tactical frameworks for financial autonomy. We do not offer investment advice; we build systems for the self-reliant.
                     </p>
                 </div>
-                
                 <div class="lg:w-1/3 w-full">
                     <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-white font-bold mb-4">Strategic Disclaimer</h4>
                     <div class="bg-white/5 border border-white/10 p-5 rounded-sm">
@@ -165,7 +164,7 @@
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold text-white">Tactical Lab</h4>
+                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Tactical Lab</h4>
                     <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
                         <li><a href="the-lab.html" class="text-white transition">Calculators</a></li>
                         <li><a href="shop.html" class="hover:text-white transition">Apparel</a></li>
@@ -182,11 +181,11 @@
                 </div>
             </div>
 
-            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-4 text-gray-700">
-                <p class="text-[9px] uppercase tracking-[0.5em] font-bold">© 2026 Real American Finance. All Rights Reserved. Stay Sovereign.</p>
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-4">
+                <p class="text-[9px] text-gray-700 uppercase tracking-[0.5em] font-bold">© 2026 Real American Finance. All Rights Reserved. Stay Sovereign.</p>
                 <div class="flex gap-6">
-                    <span class="text-[9px] uppercase tracking-widest cursor-pointer hover:text-white transition">Privacy Policy</span>
-                    <span class="text-[9px] uppercase tracking-widest cursor-pointer hover:text-white transition text-gray-800">Terms of Engagement</span>
+                    <span class="text-[9px] text-gray-800 uppercase tracking-widest cursor-pointer hover:text-white">Privacy Policy</span>
+                    <span class="text-[9px] text-gray-800 uppercase tracking-widest cursor-pointer hover:text-white">Terms of Engagement</span>
                 </div>
             </div>
         </div>
@@ -205,10 +204,7 @@
             const p = parseFloat(document.getElementById('principal').value) || 0;
             const r = (parseFloat(document.getElementById('yield').value) / 100) || 0;
             const n = parseInt(document.getElementById('years').value) || 10;
-            
-            // Basic compound interest formula: A = P(1+r)^n
             const final = p * Math.pow((1 + r), n);
-            
             document.getElementById('final-balance').innerText = '$' + Math.round(final).toLocaleString();
             document.getElementById('growth-result').classList.remove('hidden');
         }
