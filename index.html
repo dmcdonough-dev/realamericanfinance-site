@@ -17,20 +17,28 @@
             }
         }
     </script>
-    <style>.hero-bg { background: linear-gradient(rgba(10,26,47,0.85), rgba(10,26,47,0.95)), url('./flag_distressed.jpg'); background-size: cover; background-position: center; }</style>
+    <style>
+        .hero-bg { 
+            background: linear-gradient(rgba(10,26,47,0.85), rgba(10,26,47,0.95)), url('./flag_distressed.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+        }
+        ::selection { background-color: #B22234; color: white; }
+    </style>
 </head>
 <body class="bg-navy-900 text-white font-sans selection:bg-crimson">
+
     <header class="fixed w-full z-50 bg-navy-900/95 border-b border-white/5 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex flex-col">
-                <span style="font-family: 'Great Vibes';" class="text-3xl leading-none">Real American Finance</span>
+            <a href="index.html" class="flex flex-col group">
+                <span style="font-family: 'Great Vibes';" class="text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
                 <span class="font-heading text-[10px] tracking-[0.3em] text-gray-400 uppercase italic">By Americans. For Americans.</span>
             </a>
             <ul class="hidden lg:flex space-x-8 font-heading text-xs tracking-[0.2em] uppercase">
-                <li><a href="academy.html" class="hover:text-crimson">The Academy</a></li>
-                <li><a href="media.html" class="hover:text-crimson">Transmissions</a></li>
-                <li><a href="the-lab.html" class="hover:text-crimson">The Tool Chest</a></li>
-                <li><a href="shop.html" class="hover:text-crimson">The Armoury</a></li>
+                <li><a href="academy.html" class="hover:text-crimson transition">The Academy</a></li>
+                <li><a href="media.html" class="hover:text-crimson transition">Transmissions</a></li>
+                <li><a href="the-lab.html" class="hover:text-crimson transition">The Tool Chest</a></li>
+                <li><a href="shop.html" class="hover:text-crimson transition">The Armoury</a></li>
                 <li><a href="coming-soon.html" class="bg-crimson px-4 py-2 hover:bg-red-700 transition">Strategy Call</a></li>
             </ul>
         </nav>
@@ -38,11 +46,15 @@
 
     <section class="hero-bg min-h-screen flex items-center pt-20">
         <div class="container mx-auto px-6">
-            <h1 class="text-7xl md:text-9xl font-heading font-bold uppercase tracking-tighter leading-none mb-6">STOP BEING <br><span class="text-crimson">A VICTIM.</span></h1>
-            <p class="text-xl md:text-3xl text-gray-200 max-w-2xl font-bold mb-10 leading-tight">The modern system is designed to keep you broke. The <span class="text-crimson">Iron Pot Millionaire</span> philosophy is about colonial-era discipline to own your future.</p>
+            <h1 class="text-7xl md:text-9xl font-heading font-bold uppercase tracking-tighter leading-none mb-6">
+                OWN YOUR <br><span class="text-crimson">OUTCOME.</span>
+            </h1>
+            <p class="text-xl md:text-3xl text-gray-200 max-w-2xl font-bold mb-10 leading-tight">
+                Modern finance is designed to keep you dependent. The <span class="text-crimson">Iron Pot Millionaire</span> is about returning to the colonial grit that built this country. No fluff. Just discipline.
+            </p>
             <div class="flex flex-wrap gap-6">
-                <a href="academy.html" class="bg-crimson text-white px-12 py-5 font-heading text-xl tracking-widest hover:bg-red-800 transition uppercase">Get The Blueprint</a>
-                <a href="#hubs" class="border border-white/20 px-12 py-5 font-heading text-xl tracking-widest hover:bg-white hover:text-navy-900 transition uppercase">The Reality Check</a>
+                <a href="academy.html" class="bg-crimson text-white px-12 py-5 font-heading text-xl tracking-widest hover:bg-red-800 transition uppercase shadow-xl">Get The Blueprint</a>
+                <a href="#hubs" class="border border-white/20 px-12 py-5 font-heading text-xl tracking-widest hover:bg-white hover:text-navy-900 transition uppercase">View the Pillars</a>
             </div>
         </div>
     </section>
@@ -52,31 +64,69 @@
             <div class="group cursor-pointer" onclick="location.href='academy.html'">
                 <h3 class="text-4xl font-heading font-bold uppercase mb-4 group-hover:text-crimson transition">The Academy</h3>
                 <p class="text-xl font-bold mb-4">No Participation Trophies.</p>
-                <p class="text-gray-600">The math and mindset behind the Iron Pot. This is for the 1% who actually want to win.</p>
+                <p class="text-gray-600 leading-relaxed">The math and mindset behind the Iron Pot. This is for the 1% who actually want to win and stop making excuses.</p>
             </div>
             <div class="group cursor-pointer" onclick="location.href='media.html'">
                 <h3 class="text-4xl font-heading font-bold uppercase mb-4 group-hover:text-crimson transition">The Truth</h3>
                 <p class="text-xl font-bold mb-4">Zero Fluff.</p>
-                <p class="text-gray-600">The Podcast and Transmissions. We're cutting through the noise the "gurus" use to sell you debt.</p>
+                <p class="text-gray-600 leading-relaxed">Transmissions for the sovereign individual. We cut through the debt-mongering noise the "gurus" use to keep you soft.</p>
             </div>
             <div class="group cursor-pointer" onclick="location.href='the-lab.html'">
                 <h3 class="text-4xl font-heading font-bold uppercase mb-4 group-hover:text-crimson transition">The Gear</h3>
                 <p class="text-xl font-bold mb-4">Execute or Stay Broke.</p>
-                <p class="text-gray-600">The trackers, spreadsheets, and tech stack I use to run my life and my capital.</p>
+                <p class="text-gray-600 leading-relaxed">The Tool Chest. Tactical assets, precision trackers, and the tech stack I personally use to manage capital.</p>
             </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-navy-800 text-center border-t border-white/5">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 class="text-5xl font-heading font-bold uppercase mb-4">ENLIST FOR THE DISPATCH</h2>
+            <p class="text-xl text-gray-400 mb-10 font-bold uppercase tracking-widest">Quit making excuses. Join the movement.</p>
+            <form class="flex flex-col md:flex-row gap-2">
+                <input type="email" placeholder="YOUR EMAIL ADDRESS" class="flex-grow bg-navy-900 border-2 border-white/10 px-6 py-4 text-lg focus:border-crimson outline-none font-heading uppercase transition">
+                <button class="bg-crimson px-10 py-4 font-heading text-xl tracking-widest uppercase hover:bg-red-700 transition">Enlist</button>
+            </form>
         </div>
     </section>
 
     <footer class="bg-navy-900 border-t-4 border-crimson pt-20 pb-12">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-16 uppercase font-heading tracking-widest text-sm">
-                <div><h4 class="text-white mb-6 border-b border-white/10 pb-2">ACADEMY</h4><ul class="text-gray-500 space-y-4 text-xs"><li><a href="academy.html">The Playbook</a></li><li><a href="academy.html">30-Day Audit</a></li><li><a href="coming-soon.html">1-on-1 Strategy</a></li></ul></div>
-                <div><h4 class="text-white mb-6 border-b border-white/10 pb-2">THE TRUTH</h4><ul class="text-gray-500 space-y-4 text-xs"><li><a href="media.html">The Podcast</a></li><li><a href="media.html">YouTube</a></li><li><a href="index.html">The Dispatch</a></li></ul></div>
-                <div><h4 class="text-white mb-6 border-b border-white/10 pb-2">THE GEAR</h4><ul class="text-gray-500 space-y-4 text-xs"><li><a href="the-lab.html">Trackers</a></li><li><a href="shop.html">The Armoury</a></li><li><a href="the-lab.html">The Tech Stack</a></li></ul></div>
-                <div class="flex flex-col"><span style="font-family: 'Great Vibes';" class="text-4xl normal-case text-white leading-none">Real American Finance</span><p class="mt-4 text-gray-500 text-xs italic font-bold">"Discipline is the only way out."</p></div>
+                <div>
+                    <h4 class="text-white mb-6 border-b border-white/10 pb-2">ACADEMY</h4>
+                    <ul class="text-gray-500 space-y-4 text-xs">
+                        <li><a href="academy.html" class="hover:text-crimson transition">The Playbook</a></li>
+                        <li><a href="academy.html" class="hover:text-crimson transition">30-Day Audit</a></li>
+                        <li><a href="coming-soon.html" class="hover:text-crimson transition">1-on-1 Strategy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white mb-6 border-b border-white/10 pb-2">THE TRUTH</h4>
+                    <ul class="text-gray-500 space-y-4 text-xs">
+                        <li><a href="media.html" class="hover:text-crimson transition">The Podcast</a></li>
+                        <li><a href="media.html" class="hover:text-crimson transition">YouTube</a></li>
+                        <li><a href="index.html" class="hover:text-crimson transition">The Dispatch</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white mb-6 border-b border-white/10 pb-2">THE GEAR</h4>
+                    <ul class="text-gray-500 space-y-4 text-xs">
+                        <li><a href="the-lab.html" class="hover:text-crimson transition">Trackers</a></li>
+                        <li><a href="shop.html" class="hover:text-crimson transition">The Armoury</a></li>
+                        <li><a href="the-lab.html" class="hover:text-crimson transition">The Tech Stack</a></li>
+                    </ul>
+                </div>
+                <div class="flex flex-col">
+                    <span style="font-family: 'Great Vibes';" class="text-4xl normal-case text-white leading-none">Real American Finance</span>
+                    <p class="mt-4 text-gray-500 text-xs italic font-bold">"Discipline is the only way out."</p>
+                </div>
             </div>
-            <p class="text-[10px] text-gray-800 uppercase tracking-[0.8em] text-center font-bold">IRON POT MILLIONAIRE • NO EXCUSES</p>
+            <p class="text-[10px] text-gray-800 uppercase tracking-[0.8em] text-center font-bold border-t border-white/5 pt-10">
+                IRON POT MILLIONAIRE • NO EXCUSES • © 2026
+            </p>
         </div>
     </footer>
+
 </body>
 </html>
