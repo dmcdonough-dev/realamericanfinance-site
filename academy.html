@@ -1,47 +1,149 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark scroll-smooth">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academy | Real American Finance</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Academy | Real American Finance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
-    <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Oswald', 'sans-serif'] }, colors: { navy: { 900: '#0A1A2F' }, crimson: '#B22234' } } } }</script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Oswald', 'sans-serif'] },
+                    colors: { navy: { 900: '#0A1A2F', 800: '#11243F' }, crimson: '#B22234' }
+                }
+            }
+        }
+    </script>
 </head>
 <body class="bg-navy-900 text-white font-sans">
-    <nav class="p-6 border-b border-white/5 flex justify-between items-center fixed w-full z-50 bg-navy-900">
-        <a href="index.html" class="font-heading tracking-widest uppercase text-sm border-b-2 border-crimson">← Home Base</a>
-        <div class="font-heading uppercase tracking-widest text-lg">RAF <span class="text-crimson">Academy</span></div>
-    </nav>
-    <header class="pt-40 pb-20 px-6 text-center">
-        <h1 class="text-6xl md:text-9xl font-heading font-bold uppercase mb-6">KILL THE <span class="text-crimson">LIES.</span></h1>
-        <p class="text-2xl text-gray-400 max-w-3xl mx-auto font-bold uppercase">Modern personal finance is a trap. We teach colonial grit.</p>
+
+    <header class="fixed w-full z-50 bg-navy-900/95 border-b border-white/5 backdrop-blur-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex flex-col group">
+                <span style="font-family: 'Great Vibes';" class="text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
+                <span class="font-heading text-[10px] tracking-[0.3em] text-gray-400 uppercase italic">By Americans. For Americans.</span>
+            </a>
+            <ul class="hidden lg:flex space-x-8 font-heading text-xs tracking-[0.2em] uppercase">
+                <li><a href="academy.html" class="text-crimson">The Academy</a></li>
+                <li><a href="media.html" class="hover:text-crimson transition">Media</a></li>
+                <li><a href="the-lab.html" class="hover:text-crimson transition">Tools</a></li>
+                <li><a href="shop.html" class="hover:text-crimson transition">Shop</a></li>
+                <li><a href="coming-soon.html" class="bg-crimson px-4 py-2 hover:bg-red-700 transition">Strategy Call</a></li>
+            </ul>
+        </nav>
     </header>
-    <main class="container mx-auto px-6 pb-24">
-        <div class="grid md:grid-cols-2 gap-12">
-            <div class="bg-navy-800 p-12 border-t-8 border-crimson">
-                <h3 class="text-4xl font-heading uppercase mb-2">THE IRON POT MILLIONAIRE</h3>
-                <p class="text-xl font-bold text-crimson mb-6">The Core Playbook</p>
-                <p class="text-gray-400 mb-8 text-lg">My upcoming book on why colonial money habits beat modern theory. Stop investing in 401ks you can't touch and start building real autonomy.</p>
-                <button class="w-full bg-white text-navy-900 py-4 font-heading text-lg font-bold uppercase tracking-widest">Pre-Order Now</button>
-            </div>
-            <div class="bg-white text-navy-900 p-12 border-t-8 border-navy-900">
-                <h3 class="text-4xl font-heading uppercase mb-2">30-DAY FINANCIAL AUDIT</h3>
-                <p class="text-xl font-bold text-gray-500 mb-6">The Discipline Reset</p>
-                <p class="text-gray-700 mb-8 text-lg">A 30-day "hell month." We find every leak in your ship. No excuses, no participation trophies, just raw discipline.</p>
-                <button class="w-full bg-navy-900 text-white py-4 font-heading text-lg font-bold uppercase tracking-widest">Enlist Here</button>
+
+    <section class="pt-48 pb-20 bg-navy-900 text-center">
+        <div class="container mx-auto px-6">
+            <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase mb-6">THE <span class="text-crimson">CURRICULUM.</span></h1>
+            <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto font-bold uppercase tracking-widest">
+                Stop guessing. Start executing the 12 pillars of sovereign wealth.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white text-navy-900">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="bg-navy-900 p-8 shadow-2xl border-t-8 border-crimson">
+                    <h4 class="text-2xl font-heading mb-4 text-white uppercase tracking-widest">Iron Pot Millionaire</h4>
+                    <p class="text-gray-300 mb-6">A discipline-first wealth model built on minimalism, sacrifice, and long-term execution.</p>
+                    <ul class="text-left text-sm text-gray-400 mb-8 space-y-2 uppercase font-bold tracking-tighter">
+                        <li>• Strip spending to essentials</li>
+                        <li>• Aggressive debt destruction</li>
+                        <li>• Relentless savings logic</li>
+                    </ul>
+                    <a href="#iron-pot-details" class="block w-full text-center bg-white text-navy-900 py-3 font-heading uppercase font-bold hover:bg-crimson hover:text-white transition">Read Breakdown</a>
+                </div>
+
+                <div class="bg-navy-900 p-8 shadow-2xl border-t-8 border-crimson">
+                    <h4 class="text-2xl font-heading mb-4 text-white uppercase tracking-widest">Wealth Architecture</h4>
+                    <p class="text-gray-300 mb-6">A blueprint for building durable financial systems that survive economic volatility.</p>
+                    <ul class="text-left text-sm text-gray-400 mb-8 space-y-2 uppercase font-bold tracking-tighter">
+                        <li>• Cash, defense, offense layers</li>
+                        <li>• Automations and safeguards</li>
+                        <li>• Long-term allocation logic</li>
+                    </ul>
+                    <a href="#wealth-architecture-details" class="block w-full text-center bg-white text-navy-900 py-3 font-heading uppercase font-bold hover:bg-crimson hover:text-white transition">Read Breakdown</a>
+                </div>
+
+                <div class="bg-navy-900 p-8 shadow-2xl border-t-8 border-crimson">
+                    <h4 class="text-2xl font-heading mb-4 text-white uppercase tracking-widest">Scenario Planning</h4>
+                    <p class="text-gray-300 mb-6">A strategic approach to preparing for economic uncertainty and financial ambushes.</p>
+                    <ul class="text-left text-sm text-gray-400 mb-8 space-y-2 uppercase font-bold tracking-tighter">
+                        <li>• Job loss & recession paths</li>
+                        <li>• Pre-made emergency playbooks</li>
+                        <li>• Stress-testing your plan</li>
+                    </ul>
+                    <a href="#scenario-details" class="block w-full text-center bg-white text-navy-900 py-3 font-heading uppercase font-bold hover:bg-crimson hover:text-white transition">Read Breakdown</a>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
+
+    <section id="iron-pot-details" class="py-24 bg-navy-900 border-t border-white/5">
+        <div class="container mx-auto max-w-4xl px-6">
+            <h3 class="text-4xl md:text-5xl font-heading font-bold mb-8 text-white uppercase text-center md:text-left">The Iron Pot <span class="text-crimson">Baseline</span></h3>
+            <div class="prose prose-invert lg:prose-xl text-gray-300 max-w-none">
+                <p class="text-xl mb-8 leading-relaxed">
+                    Iron Pot Millionaire is a surgical approach to building wealth. It’s about defining your leanest, most focused version of life—your "iron pot" baseline—and running it long enough to radically change your trajectory.
+                </p>
+                
+                <h4 class="text-2xl font-heading text-white uppercase mb-4">How to Run the Playbook:</h4>
+                <ol class="list-decimal list-inside space-y-4 mb-10 font-bold uppercase tracking-tight">
+                    <li>Define non-negotiables: Housing, clean food, basic transport, essential tools.</li>
+                    <li>Cut the fluff: No subscriptions, no status spending, no lifestyle creep.</li>
+                    <li>Stack cash: Attack debt or build assets with relentless intensity.</li>
+                    <li>Track progress: Weekly audits. Numbers don't have feelings.</li>
+                </ol>
+
+                <div class="bg-navy-800 p-8 border-l-4 border-crimson italic">
+                    "Soon: Downloadable Iron Pot Millionaire one-page PDF with template and tracking sheet."
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer class="bg-navy-900 border-t-4 border-crimson pt-20 pb-12">
         <div class="container mx-auto px-6">
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-16 uppercase font-heading tracking-widest text-sm">
-                <div><h4 class="text-white mb-6 border-b border-white/10 pb-2">ACADEMY</h4><ul class="text-gray-500 space-y-4 text-xs"><li><a href="academy.html">The Playbook</a></li><li><a href="academy.html">30-Day Audit</a></li><li><a href="coming-soon.html">1-on-1 Strategy</a></li></ul></div>
-                <div><h4 class="text-white mb-6 border-b border-white/10 pb-2">THE TRUTH</h4><ul class="text-gray-500 space-y-4 text-xs"><li><a href="media.html">The Podcast</a></li><li><a href="media.html">YouTube</a></li><li><a href="index.html">The Dispatch</a></li></ul></div>
-                <div><h4 class="text-white mb-6 border-b border-white/10 pb-2">THE GEAR</h4><ul class="text-gray-500 space-y-4 text-xs"><li><a href="the-lab.html">Trackers</a></li><li><a href="shop.html">The Armoury</a></li><li><a href="the-lab.html">The Tech Stack</a></li></ul></div>
-                <div class="flex flex-col"><span style="font-family: 'Great Vibes';" class="text-4xl normal-case text-white leading-none">Real American Finance</span><p class="mt-4 text-gray-500 text-xs italic font-bold">"Discipline is the only way out."</p></div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-16 uppercase font-heading tracking-widest text-sm text-center lg:text-left">
+                <div>
+                    <h4 class="text-white mb-6 border-b border-white/10 pb-2 mx-auto lg:mx-0 w-max">ACADEMY</h4>
+                    <ul class="text-gray-500 space-y-4 text-xs">
+                        <li><a href="academy.html" class="hover:text-crimson">The Playbook</a></li>
+                        <li><a href="academy.html">30-Day Audit</a></li>
+                        <li><a href="coming-soon.html">Strategy Call</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white mb-6 border-b border-white/10 pb-2 mx-auto lg:mx-0 w-max">MEDIA</h4>
+                    <ul class="text-gray-500 space-y-4 text-xs">
+                        <li><a href="media.html">Podcast</a></li>
+                        <li><a href="media.html">YouTube</a></li>
+                        <li><a href="index.html">Newsletter</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white mb-6 border-b border-white/10 pb-2 mx-auto lg:mx-0 w-max">GEAR</h4>
+                    <ul class="text-gray-500 space-y-4 text-xs">
+                        <li><a href="the-lab.html">Tools</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="the-lab.html">Tech Stack</a></li>
+                    </ul>
+                </div>
+                <div class="flex flex-col items-center lg:items-start">
+                    <span style="font-family: 'Great Vibes';" class="text-4xl text-white leading-none">Real American Finance</span>
+                    <p class="mt-4 text-gray-500 text-xs italic font-bold">"Discipline is the only way out."</p>
+                </div>
             </div>
-            <p class="text-[10px] text-gray-800 uppercase tracking-[0.8em] text-center font-bold">IRON POT MILLIONAIRE • NO EXCUSES</p>
+            <p class="text-[10px] text-gray-800 uppercase tracking-[0.8em] text-center font-bold border-t border-white/5 pt-10">
+                IRON POT MILLIONAIRE • NO EXCUSES • © 2026
+            </p>
         </div>
     </footer>
+
 </body>
 </html>
