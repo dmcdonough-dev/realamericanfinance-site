@@ -71,6 +71,15 @@
     </section>
 
     <main class="container mx-auto px-6 py-12 flex-1">
+        <!-- NEW: Sovereignty Score Card (Top of page) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div class="lg:col-span-3 dashboard-card p-10 text-center shadow-2xl border-crimson border-2">
+                <h3 class="text-3xl font-heading uppercase tracking-wider mb-4 text-gray-300">Your Sovereignty Score</h3>
+                <div id="sovereignty-score" class="text-8xl font-bold text-crimson">0</div>
+                <p class="text-sm uppercase text-gray-400 mt-6 tracking-widest">Financial Independence Level • Higher = Stronger Fortress</p>
+            </div>
+        </div>
+
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
             <div class="lg:col-span-8 space-y-12">
@@ -228,30 +237,23 @@
                         </div>
                     </div>
                     <button onclick="saveProfile()" class="w-full mt-8 bg-white/5 border border-white/10 py-4 text-[9px] uppercase font-bold tracking-[0.3em] hover:bg-crimson transition shadow-lg">Secure strategy</button>
+                    <button onclick="emailBattlePlan()" class="w-full mt-4 bg-crimson/80 border border-crimson py-4 text-[11px] uppercase font-bold tracking-[0.3em] hover:bg-crimson transition shadow-lg">Email My Battle Plan</button>
                 </div>
             </div>
         </div>
 
+        <!-- NEW: Priority Target (Weak Point Detector) -->
         <div class="mt-20 dashboard-card p-12 border-t-8 border-crimson shadow-2xl">
-            <h3 class="text-3xl font-heading font-bold uppercase mb-8 italic text-white tracking-tight">Marching Orders</h3>
-            <div class="grid md:grid-cols-3 gap-12 text-sm">
-                <div class="bg-white/5 p-6 rounded border border-white/5">
-                    <h4 class="text-crimson font-heading uppercase mb-4 font-bold tracking-widest text-base">01. Secure The Floor</h4>
-                    <p id="order-walls" class="text-white font-bold italic opacity-90">...</p>
-                </div>
-                <div class="bg-white/5 p-6 rounded border border-white/5">
-                    <h4 class="text-white font-heading uppercase mb-4 font-bold tracking-widest text-base">02. Iron Pot Target</h4>
-                    <p id="order-liquidity" class="text-white font-bold italic opacity-90">...</p>
-                </div>
-                <div class="bg-white/5 p-6 rounded border border-white/5">
-                    <h4 class="text-white font-heading uppercase mb-4 font-bold tracking-widest text-base">03. Strike Strategy</h4>
-                    <p id="order-attack" class="text-white font-bold italic opacity-90">...</p>
-                </div>
+            <h3 class="text-3xl font-heading font-bold uppercase mb-8 text-white tracking-tight">Priority Target</h3>
+            <div id="weak-point-card" class="bg-white/5 p-10 rounded border border-white/10 text-center">
+                <p class="text-2xl font-bold italic text-gray-400">Enter your income and expenses to receive your first order.</p>
             </div>
         </div>
     </main>
 
+    <!-- Footer unchanged -->
     <footer class="bg-navy-950 border-t-8 border-crimson pt-20 pb-8">
+        <!-- ... your full footer from previous version ... -->
         <div class="container mx-auto px-6">
             <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-20">
                 <div class="lg:w-1/2">
@@ -325,7 +327,7 @@
         let myChart;
         let isWarMode = false;
         let p3Cache = [];
-        const CURRENT_VERSION = 'raf_siege_final';
+        const CURRENT_VERSION = 'raf_siege_v14';
 
         document.addEventListener('DOMContentLoaded', function () {
             const canvas = document.getElementById('budgetChart');
@@ -455,6 +457,24 @@
             savingsEl.className = savingsPerc >= 20 ? 'text-green-400 font-bold' : savingsPerc >= 10 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
         }
 
+        function emailBattlePlan() {
+            const score = document.getElementById('sovereignty-score').innerText;
+            const freedom = document.getElementById('countdown-val').innerText;
+            const warChest = document.getElementById('surplus-val').innerText;
+            const remaining = document.getElementById('center-remaining').innerText;
+            const weakPoint = document.getElementById('weak-point-card').innerText.trim();
+
+            const subject = "My Real American Finance Battle Plan";
+            const body = `SOVEREIGNTY SCORE: ${score}/100\n\n` +
+                         `Monthly War Chest: ${warChest}\n` +
+                         `Remaining After Essentials: ${remaining}\n` +
+                         `Debt Freedom Timeline: ${freedom}\n\n` +
+                         `PRIORITY TARGET:\n${weakPoint}\n\n` +
+                         `Generated from realamericanfinance.com/the-lab`;
+
+            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
         function calculateAll() {
             const income = (parseFloat(document.getElementById('paycheck').value) || 0) * (parseFloat(document.getElementById('freq').value) || 2);
             let t0 = 0; document.querySelectorAll('.tier-0-input').forEach(i => t0 += (parseFloat(i.value) || 0));
@@ -468,6 +488,7 @@
             const remaining = income - totalOutflow;
             const warChest = remaining + t0;
 
+            // High-interest alerts
             document.querySelectorAll('#debt-body tr').forEach(row => {
                 const rate = parseFloat(row.querySelector('.debt-rate-input').value) || 0;
                 const alert = row.querySelector('.debt-alert');
@@ -486,6 +507,41 @@
             }
 
             update503020(needsPerc, wantsPerc, savingsPerc);
+
+            // Sovereignty Score
+            let score = 0;
+            if (income > 0) {
+                score += (savingsPerc / 20) * 35; // Wealth allocation
+                const ironPot = parseFloat(document.querySelector('.tier-0-input')?.value || 0);
+                const floor = t1 + dMin;
+                const moatCoverage = floor > 0 ? ironPot / (floor * 6) : 0;
+                score += Math.min(100, moatCoverage * 100) * 30; // 6-month moat
+                score += dTotal === 0 ? 100 : Math.max(0, 100 - (dTotal / income * 12 * 10)) * 20; // Debt freedom
+                score += needsPerc <= 50 ? 100 : Math.max(0, 100 - (needsPerc - 50) * 3) * 15; // Needs control
+            }
+            score = Math.round(Math.min(100, Math.max(0, score)));
+            const scoreEl = document.getElementById('sovereignty-score');
+            scoreEl.innerText = score;
+            scoreEl.className = score >= 80 ? 'text-8xl font-bold text-white' : score >= 50 ? 'text-8xl font-bold text-gray-300' : 'text-8xl font-bold text-crimson';
+
+            // Weak Point Detector
+            let weakPoint = "Enter your income and expenses to receive your first order.";
+            if (income === 0) {
+                weakPoint = "Enter your monthly inflow to begin the siege.";
+            } else if (dTotal > 0 && remaining <= 0) {
+                weakPoint = "BREACH DETECTED: Inflow insufficient. Cut Cargo immediately and initiate War-Mode.";
+            } else if (document.querySelector('.debt-rate-input') && parseFloat(document.querySelector('.debt-rate-input').value || 0) >= 25) {
+                weakPoint = "HIGH-INTEREST DEBT DETECTED: Prioritize attack on highest-rate liability first.";
+            } else if (needsPerc > 60) {
+                weakPoint = `NEEDS TOO HIGH (${Math.round(needsPerc)}%): Largest controllable leak — review Tier 1 for cuts.`;
+            } else if (potPerc < 33) {
+                weakPoint = "IRON POT VULNERABLE: Less than 2 months coverage. Redirect surplus from Cargo to emergency fund.";
+            } else if (savingsPerc < 15) {
+                weakPoint = "WEALTH ALLOCATION LOW: Increase Tier 0 to ≥20% for long-term sovereignty.";
+            } else {
+                weakPoint = "STRONG POSITION: Maintain discipline. Consider accelerating debt payoff or wealth build.";
+            }
+            document.getElementById('weak-point-card').innerHTML = `<p class="text-2xl font-bold italic ${score < 50 ? 'text-crimson' : 'text-white'}">${weakPoint}</p>`;
 
             let monthsToFreedom = dTotal === 0 ? 0 : remaining <= 0 ? "∞" : Math.ceil(dTotal / (remaining + dMin));
             const countdownEl = document.getElementById('countdown-val');
