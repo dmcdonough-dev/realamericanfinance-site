@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,63 +8,61 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        .hero-bg { background: linear-gradient(rgba(5,11,20,0.8), rgba(5,11,20,0.8)), url('./flag_distressed.jpg'); background-size: cover; background-position: center; }
-        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        body { background-color: #050B14; color: white; font-family: 'Inter', sans-serif; }
+        .hero-bg { 
+            background: linear-gradient(rgba(5,11,20,0.9), rgba(5,11,20,0.9)), url('https://images.unsplash.com/photo-1507608158173-1dcec673a2e5?auto=format&fit=crop&q=80'); 
+            background-size: cover; background-position: center; 
+        }
         .dashboard-card { background: #0A1A2F; border: 1px solid rgba(255,255,255,0.05); }
         .input-underlined { border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent; outline: none; transition: border-color 0.3s; color: white; }
         .input-underlined:focus { border-color: #B22234; }
         
-        .tier-0 { border-left: 4px solid #B22234; background: rgba(178, 34, 52, 0.08); }
+        .tier-0 { border-left: 4px solid #B22234; background: rgba(178, 34, 52, 0.08); transition: all 0.5s ease; }
         .tier-1 { border-left: 4px solid #FFFFFF; background: rgba(255,255,255,0.04); }
-        .tier-2 { border-left: 4px solid #9ca3af; background: rgba(156,163,175,0.04); }
-        .tier-3 { border-left: 4px solid #4b5563; background: rgba(255,255,255,0.02); transition: all 0.5s ease; }
-        
-        .perc-badge { position: relative; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 800; letter-spacing: 0.1em; cursor: help; }
-        .perc-badge:hover .tooltip-text { visibility: visible; opacity: 1; }
-        .tooltip-text {
-            visibility: hidden; width: 220px; background-color: #11243F; color: #fff; text-align: left;
-            border: 1px solid #B22234; padding: 12px; position: absolute; z-index: 100;
-            bottom: 125%; right: 0; opacity: 0; transition: opacity 0.3s;
-            font-family: 'Inter', sans-serif; font-size: 10px; line-height: 1.4; text-transform: none;
-        }
+        .tier-3 { border-left: 4px solid #4b5563; background: rgba(255,255,255,0.02); }
 
-        .status-safe { background: rgba(255,255,255,0.1); color: #9ca3af; }
-        .status-warn { background: #B22234; color: white; box-shadow: 0 0 10px rgba(178, 34, 52, 0.5); }
-        .war-mode-active { border-left-color: #B22234 !important; background: rgba(178, 34, 52, 0.15) !important; opacity: 0.5; pointer-events: none; }
+        .frozen { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
+        .leak-warning { color: #B22234; font-weight: 800; font-size: 10px; animation: pulse 2s infinite; display: none; }
+        
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        .perc-badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 800; letter-spacing: 0.1em; background: rgba(255,255,255,0.1); color: #9ca3af; }
+        .status-warn { background: #B22234; color: white; }
+        
+        #chart-container { position: relative; width: 100%; max-width: 300px; margin: auto; }
+        #center-val { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%; pointer-events: none; }
     </style>
 </head>
-<body class="bg-navy-950 text-white font-sans selection:bg-crimson">
+<body class="selection:bg-crimson">
     
     <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex flex-col group">
-                <span style="font-family: 'Great Vibes';" class="text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
-                <span class="font-heading text-[10px] tracking-[0.4em] text-gray-400 uppercase mt-1 font-bold">Discipline • Autonomy • Wealth</span>
+            <a href="#" class="flex flex-col">
+                <span style="font-family: 'Great Vibes';" class="text-3xl text-white">Real American Finance</span>
+                <span class="font-heading text-[10px] tracking-[0.4em] text-gray-400 uppercase font-bold mt-1">Discipline • Autonomy • Wealth</span>
             </a>
-            <ul class="hidden lg:flex space-x-8 font-heading text-xs tracking-[0.2em] uppercase font-bold text-gray-400">
-                <li><a href="academy.html" class="hover:text-white transition">The Academy</a></li>
-                <li><a href="media.html" class="hover:text-white transition">Media</a></li>
-                <li><a href="the-lab.html" class="text-white border-b border-crimson">Tools</a></li>
-                <li><a href="shop.html" class="hover:text-white transition">Shop</a></li>
-                <li><a href="strategy.html" class="bg-crimson px-5 py-2 text-white hover:bg-red-700 transition">Strategy Call</a></li>
-            </ul>
+            <div class="hidden lg:flex space-x-6 text-[10px] font-heading font-bold uppercase tracking-widest text-gray-400">
+                <a href="#" class="hover:text-white transition">The Academy</a>
+                <a href="#" class="text-white border-b border-red-600">The Lab</a>
+                <a href="#" class="bg-red-700 text-white px-4 py-2">Strategy Call</a>
+            </div>
         </nav>
     </header>
 
-    <section class="hero-bg pt-48 pb-12 text-center">
-        <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight mb-4 leading-tight">THE <span class="text-crimson">LAB.</span></h1>
-        <p class="text-gray-400 font-heading uppercase tracking-[0.4em]">Pillar 01: Iron Pot Millionaire</p>
+    <section class="hero-bg pt-48 pb-20 text-center">
+        <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight text-white">THE <span class="text-red-700">LAB.</span></h1>
+        <p class="text-gray-400 font-heading uppercase tracking-[0.4em] mt-4">Pillar 01: Iron Pot Millionaire</p>
     </section>
 
     <main class="container mx-auto px-6 py-12">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
             <div class="lg:col-span-8 space-y-12">
-                <div class="dashboard-card p-8 shadow-2xl">
-                    <h3 class="text-xl font-heading font-bold uppercase mb-6 border-l-2 border-crimson pl-4">01. Monthly Inflow</h3>
+                <div class="dashboard-card p-8">
+                    <h3 class="text-xl font-heading font-bold uppercase mb-6 border-l-2 border-red-700 pl-4">01. Monthly Inflow</h3>
                     <div class="grid grid-cols-2 gap-8">
                         <input type="number" id="paycheck" oninput="calculateAll()" placeholder="Net Paycheck ($)" class="input-underlined p-4 text-xl font-bold">
-                        <select id="freq" onchange="calculateAll()" class="input-underlined p-4 text-sm font-bold text-white uppercase bg-navy-900">
+                        <select id="freq" onchange="calculateAll()" class="input-underlined p-4 text-sm font-bold text-white uppercase bg-[#0A1A2F]">
                             <option value="2">2x Per Month</option>
                             <option value="1">1x Per Month</option>
                             <option value="4">Weekly</option>
@@ -72,8 +70,8 @@
                     </div>
                 </div>
 
-                <div class="dashboard-card p-8 shadow-2xl">
-                    <h3 class="text-xl font-heading font-bold uppercase mb-6 border-l-2 border-crimson pl-4">02. Debt Reconnaissance</h3>
+                <div class="dashboard-card p-8">
+                    <h3 class="text-xl font-heading font-bold uppercase mb-6 border-l-2 border-red-700 pl-4">02. Debt Reconnaissance</h3>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-[10px] uppercase font-bold text-gray-500 tracking-widest">
                             <thead>
@@ -81,7 +79,7 @@
                                     <th class="pb-4 px-2">Liability</th>
                                     <th class="pb-4 px-2">Min. Payment ($)</th>
                                     <th class="pb-4 px-2">Total Balance ($)</th>
-                                    <th class="pb-4 px-2 text-crimson">APR (%)</th>
+                                    <th class="pb-4 px-2 text-red-600">APR (%)</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -90,8 +88,8 @@
                                     <td class="py-4 px-2"><input type="text" placeholder="e.g. Credit Card" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
                                     <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
                                     <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
-                                    <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-apr-input bg-transparent w-full outline-none text-crimson text-xs font-bold" placeholder="0"></td>
-                                    <td class="text-right"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button></td>
+                                    <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-apr-input bg-transparent w-full outline-none text-red-600 text-xs font-bold" placeholder="0"></td>
+                                    <td class="text-right"><button onclick="removeRow(this)" class="hover:text-red-700 transition text-lg">×</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -99,19 +97,19 @@
                     </div>
                 </div>
 
-                <div class="dashboard-card p-8 shadow-2xl">
-                    <div class="flex justify-between items-center mb-10">
-                        <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-4">03. The Siege Engine</h3>
-                        <button onclick="toggleWarMode()" id="war-mode-btn" class="bg-white/5 border border-white/20 px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:border-crimson transition">Initiate War-Mode</button>
-                    </div>
+                <div class="dashboard-card p-8">
+                    <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-red-700 pl-4 mb-10">03. The Siege Engine</h3>
                     
                     <div class="space-y-8">
-                        <div class="tier-0 p-6 space-y-4">
+                        <div id="tier-0-container" class="tier-0 p-6 space-y-4 relative">
                             <div class="flex justify-between items-center">
-                                <h4 class="text-[11px] uppercase font-bold text-crimson tracking-[0.3em]">Priority 00: Wealth</h4>
-                                <div id="badge-t0" class="perc-badge status-safe">0% <span class="tooltip-text">Goal: 20%. Wealth is your exit strategy.</span></div>
+                                <div class="flex items-center gap-4">
+                                    <h4 class="text-[11px] uppercase font-bold text-red-600 tracking-[0.3em]">Priority 00: Wealth</h4>
+                                    <span id="leak-msg" class="leak-warning">STRUCTURAL LEAK DETECTED: HIGH APR DEBT</span>
+                                </div>
+                                <div id="badge-t0" class="perc-badge">0%</div>
                             </div>
-                            <div id="t0-rows">
+                            <div id="t0-rows" class="space-y-2">
                                 <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Iron Pot (Emergency)</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
                                 <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Investing / 401k</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
                             </div>
@@ -121,37 +119,23 @@
                         <div class="tier-1 p-6 space-y-4">
                             <div class="flex justify-between items-center">
                                 <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Priority 01: Survival</h4>
-                                <div id="badge-t1" class="perc-badge status-safe">0% <span class="tooltip-text">Limit: 50%. Structural costs should never exceed half your income.</span></div>
+                                <div id="badge-t1" class="perc-badge">0%</div>
                             </div>
-                            <div class="flex justify-between border-b border-white/10 py-3 px-4 bg-white/5"><span class="text-xs uppercase font-bold text-crimson">Debt Minimums</span><span id="auto-debt-min" class="text-sm font-bold">$0.00</span></div>
-                            <div id="t1-rows">
-                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Rent / Mortgage</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
-                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Essential Groceries</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
-                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Transport / Gas</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
+                            <div id="t1-rows" class="space-y-2">
+                                <div class="flex justify-between border-b border-white/10 py-3 px-4 bg-white/5"><span class="text-xs uppercase font-bold text-red-600">Debt Minimums</span><span id="auto-debt-min" class="text-sm font-bold">$0.00</span></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Housing</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Groceries & Gas</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
                             </div>
                             <button onclick="addRow('t1-rows', 'tier-1-input')" class="text-[8px] uppercase font-bold text-gray-500 hover:text-white">+ Add Reinforcement</button>
                         </div>
 
-                        <div class="tier-2 p-6 space-y-4">
-                            <div class="flex justify-between items-center">
-                                <h4 class="text-[11px] uppercase font-bold text-gray-400 tracking-[0.3em]">Priority 02: Infrastructure</h4>
-                                <div id="badge-t2" class="perc-badge status-safe">0% <span class="tooltip-text">Limit: 15%. Supporting costs for your lifestyle machine.</span></div>
-                            </div>
-                            <div id="t2-rows">
-                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-300">Utilities / Heating</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
-                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-300">Internet / Cell Plan</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
-                            </div>
-                            <button onclick="addRow('t2-rows', 'tier-2-input')" class="text-[8px] uppercase font-bold text-gray-500 hover:text-white">+ Add Reinforcement</button>
-                        </div>
-
-                        <div class="tier-3 p-6 space-y-4" id="tier-3-container">
+                        <div class="tier-3 p-6 space-y-4">
                             <div class="flex justify-between items-center">
                                 <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Priority 03: The Cargo</h4>
-                                <div id="badge-t3" class="perc-badge status-safe">0% <span class="tooltip-text">Limit: 30%. Your "Wants." Cut these first in War Mode.</span></div>
+                                <div id="badge-t3" class="perc-badge">0%</div>
                             </div>
-                            <div id="t3-rows">
-                                <div class="flex justify-between border-b border-white/10 py-2"><span class="text-xs uppercase font-bold text-gray-100">Dining / Takeout</span><input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-24 text-right font-bold" placeholder="0"></div>
-                                <div class="flex justify-between border-b border-white/10 py-2"><span class="text-xs uppercase font-bold text-gray-100">Subscriptions / Fun</span><input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-24 text-right font-bold" placeholder="0"></div>
+                            <div id="t3-rows" class="space-y-2">
+                                <div class="flex justify-between border-b border-white/10 py-2"><span class="text-xs uppercase font-bold text-gray-100">Dining & Fun</span><input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-24 text-right font-bold" placeholder="0"></div>
                             </div>
                             <button onclick="addRow('t3-rows', 'tier-3-input')" class="text-[8px] uppercase font-bold text-gray-500 hover:text-white">+ Add Reinforcement</button>
                         </div>
@@ -160,154 +144,125 @@
             </div>
 
             <div class="lg:col-span-4">
-                <div class="dashboard-card p-10 sticky top-32 shadow-2xl border-white/10 text-center">
-                    <canvas id="budgetChart" class="mb-10"></canvas>
-                    <div class="space-y-6 text-[10px] uppercase font-bold tracking-[0.2em]">
-                        <div class="flex justify-between"><span>Debt Total:</span><span id="total-debt-val" class="text-white">$0</span></div>
-                        <div class="bg-navy-950/50 p-6 border border-white/5">
-                            <div id="surplus-val" class="text-4xl font-heading font-bold text-crimson">$0</div>
-                            <span class="text-[9px] text-gray-500 uppercase mt-2 block tracking-widest">Monthly Strike Force</span>
+                <div class="dashboard-card p-10 sticky top-32 text-center">
+                    <div id="chart-container">
+                        <canvas id="budgetChart"></canvas>
+                        <div id="center-val">
+                            <div id="center-amount" class="text-3xl font-heading font-bold text-white">$0</div>
+                            <div class="text-[8px] uppercase tracking-widest text-gray-500 font-bold">Remaining</div>
                         </div>
                     </div>
-                    <button onclick="saveProfile()" class="w-full mt-8 bg-white/5 border border-white/10 py-4 text-[9px] uppercase font-bold tracking-[0.3em] hover:bg-crimson transition">Secure Strategy</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-20 dashboard-card p-12 border-t-8 border-crimson">
-            <h3 class="text-3xl font-heading font-bold uppercase mb-8 italic text-white">Marching Orders</h3>
-            <div class="grid md:grid-cols-3 gap-12 text-sm">
-                <div class="bg-white/5 p-6 border border-white/5">
-                    <h4 class="text-crimson font-heading uppercase mb-4 font-bold tracking-widest">01. Tactical Status</h4>
-                    <p id="order-walls" class="text-white italic">Enter inflow to begin.</p>
-                </div>
-                <div class="bg-white/5 p-6 border border-white/5">
-                    <h4 class="text-white font-heading uppercase mb-4 font-bold tracking-widest">02. Primary Objective</h4>
-                    <p id="order-liquidity" class="text-white italic">Awaiting data.</p>
-                </div>
-                <div class="bg-white/5 p-6 border border-white/5">
-                    <h4 class="text-white font-heading uppercase mb-4 font-bold tracking-widest">03. Strike Strategy</h4>
-                    <p id="order-attack" class="text-white italic">Prepare for sovereignty.</p>
+                    
+                    <div class="mt-8 space-y-4 text-[10px] uppercase font-bold tracking-widest border-t border-white/10 pt-8">
+                        <div class="flex justify-between"><span>Total Debt:</span><span id="total-debt-val" class="text-white font-bold">$0</span></div>
+                        <div class="bg-navy-950 p-6 border border-white/5">
+                            <div id="strike-force-val" class="text-4xl font-heading text-red-700">$0</div>
+                            <span class="text-[9px] text-gray-500 block mt-2">Monthly Strike Force</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="bg-navy-950 border-t-8 border-crimson pt-20 pb-12 mt-24">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex flex-col items-center md:items-start">
-                <span style="font-family: 'Great Vibes';" class="text-4xl">Real American Finance</span>
-                <span class="text-[10px] tracking-[0.4em] text-gray-500 uppercase font-bold mt-2">Discipline • Autonomy • Wealth</span>
-            </div>
-            <p class="text-[9px] text-gray-700 uppercase tracking-[0.5em] font-bold">© 2026. Own Your Outcomes.</p>
+    <footer class="bg-[#050B14] border-t-8 border-red-700 py-12 mt-24">
+        <div class="container mx-auto px-6 text-center">
+            <span style="font-family: 'Great Vibes';" class="text-4xl text-white">Real American Finance</span>
+            <p class="text-[9px] text-gray-700 uppercase tracking-[0.5em] font-bold mt-4">© 2026. Own Your Outcomes.</p>
         </div>
     </footer>
 
     <script>
         let myChart;
-        let isWarMode = false;
-        let p3Cache = [];
 
         function initChart() {
             const ctx = document.getElementById('budgetChart').getContext('2d');
             myChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Wealth', 'Survival', 'Debt Min', 'Other', 'Remaining'],
-                    datasets: [{ data: [0,0,0,0,100], backgroundColor: ['#B22234', '#FFFFFF', '#B2223455', '#4b5563', '#11243F'], borderWidth: 0 }]
+                    labels: ['Wealth', 'Survival', 'Min Debt', 'Cargo', 'Left'],
+                    datasets: [{ 
+                        data: [0,0,0,0,100], 
+                        backgroundColor: ['#B22234', '#FFFFFF', '#B22234aa', '#4b5563', '#11243F'], 
+                        borderWidth: 0
+                    }]
                 },
-                options: { cutout: '85%', plugins: { legend: { display: false } } }
+                options: { cutout: '75%', plugins: { legend: { display: false } } }
             });
-            loadProfile();
         }
 
         function addRow(containerId, inputClass) {
             const container = document.getElementById(containerId);
             const div = document.createElement('div');
             div.className = "flex justify-between border-b border-white/5 py-2";
-            div.innerHTML = `<input type="text" placeholder="Custom Item" class="bg-transparent text-xs uppercase font-bold outline-none text-gray-400 w-1/2">
+            div.innerHTML = `<input type="text" placeholder="Custom" class="bg-transparent text-xs uppercase font-bold outline-none text-gray-400 w-1/2">
                              <div class="flex items-center">
                                 <input type="number" oninput="calculateAll()" class="${inputClass} input-underlined w-24 text-right" placeholder="0">
-                                <button onclick="this.parentElement.parentElement.remove(); calculateAll();" class="ml-2 text-gray-600 hover:text-crimson">×</button>
+                                <button onclick="this.parentElement.parentElement.remove(); calculateAll();" class="ml-2 text-gray-600 hover:text-red-700">×</button>
                              </div>`;
             container.appendChild(div);
         }
 
         function addDebtRow() {
             const row = document.createElement('tr'); row.className = "border-b border-white/5";
-            row.innerHTML = `<td class="py-4 px-2"><input type="text" placeholder="Liability" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td><td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td><td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td><td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-apr-input bg-transparent w-full outline-none text-crimson text-xs font-bold" placeholder="0"></td><td class="text-right"><button onclick="removeRow(this)">×</button></td>`;
+            row.innerHTML = `<td class="py-4 px-2"><input type="text" placeholder="Liability" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td><td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td><td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td><td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-apr-input bg-transparent w-full outline-none text-red-600 text-xs font-bold" placeholder="0"></td><td class="text-right"><button onclick="removeRow(this)">×</button></td>`;
             document.getElementById('debt-body').appendChild(row);
         }
 
         function removeRow(btn) { btn.closest('tr').remove(); calculateAll(); }
 
-        function toggleWarMode() {
-            isWarMode = !isWarMode;
-            const btn = document.getElementById('war-mode-btn');
-            const container = document.getElementById('tier-3-container');
-            const inputs = document.querySelectorAll('.tier-3-input');
-            if(isWarMode) {
-                btn.innerText = "Deactivate War-Mode";
-                container.classList.add('war-mode-active');
-                p3Cache = Array.from(inputs).map(i => i.value);
-                inputs.forEach(i => i.value = 0);
-            } else {
-                btn.innerText = "Initiate War-Mode";
-                container.classList.remove('war-mode-active');
-                inputs.forEach((i, idx) => i.value = p3Cache[idx] || 0);
-            }
-            calculateAll();
-        }
-
         function calculateAll() {
             const income = (parseFloat(document.getElementById('paycheck').value) || 0) * parseFloat(document.getElementById('freq').value);
-            let t0 = 0; document.querySelectorAll('.tier-0-input').forEach(i => t0 += (parseFloat(i.value) || 0));
+            
+            // Debt Logic
             let dMin = 0; document.querySelectorAll('.debt-min-input').forEach(i => dMin += (parseFloat(i.value) || 0));
             let dTotal = 0; document.querySelectorAll('.debt-balance-input').forEach(i => dTotal += (parseFloat(i.value) || 0));
-            let dMaxApr = 0; document.querySelectorAll('.debt-apr-input').forEach(i => dMaxApr = Math.max(dMaxApr, parseFloat(i.value) || 0));
+            let maxAPR = 0; document.querySelectorAll('.debt-apr-input').forEach(i => {
+                let val = parseFloat(i.value) || 0;
+                if(val > maxAPR) maxAPR = val;
+            });
+
+            // Tiers
+            let t0 = 0; document.querySelectorAll('.tier-0-input').forEach(i => t0 += (parseFloat(i.value) || 0));
             let t1 = 0; document.querySelectorAll('.tier-1-input').forEach(i => t1 += (parseFloat(i.value) || 0));
-            let t2 = 0; document.querySelectorAll('.tier-2-input').forEach(i => t2 += (parseFloat(i.value) || 0));
             let t3 = 0; document.querySelectorAll('.tier-3-input').forEach(i => t3 += (parseFloat(i.value) || 0));
 
-            const spent = t0 + dMin + t1 + t2 + t3;
-            const remaining = income - spent;
-            const strikeForce = remaining + t0;
+            // APR Trigger Logic
+            const tier0 = document.getElementById('tier-0-container');
+            const leakMsg = document.getElementById('leak-msg');
+            if(maxAPR >= 20) {
+                tier0.classList.add('frozen');
+                leakMsg.style.display = 'block';
+                t0 = 0; // Force zero wealth contribution if CC debt exists
+            } else {
+                tier0.classList.remove('frozen');
+                leakMsg.style.display = 'none';
+            }
 
-            document.getElementById('surplus-val').innerText = `$${Math.round(strikeForce).toLocaleString()}`;
-            document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
+            const remaining = income - (t0 + dMin + t1 + t3);
+
+            document.getElementById('center-amount').innerText = `$${Math.round(remaining).toLocaleString()}`;
             document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
+            document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
+            document.getElementById('strike-force-val').innerText = `$${Math.round(remaining + t0).toLocaleString()}`;
 
-            // Percentage Badges
             if(income > 0) {
-                document.getElementById('badge-t0').innerText = `${Math.round((t0/income)*100)}%`;
-                document.getElementById('badge-t1').innerText = `${Math.round(((t1+dMin)/income)*100)}%`;
-                document.getElementById('badge-t2').innerText = `${Math.round((t2/income)*100)}%`;
-                document.getElementById('badge-t3').innerText = `${Math.round((t3/income)*100)}%`;
+                updateBadge('badge-t0', (t0/income)*100, 20, true);
+                updateBadge('badge-t1', ((t1+dMin)/income)*100, 50);
+                updateBadge('badge-t3', (t3/income)*100, 30);
             }
 
-            // Strategic Logic: Debt-First
-            if(income > 0) {
-                document.getElementById('order-walls').innerText = `Your foundation requires $${(t1 + dMin).toLocaleString()} to stay standing.`;
-                
-                if(dMaxApr >= 10) {
-                    document.getElementById('order-liquidity').innerText = `DANGER: High Interest Debt (${dMaxApr}%). Halt all savings above 1 month iron pot and BLITZ this debt.`;
-                    document.getElementById('order-attack').innerText = `Apply $${Math.round(strikeForce).toLocaleString()} monthly to your highest APR debt. Mathematics demand it.`;
-                } else {
-                    document.getElementById('order-liquidity').innerText = `Target Iron Pot: $${((t1 + dMin) * 3).toLocaleString()}. Protect the home base.`;
-                    document.getElementById('order-attack').innerText = `With low-interest debt, continue building the Iron Pot Millionaire fund.`;
-                }
-            }
-
-            myChart.data.datasets[0].data = [t0, t1, dMin, t2+t3, Math.max(0, remaining)];
+            myChart.data.datasets[0].data = [t0, t1, dMin, t3, Math.max(0, remaining)];
             myChart.update();
         }
 
-        function saveProfile() {
-            // Simplified for brevity, same logic as before
-            alert('STRATEGY SECURED');
+        function updateBadge(id, current, limit, isWealth = false) {
+            const badge = document.getElementById(id);
+            badge.innerText = `${Math.round(current)}%`;
+            const isUnsafe = isWealth ? current < limit : current > limit;
+            badge.className = (isUnsafe && current > 0) ? "perc-badge status-warn" : "perc-badge";
         }
 
-        function loadProfile() {}
         window.onload = initChart;
     </script>
 </body>
