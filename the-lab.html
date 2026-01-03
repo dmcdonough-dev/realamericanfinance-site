@@ -8,20 +8,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #050B14; color: white; font-family: 'Inter', sans-serif; margin: 0; padding: 0; line-height: 1.5; }
-        
-        /* Layout Blocks */
-        .section-padding { padding: 4rem 1.5rem; }
+        body { background-color: #050B14; color: white; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
         .card { background: #0A1A2F; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; }
-        
-        /* Input Styling */
         .input-field { background: transparent; border: none; border-bottom: 2px solid rgba(255,255,255,0.1); color: white; padding: 0.75rem 0; width: 100%; outline: none; font-weight: bold; }
         .input-field:focus { border-color: #B22234; }
-        
-        /* Logic Indicators */
         .frozen { opacity: 0.25; pointer-events: none; filter: grayscale(1); }
-        .status-badge { font-[8px] uppercase font-bold tracking-widest bg-white/10 px-3 py-1 rounded; color: #9ca3af; }
-        .danger-text { color: #B22234; }
     </style>
 </head>
 <body>
@@ -33,17 +24,12 @@
                 <div class="text-[10px] tracking-[0.5em] text-gray-500 uppercase font-bold mt-2">Discipline • Autonomy • Wealth</div>
             </div>
             <nav class="flex gap-8 text-[11px] font-bold uppercase tracking-widest text-gray-400">
-                <a href="#" class="hover:text-white transition">Academy</a>
+                <a href="#">Academy</a>
                 <a href="#" class="text-white border-b-2 border-red-700 pb-1">The Lab</a>
-                <a href="#" class="bg-red-700 text-white px-6 py-2 hover:bg-red-800 transition">Strategy Call</a>
+                <a href="#" class="bg-red-700 text-white px-6 py-2">Strategy Call</a>
             </nav>
         </div>
     </header>
-
-    <section class="bg-gradient-to-b from-[#071324] to-[#050B14] py-20 text-center border-b border-white/5">
-        <h1 class="text-7xl md:text-9xl font-extrabold uppercase tracking-tighter">THE <span class="text-red-700">LAB.</span></h1>
-        <p class="text-gray-400 uppercase tracking-[0.7em] mt-6 font-bold text-sm">Pillar 01: Iron Pot Millionaire</p>
-    </section>
 
     <main class="max-w-6xl mx-auto px-6 py-16">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -52,96 +38,57 @@
                 <div class="card">
                     <h3 class="text-xl font-bold uppercase mb-8 border-l-4 border-red-700 pl-4">01. Monthly Inflow</h3>
                     <div class="grid md:grid-cols-2 gap-10">
-                        <div>
-                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Net Paycheck ($)</label>
-                            <input type="number" id="pay" oninput="run()" class="input-field text-3xl">
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Frequency</label>
-                            <select id="freq" onchange="run()" class="input-field text-lg bg-[#0A1A2F]">
-                                <option value="2">Bi-Weekly (2x)</option>
-                                <option value="1">Monthly (1x)</option>
-                                <option value="4">Weekly (4x)</option>
-                            </select>
-                        </div>
+                        <input type="number" id="pay" oninput="run()" placeholder="Net Paycheck ($)" class="input-field text-3xl">
+                        <select id="freq" onchange="run()" class="input-field text-lg bg-[#0A1A2F]">
+                            <option value="2">Bi-Weekly (2x)</option>
+                            <option value="1">Monthly (1x)</option>
+                            <option value="4">Weekly (4x)</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h3 class="text-xl font-bold uppercase mb-8 border-l-4 border-red-700 pl-4">02. Debt Reconnaissance</h3>
+                    <h3 class="text-xl font-bold uppercase mb-8 border-l-4 border-red-700 pl-4">02. Debt Recon</h3>
                     <table class="w-full text-left text-[11px] font-bold uppercase text-gray-500">
-                        <thead class="border-b border-white/10">
-                            <tr><th class="pb-4 px-2">Liability</th><th class="pb-4 px-2">Min Pay</th><th class="pb-4 px-2">Balance</th><th class="pb-4 px-2 danger-text">APR %</th><th></th></tr>
-                        </thead>
                         <tbody id="debt-table">
                             <tr class="border-b border-white/5">
-                                <td class="py-4 px-2"><input type="text" placeholder="e.g. Visa Card" class="bg-transparent text-white outline-none w-full"></td>
-                                <td class="py-4 px-2"><input type="number" oninput="run()" class="d-min bg-transparent text-white outline-none w-20" placeholder="0"></td>
-                                <td class="py-4 px-2"><input type="number" oninput="run()" class="d-bal bg-transparent text-white outline-none w-24" placeholder="0"></td>
-                                <td class="py-4 px-2"><input type="number" oninput="run()" class="d-apr bg-transparent danger-text outline-none w-16" placeholder="0"></td>
-                                <td><button onclick="this.closest('tr').remove(); run();" class="text-xl">×</button></td>
+                                <td class="py-4"><input type="text" placeholder="Liability Name" class="bg-transparent text-white outline-none w-full"></td>
+                                <td class="py-4"><input type="number" oninput="run()" class="d-min bg-transparent text-white outline-none w-20" placeholder="Min $"></td>
+                                <td class="py-4"><input type="number" oninput="run()" class="d-apr bg-transparent text-red-600 outline-none w-16" placeholder="APR %"></td>
                             </tr>
                         </tbody>
                     </table>
-                    <button onclick="addDebt()" class="mt-6 text-[10px] font-bold text-gray-500 hover:text-white uppercase">+ Add Liability</button>
+                    <button onclick="addDebt()" class="mt-4 text-[10px] font-bold text-gray-500 uppercase">+ Add Debt</button>
                 </div>
 
                 <div class="card">
                     <h3 class="text-xl font-bold uppercase mb-10 border-l-4 border-red-700 pl-4">03. The Siege Engine</h3>
-                    
-                    <div id="wealth-box" class="mb-12 bg-red-900/10 p-6 border-l-4 border-red-700">
-                        <div class="flex justify-between mb-4">
-                            <span class="text-xs font-bold text-red-700 uppercase tracking-widest">P00: Wealth Accumulation</span>
-                            <span id="w-badge" class="status-badge">0%</span>
-                        </div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Iron Pot Fund (Savings)</span><input type="number" oninput="run()" class="w-in input-field w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Retirement / Brokerage</span><input type="number" oninput="run()" class="w-in input-field w-24 text-right" placeholder="0"></div>
+                    <div id="wealth-box" class="mb-8 bg-red-900/10 p-6 border-l-4 border-red-700">
+                        <h4 class="text-xs font-bold text-red-700 uppercase mb-4">P00: Wealth (Iron Pot)</h4>
+                        <input type="number" oninput="run()" class="w-in input-field" placeholder="Savings/Investments ($)">
                     </div>
-
-                    <div class="mb-10 pl-6 border-l-4 border-white">
-                        <h4 class="text-xs font-bold uppercase mb-6 tracking-widest">P01: Survival Operations</h4>
-                        <div class="flex justify-between py-4 bg-white/5 px-4 mb-4 font-bold text-sm"><span>Debt Minimums (Auto)</span><span id="auto-d" class="danger-text">$0</span></div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Housing (Rent/Mortgage)</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Groceries & Household</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Electricity / Gas / Water</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
-                    </div>
-
-                    <div class="pl-6 border-l-4 border-gray-600">
-                        <h4 class="text-xs font-bold uppercase mb-6 tracking-widest text-gray-400">P02-P03: Infrastructure & Cargo</h4>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Transport & Insurance</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Comm / Internet / Cell</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Lifestyle (Dining/Gym)</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
+                    <div class="pl-6 border-l-4 border-white mb-8">
+                        <h4 class="text-xs font-bold uppercase mb-4">P01: Survival Ops</h4>
+                        <div class="flex justify-between py-2"><span>Housing</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
+                        <div class="flex justify-between py-2"><span>Food/Fuel</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
                     </div>
                 </div>
 
-                <div class="bg-red-700/5 border-t-4 border-red-700 p-10 rounded">
-                    <h3 class="text-3xl font-extrabold uppercase italic mb-8">Marching Orders</h3>
-                    <div class="grid md:grid-cols-2 gap-10">
-                        <div>
-                            <h4 class="text-red-700 font-bold uppercase text-xs mb-3">Primary Mission</h4>
-                            <p id="m-1" class="text-gray-400 text-sm leading-relaxed">Enter income data to begin reconnaissance.</p>
-                        </div>
-                        <div>
-                            <h4 class="text-white font-bold uppercase text-xs mb-3">Strike Strategy</h4>
-                            <p id="m-2" class="text-gray-400 text-sm leading-relaxed">System waiting for deployment.</p>
-                        </div>
-                    </div>
+                <div class="bg-red-700/5 border-t-4 border-red-700 p-10">
+                    <h3 class="text-3xl font-extrabold uppercase italic mb-4">Marching Orders</h3>
+                    <p id="m-1" class="text-gray-400 text-sm">Awaiting inflow reconnaissance...</p>
                 </div>
             </div>
 
             <div class="lg:col-span-4">
-                <div class="card text-center lg:sticky lg:top-10">
-                    <div class="relative w-full max-w-[220px] mx-auto">
-                        <canvas id="chart"></canvas>
-                        <div class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none">
-                            <div id="left-val" class="text-4xl font-bold">$0</div>
-                            <div class="text-[9px] uppercase font-bold text-gray-500 tracking-widest">Unallocated</div>
-                        </div>
-                    </div>
-                    <div class="mt-8 pt-8 border-t border-white/5 space-y-6">
-                        <div class="bg-[#050B14] p-6 border border-white/10">
-                            <div id="strike-val" class="text-5xl font-bold text-red-700">$0</div>
-                            <p class="text-[10px] uppercase font-bold text-gray-500 mt-2">Monthly Strike Force</p>
+                <div class="card text-center">
+                    <canvas id="chart"></canvas>
+                    <div class="mt-8 pt-8 border-t border-white/5">
+                        <div class="text-[9px] uppercase font-bold text-gray-500">Unallocated Cash</div>
+                        <div id="left-val" class="text-4xl font-bold mb-4">$0</div>
+                        <div class="bg-red-700 p-6">
+                            <span class="text-[10px] uppercase font-bold block">Strike Force</span>
+                            <span id="strike-val" class="text-3xl font-bold">$0</span>
                         </div>
                     </div>
                 </div>
@@ -150,10 +97,8 @@
     </main>
 
     <footer class="bg-[#050B14] border-t-8 border-red-700 py-20 text-center">
-        <div class="max-w-6xl mx-auto px-6">
-            <div style="font-family: 'Great Vibes';" class="text-5xl">Real American Finance</div>
-            <p class="text-[11px] text-gray-600 uppercase tracking-[0.6em] font-bold mt-6">© 2026. Discipline is Freedom. Own Your Outcomes.</p>
-        </div>
+        <div style="font-family: 'Great Vibes';" class="text-5xl">Real American Finance</div>
+        <p class="text-[11px] text-gray-600 uppercase tracking-[0.6em] font-bold mt-6">© 2026. Discipline is Freedom.</p>
     </footer>
 
     <script>
@@ -162,48 +107,26 @@
             const ctx = document.getElementById('chart').getContext('2d');
             myChart = new Chart(ctx, {
                 type: 'doughnut',
-                data: { labels: ['Wealth', 'Survival', 'Debt Min', 'Left'], datasets: [{ data: [0,0,0,100], backgroundColor: ['#B22234', '#FFFFFF', '#B2223466', '#11243F'], borderWidth: 0 }] },
+                data: { labels: ['Wealth', 'Survival', 'Debt', 'Left'], datasets: [{ data: [0,0,0,100], backgroundColor: ['#B22234', '#FFFFFF', '#B2223466', '#11243F'], borderWidth: 0 }] },
                 options: { cutout: '80%', plugins: { legend: { display: false } } }
             });
         }
-
         function addDebt() {
             const tr = document.createElement('tr'); tr.className = "border-b border-white/5";
-            tr.innerHTML = `<td class="py-4 px-2"><input type="text" placeholder="Liability" class="bg-transparent text-white outline-none w-full"></td><td class="py-4 px-2"><input type="number" oninput="run()" class="d-min bg-transparent text-white outline-none w-20" placeholder="0"></td><td class="py-4 px-2"><input type="number" oninput="run()" class="d-bal bg-transparent text-white outline-none w-24" placeholder="0"></td><td class="py-4 px-2"><input type="number" oninput="run()" class="d-apr bg-transparent danger-text outline-none w-16" placeholder="0"></td><td><button onclick="this.closest('tr').remove(); run();">×</button></td>`;
+            tr.innerHTML = `<td class="py-4"><input type="text" placeholder="Liability" class="bg-transparent text-white outline-none w-full"></td><td class="py-4"><input type="number" oninput="run()" class="d-min bg-transparent text-white outline-none w-20"></td><td class="py-4"><input type="number" oninput="run()" class="d-apr bg-transparent text-red-600 outline-none w-16"></td>`;
             document.getElementById('debt-table').appendChild(tr);
         }
-
         function run() {
             const inc = (parseFloat(document.getElementById('pay').value) || 0) * parseFloat(document.getElementById('freq').value);
             let dMin = 0; document.querySelectorAll('.d-min').forEach(i => dMin += (parseFloat(i.value) || 0));
-            let maxAPR = 0; document.querySelectorAll('.d-apr').forEach(i => { let v = parseFloat(i.value) || 0; if(v > maxAPR) maxAPR = v; });
             let wVal = 0; document.querySelectorAll('.w-in').forEach(i => wVal += (parseFloat(i.value) || 0));
             let sVal = 0; document.querySelectorAll('.s-in').forEach(i => sVal += (parseFloat(i.value) || 0));
-
-            const wBox = document.getElementById('wealth-box');
-            if(maxAPR >= 20) {
-                wBox.classList.add('frozen'); wVal = 0;
-                document.getElementById('m-1').innerText = `DANGER: ${maxAPR}% APR leak detected. Immediate action required.`;
-                document.getElementById('m-2').innerText = `Freeze all saving. Redirect every unallocated cent to this high-interest debt.`;
-            } else {
-                wBox.classList.remove('frozen');
-                document.getElementById('m-1').innerText = `System Stable. Fill the Iron Pot Fund (3 months expenses).`;
-                document.getElementById('m-2').innerText = `After the Iron Pot is secure, funnel the Strike Force into your brokerage.`;
-            }
-
             const left = inc - (wVal + sVal + dMin);
             document.getElementById('left-val').innerText = "$" + Math.round(left).toLocaleString();
-            document.getElementById('auto-d').innerText = "$" + dMin.toLocaleString();
             document.getElementById('strike-val').innerText = "$" + Math.round(left + wVal).toLocaleString();
-
-            if(inc > 0) {
-                document.getElementById('w-badge').innerText = Math.round((wVal/inc)*100) + "%";
-            }
-
             myChart.data.datasets[0].data = [wVal, sVal, dMin, Math.max(0, left)];
             myChart.update();
         }
-
         window.onload = init;
     </script>
 </body>
