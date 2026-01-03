@@ -15,11 +15,12 @@
         .input-underlined { border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent; outline: none; transition: border-color 0.3s; color: white; }
         .input-underlined:focus { border-color: #B22234; }
         
-        .tier-0 { border-left: 4px solid #B22234; background: rgba(178, 34, 52, 0.08); }
         .tier-1 { border-left: 4px solid #FFFFFF; background: rgba(255,255,255,0.04); }
         .tier-2 { border-left: 4px solid #9ca3af; background: rgba(156,163,175,0.04); }
         .tier-3 { border-left: 4px solid #4b5563; background: rgba(255,255,255,0.02); transition: all 0.5s ease; }
         
+        .assets-box { border-left: 4px solid #B22234; background: rgba(178, 34, 52, 0.1); }
+
         .perc-badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 800; letter-spacing: 0.1em; transition: all 0.3s; }
         .status-good { background: rgba(0, 255, 0, 0.3); color: white; }
         .status-ok { background: rgba(255, 255, 0, 0.3); color: black; }
@@ -84,6 +85,7 @@
             
             <div class="lg:col-span-8 space-y-12">
                 
+                <!-- 01. Monthly Inflow -->
                 <div class="dashboard-card p-8 shadow-2xl">
                     <h3 class="text-xl font-heading font-bold uppercase mb-6 border-l-2 border-crimson pl-4">01. Monthly Inflow</h3>
                     <div class="grid grid-cols-2 gap-8">
@@ -96,6 +98,7 @@
                     </div>
                 </div>
 
+                <!-- 02. Debt Reconnaissance -->
                 <div class="dashboard-card p-8 shadow-2xl">
                     <h3 class="text-xl font-heading font-bold uppercase mb-6 border-l-2 border-crimson pl-4">02. Debt Reconnaissance</h3>
                     <div class="overflow-x-auto">
@@ -126,9 +129,26 @@
                     </div>
                 </div>
 
+                <!-- NEW: Current Fortress Assets -->
+                <div class="dashboard-card p-8 shadow-2xl assets-box">
+                    <h3 class="text-xl font-heading font-bold uppercase mb-6 border-l-2 border-crimson pl-4 text-crimson">Current Fortress Assets</h3>
+                    <p class="text-xs text-gray-400 mb-6 uppercase tracking-wider">These are your current account balances (not monthly contributions). Used for Iron Pot coverage and Sovereignty Score.</p>
+                    <div class="space-y-4">
+                        <div class="flex justify-between border-b border-white/5 py-2 px-2">
+                            <span class="text-xs uppercase font-bold text-gray-100">Emergency Fund / Iron Pot Balance ($)</span>
+                            <input type="number" id="current-iron-pot" oninput="calculateAll()" class="input-underlined w-32 text-right" placeholder="0">
+                        </div>
+                        <div class="flex justify-between border-b border-white/5 py-2 px-2">
+                            <span class="text-xs uppercase font-bold text-gray-100">Retirement / Investment Accounts Total ($)</span>
+                            <input type="number" id="current-retirement" oninput="calculateAll()" class="input-underlined w-32 text-right" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 03. Monthly Siege Engine (Cash Flow Only) -->
                 <div class="dashboard-card p-8 shadow-2xl">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
-                        <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-4 text-white leading-none">03. The Siege Engine</h3>
+                        <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-4 text-white leading-none">03. Monthly Siege Engine</h3>
                         <div class="flex flex-wrap gap-3">
                             <button onclick="toggleWarMode()" id="war-mode-btn" class="bg-white/5 border border-white/20 px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:border-crimson hover:text-crimson transition shadow-lg">Initiate War-Mode</button>
                             <button onclick="clearSavedData()" class="bg-red-900/50 border border-red-800 px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-red-800 hover:text-white transition shadow-lg">Clear Saved Data</button>
@@ -136,25 +156,16 @@
                     </div>
                     
                     <div class="space-y-8">
-                        <!-- Tier 0 -->
-                        <div class="tier-0 p-6 space-y-4">
-                            <div class="flex justify-between items-center">
-                                <h4 class="text-[11px] uppercase font-bold text-crimson tracking-[0.3em]">Priority 00: The Destination (Wealth ≥20%)</h4>
-                                <span id="badge-t0" class="perc-badge status-bad">0%</span>
-                            </div>
-                            <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-100">Emergency Fund / Iron Pot</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
-                            <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-100">Retirement / Investing (401k, IRA, etc.)</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
-                            <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-100">Extra Debt Principal / Equity Build</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
-                            <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-100">Sinking Funds (Annual/Repairs/Gifts)</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
-                        </div>
-
-                        <!-- Tier 1 -->
+                        <!-- Tier 1: Needs -->
                         <div class="tier-1 p-6 space-y-4">
                             <div class="flex justify-between items-center">
-                                <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Priority 01: The Foundation (Needs ≤50%)</h4>
+                                <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Tier 1: The Foundation (Needs ≤50%)</h4>
                                 <span id="badge-t1" class="perc-badge status-bad">0%</span>
                             </div>
-                            <div class="flex justify-between border-b border-white/10 py-3 px-4 bg-white/5"><span class="text-xs uppercase font-bold text-crimson">Debt Minimums (Linked)</span><span id="auto-debt-min" class="text-sm font-bold">$0</span></div>
+                            <div class="flex justify-between border-b border-white/10 py-3 px-4 bg-white/5">
+                                <span class="text-xs uppercase font-bold text-crimson">Debt Minimums (Linked)</span>
+                                <span id="auto-debt-min" class="text-sm font-bold">$0</span>
+                            </div>
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-200">Housing (Rent/Mortgage Payment)</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-200">Property Taxes / HOA</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-200">Utilities (Electric/Water/Gas/Trash)</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
@@ -166,10 +177,10 @@
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-200">Childcare / Essential Pet Care</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
                         </div>
 
-                        <!-- Tier 2 -->
+                        <!-- Tier 2: Infrastructure -->
                         <div class="tier-2 p-6 space-y-4">
                             <div class="flex justify-between items-center">
-                                <h4 class="text-[11px] uppercase font-bold text-gray-400 tracking-[0.3em]">Priority 02: Infrastructure</h4>
+                                <h4 class="text-[11px] uppercase font-bold text-gray-400 tracking-[0.3em]">Tier 2: Infrastructure</h4>
                                 <span id="badge-t2" class="perc-badge status-ok">0%</span>
                             </div>
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-300">Internet / Wifi</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
@@ -180,10 +191,10 @@
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-300">Gym / Physical Training Membership</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
                         </div>
 
-                        <!-- Tier 3 -->
+                        <!-- Tier 3: Cargo -->
                         <div class="tier-3 p-6 space-y-4" id="tier-3-container">
                             <div class="flex justify-between items-center">
-                                <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Priority 03: The Cargo (Wants ≤30%)</h4>
+                                <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Tier 3: The Cargo (Wants ≤30%)</h4>
                                 <span id="badge-t3" class="perc-badge status-bad">0%</span>
                             </div>
                             <div class="flex justify-between border-b border-white/10 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-100">Dining Out / Entertainment</span><input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-24 text-right text-white font-bold" placeholder="0"></div>
@@ -205,13 +216,13 @@
                         <canvas id="budgetChart"></canvas>
                         <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
                             <span id="center-remaining" class="text-4xl font-heading font-bold text-white leading-none">$0</span>
-                            <span id="center-label" class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2">Remaining</span>
+                            <span id="center-label" class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2">Monthly Surplus</span>
                         </div>
                     </div>
 
                     <div class="mt-8 mb-8">
                         <div class="flex justify-between text-xs uppercase mb-2">
-                            <span>Iron Pot Progress</span>
+                            <span>Iron Pot Progress (Target: 3 months)</span>
                             <span id="pot-progress">0%</span>
                         </div>
                         <div class="h-4 bg-navy-900 rounded overflow-hidden">
@@ -224,7 +235,7 @@
                         <div class="space-y-3 text-xs">
                             <div class="flex justify-between"><span>Needs (≤50%)</span><span id="rule-needs" class="font-bold">—</span></div>
                             <div class="flex justify-between"><span>Wants (≤30%)</span><span id="rule-wants" class="font-bold">—</span></div>
-                            <div class="flex justify-between"><span>Savings (≥20%)</span><span id="rule-savings" class="font-bold">—</span></div>
+                            <div class="flex justify-between"><span>Surplus (≥20%)</span><span id="rule-savings" class="font-bold">—</span></div>
                         </div>
                     </div>
 
@@ -246,7 +257,7 @@
         <div class="mt-20 dashboard-card p-12 border-t-8 border-crimson shadow-2xl">
             <h3 class="text-3xl font-heading font-bold uppercase mb-8 text-white tracking-tight">Priority Target</h3>
             <div id="weak-point-card" class="bg-white/5 p-10 rounded border border-white/10 text-center">
-                <p class="text-2xl font-bold italic text-gray-400">Enter your income and expenses to receive your first order.</p>
+                <p class="text-2xl font-bold italic text-gray-400">Enter your income and current assets to receive your first order.</p>
             </div>
         </div>
     </main>
@@ -325,7 +336,7 @@
         let myChart;
         let isWarMode = false;
         let p3Cache = [];
-        const CURRENT_VERSION = 'raf_siege_v19';
+        const CURRENT_VERSION = 'raf_siege_v20';
 
         document.addEventListener('DOMContentLoaded', function () {
             const canvas = document.getElementById('budgetChart');
@@ -334,42 +345,30 @@
                 myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Wealth', 'Needs', 'Debt Min', 'Wants+Infra', 'Remaining'],
+                        labels: ['Needs', 'Debt Min', 'Infrastructure', 'Cargo', 'Surplus'],
                         datasets: [{
                             data: [0, 0, 0, 0, 100],
-                            backgroundColor: ['#B22234', '#FFFFFF', '#DC143C88', '#4b556388', '#11243F'],
-                            hoverBackgroundColor: ['#DC143C', '#FFFFFF', '#FF0000', '#6b7280', '#1e3a5f'],
+                            backgroundColor: ['#FFFFFF', '#DC143C88', '#9ca3af', '#4b5563', '#B22234'],
                             borderWidth: 0
                         }]
                     },
                     options: {
                         cutout: '85%',
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.label || '';
-                                        if (label) label += ': $';
-                                        label += context.parsed.toLocaleString();
-                                        return label;
-                                    }
-                                }
-                            }
-                        }
+                        plugins: { legend: { display: false } }
                     }
                 });
             }
 
             clearAllInputs();
             loadProfile();
-            if (document.getElementById('paycheck')) document.getElementById('paycheck').focus();
             calculateAll();
         });
 
         function clearAllInputs() {
             document.getElementById('paycheck').value = '';
             document.getElementById('freq').value = '2';
+            document.getElementById('current-iron-pot').value = '';
+            document.getElementById('current-retirement').value = '';
             document.getElementById('debt-body').innerHTML = `<tr class="border-b border-white/5">
                 <td class="py-4 px-2"><input type="text" placeholder="e.g. Visa" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
                 <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
@@ -379,7 +378,7 @@
                     <span class="debt-alert hidden absolute right-8 top-1/2 -translate-y-1/2 high-interest-alert uppercase">HIGH ALERT</span>
                 </td>
             </tr>`;
-            document.querySelectorAll('.tier-0-input, .tier-1-input, .tier-2-input, .tier-3-input').forEach(i => i.value = '');
+            document.querySelectorAll('.tier-1-input, .tier-2-input, .tier-3-input').forEach(i => i.value = '');
         }
 
         function clearSavedData() {
@@ -429,6 +428,7 @@
 
         function updateBadge(id, current, target, isHigherBetter = false) {
             const badge = document.getElementById(id);
+            if (!badge) return;
             badge.innerText = `${Math.round(current)}%`;
             let statusClass = "status-bad";
             if (isHigherBetter) {
@@ -446,27 +446,26 @@
             const wantsEl = document.getElementById('rule-wants');
             const savingsEl = document.getElementById('rule-savings');
 
-            needsEl.textContent = needsPerc.toFixed(0) + '%';
-            needsEl.className = needsPerc <= 50 ? 'text-green-400 font-bold' : needsPerc <= 60 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+            if (needsEl) needsEl.textContent = needsPerc.toFixed(0) + '%';
+            if (wantsEl) wantsEl.textContent = wantsPerc.toFixed(0) + '%';
+            if (savingsEl) savingsEl.textContent = savingsPerc.toFixed(0) + '%';
 
-            wantsEl.textContent = wantsPerc.toFixed(0) + '%';
-            wantsEl.className = wantsPerc <= 30 ? 'text-green-400 font-bold' : wantsPerc <= 40 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
-
-            savingsEl.textContent = savingsPerc.toFixed(0) + '%';
-            savingsEl.className = savingsPerc >= 20 ? 'text-green-400 font-bold' : savingsPerc >= 10 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+            if (needsEl) needsEl.className = needsPerc <= 50 ? 'text-green-400 font-bold' : needsPerc <= 60 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+            if (wantsEl) wantsEl.className = wantsPerc <= 30 ? 'text-green-400 font-bold' : wantsPerc <= 40 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+            if (savingsEl) savingsEl.className = savingsPerc >= 20 ? 'text-green-400 font-bold' : savingsPerc >= 10 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
         }
 
         function emailBattlePlan() {
-            const score = document.getElementById('sovereignty-score').innerText;
-            const freedom = document.getElementById('countdown-val').innerText;
-            const warChest = document.getElementById('surplus-val').innerText;
-            const remaining = document.getElementById('center-remaining').innerText;
-            const weakPoint = document.getElementById('weak-point-card').innerText.trim();
+            const score = document.getElementById('sovereignty-score')?.innerText || '0';
+            const freedom = document.getElementById('countdown-val')?.innerText || 'N/A';
+            const warChest = document.getElementById('surplus-val')?.innerText || '$0';
+            const remaining = document.getElementById('center-remaining')?.innerText || '$0';
+            const weakPoint = document.getElementById('weak-point-card')?.innerText.trim() || 'No target';
 
             const subject = "My Real American Finance Battle Plan";
             const body = `SOVEREIGNTY SCORE: ${score}/100\n\n` +
                          `Monthly War Chest: ${warChest}\n` +
-                         `Remaining After Essentials: ${remaining}\n` +
+                         `Remaining Monthly Surplus: ${remaining}\n` +
                          `Debt Freedom Timeline: ${freedom}\n\n` +
                          `PRIORITY TARGET:\n${weakPoint}\n\n` +
                          `Generated from realamericanfinance.com/the-lab`;
@@ -476,122 +475,72 @@
 
         function calculateAll() {
             const income = (parseFloat(document.getElementById('paycheck').value) || 0) * (parseFloat(document.getElementById('freq').value) || 2);
-            let t0 = 0; document.querySelectorAll('.tier-0-input').forEach(i => t0 += (parseFloat(i.value) || 0));
-            let dMin = 0; document.querySelectorAll('.debt-min-input').forEach(i => dMin += (parseFloat(i.value) || 0));
-            let dTotal = 0; document.querySelectorAll('.debt-balance-input').forEach(i => dTotal += (parseFloat(i.value) || 0));
-            let t1 = 0; document.querySelectorAll('.tier-1-input').forEach(i => t1 += (parseFloat(i.value) || 0));
-            let t2 = 0; document.querySelectorAll('.tier-2-input').forEach(i => t2 += (parseFloat(i.value) || 0));
-            let t3 = 0; document.querySelectorAll('.tier-3-input').forEach(i => t3 += (parseFloat(i.value) || 0));
 
-            const totalOutflow = dMin + t1 + t2 + t3;
-            const remaining = income - totalOutflow;
-            const warChest = remaining + t0;
+            let dMin = 0;
+            document.querySelectorAll('.debt-min-input').forEach(i => dMin += parseFloat(i.value || 0));
+            let dTotal = 0;
+            document.querySelectorAll('.debt-balance-input').forEach(i => dTotal += parseFloat(i.value || 0));
+            let t1 = 0;
+            document.querySelectorAll('.tier-1-input').forEach(i => t1 += parseFloat(i.value || 0));
+            let t2 = 0;
+            document.querySelectorAll('.tier-2-input').forEach(i => t2 += parseFloat(i.value || 0));
+            let t3 = 0;
+            document.querySelectorAll('.tier-3-input').forEach(i => t3 += parseFloat(i.value || 0));
 
-            // Update auto-debt-min
+            const totalMonthlyOut = dMin + t1 + t2 + t3;
+            const monthlySurplus = income - totalMonthlyOut;
+
+            // Current asset balances
+            const currentIronPot = parseFloat(document.getElementById('current-iron-pot')?.value || 0);
+            const currentRetirement = parseFloat(document.getElementById('current-retirement')?.value || 0);
+
+            // Update UI
             document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
+            document.getElementById('center-remaining').innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
+            document.getElementById('surplus-val').innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
+            document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
 
-            // High-interest alerts
-            document.querySelectorAll('#debt-body tr').forEach(row => {
-                const rate = parseFloat(row.querySelector('.debt-rate-input').value) || 0;
-                const alert = row.querySelector('.debt-alert');
-                alert.classList.toggle('hidden', rate < 25);
-            });
-
-            const needsPerc = income > 0 ? ((t1 + dMin) / income) * 100 : 0;
-            const wantsPerc = income > 0 ? (t3 / income) * 100 : 0;
-            const savingsPerc = income > 0 ? (t0 / income) * 100 : 0;
-
-            if (income > 0) {
-                updateBadge('badge-t0', savingsPerc, 20, true);
-                updateBadge('badge-t1', needsPerc, 50, false);
-                updateBadge('badge-t3', wantsPerc, 30, false);
-                updateBadge('badge-t2', (t2 / income) * 100, 15);
-            }
-
-            update503020(needsPerc, wantsPerc, savingsPerc);
-
-            // Iron Pot Progress
-            const ironPot = parseFloat(document.querySelector('.tier-0-input')?.value || 0);
-            const floor = t1 + dMin;
-            const moatTarget = floor * 3;
-            const potPerc = moatTarget > 0 ? Math.min(100, (ironPot / moatTarget) * 100) : 0;
+            const essentials = t1 + dMin;
+            const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
+            const potPerc = essentials > 0 ? Math.min(100, (moatMonths / 3) * 100) : 0;
             document.getElementById('pot-progress').innerText = `${Math.round(potPerc)}%`;
             document.getElementById('pot-bar').style.width = `${potPerc}%`;
 
-    // Sovereignty Score - CORRECTED
-let score = 0;
-if (income > 0) {
-    // 35 points: Wealth allocation (Tier 0 ≥20%)
-    score += Math.min(100, (savingsPerc / 20) * 100) * 0.35;
+            const needsPerc = income > 0 ? essentials / income * 100 : 0;
+            const wantsPerc = income > 0 ? t3 / income * 100 : 0;
+            const surplusPerc = income > 0 ? monthlySurplus / income * 100 : 0;
 
-    // 30 points: Iron Pot (6 months of essentials)
-    const floor = t1 + dMin;
-    const moatCoverage = floor > 0 ? ironPot / (floor * 6) : 0;
-    score += Math.min(100, moatCoverage * 100) * 0.30;
+            updateBadge('badge-t1', needsPerc, 50, false);
+            updateBadge('badge-t3', wantsPerc, 30, false);
 
-    // 20 points: Debt freedom
-    if (dTotal === 0) {
-        score += 20;
-    } else {
-        // Rough estimate: how many years of surplus to pay off debt
-        const monthlySurplus = remaining + dMin; // minimums + extra
-        const monthsToPayoff = monthlySurplus > 0 ? dTotal / monthlySurplus : 999;
-        const yearsToPayoff = monthsToPayoff / 12;
-        const debtPenalty = Math.max(0, 20 - yearsToPayoff * 2); // lose 2 points per year of payoff time
-        score += Math.max(0, debtPenalty);
-    }
+            update503020(needsPerc, wantsPerc, surplusPerc);
 
-    // 15 points: Needs ≤50%
-    score += needsPerc <= 50 ? 15 : Math.max(0, 15 - (needsPerc - 50) * 0.5);
-}
-score = Math.round(score);
-const scoreEl = document.getElementById('sovereignty-score');
-scoreEl.innerText = score;
-scoreEl.className = score >= 80 ? 'text-8xl font-bold text-white' : score >= 50 ? 'text-8xl font-bold text-gray-300' : 'text-8xl font-bold text-crimson';
+            // Sovereignty Score
+            let score = 0;
+            if (income > 0) {
+                score += Math.min(100, surplusPerc / 20 * 100) * 0.35; // Surplus % (35 pts)
+                score += Math.min(100, moatMonths / 6 * 100) * 0.30; // 6-month moat (30 pts)
+                score += dTotal === 0 ? 20 : Math.max(0, 20 - (dTotal / income)) * 20; // Debt (20 pts)
+                score += needsPerc <= 50 ? 15 : Math.max(0, 15 - (needsPerc - 50)); // Needs (15 pts)
+            }
+            score = Math.round(score);
+            const scoreEl = document.getElementById('sovereignty-score');
+            scoreEl.innerText = score;
+            scoreEl.className = score >= 80 ? 'text-8xl font-bold text-white' : score >= 50 ? 'text-8xl font-bold text-gray-300' : 'text-8xl font-bold text-crimson';
 
             // Priority Target
-            let weakPoint = "Enter your income and expenses to receive your first order.";
-            if (income === 0) {
-                weakPoint = "Enter your monthly inflow to begin the siege.";
-            } else if (dTotal > 0 && remaining <= 0) {
-                weakPoint = "BREACH DETECTED: Inflow insufficient. Cut Cargo immediately and initiate War-Mode.";
-            } else {
-                let hasHighInterest = false;
-                document.querySelectorAll('.debt-rate-input').forEach(input => {
-                    if (parseFloat(input.value || 0) >= 25) hasHighInterest = true;
-                });
-                if (hasHighInterest) {
-                    weakPoint = "HIGH-INTEREST DEBT DETECTED: Prioritize attack on highest-rate liability first.";
-                } else if (needsPerc > 60) {
-                    weakPoint = `NEEDS TOO HIGH (${Math.round(needsPerc)}%): Review Tier 1 for potential cuts.`;
-                } else if (potPerc < 33) {
-                    weakPoint = "IRON POT VULNERABLE: Less than 1 month coverage. Redirect surplus from Cargo to emergency fund.";
-                } else if (savingsPerc < 15) {
-                    weakPoint = "WEALTH ALLOCATION LOW: Increase Tier 0 to ≥20% for long-term sovereignty.";
-                } else {
-                    weakPoint = "STRONG POSITION: Maintain discipline. Consider accelerating wealth build.";
-                }
+            let weakPoint = "Enter your monthly inflow to begin.";
+            if (income > 0) {
+                if (dTotal > 0 && monthlySurplus <= 0) weakPoint = "BREACH DETECTED: No surplus. Cut Cargo immediately.";
+                else if (moatMonths < 1) weakPoint = "IRON POT VULNERABLE: Build at least 1 month of essentials.";
+                else if (needsPerc > 55) weakPoint = `NEEDS HIGH (${Math.round(needsPerc)}%): Reduce Tier 1 spending.`;
+                else if (monthlySurplus < income * 0.2) weakPoint = "LOW SURPLUS: Aim for ≥20% war chest.";
+                else weakPoint = "STRONG POSITION: Maintain discipline and accelerate fortress growth.";
             }
             document.getElementById('weak-point-card').innerHTML = `<p class="text-2xl font-bold italic ${score < 50 ? 'text-crimson' : 'text-white'}">${weakPoint}</p>`;
 
-            // Other UI
-            document.getElementById('center-remaining').innerText = `$${Math.round(remaining).toLocaleString()}`;
-            document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
-            document.getElementById('surplus-val').innerText = `$${Math.round(warChest).toLocaleString()}`;
-
-            let monthsToFreedom = dTotal === 0 ? 0 : remaining <= 0 ? "∞" : Math.ceil(dTotal / (remaining + dMin));
-            const countdownEl = document.getElementById('countdown-val');
-            countdownEl.classList.remove('text-crimson', 'breach-alert');
-            if (monthsToFreedom === 0) {
-                countdownEl.innerText = "DEBT FREE";
-                countdownEl.classList.add('text-crimson', 'breach-alert');
-            } else if (monthsToFreedom === "∞") {
-                countdownEl.innerText = "NO SURPLUS";
-            } else {
-                countdownEl.innerText = `${monthsToFreedom} Months`;
-            }
-
-            myChart.data.datasets[0].data = [t0, t1, dMin, t2 + t3, Math.max(0, remaining)];
+            // Chart
+            myChart.data.datasets[0].data = [t1, dMin, t2, t3, Math.max(0, monthlySurplus)];
             myChart.update();
         }
 
@@ -600,13 +549,14 @@ scoreEl.className = score >= 80 ? 'text-8xl font-bold text-white' : score >= 50 
                 version: CURRENT_VERSION,
                 paycheck: document.getElementById('paycheck').value || '',
                 freq: document.getElementById('freq').value || '2',
+                currentIronPot: document.getElementById('current-iron-pot').value || '',
+                currentRetirement: document.getElementById('current-retirement').value || '',
                 debts: Array.from(document.querySelectorAll('#debt-body tr')).map(row => ({
                     name: row.querySelector('input[type=text]').value || '',
                     min: row.querySelector('.debt-min-input').value || '0',
                     bal: row.querySelector('.debt-balance-input').value || '0',
                     rate: row.querySelector('.debt-rate-input').value || '0'
                 })),
-                t0: Array.from(document.querySelectorAll('.tier-0-input')).map(i => i.value || '0'),
                 t1: Array.from(document.querySelectorAll('.tier-1-input')).map(i => i.value || '0'),
                 t2: Array.from(document.querySelectorAll('.tier-2-input')).map(i => i.value || '0'),
                 t3: Array.from(document.querySelectorAll('.tier-3-input')).map(i => i.value || '0')
@@ -617,43 +567,37 @@ scoreEl.className = score >= 80 ? 'text-8xl font-bold text-white' : score >= 50 
 
         function loadProfile() {
             const saved = localStorage.getItem(CURRENT_VERSION);
-            if (!saved) {
-                calculateAll();
-                return;
-            }
+            if (!saved) return calculateAll();
 
             let data;
             try {
                 data = JSON.parse(saved);
-                if (data.version !== CURRENT_VERSION) throw new Error("Version mismatch");
+                if (data.version !== CURRENT_VERSION) throw new Error();
             } catch (e) {
-                calculateAll();
-                return;
-            }
-
-            clearAllInputs();
-
-            if (data.debts && Array.isArray(data.debts)) {
-                document.getElementById('debt-body').innerHTML = '';
-                data.debts.forEach(debt => {
-                    const row = document.createElement('tr');
-                    row.className = "border-b border-white/5";
-                    row.innerHTML = `
-                        <td class="py-4 px-2"><input type="text" value="${debt.name}" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
-                        <td class="py-4 px-2"><input type="number" value="${debt.min}" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs"></td>
-                        <td class="py-4 px-2"><input type="number" value="${debt.bal}" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs"></td>
-                        <td class="py-4 px-2"><input type="number" step="0.1" value="${debt.rate}" oninput="calculateAll()" class="debt-rate-input bg-transparent w-full outline-none text-white text-xs"></td>
-                        <td class="text-right relative"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button>
-                            <span class="debt-alert ${parseFloat(debt.rate || 0) >= 25 ? '' : 'hidden'} absolute right-8 top-1/2 -translate-y-1/2 high-interest-alert uppercase">HIGH ALERT</span>
-                        </td>`;
-                    document.getElementById('debt-body').appendChild(row);
-                });
+                return calculateAll();
             }
 
             document.getElementById('paycheck').value = data.paycheck || '';
             document.getElementById('freq').value = data.freq || '2';
+            document.getElementById('current-iron-pot').value = data.currentIronPot || '';
+            document.getElementById('current-retirement').value = data.currentRetirement || '';
 
-            document.querySelectorAll('.tier-0-input').forEach((el, i) => el.value = data.t0?.[i] || '');
+            const debtBody = document.getElementById('debt-body');
+            debtBody.innerHTML = '';
+            (data.debts || []).forEach(debt => {
+                const row = document.createElement('tr');
+                row.className = "border-b border-white/5";
+                row.innerHTML = `
+                    <td class="py-4 px-2"><input type="text" value="${debt.name}" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
+                    <td class="py-4 px-2"><input type="number" value="${debt.min}" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs"></td>
+                    <td class="py-4 px-2"><input type="number" value="${debt.bal}" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs"></td>
+                    <td class="py-4 px-2"><input type="number" step="0.1" value="${debt.rate}" oninput="calculateAll()" class="debt-rate-input bg-transparent w-full outline-none text-white text-xs"></td>
+                    <td class="text-right relative"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button>
+                        <span class="debt-alert ${parseFloat(debt.rate || 0) >= 25 ? '' : 'hidden'} absolute right-8 top-1/2 -translate-y-1/2 high-interest-alert uppercase">HIGH ALERT</span>
+                    </td>`;
+                debtBody.appendChild(row);
+            });
+
             document.querySelectorAll('.tier-1-input').forEach((el, i) => el.value = data.t1?.[i] || '');
             document.querySelectorAll('.tier-2-input').forEach((el, i) => el.value = data.t2?.[i] || '');
             document.querySelectorAll('.tier-3-input').forEach((el, i) => el.value = data.t3?.[i] || '');
