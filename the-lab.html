@@ -31,6 +31,12 @@
 
         .breach-alert { color: #B22234 !important; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* Ensure footer is always visible */
+        html, body { min-height: 100vh; }
+        body { display: flex; flex-direction: column; }
+        main { flex: 1; }
+        footer { flex-shrink: 0; }
     </style>
     <script>
         tailwind.config = {
@@ -39,7 +45,7 @@
         }
     </script>
 </head>
-<body class="bg-navy-950 text-white font-sans selection:bg-crimson">
+<body class="bg-navy-950 text-white font-sans selection:bg-crimson flex flex-col min-h-screen">
     
     <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -62,7 +68,7 @@
         <p class="text-gray-400 font-heading uppercase tracking-[0.4em]">Pillar 01: Iron Pot Millionaire</p>
     </section>
 
-    <main class="container mx-auto px-6 py-12">
+    <main class="container mx-auto px-6 py-12 flex-1">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
             <div class="lg:col-span-8 space-y-12">
@@ -107,7 +113,10 @@
                 <div class="dashboard-card p-8 shadow-2xl">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                         <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-4 text-white leading-none">03. The Siege Engine</h3>
-                        <button onclick="toggleWarMode()" id="war-mode-btn" class="bg-white/5 border border-white/20 px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:border-crimson hover:text-crimson transition shadow-lg">Initiate War-Mode</button>
+                        <div class="flex gap-4">
+                            <button onclick="toggleWarMode()" id="war-mode-btn" class="bg-white/5 border border-white/20 px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:border-crimson hover:text-crimson transition shadow-lg">Initiate War-Mode</button>
+                            <button onclick="resetAll()" class="bg-white/5 border border-white/20 px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:border-red-800 hover:text-red-600 transition shadow-lg">Reset All</button>
+                        </div>
                     </div>
                     
                     <div class="space-y-8">
@@ -257,7 +266,7 @@
                 }
             });
             loadProfile();
-            document.getElementById('paycheck').focus(); // Auto-focus on load
+            document.getElementById('paycheck').focus();
         }
 
         function toggleWarMode() {
@@ -291,6 +300,13 @@
 
         function removeRow(btn) { btn.closest('tr').remove(); calculateAll(); }
 
+        function resetAll() {
+            if(confirm("Reset all fields and clear saved data?")) {
+                localStorage.removeItem('raf_siege_v7');
+                location.reload();
+            }
+        }
+
         function updateBadge(id, current, limit, isWealth = false) {
             const badge = document.getElementById(id);
             badge.innerText = `${Math.round(current)}%`;
@@ -299,7 +315,7 @@
         }
 
         function calculateAll() {
-            const income = (parseFloat(document.getElementById('paycheck').value) || 0) * parseFloat(document.getElementById('freq').value || 2);
+            const income = (parseFloat(document.getElementById('paycheck').value) || 0) * (parseFloat(document.getElementById('freq').value) || 2);
             let t0 = 0; document.querySelectorAll('.tier-0-input').forEach(i => t0 += (parseFloat(i.value) || 0));
             let dMin = 0; document.querySelectorAll('.debt-min-input').forEach(i => dMin += (parseFloat(i.value) || 0));
             let dTotal = 0; document.querySelectorAll('.debt-balance-input').forEach(i => dTotal += (parseFloat(i.value) || 0));
@@ -309,24 +325,22 @@
 
             const totalOutflow = dMin + t1 + t2 + t3;
             const remaining = income - totalOutflow;
-            const warChest = remaining + t0; // Wealth allocation + surplus = total attack power
+            const warChest = remaining + t0;
 
-            // Badges
             if (income > 0) {
-                updateBadge('badge-t0', (t0/income)*100, 20, true);   // Wealth: want ≥20%
-                updateBadge('badge-t1', ((t1+dMin)/income)*100, 50);  // Survival: want ≤50%
+                updateBadge('badge-t0', (t0/income)*100, 20, true);
+                updateBadge('badge-t1', ((t1+dMin)/income)*100, 50);
                 updateBadge('badge-t2', (t2/income)*100, 15);
                 updateBadge('badge-t3', (t3/income)*100, 30);
             }
 
-            // Freedom Timeline (fixed logic)
             let monthsToFreedom;
             if (dTotal === 0) {
                 monthsToFreedom = 0;
             } else if (remaining <= 0) {
                 monthsToFreedom = "∞";
             } else {
-                monthsToFreedom = Math.ceil(dTotal / (remaining + dMin)); // surplus + minimums attack debt
+                monthsToFreedom = Math.ceil(dTotal / (remaining + dMin));
             }
 
             const countdownEl = document.getElementById('countdown-val');
@@ -340,13 +354,11 @@
                 countdownEl.innerText = `${monthsToFreedom} Months`;
             }
 
-            // UI Updates
             document.getElementById('center-remaining').innerText = `$${Math.round(remaining).toLocaleString()}`;
             document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
             document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
             document.getElementById('surplus-val').innerText = `$${Math.round(warChest).toLocaleString()}`;
 
-            // Iron Pot Progress (first Tier 0 input = Iron Pot)
             const ironPot = parseFloat(document.querySelector('.tier-0-input')?.value || 0);
             const floor = t1 + dMin;
             const moatTarget = floor * 3;
@@ -354,7 +366,6 @@
             document.getElementById('pot-progress').innerText = `${Math.round(potPerc)}%`;
             document.getElementById('pot-bar').style.width = `${potPerc}%`;
 
-            // Marching Orders - dynamic & motivational
             document.getElementById('order-walls').innerHTML = `
                 <span class="text-crimson">FORTIFY:</span> $${floor.toLocaleString()} monthly floor<br>
                 <span class="text-gray-400 text-xs">Survival + debt minimums locked in.</span>
@@ -382,55 +393,74 @@
                 `;
             }
 
-            // Chart Update
             myChart.data.datasets[0].data = [t0, t1, dMin, t2 + t3, Math.max(0, remaining)];
             myChart.update();
         }
 
         function saveProfile() {
             const data = {
-                paycheck: document.getElementById('paycheck').value,
-                freq: document.getElementById('freq').value,
+                paycheck: document.getElementById('paycheck').value || '',
+                freq: document.getElementById('freq').value || '2',
                 debts: Array.from(document.querySelectorAll('#debt-body tr')).map(row => ({
-                    name: row.querySelector('input[type=text]').value,
-                    min: row.querySelector('.debt-min-input').value,
-                    bal: row.querySelector('.debt-balance-input').value
+                    name: row.querySelector('input[type=text]').value || '',
+                    min: row.querySelector('.debt-min-input').value || '0',
+                    bal: row.querySelector('.debt-balance-input').value || '0'
                 })),
-                t0: Array.from(document.querySelectorAll('.tier-0-input')).map(i => i.value),
-                t1: Array.from(document.querySelectorAll('.tier-1-input')).map(i => i.value),
-                t2: Array.from(document.querySelectorAll('.tier-2-input')).map(i => i.value),
-                t3: Array.from(document.querySelectorAll('.tier-3-input')).map(i => i.value)
+                t0: Array.from(document.querySelectorAll('.tier-0-input')).map(i => i.value || '0'),
+                t1: Array.from(document.querySelectorAll('.tier-1-input')).map(i => i.value || '0'),
+                t2: Array.from(document.querySelectorAll('.tier-2-input')).map(i => i.value || '0'),
+                t3: Array.from(document.querySelectorAll('.tier-3-input')).map(i => i.value || '0')
             };
             localStorage.setItem('raf_siege_v7', JSON.stringify(data));
             alert('STRATEGY SECURED');
         }
 
         function loadProfile() {
-            const saved = localStorage.getItem('raf_siege_v7') || localStorage.getItem('raf_siege_v6');
-            if(saved) {
-                const data = JSON.parse(saved);
-                document.getElementById('paycheck').value = data.paycheck || '';
-                document.getElementById('freq').value = data.freq || '2';
-
-                // Load debts if saved (v7+)
-                if (data.debts) {
-                    document.getElementById('debt-body').innerHTML = '';
-                    data.debts.forEach(debt => {
-                        const row = document.createElement('tr'); row.className = "border-b border-white/5";
-                        row.innerHTML = `<td class="py-4 px-2"><input type="text" value="${debt.name}" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
-                                         <td class="py-4 px-2"><input type="number" value="${debt.min}" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs"></td>
-                                         <td class="py-4 px-2"><input type="number" value="${debt.bal}" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs"></td>
-                                         <td class="text-right"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button></td>`;
-                        document.getElementById('debt-body').appendChild(row);
-                    });
-                }
-
-                document.querySelectorAll('.tier-0-input').forEach((v, i) => v.value = data.t0?.[i] || 0);
-                document.querySelectorAll('.tier-1-input').forEach((v, i) => v.value = data.t1?.[i] || 0);
-                document.querySelectorAll('.tier-2-input').forEach((v, i) => v.value = data.t2?.[i] || 0);
-                document.querySelectorAll('.tier-3-input').forEach((v, i) => v.value = data.t3?.[i] || 0);
-                calculateAll();
+            const saved = localStorage.getItem('raf_siege_v7');
+            if (!saved) {
+                calculateAll(); // Fresh start
+                return;
             }
+
+            let data;
+            try {
+                data = JSON.parse(saved);
+            } catch(e) {
+                calculateAll();
+                return;
+            }
+
+            // Clear existing debt rows
+            document.getElementById('debt-body').innerHTML = '';
+
+            // Rebuild debt rows
+            if (data.debts && Array.isArray(data.debts)) {
+                data.debts.forEach(debt => {
+                    const row = document.createElement('tr');
+                    row.className = "border-b border-white/5";
+                    row.innerHTML = `
+                        <td class="py-4 px-2"><input type="text" value="${debt.name || ''}" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
+                        <td class="py-4 px-2"><input type="number" value="${debt.min || '0'}" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs"></td>
+                        <td class="py-4 px-2"><input type="number" value="${debt.bal || '0'}" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs"></td>
+                        <td class="text-right"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button></td>
+                    `;
+                    document.getElementById('debt-body').appendChild(row);
+                });
+            } else {
+                // Fallback: add one empty row
+                addDebtRow();
+            }
+
+            // Load values safely
+            document.getElementById('paycheck').value = data.paycheck || '';
+            document.getElementById('freq').value = data.freq || '2';
+
+            document.querySelectorAll('.tier-0-input').forEach((el, i) => el.value = data.t0?.[i] || '0');
+            document.querySelectorAll('.tier-1-input').forEach((el, i) => el.value = data.t1?.[i] || '0');
+            document.querySelectorAll('.tier-2-input').forEach((el, i) => el.value = data.t2?.[i] || '0');
+            document.querySelectorAll('.tier-3-input').forEach((el, i) => el.value = data.t3?.[i] || '0');
+
+            calculateAll();
         }
 
         window.onload = initChart;
