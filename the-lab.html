@@ -242,21 +242,11 @@
             </div>
         </div>
 
+        <!-- Priority Target -->
         <div class="mt-20 dashboard-card p-12 border-t-8 border-crimson shadow-2xl">
-            <h3 class="text-3xl font-heading font-bold uppercase mb-8 italic text-white tracking-tight">Marching Orders</h3>
-            <div class="grid md:grid-cols-3 gap-12 text-sm">
-                <div class="bg-white/5 p-6 rounded border border-white/5">
-                    <h4 class="text-crimson font-heading uppercase mb-4 font-bold tracking-widest text-base">01. Secure The Floor</h4>
-                    <p id="order-walls" class="text-white font-bold italic opacity-90">...</p>
-                </div>
-                <div class="bg-white/5 p-6 rounded border border-white/5">
-                    <h4 class="text-white font-heading uppercase mb-4 font-bold tracking-widest text-base">02. Iron Pot Target</h4>
-                    <p id="order-liquidity" class="text-white font-bold italic opacity-90">...</p>
-                </div>
-                <div class="bg-white/5 p-6 rounded border border-white/5">
-                    <h4 class="text-white font-heading uppercase mb-4 font-bold tracking-widest text-base">03. Strike Strategy</h4>
-                    <p id="order-attack" class="text-white font-bold italic opacity-90">...</p>
-                </div>
+            <h3 class="text-3xl font-heading font-bold uppercase mb-8 text-white tracking-tight">Priority Target</h3>
+            <div id="weak-point-card" class="bg-white/5 p-10 rounded border border-white/10 text-center">
+                <p class="text-2xl font-bold italic text-gray-400">Enter your income and expenses to receive your first order.</p>
             </div>
         </div>
     </main>
@@ -335,7 +325,7 @@
         let myChart;
         let isWarMode = false;
         let p3Cache = [];
-        const CURRENT_VERSION = 'raf_siege_v17';
+        const CURRENT_VERSION = 'raf_siege_v19';
 
         document.addEventListener('DOMContentLoaded', function () {
             const canvas = document.getElementById('budgetChart');
@@ -373,7 +363,7 @@
 
             clearAllInputs();
             loadProfile();
-            document.getElementById('paycheck').focus();
+            if (document.getElementById('paycheck')) document.getElementById('paycheck').focus();
             calculateAll();
         });
 
@@ -466,6 +456,24 @@
             savingsEl.className = savingsPerc >= 20 ? 'text-green-400 font-bold' : savingsPerc >= 10 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
         }
 
+        function emailBattlePlan() {
+            const score = document.getElementById('sovereignty-score').innerText;
+            const freedom = document.getElementById('countdown-val').innerText;
+            const warChest = document.getElementById('surplus-val').innerText;
+            const remaining = document.getElementById('center-remaining').innerText;
+            const weakPoint = document.getElementById('weak-point-card').innerText.trim();
+
+            const subject = "My Real American Finance Battle Plan";
+            const body = `SOVEREIGNTY SCORE: ${score}/100\n\n` +
+                         `Monthly War Chest: ${warChest}\n` +
+                         `Remaining After Essentials: ${remaining}\n` +
+                         `Debt Freedom Timeline: ${freedom}\n\n` +
+                         `PRIORITY TARGET:\n${weakPoint}\n\n` +
+                         `Generated from realamericanfinance.com/the-lab`;
+
+            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
         function calculateAll() {
             const income = (parseFloat(document.getElementById('paycheck').value) || 0) * (parseFloat(document.getElementById('freq').value) || 2);
             let t0 = 0; document.querySelectorAll('.tier-0-input').forEach(i => t0 += (parseFloat(i.value) || 0));
@@ -479,6 +487,10 @@
             const remaining = income - totalOutflow;
             const warChest = remaining + t0;
 
+            // Update auto-debt-min
+            document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
+
+            // High-interest alerts
             document.querySelectorAll('#debt-body tr').forEach(row => {
                 const rate = parseFloat(row.querySelector('.debt-rate-input').value) || 0;
                 const alert = row.querySelector('.debt-alert');
@@ -498,6 +510,58 @@
 
             update503020(needsPerc, wantsPerc, savingsPerc);
 
+            // Iron Pot Progress
+            const ironPot = parseFloat(document.querySelector('.tier-0-input')?.value || 0);
+            const floor = t1 + dMin;
+            const moatTarget = floor * 3;
+            const potPerc = moatTarget > 0 ? Math.min(100, (ironPot / moatTarget) * 100) : 0;
+            document.getElementById('pot-progress').innerText = `${Math.round(potPerc)}%`;
+            document.getElementById('pot-bar').style.width = `${potPerc}%`;
+
+            // Sovereignty Score - FIXED
+            let score = 0;
+            if (income > 0) {
+                score += (savingsPerc / 20) * 35;
+                const moatCoverage = floor > 0 ? ironPot / (floor * 6) : 0;
+                score += Math.min(100, moatCoverage * 100) * 30;
+                score += dTotal === 0 ? 100 : Math.max(0, 100 - (dTotal / income * 12)) * 20;
+                score += needsPerc <= 50 ? 100 : Math.max(0, 100 - (needsPerc - 50) * 3) * 15;
+            }
+            score = Math.round(Math.min(100, Math.max(0, score)));
+            const scoreEl = document.getElementById('sovereignty-score');
+            scoreEl.innerText = score;
+            scoreEl.className = score >= 80 ? 'text-8xl font-bold text-white' : score >= 50 ? 'text-8xl font-bold text-gray-300' : 'text-8xl font-bold text-crimson';
+
+            // Priority Target
+            let weakPoint = "Enter your income and expenses to receive your first order.";
+            if (income === 0) {
+                weakPoint = "Enter your monthly inflow to begin the siege.";
+            } else if (dTotal > 0 && remaining <= 0) {
+                weakPoint = "BREACH DETECTED: Inflow insufficient. Cut Cargo immediately and initiate War-Mode.";
+            } else {
+                let hasHighInterest = false;
+                document.querySelectorAll('.debt-rate-input').forEach(input => {
+                    if (parseFloat(input.value || 0) >= 25) hasHighInterest = true;
+                });
+                if (hasHighInterest) {
+                    weakPoint = "HIGH-INTEREST DEBT DETECTED: Prioritize attack on highest-rate liability first.";
+                } else if (needsPerc > 60) {
+                    weakPoint = `NEEDS TOO HIGH (${Math.round(needsPerc)}%): Review Tier 1 for potential cuts.`;
+                } else if (potPerc < 33) {
+                    weakPoint = "IRON POT VULNERABLE: Less than 1 month coverage. Redirect surplus from Cargo to emergency fund.";
+                } else if (savingsPerc < 15) {
+                    weakPoint = "WEALTH ALLOCATION LOW: Increase Tier 0 to ≥20% for long-term sovereignty.";
+                } else {
+                    weakPoint = "STRONG POSITION: Maintain discipline. Consider accelerating wealth build.";
+                }
+            }
+            document.getElementById('weak-point-card').innerHTML = `<p class="text-2xl font-bold italic ${score < 50 ? 'text-crimson' : 'text-white'}">${weakPoint}</p>`;
+
+            // Other UI
+            document.getElementById('center-remaining').innerText = `$${Math.round(remaining).toLocaleString()}`;
+            document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
+            document.getElementById('surplus-val').innerText = `$${Math.round(warChest).toLocaleString()}`;
+
             let monthsToFreedom = dTotal === 0 ? 0 : remaining <= 0 ? "∞" : Math.ceil(dTotal / (remaining + dMin));
             const countdownEl = document.getElementById('countdown-val');
             countdownEl.classList.remove('text-crimson', 'breach-alert');
@@ -508,29 +572,6 @@
                 countdownEl.innerText = "NO SURPLUS";
             } else {
                 countdownEl.innerText = `${monthsToFreedom} Months`;
-            }
-
-            document.getElementById('center-remaining').innerText = `$${Math.round(remaining).toLocaleString()}`;
-            document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
-            document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
-            document.getElementById('surplus-val').innerText = `$${Math.round(warChest).toLocaleString()}`;
-
-            const ironPot = parseFloat(document.querySelector('.tier-0-input')?.value || 0);
-            const floor = t1 + dMin;
-            const moatTarget = floor * 3;
-            const potPerc = moatTarget > 0 ? Math.min(100, (ironPot / moatTarget) * 100) : 0;
-            document.getElementById('pot-progress').innerText = `${Math.round(potPerc)}%`;
-            document.getElementById('pot-bar').style.width = `${potPerc}%`;
-
-            document.getElementById('order-walls').innerHTML = `<span class="text-crimson">FORTIFY:</span> $${floor.toLocaleString()} monthly floor<br><span class="text-gray-400 text-xs">Survival + debt minimums locked in.</span>`;
-            document.getElementById('order-liquidity').innerHTML = `<span class="text-white">BUILD MOAT:</span> Target $${moatTarget.toLocaleString()}<br><span class="text-gray-400 text-xs">3 months of essentials in Iron Pot.</span>`;
-
-            if (dTotal === 0) {
-                document.getElementById('order-attack').innerHTML = `<span class="text-crimson breach-alert">SOVEREIGNTY ACHIEVED</span><br><span class="text-gray-300 text-xs">You are debt free. Deploy capital.</span>`;
-            } else if (remaining <= 0) {
-                document.getElementById('order-attack').innerHTML = `<span class="text-crimson">BREACH DETECTED</span><br><span class="text-gray-400 text-xs">Inflow insufficient. Initiate austerity.</span>`;
-            } else {
-                document.getElementById('order-attack').innerHTML = `<span class="text-white">ATTACK:</span> $${Math.round(warChest).toLocaleString()} monthly siege<br><span class="text-crimson text-xs">Freedom in ${monthsToFreedom} months.</span>`;
             }
 
             myChart.data.datasets[0].data = [t0, t1, dMin, t2 + t3, Math.max(0, remaining)];
