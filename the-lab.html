@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Structural Fixes */
+        /* Ensures the footer stays at the bottom */
         html, body { height: 100%; margin: 0; }
         body { 
             background-color: #050B14; 
@@ -17,8 +17,8 @@
             display: flex; 
             flex-direction: column; 
         }
-        main { flex: 1; padding-top: 100px; } /* Offset for fixed header */
-        
+        main { flex: 1; padding-top: 100px; } 
+
         .hero-bg { 
             background: linear-gradient(rgba(5,11,20,0.9), rgba(5,11,20,0.9)), url('https://images.unsplash.com/photo-1507608158173-1dcec673a2e5?auto=format&fit=crop&q=80'); 
             background-size: cover; background-position: center; 
@@ -27,13 +27,12 @@
         .input-underlined { border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent; outline: none; transition: border-color 0.3s; color: white; }
         .input-underlined:focus { border-color: #B22234; }
         
-        /* Priority Tiers */
+        /* Tiers */
         .tier-0 { border-left: 4px solid #B22234; background: rgba(178, 34, 52, 0.08); transition: all 0.5s ease; }
         .tier-1 { border-left: 4px solid #FFFFFF; background: rgba(255,255,255,0.04); }
         .tier-2 { border-left: 4px solid #9ca3af; background: rgba(156,163,175,0.04); }
         .tier-3 { border-left: 4px solid #4b5563; background: rgba(255,255,255,0.02); }
 
-        /* Freeze & Warning State */
         .frozen { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
         .leak-warning { color: #B22234; font-weight: 800; font-size: 10px; animation: pulse 2s infinite; display: none; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
@@ -51,10 +50,10 @@
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex flex-col">
                 <span style="font-family: 'Great Vibes';" class="text-3xl text-white">Real American Finance</span>
-                <span class="font-heading text-[10px] tracking-[0.4em] text-gray-500 uppercase font-bold mt-1">Discipline • Autonomy • Wealth</span>
+                <span class="font-heading text-[10px] tracking-[0.4em] text-gray-400 uppercase font-bold mt-1">Discipline • Autonomy • Wealth</span>
             </div>
             <div class="hidden lg:flex items-center space-x-8 text-[10px] font-heading font-bold uppercase tracking-widest text-gray-400">
-                <a href="#" class="hover:text-white transition">The Academy</a>
+                <a href="#" class="hover:text-white transition">Academy</a>
                 <a href="#" class="text-white border-b border-red-700 pb-1">The Lab</a>
                 <a href="#" class="bg-red-700 text-white px-4 py-2 hover:bg-red-800 transition">Strategy Call</a>
             </div>
@@ -69,8 +68,8 @@
 
         <div class="container mx-auto px-6 py-12">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                
                 <div class="lg:col-span-8 space-y-12">
+                    
                     <div class="dashboard-card p-8">
                         <h3 class="text-xl font-heading font-bold uppercase mb-6 border-l-2 border-red-700 pl-4">01. Monthly Inflow</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -98,7 +97,7 @@
                                 </thead>
                                 <tbody id="debt-body">
                                     <tr class="border-b border-white/5">
-                                        <td class="py-4 px-2"><input type="text" placeholder="e.g. Visa" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
+                                        <td class="py-4 px-2"><input type="text" placeholder="e.g. Credit Card" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
                                         <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
                                         <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
                                         <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-apr-input bg-transparent w-full outline-none text-red-600 text-xs font-bold" placeholder="0"></td>
@@ -117,13 +116,13 @@
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center gap-4">
                                     <h4 class="text-[11px] uppercase font-bold text-red-600 tracking-[0.3em]">Priority 00: Wealth</h4>
-                                    <span id="leak-msg" class="leak-warning">LEAK DETECTED: PAY HIGH APR DEBT FIRST</span>
+                                    <span id="leak-msg" class="leak-warning uppercase tracking-widest">CRITICAL LEAK: HIGH APR</span>
                                 </div>
                                 <div id="badge-t0" class="perc-badge">0%</div>
                             </div>
                             <div id="t0-rows" class="space-y-2">
-                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Iron Pot (Emergency Fund)</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
-                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Brokerage / Retirement</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Iron Pot (Emergency)</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Retirement / Brokerage</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
                             </div>
                             <button onclick="addRow('t0-rows', 'tier-0-input')" class="text-[8px] uppercase font-bold text-gray-500 hover:text-white">+ Add Reinforcement</button>
                         </div>
@@ -135,9 +134,9 @@
                             </div>
                             <div id="t1-rows" class="space-y-2">
                                 <div class="flex justify-between border-b border-white/10 py-3 px-4 bg-white/5"><span class="text-xs uppercase font-bold text-red-600">Debt Minimums (Auto)</span><span id="auto-debt-min" class="text-sm font-bold">$0.00</span></div>
-                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Mortgage / Rent</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Rent / Mortgage</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
                                 <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Groceries / Household</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
-                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Insurance (Auto/Health)</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Insurance</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
                             </div>
                             <button onclick="addRow('t1-rows', 'tier-1-input')" class="text-[8px] uppercase font-bold text-gray-500 hover:text-white">+ Add Reinforcement</button>
                         </div>
@@ -148,9 +147,9 @@
                                 <div id="badge-t2" class="perc-badge">0%</div>
                             </div>
                             <div id="t2-rows" class="space-y-2">
-                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-300">Utilities / Heating</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
-                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-300">Internet / Cell Phone</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
-                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-300">Maintenance / Fuel</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-300">Electricity / Gas / Water</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-300">Internet / Cell</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-300">Transport / Fuel</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
                             </div>
                             <button onclick="addRow('t2-rows', 'tier-2-input')" class="text-[8px] uppercase font-bold text-gray-500 hover:text-white">+ Add Reinforcement</button>
                         </div>
@@ -161,10 +160,28 @@
                                 <div id="badge-t3" class="perc-badge">0%</div>
                             </div>
                             <div id="t3-rows" class="space-y-2">
-                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Dining Out / Leisure</span><input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Dining / Fun</span><input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-24 text-right" placeholder="0"></div>
                                 <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Subscriptions</span><input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-24 text-right" placeholder="0"></div>
                             </div>
                             <button onclick="addRow('t3-rows', 'tier-3-input')" class="text-[8px] uppercase font-bold text-gray-500 hover:text-white">+ Add Reinforcement</button>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card p-12 border-t-8 border-red-700">
+                        <h3 class="text-3xl font-heading font-bold uppercase mb-8 italic">Marching Orders</h3>
+                        <div class="grid md:grid-cols-3 gap-12 text-sm leading-relaxed">
+                            <div class="space-y-4">
+                                <h4 class="text-red-700 font-bold uppercase tracking-widest">Tactical Status</h4>
+                                <p id="order-1" class="text-gray-400">Awaiting data...</p>
+                            </div>
+                            <div class="space-y-4">
+                                <h4 class="text-white font-bold uppercase tracking-widest">Primary Objective</h4>
+                                <p id="order-2" class="text-gray-400">Enter inflow to begin.</p>
+                            </div>
+                            <div class="space-y-4">
+                                <h4 class="text-white font-bold uppercase tracking-widest">Strike Strategy</h4>
+                                <p id="order-3" class="text-gray-400">Prepare for autonomy.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -206,12 +223,8 @@
             myChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Wealth', 'Survival', 'Min Debt', 'Infra/Cargo', 'Left'],
-                    datasets: [{ 
-                        data: [0,0,0,0,100], 
-                        backgroundColor: ['#B22234', '#FFFFFF', '#B22234aa', '#4b5563', '#11243F'], 
-                        borderWidth: 0
-                    }]
+                    labels: ['Wealth', 'Survival', 'Min Debt', 'Others', 'Remaining'],
+                    datasets: [{ data: [0,0,0,0,100], backgroundColor: ['#B22234', '#FFFFFF', '#B22234aa', '#4b5563', '#11243F'], borderWidth: 0 }]
                 },
                 options: { cutout: '72%', plugins: { legend: { display: false } } }
             });
@@ -252,13 +265,23 @@
 
             const container0 = document.getElementById('tier-0-container');
             const leakMsg = document.getElementById('leak-msg');
+            const o1 = document.getElementById('order-1');
+            const o2 = document.getElementById('order-2');
+            const o3 = document.getElementById('order-3');
+
             if(maxAPR >= 20) {
                 container0.classList.add('frozen');
                 leakMsg.style.display = 'block';
                 t0 = 0;
+                o1.innerText = `DANGER: High Interest Debt (${maxAPR}%) is bleeding you dry. Structural freeze engaged.`;
+                o2.innerText = `Kill the high-interest beast. Do not save until APR is below 10%.`;
+                o3.innerText = `Apply every spare dollar to the debt with the highest APR.`;
             } else {
                 container0.classList.remove('frozen');
                 leakMsg.style.display = 'none';
+                o1.innerText = `System Green. Survival costs are ${Math.round(((t1+dMin)/income)*100)}% of income.`;
+                o2.innerText = `Goal: Build the Iron Pot Millionaire fund (3 months of survival).`;
+                o3.innerText = `Continue wealth accumulation. You are winning.`;
             }
 
             const remaining = income - (t0 + dMin + t1 + t2 + t3);
