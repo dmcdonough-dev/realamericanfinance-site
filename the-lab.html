@@ -25,6 +25,10 @@
         .status-warn { background: #B22234; color: white; box-shadow: 0 0 10px rgba(178, 34, 52, 0.5); }
 
         .war-mode-active { border-left-color: #B22234 !important; background: rgba(178, 34, 52, 0.15) !important; opacity: 0.5; pointer-events: none; }
+        .war-mode-active h4 { color: #B22234 !important; text-shadow: 0 0 10px rgba(178,34,52,0.5); }
+        .war-mode-flash { animation: flash 2s; }
+        @keyframes flash { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
         .breach-alert { color: #B22234 !important; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
     </style>
@@ -66,7 +70,7 @@
                 <div class="dashboard-card p-8 shadow-2xl">
                     <h3 class="text-xl font-heading font-bold uppercase mb-6 border-l-2 border-crimson pl-4">01. Monthly Inflow</h3>
                     <div class="grid grid-cols-2 gap-8">
-                        <input type="number" id="paycheck" oninput="calculateAll()" placeholder="Net Paycheck ($)" class="input-underlined p-4 text-xl font-bold">
+                        <input type="number" id="paycheck" oninput="calculateAll()" placeholder="Net Paycheck ($)" class="input-underlined p-4 text-xl font-bold" autocomplete="off">
                         <select id="freq" onchange="calculateAll()" class="input-underlined p-4 text-sm font-bold text-white uppercase bg-navy-900">
                             <option value="2">2x Per Month</option>
                             <option value="1">1x Per Month</option>
@@ -121,7 +125,7 @@
                                 <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Priority 01: The Foundation (Survival)</h4>
                                 <span id="badge-t1" class="perc-badge status-safe">0%</span>
                             </div>
-                            <div class="flex justify-between border-b border-white/10 py-3 px-4 bg-white/5"><span class="text-xs uppercase font-bold text-crimson">Debt Minimums (Linked)</span><span id="auto-debt-min" class="text-sm font-bold">$0.00</span></div>
+                            <div class="flex justify-between border-b border-white/10 py-3 px-4 bg-white/5"><span class="text-xs uppercase font-bold text-crimson">Debt Minimums (Linked)</span><span id="auto-debt-min" class="text-sm font-bold">$0</span></div>
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-200">Housing (Rent/Mortgage)</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-200">Essential Groceries</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-200">Transport (Gas/Ins)</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
@@ -157,6 +161,18 @@
                             <span id="center-label" class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2">Remaining</span>
                         </div>
                     </div>
+
+                    <!-- Iron Pot Progress Bar -->
+                    <div class="mt-8 mb-8">
+                        <div class="flex justify-between text-xs uppercase mb-2">
+                            <span>Iron Pot Progress</span>
+                            <span id="pot-progress">0%</span>
+                        </div>
+                        <div class="h-4 bg-navy-900 rounded overflow-hidden">
+                            <div id="pot-bar" class="h-full bg-crimson transition-all duration-1000" style="width:0%"></div>
+                        </div>
+                    </div>
+
                     <div class="space-y-6 text-[10px] uppercase font-bold tracking-[0.2em] border-t border-white/10 pt-8">
                         <div class="flex justify-between"><span>Debt Balance:</span><span id="total-debt-val" class="text-white">$0</span></div>
                         <div class="flex justify-between text-crimson font-black"><span>Freedom Timeline:</span><span id="countdown-val">N/A</span></div>
@@ -216,11 +232,32 @@
                 type: 'doughnut',
                 data: {
                     labels: ['Wealth', 'Survival', 'Debt Min', 'Infra/Cargo', 'Remaining'],
-                    datasets: [{ data: [0,0,0,0,100], backgroundColor: ['#B22234', '#FFFFFF', '#B2223455', '#4b5563', '#11243F'], borderWidth: 0 }]
+                    datasets: [{
+                        data: [0,0,0,0,100],
+                        backgroundColor: ['#B22234', '#FFFFFF', '#DC143C88', '#4b556388', '#11243F'],
+                        hoverBackgroundColor: ['#DC143C', '#FFFFFF', '#FF0000', '#6b7280', '#1e3a5f'],
+                        borderWidth: 0
+                    }]
                 },
-                options: { cutout: '85%', plugins: { legend: { display: false } } }
+                options: {
+                    cutout: '85%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) label += ': $';
+                                    label += context.parsed.toLocaleString();
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
             });
             loadProfile();
+            document.getElementById('paycheck').focus(); // Auto-focus on load
         }
 
         function toggleWarMode() {
@@ -228,22 +265,27 @@
             const btn = document.getElementById('war-mode-btn');
             const container = document.getElementById('tier-3-container');
             const inputs = document.querySelectorAll('.tier-3-input');
+            const surplusEl = document.getElementById('surplus-val');
+
             if(isWarMode) {
                 btn.innerText = "Deactivate War-Mode";
-                container.classList.add('war-mode-active');
-                p3Cache = Array.from(inputs).map(i => i.value);
+                container.classList.add('war-mode-active', 'war-mode-flash');
+                surplusEl.classList.add('breach-alert');
+                p3Cache = Array.from(inputs).map(i => i.value || '0');
                 inputs.forEach(i => i.value = 0);
             } else {
                 btn.innerText = "Initiate War-Mode";
-                container.classList.remove('war-mode-active');
+                container.classList.remove('war-mode-active', 'war-mode-flash');
+                surplusEl.classList.remove('breach-alert');
                 inputs.forEach((i, idx) => i.value = p3Cache[idx] || 0);
             }
+            setTimeout(() => container.classList.remove('war-mode-flash'), 2000);
             calculateAll();
         }
 
         function addDebtRow() {
             const row = document.createElement('tr'); row.className = "border-b border-white/5";
-            row.innerHTML = `<td class="py-4 px-2"><input type="text" placeholder="Liability" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td><td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td><td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td><td class="text-right"><button onclick="removeRow(this)">×</button></td>`;
+            row.innerHTML = `<td class="py-4 px-2"><input type="text" placeholder="Liability" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td><td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td><td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td><td class="text-right"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button></td>`;
             document.getElementById('debt-body').appendChild(row);
         }
 
@@ -252,19 +294,12 @@
         function updateBadge(id, current, limit, isWealth = false) {
             const badge = document.getElementById(id);
             badge.innerText = `${Math.round(current)}%`;
-            
-            // Logic: Wealth wants to be HIGH (>20), Survival wants to be LOW (<50)
             const isUnsafe = isWealth ? current < limit : current > limit;
-            
-            if (isUnsafe && current > 0) {
-                badge.className = "perc-badge status-warn";
-            } else {
-                badge.className = "perc-badge status-safe";
-            }
+            badge.className = isUnsafe && current > 0 ? "perc-badge status-warn" : "perc-badge status-safe";
         }
 
         function calculateAll() {
-            const income = (parseFloat(document.getElementById('paycheck').value) || 0) * parseFloat(document.getElementById('freq').value);
+            const income = (parseFloat(document.getElementById('paycheck').value) || 0) * parseFloat(document.getElementById('freq').value || 2);
             let t0 = 0; document.querySelectorAll('.tier-0-input').forEach(i => t0 += (parseFloat(i.value) || 0));
             let dMin = 0; document.querySelectorAll('.debt-min-input').forEach(i => dMin += (parseFloat(i.value) || 0));
             let dTotal = 0; document.querySelectorAll('.debt-balance-input').forEach(i => dTotal += (parseFloat(i.value) || 0));
@@ -272,59 +307,132 @@
             let t2 = 0; document.querySelectorAll('.tier-2-input').forEach(i => t2 += (parseFloat(i.value) || 0));
             let t3 = 0; document.querySelectorAll('.tier-3-input').forEach(i => t3 += (parseFloat(i.value) || 0));
 
-            const totalOutflow = t0 + dMin + t1 + t2 + t3;
+            const totalOutflow = dMin + t1 + t2 + t3;
             const remaining = income - totalOutflow;
+            const warChest = remaining + t0; // Wealth allocation + surplus = total attack power
 
+            // Badges
             if (income > 0) {
-                updateBadge('badge-t0', (t0/income)*100, 20, true);
-                updateBadge('badge-t1', ((t1+dMin)/income)*100, 50);
+                updateBadge('badge-t0', (t0/income)*100, 20, true);   // Wealth: want ≥20%
+                updateBadge('badge-t1', ((t1+dMin)/income)*100, 50);  // Survival: want ≤50%
                 updateBadge('badge-t2', (t2/income)*100, 15);
                 updateBadge('badge-t3', (t3/income)*100, 30);
             }
 
+            // Freedom Timeline (fixed logic)
+            let monthsToFreedom;
+            if (dTotal === 0) {
+                monthsToFreedom = 0;
+            } else if (remaining <= 0) {
+                monthsToFreedom = "∞";
+            } else {
+                monthsToFreedom = Math.ceil(dTotal / (remaining + dMin)); // surplus + minimums attack debt
+            }
+
+            const countdownEl = document.getElementById('countdown-val');
+            countdownEl.classList.remove('text-crimson', 'breach-alert');
+            if (monthsToFreedom === 0) {
+                countdownEl.innerText = "DEBT FREE";
+                countdownEl.classList.add('text-crimson', 'breach-alert');
+            } else if (monthsToFreedom === "∞") {
+                countdownEl.innerText = "NO SURPLUS";
+            } else {
+                countdownEl.innerText = `${monthsToFreedom} Months`;
+            }
+
+            // UI Updates
             document.getElementById('center-remaining').innerText = `$${Math.round(remaining).toLocaleString()}`;
             document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
             document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
-            document.getElementById('surplus-val').innerText = `$${Math.round(remaining + t0).toLocaleString()}`;
-            
-            const months = (remaining + t0 > 0 && dTotal > 0) ? Math.ceil(dTotal / (remaining + t0 + dMin)) : "N/A";
-            document.getElementById('countdown-val').innerText = months === "N/A" ? "N/A" : `${months} Months`;
+            document.getElementById('surplus-val').innerText = `$${Math.round(warChest).toLocaleString()}`;
 
-            if(income > 0) {
-                document.getElementById('order-walls').innerText = `Critical Floor: $${(t1 + dMin).toLocaleString()} monthly.`;
-                document.getElementById('order-liquidity').innerText = `Iron Pot: $${((t1 + dMin) * 3).toLocaleString()} (3-month moat).`;
-                document.getElementById('order-attack').innerText = months !== "N/A" ? `Absolute sovereignty in ${months} months.` : "Resource allocation required.";
+            // Iron Pot Progress (first Tier 0 input = Iron Pot)
+            const ironPot = parseFloat(document.querySelector('.tier-0-input')?.value || 0);
+            const floor = t1 + dMin;
+            const moatTarget = floor * 3;
+            const potPerc = moatTarget > 0 ? Math.min(100, (ironPot / moatTarget) * 100) : 0;
+            document.getElementById('pot-progress').innerText = `${Math.round(potPerc)}%`;
+            document.getElementById('pot-bar').style.width = `${potPerc}%`;
+
+            // Marching Orders - dynamic & motivational
+            document.getElementById('order-walls').innerHTML = `
+                <span class="text-crimson">FORTIFY:</span> $${floor.toLocaleString()} monthly floor<br>
+                <span class="text-gray-400 text-xs">Survival + debt minimums locked in.</span>
+            `;
+
+            document.getElementById('order-liquidity').innerHTML = `
+                <span class="text-white">BUILD MOAT:</span> Target $${moatTarget.toLocaleString()}<br>
+                <span class="text-gray-400 text-xs">3 months of essentials in Iron Pot.</span>
+            `;
+
+            if (dTotal === 0) {
+                document.getElementById('order-attack').innerHTML = `
+                    <span class="text-crimson breach-alert">SOVEREIGNTY ACHIEVED</span><br>
+                    <span class="text-gray-300 text-xs">You are debt free. Deploy capital.</span>
+                `;
+            } else if (remaining <= 0) {
+                document.getElementById('order-attack').innerHTML = `
+                    <span class="text-crimson">BREACH DETECTED</span><br>
+                    <span class="text-gray-400 text-xs">Inflow insufficient. Initiate austerity.</span>
+                `;
+            } else {
+                document.getElementById('order-attack').innerHTML = `
+                    <span class="text-white">ATTACK:</span> $${Math.round(warChest).toLocaleString()} monthly siege<br>
+                    <span class="text-crimson text-xs">Freedom in ${monthsToFreedom} months.</span>
+                `;
             }
 
-            myChart.data.datasets[0].data = [t0, t1, dMin, t2+t3, Math.max(0, remaining)];
+            // Chart Update
+            myChart.data.datasets[0].data = [t0, t1, dMin, t2 + t3, Math.max(0, remaining)];
             myChart.update();
         }
 
         function saveProfile() {
             const data = {
-                paycheck: document.getElementById('paycheck').value, freq: document.getElementById('freq').value,
+                paycheck: document.getElementById('paycheck').value,
+                freq: document.getElementById('freq').value,
+                debts: Array.from(document.querySelectorAll('#debt-body tr')).map(row => ({
+                    name: row.querySelector('input[type=text]').value,
+                    min: row.querySelector('.debt-min-input').value,
+                    bal: row.querySelector('.debt-balance-input').value
+                })),
                 t0: Array.from(document.querySelectorAll('.tier-0-input')).map(i => i.value),
                 t1: Array.from(document.querySelectorAll('.tier-1-input')).map(i => i.value),
                 t2: Array.from(document.querySelectorAll('.tier-2-input')).map(i => i.value),
                 t3: Array.from(document.querySelectorAll('.tier-3-input')).map(i => i.value)
             };
-            localStorage.setItem('raf_siege_v6', JSON.stringify(data));
+            localStorage.setItem('raf_siege_v7', JSON.stringify(data));
             alert('STRATEGY SECURED');
         }
 
         function loadProfile() {
-            const saved = localStorage.getItem('raf_siege_v6');
+            const saved = localStorage.getItem('raf_siege_v7') || localStorage.getItem('raf_siege_v6');
             if(saved) {
                 const data = JSON.parse(saved);
-                document.getElementById('paycheck').value = data.paycheck;
-                document.getElementById('freq').value = data.freq;
-                document.querySelectorAll('.tier-0-input').forEach((v, i) => v.value = data.t0[i] || 0);
-                document.querySelectorAll('.tier-1-input').forEach((v, i) => v.value = data.t1[i] || 0);
-                document.querySelectorAll('.tier-2-input').forEach((v, i) => v.value = data.t2[i] || 0);
-                document.querySelectorAll('.tier-3-input').forEach((v, i) => v.value = data.t3[i] || 0);
+                document.getElementById('paycheck').value = data.paycheck || '';
+                document.getElementById('freq').value = data.freq || '2';
+
+                // Load debts if saved (v7+)
+                if (data.debts) {
+                    document.getElementById('debt-body').innerHTML = '';
+                    data.debts.forEach(debt => {
+                        const row = document.createElement('tr'); row.className = "border-b border-white/5";
+                        row.innerHTML = `<td class="py-4 px-2"><input type="text" value="${debt.name}" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
+                                         <td class="py-4 px-2"><input type="number" value="${debt.min}" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs"></td>
+                                         <td class="py-4 px-2"><input type="number" value="${debt.bal}" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs"></td>
+                                         <td class="text-right"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button></td>`;
+                        document.getElementById('debt-body').appendChild(row);
+                    });
+                }
+
+                document.querySelectorAll('.tier-0-input').forEach((v, i) => v.value = data.t0?.[i] || 0);
+                document.querySelectorAll('.tier-1-input').forEach((v, i) => v.value = data.t1?.[i] || 0);
+                document.querySelectorAll('.tier-2-input').forEach((v, i) => v.value = data.t2?.[i] || 0);
+                document.querySelectorAll('.tier-3-input').forEach((v, i) => v.value = data.t3?.[i] || 0);
                 calculateAll();
             }
         }
+
         window.onload = initChart;
     </script>
 </body>
