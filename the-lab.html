@@ -6,53 +6,59 @@
     <title>The Lab | Real American Finance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #050B14; color: white; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
-        .dashboard-card { background: #0A1A2F; border: 1px solid rgba(255,255,255,0.05); border-radius: 4px; padding: 2rem; margin-bottom: 2rem; }
-        .input-line { background: transparent; border: none; border-bottom: 2px solid rgba(255,255,255,0.1); color: white; outline: none; width: 100%; transition: border-color 0.3s; }
-        .input-line:focus { border-color: #B22234; }
-        .tier-0 { border-left: 4px solid #B22234; background: rgba(178, 34, 52, 0.05); padding: 1.5rem; }
-        .frozen { opacity: 0.2; pointer-events: none; filter: grayscale(1); }
-        .action-plan { background: #071324; border-top: 4px solid #B22234; padding: 2.5rem; }
+        body { background-color: #050B14; color: white; font-family: 'Inter', sans-serif; margin: 0; padding: 0; line-height: 1.5; }
+        
+        /* Layout Blocks */
+        .section-padding { padding: 4rem 1.5rem; }
+        .card { background: #0A1A2F; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; }
+        
+        /* Input Styling */
+        .input-field { background: transparent; border: none; border-bottom: 2px solid rgba(255,255,255,0.1); color: white; padding: 0.75rem 0; width: 100%; outline: none; font-weight: bold; }
+        .input-field:focus { border-color: #B22234; }
+        
+        /* Logic Indicators */
+        .frozen { opacity: 0.25; pointer-events: none; filter: grayscale(1); }
+        .status-badge { font-[8px] uppercase font-bold tracking-widest bg-white/10 px-3 py-1 rounded; color: #9ca3af; }
+        .danger-text { color: #B22234; }
     </style>
 </head>
 <body>
 
-    <header class="bg-[#050B14] border-b border-white/10 py-8">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+    <header class="bg-[#050B14] border-b border-white/5 py-10">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="text-center md:text-left">
-                <h1 style="font-family: 'Great Vibes';" class="text-4xl">Real American Finance</h1>
-                <p class="text-[10px] tracking-[0.4em] text-gray-400 uppercase font-bold mt-1">Discipline • Autonomy • Wealth</p>
+                <div style="font-family: 'Great Vibes';" class="text-5xl">Real American Finance</div>
+                <div class="text-[10px] tracking-[0.5em] text-gray-500 uppercase font-bold mt-2">Discipline • Autonomy • Wealth</div>
             </div>
-            <nav class="mt-4 md:mt-0 flex gap-6 text-[10px] uppercase font-bold tracking-widest text-gray-400">
-                <a href="#" class="hover:text-white">Academy</a>
-                <a href="#" class="text-white border-b border-red-700">The Lab</a>
-                <button class="bg-red-700 text-white px-4 py-2 hover:bg-red-800 transition">Strategy Call</button>
+            <nav class="flex gap-8 text-[11px] font-bold uppercase tracking-widest text-gray-400">
+                <a href="#" class="hover:text-white transition">Academy</a>
+                <a href="#" class="text-white border-b-2 border-red-700 pb-1">The Lab</a>
+                <a href="#" class="bg-red-700 text-white px-6 py-2 hover:bg-red-800 transition">Strategy Call</a>
             </nav>
         </div>
     </header>
 
-    <main class="container mx-auto px-6 py-12">
-        <div class="text-center mb-16">
-            <h2 class="text-6xl md:text-8xl font-bold uppercase tracking-tighter">THE <span class="text-red-700">LAB.</span></h2>
-            <p class="text-gray-400 uppercase tracking-[0.5em] mt-4 font-bold">Pillar 01: Iron Pot Millionaire</p>
-        </div>
+    <section class="bg-gradient-to-b from-[#071324] to-[#050B14] py-20 text-center border-b border-white/5">
+        <h1 class="text-7xl md:text-9xl font-extrabold uppercase tracking-tighter">THE <span class="text-red-700">LAB.</span></h1>
+        <p class="text-gray-400 uppercase tracking-[0.7em] mt-6 font-bold text-sm">Pillar 01: Iron Pot Millionaire</p>
+    </section>
 
+    <main class="max-w-6xl mx-auto px-6 py-16">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
             <div class="lg:col-span-8">
-                
-                <div class="dashboard-card">
-                    <h3 class="text-xl font-bold uppercase mb-6 text-red-700">01. Monthly Inflow</h3>
-                    <div class="grid md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-bold uppercase mb-8 border-l-4 border-red-700 pl-4">01. Monthly Inflow</h3>
+                    <div class="grid md:grid-cols-2 gap-10">
                         <div>
-                            <label class="text-[10px] font-bold text-gray-500 uppercase">Net Paycheck ($)</label>
-                            <input type="number" id="pay" oninput="calc()" class="input-line text-2xl font-bold mt-2">
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Net Paycheck ($)</label>
+                            <input type="number" id="pay" oninput="run()" class="input-field text-3xl">
                         </div>
                         <div>
-                            <label class="text-[10px] font-bold text-gray-500 uppercase">Frequency</label>
-                            <select id="freq" onchange="calc()" class="input-line text-lg font-bold bg-[#0A1A2F] mt-2">
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Frequency</label>
+                            <select id="freq" onchange="run()" class="input-field text-lg bg-[#0A1A2F]">
                                 <option value="2">Bi-Weekly (2x)</option>
                                 <option value="1">Monthly (1x)</option>
                                 <option value="4">Weekly (4x)</option>
@@ -61,86 +67,81 @@
                     </div>
                 </div>
 
-                <div class="dashboard-card">
-                    <h3 class="text-xl font-bold uppercase mb-6 text-red-700">02. Debt Reconnaissance</h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs uppercase font-bold text-gray-500">
-                            <thead class="border-b border-white/10">
-                                <tr><th class="pb-3">Liability</th><th class="pb-3">Min $</th><th class="pb-3">Balance $</th><th class="pb-3 text-red-600">APR %</th><th></th></tr>
-                            </thead>
-                            <tbody id="debt-table">
-                                <tr class="border-b border-white/5">
-                                    <td><input type="text" placeholder="Card Name" class="bg-transparent text-white py-4 outline-none uppercase font-bold"></td>
-                                    <td><input type="number" oninput="calc()" class="d-min bg-transparent text-white outline-none w-16" placeholder="0"></td>
-                                    <td><input type="number" oninput="calc()" class="d-bal bg-transparent text-white outline-none w-24" placeholder="0"></td>
-                                    <td><input type="number" oninput="calc()" class="d-apr bg-transparent text-red-600 font-bold outline-none w-12" placeholder="0"></td>
-                                    <td><button onclick="this.closest('tr').remove(); calc();" class="text-lg">×</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <button onclick="addDebt()" class="mt-4 text-[10px] text-gray-400 uppercase font-bold hover:text-white transition">+ Add Liability</button>
-                    </div>
+                <div class="card">
+                    <h3 class="text-xl font-bold uppercase mb-8 border-l-4 border-red-700 pl-4">02. Debt Reconnaissance</h3>
+                    <table class="w-full text-left text-[11px] font-bold uppercase text-gray-500">
+                        <thead class="border-b border-white/10">
+                            <tr><th class="pb-4 px-2">Liability</th><th class="pb-4 px-2">Min Pay</th><th class="pb-4 px-2">Balance</th><th class="pb-4 px-2 danger-text">APR %</th><th></th></tr>
+                        </thead>
+                        <tbody id="debt-table">
+                            <tr class="border-b border-white/5">
+                                <td class="py-4 px-2"><input type="text" placeholder="e.g. Visa Card" class="bg-transparent text-white outline-none w-full"></td>
+                                <td class="py-4 px-2"><input type="number" oninput="run()" class="d-min bg-transparent text-white outline-none w-20" placeholder="0"></td>
+                                <td class="py-4 px-2"><input type="number" oninput="run()" class="d-bal bg-transparent text-white outline-none w-24" placeholder="0"></td>
+                                <td class="py-4 px-2"><input type="number" oninput="run()" class="d-apr bg-transparent danger-text outline-none w-16" placeholder="0"></td>
+                                <td><button onclick="this.closest('tr').remove(); run();" class="text-xl">×</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button onclick="addDebt()" class="mt-6 text-[10px] font-bold text-gray-500 hover:text-white uppercase">+ Add Liability</button>
                 </div>
 
-                <div class="dashboard-card">
-                    <h3 class="text-xl font-bold uppercase mb-8 text-red-700">03. The Siege Engine</h3>
+                <div class="card">
+                    <h3 class="text-xl font-bold uppercase mb-10 border-l-4 border-red-700 pl-4">03. The Siege Engine</h3>
                     
-                    <div id="wealth-box" class="tier-0 mb-10">
-                        <h4 class="text-xs font-bold text-red-600 uppercase mb-4 tracking-widest">P00: Wealth Accumulation</h4>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Iron Pot Fund</span><input type="number" oninput="calc()" class="w-in input-line w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Brokerage / Retirement</span><input type="number" oninput="calc()" class="w-in input-line w-24 text-right" placeholder="0"></div>
+                    <div id="wealth-box" class="mb-12 bg-red-900/10 p-6 border-l-4 border-red-700">
+                        <div class="flex justify-between mb-4">
+                            <span class="text-xs font-bold text-red-700 uppercase tracking-widest">P00: Wealth Accumulation</span>
+                            <span id="w-badge" class="status-badge">0%</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-white/5"><span>Iron Pot Fund (Savings)</span><input type="number" oninput="run()" class="w-in input-field w-24 text-right" placeholder="0"></div>
+                        <div class="flex justify-between py-3 border-b border-white/5"><span>Retirement / Brokerage</span><input type="number" oninput="run()" class="w-in input-field w-24 text-right" placeholder="0"></div>
                     </div>
 
-                    <div class="mb-10 pl-4 border-l-4 border-white">
-                        <h4 class="text-xs font-bold uppercase mb-4 tracking-widest">P01: Survival & Operations</h4>
-                        <div class="flex justify-between py-3 bg-white/5 px-2 mb-4"><span>Debt Minimums (Auto)</span><span id="auto-d" class="font-bold text-red-600">$0</span></div>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Rent / Mortgage</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Groceries / Household</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Home/Auto Insurance</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
+                    <div class="mb-10 pl-6 border-l-4 border-white">
+                        <h4 class="text-xs font-bold uppercase mb-6 tracking-widest">P01: Survival Operations</h4>
+                        <div class="flex justify-between py-4 bg-white/5 px-4 mb-4 font-bold text-sm"><span>Debt Minimums (Auto)</span><span id="auto-d" class="danger-text">$0</span></div>
+                        <div class="flex justify-between py-3 border-b border-white/5"><span>Housing (Rent/Mortgage)</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
+                        <div class="flex justify-between py-3 border-b border-white/5"><span>Groceries & Household</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
+                        <div class="flex justify-between py-3 border-b border-white/5"><span>Electricity / Gas / Water</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
                     </div>
 
-                    <div class="mb-10 pl-4 border-l-4 border-gray-500">
-                        <h4 class="text-xs font-bold uppercase mb-4 tracking-widest text-gray-400">P02: Infrastructure</h4>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Electricity / Water / Gas</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Internet / Phone</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Transport / Fuel</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
-                    </div>
-
-                    <div class="pl-4 border-l-4 border-gray-700">
-                        <h4 class="text-xs font-bold uppercase mb-4 tracking-widest text-gray-600">P03: Cargo (Lifestyle)</h4>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Dining / Bars</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Subscriptions / Gym</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
+                    <div class="pl-6 border-l-4 border-gray-600">
+                        <h4 class="text-xs font-bold uppercase mb-6 tracking-widest text-gray-400">P02-P03: Infrastructure & Cargo</h4>
+                        <div class="flex justify-between py-3 border-b border-white/5"><span>Transport & Insurance</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
+                        <div class="flex justify-between py-3 border-b border-white/5"><span>Comm / Internet / Cell</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
+                        <div class="flex justify-between py-3 border-b border-white/5"><span>Lifestyle (Dining/Gym)</span><input type="number" oninput="run()" class="s-in input-field w-24 text-right" placeholder="0"></div>
                     </div>
                 </div>
 
-                <div class="action-plan">
-                    <h3 class="text-3xl font-bold uppercase italic mb-8">Marching Orders</h3>
-                    <div class="grid md:grid-cols-2 gap-12 text-sm leading-relaxed">
+                <div class="bg-red-700/5 border-t-4 border-red-700 p-10 rounded">
+                    <h3 class="text-3xl font-extrabold uppercase italic mb-8">Marching Orders</h3>
+                    <div class="grid md:grid-cols-2 gap-10">
                         <div>
-                            <h4 class="text-red-700 font-bold uppercase mb-2">Primary Objective</h4>
-                            <p id="m-1" class="text-gray-400">Awaiting inflow reconnaissance...</p>
+                            <h4 class="text-red-700 font-bold uppercase text-xs mb-3">Primary Mission</h4>
+                            <p id="m-1" class="text-gray-400 text-sm leading-relaxed">Enter income data to begin reconnaissance.</p>
                         </div>
                         <div>
-                            <h4 class="text-white font-bold uppercase mb-2">Strike Strategy</h4>
-                            <p id="m-2" class="text-gray-400">Deploy data to generate strategy.</p>
+                            <h4 class="text-white font-bold uppercase text-xs mb-3">Strike Strategy</h4>
+                            <p id="m-2" class="text-gray-400 text-sm leading-relaxed">System waiting for deployment.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="lg:col-span-4">
-                <div class="dashboard-card sticky top-12 text-center">
-                    <div class="relative w-full max-w-[240px] mx-auto">
+                <div class="card text-center lg:sticky lg:top-10">
+                    <div class="relative w-full max-w-[220px] mx-auto">
                         <canvas id="chart"></canvas>
                         <div class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none">
-                            <div id="unallocated" class="text-3xl font-bold">$0</div>
-                            <div class="text-[8px] uppercase font-bold text-gray-500 tracking-widest">Unallocated</div>
+                            <div id="left-val" class="text-4xl font-bold">$0</div>
+                            <div class="text-[9px] uppercase font-bold text-gray-500 tracking-widest">Unallocated</div>
                         </div>
                     </div>
-                    <div class="mt-8 pt-8 border-t border-white/10 space-y-6">
-                        <div class="bg-navy-950 p-6 border border-white/5 rounded">
-                            <div id="strike-force" class="text-5xl font-bold text-red-700">$0</div>
-                            <span class="text-[9px] uppercase font-bold text-gray-500 block mt-2 tracking-widest">Monthly Strike Force</span>
+                    <div class="mt-8 pt-8 border-t border-white/5 space-y-6">
+                        <div class="bg-[#050B14] p-6 border border-white/10">
+                            <div id="strike-val" class="text-5xl font-bold text-red-700">$0</div>
+                            <p class="text-[10px] uppercase font-bold text-gray-500 mt-2">Monthly Strike Force</p>
                         </div>
                     </div>
                 </div>
@@ -148,10 +149,10 @@
         </div>
     </main>
 
-    <footer class="bg-[#050B14] border-t-8 border-red-700 py-16 text-center">
-        <div class="container mx-auto px-6">
-            <h2 style="font-family: 'Great Vibes';" class="text-4xl">Real American Finance</h2>
-            <p class="text-[10px] text-gray-600 uppercase tracking-[0.5em] font-bold mt-4">© 2026. Discipline is Freedom. Own Your Outcomes.</p>
+    <footer class="bg-[#050B14] border-t-8 border-red-700 py-20 text-center">
+        <div class="max-w-6xl mx-auto px-6">
+            <div style="font-family: 'Great Vibes';" class="text-5xl">Real American Finance</div>
+            <p class="text-[11px] text-gray-600 uppercase tracking-[0.6em] font-bold mt-6">© 2026. Discipline is Freedom. Own Your Outcomes.</p>
         </div>
     </footer>
 
@@ -161,42 +162,43 @@
             const ctx = document.getElementById('chart').getContext('2d');
             myChart = new Chart(ctx, {
                 type: 'doughnut',
-                data: {
-                    labels: ['Wealth', 'Survival', 'Debt Min', 'Left'],
-                    datasets: [{ data: [0,0,0,100], backgroundColor: ['#B22234', '#FFFFFF', '#B22234aa', '#11243F'], borderWidth: 0 }]
-                },
-                options: { cutout: '78%', plugins: { legend: { display: false } } }
+                data: { labels: ['Wealth', 'Survival', 'Debt Min', 'Left'], datasets: [{ data: [0,0,0,100], backgroundColor: ['#B22234', '#FFFFFF', '#B2223466', '#11243F'], borderWidth: 0 }] },
+                options: { cutout: '80%', plugins: { legend: { display: false } } }
             });
         }
 
         function addDebt() {
             const tr = document.createElement('tr'); tr.className = "border-b border-white/5";
-            tr.innerHTML = `<td><input type="text" placeholder="Liability" class="bg-transparent text-white py-4 outline-none font-bold uppercase"></td><td><input type="number" oninput="calc()" class="d-min bg-transparent text-white outline-none w-16" placeholder="0"></td><td><input type="number" oninput="calc()" class="d-bal bg-transparent text-white outline-none w-24" placeholder="0"></td><td><input type="number" oninput="calc()" class="d-apr bg-transparent text-red-600 font-bold outline-none w-12" placeholder="0"></td><td><button onclick="this.closest('tr').remove(); calc();">×</button></td>`;
+            tr.innerHTML = `<td class="py-4 px-2"><input type="text" placeholder="Liability" class="bg-transparent text-white outline-none w-full"></td><td class="py-4 px-2"><input type="number" oninput="run()" class="d-min bg-transparent text-white outline-none w-20" placeholder="0"></td><td class="py-4 px-2"><input type="number" oninput="run()" class="d-bal bg-transparent text-white outline-none w-24" placeholder="0"></td><td class="py-4 px-2"><input type="number" oninput="run()" class="d-apr bg-transparent danger-text outline-none w-16" placeholder="0"></td><td><button onclick="this.closest('tr').remove(); run();">×</button></td>`;
             document.getElementById('debt-table').appendChild(tr);
         }
 
-        function calc() {
+        function run() {
             const inc = (parseFloat(document.getElementById('pay').value) || 0) * parseFloat(document.getElementById('freq').value);
             let dMin = 0; document.querySelectorAll('.d-min').forEach(i => dMin += (parseFloat(i.value) || 0));
-            let maxAPR = 0; document.querySelectorAll('.debt-apr').forEach(i => { let v = parseFloat(i.value) || 0; if(v > maxAPR) maxAPR = v; });
+            let maxAPR = 0; document.querySelectorAll('.d-apr').forEach(i => { let v = parseFloat(i.value) || 0; if(v > maxAPR) maxAPR = v; });
             let wVal = 0; document.querySelectorAll('.w-in').forEach(i => wVal += (parseFloat(i.value) || 0));
             let sVal = 0; document.querySelectorAll('.s-in').forEach(i => sVal += (parseFloat(i.value) || 0));
 
             const wBox = document.getElementById('wealth-box');
             if(maxAPR >= 20) {
                 wBox.classList.add('frozen'); wVal = 0;
-                document.getElementById('m-1').innerText = `CRITICAL LEAK: ${maxAPR}% APR detected. Emergency protocols engaged.`;
-                document.getElementById('m-2').innerText = `Freeze all saving. Redirect every unallocated dollar to seal this leak immediately.`;
+                document.getElementById('m-1').innerText = `DANGER: ${maxAPR}% APR leak detected. Immediate action required.`;
+                document.getElementById('m-2').innerText = `Freeze all saving. Redirect every unallocated cent to this high-interest debt.`;
             } else {
                 wBox.classList.remove('frozen');
-                document.getElementById('m-1').innerText = `System Green. Focus: Building the 3-Month Iron Pot Fund.`;
-                document.getElementById('m-2').innerText = `After the Iron Pot is full, aggressively scale into your Brokerage accounts.`;
+                document.getElementById('m-1').innerText = `System Stable. Fill the Iron Pot Fund (3 months expenses).`;
+                document.getElementById('m-2').innerText = `After the Iron Pot is secure, funnel the Strike Force into your brokerage.`;
             }
 
             const left = inc - (wVal + sVal + dMin);
-            document.getElementById('unallocated').innerText = "$" + Math.round(left).toLocaleString();
+            document.getElementById('left-val').innerText = "$" + Math.round(left).toLocaleString();
             document.getElementById('auto-d').innerText = "$" + dMin.toLocaleString();
-            document.getElementById('strike-force').innerText = "$" + Math.round(left + wVal).toLocaleString();
+            document.getElementById('strike-val').innerText = "$" + Math.round(left + wVal).toLocaleString();
+
+            if(inc > 0) {
+                document.getElementById('w-badge').innerText = Math.round((wVal/inc)*100) + "%";
+            }
 
             myChart.data.datasets[0].data = [wVal, sVal, dMin, Math.max(0, left)];
             myChart.update();
