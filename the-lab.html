@@ -251,6 +251,7 @@
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="bg-navy-950 border-t-8 border-crimson pt-20 pb-8">
         <div class="container mx-auto px-6">
             <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-20">
@@ -325,13 +326,12 @@
         let myChart;
         let isWarMode = false;
         let p3Cache = [];
-        const CURRENT_VERSION = 'raf_siege_v15';
+        const CURRENT_VERSION = 'raf_siege_v16';
 
         document.addEventListener('DOMContentLoaded', function () {
             const canvas = document.getElementById('budgetChart');
             if (canvas) {
                 const ctx = canvas.getContext('2d');
-
                 myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
@@ -364,15 +364,15 @@
 
             clearAllInputs();
             loadProfile();
-            if (document.getElementById('paycheck')) {
-                document.getElementById('paycheck').focus();
-            }
+            if (document.getElementById('paycheck')) document.getElementById('paycheck').focus();
             calculateAll();
         });
 
         function clearAllInputs() {
-            if (document.getElementById('paycheck')) document.getElementById('paycheck').value = '';
-            if (document.getElementById('freq')) document.getElementById('freq').value = '2';
+            const paycheck = document.getElementById('paycheck');
+            if (paycheck) paycheck.value = '';
+            const freq = document.getElementById('freq');
+            if (freq) freq.value = '2';
             const debtBody = document.getElementById('debt-body');
             if (debtBody) {
                 debtBody.innerHTML = `<tr class="border-b border-white/5">
@@ -385,7 +385,9 @@
                     </td>
                 </tr>`;
             }
-            document.querySelectorAll('.tier-0-input, .tier-1-input, .tier-2-input, .tier-3-input').forEach(i => i.value = '');
+            document.querySelectorAll('.tier-0-input, .tier-1-input, .tier-2-input, .tier-3-input').forEach(input => {
+                if (input) input.value = '';
+            });
         }
 
         function clearSavedData() {
@@ -419,6 +421,8 @@
         }
 
         function addDebtRow() {
+            const debtBody = document.getElementById('debt-body');
+            if (!debtBody) return;
             const row = document.createElement('tr');
             row.className = "border-b border-white/5";
             row.innerHTML = `<td class="py-4 px-2"><input type="text" placeholder="Liability" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
@@ -428,12 +432,14 @@
                              <td class="text-right relative"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button>
                                  <span class="debt-alert hidden absolute right-8 top-1/2 -translate-y-1/2 high-interest-alert uppercase">HIGH ALERT</span>
                              </td>`;
-            document.getElementById('debt-body').appendChild(row);
+            debtBody.appendChild(row);
         }
 
         function removeRow(btn) {
-            btn.closest('tr').remove();
-            calculateAll();
+            if (btn && btn.closest('tr')) {
+                btn.closest('tr').remove();
+                calculateAll();
+            }
         }
 
         function updateBadge(id, current, target, isHigherBetter = false) {
@@ -486,20 +492,20 @@
         function calculateAll() {
             const paycheckEl = document.getElementById('paycheck');
             const freqEl = document.getElementById('freq');
-            const income = (parseFloat(paycheckEl?.value) || 0) * (parseFloat(freqEl?.value) || 2);
+            const income = (parseFloat(paycheckEl?.value || 0) || 0) * (parseFloat(freqEl?.value || 2) || 2);
 
             let t0 = 0;
-            document.querySelectorAll('.tier-0-input').forEach(i => t0 += (parseFloat(i.value) || 0));
+            document.querySelectorAll('.tier-0-input').forEach(i => t0 += parseFloat(i.value || 0));
             let dMin = 0;
-            document.querySelectorAll('.debt-min-input').forEach(i => dMin += (parseFloat(i.value) || 0));
+            document.querySelectorAll('.debt-min-input').forEach(i => dMin += parseFloat(i.value || 0));
             let dTotal = 0;
-            document.querySelectorAll('.debt-balance-input').forEach(i => dTotal += (parseFloat(i.value) || 0));
+            document.querySelectorAll('.debt-balance-input').forEach(i => dTotal += parseFloat(i.value || 0));
             let t1 = 0;
-            document.querySelectorAll('.tier-1-input').forEach(i => t1 += (parseFloat(i.value) || 0));
+            document.querySelectorAll('.tier-1-input').forEach(i => t1 += parseFloat(i.value || 0));
             let t2 = 0;
-            document.querySelectorAll('.tier-2-input').forEach(i => t2 += (parseFloat(i.value) || 0));
+            document.querySelectorAll('.tier-2-input').forEach(i => t2 += parseFloat(i.value || 0));
             let t3 = 0;
-            document.querySelectorAll('.tier-3-input').forEach(i => t3 += (parseFloat(i.value) || 0));
+            document.querySelectorAll('.tier-3-input').forEach(i => t3 += parseFloat(i.value || 0));
 
             const totalOutflow = dMin + t1 + t2 + t3;
             const remaining = income - totalOutflow;
@@ -510,7 +516,7 @@
                 const rateInput = row.querySelector('.debt-rate-input');
                 const alert = row.querySelector('.debt-alert');
                 if (rateInput && alert) {
-                    const rate = parseFloat(rateInput.value) || 0;
+                    const rate = parseFloat(rateInput.value || 0);
                     alert.classList.toggle('hidden', rate < 25);
                 }
             });
@@ -574,6 +580,7 @@
                 weakCard.innerHTML = `<p class="text-2xl font-bold italic ${score < 50 ? 'text-crimson' : 'text-white'}">${weakPoint}</p>`;
             }
 
+            // Update UI elements safely
             const centerRemaining = document.getElementById('center-remaining');
             if (centerRemaining) centerRemaining.innerText = `$${Math.round(remaining).toLocaleString()}`;
             const autoDebtMin = document.getElementById('auto-debt-min');
@@ -668,8 +675,10 @@
                 });
             }
 
-            if (document.getElementById('paycheck')) document.getElementById('paycheck').value = data.paycheck || '';
-            if (document.getElementById('freq')) document.getElementById('freq').value = data.freq || '2';
+            const paycheck = document.getElementById('paycheck');
+            if (paycheck) paycheck.value = data.paycheck || '';
+            const freq = document.getElementById('freq');
+            if (freq) freq.value = data.freq || '2';
 
             document.querySelectorAll('.tier-0-input').forEach((el, i) => el.value = data.t0?.[i] || '');
             document.querySelectorAll('.tier-1-input').forEach((el, i) => el.value = data.t1?.[i] || '');
