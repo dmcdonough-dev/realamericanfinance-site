@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         .hero-bg { background: linear-gradient(rgba(5,11,20,0.65), rgba(5,11,20,0.65)), url('./flag_distressed.jpg'); background-size: cover; background-position: center; }
+        /* Style for the custom number inputs to remove arrows */
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     </style>
     <script>
         tailwind.config = {
@@ -17,6 +19,7 @@
     </script>
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson">
+    
     <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="flex flex-col group">
@@ -42,7 +45,8 @@
 
     <section class="py-24">
         <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12">
+            
+            <div class="grid md:grid-cols-2 gap-12 mb-24">
                 <div class="bg-navy-900 border border-white/10 p-8">
                     <h3 class="text-xl font-heading font-bold uppercase mb-4 border-l-2 border-crimson pl-4">Surplus Velocity Calculator</h3>
                     <div class="space-y-6">
@@ -62,9 +66,57 @@
                 </div>
                 <div class="flex flex-col justify-center">
                     <h2 class="text-4xl font-heading font-bold uppercase mb-6 leading-tight">Data over <br><span class="text-crimson">emotion.</span></h2>
-                    <p class="text-gray-400 leading-relaxed">The Lab is designed to strip away the noise. Use these tools to identify your leakages and calculate your trajectory toward autonomy.</p>
+                    <p class="text-gray-400 leading-relaxed italic">The Lab is designed to strip away the noise. Use these tools to identify your leakages and calculate your trajectory toward autonomy.</p>
                 </div>
             </div>
+
+            <div class="bg-navy-900 border border-white/10 p-8 md:p-12 mb-12">
+                <div class="mb-10">
+                    <h3 class="text-2xl font-heading font-bold uppercase mb-2 border-l-2 border-crimson pl-4">Debt Reconnaissance Module</h3>
+                    <p class="text-xs uppercase tracking-widest text-gray-500 font-bold">Pillar 03: Establish the Strategic Liability Baseline</p>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full mb-8 text-left min-w-[600px]">
+                        <thead>
+                            <tr class="border-b border-white/10 font-heading text-[10px] tracking-[0.2em] uppercase text-gray-400">
+                                <th class="pb-4 px-2">Liability Name</th>
+                                <th class="pb-4 px-2">Min. Payment ($)</th>
+                                <th class="pb-4 px-2">Interest Rate (%)</th>
+                                <th class="pb-4 px-2">Total Balance ($)</th>
+                                <th class="pb-4 w-12 text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="debt-rows">
+                            <tr class="border-b border-white/5">
+                                <td class="py-4 px-2"><input type="text" placeholder="e.g. Credit Card" class="bg-transparent border-none focus:ring-0 text-white w-full placeholder:text-gray-800 font-bold uppercase text-sm"></td>
+                                <td class="py-4 px-2"><input type="number" placeholder="0" class="payment-input bg-transparent border-none focus:ring-0 text-white w-full placeholder:text-gray-800 font-bold text-sm"></td>
+                                <td class="py-4 px-2"><input type="number" placeholder="0.00" class="bg-transparent border-none focus:ring-0 text-white w-full placeholder:text-gray-800 font-bold text-sm"></td>
+                                <td class="py-4 px-2"><input type="number" placeholder="0" class="balance-input bg-transparent border-none focus:ring-0 text-white w-full placeholder:text-gray-800 font-bold text-sm"></td>
+                                <td class="py-4 text-center"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <button onclick="addRow()" class="font-heading text-[10px] tracking-[0.2em] uppercase bg-white/5 border border-white/10 hover:border-crimson px-6 py-2 text-white font-bold transition">
+                    + Add Row
+                </button>
+
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-white/10 pt-12">
+                    <div class="bg-crimson p-8">
+                        <h4 class="font-heading text-[10px] tracking-[0.3em] uppercase text-white/80 font-bold mb-2">Monthly Cashflow Leak</h4>
+                        <div class="text-4xl font-heading font-bold">$<span id="total-monthly">0.00</span></div>
+                        <p class="text-[9px] uppercase tracking-widest mt-4 text-white/60 font-bold">This is the cost of your past energy consumption.</p>
+                    </div>
+                    <div class="bg-navy-950 p-8 border border-white/5">
+                        <h4 class="font-heading text-[10px] tracking-[0.3em] uppercase text-gray-500 font-bold mb-2">Total Strategic Liability</h4>
+                        <div class="text-4xl font-heading font-bold">$<span id="total-balance">0.00</span></div>
+                        <p class="text-[9px] uppercase tracking-widest mt-4 text-gray-600 font-bold">The total amount required for full neutralization.</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -85,6 +137,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-20 border-t border-white/5 pt-12">
                 <div>
                     <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">The Academy</h4>
@@ -119,6 +172,7 @@
                     </ul>
                 </div>
             </div>
+            
             <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-4">
                 <p class="text-[9px] text-gray-700 uppercase tracking-[0.5em] font-bold">© 2026 Real American Finance. Own Your Outcomes. Stay Sovereign.</p>
                 <div class="flex gap-6">
@@ -128,14 +182,59 @@
             </div>
         </div>
     </footer>
+
     <script>
+        // Surplus Calculator Logic (Existing)
         const inc = document.getElementById('income');
         const exp = document.getElementById('expenses');
         const res = document.getElementById('result');
         [inc, exp].forEach(el => el.addEventListener('input', () => {
-            const surplus = (inc.value || 0) - (exp.value || 0);
+            const surplus = (parseFloat(inc.value) || 0) - (parseFloat(exp.value) || 0);
             res.innerText = '$' + surplus.toLocaleString(undefined, {minimumFractionDigits: 2});
         }));
+
+        // Debt Recon Logic (New)
+        function addRow() {
+            const tbody = document.getElementById('debt-rows');
+            const newRow = document.createElement('tr');
+            newRow.className = "border-b border-white/5";
+            newRow.innerHTML = `
+                <td class="py-4 px-2"><input type="text" placeholder="Liability Name" class="bg-transparent border-none focus:ring-0 text-white w-full placeholder:text-gray-800 font-bold uppercase text-sm"></td>
+                <td class="py-4 px-2"><input type="number" placeholder="0" oninput="calculateDebt()" class="payment-input bg-transparent border-none focus:ring-0 text-white w-full placeholder:text-gray-800 font-bold text-sm"></td>
+                <td class="py-4 px-2"><input type="number" placeholder="0.00" class="bg-transparent border-none focus:ring-0 text-white w-full placeholder:text-gray-800 font-bold text-sm"></td>
+                <td class="py-4 px-2"><input type="number" placeholder="0" oninput="calculateDebt()" class="balance-input bg-transparent border-none focus:ring-0 text-white w-full placeholder:text-gray-800 font-bold text-sm"></td>
+                <td class="py-4 text-center"><button onclick="removeRow(this)" class="text-gray-700 hover:text-crimson font-bold">×</button></td>
+            `;
+            tbody.appendChild(newRow);
+        }
+
+        function removeRow(btn) {
+            btn.closest('tr').remove();
+            calculateDebt();
+        }
+
+        function calculateDebt() {
+            let totalMonthly = 0;
+            let totalBalance = 0;
+            
+            document.querySelectorAll('.payment-input').forEach(input => {
+                totalMonthly += parseFloat(input.value) || 0;
+            });
+            
+            document.querySelectorAll('.balance-input').forEach(input => {
+                totalBalance += parseFloat(input.value) || 0;
+            });
+
+            document.getElementById('total-monthly').innerText = totalMonthly.toLocaleString(undefined, {minimumFractionDigits: 2});
+            document.getElementById('total-balance').innerText = totalBalance.toLocaleString(undefined, {minimumFractionDigits: 2});
+        }
+
+        // Global event listener for any inputs added dynamically
+        document.addEventListener('input', (e) => {
+            if (e.target.classList.contains('payment-input') || e.target.classList.contains('balance-input')) {
+                calculateDebt();
+            }
+        });
     </script>
 </body>
 </html>
