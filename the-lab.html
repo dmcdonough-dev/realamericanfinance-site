@@ -20,16 +20,7 @@
         .tier-2 { border-left: 4px solid #9ca3af; background: rgba(156,163,175,0.04); }
         .tier-3 { border-left: 4px solid #4b5563; background: rgba(255,255,255,0.02); transition: all 0.5s ease; }
         
-        /* Tooltip Styling */
-        .perc-badge { position: relative; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 800; letter-spacing: 0.1em; cursor: help; }
-        .perc-badge:hover .tooltip-text { visibility: visible; opacity: 1; }
-        .tooltip-text {
-            visibility: hidden; width: 220px; background-color: #11243F; color: #fff; text-align: left;
-            border: 1px solid #B22234; padding: 12px; position: absolute; z-index: 100;
-            bottom: 125%; right: 0; opacity: 0; transition: opacity 0.3s;
-            font-family: 'Inter', sans-serif; font-size: 10px; line-height: 1.4; text-transform: none; font-weight: 400;
-        }
-
+        .perc-badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 800; letter-spacing: 0.1em; transition: all 0.3s; }
         .status-safe { background: rgba(255,255,255,0.1); color: #9ca3af; }
         .status-warn { background: #B22234; color: white; box-shadow: 0 0 10px rgba(178, 34, 52, 0.5); }
 
@@ -71,6 +62,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
             <div class="lg:col-span-8 space-y-12">
+                
                 <div class="dashboard-card p-8 shadow-2xl">
                     <h3 class="text-xl font-heading font-bold uppercase mb-6 border-l-2 border-crimson pl-4">01. Monthly Inflow</h3>
                     <div class="grid grid-cols-2 gap-8">
@@ -109,16 +101,16 @@
                 </div>
 
                 <div class="dashboard-card p-8 shadow-2xl">
-                    <div class="flex justify-between items-center mb-10">
-                        <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-4">03. The Siege Engine</h3>
-                        <button onclick="toggleWarMode()" id="war-mode-btn" class="bg-white/5 border border-white/20 px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:border-crimson transition">Initiate War-Mode</button>
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+                        <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-4 text-white leading-none">03. The Siege Engine</h3>
+                        <button onclick="toggleWarMode()" id="war-mode-btn" class="bg-white/5 border border-white/20 px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:border-crimson hover:text-crimson transition shadow-lg">Initiate War-Mode</button>
                     </div>
                     
                     <div class="space-y-8">
                         <div class="tier-0 p-6 space-y-4">
                             <div class="flex justify-between items-center">
                                 <h4 class="text-[11px] uppercase font-bold text-crimson tracking-[0.3em]">Priority 00: The Destination (Wealth)</h4>
-                                <div id="badge-t0" class="perc-badge status-safe">0% <span class="tooltip-text"><strong>MISSION TARGET: 20%+</strong><br><br>This is your fuel for sovereignty. If this is under 20%, you are working for others, not yourself. Fund the Iron Pot first.</span></div>
+                                <span id="badge-t0" class="perc-badge status-safe">0%</span>
                             </div>
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-100">Emergency Fund / Iron Pot</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-100">Retirement / Investing</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
@@ -127,27 +119,30 @@
                         <div class="tier-1 p-6 space-y-4">
                             <div class="flex justify-between items-center">
                                 <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Priority 01: The Foundation (Survival)</h4>
-                                <div id="badge-t1" class="perc-badge status-safe">0% <span class="tooltip-text"><strong>STRUCTURAL LIMIT: 50%</strong><br><br>If survival costs (including debt minimums) exceed 50%, you are over-leveraged. High structural costs prevent wealth building.</span></div>
+                                <span id="badge-t1" class="perc-badge status-safe">0%</span>
                             </div>
                             <div class="flex justify-between border-b border-white/10 py-3 px-4 bg-white/5"><span class="text-xs uppercase font-bold text-crimson">Debt Minimums (Linked)</span><span id="auto-debt-min" class="text-sm font-bold">$0.00</span></div>
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-200">Housing (Rent/Mortgage)</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
-                            <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-200">Essential Groceries / Transport</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
+                            <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-200">Essential Groceries</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
+                            <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-200">Transport (Gas/Ins)</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
                         </div>
 
                         <div class="tier-2 p-6 space-y-4">
                             <div class="flex justify-between items-center">
                                 <h4 class="text-[11px] uppercase font-bold text-gray-400 tracking-[0.3em]">Priority 02: Infrastructure</h4>
-                                <div id="badge-t2" class="perc-badge status-safe">0% <span class="tooltip-text"><strong>SUPPORT LIMIT: 10-15%</strong><br><br>Utilities, phone, and maintenance. These keep the machine running. Audit here for quick wins.</span></div>
+                                <span id="badge-t2" class="perc-badge status-safe">0%</span>
                             </div>
-                            <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-300">Internet / Comms / TP Fund</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
+                            <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-300">Internet & Cell Plan</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
+                            <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-300">Household Consumables</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
                         </div>
 
                         <div class="tier-3 p-6 space-y-4" id="tier-3-container">
                             <div class="flex justify-between items-center">
-                                <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Priority 03: The Cargo (Discretionary)</h4>
-                                <div id="badge-t3" class="perc-badge status-safe">0% <span class="tooltip-text"><strong>WANT LIMIT: 30%</strong><br><br>The first place to cut in "War Mode." If this is higher than your Priority 00, you are choosing comfort over freedom.</span></div>
+                                <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Priority 03: The Cargo</h4>
+                                <span id="badge-t3" class="perc-badge status-safe">0%</span>
                             </div>
-                            <div class="flex justify-between border-b border-white/10 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-100">Dining / Shopping / Fun</span><input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-24 text-right text-white font-bold" placeholder="0"></div>
+                            <div class="flex justify-between border-b border-white/10 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-100">Dining & Fun</span><input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-24 text-right text-white font-bold" placeholder="0"></div>
+                            <div class="flex justify-between border-b border-white/10 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-100">Shopping & Subscriptions</span><input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-24 text-right text-white font-bold" placeholder="0"></div>
                         </div>
                     </div>
                 </div>
@@ -155,7 +150,13 @@
 
             <div class="lg:col-span-4">
                 <div class="dashboard-card p-10 sticky top-32 shadow-2xl border-white/10">
-                    <canvas id="budgetChart" class="mb-10"></canvas>
+                    <div class="relative w-full mb-10">
+                        <canvas id="budgetChart"></canvas>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                            <span id="center-remaining" class="text-4xl font-heading font-bold text-white leading-none">$0</span>
+                            <span id="center-label" class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2">Remaining</span>
+                        </div>
+                    </div>
                     <div class="space-y-6 text-[10px] uppercase font-bold tracking-[0.2em] border-t border-white/10 pt-8">
                         <div class="flex justify-between"><span>Debt Balance:</span><span id="total-debt-val" class="text-white">$0</span></div>
                         <div class="flex justify-between text-crimson font-black"><span>Freedom Timeline:</span><span id="countdown-val">N/A</span></div>
@@ -169,29 +170,38 @@
             </div>
         </div>
 
-        <div class="mt-20 dashboard-card p-12 border-t-8 border-crimson">
-            <h3 class="text-3xl font-heading font-bold uppercase mb-8 italic text-white">Marching Orders</h3>
-            <div class="grid md:grid-cols-3 gap-12 text-sm" id="marching-orders">
+        <div class="mt-20 dashboard-card p-12 border-t-8 border-crimson shadow-2xl">
+            <h3 class="text-3xl font-heading font-bold uppercase mb-8 italic text-white tracking-tight">Marching Orders</h3>
+            <div class="grid md:grid-cols-3 gap-12 text-sm">
                 <div class="bg-white/5 p-6 rounded border border-white/5">
-                    <h4 class="text-crimson font-heading uppercase mb-4 font-bold tracking-widest">01. Secure The Floor</h4>
-                    <p id="order-walls" class="text-white font-bold italic">Protect the Foundation.</p>
+                    <h4 class="text-crimson font-heading uppercase mb-4 font-bold tracking-widest text-base">01. Secure The Floor</h4>
+                    <p id="order-walls" class="text-white font-bold italic opacity-90">...</p>
                 </div>
                 <div class="bg-white/5 p-6 rounded border border-white/5">
-                    <h4 class="text-white font-heading uppercase mb-4 font-bold tracking-widest">02. Iron Pot Target</h4>
-                    <p id="order-liquidity" class="text-white font-bold italic">Building the moat.</p>
+                    <h4 class="text-white font-heading uppercase mb-4 font-bold tracking-widest text-base">02. Iron Pot Target</h4>
+                    <p id="order-liquidity" class="text-white font-bold italic opacity-90">...</p>
                 </div>
                 <div class="bg-white/5 p-6 rounded border border-white/5">
-                    <h4 class="text-white font-heading uppercase mb-4 font-bold tracking-widest">03. Strike Strategy</h4>
-                    <p id="order-attack" class="text-white font-bold italic">The Sovereignty Path.</p>
+                    <h4 class="text-white font-heading uppercase mb-4 font-bold tracking-widest text-base">03. Strike Strategy</h4>
+                    <p id="order-attack" class="text-white font-bold italic opacity-90">...</p>
                 </div>
             </div>
         </div>
     </main>
 
     <footer class="bg-navy-950 border-t-8 border-crimson pt-20 pb-12 mt-24">
-        <div class="container mx-auto px-6 text-center">
-            <span style="font-family: 'Great Vibes';" class="text-4xl block mb-4">Real American Finance</span>
-            <p class="text-[9px] text-gray-700 uppercase tracking-[0.5em] font-bold">© 2026. Own Your Outcomes.</p>
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-20">
+                <div class="lg:w-1/2">
+                    <a href="index.html" class="flex flex-col mb-6 group">
+                        <span style="font-family: 'Great Vibes';" class="text-5xl leading-none group-hover:text-crimson transition">Real American Finance</span>
+                        <span class="font-heading text-xs tracking-[0.5em] text-gray-500 uppercase font-bold mt-2">Discipline • Autonomy • Wealth</span>
+                    </a>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/5 text-[9px] text-gray-700 uppercase tracking-[0.5em] font-bold text-center">
+                © 2026 Real American Finance. All rights reserved.
+            </div>
         </div>
     </footer>
 
@@ -241,10 +251,16 @@
 
         function updateBadge(id, current, limit, isWealth = false) {
             const badge = document.getElementById(id);
-            const valSpan = badge.firstChild;
-            valSpan.textContent = `${Math.round(current)}% `;
+            badge.innerText = `${Math.round(current)}%`;
+            
+            // Logic: Wealth wants to be HIGH (>20), Survival wants to be LOW (<50)
             const isUnsafe = isWealth ? current < limit : current > limit;
-            badge.className = (isUnsafe && current > 0) ? "perc-badge status-warn" : "perc-badge status-safe";
+            
+            if (isUnsafe && current > 0) {
+                badge.className = "perc-badge status-warn";
+            } else {
+                badge.className = "perc-badge status-safe";
+            }
         }
 
         function calculateAll() {
@@ -256,16 +272,17 @@
             let t2 = 0; document.querySelectorAll('.tier-2-input').forEach(i => t2 += (parseFloat(i.value) || 0));
             let t3 = 0; document.querySelectorAll('.tier-3-input').forEach(i => t3 += (parseFloat(i.value) || 0));
 
-            const total = t0 + dMin + t1 + t2 + t3;
-            const remaining = income - total;
+            const totalOutflow = t0 + dMin + t1 + t2 + t3;
+            const remaining = income - totalOutflow;
 
-            if(income > 0) {
+            if (income > 0) {
                 updateBadge('badge-t0', (t0/income)*100, 20, true);
                 updateBadge('badge-t1', ((t1+dMin)/income)*100, 50);
                 updateBadge('badge-t2', (t2/income)*100, 15);
                 updateBadge('badge-t3', (t3/income)*100, 30);
             }
 
+            document.getElementById('center-remaining').innerText = `$${Math.round(remaining).toLocaleString()}`;
             document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
             document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
             document.getElementById('surplus-val').innerText = `$${Math.round(remaining + t0).toLocaleString()}`;
@@ -274,9 +291,9 @@
             document.getElementById('countdown-val').innerText = months === "N/A" ? "N/A" : `${months} Months`;
 
             if(income > 0) {
-                document.getElementById('order-walls').innerText = `Your baseline floor is $${(t1 + dMin).toLocaleString()} monthly.`;
-                document.getElementById('order-liquidity').innerText = `Iron Pot Goal: $${((t1 + dMin) * 3).toLocaleString()}.`;
-                document.getElementById('order-attack').innerText = months !== "N/A" ? `Strategic Strike: Sovereignty in ${months} months.` : "Resource allocation required.";
+                document.getElementById('order-walls').innerText = `Critical Floor: $${(t1 + dMin).toLocaleString()} monthly.`;
+                document.getElementById('order-liquidity').innerText = `Iron Pot: $${((t1 + dMin) * 3).toLocaleString()} (3-month moat).`;
+                document.getElementById('order-attack').innerText = months !== "N/A" ? `Absolute sovereignty in ${months} months.` : "Resource allocation required.";
             }
 
             myChart.data.datasets[0].data = [t0, t1, dMin, t2+t3, Math.max(0, remaining)];
@@ -291,12 +308,12 @@
                 t2: Array.from(document.querySelectorAll('.tier-2-input')).map(i => i.value),
                 t3: Array.from(document.querySelectorAll('.tier-3-input')).map(i => i.value)
             };
-            localStorage.setItem('raf_siege_v7', JSON.stringify(data));
+            localStorage.setItem('raf_siege_v6', JSON.stringify(data));
             alert('STRATEGY SECURED');
         }
 
         function loadProfile() {
-            const saved = localStorage.getItem('raf_siege_v7');
+            const saved = localStorage.getItem('raf_siege_v6');
             if(saved) {
                 const data = JSON.parse(saved);
                 document.getElementById('paycheck').value = data.paycheck;
