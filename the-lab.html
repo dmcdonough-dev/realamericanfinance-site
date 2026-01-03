@@ -8,71 +8,111 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #050B14; color: white; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
-        
-        /* THE FIX: Standard block layout (No fixed positioning) */
-        .site-header { background: #050B14; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 2rem 0; width: 100%; }
-        .site-footer { background: #050B14; border-top: 8px solid #B22234; padding: 4rem 0; width: 100%; margin-top: 4rem; }
-        
-        .hero-bg { 
-            background: linear-gradient(rgba(5,11,20,0.85), rgba(5,11,20,0.85)), url('https://images.unsplash.com/photo-1507608158173-1dcec673a2e5?auto=format&fit=crop&q=80'); 
-            background-size: cover; background-position: center; padding: 4rem 0;
+        /* RESET & BASE */
+        * { box-sizing: border-box; }
+        body { 
+            background-color: #050B14; 
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            padding: 0;
+            display: block; /* Forcing standard flow */
         }
 
-        .dashboard-card { background: #0A1A2F; border: 1px solid rgba(255,255,255,0.05); border-radius: 4px; }
-        .input-underlined { border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent; outline: none; color: white; transition: border-color 0.3s; }
-        .input-underlined:focus { border-color: #B22234; }
+        /* 1. HEADER - Standard Block */
+        .site-header { 
+            background: #050B14; 
+            border-bottom: 2px solid rgba(255,255,255,0.05); 
+            padding: 30px 0; 
+            width: 100%;
+        }
+
+        /* 2. MAIN CONTENT */
+        .hero-section {
+            background: linear-gradient(rgba(5,11,20,0.8), rgba(5,11,20,0.8)), url('https://images.unsplash.com/photo-1507608158173-1dcec673a2e5?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .dashboard-card { 
+            background: #0A1A2F; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .input-line {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            color: white;
+            outline: none;
+            width: 100%;
+            padding: 10px 0;
+            transition: border-color 0.3s;
+        }
+        .input-line:focus { border-color: #B22234; }
+
+        /* TIERS */
+        .p-tier { border-left: 5px solid; padding-left: 20px; margin-bottom: 25px; }
+        .p-00 { border-color: #B22234; background: rgba(178, 34, 52, 0.05); padding: 20px; }
+        .p-01 { border-color: #FFFFFF; background: rgba(255, 255, 255, 0.03); padding: 20px; }
         
-        .tier-0 { border-left: 4px solid #B22234; background: rgba(178, 34, 52, 0.08); }
-        .tier-1 { border-left: 4px solid #FFFFFF; background: rgba(255,255,255,0.04); }
-        .tier-2 { border-left: 4px solid #9ca3af; background: rgba(156,163,175,0.04); }
-        .tier-3 { border-left: 4px solid #4b5563; background: rgba(255,255,255,0.02); }
-
         .frozen { opacity: 0.2; pointer-events: none; filter: grayscale(1); }
-        .leak-warning { color: #B22234; font-weight: 800; font-size: 11px; display: none; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        .perc-badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 800; background: rgba(255,255,255,0.1); color: #9ca3af; }
-        .status-warn { background: #B22234; color: white; }
+        /* 3. FOOTER - Standard Block */
+        .site-footer { 
+            background: #050B14; 
+            border-top: 10px solid #B22234; 
+            padding: 60px 0; 
+            margin-top: 60px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .badge { font-size: 11px; font-weight: bold; background: rgba(255,255,255,0.1); padding: 3px 10px; border-radius: 4px; color: #9ca3af; }
     </style>
 </head>
 <body>
 
     <header class="site-header">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-center md:text-left">
-                <div style="font-family: 'Great Vibes';" class="text-4xl text-white">Real American Finance</div>
-                <div class="text-[10px] tracking-[0.4em] text-gray-400 uppercase font-bold mt-1">Discipline • Autonomy • Wealth</div>
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <div>
+                <h1 style="font-family: 'Great Vibes';" class="text-4xl">Real American Finance</h1>
+                <p class="text-[10px] tracking-[0.4em] text-gray-500 uppercase font-bold">Discipline • Autonomy • Wealth</p>
             </div>
-            <nav class="flex gap-8 text-[11px] font-bold uppercase tracking-widest text-gray-400">
+            <nav class="mt-6 md:mt-0 flex gap-8 uppercase font-bold text-[11px] tracking-widest text-gray-400">
                 <a href="#" class="hover:text-white">Academy</a>
                 <a href="#" class="text-white border-b-2 border-red-700">The Lab</a>
-                <a href="#" class="bg-red-700 text-white px-5 py-2 hover:bg-red-800 transition">Strategy Call</a>
+                <a href="#" class="bg-red-700 text-white px-4 py-2">Strategy Call</a>
             </nav>
         </div>
     </header>
 
     <main>
-        <section class="hero-bg text-center">
-            <h1 class="text-7xl font-bold uppercase tracking-tighter">THE <span class="text-red-700">LAB.</span></h1>
-            <p class="text-gray-400 uppercase tracking-[0.5em] mt-4 text-sm font-bold">Pillar 01: Iron Pot Millionaire</p>
+        <section class="hero-section">
+            <h2 class="text-6xl md:text-8xl font-bold uppercase">THE <span class="text-red-700">LAB.</span></h2>
+            <p class="text-gray-400 uppercase tracking-[0.6em] mt-4 font-bold">Pillar 01: Iron Pot Millionaire</p>
         </section>
 
         <div class="container mx-auto px-6 py-12">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
                 
-                <div class="lg:col-span-8 space-y-12">
+                <div class="lg:col-span-8">
                     
-                    <div class="dashboard-card p-8">
+                    <div class="dashboard-card">
                         <h3 class="text-xl font-bold uppercase mb-6 border-l-4 border-red-700 pl-4">01. Monthly Inflow</h3>
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div class="flex flex-col">
-                                <label class="text-[10px] uppercase font-bold text-gray-500 mb-2">Net Paycheck ($)</label>
-                                <input type="number" id="paycheck" oninput="calculateAll()" class="input-underlined p-2 text-2xl font-bold">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                            <div>
+                                <label class="text-[10px] uppercase font-bold text-gray-500">Net Paycheck ($)</label>
+                                <input type="number" id="income" oninput="calculate()" class="input-line text-2xl font-bold">
                             </div>
-                            <div class="flex flex-col">
-                                <label class="text-[10px] uppercase font-bold text-gray-500 mb-2">Frequency</label>
-                                <select id="freq" onchange="calculateAll()" class="input-underlined p-2 text-lg font-bold bg-[#0A1A2F]">
+                            <div>
+                                <label class="text-[10px] uppercase font-bold text-gray-500">Frequency</label>
+                                <select id="freq" onchange="calculate()" class="input-line text-lg font-bold bg-[#0A1A2F]">
                                     <option value="2">Bi-Weekly (2x)</option>
                                     <option value="1">Monthly (1x)</option>
                                     <option value="4">Weekly (4x)</option>
@@ -81,114 +121,99 @@
                         </div>
                     </div>
 
-                    <div class="dashboard-card p-8">
+                    <div class="dashboard-card">
                         <h3 class="text-xl font-bold uppercase mb-6 border-l-4 border-red-700 pl-4">02. Debt Reconnaissance</h3>
                         <div class="overflow-x-auto">
-                            <table class="w-full text-[11px] uppercase font-bold text-gray-500">
-                                <thead>
-                                    <tr class="border-b border-white/10 text-left">
-                                        <th class="pb-4 px-2">Liability</th>
-                                        <th class="pb-4 px-2">Min. Pay ($)</th>
-                                        <th class="pb-4 px-2">Balance ($)</th>
-                                        <th class="pb-4 px-2 text-red-600">APR (%)</th>
+                            <table class="w-full text-left text-[11px] uppercase font-bold text-gray-500">
+                                <thead class="border-b border-white/10">
+                                    <tr>
+                                        <th class="py-3">Liability</th>
+                                        <th class="py-3">Min Pay</th>
+                                        <th class="py-3">Balance</th>
+                                        <th class="py-3 text-red-600">APR %</th>
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody id="debt-body">
+                                <tbody id="debt-list">
                                     <tr class="border-b border-white/5">
-                                        <td class="py-4 px-2"><input type="text" placeholder="e.g. Credit Card" class="bg-transparent w-full outline-none text-white uppercase"></td>
-                                        <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white" placeholder="0"></td>
-                                        <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white" placeholder="0"></td>
-                                        <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-apr-input bg-transparent w-full outline-none text-red-600 font-bold" placeholder="0"></td>
-                                        <td><button onclick="removeRow(this)" class="text-xl hover:text-red-700">×</button></td>
+                                        <td><input type="text" placeholder="Card Name" class="bg-transparent text-white outline-none py-4"></td>
+                                        <td><input type="number" oninput="calculate()" class="debt-min bg-transparent text-white outline-none w-20" placeholder="0"></td>
+                                        <td><input type="number" oninput="calculate()" class="debt-bal bg-transparent text-white outline-none w-24" placeholder="0"></td>
+                                        <td><input type="number" oninput="calculate()" class="debt-apr bg-transparent text-red-600 font-bold outline-none w-16" placeholder="0"></td>
+                                        <td><button onclick="this.closest('tr').remove(); calculate();" class="text-lg">×</button></td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <button onclick="addDebtRow()" class="mt-4 text-[10px] text-gray-400 hover:text-white uppercase font-bold">+ Add Debt</button>
+                            <button onclick="addDebt()" class="mt-4 text-[10px] text-gray-400 hover:text-white uppercase font-bold">+ New Liability</button>
                         </div>
                     </div>
 
-                    <div class="dashboard-card p-8 space-y-10">
-                        <h3 class="text-xl font-bold uppercase border-l-4 border-red-700 pl-4">03. Siege Engine</h3>
+                    <div class="dashboard-card">
+                        <h3 class="text-xl font-bold uppercase mb-10 border-l-4 border-red-700 pl-4">03. The Siege Engine</h3>
                         
-                        <div id="tier-0-container" class="tier-0 p-6 space-y-4">
-                            <div class="flex justify-between items-center">
-                                <h4 class="text-xs font-bold text-red-600 tracking-widest uppercase">P00: Wealth</h4>
-                                <span id="leak-msg" class="leak-warning">STRUCTURAL LEAK: HIGH APR DEBT</span>
-                                <div id="badge-t0" class="perc-badge">0%</div>
+                        <div id="wealth-box" class="p-tier p-00">
+                            <div class="flex justify-between mb-4">
+                                <span class="text-xs font-bold text-red-600 uppercase tracking-widest">P00: Wealth Accumulation</span>
+                                <span id="w-badge" class="badge">0%</span>
                             </div>
-                            <div id="t0-rows" class="space-y-3">
-                                <div class="flex justify-between border-b border-white/5 pb-2"><span>Iron Pot Fund</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
-                            </div>
-                            <button onclick="addRow('t0-rows', 'tier-0-input')" class="text-[9px] uppercase text-gray-500 hover:text-white">+ Add Wealth Goal</button>
-                        </div>
-
-                        <div class="tier-1 p-6 space-y-4">
-                            <div class="flex justify-between items-center uppercase text-xs font-bold">
-                                <span>P01: Survival</span>
-                                <div id="badge-t1" class="perc-badge">0%</div>
-                            </div>
-                            <div id="t1-rows" class="space-y-3">
-                                <div class="flex justify-between border-b border-white/10 pb-2"><span class="text-red-600">Debt Mins (Auto)</span><span id="auto-debt-min" class="font-bold">$0</span></div>
-                                <div class="flex justify-between border-b border-white/5 pb-2"><span>Rent / Mortgage</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
-                                <div class="flex justify-between border-b border-white/5 pb-2"><span>Groceries / Gas</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
-                            </div>
-                            <button onclick="addRow('t1-rows', 'tier-1-input')" class="text-[9px] uppercase text-gray-500 hover:text-white">+ Add Expense</button>
-                        </div>
-
-                        <div class="tier-2 p-6 space-y-4 text-gray-400">
-                            <div class="flex justify-between items-center uppercase text-xs font-bold">
-                                <span>P02: Infrastructure</span>
-                                <div id="badge-t2" class="perc-badge">0%</div>
-                            </div>
-                            <div id="t2-rows" class="space-y-3">
-                                <div class="flex justify-between border-b border-white/5 pb-2"><span>Utilities / Internet</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
+                            <div class="flex justify-between py-2 border-b border-white/5">
+                                <span class="text-sm">Iron Pot (Emergency Fund)</span>
+                                <input type="number" oninput="calculate()" class="wealth-input input-line w-24 text-right" placeholder="0">
                             </div>
                         </div>
 
-                        <div class="tier-3 p-6 space-y-4 text-gray-500">
-                            <div class="flex justify-between items-center uppercase text-xs font-bold">
-                                <span>P03: Cargo (Lifestyle)</span>
-                                <div id="badge-t3" class="perc-badge">0%</div>
+                        <div class="p-tier p-01">
+                            <div class="flex justify-between mb-4">
+                                <span class="text-xs font-bold uppercase tracking-widest">P01: Survival & Ops</span>
+                                <span id="s-badge" class="badge">0%</span>
                             </div>
-                            <div id="t3-rows" class="space-y-3">
-                                <div class="flex justify-between border-b border-white/5 pb-2"><span>Dining / Leisure</span><input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-24 text-right" placeholder="0"></div>
+                            <div class="flex justify-between py-3 bg-white/5 px-2 mb-2">
+                                <span class="text-xs font-bold text-red-600 uppercase">Debt Minimums (Auto)</span>
+                                <span id="auto-min" class="font-bold">$0</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-white/5">
+                                <span class="text-sm">Housing (Rent/Mortgage)</span>
+                                <input type="number" oninput="calculate()" class="survive-input input-line w-24 text-right" placeholder="0">
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-white/5">
+                                <span class="text-sm">Essential Groceries</span>
+                                <input type="number" oninput="calculate()" class="survive-input input-line w-24 text-right" placeholder="0">
                             </div>
                         </div>
                     </div>
 
-                    <div class="dashboard-card p-12 border-t-8 border-red-700 bg-[#071324]">
-                        <h3 class="text-3xl font-bold uppercase mb-8 italic">Marching Orders</h3>
-                        <div class="grid md:grid-cols-3 gap-12 text-sm">
+                    <div class="dashboard-card bg-[#071324] border-t-8 border-red-700">
+                        <h3 class="text-3xl font-bold uppercase italic mb-8">Marching Orders</h3>
+                        <div class="grid md:grid-cols-3 gap-10 text-sm">
                             <div>
-                                <h4 class="text-red-700 font-bold uppercase mb-2">Status</h4>
-                                <p id="order-1" class="text-gray-400 italic">Enter income to deploy.</p>
+                                <h4 class="text-red-700 font-bold uppercase mb-2">Current Status</h4>
+                                <p id="status-text" class="text-gray-400">Awaiting data...</p>
                             </div>
                             <div>
-                                <h4 class="text-white font-bold uppercase mb-2">Primary Objective</h4>
-                                <p id="order-2" class="text-gray-400 italic">Awaiting reconnaissance.</p>
+                                <h4 class="text-white font-bold uppercase mb-2">Primary Mission</h4>
+                                <p id="mission-text" class="text-gray-400">Initialize reconnaissance.</p>
                             </div>
                             <div>
-                                <h4 class="text-white font-bold uppercase mb-2">Strike Force</h4>
-                                <p id="order-3" class="text-gray-400 italic">Ready for engagement.</p>
+                                <h4 class="text-white font-bold uppercase mb-2">The Blitz</h4>
+                                <p id="blitz-text" class="text-gray-400">Ready to deploy.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="lg:col-span-4">
-                    <div class="dashboard-card p-10 text-center sticky top-12">
+                    <div class="dashboard-card text-center sticky top-10">
                         <div class="relative w-full max-w-[250px] mx-auto">
                             <canvas id="budgetChart"></canvas>
                             <div class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none">
-                                <div id="center-amount" class="text-3xl font-bold">$0</div>
-                                <div class="text-[8px] uppercase tracking-widest text-gray-500 font-bold">Unallocated</div>
+                                <div id="unallocated" class="text-3xl font-bold">$0</div>
+                                <div class="text-[9px] uppercase font-bold text-gray-500">Unallocated</div>
                             </div>
                         </div>
-                        <div class="mt-8 pt-8 border-t border-white/10 space-y-6">
-                            <div class="bg-navy-950 p-6 border border-white/5 rounded">
-                                <div id="strike-force-val" class="text-5xl font-bold text-red-700">$0</div>
-                                <span class="text-[9px] text-gray-500 block mt-2 uppercase font-bold tracking-[0.2em]">Monthly Strike Force</span>
+                        <div class="mt-8 pt-8 border-t border-white/5">
+                            <div class="bg-[#050B14] p-6 border border-white/5">
+                                <div id="strike-force" class="text-5xl font-bold text-red-700">$0</div>
+                                <p class="text-[9px] uppercase font-bold text-gray-500 tracking-widest mt-2">Monthly Strike Force</p>
                             </div>
                         </div>
                     </div>
@@ -199,93 +224,66 @@
     </main>
 
     <footer class="site-footer">
-        <div class="container mx-auto px-6 text-center">
-            <div style="font-family: 'Great Vibes';" class="text-4xl text-white">Real American Finance</div>
-            <p class="text-[10px] text-gray-600 uppercase tracking-[0.5em] font-bold mt-4">© 2026. Discipline is Freedom. Own Your Outcomes.</p>
+        <div class="container mx-auto px-6">
+            <h2 style="font-family: 'Great Vibes';" class="text-4xl">Real American Finance</h2>
+            <p class="text-[10px] text-gray-600 uppercase tracking-[0.4em] font-bold mt-4">© 2026. Discipline is Freedom. Own Your Outcomes.</p>
         </div>
     </footer>
 
     <script>
-        let myChart;
-
+        let chart;
         function initChart() {
             const ctx = document.getElementById('budgetChart').getContext('2d');
-            myChart = new Chart(ctx, {
+            chart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Wealth', 'Survival', 'Debt Min', 'Other', 'Remaining'],
-                    datasets: [{ data: [0,0,0,0,100], backgroundColor: ['#B22234', '#FFFFFF', '#B22234aa', '#4b5563', '#11243F'], borderWidth: 0 }]
+                    labels: ['Wealth', 'Survival', 'Min Debt', 'Left'],
+                    datasets: [{ data: [0,0,0,100], backgroundColor: ['#B22234', '#FFFFFF', '#B22234aa', '#11243F'], borderWidth: 0 }]
                 },
-                options: { cutout: '75%', plugins: { legend: { display: false } } }
+                options: { cutout: '78%', plugins: { legend: { display: false } } }
             });
         }
 
-        function addRow(containerId, inputClass) {
-            const container = document.getElementById(containerId);
-            const div = document.createElement('div');
-            div.className = "flex justify-between border-b border-white/5 pb-2";
-            div.innerHTML = `<input type="text" placeholder="Custom" class="bg-transparent text-xs uppercase font-bold text-gray-400 w-1/2 outline-none">
-                             <div class="flex items-center">
-                                <input type="number" oninput="calculateAll()" class="${inputClass} input-underlined w-20 text-right" placeholder="0">
-                                <button onclick="this.parentElement.parentElement.remove(); calculateAll();" class="ml-2 text-gray-500">×</button>
-                             </div>`;
-            container.appendChild(div);
-        }
-
-        function addDebtRow() {
+        function addDebt() {
             const row = document.createElement('tr'); row.className = "border-b border-white/5";
-            row.innerHTML = `<td class="py-4 px-2"><input type="text" placeholder="Liability" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td><td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td><td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td><td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-apr-input bg-transparent w-full outline-none text-red-600 text-xs font-bold" placeholder="0"></td><td class="text-right"><button onclick="removeRow(this)" class="text-xl">×</button></td>`;
-            document.getElementById('debt-body').appendChild(row);
+            row.innerHTML = `<td><input type="text" placeholder="Liability" class="bg-transparent text-white outline-none py-4"></td><td><input type="number" oninput="calculate()" class="debt-min bg-transparent text-white outline-none w-20" placeholder="0"></td><td><input type="number" oninput="calculate()" class="debt-bal bg-transparent text-white outline-none w-24" placeholder="0"></td><td><input type="number" oninput="calculate()" class="debt-apr bg-transparent text-red-600 font-bold outline-none w-16" placeholder="0"></td><td><button onclick="this.closest('tr').remove(); calculate();">×</button></td>`;
+            document.getElementById('debt-list').appendChild(row);
         }
 
-        function removeRow(btn) { btn.closest('tr').remove(); calculateAll(); }
+        function calculate() {
+            const income = (parseFloat(document.getElementById('income').value) || 0) * parseFloat(document.getElementById('freq').value);
+            let dMin = 0; document.querySelectorAll('.debt-min').forEach(i => dMin += (parseFloat(i.value) || 0));
+            let maxAPR = 0; document.querySelectorAll('.debt-apr').forEach(i => { let v = parseFloat(i.value) || 0; if(v > maxAPR) maxAPR = v; });
 
-        function calculateAll() {
-            const income = (parseFloat(document.getElementById('paycheck').value) || 0) * parseFloat(document.getElementById('freq').value);
-            let dMin = 0; document.querySelectorAll('.debt-min-input').forEach(i => dMin += (parseFloat(i.value) || 0));
-            let maxAPR = 0; document.querySelectorAll('.debt-apr-input').forEach(i => { let v = parseFloat(i.value) || 0; if(v > maxAPR) maxAPR = v; });
+            let tWealth = 0; document.querySelectorAll('.wealth-input').forEach(i => tWealth += (parseFloat(i.value) || 0));
+            let tSurvive = 0; document.querySelectorAll('.survive-input').forEach(i => tSurvive += (parseFloat(i.value) || 0));
 
-            let t0 = 0; document.querySelectorAll('.tier-0-input').forEach(i => t0 += (parseFloat(i.value) || 0));
-            let t1 = 0; document.querySelectorAll('.tier-1-input').forEach(i => t1 += (parseFloat(i.value) || 0));
-            let t2 = 0; document.querySelectorAll('.tier-2-input').forEach(i => t2 += (parseFloat(i.value) || 0));
-            let t3 = 0; document.querySelectorAll('.tier-3-input').forEach(i => t3 += (parseFloat(i.value) || 0));
-
-            const container0 = document.getElementById('tier-0-container');
-            const leakMsg = document.getElementById('leak-msg');
-            const orders = [document.getElementById('order-1'), document.getElementById('order-2'), document.getElementById('order-3')];
-
+            const wealthBox = document.getElementById('wealth-box');
             if(maxAPR >= 20) {
-                container0.classList.add('frozen'); leakMsg.style.display = 'block'; t0 = 0;
-                orders[0].innerText = `CRITICAL: ${maxAPR}% APR Leak found. System in Emergency Blitz mode.`;
-                orders[1].innerText = `Kill the high-interest debt immediately. Do not pass GO.`;
-                orders[2].innerText = `Weaponize every spare cent toward the highest interest rate.`;
+                wealthBox.classList.add('frozen');
+                tWealth = 0;
+                document.getElementById('status-text').innerText = "CRITICAL: High-Interest Debt Bleed Detected.";
+                document.getElementById('mission-text').innerText = "Stop all saving. Weaponize income against APR.";
+                document.getElementById('blitz-text').innerText = "Kill the " + maxAPR + "% APR liability first.";
             } else {
-                container0.classList.remove('frozen'); leakMsg.style.display = 'none';
-                orders[0].innerText = `System Stable. Survival cost is ${Math.round(((t1+dMin)/income)*100)}% of income.`;
-                orders[1].innerText = `Objective: Fill the Iron Pot Fund (3-6mo expenses).`;
-                orders[2].innerText = `Continue scaling wealth. You are building autonomy.`;
+                wealthBox.classList.remove('frozen');
+                document.getElementById('status-text').innerText = "System Stable. Expenses under control.";
+                document.getElementById('mission-text').innerText = "Fill the Iron Pot Emergency Fund.";
+                document.getElementById('blitz-text').innerText = "Aggressively scale wealth assets.";
             }
 
-            const left = income - (t0 + dMin + t1 + t2 + t3);
-            document.getElementById('center-amount').innerText = `$${Math.round(left).toLocaleString()}`;
-            document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
-            document.getElementById('strike-force-val').innerText = `$${Math.round(left + t0).toLocaleString()}`;
+            const left = income - (tWealth + tSurvive + dMin);
+            document.getElementById('unallocated').innerText = "$" + Math.round(left).toLocaleString();
+            document.getElementById('auto-min').innerText = "$" + dMin.toLocaleString();
+            document.getElementById('strike-force').innerText = "$" + Math.round(left + tWealth).toLocaleString();
 
             if(income > 0) {
-                updateBadge('badge-t0', (t0/income)*100, 20, true);
-                updateBadge('badge-t1', ((t1+dMin)/income)*100, 50);
-                updateBadge('badge-t2', (t2/income)*100, 15);
-                updateBadge('badge-t3', (t3/income)*100, 30);
+                document.getElementById('w-badge').innerText = Math.round((tWealth/income)*100) + "%";
+                document.getElementById('s-badge').innerText = Math.round(((tSurvive+dMin)/income)*100) + "%";
             }
 
-            myChart.data.datasets[0].data = [t0, t1, dMin, t2+t3, Math.max(0, left)];
-            myChart.update();
-        }
-
-        function updateBadge(id, current, limit, isWealth = false) {
-            const b = document.getElementById(id); b.innerText = `${Math.round(current)}%`;
-            const bad = isWealth ? current < limit : current > limit;
-            b.className = (bad && current > 0) ? "perc-badge status-warn" : "perc-badge";
+            chart.data.datasets[0].data = [tWealth, tSurvive, dMin, Math.max(0, left)];
+            chart.update();
         }
 
         window.onload = initChart;
