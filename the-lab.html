@@ -9,173 +9,171 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         body { background-color: #050B14; color: white; font-family: 'Inter', sans-serif; margin: 0; }
-        
-        /* Bulletproof Header/Footer Blocks */
-        .site-header { background: #050B14; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 2rem 0; width: 100%; }
-        .site-footer { background: #050B14; border-top: 8px solid #B22234; padding: 5rem 0; margin-top: 5rem; width: 100%; text-align: center; }
-
-        .dashboard-card { background: #0A1A2F; border: 1px solid rgba(255,255,255,0.05); border-radius: 4px; padding: 2.5rem; margin-bottom: 2rem; }
-        
-        .input-underline { border-bottom: 2px solid rgba(255,255,255,0.1); background: transparent; outline: none; color: white; transition: border-color 0.3s; width: 100%; }
+        .dashboard-card { background: #0A1A2F; border: 1px solid rgba(255,255,255,0.05); border-radius: 4px; padding: 2rem; margin-bottom: 2rem; }
+        .input-underline { border-bottom: 2px solid rgba(255,255,255,0.1); background: transparent; outline: none; color: white; width: 100%; transition: border-color 0.3s; }
         .input-underline:focus { border-color: #B22234; }
-
-        .tier-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1.5rem; display: block; }
-        .p-wealth { border-left: 4px solid #B22234; background: rgba(178, 34, 52, 0.05); padding: 1.5rem; }
-        .p-survival { border-left: 4px solid #ffffff; padding-left: 1.5rem; }
-        .p-infra { border-left: 4px solid #4b5563; padding-left: 1.5rem; }
-        
+        .metric-value { font-weight: 900; font-size: 1.5rem; color: #B22234; }
+        .metric-label { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #6b7280; letter-spacing: 0.1em; }
         .frozen { opacity: 0.2; pointer-events: none; filter: grayscale(1); }
-        .strike-box { background: #B22234; padding: 1.5rem; border-radius: 4px; margin-top: 2rem; }
     </style>
 </head>
 <body>
 
-    <header class="site-header">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+    <header class="bg-[#050B14] border-b border-white/5 py-8">
+        <div class="container mx-auto px-6 flex justify-between items-center">
             <div>
-                <div style="font-family: 'Great Vibes';" class="text-5xl text-white">Real American Finance</div>
-                <div class="text-[10px] tracking-[0.4em] text-gray-500 uppercase font-bold mt-2">Discipline • Autonomy • Wealth</div>
+                <h1 style="font-family: 'Great Vibes';" class="text-4xl">Real American Finance</h1>
+                <p class="text-[9px] tracking-[0.4em] text-gray-500 uppercase font-bold mt-1">Discipline • Autonomy • Wealth</p>
             </div>
-            <nav class="flex gap-8 text-[11px] font-bold uppercase tracking-widest text-gray-400">
-                <a href="#" class="hover:text-white transition">Academy</a>
-                <a href="#" class="text-white border-b-2 border-red-700 pb-1">The Lab</a>
-                <a href="#" class="bg-red-700 text-white px-6 py-2 hover:bg-red-800 transition">Strategy Call</a>
+            <nav class="hidden md:flex gap-8 text-[11px] font-bold uppercase tracking-widest text-gray-400">
+                <a href="#" class="text-white border-b-2 border-red-700">The Lab</a>
+                <a href="#" class="bg-red-700 text-white px-4 py-2">Strategy Call</a>
             </nav>
         </div>
     </header>
 
-    <main class="container mx-auto px-6 py-16">
-        
-        <div class="text-center mb-16">
-            <h1 class="text-7xl md:text-9xl font-black uppercase tracking-tighter">THE <span class="text-red-700">LAB.</span></h1>
-            <p class="text-gray-400 uppercase tracking-[0.6em] mt-4 font-bold text-sm">Pillar 01: Iron Pot Millionaire</p>
+    <section class="bg-[#071324] border-b border-red-700/30 py-6">
+        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <p class="metric-label">Total Debt Load</p>
+                <p id="total-debt-val" class="metric-value">$0</p>
+            </div>
+            <div>
+                <p class="metric-label">Debt-to-Income %</p>
+                <p id="dti-ratio" class="metric-value">0%</p>
+            </div>
+            <div>
+                <p class="metric-label">Survival Burn %</p>
+                <p id="burn-rate" class="metric-value text-white">0%</p>
+            </div>
+            <div>
+                <p class="metric-label">Wealth Velocity %</p>
+                <p id="wealth-velocity" class="metric-value text-green-600">0%</p>
+            </div>
         </div>
+    </section>
 
+    <main class="container mx-auto px-6 py-12">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
             <div class="lg:col-span-8">
-                
                 <div class="dashboard-card">
-                    <span class="tier-label text-red-700">01. Monthly Inflow</span>
-                    <div class="grid md:grid-cols-2 gap-12">
-                        <div>
-                            <label class="text-[10px] text-gray-500 font-bold uppercase">Net Paycheck ($)</label>
-                            <input type="number" id="pay" oninput="calculate()" class="input-underline text-3xl font-bold py-2" placeholder="0">
-                        </div>
-                        <div>
-                            <label class="text-[10px] text-gray-500 font-bold uppercase">Frequency</label>
-                            <select id="freq" onchange="calculate()" class="input-underline text-lg font-bold bg-[#0A1A2F] py-3">
-                                <option value="2">Bi-Weekly (2x)</option>
-                                <option value="1">Monthly (1x)</option>
-                                <option value="4">Weekly (4x)</option>
-                            </select>
-                        </div>
+                    <h3 class="text-red-700 font-black uppercase text-xs mb-6 tracking-[0.2em]">01. Monthly Inflow</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <input type="number" id="pay" oninput="run()" placeholder="Net Paycheck ($)" class="input-underline text-3xl font-black">
+                        <select id="freq" onchange="run()" class="input-underline text-lg font-bold bg-[#0A1A2F]">
+                            <option value="2">Bi-Weekly (2x)</option>
+                            <option value="1">Monthly (1x)</option>
+                            <option value="4">Weekly (4x)</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="dashboard-card">
-                    <span class="tier-label text-red-700">02. Debt Reconnaissance</span>
+                    <h3 class="text-red-700 font-black uppercase text-xs mb-6 tracking-[0.2em]">02. Debt Reconnaissance</h3>
                     <table class="w-full text-left text-[11px] font-bold uppercase text-gray-500">
                         <thead class="border-b border-white/10">
-                            <tr><th class="pb-4">Liability</th><th class="pb-4">Min Pay</th><th class="pb-4">Balance</th><th class="pb-4 text-red-600">APR %</th><th></th></tr>
+                            <tr><th class="pb-3">Liability</th><th class="pb-3 text-center">Min $</th><th class="pb-3 text-center">Balance $</th><th class="pb-3 text-red-600 text-center">APR %</th><th></th></tr>
                         </thead>
                         <tbody id="debt-table">
                             <tr class="border-b border-white/5">
-                                <td class="py-4"><input type="text" placeholder="Card Name" class="bg-transparent text-white outline-none w-full uppercase"></td>
-                                <td class="py-4"><input type="number" oninput="calculate()" class="d-min bg-transparent text-white outline-none w-20" placeholder="0"></td>
-                                <td class="py-4"><input type="number" oninput="calculate()" class="d-bal bg-transparent text-white outline-none w-24" placeholder="0"></td>
-                                <td class="py-4"><input type="number" oninput="calculate()" class="d-apr bg-transparent text-red-600 outline-none w-16 font-black" placeholder="0"></td>
-                                <td><button onclick="this.closest('tr').remove(); calculate();" class="text-xl hover:text-white">×</button></td>
+                                <td class="py-4"><input type="text" placeholder="e.g. Credit Card" class="bg-transparent text-white outline-none w-full"></td>
+                                <td class="py-4"><input type="number" oninput="run()" class="d-min bg-transparent text-white outline-none w-full text-center" placeholder="0"></td>
+                                <td class="py-4"><input type="number" oninput="run()" class="d-bal bg-transparent text-white outline-none w-full text-center" placeholder="0"></td>
+                                <td class="py-4"><input type="number" oninput="run()" class="d-apr bg-transparent text-red-600 font-black outline-none w-full text-center" placeholder="0"></td>
+                                <td><button onclick="this.closest('tr').remove(); run();" class="px-2">×</button></td>
                             </tr>
                         </tbody>
                     </table>
-                    <button onclick="addDebt()" class="mt-6 text-[10px] font-bold text-gray-500 hover:text-white uppercase transition">+ Add Liability</button>
+                    <button onclick="addDebt()" class="mt-4 text-[10px] text-gray-500 hover:text-white uppercase font-bold">+ Add Liability</button>
                 </div>
 
                 <div class="dashboard-card">
-                    <span class="tier-label text-red-700">03. The Siege Engine</span>
+                    <h3 class="text-red-700 font-black uppercase text-xs mb-8 tracking-[0.2em]">03. The Siege Engine</h3>
                     
-                    <div id="wealth-box" class="p-wealth mb-10">
-                        <div class="flex justify-between items-center mb-6">
-                            <span class="text-xs font-bold text-red-600 uppercase tracking-widest">P00: Wealth Accumulation</span>
-                            <span id="w-badge" class="text-[10px] bg-white/10 px-2 py-1 rounded">0%</span>
-                        </div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Iron Pot Fund (Emergency)</span><input type="number" oninput="calculate()" class="w-in input-underline w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Investments / 401k</span><input type="number" oninput="calculate()" class="w-in input-underline w-24 text-right" placeholder="0"></div>
+                    <div id="wealth-box" class="border-l-4 border-red-700 bg-red-900/10 p-6 mb-8">
+                        <span class="text-[10px] font-black uppercase tracking-widest text-red-600">P00: Iron Pot (Wealth)</span>
+                        <div class="flex justify-between mt-4"><span>Emergency Fund Contribution</span><input type="number" oninput="run()" class="w-in input-underline w-24 text-right" placeholder="0"></div>
                     </div>
 
-                    <div class="p-survival mb-10">
-                        <span class="text-xs font-bold uppercase tracking-widest block mb-6">P01: Survival Operations</span>
-                        <div class="flex justify-between py-4 bg-white/5 px-4 mb-4 font-bold text-sm">
-                            <span class="text-red-600 uppercase text-xs">Debt Minimums (Auto)</span>
-                            <span id="auto-d-val">$0</span>
-                        </div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Rent / Mortgage</span><input type="number" oninput="calculate()" class="s-in input-underline w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Essential Groceries</span><input type="number" oninput="calculate()" class="s-in input-underline w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Electricity / Gas / Water</span><input type="number" oninput="calculate()" class="s-in input-underline w-24 text-right" placeholder="0"></div>
-                    </div>
-
-                    <div class="p-infra mb-10">
-                        <span class="text-xs font-bold uppercase tracking-widest text-gray-500 block mb-6">P02: Infrastructure & Tools</span>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Transport (Fuel/Insurance)</span><input type="number" oninput="calculate()" class="s-in input-underline w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Comms (Internet/Cell)</span><input type="number" oninput="calculate()" class="s-in input-underline w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Health / Life Insurance</span><input type="number" oninput="calculate()" class="s-in input-underline w-24 text-right" placeholder="0"></div>
-                    </div>
-
-                    <div class="pl-4 border-l-4 border-gray-800">
-                        <span class="text-xs font-bold uppercase tracking-widest text-gray-700 block mb-6">P03: Cargo (Lifestyle)</span>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Dining / Bars / Leisure</span><input type="number" oninput="calculate()" class="s-in input-underline w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-3 border-b border-white/5"><span>Subscriptions / Gym</span><input type="number" oninput="calculate()" class="s-in input-underline w-24 text-right" placeholder="0"></div>
-                    </div>
-                </div>
-
-                <div class="dashboard-card bg-[#071324] border-t-8 border-red-700">
-                    <h3 class="text-3xl font-black uppercase italic mb-8">Marching Orders</h3>
-                    <div class="grid md:grid-cols-2 gap-10">
-                        <div>
-                            <h4 class="text-red-700 font-bold uppercase text-[10px] mb-2 tracking-widest">Primary Objective</h4>
-                            <p id="m-1" class="text-gray-400 text-sm leading-relaxed italic">"Initialize data stream for tactical assessment."</p>
-                        </div>
-                        <div>
-                            <h4 class="text-white font-bold uppercase text-[10px] mb-2 tracking-widest">Strike Force Action</h4>
-                            <p id="m-2" class="text-gray-400 text-sm leading-relaxed italic">"System standing by for deployment."</p>
+                    <div class="border-l-4 border-white pl-6">
+                        <span class="text-[10px] font-black uppercase tracking-widest block mb-4">P01-P02: Survival & Infrastructure</span>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+                            <div class="flex justify-between py-2 border-b border-white/5"><span>Rent/Mortgage</span><input type="number" oninput="run()" class="s-in input-underline w-20 text-right" placeholder="0"></div>
+                            <div class="flex justify-between py-2 border-b border-white/5"><span>Groceries</span><input type="number" oninput="run()" class="s-in input-underline w-20 text-right" placeholder="0"></div>
+                            <div class="flex justify-between py-2 border-b border-white/5"><span>Utilities</span><input type="number" oninput="run()" class="s-in input-underline w-20 text-right" placeholder="0"></div>
+                            <div class="flex justify-between py-2 border-b border-white/5"><span>Transport</span><input type="number" oninput="run()" class="s-in input-underline w-20 text-right" placeholder="0"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="lg:col-span-4">
-                <div class="dashboard-card text-center sticky top-12">
-                    <div class="relative w-full max-w-[250px] mx-auto">
-                        <canvas id="chart"></canvas>
-                        <div class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none">
-                            <div id="unallocated" class="text-4xl font-black">$0</div>
-                            <div class="text-[9px] uppercase font-bold text-gray-500 tracking-[0.3em]">Unallocated</div>
-                        </div>
-                    </div>
-                    <div class="mt-10 pt-10 border-t border-white/5">
-                        <div class="strike-box">
-                            <div id="strike-val" class="text-5xl font-black">$0</div>
-                            <span class="text-[10px] uppercase font-bold text-white/50 block mt-2 tracking-widest">Monthly Strike Force</span>
+                <div class="dashboard-card text-center sticky top-8">
+                    <canvas id="chart"></canvas>
+                    <div class="mt-8 pt-8 border-t border-white/10">
+                        <p class="text-[10px] font-bold text-gray-500 uppercase">Unallocated Reserve</p>
+                        <p id="left-val" class="text-4xl font-black mb-6">$0</p>
+                        <div class="bg-red-700 p-6 rounded">
+                            <p class="text-[10px] font-black uppercase text-white/70 tracking-widest">Monthly Strike Force</p>
+                            <p id="strike-val" class="text-4xl font-black">$0</p>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </main>
 
-    <footer class="site-footer">
-        <div class="container mx-auto px-6">
-            <div style="font-family: 'Great Vibes';" class="text-5xl text-white">Real American Finance</div>
-            <p class="text-[10px] text-gray-600 uppercase tracking-[0.6em] font-bold mt-6 leading-loose">
-                © 2026. Own Your Outcomes. <br> Discipline is the only path to Autonomy.
-            </p>
-        </div>
+    <footer class="bg-[#050B14] border-t-8 border-red-700 py-16 text-center">
+        <h2 style="font-family: 'Great Vibes';" class="text-4xl">Real American Finance</h2>
+        <p class="text-[10px] text-gray-600 uppercase tracking-[0.5em] font-bold mt-4 italic">© 2026. Discipline is Freedom.</p>
     </footer>
 
     <script>
         let myChart;
         function init() {
             const ctx = document.getElementById('chart').getContext('2d');
-            myChart = new
+            myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: { labels: ['Wealth', 'Survival', 'Debt', 'Reserve'], datasets: [{ data: [0,0,0,100], backgroundColor: ['#B22234', '#FFFFFF', '#B2223466', '#11243F'], borderWidth: 0 }] },
+                options: { cutout: '80%', plugins: { legend: { display: false } } }
+            });
+        }
+
+        function addDebt() {
+            const tr = document.createElement('tr'); tr.className = "border-b border-white/5";
+            tr.innerHTML = `<td class="py-4"><input type="text" placeholder="Liability" class="bg-transparent text-white outline-none w-full"></td><td class="py-4"><input type="number" oninput="run()" class="d-min bg-transparent text-white outline-none w-full text-center"></td><td class="py-4"><input type="number" oninput="run()" class="d-bal bg-transparent text-white outline-none w-full text-center"></td><td class="py-4"><input type="number" oninput="run()" class="d-apr bg-transparent text-red-600 font-black outline-none w-full text-center"></td><td><button onclick="this.closest('tr').remove(); run();">×</button></td>`;
+            document.getElementById('debt-table').appendChild(tr);
+        }
+
+        function run() {
+            const inc = (parseFloat(document.getElementById('pay').value) || 0) * parseFloat(document.getElementById('freq').value);
+            let dMin = 0, dBal = 0, maxApr = 0;
+            document.querySelectorAll('.d-min').forEach(i => dMin += (parseFloat(i.value) || 0));
+            document.querySelectorAll('.d-bal').forEach(i => dBal += (parseFloat(i.value) || 0));
+            document.querySelectorAll('.d-apr').forEach(i => { let v = parseFloat(i.value) || 0; if(v > maxApr) maxApr = v; });
+
+            let wVal = 0; document.querySelectorAll('.w-in').forEach(i => wVal += (parseFloat(i.value) || 0));
+            let sVal = 0; document.querySelectorAll('.s-in').forEach(i => sVal += (parseFloat(i.value) || 0));
+
+            const left = inc - (wVal + sVal + dMin);
+            const strike = left + wVal;
+
+            // METRIC UPDATES
+            document.getElementById('total-debt-val').innerText = "$" + dBal.toLocaleString();
+            document.getElementById('left-val').innerText = "$" + Math.round(left).toLocaleString();
+            document.getElementById('strike-val').innerText = "$" + Math.round(strike).toLocaleString();
+
+            if (inc > 0) {
+                document.getElementById('dti-ratio').innerText = Math.round((dMin / inc) * 100) + "%";
+                document.getElementById('burn-rate').innerText = Math.round(((sVal + dMin) / inc) * 100) + "%";
+                document.getElementById('wealth-velocity').innerText = Math.round((wVal / inc) * 100) + "%";
+            }
+
+            myChart.data.datasets[0].data = [wVal, sVal, dMin, Math.max(0, left)];
+            myChart.update();
+        }
+        window.onload = init;
+    </script>
+</body>
+</html>
