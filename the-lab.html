@@ -8,42 +8,34 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #050B14; color: white; font-family: 'Inter', sans-serif; margin: 0; }
-        
-        /* Forces header/footer to be visible blocks */
-        .header-block { background: #071324; border-bottom: 2px solid #B22234; padding: 2rem 0; }
-        .footer-block { background: #071324; border-top: 10px solid #B22234; padding: 4rem 0; margin-top: 4rem; }
-        
-        .dashboard-card { background: #0A1A2F; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; }
-        .input-underlined { border-bottom: 2px solid rgba(255,255,255,0.1); background: transparent; outline: none; color: white; width: 100%; }
-        .input-underlined:focus { border-color: #B22234; }
-        
-        .tier-box { border-left: 4px solid; padding-left: 1.5rem; margin-bottom: 2rem; }
-        .p-wealth { border-color: #B22234; background: rgba(178, 34, 52, 0.05); padding: 1rem; }
-        .p-survival { border-color: #FFFFFF; }
-        
+        body { background-color: #050B14; color: white; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+        .dashboard-card { background: #0A1A2F; border: 1px solid rgba(255,255,255,0.05); border-radius: 4px; padding: 2rem; margin-bottom: 2rem; }
+        .input-line { background: transparent; border: none; border-bottom: 2px solid rgba(255,255,255,0.1); color: white; outline: none; width: 100%; transition: border-color 0.3s; }
+        .input-line:focus { border-color: #B22234; }
+        .tier-0 { border-left: 4px solid #B22234; background: rgba(178, 34, 52, 0.05); padding: 1.5rem; }
         .frozen { opacity: 0.2; pointer-events: none; filter: grayscale(1); }
+        .action-plan { background: #071324; border-top: 4px solid #B22234; padding: 2.5rem; }
     </style>
 </head>
 <body>
 
-    <div class="header-block">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <div>
+    <header class="bg-[#050B14] border-b border-white/10 py-8">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="text-center md:text-left">
                 <h1 style="font-family: 'Great Vibes';" class="text-4xl">Real American Finance</h1>
-                <p class="text-[10px] tracking-[0.4em] text-gray-400 uppercase font-bold">Discipline • Autonomy • Wealth</p>
+                <p class="text-[10px] tracking-[0.4em] text-gray-400 uppercase font-bold mt-1">Discipline • Autonomy • Wealth</p>
             </div>
-            <div class="hidden md:flex gap-8 text-[11px] font-bold uppercase tracking-widest text-gray-400">
-                <a href="#">Academy</a>
+            <nav class="mt-4 md:mt-0 flex gap-6 text-[10px] uppercase font-bold tracking-widest text-gray-400">
+                <a href="#" class="hover:text-white">Academy</a>
                 <a href="#" class="text-white border-b border-red-700">The Lab</a>
-                <a href="#" class="bg-red-700 text-white px-4 py-2">Strategy Call</a>
-            </div>
+                <button class="bg-red-700 text-white px-4 py-2 hover:bg-red-800 transition">Strategy Call</button>
+            </nav>
         </div>
-    </div>
+    </header>
 
     <main class="container mx-auto px-6 py-12">
         <div class="text-center mb-16">
-            <h2 class="text-7xl font-bold uppercase tracking-tighter">THE <span class="text-red-700">LAB.</span></h2>
+            <h2 class="text-6xl md:text-8xl font-bold uppercase tracking-tighter">THE <span class="text-red-700">LAB.</span></h2>
             <p class="text-gray-400 uppercase tracking-[0.5em] mt-4 font-bold">Pillar 01: Iron Pot Millionaire</p>
         </div>
 
@@ -54,77 +46,101 @@
                 <div class="dashboard-card">
                     <h3 class="text-xl font-bold uppercase mb-6 text-red-700">01. Monthly Inflow</h3>
                     <div class="grid md:grid-cols-2 gap-8">
-                        <input type="number" id="pay" oninput="calc()" placeholder="Net Paycheck ($)" class="input-underlined text-2xl font-bold">
-                        <select id="freq" onchange="calc()" class="input-underlined text-lg font-bold bg-[#0A1A2F]">
-                            <option value="2">Bi-Weekly (2x)</option>
-                            <option value="1">Monthly (1x)</option>
-                            <option value="4">Weekly (4x)</option>
-                        </select>
+                        <div>
+                            <label class="text-[10px] font-bold text-gray-500 uppercase">Net Paycheck ($)</label>
+                            <input type="number" id="pay" oninput="calc()" class="input-line text-2xl font-bold mt-2">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-gray-500 uppercase">Frequency</label>
+                            <select id="freq" onchange="calc()" class="input-line text-lg font-bold bg-[#0A1A2F] mt-2">
+                                <option value="2">Bi-Weekly (2x)</option>
+                                <option value="1">Monthly (1x)</option>
+                                <option value="4">Weekly (4x)</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
                 <div class="dashboard-card">
-                    <h3 class="text-xl font-bold uppercase mb-6 text-red-700">02. Debt Recon</h3>
+                    <h3 class="text-xl font-bold uppercase mb-6 text-red-700">02. Debt Reconnaissance</h3>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs uppercase font-bold text-gray-500">
-                            <thead><tr class="border-b border-white/10"><th class="pb-2">Liability</th><th class="pb-2">Min $</th><th class="pb-2">Balance $</th><th class="pb-2 text-red-600">APR %</th><th></th></tr></thead>
+                            <thead class="border-b border-white/10">
+                                <tr><th class="pb-3">Liability</th><th class="pb-3">Min $</th><th class="pb-3">Balance $</th><th class="pb-3 text-red-600">APR %</th><th></th></tr>
+                            </thead>
                             <tbody id="debt-table">
                                 <tr class="border-b border-white/5">
-                                    <td><input type="text" placeholder="Card/Loan" class="bg-transparent text-white py-4 outline-none"></td>
+                                    <td><input type="text" placeholder="Card Name" class="bg-transparent text-white py-4 outline-none uppercase font-bold"></td>
                                     <td><input type="number" oninput="calc()" class="d-min bg-transparent text-white outline-none w-16" placeholder="0"></td>
-                                    <td><input type="number" oninput="calc()" class="d-bal bg-transparent text-white outline-none w-20" placeholder="0"></td>
+                                    <td><input type="number" oninput="calc()" class="d-bal bg-transparent text-white outline-none w-24" placeholder="0"></td>
                                     <td><input type="number" oninput="calc()" class="d-apr bg-transparent text-red-600 font-bold outline-none w-12" placeholder="0"></td>
-                                    <td><button onclick="this.closest('tr').remove(); calc();">×</button></td>
+                                    <td><button onclick="this.closest('tr').remove(); calc();" class="text-lg">×</button></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <button onclick="addDebt()" class="mt-4 text-[10px] text-gray-400 uppercase font-bold">+ Add Debt Row</button>
+                        <button onclick="addDebt()" class="mt-4 text-[10px] text-gray-400 uppercase font-bold hover:text-white transition">+ Add Liability</button>
                     </div>
                 </div>
 
                 <div class="dashboard-card">
                     <h3 class="text-xl font-bold uppercase mb-8 text-red-700">03. The Siege Engine</h3>
                     
-                    <div id="wealth-section" class="tier-box p-wealth">
-                        <h4 class="text-xs font-bold text-red-600 uppercase mb-4">P00: Wealth Accumulation</h4>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Iron Pot (Emergency)</span><input type="number" oninput="calc()" class="w-in input-underlined w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Investments/Retirement</span><input type="number" oninput="calc()" class="w-in input-underlined w-24 text-right" placeholder="0"></div>
+                    <div id="wealth-box" class="tier-0 mb-10">
+                        <h4 class="text-xs font-bold text-red-600 uppercase mb-4 tracking-widest">P00: Wealth Accumulation</h4>
+                        <div class="flex justify-between py-2 border-b border-white/5"><span>Iron Pot Fund</span><input type="number" oninput="calc()" class="w-in input-line w-24 text-right" placeholder="0"></div>
+                        <div class="flex justify-between py-2 border-b border-white/5"><span>Brokerage / Retirement</span><input type="number" oninput="calc()" class="w-in input-line w-24 text-right" placeholder="0"></div>
                     </div>
 
-                    <div class="tier-box p-survival">
-                        <h4 class="text-xs font-bold uppercase mb-4">P01: Survival & Ops</h4>
-                        <div class="flex justify-between py-3 bg-white/5 px-2 mb-4"><span>Debt Mins (Auto)</span><span id="auto-d" class="font-bold text-red-600">$0</span></div>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Rent / Mortgage</span><input type="number" oninput="calc()" class="s-in input-underlined w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Groceries / Household</span><input type="number" oninput="calc()" class="s-in input-underlined w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Utilities (Power/Gas/Water)</span><input type="number" oninput="calc()" class="s-in input-underlined w-24 text-right" placeholder="0"></div>
-                        <div class="flex justify-between py-2 border-b border-white/5"><span>Transport (Fuel/Insurance)</span><input type="number" oninput="calc()" class="s-in input-underlined w-24 text-right" placeholder="0"></div>
+                    <div class="mb-10 pl-4 border-l-4 border-white">
+                        <h4 class="text-xs font-bold uppercase mb-4 tracking-widest">P01: Survival & Operations</h4>
+                        <div class="flex justify-between py-3 bg-white/5 px-2 mb-4"><span>Debt Minimums (Auto)</span><span id="auto-d" class="font-bold text-red-600">$0</span></div>
+                        <div class="flex justify-between py-2 border-b border-white/5"><span>Rent / Mortgage</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
+                        <div class="flex justify-between py-2 border-b border-white/5"><span>Groceries / Household</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
+                        <div class="flex justify-between py-2 border-b border-white/5"><span>Home/Auto Insurance</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
+                    </div>
+
+                    <div class="mb-10 pl-4 border-l-4 border-gray-500">
+                        <h4 class="text-xs font-bold uppercase mb-4 tracking-widest text-gray-400">P02: Infrastructure</h4>
+                        <div class="flex justify-between py-2 border-b border-white/5"><span>Electricity / Water / Gas</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
+                        <div class="flex justify-between py-2 border-b border-white/5"><span>Internet / Phone</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
+                        <div class="flex justify-between py-2 border-b border-white/5"><span>Transport / Fuel</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
+                    </div>
+
+                    <div class="pl-4 border-l-4 border-gray-700">
+                        <h4 class="text-xs font-bold uppercase mb-4 tracking-widest text-gray-600">P03: Cargo (Lifestyle)</h4>
+                        <div class="flex justify-between py-2 border-b border-white/5"><span>Dining / Bars</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
+                        <div class="flex justify-between py-2 border-b border-white/5"><span>Subscriptions / Gym</span><input type="number" oninput="calc()" class="s-in input-line w-24 text-right" placeholder="0"></div>
                     </div>
                 </div>
 
-                <div class="dashboard-card bg-red-900/10 border-t-4 border-red-700">
-                    <h3 class="text-3xl font-bold uppercase italic mb-6">Marching Orders</h3>
-                    <div class="grid md:grid-cols-2 gap-8 text-sm">
+                <div class="action-plan">
+                    <h3 class="text-3xl font-bold uppercase italic mb-8">Marching Orders</h3>
+                    <div class="grid md:grid-cols-2 gap-12 text-sm leading-relaxed">
                         <div>
-                            <h4 class="font-bold text-red-700 uppercase">Primary Mission</h4>
-                            <p id="m-1" class="text-gray-400 mt-2">Awaiting inflow data.</p>
+                            <h4 class="text-red-700 font-bold uppercase mb-2">Primary Objective</h4>
+                            <p id="m-1" class="text-gray-400">Awaiting inflow reconnaissance...</p>
                         </div>
                         <div>
-                            <h4 class="font-bold text-white uppercase">Strike Strategy</h4>
-                            <p id="m-2" class="text-gray-400 mt-2">Initializing...</p>
+                            <h4 class="text-white font-bold uppercase mb-2">Strike Strategy</h4>
+                            <p id="m-2" class="text-gray-400">Deploy data to generate strategy.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="lg:col-span-4">
-                <div class="dashboard-card text-center">
-                    <canvas id="chart"></canvas>
-                    <div class="mt-8 pt-8 border-t border-white/5">
-                        <div class="text-gray-500 uppercase text-[10px] font-bold">Unallocated Cash</div>
-                        <div id="left-val" class="text-4xl font-bold mb-4">$0</div>
-                        <div class="bg-red-700 p-4 rounded font-bold">
-                            <span class="text-[10px] uppercase block">Monthly Strike Force</span>
-                            <span id="strike-val" class="text-2xl">$0</span>
+                <div class="dashboard-card sticky top-12 text-center">
+                    <div class="relative w-full max-w-[240px] mx-auto">
+                        <canvas id="chart"></canvas>
+                        <div class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none">
+                            <div id="unallocated" class="text-3xl font-bold">$0</div>
+                            <div class="text-[8px] uppercase font-bold text-gray-500 tracking-widest">Unallocated</div>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-8 border-t border-white/10 space-y-6">
+                        <div class="bg-navy-950 p-6 border border-white/5 rounded">
+                            <div id="strike-force" class="text-5xl font-bold text-red-700">$0</div>
+                            <span class="text-[9px] uppercase font-bold text-gray-500 block mt-2 tracking-widest">Monthly Strike Force</span>
                         </div>
                     </div>
                 </div>
@@ -132,12 +148,12 @@
         </div>
     </main>
 
-    <div class="footer-block text-center">
+    <footer class="bg-[#050B14] border-t-8 border-red-700 py-16 text-center">
         <div class="container mx-auto px-6">
             <h2 style="font-family: 'Great Vibes';" class="text-4xl">Real American Finance</h2>
-            <p class="text-[10px] text-gray-600 uppercase tracking-[0.4em] font-bold mt-4">© 2026. Discipline is Freedom. Own Your Outcomes.</p>
+            <p class="text-[10px] text-gray-600 uppercase tracking-[0.5em] font-bold mt-4">© 2026. Discipline is Freedom. Own Your Outcomes.</p>
         </div>
-    </div>
+    </footer>
 
     <script>
         let myChart;
@@ -145,39 +161,42 @@
             const ctx = document.getElementById('chart').getContext('2d');
             myChart = new Chart(ctx, {
                 type: 'doughnut',
-                data: { labels: ['Wealth', 'Survival', 'Min Debt', 'Left'], datasets: [{ data: [0,0,0,100], backgroundColor: ['#B22234', '#FFFFFF', '#B2223466', '#11243F'], borderWidth: 0 }] },
-                options: { cutout: '80%', plugins: { legend: { display: false } } }
+                data: {
+                    labels: ['Wealth', 'Survival', 'Debt Min', 'Left'],
+                    datasets: [{ data: [0,0,0,100], backgroundColor: ['#B22234', '#FFFFFF', '#B22234aa', '#11243F'], borderWidth: 0 }]
+                },
+                options: { cutout: '78%', plugins: { legend: { display: false } } }
             });
         }
 
         function addDebt() {
             const tr = document.createElement('tr'); tr.className = "border-b border-white/5";
-            tr.innerHTML = `<td><input type="text" placeholder="Liability" class="bg-transparent text-white py-4 outline-none"></td><td><input type="number" oninput="calc()" class="d-min bg-transparent text-white outline-none w-16" placeholder="0"></td><td><input type="number" oninput="calc()" class="d-bal bg-transparent text-white outline-none w-20" placeholder="0"></td><td><input type="number" oninput="calc()" class="d-apr bg-transparent text-red-600 font-bold outline-none w-12" placeholder="0"></td><td><button onclick="this.closest('tr').remove(); calc();">×</button></td>`;
+            tr.innerHTML = `<td><input type="text" placeholder="Liability" class="bg-transparent text-white py-4 outline-none font-bold uppercase"></td><td><input type="number" oninput="calc()" class="d-min bg-transparent text-white outline-none w-16" placeholder="0"></td><td><input type="number" oninput="calc()" class="d-bal bg-transparent text-white outline-none w-24" placeholder="0"></td><td><input type="number" oninput="calc()" class="d-apr bg-transparent text-red-600 font-bold outline-none w-12" placeholder="0"></td><td><button onclick="this.closest('tr').remove(); calc();">×</button></td>`;
             document.getElementById('debt-table').appendChild(tr);
         }
 
         function calc() {
             const inc = (parseFloat(document.getElementById('pay').value) || 0) * parseFloat(document.getElementById('freq').value);
             let dMin = 0; document.querySelectorAll('.d-min').forEach(i => dMin += (parseFloat(i.value) || 0));
-            let maxAPR = 0; document.querySelectorAll('.d-apr').forEach(i => { let v = parseFloat(i.value) || 0; if(v > maxAPR) maxAPR = v; });
+            let maxAPR = 0; document.querySelectorAll('.debt-apr').forEach(i => { let v = parseFloat(i.value) || 0; if(v > maxAPR) maxAPR = v; });
             let wVal = 0; document.querySelectorAll('.w-in').forEach(i => wVal += (parseFloat(i.value) || 0));
             let sVal = 0; document.querySelectorAll('.s-in').forEach(i => sVal += (parseFloat(i.value) || 0));
 
-            const wSection = document.getElementById('wealth-section');
+            const wBox = document.getElementById('wealth-box');
             if(maxAPR >= 20) {
-                wSection.classList.add('frozen'); wVal = 0;
-                document.getElementById('m-1').innerText = "ALERT: " + maxAPR + "% APR detected. This is a financial emergency.";
-                document.getElementById('m-2').innerText = "Stop all saving. Apply every unallocated dollar to this debt.";
+                wBox.classList.add('frozen'); wVal = 0;
+                document.getElementById('m-1').innerText = `CRITICAL LEAK: ${maxAPR}% APR detected. Emergency protocols engaged.`;
+                document.getElementById('m-2').innerText = `Freeze all saving. Redirect every unallocated dollar to seal this leak immediately.`;
             } else {
-                wSection.classList.remove('frozen');
-                document.getElementById('m-1').innerText = "System Stable. Fill the Iron Pot Fund.";
-                document.getElementById('m-2').innerText = "Focus on 3-6 months of survival expenses in liquid cash.";
+                wBox.classList.remove('frozen');
+                document.getElementById('m-1').innerText = `System Green. Focus: Building the 3-Month Iron Pot Fund.`;
+                document.getElementById('m-2').innerText = `After the Iron Pot is full, aggressively scale into your Brokerage accounts.`;
             }
 
             const left = inc - (wVal + sVal + dMin);
-            document.getElementById('left-val').innerText = "$" + Math.round(left).toLocaleString();
+            document.getElementById('unallocated').innerText = "$" + Math.round(left).toLocaleString();
             document.getElementById('auto-d').innerText = "$" + dMin.toLocaleString();
-            document.getElementById('strike-val').innerText = "$" + Math.round(left + wVal).toLocaleString();
+            document.getElementById('strike-force').innerText = "$" + Math.round(left + wVal).toLocaleString();
 
             myChart.data.datasets[0].data = [wVal, sVal, dMin, Math.max(0, left)];
             myChart.update();
