@@ -8,8 +8,17 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #050B14; color: white; font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
-        main { flex: 1; }
+        /* Structural Fixes */
+        html, body { height: 100%; margin: 0; }
+        body { 
+            background-color: #050B14; 
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        main { flex: 1; padding-top: 100px; } /* Offset for fixed header */
+        
         .hero-bg { 
             background: linear-gradient(rgba(5,11,20,0.9), rgba(5,11,20,0.9)), url('https://images.unsplash.com/photo-1507608158173-1dcec673a2e5?auto=format&fit=crop&q=80'); 
             background-size: cover; background-position: center; 
@@ -18,10 +27,13 @@
         .input-underlined { border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent; outline: none; transition: border-color 0.3s; color: white; }
         .input-underlined:focus { border-color: #B22234; }
         
+        /* Priority Tiers */
         .tier-0 { border-left: 4px solid #B22234; background: rgba(178, 34, 52, 0.08); transition: all 0.5s ease; }
         .tier-1 { border-left: 4px solid #FFFFFF; background: rgba(255,255,255,0.04); }
+        .tier-2 { border-left: 4px solid #9ca3af; background: rgba(156,163,175,0.04); }
         .tier-3 { border-left: 4px solid #4b5563; background: rgba(255,255,255,0.02); }
 
+        /* Freeze & Warning State */
         .frozen { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
         .leak-warning { color: #B22234; font-weight: 800; font-size: 10px; animation: pulse 2s infinite; display: none; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
@@ -42,15 +54,15 @@
                 <span class="font-heading text-[10px] tracking-[0.4em] text-gray-500 uppercase font-bold mt-1">Discipline • Autonomy • Wealth</span>
             </div>
             <div class="hidden lg:flex items-center space-x-8 text-[10px] font-heading font-bold uppercase tracking-widest text-gray-400">
-                <a href="#" class="hover:text-white">Academy</a>
-                <a href="#" class="text-white border-b border-red-700">The Lab</a>
+                <a href="#" class="hover:text-white transition">The Academy</a>
+                <a href="#" class="text-white border-b border-red-700 pb-1">The Lab</a>
                 <a href="#" class="bg-red-700 text-white px-4 py-2 hover:bg-red-800 transition">Strategy Call</a>
             </div>
         </nav>
     </header>
 
     <main>
-        <section class="hero-bg pt-40 pb-16 text-center">
+        <section class="hero-bg pb-16 pt-10 text-center">
             <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight text-white">THE <span class="text-red-700">LAB.</span></h1>
             <p class="text-gray-400 font-heading uppercase tracking-[0.4em] mt-4">Pillar 01: Iron Pot Millionaire</p>
         </section>
@@ -86,11 +98,11 @@
                                 </thead>
                                 <tbody id="debt-body">
                                     <tr class="border-b border-white/5">
-                                        <td class="py-4 px-2"><input type="text" placeholder="e.g. Credit Card" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
+                                        <td class="py-4 px-2"><input type="text" placeholder="e.g. Visa" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
                                         <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
                                         <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
                                         <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-apr-input bg-transparent w-full outline-none text-red-600 text-xs font-bold" placeholder="0"></td>
-                                        <td class="text-right"><button onclick="removeRow(this)" class="hover:text-red-700 transition text-lg">×</button></td>
+                                        <td class="text-right"><button onclick="removeRow(this)" class="text-xl">×</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -98,36 +110,61 @@
                         </div>
                     </div>
 
-                    <div class="dashboard-card p-8">
-                        <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-red-700 pl-4 mb-10">03. The Siege Engine</h3>
-                        <div class="space-y-8">
-                            <div id="tier-0-container" class="tier-0 p-6 space-y-4">
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center gap-4">
-                                        <h4 class="text-[11px] uppercase font-bold text-red-600 tracking-[0.3em]">Priority 00: Wealth</h4>
-                                        <span id="leak-msg" class="leak-warning">STRUCTURAL LEAK: HIGH APR DEBT DETECTED</span>
-                                    </div>
-                                    <div id="badge-t0" class="perc-badge">0%</div>
+                    <div class="dashboard-card p-8 space-y-10">
+                        <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-red-700 pl-4">03. The Siege Engine</h3>
+                        
+                        <div id="tier-0-container" class="tier-0 p-6 space-y-4">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center gap-4">
+                                    <h4 class="text-[11px] uppercase font-bold text-red-600 tracking-[0.3em]">Priority 00: Wealth</h4>
+                                    <span id="leak-msg" class="leak-warning">LEAK DETECTED: PAY HIGH APR DEBT FIRST</span>
                                 </div>
-                                <div id="t0-rows" class="space-y-2">
-                                    <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Iron Pot (Emergency)</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
-                                    <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Investing / 401k</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
-                                </div>
-                                <button onclick="addRow('t0-rows', 'tier-0-input')" class="text-[8px] uppercase font-bold text-gray-500 hover:text-white">+ Add Reinforcement</button>
+                                <div id="badge-t0" class="perc-badge">0%</div>
                             </div>
+                            <div id="t0-rows" class="space-y-2">
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Iron Pot (Emergency Fund)</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Brokerage / Retirement</span><input type="number" oninput="calculateAll()" class="tier-0-input input-underlined w-24 text-right" placeholder="0"></div>
+                            </div>
+                            <button onclick="addRow('t0-rows', 'tier-0-input')" class="text-[8px] uppercase font-bold text-gray-500 hover:text-white">+ Add Reinforcement</button>
+                        </div>
 
-                            <div class="tier-1 p-6 space-y-4">
-                                <div class="flex justify-between items-center">
-                                    <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Priority 01: Survival</h4>
-                                    <div id="badge-t1" class="perc-badge">0%</div>
-                                </div>
-                                <div id="t1-rows" class="space-y-2">
-                                    <div class="flex justify-between border-b border-white/10 py-3 px-4 bg-white/5"><span class="text-xs uppercase font-bold text-red-600">Debt Minimums (Auto)</span><span id="auto-debt-min" class="text-sm font-bold">$0.00</span></div>
-                                    <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Housing</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
-                                    <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Groceries & Gas</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
-                                </div>
-                                <button onclick="addRow('t1-rows', 'tier-1-input')" class="text-[8px] uppercase font-bold text-gray-500 hover:text-white">+ Add Reinforcement</button>
+                        <div class="tier-1 p-6 space-y-4">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Priority 01: Survival</h4>
+                                <div id="badge-t1" class="perc-badge">0%</div>
                             </div>
+                            <div id="t1-rows" class="space-y-2">
+                                <div class="flex justify-between border-b border-white/10 py-3 px-4 bg-white/5"><span class="text-xs uppercase font-bold text-red-600">Debt Minimums (Auto)</span><span id="auto-debt-min" class="text-sm font-bold">$0.00</span></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Mortgage / Rent</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Groceries / Household</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-200">Insurance (Auto/Health)</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
+                            </div>
+                            <button onclick="addRow('t1-rows', 'tier-1-input')" class="text-[8px] uppercase font-bold text-gray-500 hover:text-white">+ Add Reinforcement</button>
+                        </div>
+
+                        <div class="tier-2 p-6 space-y-4">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-[11px] uppercase font-bold text-gray-400 tracking-[0.3em]">Priority 02: Infrastructure</h4>
+                                <div id="badge-t2" class="perc-badge">0%</div>
+                            </div>
+                            <div id="t2-rows" class="space-y-2">
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-300">Utilities / Heating</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-300">Internet / Cell Phone</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-300">Maintenance / Fuel</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
+                            </div>
+                            <button onclick="addRow('t2-rows', 'tier-2-input')" class="text-[8px] uppercase font-bold text-gray-500 hover:text-white">+ Add Reinforcement</button>
+                        </div>
+
+                        <div class="tier-3 p-6 space-y-4">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-[11px] uppercase font-bold text-gray-400 tracking-[0.3em]">Priority 03: The Cargo</h4>
+                                <div id="badge-t3" class="perc-badge">0%</div>
+                            </div>
+                            <div id="t3-rows" class="space-y-2">
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Dining Out / Leisure</span><input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-24 text-right" placeholder="0"></div>
+                                <div class="flex justify-between border-b border-white/5 py-2"><span class="text-xs uppercase font-bold text-gray-100">Subscriptions</span><input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-24 text-right" placeholder="0"></div>
+                            </div>
+                            <button onclick="addRow('t3-rows', 'tier-3-input')" class="text-[8px] uppercase font-bold text-gray-500 hover:text-white">+ Add Reinforcement</button>
                         </div>
                     </div>
                 </div>
@@ -138,14 +175,14 @@
                             <canvas id="budgetChart"></canvas>
                             <div id="center-val">
                                 <div id="center-amount" class="text-3xl font-heading font-bold text-white">$0</div>
-                                <div class="text-[8px] uppercase tracking-widest text-gray-500 font-bold">Remaining</div>
+                                <div class="text-[8px] uppercase tracking-widest text-gray-500 font-bold">Unallocated</div>
                             </div>
                         </div>
                         <div class="mt-8 space-y-4 text-[10px] uppercase font-bold tracking-widest border-t border-white/10 pt-8">
                             <div class="flex justify-between"><span>Total Debt:</span><span id="total-debt-val" class="text-white font-bold">$0</span></div>
                             <div class="bg-navy-950 p-6 border border-white/5">
                                 <div id="strike-force-val" class="text-4xl font-heading text-red-700">$0</div>
-                                <span class="text-[9px] text-gray-500 block mt-2">Strike Force Available</span>
+                                <span class="text-[9px] text-gray-500 block mt-2 tracking-[0.2em]">Strike Force Monthly</span>
                             </div>
                         </div>
                     </div>
@@ -169,14 +206,14 @@
             myChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Wealth', 'Survival', 'Min Debt', 'Left'],
+                    labels: ['Wealth', 'Survival', 'Min Debt', 'Infra/Cargo', 'Left'],
                     datasets: [{ 
-                        data: [0,0,0,100], 
-                        backgroundColor: ['#B22234', '#FFFFFF', '#B22234aa', '#11243F'], 
+                        data: [0,0,0,0,100], 
+                        backgroundColor: ['#B22234', '#FFFFFF', '#B22234aa', '#4b5563', '#11243F'], 
                         borderWidth: 0
                     }]
                 },
-                options: { cutout: '70%', plugins: { legend: { display: false } } }
+                options: { cutout: '72%', plugins: { legend: { display: false } } }
             });
         }
 
@@ -210,6 +247,8 @@
 
             let t0 = 0; document.querySelectorAll('.tier-0-input').forEach(i => t0 += (parseFloat(i.value) || 0));
             let t1 = 0; document.querySelectorAll('.tier-1-input').forEach(i => t1 += (parseFloat(i.value) || 0));
+            let t2 = 0; document.querySelectorAll('.tier-2-input').forEach(i => t2 += (parseFloat(i.value) || 0));
+            let t3 = 0; document.querySelectorAll('.tier-3-input').forEach(i => t3 += (parseFloat(i.value) || 0));
 
             const container0 = document.getElementById('tier-0-container');
             const leakMsg = document.getElementById('leak-msg');
@@ -222,7 +261,7 @@
                 leakMsg.style.display = 'none';
             }
 
-            const remaining = income - (t0 + dMin + t1);
+            const remaining = income - (t0 + dMin + t1 + t2 + t3);
             document.getElementById('center-amount').innerText = `$${Math.round(remaining).toLocaleString()}`;
             document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
             document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
@@ -231,9 +270,11 @@
             if(income > 0) {
                 updateBadge('badge-t0', (t0/income)*100, 20, true);
                 updateBadge('badge-t1', ((t1+dMin)/income)*100, 50);
+                updateBadge('badge-t2', (t2/income)*100, 15);
+                updateBadge('badge-t3', (t3/income)*100, 30);
             }
 
-            myChart.data.datasets[0].data = [t0, t1, dMin, Math.max(0, remaining)];
+            myChart.data.datasets[0].data = [t0, t1, dMin, t2+t3, Math.max(0, remaining)];
             myChart.update();
         }
 
