@@ -20,6 +20,7 @@
         .tier-1 { border-left: 4px solid #FFFFFF; background: rgba(255,255,255,0.04); }
         .tier-2 { border-left: 4px solid #9ca3af; background: rgba(156,163,175,0.04); }
         .tier-3 { border-left: 4px solid #4b5563; background: rgba(255,255,255,0.02); transition: all 0.5s ease; }
+        .wealth-deployment { border-left: 4px solid #00FF00; background: rgba(0, 255, 0, 0.05); }
         
         .assets-box { border-left: 4px solid #B22234; background: rgba(178, 34, 52, 0.1); }
 
@@ -175,6 +176,10 @@
         .velocity-high { color: #00FF00 !important; text-shadow: 0 0 10px rgba(0, 255, 0, 0.5); }
         .velocity-medium { color: #FFD700 !important; }
         .velocity-low { color: #B22234 !important; animation: pulse 1.5s infinite; }
+        
+        /* NEW: Wealth Deployment Highlight */
+        .wealth-deployment-highlight { background: rgba(0, 255, 0, 0.1); border: 1px solid rgba(0, 255, 0, 0.3); }
+        .investment-input { color: #00FF00 !important; font-weight: 900 !important; }
     </style>
     <script>
         tailwind.config = {
@@ -227,8 +232,8 @@
                             <div><span class="font-bold">Debt Shatter:</span><p class="text-sm text-gray-400">Visual feedback when debts are eliminated (KIA)</p></div>
                         </div>
                         <div class="flex items-start">
-                            <div class="w-4 h-4 bg-green-500 rounded-full mt-1 mr-3"></div>
-                            <div><span class="font-bold">Fortress Velocity:</span><p class="text-sm text-gray-400">See exactly how long to reach financial security</p></div>
+                            <div class="w-4 h-4 bg-green-500 rounded-full mt=1 mr-3"></div>
+                            <div><span class="font-bold">Wealth Deployment:</span><p class="text-sm text-gray-400">Savings & investments that build your future</p></div>
                         </div>
                         <div class="flex items-start">
                             <div class="w-4 h-4 bg-yellow-500 rounded-full mt-1 mr-3"></div>
@@ -249,8 +254,8 @@
                         <li class="flex items-center"><i class="fas fa-skull-crossbones text-crimson mr-3"></i><span>Daily Interest Bleed - What your debt costs daily</span></li>
                         <li class="flex items-center"><i class="fas fa-bolt text-yellow-500 mr-3"></i><span>Fortress Velocity - Timeline to full security</span></li>
                         <li class="flex items-center"><i class="fas fa-shield-alt text-green-500 mr-3"></i><span>Condition Status - Visual threat assessment</span></li>
-                        <li class="flex items-center"><i class="fas fa-fire text-crimson mr-3"></i><span>War Mode - Auto-reallocate to priority targets</span></li>
-                        <li class="flex items-center"><i class="fas fa-hard-hat text-gray-400 mr-3"></i><span>Strip to Chassis - Reveal survival minimum</span></li>
+                        <li class="flex items-center"><i class="fas fa-chart-line text-green-500 mr-3"></i><span>Wealth Deployment - Savings & investment tracking</span></li>
+                        <li class="fas fa-hard-hat text-gray-400 mr-3"></i><span>Strip to Chassis - Reveal survival minimum</span></li>
                     </ul>
                 </div>
             </div>
@@ -669,7 +674,7 @@
                     </div>
                 </div>
 
-                <!-- 03. Monthly Siege Engine - UPDATED with Strip to Chassis -->
+                <!-- 03. Monthly Siege Engine - UPDATED with Wealth Deployment -->
                 <div class="dashboard-card p-6 md:p-8 shadow-2xl">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-10 gap-4">
                         <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-4 text-white leading-none">03. Monthly Siege Engine</h3>
@@ -934,6 +939,48 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Wealth Deployment - NEW SECTION -->
+                        <div class="wealth-deployment p-4 md:p-6 rounded" id="wealth-deployment-container">
+                            <div class="mobile-collapsible flex justify-between items-center" onclick="toggleMobileSection('wealth')">
+                                <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Wealth Deployment (Subtracts from War Chest)</h4>
+                                <div class="flex items-center">
+                                    <span id="badge-wealth" class="perc-badge status-good mr-3">0%</span>
+                                    <i class="fas fa-chevron-down text-gray-500" id="wealth-arrow"></i>
+                                </div>
+                            </div>
+                            <div id="wealth-content" class="mt-4 space-y-4 mobile-visible">
+                                <div class="tier-input-row wealth-deployment-highlight">
+                                    <div class="tier-input-container">
+                                        <div>
+                                            <span class="text-xs uppercase font-bold text-green-400">Monthly Savings</span>
+                                            <div class="text-[9px] text-green-500 mt-1">Savings accounts, CDs, money market</div>
+                                        </div>
+                                        <input type="number" oninput="calculateAll()" class="wealth-savings-input input-underlined tier-input-number investment-input" placeholder="0">
+                                    </div>
+                                </div>
+                                <div class="tier-input-row wealth-deployment-highlight">
+                                    <div class="tier-input-container">
+                                        <div>
+                                            <span class="text-xs uppercase font-bold text-green-400">Monthly Investments</span>
+                                            <div class="text-[9px] text-green-500 mt-1">Stocks, bonds, retirement accounts (401k, IRA)</div>
+                                        </div>
+                                        <input type="number" oninput="calculateAll()" class="wealth-investments-input input-underlined tier-input-number investment-input" placeholder="0">
+                                    </div>
+                                </div>
+                                <div class="mt-4 p-3 bg-green-900/20 border border-green-700/30 rounded">
+                                    <div class="text-[10px] uppercase font-bold text-green-300 mb-1">Wealth Deployment Impact</div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-300">Total Monthly Wealth Deployment:</span>
+                                        <span id="total-wealth-deployment" class="font-bold text-green-400">$0</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm mt-1">
+                                        <span class="text-gray-300">Annual Investment Growth (Est.):</span>
+                                        <span id="annual-investment-growth" class="font-bold text-green-400">$0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -979,6 +1026,7 @@
                         <div class="flex justify-between"><span>Total Debt Balance:</span><span id="total-debt-val" class="text-white">$0</span></div>
                         <div class="flex justify-between text-crimson font-black"><span>Freedom Timeline:</span><span id="countdown-val">N/A</span></div>
                         <div class="flex justify-between"><span>Monthly Housing %:</span><span id="housing-percent">0%</span></div>
+                        <div class="flex justify-between text-green-400 font-black"><span>Monthly Wealth Deployment:</span><span id="monthly-wealth-deployment-val">$0</span></div>
                         <div class="bg-navy-950/50 p-6 border border-white/5 text-center mt-4">
                             <div id="surplus-val" class="text-3xl md:text-4xl font-heading font-bold text-crimson">$0</div>
                             <span class="text-[9px] text-gray-500 uppercase mt-2 block tracking-widest">Monthly War Chest</span>
@@ -1006,7 +1054,7 @@
             </div>
         </div>
 
-        <!-- Sovereignty Score with Dynamic Weighting -->
+        <!-- Sovereignty Score with Dynamic Weighting - UPDATED with Growth Pillar -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 mt-12 md:mt-20">
             <div class="lg:col-span-3 dashboard-card p-8 md:p-10 text-center shadow-2xl border-crimson border-2" id="sovereignty-container">
                 <h3 class="text-2xl md:text-3xl font-heading uppercase tracking-wider mb-4 text-gray-300">Your Sovereignty Score</h3>
@@ -1021,7 +1069,7 @@
                     </p>
                 </div>
                 
-                <div class="mt-6 md:mt-8 grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 text-xs">
+                <div class="mt-6 md:mt-8 grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4 text-xs">
                     <div class="bg-navy-900 p-3 md:p-4 rounded cursor-pointer hover:bg-navy-800 transition" onclick="showPillarInfo('budgeting')" id="pillar-budgeting">
                         <span class="block uppercase text-gray-400">Budgeting</span>
                         <span id="score-budget" class="text-xl md:text-2xl font-bold text-white">0</span>/20
@@ -1036,11 +1084,15 @@
                     </div>
                     <div class="bg-navy-900 p-3 md:p-4 rounded cursor-pointer hover:bg-navy-800 transition" onclick="showPillarInfo('retirement')" id="pillar-retirement">
                         <span class="block uppercase text-gray-400">Retirement</span>
-                        <span id="score-retirement" class="text-xl md:text-2xl font-bold text-white">0</span>/20
+                        <span id="score-retirement" class="text-xl md:text-2xl font-bold text-white">0</span>/15
                     </div>
                     <div class="bg-navy-900 p-3 md:p-4 rounded cursor-pointer hover:bg-navy-800 transition" onclick="showPillarInfo('realestate')" id="pillar-realestate">
                         <span class="block uppercase text-gray-400">Real Estate</span>
-                        <span id="score-realestate" class="text-xl md:text-2xl font-bold text-white">0</span>/20
+                        <span id="score-realestate" class="text-xl md:text-2xl font-bold text-white">0</span>/15
+                    </div>
+                    <div class="bg-navy-900 p-3 md:p-4 rounded cursor-pointer hover:bg-navy-800 transition" onclick="showPillarInfo('growth')" id="pillar-growth">
+                        <span class="block uppercase text-gray-400">Growth</span>
+                        <span id="score-growth" class="text-xl md:text-2xl font-bold text-white">0</span>/10
                     </div>
                 </div>
                 
@@ -1190,7 +1242,8 @@
         let p3Cache = [];
         let t1Cache = [];
         let t2Cache = [];
-        const CURRENT_VERSION = 'raf_sovereignty_dashboard_v1';
+        let wealthCache = [];
+        const CURRENT_VERSION = 'raf_sovereignty_dashboard_v2';
         let scoreHistory = [];
         let achievements = [];
         let userStats = {
@@ -1224,10 +1277,10 @@
                 myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'War Chest'],
+                        labels: ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Wealth Deployment', 'War Chest'],
                         datasets: [{
-                            data: [0, 0, 0, 0, 100],
-                            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'],
+                            data: [0, 0, 0, 0, 0, 100],
+                            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00', '#1E90FF'],
                             borderWidth: 0
                         }]
                     },
@@ -1299,7 +1352,7 @@
         // Mobile view initialization
         function initializeMobileView() {
             // Initialize collapsible sections
-            const sections = ['tier1', 'tier2', 'tier3'];
+            const sections = ['tier1', 'tier2', 'tier3', 'wealth'];
             sections.forEach(section => {
                 const content = document.getElementById(`${section}-content`);
                 if (content) {
@@ -1318,7 +1371,7 @@
                 initializeMobileView();
             } else {
                 // Show all content on desktop
-                ['tier1', 'tier2', 'tier3'].forEach(section => {
+                ['tier1', 'tier2', 'tier3', 'wealth'].forEach(section => {
                     const content = document.getElementById(`${section}-content`);
                     if (content) {
                         content.classList.remove('mobile-hidden');
@@ -1467,7 +1520,7 @@
                 </div>`;
             
             // Clear tier inputs
-            document.querySelectorAll('.tier-1-input, .tier-2-input, .tier-3-input').forEach(i => i.value = '');
+            document.querySelectorAll('.tier-1-input, .tier-2-input, .tier-3-input, .wealth-savings-input, .wealth-investments-input').forEach(i => i.value = '');
             
             calculateAll();
         }
@@ -1803,6 +1856,10 @@
                 // Store current values
                 t1Cache = Array.from(document.querySelectorAll('.tier-1-input')).map(i => i.value || '0');
                 t2Cache = Array.from(document.querySelectorAll('.tier-2-input')).map(i => i.value || '0');
+                wealthCache = [
+                    document.querySelector('.wealth-savings-input')?.value || '0',
+                    document.querySelector('.wealth-investments-input')?.value || '0'
+                ];
                 
                 // Zero out non-essential expenses
                 document.querySelectorAll('.tier-input-row').forEach(row => {
@@ -1812,8 +1869,9 @@
                     }
                 });
                 
-                // Zero out all Tier 2
+                // Zero out all Tier 2 and Wealth Deployment
                 document.querySelectorAll('.tier-2-input').forEach(i => i.value = '0');
+                document.querySelectorAll('.wealth-savings-input, .wealth-investments-input').forEach(i => i.value = '0');
                 
                 showToast('Stripped to Chassis. Showing absolute survival minimum.');
                 awardAchievement('chassis_mode', 'Survival Specialist', 'Revealed financial survival floor', 'bronze');
@@ -1830,6 +1888,8 @@
                 // Restore values
                 document.querySelectorAll('.tier-1-input').forEach((i, idx) => i.value = t1Cache[idx] || '0');
                 document.querySelectorAll('.tier-2-input').forEach((i, idx) => i.value = t2Cache[idx] || '0');
+                if (wealthCache[0]) document.querySelector('.wealth-savings-input').value = wealthCache[0];
+                if (wealthCache[1]) document.querySelector('.wealth-investments-input').value = wealthCache[1];
                 
                 showToast('Chassis Mode deactivated. Normal expenses restored.');
             }
@@ -1838,11 +1898,11 @@
         }
 
         // ====================
-        // 6. SOVEREIGNTY SCORE DYNAMIC WEIGHTING
+        // 6. SOVEREIGNTY SCORE DYNAMIC WEIGHTING - UPDATED with Growth Pillar
         // ====================
 
-        function calculateSovereigntyScoreWithWeighting(income, essentials, currentIronPot, totalDebt, monthlyHousing, age, currentRetirement, houseValue, mortgageBalance, surplusPerc, needsPerc, wantsPerc, highInterestCount) {
-            let scoreBudget = 0, scoreDebt = 20, scoreEmergency = 0, scoreRetirement = 0, scoreRealEstate = 0;
+        function calculateSovereigntyScoreWithWeighting(income, essentials, currentIronPot, totalDebt, monthlyHousing, age, currentRetirement, houseValue, mortgageBalance, surplusPerc, needsPerc, wantsPerc, highInterestCount, monthlyInvestments) {
+            let scoreBudget = 0, scoreDebt = 20, scoreEmergency = 0, scoreRetirement = 0, scoreRealEstate = 0, scoreGrowth = 0;
             let scoreCap = 100;
             let capReason = '';
             
@@ -1880,7 +1940,7 @@
                     capReason = capReason ? `${capReason} + housing breach` : "Housing costs exceed 40% (Breach)";
                 }
                 
-                // Retirement score
+                // Retirement score (reduced from 20 to 15 to make room for Growth pillar)
                 let targetMultiplier = 1;
                 if (age <= 30) targetMultiplier = 1;
                 else if (age <= 40) targetMultiplier = 3;
@@ -1889,19 +1949,19 @@
                 else targetMultiplier = 10;
                 
                 const targetRetirement = annualIncome * targetMultiplier;
-                scoreRetirement = currentRetirement >= targetRetirement ? 20 : Math.min(20, (currentRetirement / targetRetirement) * 20);
+                scoreRetirement = currentRetirement >= targetRetirement ? 15 : Math.min(15, (currentRetirement / targetRetirement) * 15);
                 
-                // Real estate score with housing breach warning
-                let housingScore = housingRatio <= 28 ? 10 : Math.max(0, 10 - (housingRatio - 28));
+                // Real estate score with housing breach warning (reduced from 20 to 15)
+                let housingScore = housingRatio <= 28 ? 7.5 : Math.max(0, 7.5 - (housingRatio - 28));
                 
                 let equityScore = 0;
                 if (houseValue > 0) {
                     const equity = houseValue - mortgageBalance;
-                    equityScore = Math.max(0, 10 * (equity / houseValue));
+                    equityScore = Math.max(0, 7.5 * (equity / houseValue));
                 }
                 
                 scoreRealEstate = housingScore + equityScore;
-                scoreRealEstate = Math.min(20, scoreRealEstate);
+                scoreRealEstate = Math.min(15, scoreRealEstate);
                 
                 // Flash Real Estate pillar if housing breach
                 const realEstatePillar = document.getElementById('pillar-realestate');
@@ -1912,9 +1972,28 @@
                     realEstatePillar.classList.remove('condition-red');
                     realEstatePillar.classList.remove('pulse');
                 }
+                
+                // NEW: Growth Pillar (0-10 points)
+                // Based on monthly investments as percentage of income
+                const investmentRatio = income > 0 ? (monthlyInvestments / income) * 100 : 0;
+                
+                if (investmentRatio >= 15) {
+                    scoreGrowth = 10; // Investing 15%+ of income = max score
+                } else if (investmentRatio >= 10) {
+                    scoreGrowth = 8; // Investing 10-14.9% of income
+                } else if (investmentRatio >= 7) {
+                    scoreGrowth = 6; // Investing 7-9.9% of income
+                } else if (investmentRatio >= 5) {
+                    scoreGrowth = 4; // Investing 5-6.9% of income
+                } else if (investmentRatio >= 3) {
+                    scoreGrowth = 2; // Investing 3-4.9% of income
+                } else if (investmentRatio > 0) {
+                    scoreGrowth = 1; // Investing something is better than nothing
+                }
+                // 0% investment = 0 points
             }
 
-            const totalScore = Math.round(Math.min(scoreCap, scoreBudget + scoreDebt + scoreEmergency + scoreRetirement + scoreRealEstate));
+            const totalScore = Math.round(Math.min(scoreCap, scoreBudget + scoreDebt + scoreEmergency + scoreRetirement + scoreRealEstate + scoreGrowth));
             
             // Show cap warning if applicable
             const capWarning = document.getElementById('score-cap-warning');
@@ -1934,7 +2013,8 @@
                 scoreDebt,
                 scoreEmergency,
                 scoreRetirement,
-                scoreRealEstate
+                scoreRealEstate,
+                scoreGrowth
             };
         }
 
@@ -2009,7 +2089,7 @@
         }
 
         // ====================
-        // MAIN CALCULATION FUNCTION
+        // MAIN CALCULATION FUNCTION - UPDATED with Wealth Deployment
         // ====================
 
         function calculateAll() {
@@ -2088,14 +2168,16 @@
                 safeSetText('mobile-debt-min', `$${dMin.toLocaleString()}`);
 
                 // Calculate tier totals
-                let t1 = 0, t2 = 0, t3 = 0;
+                let t1 = 0, t2 = 0, t3 = 0, monthlySavings = 0, monthlyInvestments = 0;
                 
                 document.querySelectorAll('.tier-1-input').forEach(i => t1 += parseFloat(i.value) || 0);
                 document.querySelectorAll('.tier-2-input').forEach(i => t2 += parseFloat(i.value) || 0);
                 document.querySelectorAll('.tier-3-input').forEach(i => t3 += parseFloat(i.value) || 0);
+                document.querySelectorAll('.wealth-savings-input').forEach(i => monthlySavings += parseFloat(i.value) || 0);
+                document.querySelectorAll('.wealth-investments-input').forEach(i => monthlyInvestments += parseFloat(i.value) || 0);
 
                 const essentials = t1;
-                const totalMonthlyOut = t1 + dMin + t2 + t3;
+                const totalMonthlyOut = t1 + dMin + t2 + t3 + monthlySavings + monthlyInvestments;
                 const monthlySurplus = income - totalMonthlyOut;
 
                 // Get asset values
@@ -2167,6 +2249,18 @@
                     safeSetText('countdown-val', "N/A");
                 }
 
+                // Wealth Deployment calculations
+                const totalWealthDeployment = monthlySavings + monthlyInvestments;
+                const annualInvestmentGrowth = monthlyInvestments * 12 * 0.07; // Assuming 7% annual growth
+                
+                safeSetText('total-wealth-deployment', `$${totalWealthDeployment.toLocaleString()}`);
+                safeSetText('annual-investment-growth', `$${Math.round(annualInvestmentGrowth).toLocaleString()}`);
+                safeSetText('monthly-wealth-deployment-val', `$${totalWealthDeployment.toLocaleString()}`);
+                
+                // Update Wealth Deployment badge
+                const wealthDeploymentPerc = income > 0 ? (totalWealthDeployment / income) * 100 : 0;
+                updateBadge('badge-wealth', wealthDeploymentPerc, 20, true);
+
                 // Iron Pot progress
                 const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
                 const potPerc = essentials > 0 ? Math.min(100, (moatMonths / 3) * 100) : 0;
@@ -2184,11 +2278,11 @@
                 updateBadge('badge-t3', wantsPerc, 30, false);
                 update503020(needsPerc, wantsPerc, surplusPerc);
 
-                // Calculate Sovereignty Score with dynamic weighting
+                // Calculate Sovereignty Score with dynamic weighting - INCLUDING GROWTH PILLAR
                 const scoreData = calculateSovereigntyScoreWithWeighting(
                     income, essentials, currentIronPot, totalDebtIncludingMortgage, 
                     monthlyHousing, age, currentRetirement, houseValue, mortgageBalance,
-                    surplusPerc, needsPerc, wantsPerc, highInterestCount
+                    surplusPerc, needsPerc, wantsPerc, highInterestCount, monthlyInvestments
                 );
 
                 const totalScore = scoreData.totalScore;
@@ -2221,9 +2315,10 @@
                 safeSetText('score-emergency', Math.round(scoreData.scoreEmergency));
                 safeSetText('score-retirement', Math.round(scoreData.scoreRetirement));
                 safeSetText('score-realestate', Math.round(scoreData.scoreRealEstate));
+                safeSetText('score-growth', Math.round(scoreData.scoreGrowth));
 
                 // Check for achievements
-                checkAchievements(totalScore, totalDebtIncludingMortgage, currentIronPot, essentials);
+                checkAchievements(totalScore, totalDebtIncludingMortgage, currentIronPot, essentials, monthlyInvestments);
 
                 // Update Condition State
                 updateConditionState(surplusPerc);
@@ -2234,14 +2329,14 @@
                 // Threat Level & Battle Cry
                 updateThreatLevel(totalScore);
 
-                // Tactical Priority Targets
+                // Tactical Priority Targets - UPDATED with Growth pillar
                 const annualIncome = income * 12;
                 updatePriorityTargets(
                     scoreData.scoreBudget, scoreData.scoreDebt, scoreData.scoreEmergency, 
-                    scoreData.scoreRetirement, scoreData.scoreRealEstate,
+                    scoreData.scoreRetirement, scoreData.scoreRealEstate, scoreData.scoreGrowth,
                     needsPerc, wantsPerc, surplusPerc, income, t3, totalDebtIncludingMortgage, monthlySurplus,
                     moatMonths, essentials, currentIronPot, age, currentRetirement, annualIncome,
-                    monthlyHousing, houseValue, mortgageBalance, highInterestCount
+                    monthlyHousing, houseValue, mortgageBalance, highInterestCount, monthlyInvestments, monthlySavings
                 );
 
                 // War-Mode button visibility
@@ -2254,8 +2349,8 @@
                     }
                 }
 
-                // Pie Chart Update
-                updateChart(t1, dMin, t2, t3, monthlySurplus, income);
+                // Pie Chart Update - INCLUDING WEALTH DEPLOYMENT
+                updateChart(t1, dMin, t2, t3, totalWealthDeployment, monthlySurplus, income);
                 
                 // Update data points count
                 updateDataPoints();
@@ -2275,18 +2370,18 @@
         // HELPER FUNCTIONS
         // ====================
 
-        function updateChart(t1, dMin, t2, t3, monthlySurplus, income) {
+        function updateChart(t1, dMin, t2, t3, wealthDeployment, monthlySurplus, income) {
             try {
-                const totalExpenses = t1 + dMin + t2 + t3;
+                const totalExpenses = t1 + dMin + t2 + t3 + wealthDeployment;
                 const remaining = Math.max(0, income - totalExpenses);
                 const deficit = totalExpenses > income ? totalExpenses - income : 0;
 
                 if (deficit === 0) {
-                    myChart.data.datasets[0].data = [t1, dMin, t2, t3, remaining];
-                    myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'];
+                    myChart.data.datasets[0].data = [t1, dMin, t2, t3, wealthDeployment, remaining];
+                    myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00', '#1E90FF'];
                 } else {
-                    myChart.data.datasets[0].data = [t1, dMin, t2, t3, deficit];
-                    myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#DC143C'];
+                    myChart.data.datasets[0].data = [t1, dMin, t2, t3, wealthDeployment, deficit];
+                    myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00', '#DC143C'];
                 }
                 myChart.update();
             } catch (error) {
@@ -2347,10 +2442,10 @@
             if (battleCryEl) battleCryEl.innerText = cry;
         }
 
-        function updatePriorityTargets(scoreBudget, scoreDebt, scoreEmergency, scoreRetirement, scoreRealEstate,
+        function updatePriorityTargets(scoreBudget, scoreDebt, scoreEmergency, scoreRetirement, scoreRealEstate, scoreGrowth,
                                       needsPerc, wantsPerc, surplusPerc, income, t3, dTotal, monthlySurplus,
                                       moatMonths, essentials, currentIronPot, age, currentRetirement, annualIncome,
-                                      monthlyHousing, houseValue, mortgageBalance, highInterestCount) {
+                                      monthlyHousing, houseValue, mortgageBalance, highInterestCount, monthlyInvestments, monthlySavings) {
             const pillars = [
                 { 
                     name: "BUDGETING", 
@@ -2376,6 +2471,11 @@
                     name: "REAL ESTATE", 
                     score: scoreRealEstate, 
                     tip: getTacticalRealEstateOrder(monthlyHousing, income, houseValue, mortgageBalance) 
+                },
+                { 
+                    name: "GROWTH", 
+                    score: scoreGrowth, 
+                    tip: getTacticalGrowthOrder(monthlyInvestments, income, monthlySavings) 
                 }
             ];
 
@@ -2392,7 +2492,7 @@
                         <div class="bg-navy-900/50 border ${i === 0 ? 'border-crimson' : 'border-white/20'} p-6 rounded shadow-lg">
                             <div class="flex justify-between items-center mb-3">
                                 <span class="text-crimson text-xl md:text-2xl font-bold uppercase tracking-wider">ORDER #${i+1}: ${p.name}</span>
-                                <span class="text-2xl md:text-3xl font-bold text-white">${Math.round(p.score)}/20</span>
+                                <span class="text-2xl md:text-3xl font-bold text-white">${Math.round(p.score)}/${p.name === 'GROWTH' ? '10' : p.name === 'RETIREMENT' || p.name === 'REAL ESTATE' ? '15' : '20'}</span>
                             </div>
                             <p class="text-base md:text-lg leading-relaxed text-gray-200 font-medium">${p.tip}</p>
                         </div>`;
@@ -2401,7 +2501,7 @@
                 // Show AI suggestions if score is low
                 const aiSuggestions = document.getElementById('ai-suggestions');
                 if (aiSuggestions) {
-                    if (top3[0].score < 12) {
+                    if (top3[0].score < (top3[0].name === 'GROWTH' ? 5 : top3[0].name === 'RETIREMENT' || top3[0].name === 'REAL ESTATE' ? 8 : 12)) {
                         aiSuggestions.classList.remove('hidden');
                         generateAISuggestions(top3[0]);
                     } else {
@@ -2478,6 +2578,24 @@
             return order;
         }
 
+        // NEW: Growth tactical order
+        function getTacticalGrowthOrder(monthlyInvestments, income, monthlySavings) {
+            const investmentRatio = income > 0 ? (monthlyInvestments / income) * 100 : 0;
+            const savingsRatio = income > 0 ? (monthlySavings / income) * 100 : 0;
+            
+            if (investmentRatio >= 15) return "Excellent investment rate! Compound engines at full power.";
+            if (investmentRatio >= 10) return "Strong investment deployment. Maintain this allocation.";
+            if (investmentRatio >= 7) return "Good investment pace. Consider increasing to 10%.";
+            if (investmentRatio >= 5) return "Basic investment coverage. Target 10% for optimal growth.";
+            if (investmentRatio > 0) return "Investments initiated. Build momentum to reach 5%.";
+            
+            // No investments
+            if (monthlySavings > 0) {
+                return `Deploy $${Math.round(monthlySavings * 0.5)} from savings to investments monthly to start compounding.`;
+            }
+            return "Initiate wealth deployment. Allocate at least 5% of income to investments.";
+        }
+
         // Badge and badge helper functions
         function updateBadge(id, current, target, isHigherBetter = false) {
             const badge = document.getElementById(id);
@@ -2513,8 +2631,8 @@
             }
         }
 
-        // Achievement system
-        function checkAchievements(totalScore, dTotal, currentIronPot, essentials) {
+        // Achievement system - UPDATED with investment achievements
+        function checkAchievements(totalScore, dTotal, currentIronPot, essentials, monthlyInvestments) {
             // First budget achievement
             if (!achievements.includes('first_budget')) {
                 const paycheck = parseFloat(document.getElementById('paycheck').value) || 0;
@@ -2549,6 +2667,26 @@
             
             if (moatMonths >= 6 && !achievements.includes('emergency_6')) {
                 awardAchievement('emergency_6', 'Financial Moat', 'Built a 6-month emergency fund', 'gold');
+            }
+            
+            // Investment achievements
+            if (monthlyInvestments > 0 && !achievements.includes('first_investment')) {
+                awardAchievement('first_investment', 'First Investment', 'Started monthly investments', 'bronze');
+            }
+            
+            const income = (parseFloat(document.getElementById('paycheck').value) || 0) * (parseFloat(document.getElementById('freq').value) || 2);
+            const investmentRatio = income > 0 ? (monthlyInvestments / income) * 100 : 0;
+            
+            if (investmentRatio >= 5 && !achievements.includes('investor_5')) {
+                awardAchievement('investor_5', '5% Investor', 'Investing 5% of income monthly', 'silver');
+            }
+            
+            if (investmentRatio >= 10 && !achievements.includes('investor_10')) {
+                awardAchievement('investor_10', '10% Investor', 'Investing 10% of income monthly', 'gold');
+            }
+            
+            if (investmentRatio >= 15 && !achievements.includes('investor_15')) {
+                awardAchievement('investor_15', '15% Investor', 'Investing 15% of income monthly', 'platinum');
             }
         }
 
@@ -2838,6 +2976,9 @@
                 case 'REAL ESTATE':
                     aiTip = 'Consider refinancing if rates have dropped since you got your mortgage, or make one extra mortgage payment per year to cut years off your loan.';
                     break;
+                case 'GROWTH':
+                    aiTip = 'Start with a low-cost index fund ETF like VTI or VOO. Even $100/month invested consistently can grow significantly over time.';
+                    break;
             }
             
             const suggestionEl = document.createElement('div');
@@ -2957,7 +3098,8 @@
                 debt: 'Evaluates your debt-to-income ratio (should be ≤36%) and interest rates. High-interest debt (>10%) reduces your score.',
                 emergency: 'Measures your emergency fund relative to essential expenses. Target is 3-6 months worth of Tier 1 expenses.',
                 retirement: 'Compares your current retirement savings to age-based targets. 30s: 1x income, 40s: 3x, 50s: 6x, 60s: 8x.',
-                realestate: 'Assesses housing costs (should be ≤28% of income) and home equity position.'
+                realestate: 'Assesses housing costs (should be ≤28% of income) and home equity position.',
+                growth: 'Evaluates your monthly investment rate. Target is 15%+ of income for optimal wealth accumulation.'
             };
             
             showToast(info[pillar]);
@@ -2983,6 +3125,8 @@
                 t1: Array.from(document.querySelectorAll('.tier-1-input')).map(i => i.value || '0'),
                 t2: Array.from(document.querySelectorAll('.tier-2-input')).map(i => i.value || '0'),
                 t3: Array.from(document.querySelectorAll('.tier-3-input')).map(i => i.value || '0'),
+                wealthSavings: document.querySelector('.wealth-savings-input')?.value || '0',
+                wealthInvestments: document.querySelector('.wealth-investments-input')?.value || '0',
                 warModeTarget: warModeTarget,
                 isChassisMode: isChassisMode
             };
@@ -3140,6 +3284,12 @@
             document.querySelectorAll('.tier-3-input').forEach((el, i) => {
                 if (data.t3 && data.t3[i]) el.value = data.t3[i];
             });
+            
+            // Load wealth deployment inputs
+            const savingsInput = document.querySelector('.wealth-savings-input');
+            const investmentsInput = document.querySelector('.wealth-investments-input');
+            if (savingsInput && data.wealthSavings) savingsInput.value = data.wealthSavings;
+            if (investmentsInput && data.wealthInvestments) investmentsInput.value = data.wealthInvestments;
 
             calculateAll();
         }
@@ -3180,6 +3330,7 @@ KEY METRICS:
 • Total Debt: ${document.getElementById('total-debt-val')?.textContent || '$0'}
 • Emergency Fund: ${document.getElementById('current-iron-pot')?.value || '0'} months coverage
 • Housing Ratio: ${document.getElementById('housing-percent')?.textContent || '0%'}
+• Monthly Wealth Deployment: ${document.getElementById('monthly-wealth-deployment-val')?.textContent || '$0'}
 
 NEXT ACTIONS:
 1. Review your Priority Targets above
