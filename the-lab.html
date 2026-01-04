@@ -26,6 +26,7 @@
         .tier-1 { border-left: 4px solid #FFFFFF; background: rgba(255,255,255,0.04); }
         .tier-2 { border-left: 4px solid #9ca3af; background: rgba(156,163,175,0.04); }
         .tier-3 { border-left: 4px solid #4b5563; background: rgba(255,255,255,0.02); transition: all 0.5s ease; }
+        .tier-4 { border-left: 4px solid #00FF00 !important; background: rgba(0, 255, 0, 0.1) !important; }
         
         .assets-box { border-left: 4px solid #B22234; background: rgba(178, 34, 52, 0.1); }
 
@@ -202,6 +203,10 @@
         .light-mode .tier-3 {
             background: rgba(241, 245, 249, 0.8);
             border-left: 4px solid #94a3b8;
+        }
+        .light-mode .tier-4 {
+            background: rgba(220, 252, 231, 0.8);
+            border-left: 4px solid #16a34a;
         }
         
         /* NEW: Progress timeline chart */
@@ -868,6 +873,86 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- TIER 4 - NEW: Savings & Investments Allocation -->
+                        <div class="tier-4 p-4 md:p-6 rounded" id="tier-4-container">
+                            <div class="mobile-collapsible flex justify-between items-center" onclick="toggleMobileSection('tier4')">
+                                <h4 class="text-[11px] uppercase font-bold text-green-400 tracking-[0.3em]">Savings & Investments Allocation</h4>
+                                <div class="flex items-center">
+                                    <span id="badge-t4" class="perc-badge status-good mr-3">0%</span>
+                                    <i class="fas fa-chevron-down text-gray-500" id="tier4-arrow"></i>
+                                </div>
+                            </div>
+                            <div id="tier4-content" class="mt-4 space-y-4 mobile-visible">
+                                <!-- Auto-calculated emergency fund contribution -->
+                                <div class="flex justify-between border-b border-green-400/30 py-3 px-4 bg-green-400/10">
+                                    <div>
+                                        <span class="text-xs uppercase font-bold text-green-400">Emergency Fund Contribution</span>
+                                        <div class="text-[9px] text-green-300 mt-1">Auto-calculated from your surplus</div>
+                                    </div>
+                                    <span id="auto-emergency-contrib" class="text-sm font-bold text-green-400">$0</span>
+                                </div>
+                                
+                                <!-- Savings & Investment Allocation Inputs -->
+                                <div class="tier-input-row">
+                                    <div class="tier-input-container">
+                                        <div>
+                                            <span class="text-xs uppercase font-bold text-green-300">Roth IRA / 401(k)</span>
+                                            <div class="text-[9px] text-green-500 mt-1">Monthly retirement contribution</div>
+                                        </div>
+                                        <input type="number" oninput="calculateAll()" class="tier-4-input input-underlined tier-input-number text-green-400 font-bold" placeholder="0" id="roth-contribution">
+                                    </div>
+                                </div>
+                                <div class="tier-input-row">
+                                    <div class="tier-input-container">
+                                        <div>
+                                            <span class="text-xs uppercase font-bold text-green-300">Taxable Brokerage</span>
+                                            <div class="text-[9px] text-green-500 mt-1">Monthly investment contribution</div>
+                                        </div>
+                                        <input type="number" oninput="calculateAll()" class="tier-4-input input-underlined tier-input-number text-green-400 font-bold" placeholder="0" id="brokerage-contribution">
+                                    </div>
+                                </div>
+                                <div class="tier-input-row">
+                                    <div class="tier-input-container">
+                                        <div>
+                                            <span class="text-xs uppercase font-bold text-green-300">HSA / 529 Plan</span>
+                                            <div class="text-[9px] text-green-500 mt-1">Health/education savings</div>
+                                        </div>
+                                        <input type="number" oninput="calculateAll()" class="tier-4-input input-underlined tier-input-number text-green-400 font-bold" placeholder="0" id="hsa-contribution">
+                                    </div>
+                                </div>
+                                <div class="tier-input-row">
+                                    <div class="tier-input-container">
+                                        <div>
+                                            <span class="text-xs uppercase font-bold text-green-300">Extra Debt Payoff</span>
+                                            <div class="text-[9px] text-green-500 mt-1">Additional debt payments</div>
+                                        </div>
+                                        <input type="number" oninput="calculateAll()" class="tier-4-input input-underlined tier-input-number text-green-400 font-bold" placeholder="0" id="extra-debt-payment">
+                                    </div>
+                                </div>
+                                <div class="tier-input-row">
+                                    <div class="tier-input-container">
+                                        <div>
+                                            <span class="text-xs uppercase font-bold text-green-300">Other Savings Goals</span>
+                                            <div class="text-[9px] text-green-500 mt-1">Vacation, car, house down payment</div>
+                                        </div>
+                                        <input type="number" oninput="calculateAll()" class="tier-4-input input-underlined tier-input-number text-green-400 font-bold" placeholder="0" id="other-savings-goal">
+                                    </div>
+                                </div>
+                                
+                                <!-- Allocation Summary -->
+                                <div class="mt-4 p-4 bg-green-400/10 border border-green-400/30 rounded">
+                                    <div class="flex justify-between text-xs mb-2">
+                                        <span class="text-green-300">Total Allocated:</span>
+                                        <span id="total-allocated" class="font-bold text-green-400">$0</span>
+                                    </div>
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-green-300">Remaining Surplus:</span>
+                                        <span id="remaining-surplus" class="font-bold text-white">$0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -926,7 +1011,7 @@
                         <div class="flex justify-between"><span>Monthly Housing %:</span><span id="housing-percent">0%</span></div>
                         <div class="bg-navy-950/50 p-6 border border-white/5 text-center mt-4">
                             <div id="surplus-val" class="text-3xl md:text-4xl font-heading font-bold text-crimson">$0</div>
-                            <span class="text-[9px] text-gray-500 uppercase mt-2 block tracking-widest">Monthly Savings</span>
+                            <span class="text-[9px] text-gray-500 uppercase mt-2 block tracking-widest">Monthly Surplus</span>
                         </div>
                     </div>
                     
@@ -1210,10 +1295,10 @@
                 myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Essential Expenses', 'Debt Minimums', 'Infrastructure', 'Discretionary', 'Savings'],
+                        labels: ['Essential Expenses', 'Debt Minimums', 'Infrastructure', 'Discretionary', 'Savings Allocation', 'Remaining Surplus'],
                         datasets: [{
-                            data: [0, 0, 0, 0, 100],
-                            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'],
+                            data: [0, 0, 0, 0, 0, 100],
+                            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00', '#1E90FF'],
                             borderWidth: 0
                         }]
                     },
@@ -1316,6 +1401,11 @@
             
             // Personalize dashboard
             personalizeDashboard();
+            
+            // Initialize mobile view if needed
+            if (window.innerWidth < 768) {
+                initializeMobileView();
+            }
         });
 
         // PWA Setup
@@ -1631,7 +1721,8 @@
                 'first_debt': 'Add your first debt here. Include minimum payment, balance, and interest rate.',
                 'first_income': 'Enter your take-home pay and how often you get paid.',
                 'first_tier1': 'These are essential expenses (housing, food, utilities).',
-                'first_tier3': 'These are discretionary expenses (dining out, entertainment).'
+                'first_tier3': 'These are discretionary expenses (dining out, entertainment).',
+                'first_tier4': 'This is where you allocate your monthly surplus to savings and investments.'
             };
             
             showToast(messages[context] || 'Hover over any info icon for help.');
@@ -1774,7 +1865,8 @@
                 "What's the best way to pay off my debt?",
                 "How much should I save for emergencies?",
                 "Should I focus on debt or savings first?",
-                "How can I improve my Financial Health Score?"
+                "How can I improve my Financial Health Score?",
+                "How should I allocate my monthly surplus between savings and investments?"
             ];
             
             const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
@@ -1804,7 +1896,7 @@
         }
 
         // ====================
-        // MAIN CALCULATION FUNCTIONS (UPDATED WITH INVESTMENTS)
+        // MAIN CALCULATION FUNCTIONS (UPDATED WITH TIER 4 SAVINGS)
         // ====================
 
         function safeSetText(elementId, text) {
@@ -1897,8 +1989,8 @@
                 document.querySelectorAll('.tier-3-input').forEach(i => t3 += parseFloat(i.value) || 0);
 
                 const essentials = t1;
-                const totalMonthlyOut = t1 + dMin + t2 + t3;
-                const monthlySurplus = income - totalMonthlyOut;
+                const totalExpensesWithoutSavings = t1 + dMin + t2 + t3;
+                const monthlySurplus = income - totalExpensesWithoutSavings;
 
                 // Get asset values
                 const age = parseFloat(document.getElementById('user-age').value) || 0;
@@ -1930,28 +2022,49 @@
                 // Update UI elements
                 safeSetText('auto-debt-min', `$${dMin.toLocaleString()}`);
                 
+                // Calculate Tier 4 savings allocations
+                let t4 = 0;
+                const t4Inputs = document.querySelectorAll('.tier-4-input');
+                t4Inputs.forEach(i => t4 += parseFloat(i.value) || 0);
+                
+                // Calculate emergency fund contribution recommendation
+                const emergencyFundTarget = essentials * 3;
+                const emergencyFundShortfall = Math.max(0, emergencyFundTarget - currentIronPot);
+                const recommendedEmergencyContrib = monthlySurplus > 0 ? Math.min(monthlySurplus, emergencyFundShortfall / 12) : 0;
+                
+                // Update auto emergency contribution display
+                safeSetText('auto-emergency-contrib', `$${recommendedEmergencyContrib.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+                
+                // Calculate total allocated (manual allocations + recommended emergency)
+                const totalT4Allocations = t4 + recommendedEmergencyContrib;
+                
+                // Update allocation summary
+                safeSetText('total-allocated', `$${totalT4Allocations.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+                const remainingSurplus = monthlySurplus - totalT4Allocations;
+                safeSetText('remaining-surplus', `$${remainingSurplus.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+                
                 // Update center text and label based on surplus/deficit
                 const centerEl = document.getElementById('center-remaining');
                 const labelEl = document.getElementById('center-label');
                 const surplusVal = document.getElementById('surplus-val');
 
-                if (monthlySurplus >= 0) {
+                if (remainingSurplus >= 0) {
                     if (centerEl) {
-                        centerEl.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
+                        centerEl.innerText = `$${Math.round(remainingSurplus).toLocaleString()}`;
                         centerEl.className = 'text-3xl md:text-4xl font-heading font-bold positive-surplus leading-none';
                     }
-                    if (labelEl) labelEl.innerText = 'Monthly Savings';
+                    if (labelEl) labelEl.innerText = 'Remaining Surplus';
                     if (surplusVal) {
                         surplusVal.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
                         surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold text-crimson';
                     }
                 } else {
-                    const deficit = Math.abs(monthlySurplus);
+                    const deficit = Math.abs(remainingSurplus);
                     if (centerEl) {
                         centerEl.innerText = `-$${Math.round(deficit).toLocaleString()}`;
                         centerEl.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus leading-none';
                     }
-                    if (labelEl) labelEl.innerText = 'Monthly Deficit';
+                    if (labelEl) labelEl.innerText = 'Budget Deficit';
                     if (surplusVal) {
                         surplusVal.innerText = `-$${Math.round(deficit).toLocaleString()}`;
                         surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus';
@@ -1961,7 +2074,7 @@
                 // Update debt totals
                 safeSetText('total-debt-val', `$${totalDebtIncludingMortgage.toLocaleString()}`);
 
-                // Update countdown timeline
+                // Update countdown timeline (using only debt, not including mortgage for payoff timeline)
                 if (monthlySurplus > 0 && dTotal > 0) {
                     const months = Math.ceil(dTotal / monthlySurplus);
                     const years = Math.floor(months / 12);
@@ -1980,14 +2093,15 @@
                 const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
                 const potPerc = essentials > 0 ? Math.min(100, (moatMonths / 3) * 100) : 0;
 
-                // 50/30/20 calculations
+                // 50/30/20 calculations (savings includes Tier 4 allocations)
                 const needsPerc = income > 0 ? (essentials / income) * 100 : 0;
                 const wantsPerc = income > 0 ? (t3 / income) * 100 : 0;
-                const surplusPerc = income > 0 ? (monthlySurplus / income) * 100 : 0;
+                const savingsPerc = income > 0 ? (totalT4Allocations / income) * 100 : 0;
 
                 updateBadge('badge-t1', needsPerc, 50, false);
                 updateBadge('badge-t3', wantsPerc, 30, false);
-                update503020(needsPerc, wantsPerc, surplusPerc);
+                updateBadge('badge-t4', savingsPerc, 20, true);
+                update503020(needsPerc, wantsPerc, savingsPerc);
 
                 // Calculate total investable assets
                 const totalInvestableAssets = currentRetirement + investmentAssets + otherSavings + otherAssets;
@@ -1996,7 +2110,7 @@
                 const scoreData = calculateFinancialHealthScore(
                     income, essentials, currentIronPot, totalDebtIncludingMortgage, 
                     monthlyHousing, age, currentRetirement, investmentAssets, otherSavings, otherAssets,
-                    houseValue, mortgageBalance, surplusPerc, needsPerc, wantsPerc, highInterestCount
+                    houseValue, mortgageBalance, savingsPerc, needsPerc, wantsPerc, highInterestCount
                 );
 
                 const totalScore = scoreData.totalScore;
@@ -2033,10 +2147,10 @@
                 safeSetText('score-realestate', Math.round(scoreData.scoreRealEstate));
 
                 // Check for achievements
-                checkAchievements(totalScore, totalDebtIncludingMortgage, currentIronPot, essentials);
+                checkAchievements(totalScore, totalDebtIncludingMortgage, currentIronPot, essentials, totalT4Allocations);
 
                 // Update Condition State
-                updateConditionState(surplusPerc);
+                updateConditionState(savingsPerc);
                 
                 // Calculate Savings Velocity
                 calculateSavingsVelocity();
@@ -2049,23 +2163,24 @@
                 updatePriorityTargets(
                     scoreData.scoreBudget, scoreData.scoreDebt, scoreData.scoreEmergency, 
                     scoreData.scoreRetirement, scoreData.scoreInvestments, scoreData.scoreRealEstate,
-                    needsPerc, wantsPerc, surplusPerc, income, t3, totalDebtIncludingMortgage, monthlySurplus,
+                    needsPerc, wantsPerc, savingsPerc, income, t3, totalDebtIncludingMortgage, monthlySurplus,
                     moatMonths, essentials, currentIronPot, age, currentRetirement, annualIncome,
-                    monthlyHousing, houseValue, mortgageBalance, highInterestCount, investmentAssets, otherSavings, otherAssets
+                    monthlyHousing, houseValue, mortgageBalance, highInterestCount, investmentAssets, otherSavings, otherAssets,
+                    totalT4Allocations, t4, recommendedEmergencyContrib
                 );
 
                 // Focus-mode button visibility
                 const focusBtn = document.getElementById('focus-mode-trigger');
                 if (focusBtn) {
-                    if (scoreData.scoreBudget < 12 || surplusPerc < 15) {
+                    if (scoreData.scoreBudget < 12 || savingsPerc < 15) {
                         focusBtn.classList.remove('hidden');
                     } else {
                         focusBtn.classList.add('hidden');
                     }
                 }
 
-                // Pie Chart Update
-                updateChart(t1, dMin, t2, t3, monthlySurplus, income);
+                // Pie Chart Update (now includes Tier 4)
+                updateChart(t1, dMin, t2, t3, totalT4Allocations, remainingSurplus, income);
                 
                 // Update data points count
                 updateDataPoints();
@@ -2082,14 +2197,14 @@
         }
 
         // UPDATED FINANCIAL HEALTH SCORE CALCULATION WITH INVESTMENTS
-        function calculateFinancialHealthScore(income, essentials, currentIronPot, totalDebt, monthlyHousing, age, currentRetirement, investmentAssets, otherSavings, otherAssets, houseValue, mortgageBalance, surplusPerc, needsPerc, wantsPerc, highInterestCount) {
+        function calculateFinancialHealthScore(income, essentials, currentIronPot, totalDebt, monthlyHousing, age, currentRetirement, investmentAssets, otherSavings, otherAssets, houseValue, mortgageBalance, savingsPerc, needsPerc, wantsPerc, highInterestCount) {
             let scoreBudget = 0, scoreDebt = 20, scoreEmergency = 0, scoreRetirement = 0, scoreInvestments = 0, scoreRealEstate = 0;
             let scoreCap = 100;
             let capReason = '';
             
             if (income > 0) {
-                // Budgeting score
-                scoreBudget = Math.max(0, 20 - Math.max(0, needsPerc - 50) - Math.max(0, wantsPerc - 30) - Math.max(0, 20 - surplusPerc));
+                // Budgeting score (now includes savings allocation)
+                scoreBudget = Math.max(0, 20 - Math.max(0, needsPerc - 50) - Math.max(0, wantsPerc - 30) - Math.max(0, 20 - savingsPerc));
                 
                 // Debt score with high-interest penalty
                 const annualIncome = income * 12;
@@ -2318,7 +2433,7 @@
             return { velocity, timeline };
         }
 
-        function updateConditionState(surplusPerc) {
+        function updateConditionState(savingsPerc) {
             const header = document.getElementById('main-header');
             const conditionEl = document.getElementById('condition-status');
             const conditionCard = document.querySelector('.dashboard-card.condition-green');
@@ -2332,14 +2447,17 @@
             let condition = '';
             let conditionClass = '';
             
-            if (surplusPerc >= 20) {
+            if (savingsPerc >= 20) {
+                condition = 'EXCELLENT';
+                conditionClass = 'condition-green';
+            } else if (savingsPerc >= 15) {
                 condition = 'GOOD';
                 conditionClass = 'condition-green';
-            } else if (surplusPerc >= 10) {
+            } else if (savingsPerc >= 10) {
                 condition = 'FAIR';
                 conditionClass = 'condition-yellow';
-            } else if (surplusPerc >= 0) {
-                condition = 'FAIR';
+            } else if (savingsPerc >= 0) {
+                condition = 'WARNING';
                 conditionClass = 'condition-yellow';
             } else {
                 condition = 'POOR';
@@ -2353,9 +2471,9 @@
                 conditionEl.textContent = condition;
                 
                 // Update text color based on condition
-                if (condition === 'GOOD') {
+                if (condition === 'EXCELLENT' || condition === 'GOOD') {
                     conditionEl.className = 'text-sm font-bold text-green-400';
-                } else if (condition === 'FAIR') {
+                } else if (condition === 'FAIR' || condition === 'WARNING') {
                     conditionEl.className = 'text-sm font-bold text-yellow-400';
                 } else {
                     conditionEl.className = 'text-sm font-bold text-crimson';
@@ -2363,18 +2481,18 @@
             }
         }
 
-        function updateChart(t1, dMin, t2, t3, monthlySurplus, income) {
+        function updateChart(t1, dMin, t2, t3, t4Allocations, remainingSurplus, income) {
             try {
-                const totalExpenses = t1 + dMin + t2 + t3;
+                const totalExpenses = t1 + dMin + t2 + t3 + t4Allocations;
                 const remaining = Math.max(0, income - totalExpenses);
                 const deficit = totalExpenses > income ? totalExpenses - income : 0;
 
                 if (deficit === 0) {
-                    myChart.data.datasets[0].data = [t1, dMin, t2, t3, remaining];
-                    myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'];
+                    myChart.data.datasets[0].data = [t1, dMin, t2, t3, t4Allocations, remaining];
+                    myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00', '#1E90FF'];
                 } else {
-                    myChart.data.datasets[0].data = [t1, dMin, t2, t3, deficit];
-                    myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#DC143C'];
+                    myChart.data.datasets[0].data = [t1, dMin, t2, t3, t4Allocations, deficit];
+                    myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00', '#DC143C'];
                 }
                 myChart.update();
             } catch (error) {
@@ -2436,36 +2554,37 @@
             if (battleCryEl) battleCryEl.innerText = cry;
         }
 
-        // UPDATED PRIORITY TARGETS WITH INVESTMENTS
+        // UPDATED PRIORITY TARGETS WITH INVESTMENTS AND SAVINGS ALLOCATION
         function updatePriorityTargets(scoreBudget, scoreDebt, scoreEmergency, scoreRetirement, scoreInvestments, scoreRealEstate,
-                                      needsPerc, wantsPerc, surplusPerc, income, t3, dTotal, monthlySurplus,
+                                      needsPerc, wantsPerc, savingsPerc, income, t3, dTotal, monthlySurplus,
                                       moatMonths, essentials, currentIronPot, age, currentRetirement, annualIncome,
-                                      monthlyHousing, houseValue, mortgageBalance, highInterestCount, investmentAssets, otherSavings, otherAssets) {
+                                      monthlyHousing, houseValue, mortgageBalance, highInterestCount, investmentAssets, otherSavings, otherAssets,
+                                      totalT4Allocations, manualT4Allocations, recommendedEmergencyContrib) {
             const pillars = [
                 { 
                     name: "BUDGETING", 
                     score: scoreBudget, 
-                    tip: getTacticalBudgetOrder(needsPerc, wantsPerc, surplusPerc, income, t3) 
+                    tip: getTacticalBudgetOrder(needsPerc, wantsPerc, savingsPerc, income, t3, totalT4Allocations) 
                 },
                 { 
                     name: "DEBT", 
                     score: scoreDebt, 
-                    tip: getTacticalDebtOrder(dTotal, monthlySurplus, income, highInterestCount) 
+                    tip: getTacticalDebtOrder(dTotal, monthlySurplus, income, highInterestCount, manualT4Allocations) 
                 },
                 { 
                     name: "EMERGENCY FUND", 
                     score: scoreEmergency, 
-                    tip: getTacticalEmergencyOrder(moatMonths, essentials, monthlySurplus, currentIronPot) 
+                    tip: getTacticalEmergencyOrder(moatMonths, essentials, monthlySurplus, currentIronPot, recommendedEmergencyContrib) 
                 },
                 { 
                     name: "RETIREMENT", 
                     score: scoreRetirement, 
-                    tip: getTacticalRetirementOrder(age, currentRetirement, annualIncome) 
+                    tip: getTacticalRetirementOrder(age, currentRetirement, annualIncome, manualT4Allocations) 
                 },
                 { 
                     name: "INVESTMENTS", 
                     score: scoreInvestments, 
-                    tip: getTacticalInvestmentsOrder(annualIncome, currentRetirement, investmentAssets, otherSavings, otherAssets) 
+                    tip: getTacticalInvestmentsOrder(annualIncome, currentRetirement, investmentAssets, otherSavings, otherAssets, manualT4Allocations) 
                 },
                 { 
                     name: "REAL ESTATE", 
@@ -2499,36 +2618,50 @@
             ordersContainer.innerHTML = ordersHTML;
         }
 
-        // NEW: Investments tactical order function
-        function getTacticalInvestmentsOrder(annualIncome, currentRetirement, investmentAssets, otherSavings, otherAssets) {
+        // UPDATED: Investments tactical order function with allocation awareness
+        function getTacticalInvestmentsOrder(annualIncome, currentRetirement, investmentAssets, otherSavings, otherAssets, manualAllocations) {
             const totalInvestableAssets = currentRetirement + investmentAssets + otherSavings + otherAssets;
             const investmentRatio = totalInvestableAssets / annualIncome;
             
-            if (investmentRatio >= 5) return "Excellent investment diversification! Maintain your strategy.";
-            if (investmentRatio >= 3) return "Good investment base. Consider adding to taxable accounts.";
+            if (investmentRatio >= 5) return "Excellent investment diversification! Maintain your strategy and keep contributing.";
+            if (investmentRatio >= 3) return "Good investment base. Consider increasing contributions to taxable accounts.";
             if (investmentRatio >= 1) return "Basic investment foundation. Aim for 3x income in total investments.";
             if (investmentRatio > 0) return "Beginner investor. Focus on building emergency fund first, then increase contributions.";
             
             return "No investments yet. Start with retirement accounts (401k/IRA), then consider taxable brokerage.";
         }
 
-        function getTacticalBudgetOrder(needs, wants, surplus, income, cargoTotal) {
-            if (needs <= 50 && wants <= 30 && surplus >= 20) return "Budget is optimal. Excellent discipline.";
+        // UPDATED: Budget tactical order with savings allocation awareness
+        function getTacticalBudgetOrder(needs, wants, savings, income, cargoTotal, totalAllocations) {
+            if (needs <= 50 && wants <= 30 && savings >= 20) return "Budget is optimal. Excellent discipline with savings allocation.";
+            
             let order = "";
             if (needs > 50) order += `Reduce essential expenses by $${Math.round((needs - 50)/100 * income)}/month. `;
             if (wants > 30) order += `Cut discretionary spending by $${Math.round((wants - 30)/100 * income)}/month. `;
-            if (surplus < 20) order += `Free up $${Math.round((20 - surplus)/100 * income)}/month for savings. `;
+            if (savings < 20) {
+                const shortfall = (20 - savings)/100 * income;
+                order += `Increase savings allocation by $${Math.round(shortfall)}/month. `;
+            }
             return order.trim() || "Budget is stable. Maintain current plan.";
         }
 
-        function getTacticalDebtOrder(dTotal, surplus, income, highInterestCount) {
+        // UPDATED: Debt tactical order with extra debt payment awareness
+        function getTacticalDebtOrder(dTotal, surplus, income, highInterestCount, extraDebtPayment) {
             if (dTotal === 0) return "All debts paid off. Excellent work!";
+            
             const dti = (dTotal / (income * 12)) * 100;
             let order = `Pay down $${dTotal.toLocaleString()} debt (${dti.toFixed(1)}% DTI). `;
+            
             if (highInterestCount > 0) order += `${highInterestCount} high-interest debt${highInterestCount > 1 ? 's' : ''} need attention. `;
+            
+            if (extraDebtPayment > 0) {
+                order += `You're allocating $${extraDebtPayment}/month extra to debt - great! `;
+            }
+            
             if (surplus > 0) {
-                const months = Math.ceil(dTotal / surplus);
-                order += `Current surplus: payoff in ${months} months. `;
+                const effectiveSurplus = surplus + extraDebtPayment;
+                const months = Math.ceil(dTotal / effectiveSurplus);
+                order += `Current payoff timeline: ${months} months. `;
                 if (dti > 36) order += "Prioritize debt reduction over other goals.";
             } else {
                 order += "Increase surplus through budget adjustments first.";
@@ -2536,24 +2669,42 @@
             return order;
         }
 
-        function getTacticalEmergencyOrder(months, essentials, surplus, currentIronPot) {
+        // UPDATED: Emergency fund tactical order with contribution awareness
+        function getTacticalEmergencyOrder(months, essentials, surplus, currentIronPot, recommendedContrib) {
             if (months >= 6) return "Emergency fund fully funded. 6+ months secured.";
+            
             const target = essentials * 3;
             const needed = target - currentIronPot;
-            if (surplus > 0) {
+            
+            let order = `Only ${months.toFixed(1)} months covered. Build to 3 months ($${target.toLocaleString()}). `;
+            
+            if (recommendedContrib > 0) {
+                const monthsToTarget = Math.ceil(needed / recommendedContrib);
+                order += `Recommended contribution: $${recommendedContrib.toLocaleString()}/month (${monthsToTarget} months).`;
+            } else if (surplus > 0) {
                 const monthsToTarget = Math.ceil(needed / surplus);
-                return `Only ${months.toFixed(1)} months covered. Build to 3 months ($${target.toLocaleString()}). At current savings rate: ${monthsToTarget} months.`;
+                order += `At current surplus: ${monthsToTarget} months.`;
+            } else {
+                order += "Consider using Focus Mode to free up funds.";
             }
-            return `Only ${months.toFixed(1)} months covered. Build to 3 months ($${target.toLocaleString()}). Consider using Focus Mode.`;
+            return order;
         }
 
-        function getTacticalRetirementOrder(age, current, annual) {
+        // UPDATED: Retirement tactical order with contribution awareness
+        function getTacticalRetirementOrder(age, current, annual, manualAllocations) {
             const multiplier = age <= 30 ? 1 : age <= 40 ? 3 : age <= 50 ? 6 : age <= 60 ? 8 : 10;
             const target = annual * multiplier;
+            
             if (current >= target) return "Retirement savings on track for your age.";
+            
             const gap = target - current;
-            const monthlyNeeded = gap / ((65 - age) * 12);
-            return `Target for age ${age}: $${target.toLocaleString()}. Gap: $${gap.toLocaleString()}. Need ~$${Math.round(monthlyNeeded)}/month to catch up.`;
+            const yearsToRetirement = Math.max(1, 65 - age);
+            const monthlyNeeded = gap / (yearsToRetirement * 12);
+            
+            let order = `Target for age ${age}: $${target.toLocaleString()}. Gap: $${gap.toLocaleString()}. `;
+            order += `Need ~$${Math.round(monthlyNeeded)}/month to catch up.`;
+            
+            return order;
         }
 
         function getTacticalRealEstateOrder(housing, income, houseValue, mortgageBalance) {
@@ -2606,8 +2757,8 @@
             }
         }
 
-        // Achievement system
-        function checkAchievements(totalScore, dTotal, currentIronPot, essentials) {
+        // Achievement system - UPDATED with savings achievements
+        function checkAchievements(totalScore, dTotal, currentIronPot, essentials, totalAllocations) {
             // First budget achievement
             if (!achievements.includes('first_budget')) {
                 const paycheck = parseFloat(document.getElementById('paycheck').value) || 0;
@@ -2661,6 +2812,22 @@
             if (totalInvestments >= 100000 && !achievements.includes('investor_100k')) {
                 awardAchievement('investor_100k', 'Serious Investor', 'Accumulated $100,000 in investments', 'gold');
             }
+            
+            // Savings allocation achievement
+            const income = (parseFloat(document.getElementById('paycheck').value) || 0) * (parseFloat(document.getElementById('freq').value) || 2);
+            const savingsRate = income > 0 ? (totalAllocations / income) * 100 : 0;
+            
+            if (savingsRate >= 20 && !achievements.includes('saver_20')) {
+                awardAchievement('saver_20', 'Super Saver', 'Achieved 20%+ savings rate', 'silver');
+            }
+            
+            if (savingsRate >= 30 && !achievements.includes('saver_30')) {
+                awardAchievement('saver_30', 'Elite Saver', 'Achieved 30%+ savings rate', 'gold');
+            }
+            
+            if (savingsRate >= 50 && !achievements.includes('saver_50')) {
+                awardAchievement('saver_50', 'Savings Master', 'Achieved 50%+ savings rate', 'platinum');
+            }
         }
 
         function awardAchievement(id, title, description, tier) {
@@ -2712,7 +2879,7 @@
         // Pillar Info (UPDATED WITH INVESTMENTS)
         function showPillarInfo(pillar) {
             const info = {
-                'budgeting': 'Assesses your adherence to the 50/30/20 rule. 50% or less on needs, 30% or less on wants, 20% or more to savings/debt repayment.',
+                'budgeting': 'Assesses your adherence to the 50/30/20 rule. 50% or less on needs, 30% or less on wants, 20% or more to savings/debt repayment. Includes your savings allocations from Tier 4.',
                 'debt': 'Evaluates your debt-to-income ratio (should be ≤36%) and interest rates. High-interest debt (>10%) reduces your score.',
                 'emergency': 'Measures your emergency fund relative to essential expenses. Target is 3-6 months worth of essential expenses.',
                 'retirement': 'Compares your current retirement savings to age-based targets. 30s: 1x income, 40s: 3x, 50s: 6x, 60s: 8x.',
@@ -2802,6 +2969,18 @@
             }
         }
 
+        function initializeMobileView() {
+            const sections = ['tier1', 'tier2', 'tier3', 'tier4'];
+            sections.forEach(section => {
+                const content = document.getElementById(`${section}-content`);
+                if (content) {
+                    content.classList.add('mobile-hidden');
+                    const arrow = document.getElementById(`${section}-arrow`);
+                    if (arrow) arrow.className = 'fas fa-chevron-right text-gray-500';
+                }
+            });
+        }
+
         function updateUserStats() {
             userStats.lastUpdate = new Date();
             userStats.dataPoints = countDataPoints();
@@ -2886,6 +3065,7 @@
                 t1: Array.from(document.querySelectorAll('.tier-1-input')).map(i => i.value || '0'),
                 t2: Array.from(document.querySelectorAll('.tier-2-input')).map(i => i.value || '0'),
                 t3: Array.from(document.querySelectorAll('.tier-3-input')).map(i => i.value || '0'),
+                t4: Array.from(document.querySelectorAll('.tier-4-input')).map(i => i.value || '0'),
                 focusMode: isFocusMode,
                 essentialMode: isEssentialMode
             };
@@ -3022,6 +3202,9 @@
             document.querySelectorAll('.tier-3-input').forEach((el, i) => {
                 if (data.t3 && data.t3[i]) el.value = data.t3[i];
             });
+            document.querySelectorAll('.tier-4-input').forEach((el, i) => {
+                if (data.t4 && data.t4[i]) el.value = data.t4[i];
+            });
 
             calculateAll();
         }
@@ -3069,13 +3252,13 @@
             showToast('AI analysis would provide personalized insights here. Premium feature.');
         }
 
-        // Mobile view initialization
-        function handleResize() {
+        // Handle window resize for mobile view
+        window.addEventListener('resize', function() {
             if (window.innerWidth < 768) {
                 initializeMobileView();
             } else {
                 // Show all content on desktop
-                ['tier1', 'tier2', 'tier3'].forEach(section => {
+                ['tier1', 'tier2', 'tier3', 'tier4'].forEach(section => {
                     const content = document.getElementById(`${section}-content`);
                     if (content) {
                         content.classList.remove('mobile-hidden');
@@ -3083,28 +3266,7 @@
                     }
                 });
             }
-        }
-
-        function initializeMobileView() {
-            // Initialize collapsible sections
-            const sections = ['tier1', 'tier2', 'tier3'];
-            sections.forEach(section => {
-                const content = document.getElementById(`${section}-content`);
-                if (content) {
-                    content.classList.add('mobile-hidden');
-                    const arrow = document.getElementById(`${section}-arrow`);
-                    if (arrow) arrow.className = 'fas fa-chevron-right text-gray-500';
-                }
-            });
-        }
-
-        // Set up event listeners for responsive behavior
-        window.addEventListener('resize', handleResize);
-        
-        // Initialize mobile view on load if needed
-        if (window.innerWidth < 768) {
-            initializeMobileView();
-        }
+        });
     </script>
 </body>
 </html>
