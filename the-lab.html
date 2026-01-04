@@ -113,6 +113,10 @@
         /* Onboarding overlay */
         .onboarding-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(5,11,20,0.95); z-index: 99999; display: flex; align-items: center; justify-content: center; }
         .onboarding-step { background: #0A1A2F; border: 2px solid #B22234; border-radius: 12px; padding: 2rem; max-width: 600px; width: 90%; }
+        
+        /* NEW: Right-aligned numbers for Tier inputs */
+        .tier-input-number { text-align: right !important; width: 100px; }
+        .tier-input-container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
     </style>
     <script>
         tailwind.config = {
@@ -590,40 +594,58 @@
                                     <span id="auto-debt-min" class="text-sm font-bold">$0</span>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-200">Housing (Rent/Mortgage)</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-200">Housing (Rent/Mortgage)</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-200">Property Taxes / HOA</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-200">Property Taxes / HOA</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-200">Utilities</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-200">Utilities</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-200">Essential Groceries</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-200">Essential Groceries</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-200">Transportation</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-200">Transportation</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-200">Car Insurance</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-200">Car Insurance</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-200">Home Insurance</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-200">Home Insurance</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-200">Health Insurance</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-200">Health Insurance</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-200">Childcare / Pet Care</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-200">Childcare / Pet Care</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-1-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -639,28 +661,40 @@
                             </div>
                             <div id="tier2-content" class="mt-4 space-y-4 mobile-visible">
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-300">Internet / Wifi</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-300">Internet / Wifi</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-2-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-300">Cell Phone Plan</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-300">Cell Phone Plan</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-2-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-300">Household Supplies</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-300">Household Supplies</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-2-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-300">Home/Car Maintenance</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-300">Home/Car Maintenance</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-2-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-300">Security Systems</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-300">Security Systems</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-2-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-300">Gym Membership</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-20 md:w-24 text-right" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-300">Gym Membership</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-2-input input-underlined tier-input-number" placeholder="0">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -676,36 +710,52 @@
                             </div>
                             <div id="tier3-content" class="mt-4 space-y-4 mobile-visible">
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-100">Dining Out / Entertainment</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-20 md:w-24 text-right text-white font-bold" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-100">Dining Out / Entertainment</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined tier-input-number text-white font-bold" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-100">Shopping / Clothing</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-20 md:w-24 text-right text-white font-bold" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-100">Shopping / Clothing</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined tier-input-number text-white font-bold" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-100">Streaming Services</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-20 md:w-24 text-right text-white font-bold" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-100">Streaming Services</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined tier-input-number text-white font-bold" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-100">Cloud Storage / Apps</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-20 md:w-24 text-right text-white font-bold" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-100">Cloud Storage / Apps</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined tier-input-number text-white font-bold" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-100">Non-Essential Pets</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-20 md:w-24 text-right text-white font-bold" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-100">Non-Essential Pets</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined tier-input-number text-white font-bold" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-100">Personal Care</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-20 md:w-24 text-right text-white font-bold" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-100">Personal Care</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined tier-input-number text-white font-bold" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-100">Charity / Giving</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-20 md:w-24 text-right text-white font-bold" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-100">Charity / Giving</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined tier-input-number text-white font-bold" placeholder="0">
+                                    </div>
                                 </div>
                                 <div class="tier-input-row">
-                                    <span class="text-xs uppercase font-bold text-gray-100">Miscellaneous / Fun</span>
-                                    <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined w-20 md:w-24 text-right text-white font-bold" placeholder="0">
+                                    <div class="tier-input-container">
+                                        <span class="text-xs uppercase font-bold text-gray-100">Miscellaneous / Fun</span>
+                                        <input type="number" oninput="calculateAll()" class="tier-3-input input-underlined tier-input-number text-white font-bold" placeholder="0">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -723,16 +773,6 @@
                             <span id="center-remaining" class="text-3xl md:text-4xl font-heading font-bold text-white leading-none">$0</span>
                             <span id="center-label" class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2">Monthly Surplus</span>
                         </div>
-                    </div>
-
-                    <!-- Chart Legend -->
-                    <div class="mt-6 space-y-2 text-xs">
-                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-white rounded"></div><span>Needs (Tier 1)</span></div>
-                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#B22234] rounded"></div><span>Debt Minimums</span></div>
-                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#9ca3af] rounded"></div><span>Infrastructure (Tier 2)</span></div>
-                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#4b5563] rounded"></div><span>Cargo / Wants (Tier 3)</span></div>
-                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#00FF00] rounded"></div><span>Monthly Surplus</span></div>
-                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#DC143C] rounded"></div><span>Monthly Deficit (if overspent)</span></div>
                     </div>
 
                     <!-- Progress Bars -->
@@ -970,6 +1010,11 @@
         };
         let onboardingStep = 1;
 
+        // Debug function
+        function debugLog(message, value) {
+            console.log(`[DEBUG] ${message}:`, value);
+        }
+
         // Initialize everything
         document.addEventListener('DOMContentLoaded', function () {
             // Initialize chart
@@ -989,7 +1034,7 @@
                     options: {
                         cutout: '85%',
                         plugins: {
-                            legend: { display: false },
+                            legend: { display: false }, // REMOVED LEGEND
                             tooltip: {
                                 callbacks: {
                                     label: function(context) {
@@ -1301,295 +1346,367 @@
             }
         }
 
-        // Enhanced calculation with new features
-function calculateAll() {
-    // Update user stats
-    updateUserStats();
-    
-    // Ensure at least one debt row exists
-    if (document.querySelectorAll('#debt-body tr').length === 0 && window.innerWidth >= 768) {
-        addDebtRow();
-    }
-    if (document.querySelectorAll('#debt-cards .debt-card').length === 0 && window.innerWidth < 768) {
-        addDebtRow();
-    }
-
-    // FIXED: Correct paycheck to monthly conversion
-    const paycheck = parseFloat(document.getElementById('paycheck').value) || 0;
-    const freq = parseFloat(document.getElementById('freq').value) || 2;
-    
-    // Convert paycheck to monthly income based on frequency
-    let income = 0;
-    switch(freq.toString()) { // Convert to string to match option values
-        case "1": // Monthly
-            income = paycheck;
-            break;
-        case "2": // Semi-monthly (2x per month)
-            income = paycheck * 2;
-            break;
-        case "4": // Weekly
-            income = paycheck * 4.33; // Average weeks per month
-            break;
-        case "26": // Bi-weekly (every 2 weeks)
-            income = paycheck * 2.166; // 26 pay periods / 12 months = 2.166
-            break;
-        default:
-            income = paycheck * 2; // Default to semi-monthly
-    }
-    
-    // Update income summary
-    document.getElementById('income-summary').textContent = `Monthly income: $${income.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-
-    // Calculate debt totals
-    let dMin = 0, dTotal = 0, highInterestCount = 0;
-    
-    if (window.innerWidth >= 768) {
-        // Desktop calculation
-        document.querySelectorAll('.debt-min-input').forEach(i => {
-            const val = parseFloat(i.value) || 0;
-            dMin += val;
-        });
-        document.querySelectorAll('.debt-balance-input').forEach(i => {
-            const val = parseFloat(i.value) || 0;
-            dTotal += val;
-        });
-        
-        // Update debt alerts
-        document.querySelectorAll('.debt-rate-input').forEach((input, index) => {
-            const rate = parseFloat(input.value || 0);
-            const alertSpan = input.closest('tr').querySelector('.debt-alert');
-            if (alertSpan) {
-                if (rate > 25) {
-                    alertSpan.classList.remove('hidden');
-                    highInterestCount++;
-                } else {
-                    alertSpan.classList.add('hidden');
+        // Main calculation function - FIXED VERSION
+        function calculateAll() {
+            console.log("=== calculateAll() called ===");
+            
+            try {
+                // Update user stats
+                updateUserStats();
+                
+                // Ensure at least one debt row exists
+                if (document.querySelectorAll('#debt-body tr').length === 0 && window.innerWidth >= 768) {
+                    addDebtRow();
                 }
-            }
-        });
-    } else {
-        // Mobile calculation
-        document.querySelectorAll('.debt-min-input').forEach(i => {
-            const val = parseFloat(i.value) || 0;
-            dMin += val;
-        });
-        document.querySelectorAll('.debt-balance-input').forEach(i => {
-            const val = parseFloat(i.value) || 0;
-            dTotal += val;
-        });
-        
-        // Update debt alerts on mobile
-        document.querySelectorAll('.debt-rate-input').forEach((input, index) => {
-            const rate = parseFloat(input.value || 0);
-            const alertDiv = input.closest('.debt-card').querySelector('.debt-alert');
-            if (alertDiv) {
-                if (rate > 25) {
-                    alertDiv.classList.remove('hidden');
-                    highInterestCount++;
-                } else {
-                    alertDiv.classList.add('hidden');
+                if (document.querySelectorAll('#debt-cards .debt-card').length === 0 && window.innerWidth < 768) {
+                    addDebtRow();
                 }
+
+                // Get paycheck and frequency
+                const paycheckInput = document.getElementById('paycheck');
+                const freqSelect = document.getElementById('freq');
+                
+                const paycheck = parseFloat(paycheckInput.value) || 0;
+                const freq = parseFloat(freqSelect.value) || 2;
+                
+                debugLog("Paycheck", paycheck);
+                debugLog("Frequency", freq);
+                
+                // Convert paycheck to monthly income based on frequency
+                let income = 0;
+                if (freq === 1) { // Monthly
+                    income = paycheck;
+                } else if (freq === 2) { // Semi-monthly (2x per month)
+                    income = paycheck * 2;
+                } else if (freq === 4) { // Weekly
+                    income = paycheck * 4.33; // Average weeks per month
+                } else if (freq === 26) { // Bi-weekly (every 2 weeks)
+                    income = paycheck * 2.166; // 26 pay periods / 12 months = 2.166
+                } else {
+                    income = paycheck * 2; // Default to semi-monthly
+                }
+                
+                debugLog("Monthly Income", income);
+                
+                // Update income summary
+                document.getElementById('income-summary').textContent = `Monthly income: $${income.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+                // Calculate debt totals
+                let dMin = 0, dTotal = 0, highInterestCount = 0;
+                
+                const debtMinInputs = document.querySelectorAll('.debt-min-input');
+                const debtBalanceInputs = document.querySelectorAll('.debt-balance-input');
+                const debtRateInputs = document.querySelectorAll('.debt-rate-input');
+                
+                debugLog("Debt Inputs Count", debtMinInputs.length);
+                
+                debtMinInputs.forEach(i => {
+                    const val = parseFloat(i.value) || 0;
+                    dMin += val;
+                });
+                
+                debtBalanceInputs.forEach(i => {
+                    const val = parseFloat(i.value) || 0;
+                    dTotal += val;
+                });
+                
+                debugLog("Total Debt Minimums", dMin);
+                debugLog("Total Debt Balance", dTotal);
+                
+                // Update debt alerts
+                debtRateInputs.forEach((input, index) => {
+                    const rate = parseFloat(input.value) || 0;
+                    if (rate > 25) {
+                        highInterestCount++;
+                        // Show alert
+                        if (window.innerWidth >= 768) {
+                            const alertSpan = input.closest('tr')?.querySelector('.debt-alert');
+                            if (alertSpan) alertSpan.classList.remove('hidden');
+                        } else {
+                            const alertDiv = input.closest('.debt-card')?.querySelector('.debt-alert');
+                            if (alertDiv) alertDiv.classList.remove('hidden');
+                        }
+                    } else {
+                        // Hide alert
+                        if (window.innerWidth >= 768) {
+                            const alertSpan = input.closest('tr')?.querySelector('.debt-alert');
+                            if (alertSpan) alertSpan.classList.add('hidden');
+                        } else {
+                            const alertDiv = input.closest('.debt-card')?.querySelector('.debt-alert');
+                            if (alertDiv) alertDiv.classList.add('hidden');
+                        }
+                    }
+                });
+                
+                // Update mobile debt summary
+                document.getElementById('mobile-total-debt').textContent = `$${dTotal.toLocaleString()}`;
+                document.getElementById('mobile-debt-min').textContent = `$${dMin.toLocaleString()}`;
+
+                // Calculate tier totals
+                let t1 = 0, t2 = 0, t3 = 0;
+                
+                document.querySelectorAll('.tier-1-input').forEach(i => {
+                    const val = parseFloat(i.value) || 0;
+                    t1 += val;
+                });
+                
+                document.querySelectorAll('.tier-2-input').forEach(i => {
+                    const val = parseFloat(i.value) || 0;
+                    t2 += val;
+                });
+                
+                document.querySelectorAll('.tier-3-input').forEach(i => {
+                    const val = parseFloat(i.value) || 0;
+                    t3 += val;
+                });
+                
+                debugLog("Tier 1 Total", t1);
+                debugLog("Tier 2 Total", t2);
+                debugLog("Tier 3 Total", t3);
+
+                const essentials = t1;
+                const totalMonthlyOut = t1 + dMin + t2 + t3;
+                const monthlySurplus = income - totalMonthlyOut;
+                
+                debugLog("Monthly Surplus", monthlySurplus);
+
+                // Get asset values
+                const age = parseFloat(document.getElementById('user-age').value) || 0;
+                const currentIronPot = parseFloat(document.getElementById('current-iron-pot').value) || 0;
+                const currentRetirement = parseFloat(document.getElementById('current-retirement').value) || 0;
+                const houseValue = parseFloat(document.getElementById('house-value').value) || 0;
+                const mortgageBalance = parseFloat(document.getElementById('mortgage-balance').value) || 0;
+
+                // Calculate housing costs (first 3 tier-1 inputs)
+                const housingInputs = document.querySelectorAll('.tier-1-input');
+                let monthlyHousing = 0;
+                // Take first 3 inputs or all if less than 3
+                const count = Math.min(3, housingInputs.length);
+                for (let i = 0; i < count; i++) {
+                    monthlyHousing += parseFloat(housingInputs[i].value) || 0;
+                }
+                
+                debugLog("Monthly Housing", monthlyHousing);
+                
+                document.getElementById('monthly-housing-costs').innerText = `$${monthlyHousing.toLocaleString()}`;
+                
+                // Housing percentage
+                const housingPercent = income > 0 ? ((monthlyHousing / income) * 100).toFixed(1) : 0;
+                document.getElementById('housing-percent').textContent = `${housingPercent}%`;
+
+                // Update UI elements
+                document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
+                
+                // Update center text and label based on surplus/deficit
+                const centerEl = document.getElementById('center-remaining');
+                const labelEl = document.getElementById('center-label');
+                const surplusVal = document.getElementById('surplus-val');
+
+                if (monthlySurplus >= 0) {
+                    // Positive surplus - green
+                    centerEl.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
+                    centerEl.className = 'text-3xl md:text-4xl font-heading font-bold positive-surplus leading-none';
+                    labelEl.innerText = 'Monthly Surplus';
+                    labelEl.className = 'text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2';
+                    surplusVal.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
+                    surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold text-crimson';
+                } else {
+                    // Negative deficit - red
+                    const deficit = Math.abs(monthlySurplus);
+                    centerEl.innerText = `-$${Math.round(deficit).toLocaleString()}`;
+                    centerEl.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus leading-none';
+                    labelEl.innerText = 'Monthly Deficit';
+                    labelEl.className = 'text-[10px] text-crimson uppercase font-bold tracking-[0.2em] mt-2';
+                    surplusVal.innerText = `-$${Math.round(deficit).toLocaleString()}`;
+                    surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus';
+                }
+
+                document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
+
+                // Update countdown timeline
+                if (monthlySurplus > 0 && dTotal > 0) {
+                    const months = Math.ceil(dTotal / monthlySurplus);
+                    const years = Math.floor(months / 12);
+                    const remainingMonths = months % 12;
+                    let timeline = '';
+                    if (years > 0) timeline += `${years} year${years > 1 ? 's' : ''} `;
+                    if (remainingMonths > 0 || years === 0) timeline += `${remainingMonths} month${remainingMonths !== 1 ? 's' : ''}`;
+                    document.getElementById('countdown-val').textContent = timeline.trim();
+                } else if (dTotal === 0) {
+                    document.getElementById('countdown-val').textContent = "DEBT FREE";
+                } else {
+                    document.getElementById('countdown-val').textContent = "N/A";
+                }
+
+                // Iron Pot progress
+                const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
+                const potPerc = essentials > 0 ? Math.min(100, (moatMonths / 3) * 100) : 0;
+                document.getElementById('pot-progress').innerText = `${Math.round(potPerc)}%`;
+                document.getElementById('pot-bar').style.width = `${potPerc}%`;
+
+                // 50/30/20 calculations
+                const needsPerc = income > 0 ? (essentials / income) * 100 : 0;
+                const wantsPerc = income > 0 ? (t3 / income) * 100 : 0;
+                const surplusPerc = income > 0 ? (monthlySurplus / income) * 100 : 0;
+                
+                debugLog("Needs %", needsPerc);
+                debugLog("Wants %", wantsPerc);
+                debugLog("Surplus %", surplusPerc);
+
+                updateBadge('badge-t1', needsPerc, 50, false);
+                updateBadge('badge-t3', wantsPerc, 30, false);
+
+                update503020(needsPerc, wantsPerc, surplusPerc);
+
+                // 5-Pillar Score Calculation
+                let scoreBudget = 0, scoreDebt = 20, scoreEmergency = 0, scoreRetirement = 0, scoreRealEstate = 0;
+
+                if (income > 0) {
+                    // Budgeting score
+                    scoreBudget = Math.max(0, 20 - Math.max(0, needsPerc - 50) - Math.max(0, wantsPerc - 30) - Math.max(0, 20 - surplusPerc));
+                    debugLog("Budget Score", scoreBudget);
+                    
+                    // Debt score
+                    const annualIncome = income * 12;
+                    const dti = (dTotal / annualIncome) * 100;
+                    scoreDebt = Math.max(0, 20 - Math.max(0, dti - 36));
+                    if (highInterestCount > 0) scoreDebt -= (highInterestCount * 5);
+                    scoreDebt = Math.max(0, scoreDebt);
+                    debugLog("Debt Score", scoreDebt);
+                    
+                    // Emergency fund score
+                    scoreEmergency = Math.min(20, (moatMonths / 6) * 20);
+                    debugLog("Emergency Score", scoreEmergency);
+                    
+                    // Retirement score
+                    let targetMultiplier = 1;
+                    if (age <= 30) targetMultiplier = 1;
+                    else if (age <= 40) targetMultiplier = 3;
+                    else if (age <= 50) targetMultiplier = 6;
+                    else if (age <= 60) targetMultiplier = 8;
+                    else targetMultiplier = 10;
+                    
+                    const targetRetirement = annualIncome * targetMultiplier;
+                    scoreRetirement = currentRetirement >= targetRetirement ? 20 : Math.min(20, (currentRetirement / targetRetirement) * 20);
+                    debugLog("Retirement Score", scoreRetirement);
+                    
+                    // Real estate score
+                    const housingRatio = monthlyHousing / income * 100;
+                    let housingScore = housingRatio <= 28 ? 10 : Math.max(0, 10 - (housingRatio - 28));
+                    
+                    let equityScore = 0;
+                    if (houseValue > 0) {
+                        const equity = houseValue - mortgageBalance;
+                        equityScore = Math.max(0, 10 * (equity / houseValue));
+                    }
+                    
+                    scoreRealEstate = housingScore + equityScore;
+                    scoreRealEstate = Math.min(20, scoreRealEstate);
+                    debugLog("Real Estate Score", scoreRealEstate);
+                }
+
+                const totalScore = Math.round(scoreBudget + scoreDebt + scoreEmergency + scoreRetirement + scoreRealEstate);
+                debugLog("Total Sovereignty Score", totalScore);
+                
+                // Add to score history
+                scoreHistory.push(totalScore);
+                if (scoreHistory.length > 7) scoreHistory.shift();
+                updateScoreHistory();
+                
+                // Update score display with animation
+                const scoreEl = document.getElementById('sovereignty-score');
+                if (scoreEl) {
+                    scoreEl.textContent = totalScore;
+                    scoreEl.classList.add('score-updated');
+                    setTimeout(() => scoreEl.classList.remove('score-updated'), 500);
+                    
+                    // Update score color
+                    if (totalScore >= 80) {
+                        scoreEl.className = 'text-6xl md:text-8xl font-bold text-white score-updated';
+                    } else if (totalScore >= 50) {
+                        scoreEl.className = 'text-6xl md:text-8xl font-bold text-gray-300 score-updated';
+                    } else {
+                        scoreEl.className = 'text-6xl md:text-8xl font-bold text-crimson score-updated';
+                    }
+                }
+                
+                // Update pillar scores
+                const updatePillar = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el) el.innerText = Math.round(value);
+                };
+                
+                updatePillar('score-budget', scoreBudget);
+                updatePillar('score-debt', scoreDebt);
+                updatePillar('score-emergency', scoreEmergency);
+                updatePillar('score-retirement', scoreRetirement);
+                updatePillar('score-realestate', scoreRealEstate);
+
+                // Check for achievements
+                checkAchievements(totalScore, dTotal, currentIronPot, essentials);
+
+                // Threat Level & Battle Cry
+                updateThreatLevel(totalScore);
+
+                // Tactical Priority Targets
+                const annualIncome = income * 12;
+                
+                updatePriorityTargets(scoreBudget, scoreDebt, scoreEmergency, scoreRetirement, scoreRealEstate,
+                                     needsPerc, wantsPerc, surplusPerc, income, t3, dTotal, monthlySurplus,
+                                     moatMonths, essentials, currentIronPot, age, currentRetirement, annualIncome,
+                                     monthlyHousing, houseValue, mortgageBalance);
+
+                // War-Mode button visibility
+                const warBtn = document.getElementById('war-mode-trigger');
+                if (warBtn) {
+                    if (scoreBudget < 12 || surplusPerc < 15) {
+                        warBtn.classList.remove('hidden');
+                    } else {
+                        warBtn.classList.add('hidden');
+                    }
+                }
+
+                // Pie Chart Update
+                updateChart(t1, dMin, t2, t3, monthlySurplus, income);
+                
+                // Update data points count
+                updateDataPoints();
+                
+                console.log("=== calculateAll() completed successfully ===");
+                
+            } catch (error) {
+                console.error("Error in calculateAll():", error);
+                alert(`Calculation error: ${error.message}. Please check the console for details.`);
             }
-        });
-        
-        // Update mobile debt summary
-        document.getElementById('mobile-total-debt').textContent = `$${dTotal.toLocaleString()}`;
-        document.getElementById('mobile-debt-min').textContent = `$${dMin.toLocaleString()}`;
-    }
-
-    // Calculate tier totals
-    let t1 = 0, t2 = 0, t3 = 0;
-    document.querySelectorAll('.tier-1-input').forEach(i => {
-        const val = parseFloat(i.value) || 0;
-        t1 += val;
-    });
-    document.querySelectorAll('.tier-2-input').forEach(i => {
-        const val = parseFloat(i.value) || 0;
-        t2 += val;
-    });
-    document.querySelectorAll('.tier-3-input').forEach(i => {
-        const val = parseFloat(i.value) || 0;
-        t3 += val;
-    });
-
-    const essentials = t1;
-    const totalMonthlyOut = t1 + dMin + t2 + t3;
-    const monthlySurplus = income - totalMonthlyOut;
-
-    // Get asset values
-    const age = parseFloat(document.getElementById('user-age').value) || 0;
-    const currentIronPot = parseFloat(document.getElementById('current-iron-pot').value) || 0;
-    const currentRetirement = parseFloat(document.getElementById('current-retirement').value) || 0;
-    const houseValue = parseFloat(document.getElementById('house-value').value) || 0;
-    const mortgageBalance = parseFloat(document.getElementById('mortgage-balance').value) || 0;
-
-    // Calculate housing costs
-    const housingInputs = document.querySelectorAll('.tier-1-input');
-    let monthlyHousing = 0;
-    // First 3 tier-1 inputs are housing related (based on your HTML structure)
-    for (let i = 0; i < Math.min(3, housingInputs.length); i++) {
-        monthlyHousing += parseFloat(housingInputs[i].value) || 0;
-    }
-    document.getElementById('monthly-housing-costs').innerText = `$${monthlyHousing.toLocaleString()}`;
-    
-    // Housing percentage
-    const housingPercent = income > 0 ? ((monthlyHousing / income) * 100).toFixed(1) : 0;
-    document.getElementById('housing-percent').textContent = `${housingPercent}%`;
-
-    // Update UI elements
-    document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
-    
-    // Update center text and label based on surplus/deficit
-    const centerEl = document.getElementById('center-remaining');
-    const labelEl = document.getElementById('center-label');
-    const surplusVal = document.getElementById('surplus-val');
-
-    if (monthlySurplus >= 0) {
-        // Positive surplus - green
-        centerEl.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
-        centerEl.className = 'text-3xl md:text-4xl font-heading font-bold positive-surplus leading-none';
-        labelEl.innerText = 'Monthly Surplus';
-        labelEl.className = 'text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2';
-        surplusVal.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
-        surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold text-crimson';
-    } else {
-        // Negative deficit - red
-        const deficit = Math.abs(monthlySurplus);
-        centerEl.innerText = `-$${Math.round(deficit).toLocaleString()}`;
-        centerEl.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus leading-none';
-        labelEl.innerText = 'Monthly Deficit';
-        labelEl.className = 'text-[10px] text-crimson uppercase font-bold tracking-[0.2em] mt-2';
-        surplusVal.innerText = `-$${Math.round(deficit).toLocaleString()}`;
-        surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus';
-    }
-
-    document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
-
-    // Update countdown timeline
-    if (monthlySurplus > 0 && dTotal > 0) {
-        const months = Math.ceil(dTotal / monthlySurplus);
-        const years = Math.floor(months / 12);
-        const remainingMonths = months % 12;
-        let timeline = '';
-        if (years > 0) timeline += `${years} year${years > 1 ? 's' : ''} `;
-        if (remainingMonths > 0 || years === 0) timeline += `${remainingMonths} month${remainingMonths !== 1 ? 's' : ''}`;
-        document.getElementById('countdown-val').textContent = timeline.trim();
-    } else if (dTotal === 0) {
-        document.getElementById('countdown-val').textContent = "DEBT FREE";
-    } else {
-        document.getElementById('countdown-val').textContent = "N/A";
-    }
-
-    // Iron Pot progress
-    const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
-    const potPerc = essentials > 0 ? Math.min(100, (moatMonths / 3) * 100) : 0;
-    document.getElementById('pot-progress').innerText = `${Math.round(potPerc)}%`;
-    document.getElementById('pot-bar').style.width = `${potPerc}%`;
-
-    // 50/30/20 calculations
-    const needsPerc = income > 0 ? (essentials / income) * 100 : 0;
-    const wantsPerc = income > 0 ? (t3 / income) * 100 : 0;
-    const surplusPerc = income > 0 ? (monthlySurplus / income) * 100 : 0;
-
-    updateBadge('badge-t1', needsPerc, 50, false);
-    updateBadge('badge-t3', wantsPerc, 30, false);
-
-    update503020(needsPerc, wantsPerc, surplusPerc);
-
-    // 5-Pillar Score Calculation
-    let scoreBudget = 0, scoreDebt = 20, scoreEmergency = 0, scoreRetirement = 0, scoreRealEstate = 0;
-
-    if (income > 0) {
-        // Budgeting score
-        scoreBudget = Math.max(0, 20 - Math.max(0, needsPerc - 50) - Math.max(0, wantsPerc - 30) - Math.max(0, 20 - surplusPerc));
-
-        // Debt score
-        const annualIncome = income * 12;
-        const dti = (dTotal / annualIncome) * 100;
-        scoreDebt = Math.max(0, 20 - Math.max(0, dti - 36));
-        if (highInterestCount > 0) scoreDebt -= (highInterestCount * 5);
-        scoreDebt = Math.max(0, scoreDebt);
-
-        // Emergency fund score
-        scoreEmergency = Math.min(20, (moatMonths / 6) * 20);
-
-        // Retirement score
-        let targetMultiplier = age <= 30 ? 1 : age <= 40 ? 3 : age <= 50 ? 6 : age <= 60 ? 8 : 10;
-        const targetRetirement = annualIncome * targetMultiplier;
-        scoreRetirement = currentRetirement >= targetRetirement ? 20 : Math.min(20, (currentRetirement / targetRetirement) * 20);
-
-        // Real estate score
-        const housingRatio = monthlyHousing / income * 100;
-        scoreRealEstate += housingRatio <= 28 ? 10 : Math.max(0, 10 - (housingRatio - 28));
-        const equity = houseValue - mortgageBalance;
-        const equityScore = houseValue > 0 ? Math.max(0, 10 * (equity / houseValue)) : 0;
-        scoreRealEstate += equityScore;
-        scoreRealEstate = Math.min(20, scoreRealEstate);
-    }
-
-    const totalScore = Math.round(scoreBudget + scoreDebt + scoreEmergency + scoreRetirement + scoreRealEstate);
-    
-    // Add to score history
-    scoreHistory.push(totalScore);
-    if (scoreHistory.length > 7) scoreHistory.shift();
-    updateScoreHistory();
-    
-    // Update score display with animation
-    const scoreEl = document.getElementById('sovereignty-score');
-    scoreEl.textContent = totalScore;
-    scoreEl.classList.add('score-updated');
-    setTimeout(() => scoreEl.classList.remove('score-updated'), 500);
-    
-    // Update pillar scores
-    document.getElementById('score-budget').innerText = Math.round(scoreBudget);
-    document.getElementById('score-debt').innerText = Math.round(scoreDebt);
-    document.getElementById('score-emergency').innerText = Math.round(scoreEmergency);
-    document.getElementById('score-retirement').innerText = Math.round(scoreRetirement);
-    document.getElementById('score-realestate').innerText = Math.round(scoreRealEstate);
-
-    // Update score color
-    if (totalScore >= 80) {
-        scoreEl.className = 'text-6xl md:text-8xl font-bold text-white score-updated';
-    } else if (totalScore >= 50) {
-        scoreEl.className = 'text-6xl md:text-8xl font-bold text-gray-300 score-updated';
-    } else {
-        scoreEl.className = 'text-6xl md:text-8xl font-bold text-crimson score-updated';
-    }
-
-    // Check for achievements
-    checkAchievements(totalScore, dTotal, currentIronPot, essentials);
-
-    // Threat Level & Battle Cry
-    updateThreatLevel(totalScore);
-
-    // Tactical Priority Targets
-    // FIXED: Add missing annualIncome variable for the function call
-    const annualIncome = income * 12;
-    
-    updatePriorityTargets(scoreBudget, scoreDebt, scoreEmergency, scoreRetirement, scoreRealEstate,
-                         needsPerc, wantsPerc, surplusPerc, income, t3, dTotal, monthlySurplus,
-                         moatMonths, essentials, currentIronPot, age, currentRetirement, annualIncome,
-                         monthlyHousing, houseValue, mortgageBalance);
-
-    // War-Mode button visibility
-    const warBtn = document.getElementById('war-mode-trigger');
-    if (warBtn) {
-        if (scoreBudget < 12 || surplusPerc < 15) {
-            warBtn.classList.remove('hidden');
-        } else {
-            warBtn.classList.add('hidden');
+            
+            // Save auto-save
+            autoSaveProfile();
         }
-    }
 
-    // Pie Chart Update - FIXED: Use consistent data structure
-    updateChart(t1, dMin, t2, t3, monthlySurplus, income);
-    
-    // Update data points count
-    updateDataPoints();
-    
-    // Save auto-save
-    autoSaveProfile();
-}
+        function updateChart(t1, dMin, t2, t3, monthlySurplus, income) {
+            try {
+                const totalExpenses = t1 + dMin + t2 + t3;
+                const remaining = Math.max(0, income - totalExpenses);
+                const deficit = totalExpenses > income ? totalExpenses - income : 0;
+
+                debugLog("Chart Data", { t1, dMin, t2, t3, monthlySurplus, income, totalExpenses, remaining, deficit });
+
+                if (deficit === 0) {
+                    // Show expenses and remaining surplus (green)
+                    myChart.data.datasets[0].data = [t1, dMin, t2, t3, remaining];
+                    myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'];
+                    myChart.data.labels = ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Surplus'];
+                } else {
+                    // When in deficit, show total expenses and deficit (red)
+                    myChart.data.datasets[0].data = [t1, dMin, t2, t3, deficit];
+                    myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#DC143C'];
+                    myChart.data.labels = ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Deficit'];
+                }
+                myChart.update();
+            } catch (error) {
+                console.error("Error updating chart:", error);
+            }
+        }
 
         function updateScoreHistory() {
             const sparkline = document.getElementById('score-sparkline');
@@ -1761,25 +1878,6 @@ function calculateAll() {
             
             if (order === "") order = "Real estate position stable.";
             return order;
-        }
-
-        function updateChart(t1, dMin, t2, t3, monthlySurplus, income) {
-            const totalExpenses = t1 + dMin + t2 + t3;
-            const remaining = Math.max(0, income - totalExpenses);
-            const deficit = totalExpenses > income ? totalExpenses - income : 0;
-
-            if (deficit === 0) {
-                // Show expenses and remaining surplus (green)
-                myChart.data.datasets[0].data = [t1, dMin, t2, t3, remaining];
-                myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'];
-                myChart.data.labels = ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Surplus'];
-            } else {
-                // When in deficit, show total expenses and deficit (red)
-                myChart.data.datasets[0].data = [t1, dMin, t2, t3, deficit];
-                myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#DC143C'];
-                myChart.data.labels = ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Deficit'];
-            }
-            myChart.update();
         }
 
         // Badge and badge helper functions
