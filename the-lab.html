@@ -1085,6 +1085,52 @@
             </div>
         </div>
 
+        <!-- What-If Scenarios -->
+<div class="mt-12 md:mt-20 dashboard-card p-6 md:p-8 shadow-2xl border-l-4 border-blue-500">
+    <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-heading font-bold uppercase">What-If Scenarios</h3>
+        <i class="fas fa-lightbulb text-yellow-500 text-xl"></i>
+    </div>
+    <p class="text-gray-400 mb-6">See how changes affect your financial future</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="scenario-card" onclick="runScenario('raise')">
+            <div class="flex items-center mb-2">
+                <i class="fas fa-arrow-up text-green-500 mr-3"></i>
+                <h4 class="font-bold">10% Raise</h4>
+            </div>
+            <p class="text-sm text-gray-400">What if you got a 10% raise?</p>
+        </div>
+        
+        <div class="scenario-card" onclick="runScenario('cut_dining')">
+            <div class="flex items-center mb-2">
+                <i class="fas fa-utensils text-red-500 mr-3"></i>
+                <h4 class="font-bold">Cut Dining Out</h4>
+            </div>
+            <p class="text-sm text-gray-400">Reduce dining out by 50%</p>
+        </div>
+        
+        <div class="scenario-card" onclick="runScenario('debt_free')">
+            <div class="flex items-center mb-2">
+                <i class="fas fa-weight-hanging text-crimson mr-3"></i>
+                <h4 class="font-bold">Debt Free</h4>
+            </div>
+            <p class="text-sm text-gray-400">If all debt was paid off</p>
+        </div>
+        
+        <div class="scenario-card" onclick="runScenario('emergency_fund')">
+            <div class="flex items-center mb-2">
+                <i class="fas fa-shield-alt text-blue-500 mr-3"></i>
+                <h4 class="font-bold">6-Month Emergency Fund</h4>
+            </div>
+            <p class="text-sm text-gray-400">With full emergency fund</p>
+        </div>
+    </div>
+</div>
+
+<!-- Financial Health Score - UPDATED WITH COMBINED INVESTMENTS -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 mt-12 md:mt-20">
+
         <!-- Financial Health Score - UPDATED WITH COMBINED INVESTMENTS -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 mt-12 md:mt-20">
             <div class="lg:col-span-3 dashboard-card p-8 md:p-10 text-center shadow-2xl border-crimson border-2" id="sovereignty-container">
