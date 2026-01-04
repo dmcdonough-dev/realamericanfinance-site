@@ -386,27 +386,35 @@
         let p3Cache = [];
         const CURRENT_VERSION = 'raf_siege_final_full';
 
-function updateBudgetChart(needs, debt, infra, cargo, surplus) {
+function updateBudgetChart(needs, debt, infra, cargo, income) {
     if (!myChart) return;
 
-    const hasDeficit = surplus < 0;
+    const totalExpenses = needs + debt + infra + cargo;
+    const remaining = income - totalExpenses;
 
-    const data = [
+    const hasDeficit = remaining < 0;
+
+    myChart.data.datasets[0].data = [
+        Math.max(0, remaining),     // GREEN: unallocated income
         Math.max(0, needs),
         Math.max(0, debt),
         Math.max(0, infra),
         Math.max(0, cargo),
-        hasDeficit ? Math.abs(surplus) : 0
+        hasDeficit ? Math.abs(remaining) : 0
     ];
 
-    myChart.data.datasets[0].data = data;
-
-    // Deficit slice only visible if negative
-    myChart.data.datasets[0].backgroundColor[4] =
-        hasDeficit ? '#DC143C' : 'rgba(0,0,0,0)';
+    myChart.data.datasets[0].backgroundColor = [
+        '#22c55e',                  // Green capacity
+        '#FFFFFF',                  // Needs
+        '#8B1D1D',                  // Debt
+        '#6B7280',                  // Infra
+        '#9CA3AF',                  // Cargo
+        '#DC143C'                   // Deficit
+    ];
 
     myChart.update();
 }
+
 
         document.addEventListener('DOMContentLoaded', function () {
             const canvas = document.getElementById('budgetChart');
@@ -595,7 +603,7 @@ centerLabel.innerText = monthlySurplus >= 0
     ? 'MONTHLY SURPLUS'
     : 'MONTHLY DEFICIT';
 
-updateBudgetChart(t1, dMin, t2, t3, monthlySurplus);
+updateBudgetChart(t1, dMin, t2, t3, income);
 
 
             const age = parseFloat(document.getElementById('user-age').value) || 0;
