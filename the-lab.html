@@ -686,16 +686,20 @@
                 warBtn.classList.add('hidden');
             }
 
-          // Pie Chart Update - shows spending breakdown when surplus positive, full red when negative
-if (monthlySurplus < 0) {
-    myChart.data.datasets[0].data = [Math.abs(monthlySurplus)];
-    myChart.data.datasets[0].backgroundColor = ['#DC143C'];
-} else {
-    myChart.data.datasets[0].data = [t1, dMin, t2, t3, monthlySurplus];
-    myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'];
-}
-myChart.update();
-            
+            // Pie Chart Update - shows spending breakdown when surplus positive, full red when negative
+            let chartData = [t1, dMin, t2, t3];
+            let chartColors = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563'];
+
+            if (monthlySurplus < 0) {
+                chartData = [Math.abs(monthlySurplus)];
+                chartColors = ['#DC143C'];
+            }
+
+            myChart.data.datasets[0].data = chartData;
+            myChart.data.datasets[0].backgroundColor = chartColors;
+            myChart.update();
+        }
+
         function getTacticalBudgetOrder(needs, wants, surplus, income, cargoTotal) {
             if (needs <= 50 && wants <= 30 && surplus >= 20) return "Budget locked in. Excellent discipline.";
             let order = "";
