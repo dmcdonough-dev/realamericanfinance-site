@@ -1342,7 +1342,14 @@
             dataPoints: 0,
             exportsUsed: 0
         };
-        
+
+        // Helper function for safe text updates
+function safeSetText(elementId, text) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.textContent = text;
+    }
+}
         const FREE_LIMITS = {
             maxDebts: 5,
             maxExports: 1,
@@ -2235,7 +2242,35 @@
                 }
 
                 // Pie Chart Update
-                updateChart(t1, dMin, t2, t3, totalT4Allocations, remainingSurplus, income);
+               function updateChart(t1, dMin, t2, t3, t4Allocations, remainingSurplus, income) {
+    try {
+        if (!myChart) {
+            console.error("Chart not initialized");
+            return;
+        }
+        
+        const totalExpenses = t1 + dMin + t2 + t3 + t4Allocations;
+        const remaining = Math.max(0, income - totalExpenses);
+        const deficit = totalExpenses > income ? totalExpenses - income : 0;
+
+        const dataValues = deficit === 0 ? 
+            [t1, dMin, t2, t3, t4Allocations, remaining] :
+            [t1, dMin, t2, t3, t4Allocations, deficit];
+        
+        // Ensure all values are numbers
+        myChart.data.datasets[0].data = dataValues.map(v => Number(v) || 0);
+        
+        if (deficit === 0) {
+            myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00', '#1E90FF'];
+        } else {
+            myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00', '#DC143C'];
+        }
+        
+        myChart.update();
+    } catch (error) {
+        console.error("Error updating chart:", error);
+    }
+}
                 
                 // Update data points count
                 updateDataPoints();
@@ -2689,23 +2724,26 @@
                 });
             }
 
-            // CRITICAL: Negative net worth
-            const currentNetWorth = totalAssets - totalLiabilities;
-            if (currentNetWorth < 0) {
-                const negativeAmount = Math.abs(currentNetWorth);
-                actions.push({
-                    id: 'negative_net_worth',
-                    priority: 'CRITICAL',
-                    title: 'Eliminate Negative Net Worth',
-                    description: `Your net worth is -$${negativeAmount.toLocaleString()}. You owe more than you own.`,
-                    action: `Focus on debt reduction and asset building. Aim to reach $0 net worth first.`,
-                    impact: 'HIGH',
-                    time: 'Immediate',
-                    section: 'assets',
-                    progress: Math.min(100, Math.max(0, (totalAssets / Math.max(1, totalLiabilities)) * 100)),
-                    autoProgress: true
-                });
-            }
+// CRITICAL: Negative net worth (calculate it here)
+const totalAssets = currentIronPot + totalInvestments + (parseFloat(document.getElementById('other-assets').value) || 0) + houseValue;
+const totalLiabilities = highInterestDebtTotal + mortgageBalance;
+const currentNetWorth = totalAssets - totalLiabilities;
+
+if (currentNetWorth < 0) {
+    const negativeAmount = Math.abs(currentNetWorth);
+    actions.push({
+        id: 'negative_net_worth',
+        priority: 'CRITICAL',
+        title: 'Eliminate Negative Net Worth',
+        description: `Your net worth is -$${negativeAmount.toLocaleString()}. You owe more than you own.`,
+        action: `Focus on debt reduction and asset building. Aim to reach $0 net worth first.`,
+        impact: 'HIGH',
+        time: 'Immediate',
+        section: 'assets',
+        progress: Math.min(100, Math.max(0, (totalAssets / Math.max(1, totalLiabilities)) * 100)),
+        autoProgress: true
+    });
+}
             
             // HIGH: High-interest debt (>25% APR)
             if (highInterestCount > 0) {
@@ -3638,6 +3676,27 @@
                 savingsEl.className = savingsPerc >= 20 ? 'text-green-400 font-bold' : savingsPerc >= 10 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
             }
         }
+function calculateTotalDailyInterest() {
+    let total = 0;
+    const debtRows = document.querySelectorAll('#debt-body tr');
+    
+    debtRows.forEach(row => {
+        const balanceInput = row.querySelector('.debt-balance-input');
+        const rateInput = row.querySelector('.debt-rate-input');
+        
+        if (balanceInput && rateInput) {
+            const balance = parseFloat(balanceInput.value) || 0;
+            const rate = parseFloat(rateInput.value) || 0;
+            
+            if (balance > 0 && rate > 0) {
+                total += (balance * (rate/100)) / 365;
+            }
+        }
+    });
+    
+    return total;
+}
+        
     </script>
 </body>
 </html>
