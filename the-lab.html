@@ -848,10 +848,13 @@
             <div class="lg:col-span-4">
                 <div class="dashboard-card p-6 md:p-10 sticky top-32 shadow-2xl border-white/10">
                     <!-- Chart Container -->
-                  <div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
-    <span id="center-remaining" class="text-3xl md:text-4xl font-heading font-bold text-white leading-none">$0</span>
-    <span id="center-label" class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2">Monthly Surplus</span>
-</div>
+                    <div class="relative w-full mb-8" style="height: 300px;">
+                        <canvas id="budgetChart" class="relative z-10"></canvas>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none z-0">
+                            <span id="center-remaining" class="text-3xl md:text-4xl font-heading font-bold text-white leading-none">$0</span>
+                            <span id="center-label" class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2">Monthly Surplus</span>
+                        </div>
+                    </div>
 
                     <!-- Progress Bars -->
                     <div class="mt-8 mb-8">
@@ -1089,43 +1092,59 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', function () {
-// Initialize chart with FIXED tooltips
-const canvas = document.getElementById('budgetChart');
-if (canvas) {
-    const ctx = canvas.getContext('2d');
-    myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Surplus'],
-            datasets: [{
-                data: [0, 0, 0, 0, 100],
-                backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            cutout: '85%',
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    enabled: true,
-                    callbacks: {
-                        label: function(context) {
-                            let label = context.label || '';
-                            let value = context.parsed;
-                            if (value === 0) return `${label}: $0`;
-                            return `${label}: $${value.toLocaleString()}`;
+            // Initialize chart with FIXED tooltips
+            const canvas = document.getElementById('budgetChart');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Surplus'],
+                        datasets: [{
+                            data: [0, 0, 0, 0, 100],
+                            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        cutout: '85%',
+                        plugins: {
+                            legend: { 
+                                display: false 
+                            },
+                            tooltip: {
+                                enabled: true,
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.parsed || 0;
+                                        return `${label}: $${Math.round(value).toLocaleString()}`;
+                                    }
+                                },
+                                displayColors: false,
+                                backgroundColor: 'rgba(10, 26, 47, 0.9)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                borderColor: '#B22234',
+                                borderWidth: 1
+                            }
+                        },
+                        interaction: {
+                            intersect: true,
+                            mode: 'nearest'
+                        },
+                        elements: {
+                            arc: {
+                                borderWidth: 0,
+                                hoverBorderWidth: 2,
+                                hoverBorderColor: '#fff'
+                            }
                         }
                     }
-                }
-            },
-            interaction: {
-                intersect: false,
-                mode: 'index'
+                });
             }
-        }
-    });
-}
 
             // Check if first visit
             if (!localStorage.getItem(`${CURRENT_VERSION}_visited`)) {
