@@ -247,11 +247,13 @@
                         </div>
                     </div>
 
+                    <!-- Legend -->
                     <div class="mt-6 space-y-2 text-xs">
-                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-white rounded"></div><span>Needs (Tier 1 + Debt Mins)</span></div>
+                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-white rounded"></div><span>Needs (Tier 1)</span></div>
+                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#B22234] rounded"></div><span>Debt Minimums</span></div>
                         <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#9ca3af] rounded"></div><span>Infrastructure (Tier 2)</span></div>
                         <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#4b5563] rounded"></div><span>Cargo / Wants (Tier 3)</span></div>
-                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-crimson rounded"></div><span>Monthly Surplus</span></div>
+                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#DC143C] rounded"></div><span>Monthly Surplus</span></div>
                     </div>
 
                     <div class="mt-8 mb-8">
@@ -383,7 +385,7 @@
         let myChart;
         let isWarMode = false;
         let p3Cache = [];
-        const CURRENT_VERSION = 'raf_siege_v23';
+        const CURRENT_VERSION = 'raf_siege_final_full';
 
         document.addEventListener('DOMContentLoaded', function () {
             const canvas = document.getElementById('budgetChart');
@@ -392,10 +394,10 @@
                 myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Needs', 'Infrastructure', 'Cargo', 'Surplus'],
+                        labels: ['Needs', 'Debt Mins', 'Infrastructure', 'Cargo', 'Surplus'],
                         datasets: [{
-                            data: [0, 0, 0, 100],
-                            backgroundColor: ['#FFFFFF', '#9ca3af', '#4b5563', '#B22234'],
+                            data: [0, 0, 0, 0, 100],
+                            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#DC143C'],
                             borderWidth: 0
                         }]
                     },
@@ -422,7 +424,118 @@
             calculateAll();
         });
 
-        // ... (all functions: clearAllInputs, clearSavedData, toggleWarMode, addDebtRow, removeRow, updateBadge, update503020, emailBattlePlan, saveProfile, loadProfile)
+        function clearAllInputs() {
+            document.getElementById('paycheck').value = '';
+            document.getElementById('freq').value = '2';
+            document.getElementById('user-age').value = '';
+            document.getElementById('current-iron-pot').value = '';
+            document.getElementById('current-retirement').value = '';
+            document.getElementById('house-value').value = '';
+            document.getElementById('mortgage-balance').value = '';
+            document.getElementById('debt-body').innerHTML = `<tr class="border-b border-white/5">
+                <td class="py-4 px-2"><input type="text" placeholder="e.g. Visa" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
+                <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
+                <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
+                <td class="py-4 px-2"><input type="number" step="0.1" oninput="calculateAll()" class="debt-rate-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
+                <td class="text-right relative"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button>
+                    <span class="debt-alert hidden absolute right-8 top-1/2 -translate-y-1/2 high-interest-alert uppercase">HIGH ALERT</span>
+                </td>
+            </tr>`;
+            document.querySelectorAll('.tier-1-input, .tier-2-input, .tier-3-input').forEach(i => i.value = '');
+        }
+
+        function clearSavedData() {
+            if (confirm("Permanently delete all saved data? This cannot be undone.")) {
+                localStorage.removeItem(CURRENT_VERSION);
+                location.reload();
+            }
+        }
+
+        function toggleWarMode() {
+            isWarMode = !isWarMode;
+            const btn = document.getElementById('war-mode-btn');
+            const container = document.getElementById('tier-3-container');
+            const inputs = document.querySelectorAll('.tier-3-input');
+            const surplusEl = document.getElementById('surplus-val');
+            const triggerBtn = document.getElementById('war-mode-trigger');
+
+            if (isWarMode) {
+                btn.innerText = "Deactivate War-Mode";
+                container.classList.add('war-mode-active', 'war-mode-flash');
+                surplusEl.classList.add('breach-alert');
+                p3Cache = Array.from(inputs).map(i => i.value || '0');
+                inputs.forEach(i => i.value = '0');
+                triggerBtn.classList.add('hidden');
+            } else {
+                btn.innerText = "Initiate War-Mode";
+                container.classList.remove('war-mode-active', 'war-mode-flash');
+                surplusEl.classList.remove('breach-alert');
+                inputs.forEach((i, idx) => i.value = p3Cache[idx] || '0');
+            }
+            setTimeout(() => container.classList.remove('war-mode-flash'), 2000);
+            calculateAll();
+        }
+
+        function addDebtRow() {
+            const row = document.createElement('tr');
+            row.className = "border-b border-white/5";
+            row.innerHTML = `<td class="py-4 px-2"><input type="text" placeholder="Liability" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
+                             <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
+                             <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
+                             <td class="py-4 px-2"><input type="number" step="0.1" oninput="calculateAll()" class="debt-rate-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
+                             <td class="text-right relative"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button>
+                                 <span class="debt-alert hidden absolute right-8 top-1/2 -translate-y-1/2 high-interest-alert uppercase">HIGH ALERT</span>
+                             </td>`;
+            document.getElementById('debt-body').appendChild(row);
+        }
+
+        function removeRow(btn) {
+            btn.closest('tr').remove();
+            calculateAll();
+        }
+
+        function updateBadge(id, current, target, isHigherBetter = false) {
+            const badge = document.getElementById(id);
+            if (!badge) return;
+            badge.innerText = `${Math.round(current)}%`;
+            let statusClass = "status-bad";
+            if (isHigherBetter) {
+                if (current >= target) statusClass = "status-good";
+                else if (current >= target * 0.8) statusClass = "status-ok";
+            } else {
+                if (current <= target) statusClass = "status-good";
+                else if (current <= target * 1.2) statusClass = "status-ok";
+            }
+            badge.className = `perc-badge ${statusClass}`;
+        }
+
+        function update503020(needsPerc, wantsPerc, savingsPerc) {
+            const needsEl = document.getElementById('rule-needs');
+            const wantsEl = document.getElementById('rule-wants');
+            const savingsEl = document.getElementById('rule-savings');
+
+            if (needsEl) needsEl.textContent = needsPerc.toFixed(0) + '%';
+            if (wantsEl) wantsEl.textContent = wantsPerc.toFixed(0) + '%';
+            if (savingsEl) savingsEl.textContent = savingsPerc.toFixed(0) + '%';
+
+            if (needsEl) needsEl.className = needsPerc <= 50 ? 'text-green-400 font-bold' : needsPerc <= 60 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+            if (wantsEl) wantsEl.className = wantsPerc <= 30 ? 'text-green-400 font-bold' : wantsPerc <= 40 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+            if (savingsEl) savingsEl.className = savingsPerc >= 20 ? 'text-green-400 font-bold' : savingsPerc >= 10 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+        }
+
+        function emailBattlePlan() {
+            const score = document.getElementById('sovereignty-score')?.innerText || '0';
+            const orders = document.getElementById('priority-orders')?.innerText || 'No orders';
+            const warChest = document.getElementById('surplus-val')?.innerText || '$0';
+
+            const subject = "My Real American Finance Battle Plan";
+            const body = `SOVEREIGNTY SCORE: ${score}/100\n\n` +
+                         `Monthly War Chest: ${warChest}\n\n` +
+                         `PRIORITY TARGETS:\n${orders}\n\n` +
+                         `Generated from realamericanfinance.com/the-lab`;
+
+            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
 
         function calculateAll() {
             const income = (parseFloat(document.getElementById('paycheck').value) || 0) * (parseFloat(document.getElementById('freq').value) || 2);
@@ -438,8 +551,8 @@
             let t3 = 0;
             document.querySelectorAll('.tier-3-input').forEach(i => t3 += parseFloat(i.value || 0));
 
-            const essentials = t1 + dMin;
-            const totalMonthlyOut = essentials + t2 + t3;
+            const essentials = t1;
+            const totalMonthlyOut = t1 + dMin + t2 + t3;
             const monthlySurplus = income - totalMonthlyOut;
 
             const age = parseFloat(document.getElementById('user-age').value) || 0;
@@ -452,7 +565,6 @@
             const monthlyHousing = housingLines.reduce((sum, i) => sum + (parseFloat(i.value) || 0), 0);
             document.getElementById('monthly-housing-costs').innerText = `$${monthlyHousing.toLocaleString()}`;
 
-            // UI updates
             document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
             document.getElementById('center-remaining').innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
             document.getElementById('surplus-val').innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
@@ -574,11 +686,11 @@
                 warBtn.classList.add('hidden');
             }
 
-            myChart.data.datasets[0].data = [essentials, t2, t3, Math.max(0, monthlySurplus)];
+            // Pie Chart Update - 5 slices
+            myChart.data.datasets[0].data = [t1, dMin, t2, t3, Math.max(0, monthlySurplus)];
             myChart.update();
         }
 
-        // Tactical tip functions
         function getTacticalBudgetOrder(needs, wants, surplus, income, cargoTotal) {
             if (needs <= 50 && wants <= 30 && surplus >= 20) return "Budget locked in. Excellent discipline.";
             let order = "";
