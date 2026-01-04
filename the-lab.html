@@ -44,6 +44,22 @@
         body { display: flex; flex-direction: column; min-height: 100vh; }
         main { flex: 1 0 auto; }
         footer { flex-shrink: 0; }
+        
+        /* New CSS classes for surplus/deficit */
+        .positive-surplus {
+            color: #00FF00 !important;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+        .negative-surplus {
+            color: #B22234 !important;
+            text-shadow: 0 0 10px rgba(178, 34, 52, 0.7);
+            animation: pulse 1.5s infinite;
+        }
+        .breach-alert {
+            color: #B22234 !important;
+            text-shadow: 0 0 10px rgba(178,34,52,0.7);
+            animation: pulse 1.5s infinite;
+        }
     </style>
     <script>
         tailwind.config = {
@@ -252,7 +268,8 @@
                         <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#B22234] rounded"></div><span>Debt Minimums</span></div>
                         <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#9ca3af] rounded"></div><span>Infrastructure (Tier 2)</span></div>
                         <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#4b5563] rounded"></div><span>Cargo / Wants (Tier 3)</span></div>
-                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#DC143C] rounded"></div><span>Monthly Surplus (only if negative)</span></div>
+                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#00FF00] rounded"></div><span>Monthly Surplus</span></div>
+                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#DC143C] rounded"></div><span>Monthly Deficit (if overspent)</span></div>
                     </div>
 
                     <div class="mt-8 mb-8">
@@ -393,10 +410,10 @@
                 myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Needs', 'Debt Mins', 'Infrastructure', 'Cargo', 'Surplus'],
+                        labels: ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Surplus'],
                         datasets: [{
                             data: [0, 0, 0, 0, 100],
-                            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#DC143C'],
+                            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'],
                             borderWidth: 0
                         }]
                     },
@@ -537,6 +554,11 @@
         }
 
         function calculateAll() {
+            // Ensure at least one debt row exists
+            if (document.querySelectorAll('#debt-body tr').length === 0) {
+                addDebtRow();
+            }
+
             const income = (parseFloat(document.getElementById('paycheck').value) || 0) * (parseFloat(document.getElementById('freq').value) || 2);
 
             let dMin = 0;
@@ -549,6 +571,19 @@
             document.querySelectorAll('.tier-2-input').forEach(i => t2 += parseFloat(i.value || 0));
             let t3 = 0;
             document.querySelectorAll('.tier-3-input').forEach(i => t3 += parseFloat(i.value || 0));
+
+            // Update debt alerts
+            document.querySelectorAll('.debt-rate-input').forEach((input, index) => {
+                const rate = parseFloat(input.value || 0);
+                const alertSpan = input.closest('tr').querySelector('.debt-alert');
+                if (alertSpan) {
+                    if (rate > 25) {
+                        alertSpan.classList.remove('hidden');
+                    } else {
+                        alertSpan.classList.add('hidden');
+                    }
+                }
+            });
 
             const essentials = t1;
             const totalMonthlyOut = t1 + dMin + t2 + t3;
@@ -565,11 +600,42 @@
             document.getElementById('monthly-housing-costs').innerText = `$${monthlyHousing.toLocaleString()}`;
 
             document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
-            const remainingText = monthlySurplus >= 0 ? `$${Math.round(monthlySurplus).toLocaleString()}` : `-$${Math.round(Math.abs(monthlySurplus)).toLocaleString()}`;
-            document.getElementById('center-remaining').innerText = remainingText;
-            document.getElementById('center-remaining').className = monthlySurplus >= 0 ? 'text-4xl font-heading font-bold text-white leading-none' : 'text-4xl font-heading font-bold text-crimson leading-none';
-            document.getElementById('surplus-val').innerText = remainingText;
+            
+            // Update center text and label based on surplus/deficit
+            const centerEl = document.getElementById('center-remaining');
+            const labelEl = document.getElementById('center-label');
+            const surplusVal = document.getElementById('surplus-val');
+
+            if (monthlySurplus >= 0) {
+                // Positive surplus - green
+                centerEl.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
+                centerEl.className = 'text-4xl font-heading font-bold positive-surplus leading-none';
+                labelEl.innerText = 'Monthly Surplus';
+                labelEl.className = 'text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2';
+                surplusVal.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
+                surplusVal.className = 'text-4xl font-heading font-bold text-crimson';
+            } else {
+                // Negative deficit - red
+                const deficit = Math.abs(monthlySurplus);
+                centerEl.innerText = `-$${Math.round(deficit).toLocaleString()}`;
+                centerEl.className = 'text-4xl font-heading font-bold negative-surplus leading-none';
+                labelEl.innerText = 'Monthly Deficit';
+                labelEl.className = 'text-[10px] text-crimson uppercase font-bold tracking-[0.2em] mt-2';
+                surplusVal.innerText = `-$${Math.round(deficit).toLocaleString()}`;
+                surplusVal.className = 'text-4xl font-heading font-bold negative-surplus';
+            }
+
             document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
+
+            // Update countdown timeline
+            if (monthlySurplus > 0 && dTotal > 0) {
+                const months = Math.ceil(dTotal / monthlySurplus);
+                document.getElementById('countdown-val').textContent = `${months} months`;
+            } else if (dTotal === 0) {
+                document.getElementById('countdown-val').textContent = "DEBT FREE";
+            } else {
+                document.getElementById('countdown-val').textContent = "N/A";
+            }
 
             const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
             const potPerc = essentials > 0 ? Math.min(100, (moatMonths / 3) * 100) : 0;
@@ -656,7 +722,7 @@
             const pillars = [
                 { name: "BUDGETING", score: scoreBudget, tip: getTacticalBudgetOrder(needsPerc, wantsPerc, surplusPerc, income, t3) },
                 { name: "DEBT", score: scoreDebt, tip: getTacticalDebtOrder(dTotal, monthlySurplus) },
-                { name: "EMERGENCY FUND", score: scoreEmergency, tip: getTacticalEmergencyOrder(moatMonths, essentials, monthlySurplus) },
+                { name: "EMERGENCY FUND", score: scoreEmergency, tip: getTacticalEmergencyOrder(moatMonths, essentials, monthlySurplus, currentIronPot) },
                 { name: "RETIREMENT", score: scoreRetirement, tip: getTacticalRetirementOrder(age, currentRetirement, income * 12) },
                 { name: "REAL ESTATE", score: scoreRealEstate, tip: getTacticalRealEstateOrder(monthlyHousing, income, houseValue - mortgageBalance) }
             ];
@@ -686,17 +752,22 @@
                 warBtn.classList.add('hidden');
             }
 
-            // Pie Chart Update - shows spending breakdown when surplus positive, full red when negative
-            let chartData = [t1, dMin, t2, t3];
-            let chartColors = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563'];
+            // Pie Chart Update - Green surplus that shrinks as expenses are added
+            const totalExpenses = t1 + dMin + t2 + t3;
+            const remaining = Math.max(0, income - totalExpenses);
+            const deficit = totalExpenses > income ? totalExpenses - income : 0;
 
-            if (monthlySurplus < 0) {
-                chartData = [Math.abs(monthlySurplus)];
-                chartColors = ['#DC143C'];
+            if (deficit === 0) {
+                // Show expenses and remaining surplus (green)
+                myChart.data.datasets[0].data = [t1, dMin, t2, t3, remaining];
+                myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'];
+                myChart.data.labels = ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Surplus'];
+            } else {
+                // When in deficit, show total expenses and deficit (red)
+                myChart.data.datasets[0].data = [t1, dMin, t2, t3, deficit];
+                myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#DC143C'];
+                myChart.data.labels = ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Deficit'];
             }
-
-            myChart.data.datasets[0].data = chartData;
-            myChart.data.datasets[0].backgroundColor = chartColors;
             myChart.update();
         }
 
@@ -715,11 +786,15 @@
             return `ATTACK $${dTotal.toLocaleString()} debt. Current surplus: payoff in ${months} months. Prioritize high-interest targets.`;
         }
 
-        function getTacticalEmergencyOrder(months, essentials, surplus) {
+        function getTacticalEmergencyOrder(months, essentials, surplus, currentIronPot) {
             if (months >= 6) return "Iron Pot fortified. 6+ months secured.";
             const target = essentials * 3;
             const needed = target - currentIronPot;
-            return `Only ${months.toFixed(1)} months covered. BUILD to 3 months ($${target.toLocaleString()}). Redirect $${Math.round(needed / 12)}/month from Cargo.`;
+            if (surplus > 0) {
+                const monthsToTarget = Math.ceil(needed / surplus);
+                return `Only ${months.toFixed(1)} months covered. BUILD to 3 months ($${target.toLocaleString()}). At current surplus: ${monthsToTarget} months.`;
+            }
+            return `Only ${months.toFixed(1)} months covered. BUILD to 3 months ($${target.toLocaleString()}).`;
         }
 
         function getTacticalRetirementOrder(age, current, annual) {
