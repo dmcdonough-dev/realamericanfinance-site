@@ -386,80 +386,36 @@
         let p3Cache = [];
         const CURRENT_VERSION = 'raf_siege_final_full';
 
-function updateBudgetChart(needs, debt, infra, cargo, income) {
-    if (!myChart) return;
-
-    const totalExpenses = needs + debt + infra + cargo;
-    const remaining = income - totalExpenses;
-
-    const hasDeficit = remaining < 0;
-
-    myChart.data.datasets[0].data = [
-        Math.max(0, remaining),     // GREEN: unallocated income
-        Math.max(0, needs),
-        Math.max(0, debt),
-        Math.max(0, infra),
-        Math.max(0, cargo),
-        hasDeficit ? Math.abs(remaining) : 0
-    ];
-
-    myChart.data.datasets[0].backgroundColor = [
-        '#22c55e',                  // Green capacity
-        '#FFFFFF',                  // Needs
-        '#8B1D1D',                  // Debt
-        '#6B7280',                  // Infra
-        '#9CA3AF',                  // Cargo
-        '#DC143C'                   // Deficit
-    ];
-
-    myChart.update();
-}
-
-
         document.addEventListener('DOMContentLoaded', function () {
             const canvas = document.getElementById('budgetChart');
             if (canvas) {
                 const ctx = canvas.getContext('2d');
-               myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ['Needs', 'Debt Minimums', 'Infrastructure', 'Cargo / Wants', 'Surplus'],
-        datasets: [{
-            data: [1, 1, 1, 1, 1], // placeholder so no slice dominates
-            backgroundColor: [
-                '#FFFFFF',   // Needs
-                '#B22234',   // Debt
-                '#9ca3af',   // Infrastructure
-                '#4b5563',   // Cargo
-                '#22c55e'    // Surplus (green by default)
-            ],
-            borderWidth: 0
-        }]
-    },
-    options: {
-        cutout: '85%',
-        animation: {
-            animateRotate: true,
-            duration: 700,
-            easing: 'easeOutCubic'
-        },
-        plugins: {
-            legend: { display: false },
-            tooltip: {
-                callbacks: {
-                    label: function (context) {
-                        const label = context.label;
-                        const value = context.parsed;
-                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                        const pct = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
-                        return `${label}: $${value.toLocaleString()} (${pct}%)`;
+                myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Needs', 'Debt Mins', 'Infrastructure', 'Cargo', 'Surplus'],
+                        datasets: [{
+                            data: [0, 0, 0, 0, 100],
+                            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#DC143C'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        cutout: '85%',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        let value = context.parsed;
+                                        return `${label}: $${value.toLocaleString()}`;
+                                    }
+                                }
+                            }
+                        }
                     }
-                }
-            }
-        }
-    }
-});
-
+                });
             }
 
             clearAllInputs();
@@ -596,15 +552,7 @@ function updateBudgetChart(needs, debt, infra, cargo, income) {
 
             const essentials = t1;
             const totalMonthlyOut = t1 + dMin + t2 + t3;
-        const monthlySurplus = income - totalMonthlyOut;
-
-centerValue.innerText = `$${monthlySurplus.toLocaleString()}`;
-centerLabel.innerText = monthlySurplus >= 0
-    ? 'MONTHLY SURPLUS'
-    : 'MONTHLY DEFICIT';
-
-updateBudgetChart(t1, dMin, t2, t3, income);
-
+            const monthlySurplus = income - totalMonthlyOut;
 
             const age = parseFloat(document.getElementById('user-age').value) || 0;
             const currentIronPot = parseFloat(document.getElementById('current-iron-pot').value) || 0;
