@@ -252,8 +252,7 @@
                         <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#B22234] rounded"></div><span>Debt Minimums</span></div>
                         <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#9ca3af] rounded"></div><span>Infrastructure (Tier 2)</span></div>
                         <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#4b5563] rounded"></div><span>Cargo / Wants (Tier 3)</span></div>
-                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#00FF00] rounded"></div><span>Monthly Surplus</span></div> 
-                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#DC143C] rounded"></div><span>Deficit (only if negative)</span></div>
+                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#DC143C] rounded"></div><span>Monthly Surplus (only if negative)</span></div>
                     </div>
 
                     <div class="mt-8 mb-8">
@@ -391,16 +390,16 @@
             const canvas = document.getElementById('budgetChart');
             if (canvas) {
                 const ctx = canvas.getContext('2d');
-               myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ['Needs', 'Debt Mins', 'Infrastructure', 'Cargo', 'Surplus'],
-        datasets: [{
-            data: [0, 0, 0, 0, 0],
-            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'],
-            borderWidth: 0
-        }]
-    },
+                myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Needs', 'Debt Mins', 'Infrastructure', 'Cargo', 'Surplus'],
+                        datasets: [{
+                            data: [0, 0, 0, 0, 100],
+                            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#DC143C'],
+                            borderWidth: 0
+                        }]
+                    },
                     options: {
                         cutout: '85%',
                         plugins: {
@@ -687,27 +686,19 @@
                 warBtn.classList.add('hidden');
             }
 
-// Pie Chart Update - shows spending breakdown when surplus positive, full red when negative
-let chartData, chartColors, chartLabels;
+            // Pie Chart Update - shows spending breakdown when surplus positive, full red when negative
+            let chartData = [t1, dMin, t2, t3];
+            let chartColors = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563'];
 
-if (monthlySurplus < 0) {
-    // Show only the deficit in red
-    chartData = [Math.abs(monthlySurplus)];
-    chartColors = ['#DC143C'];
-    chartLabels = ['Deficit'];
-} else {
-    // Show spending breakdown plus surplus
-    chartData = [t1, dMin, t2, t3, monthlySurplus];
-    chartColors = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'];
-    chartLabels = ['Needs', 'Debt Mins', 'Infrastructure', 'Cargo', 'Surplus'];
-}
+            if (monthlySurplus < 0) {
+                chartData = [Math.abs(monthlySurplus)];
+                chartColors = ['#DC143C'];
+            }
 
-if (myChart && myChart.data && myChart.data.datasets[0]) {
-    myChart.data.labels = chartLabels;
-    myChart.data.datasets[0].data = chartData;
-    myChart.data.datasets[0].backgroundColor = chartColors;
-    myChart.update();
-}
+            myChart.data.datasets[0].data = chartData;
+            myChart.data.datasets[0].backgroundColor = chartColors;
+            myChart.update();
+        }
 
         function getTacticalBudgetOrder(needs, wants, surplus, income, cargoTotal) {
             if (needs <= 50 && wants <= 30 && surplus >= 20) return "Budget locked in. Excellent discipline.";
