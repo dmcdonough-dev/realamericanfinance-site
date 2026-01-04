@@ -847,14 +847,16 @@
             <!-- Right Sidebar -->
             <div class="lg:col-span-4">
                 <div class="dashboard-card p-6 md:p-10 sticky top-32 shadow-2xl border-white/10">
-                    <!-- Chart Container -->
-                    <div class="relative w-full mb-8" style="height: 300px;">
-                        <canvas id="budgetChart" class="relative z-10"></canvas>
-                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none z-0">
-                            <span id="center-remaining" class="text-3xl md:text-4xl font-heading font-bold text-white leading-none">$0</span>
-                            <span id="center-label" class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2">Monthly Surplus</span>
-                        </div>
-                    </div>
+              <!-- Chart Container -->
+<div class="relative w-full mb-8" style="height: 300px;">
+    <div class="absolute inset-0">
+        <canvas id="budgetChart" class="w-full h-full"></canvas>
+    </div>
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+        <span id="center-remaining" class="text-3xl md:text-4xl font-heading font-bold text-white leading-none">$0</span>
+        <span id="center-label" class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2">Monthly Surplus</span>
+    </div>
+</div>
 
                     <!-- Progress Bars -->
                     <div class="mt-8 mb-8">
