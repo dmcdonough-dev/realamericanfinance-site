@@ -588,9 +588,14 @@ function updateBudgetChart(needs, debt, infra, cargo, surplus) {
 
             const essentials = t1;
             const totalMonthlyOut = t1 + dMin + t2 + t3;
-            const monthlySurplus = income - totalMonthlyOut;
-           
-            updateBudgetChart(t1, dMin, t2, t3, monthlySurplus);
+        const monthlySurplus = income - totalMonthlyOut;
+
+centerValue.innerText = `$${monthlySurplus.toLocaleString()}`;
+centerLabel.innerText = monthlySurplus >= 0
+    ? 'MONTHLY SURPLUS'
+    : 'MONTHLY DEFICIT';
+
+updateBudgetChart(t1, dMin, t2, t3, monthlySurplus);
 
 
             const age = parseFloat(document.getElementById('user-age').value) || 0;
