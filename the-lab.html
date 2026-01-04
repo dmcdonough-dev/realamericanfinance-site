@@ -386,26 +386,27 @@
         let p3Cache = [];
         const CURRENT_VERSION = 'raf_siege_final_full';
 
-        function updateBudgetChart(needs, debt, infra, cargo, surplus) {
+function updateBudgetChart(needs, debt, infra, cargo, surplus) {
     if (!myChart) return;
+
+    const hasDeficit = surplus < 0;
 
     const data = [
         Math.max(0, needs),
         Math.max(0, debt),
         Math.max(0, infra),
         Math.max(0, cargo),
-        Math.max(0, Math.abs(surplus))
+        hasDeficit ? Math.abs(surplus) : 0
     ];
 
     myChart.data.datasets[0].data = data;
 
-    // Surplus slice color logic
+    // Deficit slice only visible if negative
     myChart.data.datasets[0].backgroundColor[4] =
-        surplus >= 0 ? '#22c55e' : '#DC143C';
+        hasDeficit ? '#DC143C' : 'rgba(0,0,0,0)';
 
     myChart.update();
 }
-
 
         document.addEventListener('DOMContentLoaded', function () {
             const canvas = document.getElementById('budgetChart');
