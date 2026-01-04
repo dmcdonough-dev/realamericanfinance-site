@@ -1,100 +1,444 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Academy</title>
+    <title>Academy | Real American Finance</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .hero-bg { 
+            background: linear-gradient(rgba(10,26,47,0.95), rgba(10,26,47,0.95)), url('./flag_distressed.jpg'); 
+            background-size: cover; background-position: center;
+        }
+        .pillar-row:nth-child(even) .flex-container { flex-direction: row-reverse; }
+        .phase-divider { background: linear-gradient(90deg, transparent, #B22234, transparent); height: 1px; width: 100%; margin: 4rem 0; opacity: 0.3; }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Oswald', 'sans-serif'] },
+                    colors: { navy: { 950: '#050B14', 900: '#0A1A2F', 800: '#11243F' }, crimson: '#B22234' }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-black text-white p-10">
+<body class="bg-navy-950 text-white font-sans selection:bg-crimson">
+    <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex flex-col group">
+                <span style="font-family: 'Great Vibes';" class="text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
+                <span class="font-heading text-[10px] tracking-[0.4em] text-gray-400 uppercase mt-1">Sovereignty Through Discipline</span>
+            </a>
+            <ul class="hidden lg:flex space-x-8 font-heading text-xs tracking-[0.2em] uppercase">
+                <li><a href="academy.html" class="text-crimson transition">The Academy</a></li>
+                <li><a href="media.html" class="hover:text-crimson transition">Media</a></li>
+                <li><a href="the-lab.html" class="hover:text-crimson transition">Tools</a></li>
+                <li><a href="shop.html" class="hover:text-crimson transition">Shop</a></li>
+                <li><a href="strategy.html" class="bg-crimson px-5 py-2 hover:bg-red-700 transition font-bold">Strategy Call</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div class="max-w-6xl mx-auto">
-        <h1 class="text-4xl font-bold mb-12 uppercase tracking-tight">The Academy</h1>
-
-        <div class="mb-4 text-xs font-semibold text-zinc-500 uppercase tracking-widest">Phase 01: The Architecture</div>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
-            <div class="border border-zinc-800 p-6">
-                <div class="text-blue-500 font-mono mb-2">01</div>
-                <h3 class="font-bold mb-2">Iron Pot Millionaire</h3>
-                <p class="text-sm text-zinc-400">Securing your Survival Baseline. We strip lifestyle friction to maximize capital velocity.</p>
-                <p class="text-[11px] text-zinc-600 mt-4 italic">e.g. Funding a 6-month "Vault" based on a stripped-down $3,200/mo burn.</p>
-            </div>
-            <div class="border border-zinc-800 p-6">
-                <div class="text-blue-500 font-mono mb-2">02</div>
-                <h3 class="font-bold mb-2">Wealth Architecture</h3>
-                <p class="text-sm text-zinc-400">Automated capital routing. Removing human error and emotion from the flow of force.</p>
-                <p class="text-[11px] text-zinc-600 mt-4 italic">e.g. Logic-based sweeps that route 20% of every dollar to "Offense" automatically.</p>
-            </div>
-            <div class="border border-zinc-800 p-6">
-                <div class="text-blue-500 font-mono mb-2">03</div>
-                <h3 class="font-bold mb-2">Scenario Planning</h3>
-                <p class="text-sm text-zinc-400">Financial stress-testing. Preparing the manual for market volatility or personal crisis.</p>
-                <p class="text-[11px] text-zinc-600 mt-4 italic">e.g. A "Protocol 50" plan to execute if primary income ever drops by 50%.</p>
-            </div>
-            <div class="border border-zinc-800 p-6">
-                <div class="text-blue-500 font-mono mb-2">04</div>
-                <h3 class="font-bold mb-2">Debt Neutralization</h3>
-                <p class="text-sm text-zinc-400">Reclaiming future energy. Liquidating liabilities to unlock immediate monthly cash flow.</p>
-                <p class="text-[11px] text-zinc-600 mt-4 italic">e.g. Eliminating a $500/mo car loan to pivot that cash into offensive assets.</p>
-            </div>
+    <section class="hero-bg pt-48 pb-24 border-b border-white/5 text-center">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight leading-none mb-6">THE <span class="text-crimson">ACADEMY.</span></h1>
+            <p class="text-lg md:text-xl text-gray-400 font-medium uppercase tracking-[0.2em] leading-relaxed">A 12-stage sequential roadmap to financial autonomy.</p>
         </div>
+    </section>
 
-        <div class="mb-4 text-xs font-semibold text-zinc-500 uppercase tracking-widest">Phase 02: The Expansion</div>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
-            <div class="border border-zinc-800 p-6">
-                <div class="text-blue-500 font-mono mb-2">05</div>
-                <h3 class="font-bold mb-2">High-Leverage Earning</h3>
-                <p class="text-sm text-zinc-400">Decoupling income from hours. Moving from selling time to selling high-value solutions.</p>
-                <p class="text-[11px] text-zinc-600 mt-4 italic">e.g. Moving from hourly consulting to $10k result-based contracts.</p>
-            </div>
-            <div class="border border-zinc-800 p-6">
-                <div class="text-blue-500 font-mono mb-2">06</div>
-                <h3 class="font-bold mb-2">Tax Optimization</h3>
-                <p class="text-sm text-zinc-400">Structural efficiency. Treating taxation as a business expense to be legally minimized.</p>
-                <p class="text-[11px] text-zinc-600 mt-4 italic">e.g. Using an S-Corp to retain an extra $25k/year in net profit.</p>
-            </div>
-            <div class="border border-zinc-800 p-6">
-                <div class="text-blue-500 font-mono mb-2">07</div>
-                <h3 class="font-bold mb-2">Jurisdictional Freedom</h3>
-                <p class="text-sm text-zinc-400">Geographic positioning. Choosing the legal environment that treats you best.</p>
-                <p class="text-[11px] text-zinc-600 mt-4 italic">e.g. Shifting business nexus to a 0% state-tax jurisdiction for an immediate raise.</p>
-            </div>
-            <div class="border border-zinc-800 p-6">
-                <div class="text-blue-500 font-mono mb-2">08</div>
-                <h3 class="font-bold mb-2">Estate Governance</h3>
-                <p class="text-sm text-zinc-400">Building the Outer Wall. Ensuring your wealth survives transitions and legal challenges.</p>
-                <p class="text-[11px] text-zinc-600 mt-4 italic">e.g. Using a Living Trust to bypass probate and ensure instant asset transfer.</p>
-            </div>
-        </div>
-
-        <div class="mb-4 text-xs font-semibold text-zinc-500 uppercase tracking-widest">Phase 03: The Sovereignty</div>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div class="border border-zinc-800 p-6">
-                <div class="text-blue-500 font-mono mb-2">09</div>
-                <h3 class="font-bold mb-2">Strategic Allocation</h3>
-                <p class="text-sm text-zinc-400">Owning underlying assets. Shifting from speculation to controlled, hard-asset ownership.</p>
-                <p class="text-[11px] text-zinc-600 mt-4 italic">e.g. Moving capital from mutual funds into cash-flowing rental properties.</p>
-            </div>
-            <div class="border border-zinc-800 p-6">
-                <div class="text-blue-500 font-mono mb-2">10</div>
-                <h3 class="font-bold mb-2">Business Acquisition</h3>
-                <p class="text-sm text-zinc-400">Buying cash flow. Moving from the working class to the owner class by purchasing existing wheels.</p>
-                <p class="text-[11px] text-zinc-600 mt-4 italic">e.g. Acquiring a profitable, "boring" business via seller-financing.</p>
-            </div>
-            <div class="border border-zinc-800 p-6">
-                <div class="text-blue-500 font-mono mb-2">11</div>
-                <h3 class="font-bold mb-2">Antifragility Audit</h3>
-                <p class="text-sm text-zinc-400">Resilience outside the grid. Securing assets that exist off the digital ledger.</p>
-                <p class="text-[11px] text-zinc-600 mt-4 italic">e.g. Maintaining 5% of net worth in physical metals to survive a banking outage.</p>
-            </div>
-            <div class="border border-zinc-800 p-6">
-                <div class="text-blue-500 font-mono mb-2">12</div>
-                <h3 class="font-bold mb-2">The Perpetual Exit</h3>
-                <p class="text-sm text-zinc-400">Total autonomy. Your labor is no longer required, but your influence remains absolute.</p>
-                <p class="text-[11px] text-zinc-600 mt-4 italic">e.g. An automated empire generating more cash flow than you can spend.</p>
-            </div>
+    <div class="bg-crimson/5 py-12 border-b border-crimson/20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="font-heading text-2xl tracking-[0.4em] uppercase text-white">Phase 01: The Architecture</h2>
+            <p class="text-xs text-crimson font-bold uppercase mt-2 tracking-widest">Focus: Systems Engineering and Survival Stability</p>
         </div>
     </div>
 
+    <div class="pillar-sections">
+        <section class="pillar-row py-24 border-b border-white/5">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">01</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">The Baseline</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Iron Pot Millionaire</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Secure the survival baseline through the surgical removal of lifestyle friction. We strip the chassis of your personal life to maximize capital velocity and eliminate dependency on the next paycheck.</p>
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-heading text-crimson uppercase tracking-widest font-bold">Tactical Objective</h4>
+                        <ul class="list-none text-gray-400 space-y-3 text-sm">
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Calculate absolute monthly burn (e.g. $3,200).</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Fund a 6-month "Vault" to secure 100% time-autonomy.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Liquidate non-essential subscriptions and high-interest liabilities.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Freedom is bought with lower dependencies."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pillar-row py-24 border-b border-white/5 bg-navy-900/30">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">02</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">The Logic Flow</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Wealth Architecture</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Designing the automated transmission of capital. We move away from human-led "saving" and toward a logic-based system where every dollar is routed to its highest use before you can spend it.</p>
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-heading text-crimson uppercase tracking-widest font-bold">Tactical Objective</h4>
+                        <ul class="list-none text-gray-400 space-y-3 text-sm">
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Set up logic-based sweeps (e.g. 20% to Offense, 15% to Defense).</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Segregate accounts by objective (Cash, Defense, Offense).</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Achieve 100% automated capital routing.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"The system makes the right choices for you."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pillar-row py-24 border-b border-white/5">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">03</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">The Simulation</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Scenario Planning</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Stress-testing your financial life against volatility. We simulate external shocks so that when a crisis hits, you aren't guessing—you are executing a pre-approved manual.</p>
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-heading text-crimson uppercase tracking-widest font-bold">Tactical Objective</h4>
+                        <ul class="list-none text-gray-400 space-y-3 text-sm">
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Draft the "Protocol 50" Crisis Playbook.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Pre-approve recession-level budget cuts.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Identify 3 secondary income pivots for emergency deployment.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Panic is a tax on the unprepared."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pillar-row py-24 border-b border-white/5 bg-navy-900/30">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">04</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Energy Reclamation</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Debt Neutralization</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Reclaiming your future energy from lenders. We systematically liquidate consumer liabilities to remove monthly cash flow pressure and unlock massive offensive capital.</p>
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-heading text-crimson uppercase tracking-widest font-bold">Tactical Objective</h4>
+                        <ul class="list-none text-gray-400 space-y-3 text-sm">
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Rank all debts by monthly cash-flow impact.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Execute the "Sniper Roll" on the highest pressure liability.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Shift regained cash flow immediately into Phase 02 objectives.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Kill debt before it kills your offense."</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="bg-white/5 py-12 border-b border-white/10 mt-12">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="font-heading text-2xl tracking-[0.4em] uppercase text-white">Phase 02: The Fortress</h2>
+                <p class="text-xs text-gray-500 font-bold uppercase mt-2 tracking-widest">Focus: Scaling Force and Jurisdictional Selection</p>
+            </div>
+        </div>
+
+        <section class="pillar-row py-24 border-b border-white/5">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">05</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Force Multiplier</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">High-Leverage Earning</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Scaling raw earning power by decoupling income from hours worked. We focus on "Force Multiplier" skills—sales, code, and systems—to flood the architecture with surplus capital.</p>
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-heading text-crimson uppercase tracking-widest font-bold">Tactical Objective</h4>
+                        <ul class="list-none text-gray-400 space-y-3 text-sm">
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Transition from hourly consulting to value-based contracts.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Scale top-line revenue through automated sales or ops systems.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Aim for a 3x increase in capital surplus.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Flood the system with capital volume."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pillar-row py-24 border-b border-white/5 bg-navy-900/30">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">06</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Structural Shield</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Tax Defense</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Aggressive, legal structural optimization. We treat taxation as a business expense to be minimized through entity shielding and depreciation, ensuring the surplus belongs to your bloodline.</p>
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-heading text-crimson uppercase tracking-widest font-bold">Tactical Objective</h4>
+                        <ul class="list-none text-gray-400 space-y-3 text-sm">
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Move income through an S-Corp or Trust (e.g. retain extra $25k/yr).</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Maximize Section 179 and legal depreciation schedules.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Conduct quarterly forward tax-mitigation audits.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Efficiency is a moral obligation to your heirs."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pillar-row py-24 border-b border-white/5">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">07</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Choosing Your Ground</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Jurisdictional Freedom</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Optimizing your physical and legal location. We select "Fortress States" and jurisdictions that respect private property and individual liberty to maximize your net ROI.</p>
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-heading text-crimson uppercase tracking-widest font-bold">Tactical Objective</h4>
+                        <ul class="list-none text-gray-400 space-y-3 text-sm">
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Shift residency or business nexus to a 0% income tax state.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Analyze states by the "Liberty Index" (TX, WY, FL, etc.).</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Diversify physical asset storage across state lines.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Be where you are treated best."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pillar-row py-24 border-b border-white/5 bg-navy-900/30">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">08</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">The Outer Wall</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Estate Governance</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Erecting a legal barrier to ensure generational wealth survives your heartbeat. We bypass probate and state interference through ironclad trust structures and family governance.</p>
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-heading text-crimson uppercase tracking-widest font-bold">Tactical Objective</h4>
+                        <ul class="list-none text-gray-400 space-y-3 text-sm">
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Fully fund a Living Trust to bypass probate court.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Establish a Family Constitution for asset succession.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Appoint legal stewards for post-transition management.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Build the walls while you still have hands."</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="bg-crimson/10 py-12 border-b border-crimson/30 mt-12">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="font-heading text-2xl tracking-[0.4em] uppercase text-white">Phase 03: Total Sovereignty</h2>
+                <p class="text-xs text-crimson font-bold uppercase mt-2 tracking-widest">Focus: Ownership, Control, and Perpetual Motion</p>
+            </div>
+        </div>
+
+        <section class="pillar-row py-24 border-b border-white/5">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">09</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Capital Strike</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Sovereign Allocation</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Transitioning from speculation to ownership. We exit the "rented" wealth of Wall Street and move capital into hard assets and private equity where you have direct control.</p>
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-heading text-crimson uppercase tracking-widest font-bold">Tactical Objective</h4>
+                        <ul class="list-none text-gray-400 space-y-3 text-sm">
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Execute an 80/20 Private Asset/Market Index split.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Prioritize cash-flow over speculative growth.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Shift capital into rental real estate or private debt.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Don't rent your wealth. Own the engine."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pillar-row py-24 border-b border-white/5 bg-navy-900/30">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">10</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Ownership</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Private Equity Strike</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Purchasing existing cash flow. Instead of building from scratch, we acquire "boring" businesses with high moats to instantly scale our owner-benefit income.</p>
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-heading text-crimson uppercase tracking-widest font-bold">Tactical Objective</h4>
+                        <ul class="list-none text-gray-400 space-y-3 text-sm">
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Acquire a profitable, established business via SBA or Seller-Financing.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Audit P&Ls specifically for owner-benefit maximization.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Systematize management to minimize time-requirement.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Acquire the cash flow of others."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pillar-row py-24 border-b border-white/5">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">11</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Antifragility</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Resilience Audit</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Securing your empire outside the digital ledger. We conduct a final stress-test to ensure that even if the banking system goes offline, your wealth remains physical and accessible.</p>
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-heading text-crimson uppercase tracking-widest font-bold">Tactical Objective</h4>
+                        <ul class="list-none text-gray-400 space-y-3 text-sm">
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Maintain 5% of net worth in physical hard assets (metals/cash).</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Conduct a "Dry Zero" month where you live off physical reserves.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Perform a total counter-party risk audit of all financial institutions.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Survivability is the only metric that matters."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pillar-row py-24 border-b border-white/5 bg-navy-900/30">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">12</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Total Sovereignty</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">The Final Exit</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">The transition from builder to Sovereign. Your labor is now optional, as the machine generates perpetual motion. You move from running the empire to providing vision and legacy.</p>
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-heading text-crimson uppercase tracking-widest font-bold">Tactical Objective</h4>
+                        <ul class="list-none text-gray-400 space-y-3 text-sm">
+                            <li class="flex gap-3"><span class="text-crimson">/</span> 100% automation of asset and business oversight.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Appoint a Board of Stewards to manage the Trust logic.</li>
+                            <li class="flex gap-3"><span class="text-crimson">/</span> Achieve complete time-sovereignty with perpetual surplus.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Perpetual motion through discipline."</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="bg-navy-950 border-t-8 border-crimson pt-20 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-20">
+                <div class="lg:w-1/2">
+                    <a href="index.html" class="flex flex-col mb-6">
+                        <span style="font-family: 'Great Vibes';" class="text-5xl leading-none">Real American Finance</span>
+                        <span class="font-heading text-xs tracking-[0.5em] text-gray-500 uppercase font-bold mt-2">Sovereignty Through Discipline</span>
+                    </a>
+                    <p class="text-gray-400 max-w-md text-sm leading-relaxed italic">
+                        Providing tactical frameworks for financial autonomy. We do not offer investment advice; we build systems for the self-reliant.
+                    </p>
+                </div>
+                
+                <div class="lg:w-1/3 w-full">
+                    <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-white font-bold mb-4">Strategic Disclaimer</h4>
+                    <div class="bg-white/5 border border-white/10 p-5 rounded-sm">
+                        <p class="text-[11px] text-gray-500 uppercase tracking-widest leading-relaxed font-bold">
+                            All materials provided are for educational purposes. Execution of these pillars requires individual discretion. Real American Finance assumes no liability for market outcomes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-20 border-t border-white/5 pt-12">
+                <div>
+                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">The Academy</h4>
+                    <ul class="space-y-4 text-xs font-heading uppercase tracking-widest text-gray-500">
+                        <li><a href="#" class="hover:text-crimson transition">The 12 Pillars</a></li>
+                        <li><a href="#" class="hover:text-crimson transition">The Library</a></li>
+                        <li><a href="#" class="hover:text-crimson transition">Masterclass</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Tactical Tools</h4>
+                    <ul class="space-y-4 text-xs font-heading uppercase tracking-widest text-gray-500">
+                        <li><a href="the-lab.html" class="hover:text-crimson transition">The Lab (App)</a></li>
+                        <li><a href="#" class="hover:text-crimson transition">Sovereign Maps</a></li>
+                        <li><a href="#" class="hover:text-crimson transition">Debt Sniper</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Inquiries</h4>
+                    <ul class="space-y-4 text-xs font-heading uppercase tracking-widest text-gray-500">
+                        <li><a href="#" class="hover:text-crimson transition">Strategy Call</a></li>
+                        <li><a href="#" class="hover:text-crimson transition">Direct Liaison</a></li>
+                        <li><a href="#" class="hover:text-crimson transition">Institutional</a></li>
+                    </ul>
+                </div>
+                <div class="flex flex-col justify-end">
+                     <p class="text-[10px] text-gray-600 uppercase tracking-widest font-bold">© 2026 Real American Finance</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
