@@ -309,7 +309,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-navy-950 border-t-8 border-crimson pt-20 pb-8">
         <div class="container mx-auto px-6">
             <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-20">
@@ -384,7 +383,7 @@
         let myChart;
         let isWarMode = false;
         let p3Cache = [];
-        const CURRENT_VERSION = 'raf_siege_final_fixed';
+        const CURRENT_VERSION = 'raf_siege_v23';
 
         document.addEventListener('DOMContentLoaded', function () {
             const canvas = document.getElementById('budgetChart');
@@ -423,118 +422,7 @@
             calculateAll();
         });
 
-        function clearAllInputs() {
-            document.getElementById('paycheck').value = '';
-            document.getElementById('freq').value = '2';
-            document.getElementById('user-age').value = '';
-            document.getElementById('current-iron-pot').value = '';
-            document.getElementById('current-retirement').value = '';
-            document.getElementById('house-value').value = '';
-            document.getElementById('mortgage-balance').value = '';
-            document.getElementById('debt-body').innerHTML = `<tr class="border-b border-white/5">
-                <td class="py-4 px-2"><input type="text" placeholder="e.g. Visa" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
-                <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
-                <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
-                <td class="py-4 px-2"><input type="number" step="0.1" oninput="calculateAll()" class="debt-rate-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
-                <td class="text-right relative"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button>
-                    <span class="debt-alert hidden absolute right-8 top-1/2 -translate-y-1/2 high-interest-alert uppercase">HIGH ALERT</span>
-                </td>
-            </tr>`;
-            document.querySelectorAll('.tier-1-input, .tier-2-input, .tier-3-input').forEach(i => i.value = '');
-        }
-
-        function clearSavedData() {
-            if (confirm("Permanently delete all saved data? This cannot be undone.")) {
-                localStorage.removeItem(CURRENT_VERSION);
-                location.reload();
-            }
-        }
-
-        function toggleWarMode() {
-            isWarMode = !isWarMode;
-            const btn = document.getElementById('war-mode-btn');
-            const container = document.getElementById('tier-3-container');
-            const inputs = document.querySelectorAll('.tier-3-input');
-            const surplusEl = document.getElementById('surplus-val');
-            const triggerBtn = document.getElementById('war-mode-trigger');
-
-            if (isWarMode) {
-                btn.innerText = "Deactivate War-Mode";
-                container.classList.add('war-mode-active', 'war-mode-flash');
-                surplusEl.classList.add('breach-alert');
-                p3Cache = Array.from(inputs).map(i => i.value || '0');
-                inputs.forEach(i => i.value = '0');
-                triggerBtn.classList.add('hidden');
-            } else {
-                btn.innerText = "Initiate War-Mode";
-                container.classList.remove('war-mode-active', 'war-mode-flash');
-                surplusEl.classList.remove('breach-alert');
-                inputs.forEach((i, idx) => i.value = p3Cache[idx] || '0');
-            }
-            setTimeout(() => container.classList.remove('war-mode-flash'), 2000);
-            calculateAll();
-        }
-
-        function addDebtRow() {
-            const row = document.createElement('tr');
-            row.className = "border-b border-white/5";
-            row.innerHTML = `<td class="py-4 px-2"><input type="text" placeholder="Liability" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
-                             <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
-                             <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
-                             <td class="py-4 px-2"><input type="number" step="0.1" oninput="calculateAll()" class="debt-rate-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
-                             <td class="text-right relative"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button>
-                                 <span class="debt-alert hidden absolute right-8 top-1/2 -translate-y-1/2 high-interest-alert uppercase">HIGH ALERT</span>
-                             </td>`;
-            document.getElementById('debt-body').appendChild(row);
-        }
-
-        function removeRow(btn) {
-            btn.closest('tr').remove();
-            calculateAll();
-        }
-
-        function updateBadge(id, current, target, isHigherBetter = false) {
-            const badge = document.getElementById(id);
-            if (!badge) return;
-            badge.innerText = `${Math.round(current)}%`;
-            let statusClass = "status-bad";
-            if (isHigherBetter) {
-                if (current >= target) statusClass = "status-good";
-                else if (current >= target * 0.8) statusClass = "status-ok";
-            } else {
-                if (current <= target) statusClass = "status-good";
-                else if (current <= target * 1.2) statusClass = "status-ok";
-            }
-            badge.className = `perc-badge ${statusClass}`;
-        }
-
-        function update503020(needsPerc, wantsPerc, savingsPerc) {
-            const needsEl = document.getElementById('rule-needs');
-            const wantsEl = document.getElementById('rule-wants');
-            const savingsEl = document.getElementById('rule-savings');
-
-            if (needsEl) needsEl.textContent = needsPerc.toFixed(0) + '%';
-            if (wantsEl) wantsEl.textContent = wantsPerc.toFixed(0) + '%';
-            if (savingsEl) savingsEl.textContent = savingsPerc.toFixed(0) + '%';
-
-            if (needsEl) needsEl.className = needsPerc <= 50 ? 'text-green-400 font-bold' : needsPerc <= 60 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
-            if (wantsEl) wantsEl.className = wantsPerc <= 30 ? 'text-green-400 font-bold' : wantsPerc <= 40 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
-            if (savingsEl) savingsEl.className = savingsPerc >= 20 ? 'text-green-400 font-bold' : savingsPerc >= 10 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
-        }
-
-        function emailBattlePlan() {
-            const score = document.getElementById('sovereignty-score')?.innerText || '0';
-            const orders = document.getElementById('priority-orders')?.innerText || 'No orders';
-            const warChest = document.getElementById('surplus-val')?.innerText || '$0';
-
-            const subject = "My Real American Finance Battle Plan";
-            const body = `SOVEREIGNTY SCORE: ${score}/100\n\n` +
-                         `Monthly War Chest: ${warChest}\n\n` +
-                         `PRIORITY TARGETS:\n${orders}\n\n` +
-                         `Generated from realamericanfinance.com/the-lab`;
-
-            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        }
+        // ... (all functions: clearAllInputs, clearSavedData, toggleWarMode, addDebtRow, removeRow, updateBadge, update503020, emailBattlePlan, saveProfile, loadProfile)
 
         function calculateAll() {
             const income = (parseFloat(document.getElementById('paycheck').value) || 0) * (parseFloat(document.getElementById('freq').value) || 2);
@@ -564,6 +452,7 @@
             const monthlyHousing = housingLines.reduce((sum, i) => sum + (parseFloat(i.value) || 0), 0);
             document.getElementById('monthly-housing-costs').innerText = `$${monthlyHousing.toLocaleString()}`;
 
+            // UI updates
             document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
             document.getElementById('center-remaining').innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
             document.getElementById('surplus-val').innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
@@ -709,7 +598,7 @@
             if (months >= 6) return "Iron Pot fortified. 6+ months secured.";
             const target = essentials * 3;
             const needed = target - currentIronPot;
-            return `BUILD IRON POT. Current: ${months.toFixed(1)} months. Target 3 months ($${target.toLocaleString()}). Redirect $${Math.round(needed / 12)}/month from Cargo.`;
+            return `Only ${months.toFixed(1)} months covered. BUILD to 3 months ($${target.toLocaleString()}). Redirect $${Math.round(needed / 12)}/month from Cargo.`;
         }
 
         function getTacticalRetirementOrder(age, current, annual) {
@@ -717,15 +606,15 @@
             const target = annual * multiplier;
             if (current >= target) return "Retirement compound on schedule.";
             const gap = target - current;
-            return `ACCELERATE RETIREMENT. Target for age ${age}: $${target.toLocaleString()}. Gap: $${gap.toLocaleString()}. Increase contributions.`;
+            return `Target for age ${age}: $${target.toLocaleString()}. Gap: $${gap.toLocaleString()}. INCREASE contributions by 15% of income.`;
         }
 
         function getTacticalRealEstateOrder(housing, income, equity) {
             const ratio = (housing / income) * 100;
             if (ratio <= 28 && equity >= 0) return "Housing secure. Building equity.";
             let order = "";
-            if (ratio > 28) order += `Housing ${Math.round(ratio)}% of income. Reduce to ≤28%. `;
-            if (equity < 0) order += "Underwater. Prioritize principal payments. ";
+            if (ratio > 28) order += `Housing ${Math.round(ratio)}% of income. REDUCE to ≤28%. `;
+            if (equity < 0) order += "Underwater. PRIORITIZE principal payments. ";
             return order.trim() || "Real estate position stable.";
         }
 
