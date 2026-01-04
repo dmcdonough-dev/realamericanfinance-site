@@ -390,32 +390,46 @@
             const canvas = document.getElementById('budgetChart');
             if (canvas) {
                 const ctx = canvas.getContext('2d');
-                myChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Needs', 'Debt Mins', 'Infrastructure', 'Cargo', 'Surplus'],
-                        datasets: [{
-                            data: [0, 0, 0, 0, 100],
-                            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#DC143C'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        cutout: '85%',
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.label || '';
-                                        let value = context.parsed;
-                                        return `${label}: $${value.toLocaleString()}`;
-                                    }
-                                }
-                            }
-                        }
+               myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Needs', 'Debt Minimums', 'Infrastructure', 'Cargo / Wants', 'Surplus'],
+        datasets: [{
+            data: [1, 1, 1, 1, 1], // placeholder so no slice dominates
+            backgroundColor: [
+                '#FFFFFF',   // Needs
+                '#B22234',   // Debt
+                '#9ca3af',   // Infrastructure
+                '#4b5563',   // Cargo
+                '#22c55e'    // Surplus (green by default)
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        cutout: '85%',
+        animation: {
+            animateRotate: true,
+            duration: 700,
+            easing: 'easeOutCubic'
+        },
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        const label = context.label;
+                        const value = context.parsed;
+                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                        const pct = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                        return `${label}: $${value.toLocaleString()} (${pct}%)`;
                     }
-                });
+                }
+            }
+        }
+    }
+});
+
             }
 
             clearAllInputs();
