@@ -595,70 +595,74 @@
                     </div>
                 </div>
 
-                <!-- Current Assets & Real Estate - UPDATED WITH COMBINED RETIREMENT/INVESTMENTS -->
-                <div class="dashboard-card p-6 md:p-8 shadow-2xl assets-box">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-4 text-crimson">Current Assets & Investments</h3>
-                        <div class="tooltip-trigger">
-                            <i class="fas fa-info-circle text-gray-500 hover:text-crimson cursor-pointer"></i>
-                            <div class="tooltip-content">
-                                <strong>Emergency Fund:</strong> Cash savings for unexpected expenses (3-6 months target).<br><br>
-                                <strong>Retirement & Investment Accounts:</strong> Combined total of 401(k), IRA, Roth IRA, pension, and taxable brokerage accounts.<br><br>
-                                <strong>Real Estate Equity:</strong> Home value minus mortgage balance.<br><br>
-                                <strong>Other Assets:</strong> HSAs, 529 plans, vehicles, collectibles.
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-400 mb-6 uppercase tracking-wider">Current balances (not monthly). Used for Financial Health Score.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                        <!-- Personal Info -->
-                        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
-                            <span class="text-xs uppercase font-bold text-gray-100">Your Age</span>
-                            <input type="number" id="user-age" oninput="calculateAll()" class="input-underlined w-20 md:w-24 text-right" placeholder="35">
-                        </div>
-                        
-                        <!-- Cash & Savings -->
-                        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
-                            <span class="text-xs uppercase font-bold text-gray-100">Emergency Fund ($)</span>
-                            <input type="number" id="current-iron-pot" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
-                        </div>
-                        
-                        <!-- COMBINED Retirement & Investment Accounts -->
-                        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
-                            <span class="text-xs uppercase font-bold text-gray-100">Retirement + Investments ($)</span>
-                            <input type="number" id="total-investments" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
-                        </div>
-                        
-                        <!-- Real Estate -->
-                        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
-                            <span class="text-xs uppercase font-bold text-gray-100">House Value ($)</span>
-                            <input type="number" id="house-value" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
-                        </div>
-                        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
-                            <span class="text-xs uppercase font-bold text-gray-100">Mortgage Balance ($)</span>
-                            <input type="number" id="mortgage-balance" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
-                        </div>
-                        
-                        <!-- Additional Assets -->
-                        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
-                            <span class="text-xs uppercase font-bold text-gray-100">Other Assets ($)</span>
-                            <input type="number" id="other-assets" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
-                        </div>
-                        
-                        <!-- Auto-calculated summary -->
-                        <div class="py-3 px-4 bg-white/5 text-sm col-span-2 rounded">
-                            <div class="flex justify-between items-center">
-                                <span class="text-xs uppercase font-bold text-crimson">Total Investable Assets</span>
-                                <span id="total-investable-assets" class="font-bold">$0</span>
-                            </div>
-                            <div class="flex justify-between items-center mt-2">
-                                <span class="text-xs uppercase font-bold text-green-400">Total Net Worth</span>
-                                <span id="total-net-worth" class="font-bold text-green-400">$0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+             <!-- Current Assets & Real Estate - UPDATED TO SHOW NET WORTH -->
+<div class="dashboard-card p-6 md:p-8 shadow-2xl assets-box">
+    <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-4 text-crimson">Current Assets & Net Worth</h3>
+        <div class="tooltip-trigger">
+            <i class="fas fa-info-circle text-gray-500 hover:text-crimson cursor-pointer"></i>
+            <div class="tooltip-content">
+                <strong>Net Worth:</strong> Total assets minus total liabilities (debts).<br><br>
+                <strong>Assets:</strong> Emergency fund, investments, real estate equity, other assets.<br><br>
+                <strong>Liabilities:</strong> High-interest debt (from Section 02) + mortgage balance.<br><br>
+                <strong>Real Estate Equity:</strong> Home value minus mortgage balance.<br><br>
+                <strong>Note:</strong> This section updates automatically when you add/remove debt.
+            </div>
+        </div>
+    </div>
+    <p class="text-xs text-gray-400 mb-6 uppercase tracking-wider">Current balances (not monthly). Calculates your net worth.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+        <!-- Personal Info -->
+        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
+            <span class="text-xs uppercase font-bold text-gray-100">Your Age</span>
+            <input type="number" id="user-age" oninput="calculateAll()" class="input-underlined w-20 md:w-24 text-right" placeholder="35">
+        </div>
+        
+        <!-- Cash & Savings -->
+        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
+            <span class="text-xs uppercase font-bold text-gray-100">Emergency Fund ($)</span>
+            <input type="number" id="current-iron-pot" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
+        </div>
+        
+        <!-- COMBINED Retirement & Investment Accounts -->
+        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
+            <span class="text-xs uppercase font-bold text-gray-100">Retirement + Investments ($)</span>
+            <input type="number" id="total-investments" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
+        </div>
+        
+        <!-- Real Estate -->
+        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
+            <span class="text-xs uppercase font-bold text-gray-100">House Value ($)</span>
+            <input type="number" id="house-value" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
+        </div>
+        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
+            <span class="text-xs uppercase font-bold text-gray-100">Mortgage Balance ($)</span>
+            <input type="number" id="mortgage-balance" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
+        </div>
+        
+        <!-- Additional Assets -->
+        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
+            <span class="text-xs uppercase font-bold text-gray-100">Other Assets ($)</span>
+            <input type="number" id="other-assets" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
+        </div>
+        
+        <!-- Auto-calculated NET WORTH breakdown -->
+        <div class="py-3 px-4 bg-white/5 text-sm col-span-2 rounded">
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-xs uppercase font-bold text-green-400">Total Assets</span>
+                <span id="total-assets" class="font-bold text-green-400">$0</span>
+            </div>
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-xs uppercase font-bold text-crimson">Total Liabilities</span>
+                <span id="total-liabilities" class="font-bold text-crimson">$0</span>
+            </div>
+            <div class="flex justify-between items-center border-t border-white/10 pt-2 mt-2">
+                <span class="text-xs uppercase font-bold text-white">Net Worth</span>
+                <span id="total-net-worth" class="text-lg font-bold text-white">$0</span>
+            </div>
+        </div>
+    </div>
+</div>
                 <!-- 03. Monthly Budget -->
                 <div class="dashboard-card p-6 md:p-8 shadow-2xl">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-10 gap-4">
@@ -2032,10 +2036,27 @@
                 const totalInvestableAssets = currentIronPot + totalInvestments + otherAssets;
                 safeSetText('total-investable-assets', `$${totalInvestableAssets.toLocaleString()}`);
 
-                // Calculate total net worth (including real estate equity)
-                const realEstateEquity = houseValue - mortgageBalance;
-                const totalNetWorth = currentIronPot + totalInvestments + otherAssets + realEstateEquity;
-                safeSetText('total-net-worth', `$${totalNetWorth.toLocaleString()}`);
+               // Calculate total assets
+const totalAssets = currentIronPot + totalInvestments + otherAssets + houseValue;
+
+// Calculate total liabilities (high-interest debt + mortgage)
+const totalLiabilities = dTotal + mortgageBalance; // dTotal = high-interest debt from Section 02
+
+// Calculate total net worth (assets minus liabilities)
+const totalNetWorth = totalAssets - totalLiabilities;
+
+// Update the UI elements
+safeSetText('total-assets', `$${totalAssets.toLocaleString()}`);
+safeSetText('total-liabilities', `$${totalLiabilities.toLocaleString()}`);
+
+// Color code net worth based on positive/negative
+if (totalNetWorth >= 0) {
+    safeSetText('total-net-worth', `$${totalNetWorth.toLocaleString()}`);
+    document.getElementById('total-net-worth').className = 'text-lg font-bold text-green-400';
+} else {
+    safeSetText('total-net-worth', `-$${Math.abs(totalNetWorth).toLocaleString()}`);
+    document.getElementById('total-net-worth').className = 'text-lg font-bold text-crimson';
+}
 
                 // Calculate housing costs (first 3 tier-1 inputs)
                 const housingInputs = document.querySelectorAll('.tier-1-input');
@@ -2625,6 +2646,23 @@
                 });
             }
 
+// CRITICAL: Negative net worth
+if (totalNetWorth < 0) {
+    const negativeAmount = Math.abs(totalNetWorth);
+    actions.push({
+        id: 'negative_net_worth',
+        priority: 'CRITICAL',
+        title: 'Eliminate Negative Net Worth',
+        description: `Your net worth is -$${negativeAmount.toLocaleString()}. You owe more than you own.`,
+        action: `Focus on debt reduction and asset building. Aim to reach $0 net worth first.`,
+        impact: 'HIGH',
+        time: 'Immediate',
+        section: 'assets',
+        progress: Math.min(100, Math.max(0, (totalAssets / totalLiabilities) * 100)),
+        autoProgress: true
+    });
+}
+            
             // HIGH: High-interest debt (>25% APR)
             if (highInterestCount > 0) {
                 const dailyCost = calculateTotalDailyInterest();
@@ -3126,7 +3164,7 @@
                 'budgeting': 'Assesses your adherence to the 50/30/20 rule. 50% or less on needs, 30% or less on wants, 20% or more to savings/debt repayment.',
                 'debt': 'Evaluates your high-interest debt-to-income ratio (should be ≤36%) and interest rates. Mortgage debt is evaluated separately.',
                 'emergency': 'Measures your emergency fund relative to essential expenses. Target is 3-6 months worth of essential expenses.',
-                'investments': 'Compares your combined retirement and investment assets to annual income. Target: 1-5x income depending on age.',
+                'investments': 'Evaluates your investment assets relative to income. Based on total assets (emergency fund + investments + other assets + house value) minus total liabilities (high-interest debt + mortgage). Target: 1-5x income depending on age.',
                 'realestate': 'Assesses housing costs (should be ≤28% of income) and home equity position. Mortgage is evaluated here, not in debt score.'
             };
             
