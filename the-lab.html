@@ -279,6 +279,21 @@
             background: #00FF00;
             transition: width 0.5s ease;
         }
+        
+        /* Scenario Cards */
+        .scenario-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .scenario-card:hover {
+            background: rgba(178, 34, 52, 0.1);
+            border-color: #B22234;
+            transform: translateY(-2px);
+        }
     </style>
     <script>
         tailwind.config = {
@@ -1086,50 +1101,47 @@
         </div>
 
         <!-- What-If Scenarios -->
-<div class="mt-12 md:mt-20 dashboard-card p-6 md:p-8 shadow-2xl border-l-4 border-blue-500">
-    <div class="flex justify-between items-center mb-6">
-        <h3 class="text-xl font-heading font-bold uppercase">What-If Scenarios</h3>
-        <i class="fas fa-lightbulb text-yellow-500 text-xl"></i>
-    </div>
-    <p class="text-gray-400 mb-6">See how changes affect your financial future</p>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="scenario-card" onclick="runScenario('raise')">
-            <div class="flex items-center mb-2">
-                <i class="fas fa-arrow-up text-green-500 mr-3"></i>
-                <h4 class="font-bold">10% Raise</h4>
+        <div class="mt-12 md:mt-20 dashboard-card p-6 md:p-8 shadow-2xl border-l-4 border-blue-500">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-heading font-bold uppercase">What-If Scenarios</h3>
+                <i class="fas fa-lightbulb text-yellow-500 text-xl"></i>
             </div>
-            <p class="text-sm text-gray-400">What if you got a 10% raise?</p>
-        </div>
-        
-        <div class="scenario-card" onclick="runScenario('cut_dining')">
-            <div class="flex items-center mb-2">
-                <i class="fas fa-utensils text-red-500 mr-3"></i>
-                <h4 class="font-bold">Cut Dining Out</h4>
+            <p class="text-gray-400 mb-6">See how changes affect your financial future</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="scenario-card" onclick="runScenario('raise')">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-arrow-up text-green-500 mr-3"></i>
+                        <h4 class="font-bold">10% Raise</h4>
+                    </div>
+                    <p class="text-sm text-gray-400">What if you got a 10% raise?</p>
+                </div>
+                
+                <div class="scenario-card" onclick="runScenario('cut_dining')">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-utensils text-red-500 mr-3"></i>
+                        <h4 class="font-bold">Cut Dining Out</h4>
+                    </div>
+                    <p class="text-sm text-gray-400">Reduce dining out by 50%</p>
+                </div>
+                
+                <div class="scenario-card" onclick="runScenario('debt_free')">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-weight-hanging text-crimson mr-3"></i>
+                        <h4 class="font-bold">Debt Free</h4>
+                    </div>
+                    <p class="text-sm text-gray-400">If all debt was paid off</p>
+                </div>
+                
+                <div class="scenario-card" onclick="runScenario('emergency_fund')">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-shield-alt text-blue-500 mr-3"></i>
+                        <h4 class="font-bold">6-Month Emergency Fund</h4>
+                    </div>
+                    <p class="text-sm text-gray-400">With full emergency fund</p>
+                </div>
             </div>
-            <p class="text-sm text-gray-400">Reduce dining out by 50%</p>
         </div>
-        
-        <div class="scenario-card" onclick="runScenario('debt_free')">
-            <div class="flex items-center mb-2">
-                <i class="fas fa-weight-hanging text-crimson mr-3"></i>
-                <h4 class="font-bold">Debt Free</h4>
-            </div>
-            <p class="text-sm text-gray-400">If all debt was paid off</p>
-        </div>
-        
-        <div class="scenario-card" onclick="runScenario('emergency_fund')">
-            <div class="flex items-center mb-2">
-                <i class="fas fa-shield-alt text-blue-500 mr-3"></i>
-                <h4 class="font-bold">6-Month Emergency Fund</h4>
-            </div>
-            <p class="text-sm text-gray-400">With full emergency fund</p>
-        </div>
-    </div>
-</div>
-
-<!-- Financial Health Score - UPDATED WITH COMBINED INVESTMENTS -->
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 mt-12 md:mt-20">
 
         <!-- Financial Health Score - UPDATED WITH COMBINED INVESTMENTS -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 mt-12 md:mt-20">
@@ -1390,12 +1402,13 @@
         };
 
         // Helper function for safe text updates
-function safeSetText(elementId, text) {
-    const element = document.getElementById(elementId);
-    if (element) {
-        element.textContent = text;
-    }
-}
+        function safeSetText(elementId, text) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = text;
+            }
+        }
+
         const FREE_LIMITS = {
             maxDebts: 5,
             maxExports: 1,
@@ -1523,16 +1536,6 @@ function safeSetText(elementId, text) {
                 initializeMobileView();
             }
         });
-
-        // Safe text setting function
-        function safeSetText(elementId, text) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.textContent = text;
-            } else {
-                console.warn(`Element #${elementId} not found`);
-            }
-        }
 
         // PWA Setup
         let deferredPrompt;
@@ -2003,7 +2006,7 @@ function safeSetText(elementId, text) {
         }
 
         // ====================
-        // MAIN CALCULATION FUNCTIONS (FIXED MORTGAGE & RETIREMENT)
+        // MAIN CALCULATION FUNCTIONS
         // ====================
 
         function calculateAll() {
@@ -2040,9 +2043,6 @@ function safeSetText(elementId, text) {
                 
                 debtMinInputs.forEach(i => dMin += parseFloat(i.value) || 0);
                 debtBalanceInputs.forEach(i => dTotal += parseFloat(i.value) || 0);
-                
-                // Mortgage is NOT included in high-interest debt calculations
-                const mortgageBalance = parseFloat(document.getElementById('mortgage-balance').value) || 0;
                 
                 // Update debt alerts
                 debtRateInputs.forEach((input, index) => {
@@ -2100,7 +2100,8 @@ function safeSetText(elementId, text) {
                 const totalAssets = currentIronPot + totalInvestments + otherAssets + houseValue;
 
                 // Calculate total liabilities (high-interest debt + mortgage)
-                const totalLiabilities = dTotal + mortgageBalance; // dTotal = high-interest debt from Section 02
+                const mortgageBalance = parseFloat(document.getElementById('mortgage-balance').value) || 0;
+                const totalLiabilities = dTotal + mortgageBalance;
 
                 // Calculate total net worth (assets minus liabilities)
                 const totalNetWorth = totalAssets - totalLiabilities;
@@ -2288,35 +2289,7 @@ function safeSetText(elementId, text) {
                 }
 
                 // Pie Chart Update
-               function updateChart(t1, dMin, t2, t3, t4Allocations, remainingSurplus, income) {
-    try {
-        if (!myChart) {
-            console.error("Chart not initialized");
-            return;
-        }
-        
-        const totalExpenses = t1 + dMin + t2 + t3 + t4Allocations;
-        const remaining = Math.max(0, income - totalExpenses);
-        const deficit = totalExpenses > income ? totalExpenses - income : 0;
-
-        const dataValues = deficit === 0 ? 
-            [t1, dMin, t2, t3, t4Allocations, remaining] :
-            [t1, dMin, t2, t3, t4Allocations, deficit];
-        
-        // Ensure all values are numbers
-        myChart.data.datasets[0].data = dataValues.map(v => Number(v) || 0);
-        
-        if (deficit === 0) {
-            myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00', '#1E90FF'];
-        } else {
-            myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00', '#DC143C'];
-        }
-        
-        myChart.update();
-    } catch (error) {
-        console.error("Error updating chart:", error);
-    }
-}
+                updateChart(t1, dMin, t2, t3, totalT4Allocations, remainingSurplus, income);
                 
                 // Update data points count
                 updateDataPoints();
@@ -2515,7 +2488,6 @@ function safeSetText(elementId, text) {
             return { totalDailyBleed, totalMonthlyBleed, activeDebts };
         }
 
-        // Add missing calculateTotalDailyInterest function
         function calculateTotalDailyInterest() {
             let total = 0;
             const debtRows = document.querySelectorAll('#debt-body tr');
@@ -2770,26 +2742,23 @@ function safeSetText(elementId, text) {
                 });
             }
 
-// CRITICAL: Negative net worth (calculate it here)
-const totalAssets = currentIronPot + totalInvestments + (parseFloat(document.getElementById('other-assets').value) || 0) + houseValue;
-const totalLiabilities = highInterestDebtTotal + mortgageBalance;
-const currentNetWorth = totalAssets - totalLiabilities;
-
-if (currentNetWorth < 0) {
-    const negativeAmount = Math.abs(currentNetWorth);
-    actions.push({
-        id: 'negative_net_worth',
-        priority: 'CRITICAL',
-        title: 'Eliminate Negative Net Worth',
-        description: `Your net worth is -$${negativeAmount.toLocaleString()}. You owe more than you own.`,
-        action: `Focus on debt reduction and asset building. Aim to reach $0 net worth first.`,
-        impact: 'HIGH',
-        time: 'Immediate',
-        section: 'assets',
-        progress: Math.min(100, Math.max(0, (totalAssets / Math.max(1, totalLiabilities)) * 100)),
-        autoProgress: true
-    });
-}
+            // CRITICAL: Negative net worth
+            const totalNetWorth = totalAssets - totalLiabilities;
+            if (totalNetWorth < 0) {
+                const negativeAmount = Math.abs(totalNetWorth);
+                actions.push({
+                    id: 'negative_net_worth',
+                    priority: 'CRITICAL',
+                    title: 'Eliminate Negative Net Worth',
+                    description: `Your net worth is -$${negativeAmount.toLocaleString()}. You owe more than you own.`,
+                    action: `Focus on debt reduction and asset building. Aim to reach $0 net worth first.`,
+                    impact: 'HIGH',
+                    time: 'Immediate',
+                    section: 'assets',
+                    progress: Math.min(100, Math.max(0, (totalAssets / Math.max(1, totalLiabilities)) * 100)),
+                    autoProgress: true
+                });
+            }
             
             // HIGH: High-interest debt (>25% APR)
             if (highInterestCount > 0) {
@@ -3722,27 +3691,57 @@ if (currentNetWorth < 0) {
                 savingsEl.className = savingsPerc >= 20 ? 'text-green-400 font-bold' : savingsPerc >= 10 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
             }
         }
-function calculateTotalDailyInterest() {
-    let total = 0;
-    const debtRows = document.querySelectorAll('#debt-body tr');
-    
-    debtRows.forEach(row => {
-        const balanceInput = row.querySelector('.debt-balance-input');
-        const rateInput = row.querySelector('.debt-rate-input');
-        
-        if (balanceInput && rateInput) {
-            const balance = parseFloat(balanceInput.value) || 0;
-            const rate = parseFloat(rateInput.value) || 0;
+
+        // What-If Scenarios
+        function runScenario(scenario) {
+            const paycheck = parseFloat(document.getElementById('paycheck').value) || 0;
+            const freq = parseFloat(document.getElementById('freq').value) || 2;
+            const income = paycheck * freq;
             
-            if (balance > 0 && rate > 0) {
-                total += (balance * (rate/100)) / 365;
+            switch(scenario) {
+                case 'raise':
+                    const raiseAmount = income * 0.10;
+                    showToast(`10% raise would add $${raiseAmount.toLocaleString()}/month to your income.`);
+                    break;
+                case 'cut_dining':
+                    const diningInput = document.querySelector('.tier-3-input');
+                    if (diningInput) {
+                        const currentDining = parseFloat(diningInput.value) || 0;
+                        const savings = currentDining * 0.50;
+                        showToast(`Cutting dining out by 50% would save $${savings.toLocaleString()}/month.`);
+                    } else {
+                        showToast('Enter dining out amount first to see potential savings.');
+                    }
+                    break;
+                case 'debt_free':
+                    const debtTotal = parseFloat(document.getElementById('total-debt-val')?.textContent?.replace(/[^0-9.-]+/g, "") || 0);
+                    if (debtTotal > 0) {
+                        showToast(`Being debt-free would free up $${debtTotal.toLocaleString()} and improve your score significantly.`);
+                    } else {
+                        showToast('You have no high-interest debt! Great job!');
+                    }
+                    break;
+                case 'emergency_fund':
+                    const essentials = Array.from(document.querySelectorAll('.tier-1-input'))
+                        .reduce((sum, input) => sum + (parseFloat(input.value) || 0), 0);
+                    const targetEmergency = essentials * 6;
+                    showToast(`A 6-month emergency fund would require $${targetEmergency.toLocaleString()}.`);
+                    break;
             }
         }
-    });
-    
-    return total;
-}
-        
+
+        // Debug helper (remove in production)
+        function testDebug() {
+            console.log("=== DEBUG TEST ===");
+            console.log("Chart exists:", !!myChart);
+            console.log("Score element:", document.getElementById('sovereignty-score'));
+            console.log("Debt rows:", document.querySelectorAll('#debt-body tr').length);
+            
+            // Force a simple calculation
+            document.getElementById('paycheck').value = 3000;
+            document.getElementById('freq').value = 2;
+            calculateAll();
+        }
     </script>
 </body>
 </html>
