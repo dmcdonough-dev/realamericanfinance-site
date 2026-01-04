@@ -534,33 +534,47 @@
                     </div>
                 </div>
 
-                <!-- Current Assets & Real Estate -->
+                <!-- Current Assets & Real Estate - UPDATED WITH ALL SAVINGS/INVESTMENTS -->
                 <div class="dashboard-card p-6 md:p-8 shadow-2xl assets-box">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-4 text-crimson">Current Assets & Real Estate</h3>
+                        <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-4 text-crimson">Current Assets & Investments</h3>
                         <div class="tooltip-trigger">
                             <i class="fas fa-info-circle text-gray-500 hover:text-crimson cursor-pointer"></i>
                             <div class="tooltip-content">
-                                <strong>Emergency Fund:</strong> Your savings for unexpected expenses. Target is 3-6 months of essential expenses.<br><br>
-                                <strong>Savings Timeline:</strong> (Emergency Fund Target - Current) / Monthly Savings = Months to security.<br><br>
-                                <strong>Housing Alert:</strong> If housing costs exceed 28% of income, Real Estate pillar flashes red.
+                                <strong>Emergency Fund:</strong> Cash savings for unexpected expenses (3-6 months target).<br><br>
+                                <strong>Retirement Accounts:</strong> 401(k), IRA, Roth IRA, pension plans.<br><br>
+                                <strong>Investment Assets:</strong> Brokerage accounts, stocks, bonds, mutual funds, ETFs.<br><br>
+                                <strong>Real Estate Equity:</strong> Home value minus mortgage balance.
                             </div>
                         </div>
                     </div>
                     <p class="text-xs text-gray-400 mb-6 uppercase tracking-wider">Current balances (not monthly). Used for Financial Health Score.</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                        <!-- Personal Info -->
                         <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
                             <span class="text-xs uppercase font-bold text-gray-100">Your Age</span>
                             <input type="number" id="user-age" oninput="calculateAll()" class="input-underlined w-20 md:w-24 text-right" placeholder="35">
                         </div>
+                        
+                        <!-- Cash & Savings -->
                         <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
                             <span class="text-xs uppercase font-bold text-gray-100">Emergency Fund ($)</span>
                             <input type="number" id="current-iron-pot" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
                         </div>
+                        
+                        <!-- Retirement Accounts -->
                         <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
-                            <span class="text-xs uppercase font-bold text-gray-100">Retirement Total ($)</span>
+                            <span class="text-xs uppercase font-bold text-gray-100">401(k) / IRA ($)</span>
                             <input type="number" id="current-retirement" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
                         </div>
+                        
+                        <!-- Other Investments -->
+                        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
+                            <span class="text-xs uppercase font-bold text-gray-100">Brokerage Accounts ($)</span>
+                            <input type="number" id="investment-assets" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
+                        </div>
+                        
+                        <!-- Real Estate -->
                         <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
                             <span class="text-xs uppercase font-bold text-gray-100">House Value ($)</span>
                             <input type="number" id="house-value" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
@@ -569,9 +583,27 @@
                             <span class="text-xs uppercase font-bold text-gray-100">Mortgage Balance ($)</span>
                             <input type="number" id="mortgage-balance" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
                         </div>
+                        
+                        <!-- Additional Savings/Investments -->
+                        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
+                            <span class="text-xs uppercase font-bold text-gray-100">HSAs / 529 Plans ($)</span>
+                            <input type="number" id="other-savings" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
+                        </div>
+                        <div class="flex justify-between items-center border-b border-white/5 py-3 px-2">
+                            <span class="text-xs uppercase font-bold text-gray-100">Other Assets ($)</span>
+                            <input type="number" id="other-assets" oninput="calculateAll()" class="input-underlined w-28 md:w-32 text-right" placeholder="0">
+                        </div>
+                        
+                        <!-- Auto-calculated summary -->
                         <div class="py-3 px-4 bg-white/5 text-sm col-span-2 rounded">
-                            <span class="text-xs uppercase font-bold text-crimson">Monthly Housing Costs</span>
-                            <span id="monthly-housing-costs" class="ml-4 font-bold">$0</span>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs uppercase font-bold text-crimson">Monthly Housing Costs</span>
+                                <span id="monthly-housing-costs" class="font-bold">$0</span>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-xs uppercase font-bold text-green-400">Total Net Worth</span>
+                                <span id="total-net-worth" class="font-bold text-green-400">$0</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -925,7 +957,7 @@
             </div>
         </div>
 
-        <!-- Financial Health Score -->
+        <!-- Financial Health Score - UPDATED WITH INVESTMENTS PILLAR -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 mt-12 md:mt-20">
             <div class="lg:col-span-3 dashboard-card p-8 md:p-10 text-center shadow-2xl border-crimson border-2" id="sovereignty-container">
                 <h3 class="text-2xl md:text-3xl font-heading uppercase tracking-wider mb-4 text-gray-300">Your Financial Health Score</h3>
@@ -940,7 +972,7 @@
                     </p>
                 </div>
                 
-                <div class="mt-6 md:mt-8 grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 text-xs">
+                <div class="mt-6 md:mt-8 grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4 text-xs">
                     <div class="bg-navy-900 p-3 md:p-4 rounded cursor-pointer hover:bg-navy-800 transition" onclick="showPillarInfo('budgeting')" id="pillar-budgeting">
                         <span class="block uppercase text-gray-400">Budgeting</span>
                         <span id="score-budget" class="text-xl md:text-2xl font-bold text-white">0</span>/20
@@ -955,7 +987,11 @@
                     </div>
                     <div class="bg-navy-900 p-3 md:p-4 rounded cursor-pointer hover:bg-navy-800 transition" onclick="showPillarInfo('retirement')" id="pillar-retirement">
                         <span class="block uppercase text-gray-400">Retirement</span>
-                        <span id="score-retirement" class="text-xl md:text-2xl font-bold text-white">0</span>/20
+                        <span id="score-retirement" class="text-xl md:text-2xl font-bold text-white">0</span>/15
+                    </div>
+                    <div class="bg-navy-900 p-3 md:p-4 rounded cursor-pointer hover:bg-navy-800 transition" onclick="showPillarInfo('investments')" id="pillar-investments">
+                        <span class="block uppercase text-gray-400">Investments</span>
+                        <span id="score-investments" class="text-xl md:text-2xl font-bold text-white">0</span>/5
                     </div>
                     <div class="bg-navy-900 p-3 md:p-4 rounded cursor-pointer hover:bg-navy-800 transition" onclick="showPillarInfo('realestate')" id="pillar-realestate">
                         <span class="block uppercase text-gray-400">Real Estate</span>
@@ -1768,7 +1804,7 @@
         }
 
         // ====================
-        // MAIN CALCULATION FUNCTIONS (COPIED FROM ORIGINAL)
+        // MAIN CALCULATION FUNCTIONS (UPDATED WITH INVESTMENTS)
         // ====================
 
         function safeSetText(elementId, text) {
@@ -1868,7 +1904,14 @@
                 const age = parseFloat(document.getElementById('user-age').value) || 0;
                 const currentIronPot = parseFloat(document.getElementById('current-iron-pot').value) || 0;
                 const currentRetirement = parseFloat(document.getElementById('current-retirement').value) || 0;
+                const investmentAssets = parseFloat(document.getElementById('investment-assets').value) || 0;
+                const otherSavings = parseFloat(document.getElementById('other-savings').value) || 0;
+                const otherAssets = parseFloat(document.getElementById('other-assets').value) || 0;
                 const houseValue = parseFloat(document.getElementById('house-value').value) || 0;
+
+                // Calculate total net worth
+                const totalNetWorth = currentIronPot + currentRetirement + investmentAssets + otherSavings + otherAssets + (houseValue - mortgageBalance);
+                safeSetText('total-net-worth', `$${totalNetWorth.toLocaleString()}`);
 
                 // Calculate housing costs (first 3 tier-1 inputs)
                 const housingInputs = document.querySelectorAll('.tier-1-input');
@@ -1946,11 +1989,14 @@
                 updateBadge('badge-t3', wantsPerc, 30, false);
                 update503020(needsPerc, wantsPerc, surplusPerc);
 
-                // Calculate Financial Health Score with dynamic weighting
+                // Calculate total investable assets
+                const totalInvestableAssets = currentRetirement + investmentAssets + otherSavings + otherAssets;
+
+                // Calculate Financial Health Score with dynamic weighting (UPDATED WITH INVESTMENTS)
                 const scoreData = calculateFinancialHealthScore(
                     income, essentials, currentIronPot, totalDebtIncludingMortgage, 
-                    monthlyHousing, age, currentRetirement, houseValue, mortgageBalance,
-                    surplusPerc, needsPerc, wantsPerc, highInterestCount
+                    monthlyHousing, age, currentRetirement, investmentAssets, otherSavings, otherAssets,
+                    houseValue, mortgageBalance, surplusPerc, needsPerc, wantsPerc, highInterestCount
                 );
 
                 const totalScore = scoreData.totalScore;
@@ -1983,6 +2029,7 @@
                 safeSetText('score-debt', Math.round(scoreData.scoreDebt));
                 safeSetText('score-emergency', Math.round(scoreData.scoreEmergency));
                 safeSetText('score-retirement', Math.round(scoreData.scoreRetirement));
+                safeSetText('score-investments', Math.round(scoreData.scoreInvestments));
                 safeSetText('score-realestate', Math.round(scoreData.scoreRealEstate));
 
                 // Check for achievements
@@ -2001,10 +2048,10 @@
                 const annualIncome = income * 12;
                 updatePriorityTargets(
                     scoreData.scoreBudget, scoreData.scoreDebt, scoreData.scoreEmergency, 
-                    scoreData.scoreRetirement, scoreData.scoreRealEstate,
+                    scoreData.scoreRetirement, scoreData.scoreInvestments, scoreData.scoreRealEstate,
                     needsPerc, wantsPerc, surplusPerc, income, t3, totalDebtIncludingMortgage, monthlySurplus,
                     moatMonths, essentials, currentIronPot, age, currentRetirement, annualIncome,
-                    monthlyHousing, houseValue, mortgageBalance, highInterestCount
+                    monthlyHousing, houseValue, mortgageBalance, highInterestCount, investmentAssets, otherSavings, otherAssets
                 );
 
                 // Focus-mode button visibility
@@ -2032,6 +2079,115 @@
                 console.error("Error in calculateAll():", error);
                 showToast(`Calculation error: ${error.message}`);
             }
+        }
+
+        // UPDATED FINANCIAL HEALTH SCORE CALCULATION WITH INVESTMENTS
+        function calculateFinancialHealthScore(income, essentials, currentIronPot, totalDebt, monthlyHousing, age, currentRetirement, investmentAssets, otherSavings, otherAssets, houseValue, mortgageBalance, surplusPerc, needsPerc, wantsPerc, highInterestCount) {
+            let scoreBudget = 0, scoreDebt = 20, scoreEmergency = 0, scoreRetirement = 0, scoreInvestments = 0, scoreRealEstate = 0;
+            let scoreCap = 100;
+            let capReason = '';
+            
+            if (income > 0) {
+                // Budgeting score
+                scoreBudget = Math.max(0, 20 - Math.max(0, needsPerc - 50) - Math.max(0, wantsPerc - 30) - Math.max(0, 20 - surplusPerc));
+                
+                // Debt score with high-interest penalty
+                const annualIncome = income * 12;
+                const dti = (totalDebt / annualIncome) * 100;
+                scoreDebt = Math.max(0, 20 - Math.max(0, dti - 36));
+                if (highInterestCount > 0) scoreDebt -= (highInterestCount * 5);
+                scoreDebt = Math.max(0, scoreDebt);
+                
+                // Emergency fund score with CAP
+                const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
+                scoreEmergency = Math.min(20, (moatMonths / 6) * 20);
+                
+                // DYNAMIC CAP: If emergency fund < 1 month, cap total score at 40
+                if (moatMonths < 1) {
+                    scoreCap = Math.min(scoreCap, 40);
+                    capReason = "Emergency fund under 1 month - financial vulnerability";
+                }
+                
+                // DYNAMIC CAP: If high-interest debt exists, cap at 60
+                if (highInterestCount > 0) {
+                    scoreCap = Math.min(scoreCap, 60);
+                    capReason = capReason ? `${capReason} + high-interest debt` : "High-interest debt bleeding finances";
+                }
+                
+                // DYNAMIC CAP: If housing ratio > 40%, cap at 50
+                const housingRatio = monthlyHousing / income * 100;
+                if (housingRatio > 40) {
+                    scoreCap = Math.min(scoreCap, 50);
+                    capReason = capReason ? `${capReason} + housing breach` : "Housing costs exceed 40% (Breach)";
+                }
+                
+                // Retirement score
+                let targetMultiplier = 1;
+                if (age <= 30) targetMultiplier = 1;
+                else if (age <= 40) targetMultiplier = 3;
+                else if (age <= 50) targetMultiplier = 6;
+                else if (age <= 60) targetMultiplier = 8;
+                else targetMultiplier = 10;
+                
+                const targetRetirement = annualIncome * targetMultiplier;
+                scoreRetirement = currentRetirement >= targetRetirement ? 15 : Math.min(15, (currentRetirement / targetRetirement) * 15);
+                
+                // Investment score (new)
+                const totalInvestableAssets = currentRetirement + investmentAssets + otherSavings + otherAssets;
+                const investmentRatio = totalInvestableAssets / annualIncome;
+                if (investmentRatio >= 5) scoreInvestments = 5;
+                else if (investmentRatio >= 3) scoreInvestments = 4;
+                else if (investmentRatio >= 1) scoreInvestments = 3;
+                else if (investmentRatio >= 0.5) scoreInvestments = 2;
+                else if (investmentRatio > 0) scoreInvestments = 1;
+                else scoreInvestments = 0;
+                
+                // Real estate score with housing breach warning
+                let housingScore = housingRatio <= 28 ? 10 : Math.max(0, 10 - (housingRatio - 28));
+                
+                let equityScore = 0;
+                if (houseValue > 0) {
+                    const equity = houseValue - mortgageBalance;
+                    equityScore = Math.max(0, 10 * (equity / houseValue));
+                }
+                
+                scoreRealEstate = housingScore + equityScore;
+                scoreRealEstate = Math.min(20, scoreRealEstate);
+                
+                // Flash Real Estate pillar if housing breach
+                const realEstatePillar = document.getElementById('pillar-realestate');
+                if (realEstatePillar && housingRatio > 28) {
+                    realEstatePillar.classList.add('condition-red');
+                    realEstatePillar.classList.add('pulse');
+                } else if (realEstatePillar) {
+                    realEstatePillar.classList.remove('condition-red');
+                    realEstatePillar.classList.remove('pulse');
+                }
+            }
+
+            const totalScore = Math.round(Math.min(scoreCap, scoreBudget + scoreDebt + scoreEmergency + scoreRetirement + scoreInvestments + scoreRealEstate));
+            
+            // Show cap warning if applicable
+            const capWarning = document.getElementById('score-cap-warning');
+            const capReasonEl = document.getElementById('cap-reason');
+            if (capWarning && capReasonEl) {
+                if (scoreCap < 100) {
+                    capWarning.classList.remove('hidden');
+                    capReasonEl.textContent = capReason;
+                } else {
+                    capWarning.classList.add('hidden');
+                }
+            }
+            
+            return {
+                totalScore,
+                scoreBudget,
+                scoreDebt,
+                scoreEmergency,
+                scoreRetirement,
+                scoreInvestments,
+                scoreRealEstate
+            };
         }
 
         function calculateDebtBleed() {
@@ -2109,103 +2265,6 @@
             }
             
             return { totalDailyBleed, totalMonthlyBleed, activeDebts };
-        }
-
-        function calculateFinancialHealthScore(income, essentials, currentIronPot, totalDebt, monthlyHousing, age, currentRetirement, houseValue, mortgageBalance, surplusPerc, needsPerc, wantsPerc, highInterestCount) {
-            let scoreBudget = 0, scoreDebt = 20, scoreEmergency = 0, scoreRetirement = 0, scoreRealEstate = 0;
-            let scoreCap = 100;
-            let capReason = '';
-            
-            if (income > 0) {
-                // Budgeting score (unchanged)
-                scoreBudget = Math.max(0, 20 - Math.max(0, needsPerc - 50) - Math.max(0, wantsPerc - 30) - Math.max(0, 20 - surplusPerc));
-                
-                // Debt score with high-interest penalty
-                const annualIncome = income * 12;
-                const dti = (totalDebt / annualIncome) * 100;
-                scoreDebt = Math.max(0, 20 - Math.max(0, dti - 36));
-                if (highInterestCount > 0) scoreDebt -= (highInterestCount * 5);
-                scoreDebt = Math.max(0, scoreDebt);
-                
-                // Emergency fund score with CAP
-                const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
-                scoreEmergency = Math.min(20, (moatMonths / 6) * 20);
-                
-                // DYNAMIC CAP: If emergency fund < 1 month, cap total score at 40
-                if (moatMonths < 1) {
-                    scoreCap = Math.min(scoreCap, 40);
-                    capReason = "Emergency fund under 1 month - fortress vulnerable";
-                }
-                
-                // DYNAMIC CAP: If high-interest debt exists, cap at 60
-                if (highInterestCount > 0) {
-                    scoreCap = Math.min(scoreCap, 60);
-                    capReason = capReason ? `${capReason} + high-interest debt` : "High-interest debt bleeding finances";
-                }
-                
-                // DYNAMIC CAP: If housing ratio > 40%, cap at 50
-                const housingRatio = monthlyHousing / income * 100;
-                if (housingRatio > 40) {
-                    scoreCap = Math.min(scoreCap, 50);
-                    capReason = capReason ? `${capReason} + housing breach` : "Housing costs exceed 40% (Breach)";
-                }
-                
-                // Retirement score
-                let targetMultiplier = 1;
-                if (age <= 30) targetMultiplier = 1;
-                else if (age <= 40) targetMultiplier = 3;
-                else if (age <= 50) targetMultiplier = 6;
-                else if (age <= 60) targetMultiplier = 8;
-                else targetMultiplier = 10;
-                
-                const targetRetirement = annualIncome * targetMultiplier;
-                scoreRetirement = currentRetirement >= targetRetirement ? 20 : Math.min(20, (currentRetirement / targetRetirement) * 20);
-                
-                // Real estate score with housing breach warning
-                let housingScore = housingRatio <= 28 ? 10 : Math.max(0, 10 - (housingRatio - 28));
-                
-                let equityScore = 0;
-                if (houseValue > 0) {
-                    const equity = houseValue - mortgageBalance;
-                    equityScore = Math.max(0, 10 * (equity / houseValue));
-                }
-                
-                scoreRealEstate = housingScore + equityScore;
-                scoreRealEstate = Math.min(20, scoreRealEstate);
-                
-                // Flash Real Estate pillar if housing breach
-                const realEstatePillar = document.getElementById('pillar-realestate');
-                if (realEstatePillar && housingRatio > 28) {
-                    realEstatePillar.classList.add('condition-red');
-                    realEstatePillar.classList.add('pulse');
-                } else if (realEstatePillar) {
-                    realEstatePillar.classList.remove('condition-red');
-                    realEstatePillar.classList.remove('pulse');
-                }
-            }
-
-            const totalScore = Math.round(Math.min(scoreCap, scoreBudget + scoreDebt + scoreEmergency + scoreRetirement + scoreRealEstate));
-            
-            // Show cap warning if applicable
-            const capWarning = document.getElementById('score-cap-warning');
-            const capReasonEl = document.getElementById('cap-reason');
-            if (capWarning && capReasonEl) {
-                if (scoreCap < 100) {
-                    capWarning.classList.remove('hidden');
-                    capReasonEl.textContent = capReason;
-                } else {
-                    capWarning.classList.add('hidden');
-                }
-            }
-            
-            return {
-                totalScore,
-                scoreBudget,
-                scoreDebt,
-                scoreEmergency,
-                scoreRetirement,
-                scoreRealEstate
-            };
         }
 
         function calculateSavingsVelocity() {
@@ -2377,10 +2436,11 @@
             if (battleCryEl) battleCryEl.innerText = cry;
         }
 
-        function updatePriorityTargets(scoreBudget, scoreDebt, scoreEmergency, scoreRetirement, scoreRealEstate,
+        // UPDATED PRIORITY TARGETS WITH INVESTMENTS
+        function updatePriorityTargets(scoreBudget, scoreDebt, scoreEmergency, scoreRetirement, scoreInvestments, scoreRealEstate,
                                       needsPerc, wantsPerc, surplusPerc, income, t3, dTotal, monthlySurplus,
                                       moatMonths, essentials, currentIronPot, age, currentRetirement, annualIncome,
-                                      monthlyHousing, houseValue, mortgageBalance, highInterestCount) {
+                                      monthlyHousing, houseValue, mortgageBalance, highInterestCount, investmentAssets, otherSavings, otherAssets) {
             const pillars = [
                 { 
                     name: "BUDGETING", 
@@ -2403,6 +2463,11 @@
                     tip: getTacticalRetirementOrder(age, currentRetirement, annualIncome) 
                 },
                 { 
+                    name: "INVESTMENTS", 
+                    score: scoreInvestments, 
+                    tip: getTacticalInvestmentsOrder(annualIncome, currentRetirement, investmentAssets, otherSavings, otherAssets) 
+                },
+                { 
                     name: "REAL ESTATE", 
                     score: scoreRealEstate, 
                     tip: getTacticalRealEstateOrder(monthlyHousing, income, houseValue, mortgageBalance) 
@@ -2422,7 +2487,7 @@
                         <div class="bg-navy-900/50 border ${i === 0 ? 'border-crimson' : 'border-white/20'} p-6 rounded shadow-lg">
                             <div class="flex justify-between items-center mb-3">
                                 <span class="text-crimson text-xl md:text-2xl font-bold uppercase tracking-wider">ACTION #${i+1}: ${p.name}</span>
-                                <span class="text-2xl md:text-3xl font-bold text-white">${Math.round(p.score)}/20</span>
+                                <span class="text-2xl md:text-3xl font-bold text-white">${Math.round(p.score)}/${p.name === 'RETIREMENT' ? '15' : p.name === 'INVESTMENTS' ? '5' : '20'}</span>
                             </div>
                             <p class="text-base md:text-lg leading-relaxed text-gray-200 font-medium">${p.tip}</p>
                         </div>`;
@@ -2432,6 +2497,19 @@
             }
 
             ordersContainer.innerHTML = ordersHTML;
+        }
+
+        // NEW: Investments tactical order function
+        function getTacticalInvestmentsOrder(annualIncome, currentRetirement, investmentAssets, otherSavings, otherAssets) {
+            const totalInvestableAssets = currentRetirement + investmentAssets + otherSavings + otherAssets;
+            const investmentRatio = totalInvestableAssets / annualIncome;
+            
+            if (investmentRatio >= 5) return "Excellent investment diversification! Maintain your strategy.";
+            if (investmentRatio >= 3) return "Good investment base. Consider adding to taxable accounts.";
+            if (investmentRatio >= 1) return "Basic investment foundation. Aim for 3x income in total investments.";
+            if (investmentRatio > 0) return "Beginner investor. Focus on building emergency fund first, then increase contributions.";
+            
+            return "No investments yet. Start with retirement accounts (401k/IRA), then consider taxable brokerage.";
         }
 
         function getTacticalBudgetOrder(needs, wants, surplus, income, cargoTotal) {
@@ -2565,6 +2643,24 @@
             if (moatMonths >= 6 && !achievements.includes('emergency_6')) {
                 awardAchievement('emergency_6', 'Financial Security', 'Built a 6-month emergency fund', 'gold');
             }
+
+            // Investment achievement
+            const investmentAssets = parseFloat(document.getElementById('investment-assets').value) || 0;
+            const otherSavings = parseFloat(document.getElementById('other-savings').value) || 0;
+            const otherAssets = parseFloat(document.getElementById('other-assets').value) || 0;
+            const totalInvestments = investmentAssets + otherSavings + otherAssets;
+            
+            if (totalInvestments >= 10000 && !achievements.includes('investor_10k')) {
+                awardAchievement('investor_10k', 'First Investor', 'Accumulated $10,000 in investments', 'bronze');
+            }
+            
+            if (totalInvestments >= 50000 && !achievements.includes('investor_50k')) {
+                awardAchievement('investor_50k', 'Growing Portfolio', 'Accumulated $50,000 in investments', 'silver');
+            }
+            
+            if (totalInvestments >= 100000 && !achievements.includes('investor_100k')) {
+                awardAchievement('investor_100k', 'Serious Investor', 'Accumulated $100,000 in investments', 'gold');
+            }
         }
 
         function awardAchievement(id, title, description, tier) {
@@ -2611,6 +2707,20 @@
                     }
                 }, 300);
             }, 3000);
+        }
+
+        // Pillar Info (UPDATED WITH INVESTMENTS)
+        function showPillarInfo(pillar) {
+            const info = {
+                'budgeting': 'Assesses your adherence to the 50/30/20 rule. 50% or less on needs, 30% or less on wants, 20% or more to savings/debt repayment.',
+                'debt': 'Evaluates your debt-to-income ratio (should be ≤36%) and interest rates. High-interest debt (>10%) reduces your score.',
+                'emergency': 'Measures your emergency fund relative to essential expenses. Target is 3-6 months worth of essential expenses.',
+                'retirement': 'Compares your current retirement savings to age-based targets. 30s: 1x income, 40s: 3x, 50s: 6x, 60s: 8x.',
+                'investments': 'Evaluates your investment assets relative to income. Having 1-5x income in investments is a good target.',
+                'realestate': 'Assesses housing costs (should be ≤28% of income) and home equity position.'
+            };
+            
+            showToast(info[pillar]);
         }
 
         // Data management
@@ -2762,6 +2872,9 @@
                 age: document.getElementById('user-age').value || '',
                 ironPot: document.getElementById('current-iron-pot').value || '',
                 retirement: document.getElementById('current-retirement').value || '',
+                investmentAssets: document.getElementById('investment-assets').value || '',
+                otherSavings: document.getElementById('other-savings').value || '',
+                otherAssets: document.getElementById('other-assets').value || '',
                 houseValue: document.getElementById('house-value').value || '',
                 mortgageBalance: document.getElementById('mortgage-balance').value || '',
                 debts: Array.from(document.querySelectorAll('#debt-body tr')).map(row => ({
@@ -2807,6 +2920,9 @@
             document.getElementById('user-age').value = data.age || '';
             document.getElementById('current-iron-pot').value = data.ironPot || '';
             document.getElementById('current-retirement').value = data.retirement || '';
+            document.getElementById('investment-assets').value = data.investmentAssets || '';
+            document.getElementById('other-savings').value = data.otherSavings || '';
+            document.getElementById('other-assets').value = data.otherAssets || '';
             document.getElementById('house-value').value = data.houseValue || '';
             document.getElementById('mortgage-balance').value = data.mortgageBalance || '';
 
@@ -2951,18 +3067,6 @@
         // AI functionality
         function generateAIBattlePlan() {
             showToast('AI analysis would provide personalized insights here. Premium feature.');
-        }
-
-        function showPillarInfo(pillar) {
-            const info = {
-                budgeting: 'Assesses your adherence to the 50/30/20 rule. 50% or less on needs, 30% or less on wants, 20% or more to savings/debt repayment.',
-                debt: 'Evaluates your debt-to-income ratio (should be ≤36%) and interest rates. High-interest debt (>10%) reduces your score.',
-                emergency: 'Measures your emergency fund relative to essential expenses. Target is 3-6 months worth of essential expenses.',
-                retirement: 'Compares your current retirement savings to age-based targets. 30s: 1x income, 40s: 3x, 50s: 6x, 60s: 8x.',
-                realestate: 'Assesses housing costs (should be ≤28% of income) and home equity position.'
-            };
-            
-            showToast(info[pillar]);
         }
 
         // Mobile view initialization
