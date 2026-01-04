@@ -1092,43 +1092,43 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', function () {
-            // Initialize chart with FIXED tooltips
-            const canvas = document.getElementById('budgetChart');
-            if (canvas) {
-                const ctx = canvas.getContext('2d');
-                myChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Surplus'],
-                        datasets: [{
-                            data: [0, 0, 0, 0, 100],
-                            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        cutout: '85%',
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                enabled: true,
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.label || '';
-                                        let value = context.parsed;
-                                        if (value === 0) return `${label}: $0`;
-                                        return `${label}: $${value.toLocaleString()}`;
-                                    }
-                                }
-                            }
-                        },
-                        interaction: {
-                            intersect: false,
-                            mode: 'index'
+// Initialize chart with FIXED tooltips
+const canvas = document.getElementById('budgetChart');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+    myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Surplus'],
+            datasets: [{
+                data: [0, 0, 0, 0, 100],
+                backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#00FF00'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            cutout: '85%',
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    enabled: true,
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            let value = context.parsed;
+                            if (value === 0) return `${label}: $0`;
+                            return `${label}: $${value.toLocaleString()}`;
                         }
                     }
-                });
+                }
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index'
             }
+        }
+    });
+}
 
             // Check if first visit
             if (!localStorage.getItem(`${CURRENT_VERSION}_visited`)) {
