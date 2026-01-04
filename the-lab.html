@@ -601,7 +601,7 @@
                                 </div>
                                 <div>
                                     <div class="text-xs text-crimson font-bold mb-1">Daily Bleed</div>
-                                    <div class="text-sm font-bold text-crimson p-2">$0.00</div>
+                                    <div class="bleed-display text-sm font-bold text-crimson p-2">$0.00</div>
                                 </div>
                             </div>
                             <div class="debt-alert hidden text-center mt-3 high-interest-alert uppercase text-xs">HIGH INTEREST RATE</div>
@@ -1181,7 +1181,7 @@
         </div>
     </footer>
 
-      <script>
+    <script>
         // Enhanced JavaScript with all strategic upgrades
         let myChart;
         let isWarMode = false;
@@ -1199,6 +1199,21 @@
             dataPoints: 0
         };
         let onboardingStep = 1;
+
+        // Safe element helper functions
+        function safeSetText(elementId, text) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = text;
+            }
+        }
+
+        function safeSetValue(elementId, value) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.value = value;
+            }
+        }
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', function () {
@@ -1332,7 +1347,8 @@
 
         // Onboarding functionality
         function showOnboarding() {
-            document.getElementById('onboarding-tour').classList.remove('hidden');
+            const tour = document.getElementById('onboarding-tour');
+            if (tour) tour.classList.remove('hidden');
             onboardingStep = 1;
             updateOnboardingStep();
         }
@@ -1356,10 +1372,12 @@
         function updateOnboardingStep() {
             // Hide all steps
             for (let i = 1; i <= 3; i++) {
-                document.getElementById(`onboarding-step-${i}`).classList.add('hidden');
+                const step = document.getElementById(`onboarding-step-${i}`);
+                if (step) step.classList.add('hidden');
             }
             // Show current step
-            document.getElementById(`onboarding-step-${onboardingStep}`).classList.remove('hidden');
+            const currentStep = document.getElementById(`onboarding-step-${onboardingStep}`);
+            if (currentStep) currentStep.classList.remove('hidden');
             
             // Update progress dots
             const dots = document.querySelectorAll('#onboarding-progress div');
@@ -1377,22 +1395,23 @@
             const skipBtn = document.getElementById('onboarding-skip');
             
             if (onboardingStep === 1) {
-                prevBtn.classList.add('hidden');
-                nextBtn.textContent = 'Next';
-                skipBtn.classList.remove('hidden');
+                if (prevBtn) prevBtn.classList.add('hidden');
+                if (nextBtn) nextBtn.textContent = 'Next';
+                if (skipBtn) skipBtn.classList.remove('hidden');
             } else if (onboardingStep === 2) {
-                prevBtn.classList.remove('hidden');
-                nextBtn.textContent = 'Next';
-                skipBtn.classList.remove('hidden');
+                if (prevBtn) prevBtn.classList.remove('hidden');
+                if (nextBtn) nextBtn.textContent = 'Next';
+                if (skipBtn) skipBtn.classList.remove('hidden');
             } else {
-                prevBtn.classList.remove('hidden');
-                nextBtn.textContent = 'Get Started';
-                skipBtn.classList.add('hidden');
+                if (prevBtn) prevBtn.classList.remove('hidden');
+                if (nextBtn) nextBtn.textContent = 'Get Started';
+                if (skipBtn) skipBtn.classList.add('hidden');
             }
         }
 
         function skipOnboarding() {
-            document.getElementById('onboarding-tour').classList.add('hidden');
+            const tour = document.getElementById('onboarding-tour');
+            if (tour) tour.classList.add('hidden');
             // Award first achievement WITHOUT popup
             awardAchievement('first_steps', 'First Steps', 'Completed the onboarding tour', 'bronze');
         }
@@ -1441,7 +1460,7 @@
                         </div>
                         <div>
                             <div class="text-xs text-crimson font-bold mb-1">Daily Bleed</div>
-                            <div class="text-sm font-bold text-crimson p-2">$0.00</div>
+                            <div class="bleed-display text-sm font-bold text-crimson p-2">$0.00</div>
                         </div>
                     </div>
                     <div class="debt-alert hidden text-center mt-3 high-interest-alert uppercase text-xs">HIGH INTEREST RATE</div>
@@ -1468,11 +1487,13 @@
         // ====================
 
         function showWarModeModal() {
-            document.getElementById('war-mode-modal').classList.remove('hidden');
+            const modal = document.getElementById('war-mode-modal');
+            if (modal) modal.classList.remove('hidden');
         }
 
         function closeWarModeModal() {
-            document.getElementById('war-mode-modal').classList.add('hidden');
+            const modal = document.getElementById('war-mode-modal');
+            if (modal) modal.classList.add('hidden');
         }
 
         function activateWarMode(target) {
@@ -1497,12 +1518,14 @@
             const targetEl = document.getElementById('priority-target');
             const currentTargetEl = document.getElementById('current-target');
             
-            btn.innerHTML = '<i class="fas fa-times mr-2"></i>Deactivate War-Mode';
-            container.classList.add('war-mode-active', 'war-mode-flash');
-            surplusEl.classList.add('breach-alert');
-            statusEl.textContent = `War Mode: Active (${getTargetName(target)})`;
-            statusEl.className = 'text-xs text-crimson font-bold';
-            targetEl.classList.remove('hidden');
+            if (btn) btn.innerHTML = '<i class="fas fa-times mr-2"></i>Deactivate War-Mode';
+            if (container) container.classList.add('war-mode-active', 'war-mode-flash');
+            if (surplusEl) surplusEl.classList.add('breach-alert');
+            if (statusEl) {
+                statusEl.textContent = `War Mode: Active (${getTargetName(target)})`;
+                statusEl.className = 'text-xs text-crimson font-bold';
+            }
+            if (targetEl) targetEl.classList.remove('hidden');
             
             // Set target name
             const targetNames = {
@@ -1511,7 +1534,7 @@
                 'snowball': 'Debt Snowball',
                 'mortgage': 'Mortgage Siege'
             };
-            currentTargetEl.textContent = targetNames[target];
+            if (currentTargetEl) currentTargetEl.textContent = targetNames[target] || target;
             
             // Show allocation message
             showToast(`War Mode Activated! $${t3Total.toLocaleString()} from Tier 3 redirected to ${targetNames[target]}`);
@@ -1522,7 +1545,9 @@
             isWarMode = true;
             calculateAll();
             
-            setTimeout(() => container.classList.remove('war-mode-flash'), 2000);
+            setTimeout(() => {
+                if (container) container.classList.remove('war-mode-flash');
+            }, 2000);
         }
 
         function getTargetName(target) {
@@ -1542,12 +1567,14 @@
             const statusEl = document.getElementById('war-mode-status');
             const targetEl = document.getElementById('priority-target');
             
-            btn.innerHTML = '<i class="fas fa-fire mr-2"></i>Initiate War-Mode';
-            container.classList.remove('war-mode-active', 'war-mode-flash');
-            surplusEl.classList.remove('breach-alert');
-            statusEl.textContent = 'War Mode: Inactive';
-            statusEl.className = 'text-xs text-gray-500';
-            targetEl.classList.add('hidden');
+            if (btn) btn.innerHTML = '<i class="fas fa-fire mr-2"></i>Initiate War-Mode';
+            if (container) container.classList.remove('war-mode-active', 'war-mode-flash');
+            if (surplusEl) surplusEl.classList.remove('breach-alert');
+            if (statusEl) {
+                statusEl.textContent = 'War Mode: Inactive';
+                statusEl.className = 'text-xs text-gray-500';
+            }
+            if (targetEl) targetEl.classList.add('hidden');
             
             // Restore Tier 3 values
             document.querySelectorAll('.tier-3-input').forEach((i, idx) => i.value = p3Cache[idx] || '0');
@@ -1580,27 +1607,32 @@
             // Desktop view
             const debtRows = document.querySelectorAll('#debt-body tr');
             debtRows.forEach(row => {
-                const balance = parseFloat(row.querySelector('.debt-balance-input').value) || 0;
-                const rate = parseFloat(row.querySelector('.debt-rate-input').value) || 0;
+                const balanceInput = row.querySelector('.debt-balance-input');
+                const rateInput = row.querySelector('.debt-rate-input');
                 
-                if (balance > 0) {
-                    activeDebts++;
-                    const dailyBleed = (balance * (rate/100)) / 365;
-                    const monthlyBleed = dailyBleed * 30.44;
+                if (balanceInput && rateInput) {
+                    const balance = parseFloat(balanceInput.value) || 0;
+                    const rate = parseFloat(rateInput.value) || 0;
                     
-                    totalDailyBleed += dailyBleed;
-                    totalMonthlyBleed += monthlyBleed;
-                    
-                    // Update bleed display in row
-                    const bleedCell = row.querySelector('.daily-bleed');
-                    if (bleedCell) {
-                        bleedCell.textContent = `$${dailyBleed.toFixed(2)}`;
+                    if (balance > 0) {
+                        activeDebts++;
+                        const dailyBleed = (balance * (rate/100)) / 365;
+                        const monthlyBleed = dailyBleed * 30.44;
                         
-                        // Apply shatter effect if balance is 0
-                        if (balance === 0 && !row.classList.contains('debt-shattered')) {
-                            row.classList.add('debt-shattered');
-                            showToast('Debt Eliminated! KIA (Killed In Action)');
-                            awardAchievement('debt_kill', 'Debt Destroyer', 'Eliminated a liability', 'bronze');
+                        totalDailyBleed += dailyBleed;
+                        totalMonthlyBleed += monthlyBleed;
+                        
+                        // Update bleed display in row
+                        const bleedCell = row.querySelector('.daily-bleed');
+                        if (bleedCell) {
+                            bleedCell.textContent = `$${dailyBleed.toFixed(2)}`;
+                            
+                            // Apply shatter effect if balance is 0
+                            if (balance === 0 && !row.classList.contains('debt-shattered')) {
+                                row.classList.add('debt-shattered');
+                                showToast('Debt Eliminated! KIA (Killed In Action)');
+                                awardAchievement('debt_kill', 'Debt Destroyer', 'Eliminated a liability', 'bronze');
+                            }
                         }
                     }
                 }
@@ -1608,26 +1640,32 @@
             
             // Mobile view
             const debtCards = document.querySelectorAll('#debt-cards .debt-card');
-            debtCards.forEach((card, index) => {
-                const balance = parseFloat(card.querySelector('.debt-balance-input').value) || 0;
-                const rate = parseFloat(card.querySelector('.debt-rate-input').value) || 0;
+            debtCards.forEach(card => {
+                const balanceInput = card.querySelector('.debt-balance-input');
+                const rateInput = card.querySelector('.debt-rate-input');
                 
-                if (balance > 0) {
-                    const dailyBleed = (balance * (rate/100)) / 365;
-                    const bleedDisplay = card.querySelector('.text-crimson.p-2');
-                    if (bleedDisplay) {
-                        bleedDisplay.textContent = `$${dailyBleed.toFixed(2)}`;
+                if (balanceInput && rateInput) {
+                    const balance = parseFloat(balanceInput.value) || 0;
+                    const rate = parseFloat(rateInput.value) || 0;
+                    
+                    if (balance > 0) {
+                        const dailyBleed = (balance * (rate/100)) / 365;
+                        // Use the bleed-display class for mobile
+                        const bleedDisplay = card.querySelector('.bleed-display');
+                        if (bleedDisplay) {
+                            bleedDisplay.textContent = `$${dailyBleed.toFixed(2)}`;
+                        }
                     }
                 }
             });
             
-            // Update UI
-            document.getElementById('total-daily-bleed').textContent = `$${totalDailyBleed.toFixed(2)}`;
-            document.getElementById('total-monthly-bleed').textContent = `$${totalMonthlyBleed.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('daily-bleed').textContent = `$${totalDailyBleed.toFixed(2)}`;
-            document.getElementById('header-bleed').textContent = `$${totalDailyBleed.toFixed(2)}`;
-            document.getElementById('total-bleed').textContent = `$${totalMonthlyBleed.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('active-debts').textContent = activeDebts;
+            // Update UI elements with null checks
+            safeSetText('total-daily-bleed', `$${totalDailyBleed.toFixed(2)}`);
+            safeSetText('total-monthly-bleed', `$${totalMonthlyBleed.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+            safeSetText('daily-bleed', `$${totalDailyBleed.toFixed(2)}`);
+            safeSetText('header-bleed', `$${totalDailyBleed.toFixed(2)}`);
+            safeSetText('total-bleed', `$${totalMonthlyBleed.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+            safeSetText('active-debts', activeDebts.toString());
             
             // Mobile view updates
             const mobileDailyBleed = document.getElementById('mobile-daily-bleed');
@@ -1670,16 +1708,16 @@
                     velocityClass = "velocity-low";
                 }
                 
-                document.getElementById('fortress-velocity').textContent = timeline;
-                document.getElementById('header-velocity').textContent = timeline;
-                document.getElementById('velocity-text').innerHTML = `<span id="fortress-timeline">At current velocity, Fortress secured in ${timeline}</span>`;
+                safeSetText('fortress-velocity', timeline);
+                safeSetText('header-velocity', timeline);
+                safeSetText('velocity-text', `<span id="fortress-timeline">At current velocity, Fortress secured in ${timeline}</span>`);
             } else if (needed <= 0) {
                 timeline = "FORTIFIED";
                 velocity = 100;
                 velocityClass = "velocity-high";
-                document.getElementById('velocity-text').innerHTML = `<span id="fortress-timeline">Fortress fully provisioned!</span>`;
+                safeSetText('velocity-text', `<span id="fortress-timeline">Fortress fully provisioned!</span>`);
             } else {
-                document.getElementById('velocity-text').innerHTML = `<span id="fortress-timeline">Increase War Chest to accelerate</span>`;
+                safeSetText('velocity-text', `<span id="fortress-timeline">Increase War Chest to accelerate</span>`);
             }
             
             // Update velocity bar
@@ -1704,7 +1742,7 @@
             const conditionCard = document.querySelector('.dashboard-card.condition-green');
             
             // Remove existing condition classes
-            header.classList.remove('condition-green', 'condition-yellow', 'condition-red');
+            if (header) header.classList.remove('condition-green', 'condition-yellow', 'condition-red');
             if (conditionCard) {
                 conditionCard.classList.remove('condition-green', 'condition-yellow', 'condition-red');
             }
@@ -1727,10 +1765,8 @@
             }
             
             // Apply condition
-            header.classList.add(conditionClass);
-            if (conditionCard) {
-                conditionCard.classList.add(conditionClass);
-            }
+            if (header) header.classList.add(conditionClass);
+            if (conditionCard) conditionCard.classList.add(conditionClass);
             if (conditionEl) {
                 conditionEl.textContent = condition;
                 
@@ -1755,8 +1791,10 @@
             const statusEl = document.getElementById('chassis-mode-status');
             
             if (isChassisMode) {
-                btn.innerHTML = '<i class="fas fa-times mr-2"></i>Restore Chassis';
-                btn.classList.add('chassis-mode-active');
+                if (btn) {
+                    btn.innerHTML = '<i class="fas fa-times mr-2"></i>Restore Chassis';
+                    btn.classList.add('chassis-mode-active');
+                }
                 if (statusEl) {
                     statusEl.textContent = 'Chassis Mode: Active (Survival Floor)';
                     statusEl.className = 'text-xs text-gray-400 font-bold';
@@ -1780,8 +1818,10 @@
                 showToast('Stripped to Chassis. Showing absolute survival minimum.');
                 awardAchievement('chassis_mode', 'Survival Specialist', 'Revealed financial survival floor', 'bronze');
             } else {
-                btn.innerHTML = '<i class="fas fa-hard-hat mr-2"></i>Strip to Chassis';
-                btn.classList.remove('chassis-mode-active');
+                if (btn) {
+                    btn.innerHTML = '<i class="fas fa-hard-hat mr-2"></i>Strip to Chassis';
+                    btn.classList.remove('chassis-mode-active');
+                }
                 if (statusEl) {
                     statusEl.textContent = 'Chassis Mode: Inactive';
                     statusEl.className = 'text-xs text-gray-500';
@@ -1939,7 +1979,7 @@
                     </div>
                     <div>
                         <div class="text-xs text-crimson font-bold mb-1">Daily Bleed</div>
-                        <div class="text-sm font-bold text-crimson p-2">$0.00</div>
+                        <div class="bleed-display text-sm font-bold text-crimson p-2">$0.00</div>
                     </div>
                 </div>
                 <div class="debt-alert hidden text-center mt-3 high-interest-alert uppercase text-xs">HIGH INTEREST RATE</div>
@@ -1999,7 +2039,7 @@
                 else if (freq === 26) income = paycheck * 2.166;
                 else income = paycheck * 2;
                 
-                document.getElementById('income-summary').textContent = `Monthly income: $${income.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                safeSetText('income-summary', `Monthly income: $${income.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
 
                 // Calculate debt totals and bleed
                 let dMin = 0, dTotal = 0, highInterestCount = 0;
@@ -2044,8 +2084,8 @@
                 const bleedData = calculateDebtBleed();
                 
                 // Update mobile debt summary
-                document.getElementById('mobile-total-debt').textContent = `$${totalDebtIncludingMortgage.toLocaleString()}`;
-                document.getElementById('mobile-debt-min').textContent = `$${dMin.toLocaleString()}`;
+                safeSetText('mobile-total-debt', `$${totalDebtIncludingMortgage.toLocaleString()}`);
+                safeSetText('mobile-debt-min', `$${dMin.toLocaleString()}`);
 
                 // Calculate tier totals
                 let t1 = 0, t2 = 0, t3 = 0;
@@ -2072,14 +2112,14 @@
                     monthlyHousing += parseFloat(housingInputs[i].value) || 0;
                 }
                 
-                document.getElementById('monthly-housing-costs').innerText = `$${monthlyHousing.toLocaleString()}`;
+                safeSetText('monthly-housing-costs', `$${monthlyHousing.toLocaleString()}`);
                 
                 // Housing percentage
                 const housingPercent = income > 0 ? ((monthlyHousing / income) * 100).toFixed(1) : 0;
-                document.getElementById('housing-percent').textContent = `${housingPercent}%`;
+                safeSetText('housing-percent', `${housingPercent}%`);
 
                 // Update UI elements
-                document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
+                safeSetText('auto-debt-min', `$${dMin.toLocaleString()}`);
                 
                 // Update center text and label based on surplus/deficit
                 const centerEl = document.getElementById('center-remaining');
@@ -2087,22 +2127,30 @@
                 const surplusVal = document.getElementById('surplus-val');
 
                 if (monthlySurplus >= 0) {
-                    centerEl.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
-                    centerEl.className = 'text-3xl md:text-4xl font-heading font-bold positive-surplus leading-none';
-                    labelEl.innerText = 'Monthly War Chest';
-                    surplusVal.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
-                    surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold text-crimson';
+                    if (centerEl) {
+                        centerEl.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
+                        centerEl.className = 'text-3xl md:text-4xl font-heading font-bold positive-surplus leading-none';
+                    }
+                    if (labelEl) labelEl.innerText = 'Monthly War Chest';
+                    if (surplusVal) {
+                        surplusVal.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
+                        surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold text-crimson';
+                    }
                 } else {
                     const deficit = Math.abs(monthlySurplus);
-                    centerEl.innerText = `-$${Math.round(deficit).toLocaleString()}`;
-                    centerEl.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus leading-none';
-                    labelEl.innerText = 'Monthly Deficit';
-                    surplusVal.innerText = `-$${Math.round(deficit).toLocaleString()}`;
-                    surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus';
+                    if (centerEl) {
+                        centerEl.innerText = `-$${Math.round(deficit).toLocaleString()}`;
+                        centerEl.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus leading-none';
+                    }
+                    if (labelEl) labelEl.innerText = 'Monthly Deficit';
+                    if (surplusVal) {
+                        surplusVal.innerText = `-$${Math.round(deficit).toLocaleString()}`;
+                        surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus';
+                    }
                 }
 
                 // Update debt totals
-                document.getElementById('total-debt-val').innerText = `$${totalDebtIncludingMortgage.toLocaleString()}`;
+                safeSetText('total-debt-val', `$${totalDebtIncludingMortgage.toLocaleString()}`);
 
                 // Update countdown timeline
                 if (monthlySurplus > 0 && dTotal > 0) {
@@ -2112,11 +2160,11 @@
                     let timeline = '';
                     if (years > 0) timeline += `${years} year${years > 1 ? 's' : ''} `;
                     if (remainingMonths > 0 || years === 0) timeline += `${remainingMonths} month${remainingMonths !== 1 ? 's' : ''}`;
-                    document.getElementById('countdown-val').textContent = timeline.trim();
+                    safeSetText('countdown-val', timeline.trim());
                 } else if (dTotal === 0) {
-                    document.getElementById('countdown-val').textContent = "DEBT FREE";
+                    safeSetText('countdown-val', "DEBT FREE");
                 } else {
-                    document.getElementById('countdown-val').textContent = "N/A";
+                    safeSetText('countdown-val', "N/A");
                 }
 
                 // Iron Pot progress
@@ -2168,16 +2216,11 @@
                 }
                 
                 // Update pillar scores
-                const updatePillar = (id, value) => {
-                    const el = document.getElementById(id);
-                    if (el) el.innerText = Math.round(value);
-                };
-                
-                updatePillar('score-budget', scoreData.scoreBudget);
-                updatePillar('score-debt', scoreData.scoreDebt);
-                updatePillar('score-emergency', scoreData.scoreEmergency);
-                updatePillar('score-retirement', scoreData.scoreRetirement);
-                updatePillar('score-realestate', scoreData.scoreRealEstate);
+                safeSetText('score-budget', Math.round(scoreData.scoreBudget));
+                safeSetText('score-debt', Math.round(scoreData.scoreDebt));
+                safeSetText('score-emergency', Math.round(scoreData.scoreEmergency));
+                safeSetText('score-retirement', Math.round(scoreData.scoreRetirement));
+                safeSetText('score-realestate', Math.round(scoreData.scoreRealEstate));
 
                 // Check for achievements
                 checkAchievements(totalScore, totalDebtIncludingMortgage, currentIronPot, essentials);
@@ -2294,9 +2337,14 @@
                 cry = "Sovereignty achieved. Deploy capital strategically.";
             }
             
-            document.getElementById('threat-level').innerText = threatLevel;
-            document.getElementById('threat-level').className = `inline-block px-6 md:px-8 py-3 md:py-4 text-xl md:text-2xl font-heading uppercase tracking-widest ${threatClass}`;
-            document.getElementById('battle-cry').innerText = cry;
+            const threatEl = document.getElementById('threat-level');
+            if (threatEl) {
+                threatEl.innerText = threatLevel;
+                threatEl.className = `inline-block px-6 md:px-8 py-3 md:py-4 text-xl md:text-2xl font-heading uppercase tracking-widest ${threatClass}`;
+            }
+            
+            const battleCryEl = document.getElementById('battle-cry');
+            if (battleCryEl) battleCryEl.innerText = cry;
         }
 
         function updatePriorityTargets(scoreBudget, scoreDebt, scoreEmergency, scoreRetirement, scoreRealEstate,
@@ -2334,6 +2382,9 @@
             pillars.sort((a, b) => a.score - b.score);
             const top3 = pillars.slice(0, 3);
 
+            const ordersContainer = document.getElementById('priority-orders');
+            if (!ordersContainer) return;
+
             let ordersHTML = "";
             if (top3.length > 0 && income > 0) {
                 top3.forEach((p, i) => {
@@ -2348,18 +2399,22 @@
                 });
                 
                 // Show AI suggestions if score is low
-                if (top3[0].score < 12) {
-                    document.getElementById('ai-suggestions').classList.remove('hidden');
-                    generateAISuggestions(top3[0]);
-                } else {
-                    document.getElementById('ai-suggestions').classList.add('hidden');
+                const aiSuggestions = document.getElementById('ai-suggestions');
+                if (aiSuggestions) {
+                    if (top3[0].score < 12) {
+                        aiSuggestions.classList.remove('hidden');
+                        generateAISuggestions(top3[0]);
+                    } else {
+                        aiSuggestions.classList.add('hidden');
+                    }
                 }
             } else {
                 ordersHTML = '<p class="text-center text-gray-400 italic">Enter your financial data above to generate your battle plan.</p>';
-                document.getElementById('ai-suggestions').classList.add('hidden');
+                const aiSuggestions = document.getElementById('ai-suggestions');
+                if (aiSuggestions) aiSuggestions.classList.add('hidden');
             }
 
-            document.getElementById('priority-orders').innerHTML = ordersHTML;
+            ordersContainer.innerHTML = ordersHTML;
         }
 
         // Enhanced tactical order functions
@@ -2444,13 +2499,18 @@
             const wantsEl = document.getElementById('rule-wants');
             const savingsEl = document.getElementById('rule-savings');
 
-            if (needsEl) needsEl.textContent = needsPerc.toFixed(0) + '%';
-            if (wantsEl) wantsEl.textContent = wantsPerc.toFixed(0) + '%';
-            if (savingsEl) savingsEl.textContent = savingsPerc.toFixed(0) + '%';
-
-            if (needsEl) needsEl.className = needsPerc <= 50 ? 'text-green-400 font-bold' : needsPerc <= 60 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
-            if (wantsEl) wantsEl.className = wantsPerc <= 30 ? 'text-green-400 font-bold' : wantsPerc <= 40 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
-            if (savingsEl) savingsEl.className = savingsPerc >= 20 ? 'text-green-400 font-bold' : savingsPerc >= 10 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+            if (needsEl) {
+                needsEl.textContent = needsPerc.toFixed(0) + '%';
+                needsEl.className = needsPerc <= 50 ? 'text-green-400 font-bold' : needsPerc <= 60 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+            }
+            if (wantsEl) {
+                wantsEl.textContent = wantsPerc.toFixed(0) + '%';
+                wantsEl.className = wantsPerc <= 30 ? 'text-green-400 font-bold' : wantsPerc <= 40 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+            }
+            if (savingsEl) {
+                savingsEl.textContent = savingsPerc.toFixed(0) + '%';
+                savingsEl.className = savingsPerc >= 20 ? 'text-green-400 font-bold' : savingsPerc >= 10 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+            }
         }
 
         // Achievement system
@@ -2521,11 +2581,15 @@
             
             // ONLY show modal for platinum achievements
             if (tier === 'platinum') {
-                document.getElementById('achievement-title').textContent = title;
-                document.getElementById('achievement-desc').textContent = description;
-                document.getElementById('achievement-badge').className = `inline-block badge badge-${tier} text-lg px-6 py-2 mb-6`;
-                document.getElementById('achievement-badge').textContent = title;
-                document.getElementById('achievement-modal').classList.remove('hidden');
+                safeSetText('achievement-title', title);
+                safeSetText('achievement-desc', description);
+                const achievementBadge = document.getElementById('achievement-badge');
+                if (achievementBadge) {
+                    achievementBadge.className = `inline-block badge badge-${tier} text-lg px-6 py-2 mb-6`;
+                    achievementBadge.textContent = title;
+                }
+                const achievementModal = document.getElementById('achievement-modal');
+                if (achievementModal) achievementModal.classList.remove('hidden');
                 
                 triggerConfetti();
             } else {
@@ -2538,7 +2602,8 @@
         }
 
         function closeAchievementModal() {
-            document.getElementById('achievement-modal').classList.add('hidden');
+            const modal = document.getElementById('achievement-modal');
+            if (modal) modal.classList.add('hidden');
         }
 
         function triggerConfetti() {
@@ -2637,12 +2702,17 @@
                     break;
             }
             
-            document.getElementById('scenario-title').textContent = scenarioTitle;
-            document.getElementById('scenario-details').innerHTML = `${scenarioDetails}<br><br><strong>Projected Sovereignty Score: ${newScore}/100</strong>`;
-            document.getElementById('scenario-results').classList.remove('hidden');
-            
-            // Scroll to results
-            document.getElementById('scenario-results').scrollIntoView({ behavior: 'smooth' });
+            safeSetText('scenario-title', scenarioTitle);
+            const scenarioDetailsEl = document.getElementById('scenario-details');
+            if (scenarioDetailsEl) {
+                scenarioDetailsEl.innerHTML = `${scenarioDetails}<br><br><strong>Projected Sovereignty Score: ${newScore}/100</strong>`;
+            }
+            const scenarioResults = document.getElementById('scenario-results');
+            if (scenarioResults) {
+                scenarioResults.classList.remove('hidden');
+                // Scroll to results
+                scenarioResults.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         function calculateScenarioScore(income, t3, debt, ironPot) {
@@ -2678,16 +2748,19 @@
         }
 
         function closeScenario() {
-            document.getElementById('scenario-results').classList.add('hidden');
+            const results = document.getElementById('scenario-results');
+            if (results) results.classList.add('hidden');
         }
 
         // Export functionality
         function showExportModal() {
-            document.getElementById('export-modal').classList.remove('hidden');
+            const modal = document.getElementById('export-modal');
+            if (modal) modal.classList.remove('hidden');
         }
 
         function closeExportModal() {
-            document.getElementById('export-modal').classList.add('hidden');
+            const modal = document.getElementById('export-modal');
+            if (modal) modal.classList.add('hidden');
         }
 
         function exportAsPDF() {
@@ -2832,9 +2905,9 @@
         }
 
         function updateStatsDisplay() {
-            document.getElementById('last-updated').textContent = formatTimeAgo(userStats.lastUpdate);
-            document.getElementById('active-days').textContent = userStats.sessions || 1;
-            document.getElementById('data-points').textContent = userStats.dataPoints;
+            safeSetText('last-updated', formatTimeAgo(userStats.lastUpdate));
+            safeSetText('active-days', (userStats.sessions || 1).toString());
+            safeSetText('data-points', userStats.dataPoints.toString());
             
             // Update session count in header
             const sessionEl = document.getElementById('session-count');
@@ -3048,7 +3121,7 @@
                             </div>
                             <div>
                                 <div class="text-xs text-crimson font-bold mb-1">Daily Bleed</div>
-                                <div class="text-sm font-bold text-crimson p-2">$0.00</div>
+                                <div class="bleed-display text-sm font-bold text-crimson p-2">$0.00</div>
                             </div>
                         </div>
                         <div class="debt-alert ${parseFloat(debt.rate || 0) >= 25 ? '' : 'hidden'} text-center mt-3 high-interest-alert uppercase text-xs">HIGH INTEREST RATE</div>
@@ -3073,7 +3146,7 @@
 
         function updateDataPoints() {
             const count = countDataPoints();
-            document.getElementById('data-points').textContent = count;
+            safeSetText('data-points', count.toString());
             userStats.dataPoints = count;
         }
 
@@ -3120,3 +3193,5 @@ Generated from the Sovereignty Dashboard at realamericanfinance.com
             closeExportModal();
         }
     </script>
+</body>
+</html>
