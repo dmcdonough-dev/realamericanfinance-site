@@ -1181,10 +1181,9 @@
         </div>
     </footer>
 
-    <script>
+      <script>
         // Enhanced JavaScript with all strategic upgrades
         let myChart;
-        let debtBurndownChart;
         let isWarMode = false;
         let warModeTarget = null; // 'avalanche', 'emergency', 'snowball', 'mortgage'
         let isChassisMode = false;
@@ -1282,6 +1281,188 @@
             calculateAll();
         });
 
+        // Mobile view initialization
+        function initializeMobileView() {
+            // Initialize collapsible sections
+            const sections = ['tier1', 'tier2', 'tier3'];
+            sections.forEach(section => {
+                const content = document.getElementById(`${section}-content`);
+                if (content) {
+                    content.classList.add('mobile-hidden');
+                    const arrow = document.getElementById(`${section}-arrow`);
+                    if (arrow) arrow.className = 'fas fa-chevron-right text-gray-500';
+                }
+            });
+            
+            // Initialize debt cards view
+            updateDebtCards();
+        }
+
+        function handleResize() {
+            if (window.innerWidth < 768) {
+                initializeMobileView();
+            } else {
+                // Show all content on desktop
+                ['tier1', 'tier2', 'tier3'].forEach(section => {
+                    const content = document.getElementById(`${section}-content`);
+                    if (content) {
+                        content.classList.remove('mobile-hidden');
+                        content.classList.add('mobile-visible');
+                    }
+                });
+            }
+        }
+
+        function toggleMobileSection(section) {
+            if (window.innerWidth >= 768) return;
+            
+            const content = document.getElementById(`${section}-content`);
+            const arrow = document.getElementById(`${section}-arrow`);
+            
+            if (content.classList.contains('mobile-hidden')) {
+                content.classList.remove('mobile-hidden');
+                content.classList.add('mobile-visible');
+                arrow.className = 'fas fa-chevron-down text-gray-500';
+            } else {
+                content.classList.remove('mobile-visible');
+                content.classList.add('mobile-hidden');
+                arrow.className = 'fas fa-chevron-right text-gray-500';
+            }
+        }
+
+        // Onboarding functionality
+        function showOnboarding() {
+            document.getElementById('onboarding-tour').classList.remove('hidden');
+            onboardingStep = 1;
+            updateOnboardingStep();
+        }
+
+        function onboardingNext() {
+            if (onboardingStep < 3) {
+                onboardingStep++;
+                updateOnboardingStep();
+            } else {
+                skipOnboarding();
+            }
+        }
+
+        function onboardingPrevious() {
+            if (onboardingStep > 1) {
+                onboardingStep--;
+                updateOnboardingStep();
+            }
+        }
+
+        function updateOnboardingStep() {
+            // Hide all steps
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`onboarding-step-${i}`).classList.add('hidden');
+            }
+            // Show current step
+            document.getElementById(`onboarding-step-${onboardingStep}`).classList.remove('hidden');
+            
+            // Update progress dots
+            const dots = document.querySelectorAll('#onboarding-progress div');
+            dots.forEach((dot, index) => {
+                if (index < onboardingStep) {
+                    dot.className = 'w-3 h-3 rounded-full bg-crimson';
+                } else {
+                    dot.className = 'w-3 h-3 rounded-full bg-gray-700';
+                }
+            });
+            
+            // Update buttons
+            const prevBtn = document.getElementById('onboarding-prev');
+            const nextBtn = document.getElementById('onboarding-next');
+            const skipBtn = document.getElementById('onboarding-skip');
+            
+            if (onboardingStep === 1) {
+                prevBtn.classList.add('hidden');
+                nextBtn.textContent = 'Next';
+                skipBtn.classList.remove('hidden');
+            } else if (onboardingStep === 2) {
+                prevBtn.classList.remove('hidden');
+                nextBtn.textContent = 'Next';
+                skipBtn.classList.remove('hidden');
+            } else {
+                prevBtn.classList.remove('hidden');
+                nextBtn.textContent = 'Get Started';
+                skipBtn.classList.add('hidden');
+            }
+        }
+
+        function skipOnboarding() {
+            document.getElementById('onboarding-tour').classList.add('hidden');
+            // Award first achievement WITHOUT popup
+            awardAchievement('first_steps', 'First Steps', 'Completed the onboarding tour', 'bronze');
+        }
+
+        // Enhanced profile management
+        function clearAllInputs() {
+            document.getElementById('paycheck').value = '';
+            document.getElementById('freq').value = '2';
+            document.getElementById('user-age').value = '';
+            document.getElementById('current-iron-pot').value = '';
+            document.getElementById('current-retirement').value = '';
+            document.getElementById('house-value').value = '';
+            document.getElementById('mortgage-balance').value = '';
+            
+            // Clear debt table
+            document.getElementById('debt-body').innerHTML = `<tr class="border-b border-white/5">
+                <td class="py-4 px-2"><input type="text" placeholder="e.g. Visa" class="debt-name-input bg-transparent w-full outline-none text-white text-xs uppercase" oninput="calculateAll()"></td>
+                <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
+                <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
+                <td class="py-4 px-2"><input type="number" step="0.1" oninput="calculateAll()" class="debt-rate-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
+                <td class="py-4 px-2 text-crimson font-bold"><span class="daily-bleed">$0.00</span></td>
+                <td class="text-right relative"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button>
+                    <span class="debt-alert hidden absolute right-8 top-1/2 -translate-y-1/2 high-interest-alert uppercase">HIGH ALERT</span>
+                </td>
+            </tr>`;
+            
+            // Clear debt cards
+            document.getElementById('debt-cards').innerHTML = `
+                <div class="debt-card">
+                    <div class="flex justify-between items-center mb-3">
+                        <input type="text" placeholder="Credit Card" class="debt-name-input bg-transparent outline-none text-white font-bold w-32" oninput="calculateAll()">
+                        <button onclick="removeRow(this)" class="text-crimson">×</button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <div class="text-xs text-gray-400 mb-1">Min Payment</div>
+                            <input type="number" oninput="calculateAll()" class="debt-min-input bg-navy-900 rounded p-2 w-full text-sm" placeholder="0">
+                        </div>
+                        <div>
+                            <div class="text-xs text-gray-400 mb-1">Balance</div>
+                            <input type="number" oninput="calculateAll()" class="debt-balance-input bg-navy-900 rounded p-2 w-full text-sm" placeholder="0">
+                        </div>
+                        <div>
+                            <div class="text-xs text-gray-400 mb-1">APR (%)</div>
+                            <input type="number" step="0.1" oninput="calculateAll()" class="debt-rate-input bg-navy-900 rounded p-2 w-full text-sm" placeholder="0">
+                        </div>
+                        <div>
+                            <div class="text-xs text-crimson font-bold mb-1">Daily Bleed</div>
+                            <div class="text-sm font-bold text-crimson p-2">$0.00</div>
+                        </div>
+                    </div>
+                    <div class="debt-alert hidden text-center mt-3 high-interest-alert uppercase text-xs">HIGH INTEREST RATE</div>
+                </div>`;
+            
+            // Clear tier inputs
+            document.querySelectorAll('.tier-1-input, .tier-2-input, .tier-3-input').forEach(i => i.value = '');
+            
+            calculateAll();
+        }
+
+        function clearSavedData() {
+            if (confirm("Permanently delete all saved data? This will reset your progress and achievements.")) {
+                localStorage.removeItem(CURRENT_VERSION);
+                localStorage.removeItem(`${CURRENT_VERSION}_stats`);
+                localStorage.removeItem(`${CURRENT_VERSION}_achievements`);
+                localStorage.removeItem(`${CURRENT_VERSION}_history`);
+                location.reload();
+            }
+        }
+
         // ====================
         // 1. SIEGE TACTICS ENGINE
         // ====================
@@ -1378,6 +1559,15 @@
             calculateAll();
         }
 
+        // Toggle war mode (for backward compatibility)
+        function toggleWarMode() {
+            if (isWarMode) {
+                deactivateWarMode();
+            } else {
+                showWarModeModal();
+            }
+        }
+
         // ====================
         // 2. DEBT BLEED & SHATTER
         // ====================
@@ -1440,7 +1630,10 @@
             document.getElementById('active-debts').textContent = activeDebts;
             
             // Mobile view updates
-            document.getElementById('mobile-daily-bleed').textContent = `$${totalDailyBleed.toFixed(2)}`;
+            const mobileDailyBleed = document.getElementById('mobile-daily-bleed');
+            if (mobileDailyBleed) {
+                mobileDailyBleed.textContent = `$${totalDailyBleed.toFixed(2)}`;
+            }
             
             return { totalDailyBleed, totalMonthlyBleed, activeDebts };
         }
@@ -1492,9 +1685,11 @@
             // Update velocity bar
             const velocityBar = document.getElementById('velocity-bar');
             const velocityValue = document.getElementById('velocity-value');
-            velocityBar.style.width = `${Math.min(100, velocity)}%`;
-            velocityValue.textContent = `${velocity.toFixed(1)}x`;
-            velocityValue.className = `text-sm font-bold ${velocityClass}`;
+            if (velocityBar) velocityBar.style.width = `${Math.min(100, velocity)}%`;
+            if (velocityValue) {
+                velocityValue.textContent = `${velocity.toFixed(1)}x`;
+                velocityValue.className = `text-sm font-bold ${velocityClass}`;
+            }
             
             return { velocity, timeline };
         }
@@ -1536,15 +1731,17 @@
             if (conditionCard) {
                 conditionCard.classList.add(conditionClass);
             }
-            conditionEl.textContent = condition;
-            
-            // Update text color based on condition
-            if (condition === 'GREEN') {
-                conditionEl.className = 'text-sm font-bold text-green-400';
-            } else if (condition === 'YELLOW') {
-                conditionEl.className = 'text-sm font-bold text-yellow-400';
-            } else {
-                conditionEl.className = 'text-sm font-bold text-crimson';
+            if (conditionEl) {
+                conditionEl.textContent = condition;
+                
+                // Update text color based on condition
+                if (condition === 'GREEN') {
+                    conditionEl.className = 'text-sm font-bold text-green-400';
+                } else if (condition === 'YELLOW') {
+                    conditionEl.className = 'text-sm font-bold text-yellow-400';
+                } else {
+                    conditionEl.className = 'text-sm font-bold text-crimson';
+                }
             }
         }
 
@@ -1560,8 +1757,10 @@
             if (isChassisMode) {
                 btn.innerHTML = '<i class="fas fa-times mr-2"></i>Restore Chassis';
                 btn.classList.add('chassis-mode-active');
-                statusEl.textContent = 'Chassis Mode: Active (Survival Floor)';
-                statusEl.className = 'text-xs text-gray-400 font-bold';
+                if (statusEl) {
+                    statusEl.textContent = 'Chassis Mode: Active (Survival Floor)';
+                    statusEl.className = 'text-xs text-gray-400 font-bold';
+                }
                 
                 // Store current values
                 t1Cache = Array.from(document.querySelectorAll('.tier-1-input')).map(i => i.value || '0');
@@ -1583,8 +1782,10 @@
             } else {
                 btn.innerHTML = '<i class="fas fa-hard-hat mr-2"></i>Strip to Chassis';
                 btn.classList.remove('chassis-mode-active');
-                statusEl.textContent = 'Chassis Mode: Inactive';
-                statusEl.className = 'text-xs text-gray-500';
+                if (statusEl) {
+                    statusEl.textContent = 'Chassis Mode: Inactive';
+                    statusEl.className = 'text-xs text-gray-500';
+                }
                 
                 // Restore values
                 document.querySelectorAll('.tier-1-input').forEach((i, idx) => i.value = t1Cache[idx] || '0');
@@ -1664,10 +1865,10 @@
                 
                 // Flash Real Estate pillar if housing breach
                 const realEstatePillar = document.getElementById('pillar-realestate');
-                if (housingRatio > 28) {
+                if (realEstatePillar && housingRatio > 28) {
                     realEstatePillar.classList.add('condition-red');
                     realEstatePillar.classList.add('pulse');
-                } else {
+                } else if (realEstatePillar) {
                     realEstatePillar.classList.remove('condition-red');
                     realEstatePillar.classList.remove('pulse');
                 }
@@ -1678,11 +1879,13 @@
             // Show cap warning if applicable
             const capWarning = document.getElementById('score-cap-warning');
             const capReasonEl = document.getElementById('cap-reason');
-            if (scoreCap < 100) {
-                capWarning.classList.remove('hidden');
-                capReasonEl.textContent = capReason;
-            } else {
-                capWarning.classList.add('hidden');
+            if (capWarning && capReasonEl) {
+                if (scoreCap < 100) {
+                    capWarning.classList.remove('hidden');
+                    capReasonEl.textContent = capReason;
+                } else {
+                    capWarning.classList.add('hidden');
+                }
             }
             
             return {
@@ -1696,10 +1899,82 @@
         }
 
         // ====================
+        // ENHANCED DEBT MANAGEMENT
+        // ====================
+
+        function addDebtRow() {
+            // Desktop table
+            const tableRow = document.createElement('tr');
+            tableRow.className = "border-b border-white/5";
+            tableRow.innerHTML = `<td class="py-4 px-2"><input type="text" placeholder="Liability" class="debt-name-input bg-transparent w-full outline-none text-white text-xs uppercase" oninput="calculateAll()"></td>
+                                 <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
+                                 <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
+                                 <td class="py-4 px-2"><input type="number" step="0.1" oninput="calculateAll()" class="debt-rate-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
+                                 <td class="py-4 px-2 text-crimson font-bold"><span class="daily-bleed">$0.00</span></td>
+                                 <td class="text-right relative"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button>
+                                     <span class="debt-alert hidden absolute right-8 top-1/2 -translate-y-1/2 high-interest-alert uppercase">HIGH ALERT</span>
+                                 </td>`;
+            document.getElementById('debt-body').appendChild(tableRow);
+            
+            // Mobile card
+            const card = document.createElement('div');
+            card.className = 'debt-card';
+            card.innerHTML = `
+                <div class="flex justify-between items-center mb-3">
+                    <input type="text" placeholder="Credit Card" class="debt-name-input bg-transparent outline-none text-white font-bold w-32" oninput="calculateAll()">
+                    <button onclick="removeRow(this)" class="text-crimson">×</button>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <div class="text-xs text-gray-400 mb-1">Min Payment</div>
+                        <input type="number" oninput="calculateAll()" class="debt-min-input bg-navy-900 rounded p-2 w-full text-sm" placeholder="0">
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-400 mb-1">Balance</div>
+                        <input type="number" oninput="calculateAll()" class="debt-balance-input bg-navy-900 rounded p-2 w-full text-sm" placeholder="0">
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-400 mb-1">APR (%)</div>
+                        <input type="number" step="0.1" oninput="calculateAll()" class="debt-rate-input bg-navy-900 rounded p-2 w-full text-sm" placeholder="0">
+                    </div>
+                    <div>
+                        <div class="text-xs text-crimson font-bold mb-1">Daily Bleed</div>
+                        <div class="text-sm font-bold text-crimson p-2">$0.00</div>
+                    </div>
+                </div>
+                <div class="debt-alert hidden text-center mt-3 high-interest-alert uppercase text-xs">HIGH INTEREST RATE</div>
+            `;
+            document.getElementById('debt-cards').appendChild(card);
+            
+            calculateAll();
+        }
+
+        function removeRow(btn) {
+            // Remove from both desktop and mobile views
+            if (window.innerWidth >= 768) {
+                const row = btn.closest('tr');
+                if (row) row.remove();
+            } else {
+                const card = btn.closest('.debt-card');
+                if (card) card.remove();
+            }
+            calculateAll();
+        }
+
+        function updateDebtCards() {
+            // Sync desktop table with mobile cards (simplified)
+            if (window.innerWidth < 768) {
+                // For now, just ensure mobile view exists
+            }
+        }
+
+        // ====================
         // MAIN CALCULATION FUNCTION
         // ====================
 
         function calculateAll() {
+            console.log("=== calculateAll() called ===");
+            
             try {
                 // Update user stats
                 updateUserStats();
@@ -1789,7 +2064,7 @@
                 const currentRetirement = parseFloat(document.getElementById('current-retirement').value) || 0;
                 const houseValue = parseFloat(document.getElementById('house-value').value) || 0;
 
-                // Calculate housing costs
+                // Calculate housing costs (first 3 tier-1 inputs)
                 const housingInputs = document.querySelectorAll('.tier-1-input');
                 let monthlyHousing = 0;
                 const count = Math.min(3, housingInputs.length);
@@ -1847,8 +2122,10 @@
                 // Iron Pot progress
                 const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
                 const potPerc = essentials > 0 ? Math.min(100, (moatMonths / 3) * 100) : 0;
-                document.getElementById('pot-progress').innerText = `${Math.round(potPerc)}%`;
-                document.getElementById('pot-bar').style.width = `${potPerc}%`;
+                const potProgress = document.getElementById('pot-progress');
+                const potBar = document.getElementById('pot-bar');
+                if (potProgress) potProgress.innerText = `${Math.round(potPerc)}%`;
+                if (potBar) potBar.style.width = `${potPerc}%`;
 
                 // 50/30/20 calculations
                 const needsPerc = income > 0 ? (essentials / income) * 100 : 0;
@@ -1891,11 +2168,16 @@
                 }
                 
                 // Update pillar scores
-                document.getElementById('score-budget').innerText = Math.round(scoreData.scoreBudget);
-                document.getElementById('score-debt').innerText = Math.round(scoreData.scoreDebt);
-                document.getElementById('score-emergency').innerText = Math.round(scoreData.scoreEmergency);
-                document.getElementById('score-retirement').innerText = Math.round(scoreData.scoreRetirement);
-                document.getElementById('score-realestate').innerText = Math.round(scoreData.scoreRealEstate);
+                const updatePillar = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el) el.innerText = Math.round(value);
+                };
+                
+                updatePillar('score-budget', scoreData.scoreBudget);
+                updatePillar('score-debt', scoreData.scoreDebt);
+                updatePillar('score-emergency', scoreData.scoreEmergency);
+                updatePillar('score-retirement', scoreData.scoreRetirement);
+                updatePillar('score-realestate', scoreData.scoreRealEstate);
 
                 // Check for achievements
                 checkAchievements(totalScore, totalDebtIncludingMortgage, currentIronPot, essentials);
@@ -1937,6 +2219,8 @@
                 
                 // Auto-save
                 autoSaveProfile();
+                
+                console.log("=== calculateAll() completed successfully ===");
                 
             } catch (error) {
                 console.error("Error in calculateAll():", error);
@@ -1985,18 +2269,854 @@
             localStorage.setItem(`${CURRENT_VERSION}_history`, JSON.stringify(scoreHistory));
         }
 
-        // ... (All other existing functions remain the same, but updated to work with new features)
-        // Note: Due to character limits, I've included the most critical new functions.
-        // The existing functions (addDebtRow, removeRow, updateBadge, update503020, 
-        // checkAchievements, awardAchievement, showToast, etc.) should remain as they were
-        // but now work with the enhanced features.
+        function updateThreatLevel(totalScore) {
+            let threatLevel = "", threatClass = "", cry = "";
+            
+            if (totalScore < 40) {
+                threatLevel = "CRITICAL BREACH";
+                threatClass = "threat-critical";
+                cry = "Fortress under siege. Immediate action required.";
+            } else if (totalScore < 60) {
+                threatLevel = "HIGH ALERT";
+                threatClass = "threat-high";
+                cry = "Holding the line. Reinforce weak flanks.";
+            } else if (totalScore < 80) {
+                threatLevel = "ELEVATED";
+                threatClass = "threat-elevated";
+                cry = "Steady advance. Maintain discipline.";
+            } else if (totalScore < 90) {
+                threatLevel = "GUARDED";
+                threatClass = "threat-guarded";
+                cry = "Strong position. Prepare for offensive.";
+            } else {
+                threatLevel = "SOVEREIGN";
+                threatClass = "threat-sovereign";
+                cry = "Sovereignty achieved. Deploy capital strategically.";
+            }
+            
+            document.getElementById('threat-level').innerText = threatLevel;
+            document.getElementById('threat-level').className = `inline-block px-6 md:px-8 py-3 md:py-4 text-xl md:text-2xl font-heading uppercase tracking-widest ${threatClass}`;
+            document.getElementById('battle-cry').innerText = cry;
+        }
 
-        // IMPORTANT: You'll need to update the updatePriorityTargets function to include
-        // the highInterestCount parameter and reference the new debt bleed calculations.
+        function updatePriorityTargets(scoreBudget, scoreDebt, scoreEmergency, scoreRetirement, scoreRealEstate,
+                                      needsPerc, wantsPerc, surplusPerc, income, t3, dTotal, monthlySurplus,
+                                      moatMonths, essentials, currentIronPot, age, currentRetirement, annualIncome,
+                                      monthlyHousing, houseValue, mortgageBalance, highInterestCount) {
+            const pillars = [
+                { 
+                    name: "BUDGETING", 
+                    score: scoreBudget, 
+                    tip: getTacticalBudgetOrder(needsPerc, wantsPerc, surplusPerc, income, t3) 
+                },
+                { 
+                    name: "DEBT", 
+                    score: scoreDebt, 
+                    tip: getTacticalDebtOrder(dTotal, monthlySurplus, income, highInterestCount) 
+                },
+                { 
+                    name: "EMERGENCY FUND", 
+                    score: scoreEmergency, 
+                    tip: getTacticalEmergencyOrder(moatMonths, essentials, monthlySurplus, currentIronPot) 
+                },
+                { 
+                    name: "RETIREMENT", 
+                    score: scoreRetirement, 
+                    tip: getTacticalRetirementOrder(age, currentRetirement, annualIncome) 
+                },
+                { 
+                    name: "REAL ESTATE", 
+                    score: scoreRealEstate, 
+                    tip: getTacticalRealEstateOrder(monthlyHousing, income, houseValue, mortgageBalance) 
+                }
+            ];
 
-        // Also update the saveProfile and loadProfile functions to save/load the new
-        // warModeTarget and chassisMode states.
+            pillars.sort((a, b) => a.score - b.score);
+            const top3 = pillars.slice(0, 3);
 
+            let ordersHTML = "";
+            if (top3.length > 0 && income > 0) {
+                top3.forEach((p, i) => {
+                    ordersHTML += `
+                        <div class="bg-navy-900/50 border ${i === 0 ? 'border-crimson' : 'border-white/20'} p-6 rounded shadow-lg">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-crimson text-xl md:text-2xl font-bold uppercase tracking-wider">ORDER #${i+1}: ${p.name}</span>
+                                <span class="text-2xl md:text-3xl font-bold text-white">${Math.round(p.score)}/20</span>
+                            </div>
+                            <p class="text-base md:text-lg leading-relaxed text-gray-200 font-medium">${p.tip}</p>
+                        </div>`;
+                });
+                
+                // Show AI suggestions if score is low
+                if (top3[0].score < 12) {
+                    document.getElementById('ai-suggestions').classList.remove('hidden');
+                    generateAISuggestions(top3[0]);
+                } else {
+                    document.getElementById('ai-suggestions').classList.add('hidden');
+                }
+            } else {
+                ordersHTML = '<p class="text-center text-gray-400 italic">Enter your financial data above to generate your battle plan.</p>';
+                document.getElementById('ai-suggestions').classList.add('hidden');
+            }
+
+            document.getElementById('priority-orders').innerHTML = ordersHTML;
+        }
+
+        // Enhanced tactical order functions
+        function getTacticalBudgetOrder(needs, wants, surplus, income, cargoTotal) {
+            if (needs <= 50 && wants <= 30 && surplus >= 20) return "Budget locked in. Excellent discipline.";
+            let order = "";
+            if (needs > 50) order += `REDUCE TIER 1 by $${Math.round((needs - 50)/100 * income)}/month. `;
+            if (wants > 30) order += `CUT CARGO by $${Math.round((wants - 30)/100 * income)}/month. `;
+            if (surplus < 20) order += `FREE UP $${Math.round((20 - surplus)/100 * income)}/month for war chest. `;
+            return order.trim() || "Budget stable. Hold position.";
+        }
+
+        function getTacticalDebtOrder(dTotal, surplus, income, highInterestCount) {
+            if (dTotal === 0) return "All liabilities neutralized. Outstanding.";
+            const dti = (dTotal / (income * 12)) * 100;
+            let order = `ATTACK $${dTotal.toLocaleString()} debt (${dti.toFixed(1)}% DTI). `;
+            if (highInterestCount > 0) order += `${highInterestCount} high-interest debt${highInterestCount > 1 ? 's' : ''} bleeding daily. `;
+            if (surplus > 0) {
+                const months = Math.ceil(dTotal / surplus);
+                order += `Current surplus: payoff in ${months} months. `;
+                if (dti > 36) order += "Prioritize debt reduction over investments.";
+            } else {
+                order += "INCREASE surplus through budget adjustments first.";
+            }
+            return order;
+        }
+
+        function getTacticalEmergencyOrder(months, essentials, surplus, currentIronPot) {
+            if (months >= 6) return "Iron Pot fortified. 6+ months secured.";
+            const target = essentials * 3;
+            const needed = target - currentIronPot;
+            if (surplus > 0) {
+                const monthsToTarget = Math.ceil(needed / surplus);
+                return `Only ${months.toFixed(1)} months covered. BUILD to 3 months ($${target.toLocaleString()}). At current surplus: ${monthsToTarget} months.`;
+            }
+            return `Only ${months.toFixed(1)} months covered. BUILD to 3 months ($${target.toLocaleString()}). Consider temporary War Mode.`;
+        }
+
+        function getTacticalRetirementOrder(age, current, annual) {
+            const multiplier = age <= 30 ? 1 : age <= 40 ? 3 : age <= 50 ? 6 : age <= 60 ? 8 : 10;
+            const target = annual * multiplier;
+            if (current >= target) return "Retirement compound on schedule.";
+            const gap = target - current;
+            const monthlyNeeded = gap / ((65 - age) * 12);
+            return `Target for age ${age}: $${target.toLocaleString()}. Gap: $${gap.toLocaleString()}. Need ~$${Math.round(monthlyNeeded)}/month to catch up.`;
+        }
+
+        function getTacticalRealEstateOrder(housing, income, houseValue, mortgageBalance) {
+            const ratio = (housing / income) * 100;
+            const equity = houseValue - mortgageBalance;
+            const ltv = mortgageBalance / houseValue * 100;
+            
+            if (ratio <= 28 && equity >= 0 && ltv <= 80) return "Housing secure. Building equity.";
+            
+            let order = "";
+            if (ratio > 28) order += `Housing ${Math.round(ratio)}% of income (target ≤28%). `;
+            if (equity < 0) order += `Underwater by $${Math.abs(equity).toLocaleString()}. `;
+            if (ltv > 80) order += `High loan-to-value (${ltv.toFixed(1)}%). `;
+            
+            if (order === "") order = "Real estate position stable.";
+            return order;
+        }
+
+        // Badge and badge helper functions
+        function updateBadge(id, current, target, isHigherBetter = false) {
+            const badge = document.getElementById(id);
+            if (!badge) return;
+            badge.innerText = `${Math.round(current)}%`;
+            let statusClass = "status-bad";
+            if (isHigherBetter) {
+                if (current >= target) statusClass = "status-good";
+                else if (current >= target * 0.8) statusClass = "status-ok";
+            } else {
+                if (current <= target) statusClass = "status-good";
+                else if (current <= target * 1.2) statusClass = "status-ok";
+            }
+            badge.className = `perc-badge ${statusClass}`;
+        }
+
+        function update503020(needsPerc, wantsPerc, savingsPerc) {
+            const needsEl = document.getElementById('rule-needs');
+            const wantsEl = document.getElementById('rule-wants');
+            const savingsEl = document.getElementById('rule-savings');
+
+            if (needsEl) needsEl.textContent = needsPerc.toFixed(0) + '%';
+            if (wantsEl) wantsEl.textContent = wantsPerc.toFixed(0) + '%';
+            if (savingsEl) savingsEl.textContent = savingsPerc.toFixed(0) + '%';
+
+            if (needsEl) needsEl.className = needsPerc <= 50 ? 'text-green-400 font-bold' : needsPerc <= 60 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+            if (wantsEl) wantsEl.className = wantsPerc <= 30 ? 'text-green-400 font-bold' : wantsPerc <= 40 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+            if (savingsEl) savingsEl.className = savingsPerc >= 20 ? 'text-green-400 font-bold' : savingsPerc >= 10 ? 'text-yellow-400 font-bold' : 'text-red-400 font-bold';
+        }
+
+        // Achievement system
+        function checkAchievements(totalScore, dTotal, currentIronPot, essentials) {
+            // First budget achievement
+            if (!achievements.includes('first_budget')) {
+                const paycheck = parseFloat(document.getElementById('paycheck').value) || 0;
+                if (paycheck > 0) {
+                    awardAchievement('first_budget', 'First Budget', 'Created your first budget', 'bronze');
+                }
+            }
+            
+            // Score-based achievements
+            if (totalScore >= 50 && !achievements.includes('score_50')) {
+                awardAchievement('score_50', 'Halfway There', 'Reached a Sovereignty Score of 50', 'silver');
+            }
+            
+            if (totalScore >= 80 && !achievements.includes('score_80')) {
+                awardAchievement('score_80', 'Financial Fortress', 'Reached a Sovereignty Score of 80', 'gold');
+            }
+            
+            if (totalScore >= 95 && !achievements.includes('score_95')) {
+                awardAchievement('score_95', 'Sovereign Status', 'Reached a Sovereignty Score of 95', 'platinum');
+            }
+            
+            // Debt-free achievement
+            if (dTotal === 0 && !achievements.includes('debt_free')) {
+                awardAchievement('debt_free', 'Debt Destroyer', 'Eliminated all debt', 'gold');
+            }
+            
+            // Emergency fund achievement
+            const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
+            if (moatMonths >= 3 && !achievements.includes('emergency_3')) {
+                awardAchievement('emergency_3', 'Iron Pot Secure', 'Built a 3-month emergency fund', 'silver');
+            }
+            
+            if (moatMonths >= 6 && !achievements.includes('emergency_6')) {
+                awardAchievement('emergency_6', 'Financial Moat', 'Built a 6-month emergency fund', 'gold');
+            }
+        }
+
+        function awardAchievement(id, title, description, tier) {
+            if (achievements.includes(id)) return;
+            
+            achievements.push(id);
+            
+            // Update achievements preview
+            const preview = document.getElementById('achievements-preview');
+            if (preview && preview.children.length < 3) {
+                const achievementEl = document.createElement('div');
+                achievementEl.className = 'flex items-center';
+                achievementEl.innerHTML = `
+                    <div class="badge badge-${tier} mr-3">${tier === 'bronze' ? '🥉' : tier === 'silver' ? '🥈' : tier === 'gold' ? '🥇' : '🏆'}</div>
+                    <div class="text-xs">${title}</div>
+                `;
+                preview.appendChild(achievementEl);
+            }
+            
+            // Update badge preview in header
+            const badgePreview = document.getElementById('badge-preview');
+            if (badgePreview && badgePreview.children.length < 5) {
+                const badge = document.createElement('div');
+                badge.className = `badge badge-${tier} text-xs px-2`;
+                badge.textContent = tier === 'bronze' ? 'B' : tier === 'silver' ? 'S' : tier === 'gold' ? 'G' : 'P';
+                badge.title = title;
+                badgePreview.appendChild(badge);
+            }
+            
+            // ONLY show modal for platinum achievements
+            if (tier === 'platinum') {
+                document.getElementById('achievement-title').textContent = title;
+                document.getElementById('achievement-desc').textContent = description;
+                document.getElementById('achievement-badge').className = `inline-block badge badge-${tier} text-lg px-6 py-2 mb-6`;
+                document.getElementById('achievement-badge').textContent = title;
+                document.getElementById('achievement-modal').classList.remove('hidden');
+                
+                triggerConfetti();
+            } else {
+                // Show subtle toast for other achievements
+                showToast(`Achievement Unlocked: ${title}`);
+            }
+            
+            // Save achievements
+            localStorage.setItem(`${CURRENT_VERSION}_achievements`, JSON.stringify(achievements));
+        }
+
+        function closeAchievementModal() {
+            document.getElementById('achievement-modal').classList.add('hidden');
+        }
+
+        function triggerConfetti() {
+            const colors = ['#FFD700', '#C0C0C0', '#CD7F32', '#B22234', '#00FF00'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.animationDuration = (1 + Math.random() * 2) + 's';
+                document.getElementById('main-body').appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+
+        // NEW: Subtle toast notification system
+        function showToast(message) {
+            // Remove existing toast if any
+            const existingToast = document.querySelector('.toast-notification');
+            if (existingToast) {
+                existingToast.remove();
+            }
+            
+            // Create new toast
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-info-circle text-crimson mr-3"></i>
+                    <span class="text-sm">${message}</span>
+                </div>
+            `;
+            
+            document.getElementById('main-body').appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Scenario Builder
+        function runScenario(type) {
+            const originalIncome = (parseFloat(document.getElementById('paycheck').value) || 0) * (parseFloat(document.getElementById('freq').value) || 2);
+            const originalT3 = Array.from(document.querySelectorAll('.tier-3-input')).reduce((sum, i) => sum + (parseFloat(i.value) || 0), 0);
+            const originalDebt = Array.from(document.querySelectorAll('.debt-balance-input')).reduce((sum, i) => sum + (parseFloat(i.value) || 0), 0);
+            const originalIronPot = parseFloat(document.getElementById('current-iron-pot').value) || 0;
+            
+            let scenarioTitle = '';
+            let scenarioDetails = '';
+            let newScore = 0;
+            
+            switch(type) {
+                case 'raise':
+                    scenarioTitle = '10% Raise Scenario';
+                    const newIncome = originalIncome * 1.1;
+                    const extraMonthly = newIncome - originalIncome;
+                    scenarioDetails = `With a 10% raise, your monthly income increases by $${Math.round(extraMonthly)}. This could accelerate your debt payoff timeline by approximately 15% or boost your retirement contributions significantly.`;
+                    newScore = calculateScenarioScore(newIncome, originalT3, originalDebt, originalIronPot);
+                    break;
+                    
+                case 'cut_dining':
+                    scenarioTitle = 'Reduce Dining Out';
+                    const diningReduction = originalT3 * 0.5;
+                    const newT3 = originalT3 - diningReduction;
+                    scenarioDetails = `Cutting dining out by 50% frees up $${Math.round(diningReduction)} monthly. This could build your emergency fund 3 months faster or pay off debt 25% quicker.`;
+                    newScore = calculateScenarioScore(originalIncome, newT3, originalDebt, originalIronPot);
+                    break;
+                    
+                case 'debt_free':
+                    scenarioTitle = 'Debt-Free Scenario';
+                    scenarioDetails = `If all debt was paid off, you'd free up $${Math.round(Array.from(document.querySelectorAll('.debt-min-input')).reduce((sum, i) => sum + (parseFloat(i.value) || 0), 0))} monthly. This could be redirected to investments, potentially retiring 5-7 years earlier.`;
+                    newScore = calculateScenarioScore(originalIncome, originalT3, 0, originalIronPot);
+                    break;
+                    
+                case 'emergency_fund':
+                    scenarioTitle = '6-Month Emergency Fund';
+                    const essentials = Array.from(document.querySelectorAll('.tier-1-input')).reduce((sum, i) => sum + (parseFloat(i.value) || 0), 0);
+                    const targetEmergency = essentials * 6;
+                    scenarioDetails = `With a full 6-month emergency fund ($${Math.round(targetEmergency)}), you'd have complete financial security against job loss or emergencies. Your Sovereignty Score would significantly increase.`;
+                    newScore = calculateScenarioScore(originalIncome, originalT3, originalDebt, targetEmergency);
+                    break;
+            }
+            
+            document.getElementById('scenario-title').textContent = scenarioTitle;
+            document.getElementById('scenario-details').innerHTML = `${scenarioDetails}<br><br><strong>Projected Sovereignty Score: ${newScore}/100</strong>`;
+            document.getElementById('scenario-results').classList.remove('hidden');
+            
+            // Scroll to results
+            document.getElementById('scenario-results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function calculateScenarioScore(income, t3, debt, ironPot) {
+            // Simplified calculation for scenario
+            const essentials = Array.from(document.querySelectorAll('.tier-1-input')).reduce((sum, i) => sum + (parseFloat(i.value) || 0), 0);
+            const t2 = Array.from(document.querySelectorAll('.tier-2-input')).reduce((sum, i) => sum + (parseFloat(i.value) || 0), 0);
+            const dMin = Array.from(document.querySelectorAll('.debt-min-input')).reduce((sum, i) => sum + (parseFloat(i.value) || 0), 0);
+            
+            const totalMonthlyOut = essentials + dMin + t2 + t3;
+            const monthlySurplus = income - totalMonthlyOut;
+            
+            // Simplified scoring
+            let score = 50;
+            
+            // Budgeting component
+            const needsPerc = income > 0 ? essentials / income * 100 : 0;
+            const wantsPerc = income > 0 ? t3 / income * 100 : 0;
+            const surplusPerc = income > 0 ? monthlySurplus / income * 100 : 0;
+            
+            if (needsPerc <= 50) score += 10;
+            if (wantsPerc <= 30) score += 10;
+            if (surplusPerc >= 20) score += 10;
+            
+            // Debt component
+            if (debt === 0) score += 20;
+            
+            // Emergency fund component
+            const moatMonths = essentials > 0 ? ironPot / essentials : 0;
+            if (moatMonths >= 6) score += 10;
+            else if (moatMonths >= 3) score += 5;
+            
+            return Math.min(100, Math.round(score));
+        }
+
+        function closeScenario() {
+            document.getElementById('scenario-results').classList.add('hidden');
+        }
+
+        // Export functionality
+        function showExportModal() {
+            document.getElementById('export-modal').classList.remove('hidden');
+        }
+
+        function closeExportModal() {
+            document.getElementById('export-modal').classList.add('hidden');
+        }
+
+        function exportAsPDF() {
+            showToast('PDF export would generate here. In a real app, this would create a downloadable PDF report.');
+            closeExportModal();
+        }
+
+        function exportAsCSV() {
+            const data = collectExportData();
+            const csv = convertToCSV(data);
+            downloadFile(csv, 'battle-plan.csv', 'text/csv');
+            showToast('CSV file downloaded');
+            closeExportModal();
+        }
+
+        function exportAsImage() {
+            showToast('Image export would capture your dashboard. In a real app, this would use html2canvas.');
+            closeExportModal();
+        }
+
+        function collectExportData() {
+            const income = (parseFloat(document.getElementById('paycheck').value) || 0) * (parseFloat(document.getElementById('freq').value) || 2);
+            const score = document.getElementById('sovereignty-score').textContent;
+            
+            return {
+                timestamp: new Date().toISOString(),
+                sovereigntyScore: score,
+                monthlyIncome: income,
+            };
+        }
+
+        function convertToCSV(data) {
+            const headers = Object.keys(data);
+            const values = Object.values(data);
+            return headers.join(',') + '\n' + values.join(',');
+        }
+
+        function downloadFile(content, filename, contentType) {
+            const blob = new Blob([content], { type: contentType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // AI functionality
+        function generateAIBattlePlan() {
+            showToast('AI analysis would provide personalized insights here. This feature requires backend integration.');
+        }
+
+        function generateAISuggestions(weakestPillar) {
+            const suggestions = document.getElementById('ai-suggestions-content');
+            if (!suggestions) return;
+            
+            suggestions.innerHTML = '';
+            
+            let aiTip = '';
+            switch(weakestPillar.name) {
+                case 'BUDGETING':
+                    aiTip = 'Consider using the 50/30/20 envelope system: allocate cash to envelopes for each category to prevent overspending.';
+                    break;
+                case 'DEBT':
+                    aiTip = 'Try the debt avalanche method: list debts by interest rate, pay minimums on all, then throw extra money at the highest interest debt first.';
+                    break;
+                case 'EMERGENCY FUND':
+                    aiTip = 'Set up automatic transfers of $50-100 per paycheck to your emergency fund. Out of sight, out of mind.';
+                    break;
+                case 'RETIREMENT':
+                    aiTip = 'Increase your 401(k) contribution by just 1% - you likely won\'t notice the difference in your paycheck but it compounds significantly.';
+                    break;
+                case 'REAL ESTATE':
+                    aiTip = 'Consider refinancing if rates have dropped since you got your mortgage, or make one extra mortgage payment per year to cut years off your loan.';
+                    break;
+            }
+            
+            const suggestionEl = document.createElement('div');
+            suggestionEl.className = 'flex items-start';
+            suggestionEl.innerHTML = `
+                <i class="fas fa-lightbulb text-yellow-500 mt-1 mr-3"></i>
+                <p class="text-sm">${aiTip}</p>
+            `;
+            suggestions.appendChild(suggestionEl);
+        }
+
+        // User stats management
+        function updateUserStats() {
+            userStats.lastUpdate = new Date();
+            userStats.dataPoints = countDataPoints();
+            
+            // Track sessions (new session after 1 hour of inactivity)
+            const lastUpdate = new Date(localStorage.getItem(`${CURRENT_VERSION}_lastUpdate`) || 0);
+            const today = new Date();
+            if (today.getTime() - lastUpdate.getTime() > 3600000) {
+                userStats.sessions = (userStats.sessions || 0) + 1;
+            }
+            
+            localStorage.setItem(`${CURRENT_VERSION}_lastUpdate`, userStats.lastUpdate.toISOString());
+            saveUserStats();
+            updateStatsDisplay();
+        }
+
+        function countDataPoints() {
+            let count = 0;
+            
+            // Count inputs with values
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                if (input.value && input.value.trim() !== '') count++;
+            });
+            
+            return count;
+        }
+
+        function loadUserStats() {
+            const saved = localStorage.getItem(`${CURRENT_VERSION}_stats`);
+            if (saved) {
+                userStats = JSON.parse(saved);
+                userStats.lastUpdate = new Date(userStats.lastUpdate);
+            }
+            
+            // Load achievements
+            const savedAchievements = localStorage.getItem(`${CURRENT_VERSION}_achievements`);
+            if (savedAchievements) {
+                achievements = JSON.parse(savedAchievements);
+                updateAchievementsDisplay();
+            }
+            
+            // Load score history
+            const savedHistory = localStorage.getItem(`${CURRENT_VERSION}_history`);
+            if (savedHistory) {
+                scoreHistory = JSON.parse(savedHistory);
+                updateScoreHistory();
+            }
+        }
+
+        function saveUserStats() {
+            localStorage.setItem(`${CURRENT_VERSION}_stats`, JSON.stringify(userStats));
+        }
+
+        function updateStatsDisplay() {
+            document.getElementById('last-updated').textContent = formatTimeAgo(userStats.lastUpdate);
+            document.getElementById('active-days').textContent = userStats.sessions || 1;
+            document.getElementById('data-points').textContent = userStats.dataPoints;
+            
+            // Update session count in header
+            const sessionEl = document.getElementById('session-count');
+            if (sessionEl) {
+                sessionEl.textContent = userStats.sessions || 1;
+            }
+        }
+
+        function updateAchievementsDisplay() {
+            const preview = document.getElementById('achievements-preview');
+            if (!preview) return;
+            
+            preview.innerHTML = '';
+            
+            // Show latest 3 achievements
+            const recentAchievements = achievements.slice(-3).reverse();
+            recentAchievements.forEach(achId => {
+                const achievementEl = document.createElement('div');
+                achievementEl.className = 'flex items-center';
+                achievementEl.innerHTML = `
+                    <div class="badge badge-bronze mr-3">🎯</div>
+                    <div class="text-xs">Achievement Unlocked</div>
+                `;
+                preview.appendChild(achievementEl);
+            });
+            
+            if (recentAchievements.length === 0) {
+                preview.innerHTML = '<div class="text-xs text-gray-500">No achievements yet. Complete your budget to earn badges!</div>';
+            }
+        }
+
+        function formatTimeAgo(date) {
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            
+            if (diffMins < 1) return 'Just now';
+            if (diffMins < 60) return `${diffMins}m ago`;
+            if (diffMins < 1440) return `${Math.floor(diffMins / 60)}h ago`;
+            return `${Math.floor(diffMins / 1440)}d ago`;
+        }
+
+        // Pillar info modal
+        function showPillarInfo(pillar) {
+            const info = {
+                budgeting: 'Assesses your adherence to the 50/30/20 rule. 50% or less on needs, 30% or less on wants, 20% or more to savings/debt repayment.',
+                debt: 'Evaluates your debt-to-income ratio (should be ≤36%) and interest rates. High-interest debt (>10%) reduces your score.',
+                emergency: 'Measures your emergency fund relative to essential expenses. Target is 3-6 months worth of Tier 1 expenses.',
+                retirement: 'Compares your current retirement savings to age-based targets. 30s: 1x income, 40s: 3x, 50s: 6x, 60s: 8x.',
+                realestate: 'Assesses housing costs (should be ≤28% of income) and home equity position.'
+            };
+            
+            showToast(info[pillar]);
+        }
+
+        // Enhanced save/load
+        function saveProfile() {
+            const data = {
+                version: CURRENT_VERSION,
+                paycheck: document.getElementById('paycheck').value || '',
+                freq: document.getElementById('freq').value || '2',
+                age: document.getElementById('user-age').value || '',
+                ironPot: document.getElementById('current-iron-pot').value || '',
+                retirement: document.getElementById('current-retirement').value || '',
+                houseValue: document.getElementById('house-value').value || '',
+                mortgageBalance: document.getElementById('mortgage-balance').value || '',
+                debts: Array.from(document.querySelectorAll('#debt-body tr')).map(row => ({
+                    name: row.querySelector('.debt-name-input').value || '',
+                    min: row.querySelector('.debt-min-input').value || '0',
+                    bal: row.querySelector('.debt-balance-input').value || '0',
+                    rate: row.querySelector('.debt-rate-input').value || '0'
+                })),
+                t1: Array.from(document.querySelectorAll('.tier-1-input')).map(i => i.value || '0'),
+                t2: Array.from(document.querySelectorAll('.tier-2-input')).map(i => i.value || '0'),
+                t3: Array.from(document.querySelectorAll('.tier-3-input')).map(i => i.value || '0'),
+                warModeTarget: warModeTarget,
+                isChassisMode: isChassisMode
+            };
+            localStorage.setItem(CURRENT_VERSION, JSON.stringify(data));
+            
+            // Award save achievement WITHOUT popup
+            if (!achievements.includes('regular_saver')) {
+                awardAchievement('regular_saver', 'Regular Saver', 'Saved your strategy 5 times', 'bronze');
+            }
+            
+            showToast('Strategy secured! Your progress has been saved.');
+        }
+
+        function autoSaveProfile() {
+            // Auto-save every 30 seconds if changes detected
+            setTimeout(() => {
+                saveProfile();
+            }, 30000);
+        }
+
+        function loadProfile() {
+            const saved = localStorage.getItem(CURRENT_VERSION);
+            if (!saved) {
+                // First time user - check for onboarding
+                if (!localStorage.getItem(`${CURRENT_VERSION}_visited`)) {
+                    setTimeout(() => {
+                        showOnboarding();
+                    }, 1500);
+                }
+                return calculateAll();
+            }
+
+            let data;
+            try {
+                data = JSON.parse(saved);
+                if (data.version !== CURRENT_VERSION) throw new Error();
+            } catch (e) {
+                return calculateAll();
+            }
+
+            // Load basic data
+            document.getElementById('paycheck').value = data.paycheck || '';
+            document.getElementById('freq').value = data.freq || '2';
+            document.getElementById('user-age').value = data.age || '';
+            document.getElementById('current-iron-pot').value = data.ironPot || '';
+            document.getElementById('current-retirement').value = data.retirement || '';
+            document.getElementById('house-value').value = data.houseValue || '';
+            document.getElementById('mortgage-balance').value = data.mortgageBalance || '';
+
+            // Load war mode states
+            warModeTarget = data.warModeTarget || null;
+            isChassisMode = data.isChassisMode || false;
+
+            // Update UI for war mode
+            if (warModeTarget) {
+                const btn = document.getElementById('war-mode-btn');
+                const statusEl = document.getElementById('war-mode-status');
+                const targetEl = document.getElementById('priority-target');
+                const currentTargetEl = document.getElementById('current-target');
+                
+                if (btn) btn.innerHTML = '<i class="fas fa-times mr-2"></i>Deactivate War-Mode';
+                if (statusEl) {
+                    statusEl.textContent = `War Mode: Active (${getTargetName(warModeTarget)})`;
+                    statusEl.className = 'text-xs text-crimson font-bold';
+                }
+                if (targetEl) targetEl.classList.remove('hidden');
+                if (currentTargetEl) {
+                    const targetNames = {
+                        'avalanche': 'Debt Avalanche',
+                        'emergency': 'Iron Pot Fortification',
+                        'snowball': 'Debt Snowball',
+                        'mortgage': 'Mortgage Siege'
+                    };
+                    currentTargetEl.textContent = targetNames[warModeTarget] || warModeTarget;
+                }
+            }
+
+            // Update UI for chassis mode
+            if (isChassisMode) {
+                const btn = document.getElementById('chassis-mode-btn');
+                const statusEl = document.getElementById('chassis-mode-status');
+                if (btn) {
+                    btn.innerHTML = '<i class="fas fa-times mr-2"></i>Restore Chassis';
+                    btn.classList.add('chassis-mode-active');
+                }
+                if (statusEl) {
+                    statusEl.textContent = 'Chassis Mode: Active (Survival Floor)';
+                    statusEl.className = 'text-xs text-gray-400 font-bold';
+                }
+            }
+
+            // Load debts (desktop)
+            const debtBody = document.getElementById('debt-body');
+            if (debtBody) {
+                debtBody.innerHTML = '';
+                (data.debts || []).forEach(debt => {
+                    const row = document.createElement('tr');
+                    row.className = "border-b border-white/5";
+                    row.innerHTML = `
+                        <td class="py-4 px-2"><input type="text" value="${debt.name}" class="debt-name-input bg-transparent w-full outline-none text-white text-xs uppercase" oninput="calculateAll()"></td>
+                        <td class="py-4 px-2"><input type="number" value="${debt.min}" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs"></td>
+                        <td class="py-4 px-2"><input type="number" value="${debt.bal}" oninput="calculateAll()" class="debt-balance-input bg-transparent w-full outline-none text-white text-xs"></td>
+                        <td class="py-4 px-2"><input type="number" step="0.1" value="${debt.rate}" oninput="calculateAll()" class="debt-rate-input bg-transparent w-full outline-none text-white text-xs"></td>
+                        <td class="py-4 px-2 text-crimson font-bold"><span class="daily-bleed">$0.00</span></td>
+                        <td class="text-right relative"><button onclick="removeRow(this)" class="hover:text-crimson transition text-lg">×</button>
+                            <span class="debt-alert ${parseFloat(debt.rate || 0) >= 25 ? '' : 'hidden'} absolute right-8 top-1/2 -translate-y-1/2 high-interest-alert uppercase">HIGH ALERT</span>
+                        </td>`;
+                    debtBody.appendChild(row);
+                });
+            }
+
+            // Load debts (mobile)
+            const debtCards = document.getElementById('debt-cards');
+            if (debtCards) {
+                debtCards.innerHTML = '';
+                (data.debts || []).forEach(debt => {
+                    const card = document.createElement('div');
+                    card.className = 'debt-card';
+                    card.innerHTML = `
+                        <div class="flex justify-between items-center mb-3">
+                            <input type="text" value="${debt.name}" class="debt-name-input bg-transparent outline-none text-white font-bold w-32" oninput="calculateAll()">
+                            <button onclick="removeRow(this)" class="text-crimson">×</button>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <div class="text-xs text-gray-400 mb-1">Min Payment</div>
+                                <input type="number" value="${debt.min}" oninput="calculateAll()" class="debt-min-input bg-navy-900 rounded p-2 w-full text-sm">
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400 mb-1">Balance</div>
+                                <input type="number" value="${debt.bal}" oninput="calculateAll()" class="debt-balance-input bg-navy-900 rounded p-2 w-full text-sm">
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400 mb-1">APR (%)</div>
+                                <input type="number" step="0.1" value="${debt.rate}" oninput="calculateAll()" class="debt-rate-input bg-navy-900 rounded p-2 w-full text-sm">
+                            </div>
+                            <div>
+                                <div class="text-xs text-crimson font-bold mb-1">Daily Bleed</div>
+                                <div class="text-sm font-bold text-crimson p-2">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="debt-alert ${parseFloat(debt.rate || 0) >= 25 ? '' : 'hidden'} text-center mt-3 high-interest-alert uppercase text-xs">HIGH INTEREST RATE</div>
+                    `;
+                    debtCards.appendChild(card);
+                });
+            }
+
+            // Load tier inputs
+            document.querySelectorAll('.tier-1-input').forEach((el, i) => {
+                if (data.t1 && data.t1[i]) el.value = data.t1[i];
+            });
+            document.querySelectorAll('.tier-2-input').forEach((el, i) => {
+                if (data.t2 && data.t2[i]) el.value = data.t2[i];
+            });
+            document.querySelectorAll('.tier-3-input').forEach((el, i) => {
+                if (data.t3 && data.t3[i]) el.value = data.t3[i];
+            });
+
+            calculateAll();
+        }
+
+        function updateDataPoints() {
+            const count = countDataPoints();
+            document.getElementById('data-points').textContent = count;
+            userStats.dataPoints = count;
+        }
+
+        // Email battle plan
+        function emailBattlePlan() {
+            const score = document.getElementById('sovereignty-score')?.innerText || '0';
+            const warChest = document.getElementById('surplus-val')?.innerText || '$0';
+            const threatLevel = document.getElementById('threat-level')?.innerText || 'ANALYZING';
+            
+            // Collect priority orders
+            const orders = Array.from(document.querySelectorAll('#priority-orders .bg-navy-900\\/50')).map(card => {
+                const title = card.querySelector('.text-crimson')?.textContent || 'Order';
+                const tip = card.querySelector('p')?.textContent || '';
+                return `${title}: ${tip}`;
+            }).join('\n');
+            
+            const subject = `My Sovereignty Dashboard Battle Plan - Score: ${score}/100`;
+            const body = `SOVEREIGNTY DASHBOARD - BATTLE PLAN REPORT
+===========================================
+
+SOVEREIGNTY SCORE: ${score}/100
+THREAT LEVEL: ${threatLevel}
+MONTHLY WAR CHEST: ${warChest}
+REPORT DATE: ${new Date().toLocaleDateString()}
+
+PRIORITY TARGETS:
+${orders || 'No priority targets identified.'}
+
+KEY METRICS:
+• Monthly Income: $${((parseFloat(document.getElementById('paycheck').value) || 0) * (parseFloat(document.getElementById('freq').value) || 2)).toLocaleString()}
+• Total Debt: ${document.getElementById('total-debt-val')?.textContent || '$0'}
+• Emergency Fund: ${document.getElementById('current-iron-pot')?.value || '0'} months coverage
+• Housing Ratio: ${document.getElementById('housing-percent')?.textContent || '0%'}
+
+NEXT ACTIONS:
+1. Review your Priority Targets above
+2. Consider implementing War Mode if surplus is low
+3. Schedule a strategy call for personalized guidance
+
+Generated from the Sovereignty Dashboard at realamericanfinance.com
+===========================================`;
+
+            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            closeExportModal();
+        }
     </script>
-</body>
-</html>
