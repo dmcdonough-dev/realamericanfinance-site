@@ -72,12 +72,19 @@
     </section>
 
     <main class="container mx-auto px-6 py-12 flex-1">
-        <!-- Sovereignty Score -->
+        <!-- Sovereignty Score with 5-Pillar Breakdown -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             <div class="lg:col-span-3 dashboard-card p-10 text-center shadow-2xl border-crimson border-2">
                 <h3 class="text-3xl font-heading uppercase tracking-wider mb-4 text-gray-300">Your Sovereignty Score</h3>
                 <div id="sovereignty-score" class="text-8xl font-bold text-crimson">0</div>
                 <p class="text-sm uppercase text-gray-400 mt-6 tracking-widest">Financial Independence Level • Higher = Stronger Fortress</p>
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-5 gap-4 text-xs">
+                    <div class="bg-navy-900 p-4 rounded"><span class="block uppercase text-gray-400">Budgeting</span><span id="score-budget" class="text-2xl font-bold text-white">0</span>/20</div>
+                    <div class="bg-navy-900 p-4 rounded"><span class="block uppercase text-gray-400">Debt</span><span id="score-debt" class="text-2xl font-bold text-white">0</span>/20</div>
+                    <div class="bg-navy-900 p-4 rounded"><span class="block uppercase text-gray-400">Emergency Fund</span><span id="score-emergency" class="text-2xl font-bold text-white">0</span>/20</div>
+                    <div class="bg-navy-900 p-4 rounded"><span class="block uppercase text-gray-400">Retirement</span><span id="score-retirement" class="text-2xl font-bold text-white">0</span>/20</div>
+                    <div class="bg-navy-900 p-4 rounded"><span class="block uppercase text-gray-400">Real Estate</span><span id="score-realestate" class="text-2xl font-bold text-white">0</span>/20</div>
+                </div>
             </div>
         </div>
 
@@ -129,23 +136,39 @@
                     </div>
                 </div>
 
-                <!-- NEW: Current Fortress Assets -->
+                <!-- Current Fortress Assets & Real Estate -->
                 <div class="dashboard-card p-8 shadow-2xl assets-box">
-                    <h3 class="text-xl font-heading font-bold uppercase mb-6 border-l-2 border-crimson pl-4 text-crimson">Current Fortress Assets</h3>
-                    <p class="text-xs text-gray-400 mb-6 uppercase tracking-wider">These are your current account balances (not monthly contributions). Used for Iron Pot coverage and Sovereignty Score.</p>
-                    <div class="space-y-4">
+                    <h3 class="text-xl font-heading font-bold uppercase mb-6 border-l-2 border-crimson pl-4 text-crimson">Current Fortress Assets & Real Estate</h3>
+                    <p class="text-xs text-gray-400 mb-6 uppercase tracking-wider">Current balances (not monthly). Used for Sovereignty Score.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex justify-between border-b border-white/5 py-2 px-2">
+                            <span class="text-xs uppercase font-bold text-gray-100">Your Age</span>
+                            <input type="number" id="user-age" oninput="calculateAll()" class="input-underlined w-24 text-right" placeholder="e.g. 35">
+                        </div>
                         <div class="flex justify-between border-b border-white/5 py-2 px-2">
                             <span class="text-xs uppercase font-bold text-gray-100">Emergency Fund / Iron Pot Balance ($)</span>
                             <input type="number" id="current-iron-pot" oninput="calculateAll()" class="input-underlined w-32 text-right" placeholder="0">
                         </div>
                         <div class="flex justify-between border-b border-white/5 py-2 px-2">
-                            <span class="text-xs uppercase font-bold text-gray-100">Retirement / Investment Accounts Total ($)</span>
+                            <span class="text-xs uppercase font-bold text-gray-100">Retirement / Investments Total ($)</span>
                             <input type="number" id="current-retirement" oninput="calculateAll()" class="input-underlined w-32 text-right" placeholder="0">
+                        </div>
+                        <div class="flex justify-between border-b border-white/5 py-2 px-2">
+                            <span class="text-xs uppercase font-bold text-gray-100">Current House Value ($)</span>
+                            <input type="number" id="house-value" oninput="calculateAll()" class="input-underlined w-32 text-right" placeholder="0">
+                        </div>
+                        <div class="flex justify-between border-b border-white/5 py-2 px-2">
+                            <span class="text-xs uppercase font-bold text-gray-100">Current Mortgage Balance ($)</span>
+                            <input type="number" id="mortgage-balance" oninput="calculateAll()" class="input-underlined w-32 text-right" placeholder="0">
+                        </div>
+                        <div class="py-3 px-4 bg-white/5 text-sm col-span-2">
+                            <span class="text-xs uppercase font-bold text-crimson">Monthly Housing Costs (Auto-Calculated)</span>
+                            <span id="monthly-housing-costs" class="ml-4 font-bold">$0</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 03. Monthly Siege Engine (Cash Flow Only) -->
+                <!-- 03. Monthly Siege Engine -->
                 <div class="dashboard-card p-8 shadow-2xl">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                         <h3 class="text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-4 text-white leading-none">03. Monthly Siege Engine</h3>
@@ -156,7 +179,7 @@
                     </div>
                     
                     <div class="space-y-8">
-                        <!-- Tier 1: Needs -->
+                        <!-- Tier 1 -->
                         <div class="tier-1 p-6 space-y-4">
                             <div class="flex justify-between items-center">
                                 <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Tier 1: The Foundation (Needs ≤50%)</h4>
@@ -177,7 +200,7 @@
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-200">Childcare / Essential Pet Care</span><input type="number" oninput="calculateAll()" class="tier-1-input input-underlined w-24 text-right" placeholder="0"></div>
                         </div>
 
-                        <!-- Tier 2: Infrastructure -->
+                        <!-- Tier 2 -->
                         <div class="tier-2 p-6 space-y-4">
                             <div class="flex justify-between items-center">
                                 <h4 class="text-[11px] uppercase font-bold text-gray-400 tracking-[0.3em]">Tier 2: Infrastructure</h4>
@@ -191,7 +214,7 @@
                             <div class="flex justify-between border-b border-white/5 py-2 px-2"><span class="text-xs uppercase font-bold text-gray-300">Gym / Physical Training Membership</span><input type="number" oninput="calculateAll()" class="tier-2-input input-underlined w-24 text-right" placeholder="0"></div>
                         </div>
 
-                        <!-- Tier 3: Cargo -->
+                        <!-- Tier 3 -->
                         <div class="tier-3 p-6 space-y-4" id="tier-3-container">
                             <div class="flex justify-between items-center">
                                 <h4 class="text-[11px] uppercase font-bold text-white tracking-[0.3em]">Tier 3: The Cargo (Wants ≤30%)</h4>
@@ -218,6 +241,14 @@
                             <span id="center-remaining" class="text-4xl font-heading font-bold text-white leading-none">$0</span>
                             <span id="center-label" class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2">Monthly Surplus</span>
                         </div>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="mt-6 space-y-2 text-xs">
+                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-white rounded"></div><span>Needs (Tier 1 + Debt Mins)</span></div>
+                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#9ca3af] rounded"></div><span>Infrastructure (Tier 2)</span></div>
+                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#4b5563] rounded"></div><span>Cargo / Wants (Tier 3)</span></div>
+                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-crimson rounded"></div><span>Monthly Surplus</span></div>
                     </div>
 
                     <div class="mt-8 mb-8">
@@ -257,7 +288,7 @@
         <div class="mt-20 dashboard-card p-12 border-t-8 border-crimson shadow-2xl">
             <h3 class="text-3xl font-heading font-bold uppercase mb-8 text-white tracking-tight">Priority Target</h3>
             <div id="weak-point-card" class="bg-white/5 p-10 rounded border border-white/10 text-center">
-                <p class="text-2xl font-bold italic text-gray-400">Enter your income and current assets to receive your first order.</p>
+                <p class="text-2xl font-bold italic text-gray-400">Enter your data to receive your first order.</p>
             </div>
         </div>
     </main>
@@ -336,7 +367,7 @@
         let myChart;
         let isWarMode = false;
         let p3Cache = [];
-        const CURRENT_VERSION = 'raf_siege_v20';
+        const CURRENT_VERSION = 'raf_siege_final_v1';
 
         document.addEventListener('DOMContentLoaded', function () {
             const canvas = document.getElementById('budgetChart');
@@ -345,16 +376,27 @@
                 myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Needs', 'Debt Min', 'Infrastructure', 'Cargo', 'Surplus'],
+                        labels: ['Needs', 'Infrastructure', 'Cargo', 'Surplus'],
                         datasets: [{
-                            data: [0, 0, 0, 0, 100],
-                            backgroundColor: ['#FFFFFF', '#DC143C88', '#9ca3af', '#4b5563', '#B22234'],
+                            data: [0, 0, 0, 100],
+                            backgroundColor: ['#FFFFFF', '#9ca3af', '#4b5563', '#B22234'],
                             borderWidth: 0
                         }]
                     },
                     options: {
                         cutout: '85%',
-                        plugins: { legend: { display: false } }
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        let value = context.parsed;
+                                        return `${label}: $${value.toLocaleString()}`;
+                                    }
+                                }
+                            }
+                        }
                     }
                 });
             }
@@ -367,8 +409,11 @@
         function clearAllInputs() {
             document.getElementById('paycheck').value = '';
             document.getElementById('freq').value = '2';
+            document.getElementById('user-age').value = '';
             document.getElementById('current-iron-pot').value = '';
             document.getElementById('current-retirement').value = '';
+            document.getElementById('house-value').value = '';
+            document.getElementById('mortgage-balance').value = '';
             document.getElementById('debt-body').innerHTML = `<tr class="border-b border-white/5">
                 <td class="py-4 px-2"><input type="text" placeholder="e.g. Visa" class="bg-transparent w-full outline-none text-white text-xs uppercase"></td>
                 <td class="py-4 px-2"><input type="number" oninput="calculateAll()" class="debt-min-input bg-transparent w-full outline-none text-white text-xs" placeholder="0"></td>
@@ -465,7 +510,7 @@
             const subject = "My Real American Finance Battle Plan";
             const body = `SOVEREIGNTY SCORE: ${score}/100\n\n` +
                          `Monthly War Chest: ${warChest}\n` +
-                         `Remaining Monthly Surplus: ${remaining}\n` +
+                         `Monthly Surplus: ${remaining}\n` +
                          `Debt Freedom Timeline: ${freedom}\n\n` +
                          `PRIORITY TARGET:\n${weakPoint}\n\n` +
                          `Generated from realamericanfinance.com/the-lab`;
@@ -487,12 +532,21 @@
             let t3 = 0;
             document.querySelectorAll('.tier-3-input').forEach(i => t3 += parseFloat(i.value || 0));
 
-            const totalMonthlyOut = dMin + t1 + t2 + t3;
+            const essentials = t1 + dMin;
+            const totalMonthlyOut = essentials + t2 + t3;
             const monthlySurplus = income - totalMonthlyOut;
 
-            // Current asset balances
-            const currentIronPot = parseFloat(document.getElementById('current-iron-pot')?.value || 0);
-            const currentRetirement = parseFloat(document.getElementById('current-retirement')?.value || 0);
+            // Current assets
+            const age = parseFloat(document.getElementById('user-age').value) || 0;
+            const currentIronPot = parseFloat(document.getElementById('current-iron-pot').value) || 0;
+            const currentRetirement = parseFloat(document.getElementById('current-retirement').value) || 0;
+            const houseValue = parseFloat(document.getElementById('house-value').value) || 0;
+            const mortgageBalance = parseFloat(document.getElementById('mortgage-balance').value) || 0;
+
+            // Auto housing costs (first 3 Tier 1 lines)
+            const housingLines = Array.from(document.querySelectorAll('.tier-1-input')).slice(0, 3);
+            const monthlyHousing = housingLines.reduce((sum, i) => sum + (parseFloat(i.value) || 0), 0);
+            document.getElementById('monthly-housing-costs').innerText = `$${monthlyHousing.toLocaleString()}`;
 
             // Update UI
             document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
@@ -500,7 +554,6 @@
             document.getElementById('surplus-val').innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
             document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
 
-            const essentials = t1 + dMin;
             const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
             const potPerc = essentials > 0 ? Math.min(100, (moatMonths / 3) * 100) : 0;
             document.getElementById('pot-progress').innerText = `${Math.round(potPerc)}%`;
@@ -515,32 +568,59 @@
 
             update503020(needsPerc, wantsPerc, surplusPerc);
 
-            // Sovereignty Score
-            let score = 0;
+            // 5-Pillar Sovereignty Score
+            let scoreBudget = 0, scoreDebt = 20, scoreEmergency = 0, scoreRetirement = 0, scoreRealEstate = 0;
+
             if (income > 0) {
-                score += Math.min(100, surplusPerc / 20 * 100) * 0.35; // Surplus % (35 pts)
-                score += Math.min(100, moatMonths / 6 * 100) * 0.30; // 6-month moat (30 pts)
-                score += dTotal === 0 ? 20 : Math.max(0, 20 - (dTotal / income)) * 20; // Debt (20 pts)
-                score += needsPerc <= 50 ? 15 : Math.max(0, 15 - (needsPerc - 50)); // Needs (15 pts)
+                // Budgeting
+                scoreBudget = Math.max(0, 20 - Math.max(0, needsPerc - 50) - Math.max(0, wantsPerc - 30) - Math.max(0, 20 - surplusPerc));
+
+                // Debt
+                const dti = (dTotal / (income * 12)) * 100;
+                scoreDebt = Math.max(0, 20 - Math.max(0, dti - 36));
+                document.querySelectorAll('.debt-rate-input').forEach(i => {
+                    if (parseFloat(i.value || 0) > 10) scoreDebt -= 5;
+                });
+                scoreDebt = Math.max(0, scoreDebt);
+
+                // Emergency Fund
+                scoreEmergency = Math.min(20, moatMonths / 6 * 20);
+
+                // Retirement
+                const annualIncome = income * 12;
+                let targetMultiplier = age <= 30 ? 1 : age <= 40 ? 3 : age <= 50 ? 6 : age <= 60 ? 8 : 10;
+                const targetRetirement = annualIncome * targetMultiplier;
+                scoreRetirement = currentRetirement >= targetRetirement ? 20 : Math.min(20, (currentRetirement / targetRetirement) * 20);
+
+                // Real Estate
+                const housingRatio = monthlyHousing / income * 100;
+                scoreRealEstate += housingRatio <= 28 ? 10 : Math.max(0, 10 - (housingRatio - 28));
+                const equity = houseValue - mortgageBalance;
+                scoreRealEstate += equity >= 0 ? 10 : Math.max(0, 10 + (equity / houseValue * 10));
+                scoreRealEstate = Math.min(20, scoreRealEstate);
             }
-            score = Math.round(score);
-            const scoreEl = document.getElementById('sovereignty-score');
-            scoreEl.innerText = score;
-            scoreEl.className = score >= 80 ? 'text-8xl font-bold text-white' : score >= 50 ? 'text-8xl font-bold text-gray-300' : 'text-8xl font-bold text-crimson';
+
+            const totalScore = Math.round(scoreBudget + scoreDebt + scoreEmergency + scoreRetirement + scoreRealEstate);
+            document.getElementById('sovereignty-score').innerText = totalScore;
+            document.getElementById('score-budget').innerText = Math.round(scoreBudget);
+            document.getElementById('score-debt').innerText = Math.round(scoreDebt);
+            document.getElementById('score-emergency').innerText = Math.round(scoreEmergency);
+            document.getElementById('score-retirement').innerText = Math.round(scoreRetirement);
+            document.getElementById('score-realestate').innerText = Math.round(scoreRealEstate);
+
+            document.getElementById('sovereignty-score').className = totalScore >= 80 ? 'text-8xl font-bold text-white' : totalScore >= 50 ? 'text-8xl font-bold text-gray-300' : 'text-8xl font-bold text-crimson';
 
             // Priority Target
-            let weakPoint = "Enter your monthly inflow to begin.";
+            const scores = { Budgeting: scoreBudget, Debt: scoreDebt, Emergency: scoreEmergency, Retirement: scoreRetirement, RealEstate: scoreRealEstate };
+            const weakest = Object.keys(scores).reduce((a, b) => scores[a] < scores[b] ? a : b);
+            let weakPoint = "Enter your data to begin.";
             if (income > 0) {
-                if (dTotal > 0 && monthlySurplus <= 0) weakPoint = "BREACH DETECTED: No surplus. Cut Cargo immediately.";
-                else if (moatMonths < 1) weakPoint = "IRON POT VULNERABLE: Build at least 1 month of essentials.";
-                else if (needsPerc > 55) weakPoint = `NEEDS HIGH (${Math.round(needsPerc)}%): Reduce Tier 1 spending.`;
-                else if (monthlySurplus < income * 0.2) weakPoint = "LOW SURPLUS: Aim for ≥20% war chest.";
-                else weakPoint = "STRONG POSITION: Maintain discipline and accelerate fortress growth.";
+                weakPoint = `WEAKEST PILLAR: ${weakest.toUpperCase()}\nFocus here to raise your Sovereignty Score.`;
             }
-            document.getElementById('weak-point-card').innerHTML = `<p class="text-2xl font-bold italic ${score < 50 ? 'text-crimson' : 'text-white'}">${weakPoint}</p>`;
+            document.getElementById('weak-point-card').innerHTML = `<p class="text-2xl font-bold italic ${totalScore < 50 ? 'text-crimson' : 'text-white'}">${weakPoint}</p>`;
 
             // Chart
-            myChart.data.datasets[0].data = [t1, dMin, t2, t3, Math.max(0, monthlySurplus)];
+            myChart.data.datasets[0].data = [essentials, t2, t3, Math.max(0, monthlySurplus)];
             myChart.update();
         }
 
@@ -549,8 +629,11 @@
                 version: CURRENT_VERSION,
                 paycheck: document.getElementById('paycheck').value || '',
                 freq: document.getElementById('freq').value || '2',
-                currentIronPot: document.getElementById('current-iron-pot').value || '',
-                currentRetirement: document.getElementById('current-retirement').value || '',
+                age: document.getElementById('user-age').value || '',
+                ironPot: document.getElementById('current-iron-pot').value || '',
+                retirement: document.getElementById('current-retirement').value || '',
+                houseValue: document.getElementById('house-value').value || '',
+                mortgageBalance: document.getElementById('mortgage-balance').value || '',
                 debts: Array.from(document.querySelectorAll('#debt-body tr')).map(row => ({
                     name: row.querySelector('input[type=text]').value || '',
                     min: row.querySelector('.debt-min-input').value || '0',
@@ -579,8 +662,11 @@
 
             document.getElementById('paycheck').value = data.paycheck || '';
             document.getElementById('freq').value = data.freq || '2';
-            document.getElementById('current-iron-pot').value = data.currentIronPot || '';
-            document.getElementById('current-retirement').value = data.currentRetirement || '';
+            document.getElementById('user-age').value = data.age || '';
+            document.getElementById('current-iron-pot').value = data.ironPot || '';
+            document.getElementById('current-retirement').value = data.retirement || '';
+            document.getElementById('house-value').value = data.houseValue || '';
+            document.getElementById('mortgage-balance').value = data.mortgageBalance || '';
 
             const debtBody = document.getElementById('debt-body');
             debtBody.innerHTML = '';
