@@ -247,13 +247,12 @@
                         </div>
                     </div>
 
-                    <!-- Legend -->
                     <div class="mt-6 space-y-2 text-xs">
                         <div class="flex items-center gap-3"><div class="w-4 h-4 bg-white rounded"></div><span>Needs (Tier 1)</span></div>
                         <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#B22234] rounded"></div><span>Debt Minimums</span></div>
                         <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#9ca3af] rounded"></div><span>Infrastructure (Tier 2)</span></div>
                         <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#4b5563] rounded"></div><span>Cargo / Wants (Tier 3)</span></div>
-                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#DC143C] rounded"></div><span>Monthly Surplus</span></div>
+                        <div class="flex items-center gap-3"><div class="w-4 h-4 bg-[#DC143C] rounded"></div><span>Monthly Surplus (only if negative)</span></div>
                     </div>
 
                     <div class="mt-8 mb-8">
@@ -566,8 +565,10 @@
             document.getElementById('monthly-housing-costs').innerText = `$${monthlyHousing.toLocaleString()}`;
 
             document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
-            document.getElementById('center-remaining').innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
-            document.getElementById('surplus-val').innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
+            const remainingText = monthlySurplus >= 0 ? `$${Math.round(monthlySurplus).toLocaleString()}` : `-$${Math.round(Math.abs(monthlySurplus)).toLocaleString()}`;
+            document.getElementById('center-remaining').innerText = remainingText;
+            document.getElementById('center-remaining').className = monthlySurplus >= 0 ? 'text-4xl font-heading font-bold text-white leading-none' : 'text-4xl font-heading font-bold text-crimson leading-none';
+            document.getElementById('surplus-val').innerText = remainingText;
             document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
 
             const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
@@ -621,7 +622,7 @@
 
             document.getElementById('sovereignty-score').className = totalScore >= 80 ? 'text-8xl font-bold text-white' : totalScore >= 50 ? 'text-8xl font-bold text-gray-300' : 'text-8xl font-bold text-crimson';
 
-            // Threat Level
+            // Threat Level & Battle Cry
             let threatLevel = "";
             let threatClass = "";
             if (totalScore < 40) {
@@ -643,7 +644,6 @@
             document.getElementById('threat-level').innerText = threatLevel;
             document.getElementById('threat-level').className = `inline-block px-8 py-4 text-2xl font-heading uppercase tracking-widest ${threatClass}`;
 
-            // Battle Cry
             let cry = "";
             if (totalScore < 40) cry = "Fortress under siege. Immediate action required.";
             else if (totalScore < 60) cry = "Holding the line. Reinforce weak flanks.";
@@ -686,8 +686,17 @@
                 warBtn.classList.add('hidden');
             }
 
-            // Pie Chart Update - 5 slices
-            myChart.data.datasets[0].data = [t1, dMin, t2, t3, Math.max(0, monthlySurplus)];
+            // Pie Chart Update - shows spending breakdown when surplus positive, full red when negative
+            let chartData = [t1, dMin, t2, t3];
+            let chartColors = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563'];
+
+            if (monthlySurplus < 0) {
+                chartData = [Math.abs(monthlySurplus)];
+                chartColors = ['#DC143C'];
+            }
+
+            myChart.data.datasets[0].data = chartData;
+            myChart.data.datasets[0].backgroundColor = chartColors;
             myChart.update();
         }
 
