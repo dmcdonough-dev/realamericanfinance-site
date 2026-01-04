@@ -1302,238 +1302,294 @@
         }
 
         // Enhanced calculation with new features
-        function calculateAll() {
-            // Update user stats
-            updateUserStats();
-            
-            // Ensure at least one debt row exists
-            if (document.querySelectorAll('#debt-body tr').length === 0 && window.innerWidth >= 768) {
-                addDebtRow();
+function calculateAll() {
+    // Update user stats
+    updateUserStats();
+    
+    // Ensure at least one debt row exists
+    if (document.querySelectorAll('#debt-body tr').length === 0 && window.innerWidth >= 768) {
+        addDebtRow();
+    }
+    if (document.querySelectorAll('#debt-cards .debt-card').length === 0 && window.innerWidth < 768) {
+        addDebtRow();
+    }
+
+    // FIXED: Correct paycheck to monthly conversion
+    const paycheck = parseFloat(document.getElementById('paycheck').value) || 0;
+    const freq = parseFloat(document.getElementById('freq').value) || 2;
+    
+    // Convert paycheck to monthly income based on frequency
+    let income = 0;
+    switch(freq.toString()) { // Convert to string to match option values
+        case "1": // Monthly
+            income = paycheck;
+            break;
+        case "2": // Semi-monthly (2x per month)
+            income = paycheck * 2;
+            break;
+        case "4": // Weekly
+            income = paycheck * 4.33; // Average weeks per month
+            break;
+        case "26": // Bi-weekly (every 2 weeks)
+            income = paycheck * 2.166; // 26 pay periods / 12 months = 2.166
+            break;
+        default:
+            income = paycheck * 2; // Default to semi-monthly
+    }
+    
+    // Update income summary
+    document.getElementById('income-summary').textContent = `Monthly income: $${income.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+    // Calculate debt totals
+    let dMin = 0, dTotal = 0, highInterestCount = 0;
+    
+    if (window.innerWidth >= 768) {
+        // Desktop calculation
+        document.querySelectorAll('.debt-min-input').forEach(i => {
+            const val = parseFloat(i.value) || 0;
+            dMin += val;
+        });
+        document.querySelectorAll('.debt-balance-input').forEach(i => {
+            const val = parseFloat(i.value) || 0;
+            dTotal += val;
+        });
+        
+        // Update debt alerts
+        document.querySelectorAll('.debt-rate-input').forEach((input, index) => {
+            const rate = parseFloat(input.value || 0);
+            const alertSpan = input.closest('tr').querySelector('.debt-alert');
+            if (alertSpan) {
+                if (rate > 25) {
+                    alertSpan.classList.remove('hidden');
+                    highInterestCount++;
+                } else {
+                    alertSpan.classList.add('hidden');
+                }
             }
-            if (document.querySelectorAll('#debt-cards .debt-card').length === 0 && window.innerWidth < 768) {
-                addDebtRow();
+        });
+    } else {
+        // Mobile calculation
+        document.querySelectorAll('.debt-min-input').forEach(i => {
+            const val = parseFloat(i.value) || 0;
+            dMin += val;
+        });
+        document.querySelectorAll('.debt-balance-input').forEach(i => {
+            const val = parseFloat(i.value) || 0;
+            dTotal += val;
+        });
+        
+        // Update debt alerts on mobile
+        document.querySelectorAll('.debt-rate-input').forEach((input, index) => {
+            const rate = parseFloat(input.value || 0);
+            const alertDiv = input.closest('.debt-card').querySelector('.debt-alert');
+            if (alertDiv) {
+                if (rate > 25) {
+                    alertDiv.classList.remove('hidden');
+                    highInterestCount++;
+                } else {
+                    alertDiv.classList.add('hidden');
+                }
             }
+        });
+        
+        // Update mobile debt summary
+        document.getElementById('mobile-total-debt').textContent = `$${dTotal.toLocaleString()}`;
+        document.getElementById('mobile-debt-min').textContent = `$${dMin.toLocaleString()}`;
+    }
 
-            const income = (parseFloat(document.getElementById('paycheck').value) || 0) * (parseFloat(document.getElementById('freq').value) || 2);
-            
-            // Update income summary
-            document.getElementById('income-summary').textContent = `Monthly income: $${income.toLocaleString()}`;
+    // Calculate tier totals
+    let t1 = 0, t2 = 0, t3 = 0;
+    document.querySelectorAll('.tier-1-input').forEach(i => {
+        const val = parseFloat(i.value) || 0;
+        t1 += val;
+    });
+    document.querySelectorAll('.tier-2-input').forEach(i => {
+        const val = parseFloat(i.value) || 0;
+        t2 += val;
+    });
+    document.querySelectorAll('.tier-3-input').forEach(i => {
+        const val = parseFloat(i.value) || 0;
+        t3 += val;
+    });
 
-            // Calculate debt totals
-            let dMin = 0, dTotal = 0, highInterestCount = 0;
-            
-            if (window.innerWidth >= 768) {
-                // Desktop calculation
-                document.querySelectorAll('.debt-min-input').forEach(i => dMin += parseFloat(i.value || 0));
-                document.querySelectorAll('.debt-balance-input').forEach(i => dTotal += parseFloat(i.value || 0));
-                
-                // Update debt alerts
-                document.querySelectorAll('.debt-rate-input').forEach((input, index) => {
-                    const rate = parseFloat(input.value || 0);
-                    const alertSpan = input.closest('tr').querySelector('.debt-alert');
-                    if (alertSpan) {
-                        if (rate > 25) {
-                            alertSpan.classList.remove('hidden');
-                            highInterestCount++;
-                        } else {
-                            alertSpan.classList.add('hidden');
-                        }
-                    }
-                });
-            } else {
-                // Mobile calculation
-                document.querySelectorAll('.debt-min-input').forEach(i => dMin += parseFloat(i.value || 0));
-                document.querySelectorAll('.debt-balance-input').forEach(i => dTotal += parseFloat(i.value || 0));
-                
-                // Update debt alerts on mobile
-                document.querySelectorAll('.debt-rate-input').forEach((input, index) => {
-                    const rate = parseFloat(input.value || 0);
-                    const alertDiv = input.closest('.debt-card').querySelector('.debt-alert');
-                    if (alertDiv) {
-                        if (rate > 25) {
-                            alertDiv.classList.remove('hidden');
-                            highInterestCount++;
-                        } else {
-                            alertDiv.classList.add('hidden');
-                        }
-                    }
-                });
-                
-                // Update mobile debt summary
-                document.getElementById('mobile-total-debt').textContent = `$${dTotal.toLocaleString()}`;
-                document.getElementById('mobile-debt-min').textContent = `$${dMin.toLocaleString()}`;
-            }
+    const essentials = t1;
+    const totalMonthlyOut = t1 + dMin + t2 + t3;
+    const monthlySurplus = income - totalMonthlyOut;
 
-            // Calculate tier totals
-            let t1 = 0, t2 = 0, t3 = 0;
-            document.querySelectorAll('.tier-1-input').forEach(i => t1 += parseFloat(i.value || 0));
-            document.querySelectorAll('.tier-2-input').forEach(i => t2 += parseFloat(i.value || 0));
-            document.querySelectorAll('.tier-3-input').forEach(i => t3 += parseFloat(i.value || 0));
+    // Get asset values
+    const age = parseFloat(document.getElementById('user-age').value) || 0;
+    const currentIronPot = parseFloat(document.getElementById('current-iron-pot').value) || 0;
+    const currentRetirement = parseFloat(document.getElementById('current-retirement').value) || 0;
+    const houseValue = parseFloat(document.getElementById('house-value').value) || 0;
+    const mortgageBalance = parseFloat(document.getElementById('mortgage-balance').value) || 0;
 
-            const essentials = t1;
-            const totalMonthlyOut = t1 + dMin + t2 + t3;
-            const monthlySurplus = income - totalMonthlyOut;
+    // Calculate housing costs
+    const housingInputs = document.querySelectorAll('.tier-1-input');
+    let monthlyHousing = 0;
+    // First 3 tier-1 inputs are housing related (based on your HTML structure)
+    for (let i = 0; i < Math.min(3, housingInputs.length); i++) {
+        monthlyHousing += parseFloat(housingInputs[i].value) || 0;
+    }
+    document.getElementById('monthly-housing-costs').innerText = `$${monthlyHousing.toLocaleString()}`;
+    
+    // Housing percentage
+    const housingPercent = income > 0 ? ((monthlyHousing / income) * 100).toFixed(1) : 0;
+    document.getElementById('housing-percent').textContent = `${housingPercent}%`;
 
-            // Get asset values
-            const age = parseFloat(document.getElementById('user-age').value) || 0;
-            const currentIronPot = parseFloat(document.getElementById('current-iron-pot').value) || 0;
-            const currentRetirement = parseFloat(document.getElementById('current-retirement').value) || 0;
-            const houseValue = parseFloat(document.getElementById('house-value').value) || 0;
-            const mortgageBalance = parseFloat(document.getElementById('mortgage-balance').value) || 0;
+    // Update UI elements
+    document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
+    
+    // Update center text and label based on surplus/deficit
+    const centerEl = document.getElementById('center-remaining');
+    const labelEl = document.getElementById('center-label');
+    const surplusVal = document.getElementById('surplus-val');
 
-            // Calculate housing costs
-            const housingLines = Array.from(document.querySelectorAll('.tier-1-input')).slice(0, 3);
-            const monthlyHousing = housingLines.reduce((sum, i) => sum + (parseFloat(i.value) || 0), 0);
-            document.getElementById('monthly-housing-costs').innerText = `$${monthlyHousing.toLocaleString()}`;
-            
-            // Housing percentage
-            const housingPercent = income > 0 ? (monthlyHousing / income * 100).toFixed(1) : 0;
-            document.getElementById('housing-percent').textContent = `${housingPercent}%`;
+    if (monthlySurplus >= 0) {
+        // Positive surplus - green
+        centerEl.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
+        centerEl.className = 'text-3xl md:text-4xl font-heading font-bold positive-surplus leading-none';
+        labelEl.innerText = 'Monthly Surplus';
+        labelEl.className = 'text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2';
+        surplusVal.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
+        surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold text-crimson';
+    } else {
+        // Negative deficit - red
+        const deficit = Math.abs(monthlySurplus);
+        centerEl.innerText = `-$${Math.round(deficit).toLocaleString()}`;
+        centerEl.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus leading-none';
+        labelEl.innerText = 'Monthly Deficit';
+        labelEl.className = 'text-[10px] text-crimson uppercase font-bold tracking-[0.2em] mt-2';
+        surplusVal.innerText = `-$${Math.round(deficit).toLocaleString()}`;
+        surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus';
+    }
 
-            // Update UI elements
-            document.getElementById('auto-debt-min').innerText = `$${dMin.toLocaleString()}`;
-            
-            // Update center text and label based on surplus/deficit
-            const centerEl = document.getElementById('center-remaining');
-            const labelEl = document.getElementById('center-label');
-            const surplusVal = document.getElementById('surplus-val');
+    document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
 
-            if (monthlySurplus >= 0) {
-                // Positive surplus - green
-                centerEl.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
-                centerEl.className = 'text-3xl md:text-4xl font-heading font-bold positive-surplus leading-none';
-                labelEl.innerText = 'Monthly Surplus';
-                labelEl.className = 'text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-2';
-                surplusVal.innerText = `$${Math.round(monthlySurplus).toLocaleString()}`;
-                surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold text-crimson';
-            } else {
-                // Negative deficit - red
-                const deficit = Math.abs(monthlySurplus);
-                centerEl.innerText = `-$${Math.round(deficit).toLocaleString()}`;
-                centerEl.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus leading-none';
-                labelEl.innerText = 'Monthly Deficit';
-                labelEl.className = 'text-[10px] text-crimson uppercase font-bold tracking-[0.2em] mt-2';
-                surplusVal.innerText = `-$${Math.round(deficit).toLocaleString()}`;
-                surplusVal.className = 'text-3xl md:text-4xl font-heading font-bold negative-surplus';
-            }
+    // Update countdown timeline
+    if (monthlySurplus > 0 && dTotal > 0) {
+        const months = Math.ceil(dTotal / monthlySurplus);
+        const years = Math.floor(months / 12);
+        const remainingMonths = months % 12;
+        let timeline = '';
+        if (years > 0) timeline += `${years} year${years > 1 ? 's' : ''} `;
+        if (remainingMonths > 0 || years === 0) timeline += `${remainingMonths} month${remainingMonths !== 1 ? 's' : ''}`;
+        document.getElementById('countdown-val').textContent = timeline.trim();
+    } else if (dTotal === 0) {
+        document.getElementById('countdown-val').textContent = "DEBT FREE";
+    } else {
+        document.getElementById('countdown-val').textContent = "N/A";
+    }
 
-            document.getElementById('total-debt-val').innerText = `$${dTotal.toLocaleString()}`;
+    // Iron Pot progress
+    const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
+    const potPerc = essentials > 0 ? Math.min(100, (moatMonths / 3) * 100) : 0;
+    document.getElementById('pot-progress').innerText = `${Math.round(potPerc)}%`;
+    document.getElementById('pot-bar').style.width = `${potPerc}%`;
 
-            // Update countdown timeline
-            if (monthlySurplus > 0 && dTotal > 0) {
-                const months = Math.ceil(dTotal / monthlySurplus);
-                const years = Math.floor(months / 12);
-                const remainingMonths = months % 12;
-                let timeline = '';
-                if (years > 0) timeline += `${years} year${years > 1 ? 's' : ''} `;
-                if (remainingMonths > 0 || years === 0) timeline += `${remainingMonths} month${remainingMonths !== 1 ? 's' : ''}`;
-                document.getElementById('countdown-val').textContent = timeline.trim();
-            } else if (dTotal === 0) {
-                document.getElementById('countdown-val').textContent = "DEBT FREE";
-            } else {
-                document.getElementById('countdown-val').textContent = "N/A";
-            }
+    // 50/30/20 calculations
+    const needsPerc = income > 0 ? (essentials / income) * 100 : 0;
+    const wantsPerc = income > 0 ? (t3 / income) * 100 : 0;
+    const surplusPerc = income > 0 ? (monthlySurplus / income) * 100 : 0;
 
-            // Iron Pot progress
-            const moatMonths = essentials > 0 ? currentIronPot / essentials : 0;
-            const potPerc = essentials > 0 ? Math.min(100, (moatMonths / 3) * 100) : 0;
-            document.getElementById('pot-progress').innerText = `${Math.round(potPerc)}%`;
-            document.getElementById('pot-bar').style.width = `${potPerc}%`;
+    updateBadge('badge-t1', needsPerc, 50, false);
+    updateBadge('badge-t3', wantsPerc, 30, false);
 
-            // 50/30/20 calculations
-            const needsPerc = income > 0 ? essentials / income * 100 : 0;
-            const wantsPerc = income > 0 ? t3 / income * 100 : 0;
-            const surplusPerc = income > 0 ? monthlySurplus / income * 100 : 0;
+    update503020(needsPerc, wantsPerc, surplusPerc);
 
-            updateBadge('badge-t1', needsPerc, 50, false);
-            updateBadge('badge-t3', wantsPerc, 30, false);
+    // 5-Pillar Score Calculation
+    let scoreBudget = 0, scoreDebt = 20, scoreEmergency = 0, scoreRetirement = 0, scoreRealEstate = 0;
 
-            update503020(needsPerc, wantsPerc, surplusPerc);
+    if (income > 0) {
+        // Budgeting score
+        scoreBudget = Math.max(0, 20 - Math.max(0, needsPerc - 50) - Math.max(0, wantsPerc - 30) - Math.max(0, 20 - surplusPerc));
 
-            // 5-Pillar Score Calculation
-            let scoreBudget = 0, scoreDebt = 20, scoreEmergency = 0, scoreRetirement = 0, scoreRealEstate = 0;
+        // Debt score
+        const annualIncome = income * 12;
+        const dti = (dTotal / annualIncome) * 100;
+        scoreDebt = Math.max(0, 20 - Math.max(0, dti - 36));
+        if (highInterestCount > 0) scoreDebt -= (highInterestCount * 5);
+        scoreDebt = Math.max(0, scoreDebt);
 
-            if (income > 0) {
-                // Budgeting score
-                scoreBudget = Math.max(0, 20 - Math.max(0, needsPerc - 50) - Math.max(0, wantsPerc - 30) - Math.max(0, 20 - surplusPerc));
+        // Emergency fund score
+        scoreEmergency = Math.min(20, (moatMonths / 6) * 20);
 
-                // Debt score
-                const dti = (dTotal / (income * 12)) * 100;
-                scoreDebt = Math.max(0, 20 - Math.max(0, dti - 36));
-                if (highInterestCount > 0) scoreDebt -= (highInterestCount * 5);
-                scoreDebt = Math.max(0, scoreDebt);
+        // Retirement score
+        let targetMultiplier = age <= 30 ? 1 : age <= 40 ? 3 : age <= 50 ? 6 : age <= 60 ? 8 : 10;
+        const targetRetirement = annualIncome * targetMultiplier;
+        scoreRetirement = currentRetirement >= targetRetirement ? 20 : Math.min(20, (currentRetirement / targetRetirement) * 20);
 
-                // Emergency fund score
-                scoreEmergency = Math.min(20, moatMonths / 6 * 20);
+        // Real estate score
+        const housingRatio = monthlyHousing / income * 100;
+        scoreRealEstate += housingRatio <= 28 ? 10 : Math.max(0, 10 - (housingRatio - 28));
+        const equity = houseValue - mortgageBalance;
+        const equityScore = houseValue > 0 ? Math.max(0, 10 * (equity / houseValue)) : 0;
+        scoreRealEstate += equityScore;
+        scoreRealEstate = Math.min(20, scoreRealEstate);
+    }
 
-                // Retirement score
-                const annualIncome = income * 12;
-                let targetMultiplier = age <= 30 ? 1 : age <= 40 ? 3 : age <= 50 ? 6 : age <= 60 ? 8 : 10;
-                const targetRetirement = annualIncome * targetMultiplier;
-                scoreRetirement = currentRetirement >= targetRetirement ? 20 : Math.min(20, (currentRetirement / targetRetirement) * 20);
+    const totalScore = Math.round(scoreBudget + scoreDebt + scoreEmergency + scoreRetirement + scoreRealEstate);
+    
+    // Add to score history
+    scoreHistory.push(totalScore);
+    if (scoreHistory.length > 7) scoreHistory.shift();
+    updateScoreHistory();
+    
+    // Update score display with animation
+    const scoreEl = document.getElementById('sovereignty-score');
+    scoreEl.textContent = totalScore;
+    scoreEl.classList.add('score-updated');
+    setTimeout(() => scoreEl.classList.remove('score-updated'), 500);
+    
+    // Update pillar scores
+    document.getElementById('score-budget').innerText = Math.round(scoreBudget);
+    document.getElementById('score-debt').innerText = Math.round(scoreDebt);
+    document.getElementById('score-emergency').innerText = Math.round(scoreEmergency);
+    document.getElementById('score-retirement').innerText = Math.round(scoreRetirement);
+    document.getElementById('score-realestate').innerText = Math.round(scoreRealEstate);
 
-                // Real estate score
-                const housingRatio = monthlyHousing / income * 100;
-                scoreRealEstate += housingRatio <= 28 ? 10 : Math.max(0, 10 - (housingRatio - 28));
-                const equity = houseValue - mortgageBalance;
-                scoreRealEstate += equity >= 0 ? 10 : Math.max(0, 10 + (equity / houseValue * 10));
-                scoreRealEstate = Math.min(20, scoreRealEstate);
-            }
+    // Update score color
+    if (totalScore >= 80) {
+        scoreEl.className = 'text-6xl md:text-8xl font-bold text-white score-updated';
+    } else if (totalScore >= 50) {
+        scoreEl.className = 'text-6xl md:text-8xl font-bold text-gray-300 score-updated';
+    } else {
+        scoreEl.className = 'text-6xl md:text-8xl font-bold text-crimson score-updated';
+    }
 
-            const totalScore = Math.round(scoreBudget + scoreDebt + scoreEmergency + scoreRetirement + scoreRealEstate);
-            
-            // Add to score history
-            scoreHistory.push(totalScore);
-            if (scoreHistory.length > 7) scoreHistory.shift();
-            updateScoreHistory();
-            
-            // Update score display with animation
-            const scoreEl = document.getElementById('sovereignty-score');
-            scoreEl.textContent = totalScore;
-            scoreEl.classList.add('score-updated');
-            setTimeout(() => scoreEl.classList.remove('score-updated'), 500);
-            
-            // Update pillar scores
-            document.getElementById('score-budget').innerText = Math.round(scoreBudget);
-            document.getElementById('score-debt').innerText = Math.round(scoreDebt);
-            document.getElementById('score-emergency').innerText = Math.round(scoreEmergency);
-            document.getElementById('score-retirement').innerText = Math.round(scoreRetirement);
-            document.getElementById('score-realestate').innerText = Math.round(scoreRealEstate);
+    // Check for achievements
+    checkAchievements(totalScore, dTotal, currentIronPot, essentials);
 
-            // Update score color
-            scoreEl.className = totalScore >= 80 ? 'text-6xl md:text-8xl font-bold text-white score-updated' : 
-                               totalScore >= 50 ? 'text-6xl md:text-8xl font-bold text-gray-300 score-updated' : 
-                               'text-6xl md:text-8xl font-bold text-crimson score-updated';
+    // Threat Level & Battle Cry
+    updateThreatLevel(totalScore);
 
-            // Check for achievements
-            checkAchievements(totalScore, dTotal, currentIronPot, essentials);
+    // Tactical Priority Targets
+    // FIXED: Add missing annualIncome variable for the function call
+    const annualIncome = income * 12;
+    
+    updatePriorityTargets(scoreBudget, scoreDebt, scoreEmergency, scoreRetirement, scoreRealEstate,
+                         needsPerc, wantsPerc, surplusPerc, income, t3, dTotal, monthlySurplus,
+                         moatMonths, essentials, currentIronPot, age, currentRetirement, annualIncome,
+                         monthlyHousing, houseValue, mortgageBalance);
 
-            // Threat Level & Battle Cry
-            updateThreatLevel(totalScore);
-
-            // Tactical Priority Targets
-            updatePriorityTargets(scoreBudget, scoreDebt, scoreEmergency, scoreRetirement, scoreRealEstate,
-                                 needsPerc, wantsPerc, surplusPerc, income, t3, dTotal, monthlySurplus,
-                                 moatMonths, essentials, currentIronPot, age, currentRetirement, annualIncome,
-                                 monthlyHousing, houseValue, mortgageBalance);
-
-            // War-Mode button visibility
-            const warBtn = document.getElementById('war-mode-trigger');
-            if (scoreBudget < 12 || surplusPerc < 15) {
-                warBtn.classList.remove('hidden');
-            } else {
-                warBtn.classList.add('hidden');
-            }
-
-            // Pie Chart Update
-            updateChart(t1, dMin, t2, t3, monthlySurplus, income);
-            
-            // Update data points count
-            updateDataPoints();
-            
-            // Save auto-save
-            autoSaveProfile();
+    // War-Mode button visibility
+    const warBtn = document.getElementById('war-mode-trigger');
+    if (warBtn) {
+        if (scoreBudget < 12 || surplusPerc < 15) {
+            warBtn.classList.remove('hidden');
+        } else {
+            warBtn.classList.add('hidden');
         }
+    }
+
+    // Pie Chart Update - FIXED: Use consistent data structure
+    updateChart(t1, dMin, t2, t3, monthlySurplus, income);
+    
+    // Update data points count
+    updateDataPoints();
+    
+    // Save auto-save
+    autoSaveProfile();
+}
 
         function updateScoreHistory() {
             const sparkline = document.getElementById('score-sparkline');
