@@ -144,6 +144,22 @@
         .stress-high { background: linear-gradient(135deg, #DC2626, #991B1B); }
         .stress-medium { background: linear-gradient(135deg, #D97706, #92400E); }
         .stress-low { background: linear-gradient(135deg, #059669, #065F46); }
+        
+        /* New styles for improvements */
+        .target-progress:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(178, 34, 52, 0.3);
+        }
+        
+        .pulse-on-update {
+            animation: pulse-green 0.5s ease;
+        }
+        
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
     </style>
     <script>
         tailwind.config = {
@@ -683,6 +699,19 @@
                             <span class="text-xs uppercase font-bold text-crimson">Monthly Housing Costs (Auto-Calculated)</span>
                             <span id="monthly-housing-costs" class="ml-4 font-bold">$0</span>
                         </div>
+                        
+                        <!-- ADDED: Net Worth Calculation -->
+                        <div class="col-span-2">
+                            <div class="bg-navy-900/50 p-4 rounded border border-crimson/30 mt-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs uppercase font-bold text-crimson">Total Net Worth</span>
+                                    <span id="net-worth-value" class="text-xl font-bold text-white">$0</span>
+                                </div>
+                                <div class="text-[9px] text-gray-500 uppercase tracking-widest">
+                                    Assets - Liabilities = Sovereignty Position
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1202,40 +1231,128 @@
             </div>
         </div>
 
-        <!-- Priority Targets -->
+        <!-- ENHANCED: Priority Targets with Progress Bars -->
         <div class="mt-12 md:mt-20 dashboard-card p-8 md:p-12 border-t-8 border-crimson shadow-2xl">
             <div class="flex justify-between items-center mb-6 md:mb-8">
-                <h3 class="text-2xl md:text-3xl font-heading font-bold uppercase text-white tracking-tight">Priority Targets</h3>
-                <button onclick="generateAIBattlePlan()" class="bg-purple-900/50 border border-purple-700 px-4 md:px-6 py-2 text-[10px] md:text-xs uppercase font-bold tracking-widest hover:bg-purple-800 transition">
-                    <i class="fas fa-robot mr-2"></i>AI Analysis
-                </button>
+                <h3 class="text-2xl md:text-3xl font-heading font-bold uppercase text-white tracking-tight">
+                    Priority Targets & Progress
+                </h3>
+                <div class="flex gap-2">
+                    <button onclick="toggleTargetView()" id="toggle-view-btn" class="bg-navy-800 border border-white/20 px-4 py-2 text-xs uppercase font-bold tracking-widest hover:bg-navy-700 transition">
+                        <i class="fas fa-chart-simple mr-2"></i>Progress View
+                    </button>
+                    <button onclick="generateAIBattlePlan()" class="bg-purple-900/50 border border-purple-700 px-6 py-2 text-xs uppercase font-bold tracking-widest hover:bg-purple-800 transition">
+                        <i class="fas fa-robot mr-2"></i>AI Analysis
+                    </button>
+                </div>
             </div>
             
-            <div class="mb-8 text-center">
-                <div id="threat-level" class="inline-block px-6 md:px-8 py-3 md:py-4 text-xl md:text-2xl font-heading uppercase tracking-widest">LOADING THREAT ASSESSMENT</div>
-            </div>
-
-            <div id="priority-orders" class="space-y-6 text-lg">
-                <p class="text-center text-gray-400 italic">Awaiting intelligence... Enter your financial data above to generate your battle plan.</p>
-            </div>
-
-            <div class="mt-8 text-center">
-                <button id="war-mode-trigger" onclick="toggleWarMode()" class="hidden bg-crimson hover:bg-red-700 px-6 md:px-8 py-3 md:py-4 text-lg md:text-xl font-bold uppercase tracking-widest transition shadow-lg">
-                    <i class="fas fa-fire mr-2"></i>Initiate War-Mode
-                </button>
-            </div>
-
-            <div class="mt-8 md:mt-10 text-center">
-                <p id="battle-cry" class="text-lg md:text-xl font-heading uppercase tracking-wider text-gray-400 italic"></p>
+            <!-- Progress Overview -->
+            <div id="progress-overview" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-navy-900/50 p-6 rounded border border-white/10">
+                    <h4 class="text-sm uppercase font-bold text-gray-300 mb-4">Overall Progress</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span>Fortress Strength</span>
+                                <span id="overall-progress-percent">0%</span>
+                            </div>
+                            <div class="h-3 bg-navy-950 rounded-full overflow-hidden">
+                                <div id="overall-progress-bar" class="h-full bg-gradient-to-r from-crimson to-purple-600 transition-all duration-1000" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="bg-navy-950/50 p-3 rounded">
+                                <div class="text-xs text-gray-400 mb-1">Targets Complete</div>
+                                <div id="completed-targets" class="text-xl font-bold text-green-400">0/5</div>
+                            </div>
+                            <div class="bg-navy-950/50 p-3 rounded">
+                                <div class="text-xs text-gray-400 mb-1">ETA to Sovereignty</div>
+                                <div id="sovereignty-eta" class="text-xl font-bold text-yellow-400">--</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-navy-900/50 p-6 rounded border border-white/10">
+                    <h4 class="text-sm uppercase font-bold text-gray-300 mb-4">Monthly Battle Progress</h4>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span>Debt Reduction</span>
+                                <span id="debt-progress-percent">0%</span>
+                            </div>
+                            <div class="h-2 bg-navy-950 rounded-full overflow-hidden">
+                                <div id="debt-progress-bar" class="h-full bg-red-500 transition-all duration-1000" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span>Emergency Fund</span>
+                                <span id="emergency-progress-percent">0%</span>
+                            </div>
+                            <div class="h-2 bg-navy-950 rounded-full overflow-hidden">
+                                <div id="emergency-progress-bar" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1">
+                                <span>Retirement Build</span>
+                                <span id="retirement-progress-percent">0%</span>
+                            </div>
+                            <div class="h-2 bg-navy-950 rounded-full overflow-hidden">
+                                <div id="retirement-progress-bar" class="h-full bg-green-500 transition-all duration-1000" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <!-- AI Suggestions -->
-            <div class="mt-10 p-6 bg-gradient-to-r from-purple-900/20 to-blue-900/20 border border-purple-700/30 rounded-lg hidden" id="ai-suggestions">
-                <h4 class="text-lg font-bold mb-3 text-purple-300"><i class="fas fa-robot mr-2"></i>AI Suggestions</h4>
-                <div class="space-y-3" id="ai-suggestions-content">
-                    <div class="flex items-start">
-                        <i class="fas fa-lightbulb text-yellow-500 mt-1 mr-3"></i>
-                        <p class="text-sm">Based on similar profiles, consider increasing your retirement contributions by 2% to reach your age-based target faster.</p>
+            <!-- Priority Targets List -->
+            <div id="targets-list" class="space-y-6">
+                <!-- Targets will be dynamically inserted -->
+            </div>
+            
+            <!-- Action Section -->
+            <div class="mt-10 p-6 bg-gradient-to-r from-crimson/10 to-purple-600/10 border border-crimson/20 rounded-lg">
+                <h4 class="text-lg font-bold mb-3 text-white"><i class="fas fa-crosshairs mr-2"></i>This Month's Primary Objective</h4>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div id="primary-objective" class="text-sm text-gray-300">Complete your first budget to reveal objectives</div>
+                        <div class="text-xs text-gray-500 mt-1">Estimated impact: <span id="objective-impact">+0</span> points</div>
+                    </div>
+                    <button onclick="markObjectiveComplete()" class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded text-xs uppercase font-bold tracking-widest transition">
+                        <i class="fas fa-check mr-1"></i> Mark Complete
+                    </button>
+                </div>
+            </div>
+            
+            <!-- ADDED: Projected Timeline -->
+            <div class="mt-6">
+                <h4 class="text-sm uppercase font-bold text-gray-300 mb-3">Projected Sovereignty Timeline</h4>
+                <div class="relative h-20">
+                    <div class="absolute left-0 right-0 top-1/2 h-1 bg-navy-800"></div>
+                    <div id="timeline-marker" class="absolute top-1/2 w-4 h-4 bg-crimson rounded-full transform -translate-y-1/2 transition-all duration-1000" style="left: 0%"></div>
+                    <div class="absolute left-0 text-xs text-gray-400 top-full mt-2">Today</div>
+                    <div class="absolute left-1/4 text-xs text-gray-400 top-full mt-2">3 mo</div>
+                    <div class="absolute left-1/2 text-xs text-gray-400 top-full mt-2">6 mo</div>
+                    <div class="absolute left-3/4 text-xs text-gray-400 top-full mt-2">1 yr</div>
+                    <div class="absolute right-0 text-xs text-gray-400 top-full mt-2">Sovereignty</div>
+                </div>
+            </div>
+            
+            <!-- ADDED: Quick Wins Section -->
+            <div class="mt-8 p-6 bg-gradient-to-r from-green-900/20 to-blue-900/20 border border-green-500/30 rounded-lg">
+                <h4 class="text-lg font-bold mb-3 text-green-300"><i class="fas fa-bolt mr-2"></i>Quick Wins Available</h4>
+                <div class="space-y-3" id="quick-wins">
+                    <div class="flex items-center justify-between p-3 bg-white/5 rounded">
+                        <div>
+                            <div class="font-bold text-sm">Cancel one unused subscription</div>
+                            <div class="text-xs text-gray-400">Potential savings: $10-30/month</div>
+                        </div>
+                        <button onclick="markQuickWinComplete('subscription')" class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-xs font-bold">
+                            +5 pts
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1655,6 +1772,28 @@
             // Sync logic for mobile debt cards
         }
 
+        // NEW: Net Worth Calculation
+        function calculateNetWorth() {
+            const currentIronPot = parseFloat(document.getElementById('current-iron-pot').value) || 0;
+            const currentRetirement = parseFloat(document.getElementById('current-retirement').value) || 0;
+            const houseValue = parseFloat(document.getElementById('house-value').value) || 0;
+            const mortgageBalance = parseFloat(document.getElementById('mortgage-balance').value) || 0;
+            
+            // Calculate total debt
+            let dTotal = 0;
+            document.querySelectorAll('.debt-balance-input').forEach(i => {
+                dTotal += parseFloat(i.value) || 0;
+            });
+            
+            const liquidAssets = currentIronPot + currentRetirement;
+            const realEstateEquity = Math.max(0, houseValue - mortgageBalance);
+            const totalAssets = liquidAssets + realEstateEquity;
+            const totalLiabilities = dTotal + mortgageBalance;
+            const netWorth = totalAssets - totalLiabilities;
+            
+            return netWorth;
+        }
+
         function calculateAll() {
             console.log("=== calculateAll() called ===");
             
@@ -1905,10 +2044,25 @@
 
                 const annualIncome = income * 12;
                 
-                updatePriorityTargets(scoreBudget, scoreDebt, scoreEmergency, scoreRetirement, scoreRealEstate,
-                                     needsPerc, wantsPerc, savingsPerc, income, t3, totalDebtIncludingMortgage, monthlySurplus,
-                                     moatMonths, essentials, currentIronPot, age, currentRetirement, annualIncome,
-                                     monthlyHousing, houseValue, mortgageBalance);
+                // NEW: Calculate and update net worth
+                const netWorth = calculateNetWorth();
+                const netWorthEl = document.getElementById('net-worth-value');
+                netWorthEl.textContent = `$${netWorth.toLocaleString()}`;
+                
+                if (netWorth < 0) {
+                    netWorthEl.className = 'text-xl font-bold negative-surplus';
+                } else if (netWorth < 50000) {
+                    netWorthEl.className = 'text-xl font-bold text-yellow-400';
+                } else {
+                    netWorthEl.className = 'text-xl font-bold text-green-400';
+                }
+                
+                // NEW: Update progress metrics and priority targets
+                const progressMetrics = calculateProgressMetrics();
+                updatePriorityTargetsDisplay(progressMetrics);
+                
+                // Calculate and update timeline
+                updateTimelineMarker(totalScore, progressMetrics.overall);
 
                 const warBtn = document.getElementById('war-mode-trigger');
                 if (warBtn) {
@@ -1933,6 +2087,449 @@
             autoSaveProfile();
         }
 
+        // NEW: Progress Metrics Functions
+        function calculateProgressMetrics() {
+            const income = getMonthlyIncome();
+            const dTotal = getTotalDebt();
+            const currentIronPot = parseFloat(document.getElementById('current-iron-pot').value) || 0;
+            const essentials = getTier1Total();
+            const currentRetirement = parseFloat(document.getElementById('current-retirement').value) || 0;
+            const age = parseFloat(document.getElementById('user-age').value) || 35;
+            const houseValue = parseFloat(document.getElementById('house-value').value) || 0;
+            const mortgageBalance = parseFloat(document.getElementById('mortgage-balance').value) || 0;
+            const monthlyHousing = getMonthlyHousingCosts();
+            
+            const metrics = {
+                budget: calculateBudgetProgress(),
+                debt: calculateDebtProgress(dTotal, income),
+                emergency: calculateEmergencyProgress(currentIronPot, essentials),
+                retirement: calculateRetirementProgress(currentRetirement, age, income),
+                realEstate: calculateRealEstateProgress(monthlyHousing, income, houseValue, mortgageBalance),
+                overall: 0
+            };
+            
+            // Calculate overall progress
+            const pillarCount = 5;
+            metrics.overall = Math.round((metrics.budget + metrics.debt + metrics.emergency + metrics.retirement + metrics.realEstate) / pillarCount);
+            
+            return metrics;
+        }
+
+        function getMonthlyIncome() {
+            const paycheck = parseFloat(document.getElementById('paycheck').value) || 0;
+            const freq = parseFloat(document.getElementById('freq').value) || 2;
+            
+            if (freq === 1) return paycheck;
+            if (freq === 2) return paycheck * 2;
+            if (freq === 4) return paycheck * 4.33;
+            if (freq === 26) return paycheck * 2.166;
+            return paycheck * 2;
+        }
+
+        function getTotalDebt() {
+            let dTotal = 0;
+            document.querySelectorAll('.debt-balance-input').forEach(i => {
+                dTotal += parseFloat(i.value) || 0;
+            });
+            const mortgageBalance = parseFloat(document.getElementById('mortgage-balance').value) || 0;
+            return dTotal + mortgageBalance;
+        }
+
+        function getTier1Total() {
+            let t1 = 0;
+            document.querySelectorAll('.tier-1-input').forEach(i => {
+                t1 += parseFloat(i.value) || 0;
+            });
+            return t1;
+        }
+
+        function getMonthlyHousingCosts() {
+            const housingInputs = document.querySelectorAll('.tier-1-input');
+            let monthlyHousing = 0;
+            const count = Math.min(3, housingInputs.length);
+            for (let i = 0; i < count; i++) {
+                monthlyHousing += parseFloat(housingInputs[i].value) || 0;
+            }
+            return monthlyHousing;
+        }
+
+        function calculateBudgetProgress() {
+            const income = getMonthlyIncome();
+            if (income === 0) return 0;
+            
+            const needs = getTier1Total();
+            const wants = getTier3Total();
+            const savings = getSavingsTotal();
+            
+            const needsPerc = (needs / income) * 100;
+            const wantsPerc = (wants / income) * 100;
+            const savingsPerc = (savings / income) * 100;
+            
+            let score = 0;
+            if (needsPerc <= 50) score += 40;
+            else if (needsPerc <= 60) score += 20;
+            
+            if (wantsPerc <= 30) score += 30;
+            else if (wantsPerc <= 40) score += 15;
+            
+            if (savingsPerc >= 20) score += 30;
+            else if (savingsPerc >= 10) score += 15;
+            
+            return Math.min(100, score);
+        }
+
+        function getTier3Total() {
+            let t3 = 0;
+            document.querySelectorAll('.tier-3-input').forEach(i => {
+                t3 += parseFloat(i.value) || 0;
+            });
+            return t3;
+        }
+
+        function getSavingsTotal() {
+            let savings = 0;
+            document.querySelectorAll('.savings-input').forEach(i => {
+                savings += parseFloat(i.value) || 0;
+            });
+            return savings;
+        }
+
+        function calculateDebtProgress(totalDebt, monthlyIncome) {
+            if (totalDebt === 0) return 100;
+            
+            const annualIncome = monthlyIncome * 12;
+            if (annualIncome === 0) return 0;
+            
+            const dti = (totalDebt / annualIncome) * 100;
+            
+            if (dti <= 10) return 100;
+            if (dti <= 20) return 80;
+            if (dti <= 30) return 60;
+            if (dti <= 36) return 40;
+            if (dti <= 50) return 20;
+            return 0;
+        }
+
+        function calculateEmergencyProgress(currentIronPot, essentials) {
+            if (essentials === 0) return 0;
+            
+            const moatMonths = currentIronPot / essentials;
+            const targetMonths = 6;
+            
+            if (moatMonths >= targetMonths) return 100;
+            return Math.min(100, (moatMonths / targetMonths) * 100);
+        }
+
+        function calculateRetirementProgress(currentRetirement, age, monthlyIncome) {
+            if (monthlyIncome === 0) return 0;
+            
+            const annualIncome = monthlyIncome * 12;
+            let targetMultiplier = 1;
+            
+            if (age <= 30) targetMultiplier = 1;
+            else if (age <= 40) targetMultiplier = 3;
+            else if (age <= 50) targetMultiplier = 6;
+            else if (age <= 60) targetMultiplier = 8;
+            else targetMultiplier = 10;
+            
+            const targetRetirement = annualIncome * targetMultiplier;
+            
+            if (currentRetirement >= targetRetirement) return 100;
+            if (targetRetirement === 0) return 0;
+            
+            return Math.min(100, (currentRetirement / targetRetirement) * 100);
+        }
+
+        function calculateRealEstateProgress(monthlyHousing, monthlyIncome, houseValue, mortgageBalance) {
+            if (monthlyIncome === 0) return 0;
+            
+            const housingRatio = (monthlyHousing / monthlyIncome) * 100;
+            let housingScore = 0;
+            
+            if (housingRatio <= 28) housingScore = 50;
+            else if (housingRatio <= 35) housingScore = 30;
+            else if (housingRatio <= 45) housingScore = 15;
+            
+            let equityScore = 0;
+            if (houseValue > 0) {
+                const equity = houseValue - mortgageBalance;
+                equityScore = Math.max(0, 50 * (equity / houseValue));
+            }
+            
+            return Math.min(100, housingScore + equityScore);
+        }
+
+        // NEW: Update Priority Targets Display
+        function updatePriorityTargetsDisplay(metrics) {
+            const targetsList = document.getElementById('targets-list');
+            const pillars = [
+                { 
+                    name: 'Budget Discipline', 
+                    progress: metrics.budget, 
+                    icon: 'fa-chart-pie', 
+                    color: 'blue',
+                    description: getProgressMessage(metrics.budget)
+                },
+                { 
+                    name: 'Debt Elimination', 
+                    progress: metrics.debt, 
+                    icon: 'fa-weight-hanging', 
+                    color: 'red',
+                    description: getProgressMessage(metrics.debt)
+                },
+                { 
+                    name: 'Emergency Fortress', 
+                    progress: metrics.emergency, 
+                    icon: 'fa-shield', 
+                    color: 'green',
+                    description: getProgressMessage(metrics.emergency)
+                },
+                { 
+                    name: 'Retirement Build', 
+                    progress: metrics.retirement, 
+                    icon: 'fa-piggy-bank', 
+                    color: 'yellow',
+                    description: getProgressMessage(metrics.retirement)
+                },
+                { 
+                    name: 'Real Estate Position', 
+                    progress: metrics.realEstate, 
+                    icon: 'fa-home', 
+                    color: 'purple',
+                    description: getProgressMessage(metrics.realEstate)
+                }
+            ];
+            
+            // Sort by progress (lowest first)
+            pillars.sort((a, b) => a.progress - b.progress);
+            
+            let html = '';
+            pillars.forEach((pillar, index) => {
+                const statusClass = pillar.progress >= 80 ? 'border-green-500/30' :
+                                  pillar.progress >= 50 ? 'border-yellow-500/30' :
+                                  'border-red-500/30';
+                
+                const bgClass = pillar.progress >= 80 ? 'bg-green-900/20' :
+                              pillar.progress >= 50 ? 'bg-yellow-900/20' :
+                              'bg-red-900/20';
+                
+                const priorityClass = index === 0 ? 'border-crimson' : '';
+                
+                html += `
+                <div class="${bgClass} border ${statusClass} ${priorityClass} p-5 rounded-lg hover:border-${pillar.color}-500/50 transition-all duration-300 target-progress">
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-${pillar.color}-900/30 flex items-center justify-center mr-4">
+                                <i class="fas ${pillar.icon} text-${pillar.color}-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">${pillar.name}</h4>
+                                <div class="text-xs text-gray-400">${pillar.description}</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-white">${Math.round(pillar.progress)}%</div>
+                            <div class="text-xs text-gray-400">Complete</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>Progress</span>
+                            <span>${Math.round(pillar.progress)}%</span>
+                        </div>
+                        <div class="h-2 bg-navy-950 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-${pillar.color}-500 to-${pillar.color}-700 transition-all duration-1000" style="width: ${pillar.progress}%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button onclick="focusOnPillar('${pillar.name.toLowerCase()}')" class="text-xs bg-${pillar.color}-900/30 hover:bg-${pillar.color}-900/50 text-${pillar.color}-300 px-3 py-1 rounded transition">
+                            <i class="fas fa-crosshairs mr-1"></i> Focus Resources
+                        </button>
+                    </div>
+                </div>`;
+            });
+            
+            targetsList.innerHTML = html;
+            
+            // Update overall progress
+            document.getElementById('overall-progress-percent').textContent = `${metrics.overall}%`;
+            document.getElementById('overall-progress-bar').style.width = `${metrics.overall}%`;
+            
+            // Update individual progress bars
+            document.getElementById('debt-progress-bar').style.width = `${metrics.debt}%`;
+            document.getElementById('debt-progress-percent').textContent = `${Math.round(metrics.debt)}%`;
+            
+            document.getElementById('emergency-progress-bar').style.width = `${metrics.emergency}%`;
+            document.getElementById('emergency-progress-percent').textContent = `${Math.round(metrics.emergency)}%`;
+            
+            document.getElementById('retirement-progress-bar').style.width = `${metrics.retirement}%`;
+            document.getElementById('retirement-progress-percent').textContent = `${Math.round(metrics.retirement)}%`;
+            
+            // Count completed targets
+            const completed = pillars.filter(p => p.progress >= 80).length;
+            document.getElementById('completed-targets').textContent = `${completed}/5`;
+            document.getElementById('completed-targets').className = completed === 5 ? 'text-xl font-bold text-green-400' : 'text-xl font-bold text-yellow-400';
+            
+            // Update primary objective
+            const weakestPillar = pillars[0];
+            if (weakestPillar) {
+                const objectiveText = getPrimaryObjective(weakestPillar.name, weakestPillar.progress);
+                document.getElementById('primary-objective').textContent = objectiveText;
+                document.getElementById('objective-impact').textContent = `+${Math.round((100 - weakestPillar.progress) / 10)}`;
+            }
+        }
+
+        function getProgressMessage(progress) {
+            if (progress >= 90) return 'Fortress secured - maintain position';
+            if (progress >= 70) return 'Strong advance - continue momentum';
+            if (progress >= 50) return 'Making progress - stay disciplined';
+            if (progress >= 30) return 'Early stages - focus required';
+            return 'Critical breach - immediate action needed';
+        }
+
+        function getPrimaryObjective(pillarName, progress) {
+            const objectives = {
+                'Budget Discipline': 'Review and adjust your monthly budget to better align with 50/30/20 rule',
+                'Debt Elimination': 'Make an extra debt payment this month or negotiate a lower interest rate',
+                'Emergency Fortress': 'Add to your emergency fund - aim for at least 1% increase',
+                'Retirement Build': 'Increase retirement contribution by 1% or review investment allocation',
+                'Real Estate Position': 'Review housing costs or make an extra mortgage payment'
+            };
+            
+            return objectives[pillarName] || 'Complete your budget to reveal specific objectives';
+        }
+
+        // NEW: Update Timeline Marker
+        function updateTimelineMarker(totalScore, overallProgress) {
+            const timelineMarker = document.getElementById('timeline-marker');
+            if (!timelineMarker) return;
+            
+            // Calculate position based on score and progress
+            let position = 0;
+            
+            if (totalScore >= 90) {
+                position = 100; // Sovereignty achieved
+            } else if (totalScore >= 70) {
+                position = 75 + ((totalScore - 70) / 20) * 25; // 75-100%
+            } else if (totalScore >= 50) {
+                position = 50 + ((totalScore - 50) / 20) * 25; // 50-75%
+            } else if (totalScore >= 30) {
+                position = 25 + ((totalScore - 30) / 20) * 25; // 25-50%
+            } else {
+                position = (totalScore / 30) * 25; // 0-25%
+            }
+            
+            // Smooth animation
+            timelineMarker.style.transition = 'left 1.5s ease-in-out';
+            timelineMarker.style.left = `${position}%`;
+            
+            // Update ETA
+            updateSovereigntyETA(totalScore, overallProgress);
+        }
+
+        function updateSovereigntyETA(totalScore, overallProgress) {
+            const etaEl = document.getElementById('sovereignty-eta');
+            if (!etaEl) return;
+            
+            if (totalScore >= 90) {
+                etaEl.textContent = 'ACHIEVED';
+                etaEl.className = 'text-xl font-bold text-green-400';
+            } else if (totalScore >= 70) {
+                const months = Math.ceil((90 - totalScore) / 3);
+                etaEl.textContent = `${months} mo`;
+                etaEl.className = 'text-xl font-bold text-yellow-400';
+            } else if (totalScore >= 50) {
+                const months = Math.ceil((70 - totalScore) / 2.5) + 6;
+                etaEl.textContent = `${months} mo`;
+                etaEl.className = 'text-xl font-bold text-orange-400';
+            } else {
+                etaEl.textContent = '12+ mo';
+                etaEl.className = 'text-xl font-bold text-red-400';
+            }
+        }
+
+        // NEW: Focus on Pillar
+        function focusOnPillar(pillar) {
+            const sections = {
+                'budget discipline': 'tier1-content',
+                'debt elimination': 'debt-body',
+                'emergency fortress': 'current-iron-pot',
+                'retirement build': 'current-retirement',
+                'real estate position': 'house-value'
+            };
+            
+            const element = document.getElementById(sections[pillar]);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                element.classList.add('pulse-on-update');
+                setTimeout(() => element.classList.remove('pulse-on-update'), 2000);
+            }
+            
+            showToast(`Focusing resources on ${pillar.toUpperCase()}...`);
+        }
+
+        // NEW: Toggle Target View
+        function toggleTargetView() {
+            const progressOverview = document.getElementById('progress-overview');
+            const toggleBtn = document.getElementById('toggle-view-btn');
+            
+            if (progressOverview.classList.contains('hidden')) {
+                progressOverview.classList.remove('hidden');
+                toggleBtn.innerHTML = '<i class="fas fa-chart-simple mr-2"></i>Progress View';
+            } else {
+                progressOverview.classList.add('hidden');
+                toggleBtn.innerHTML = '<i class="fas fa-list mr-2"></i>List View';
+            }
+        }
+
+        // NEW: Mark Objective Complete
+        function markObjectiveComplete() {
+            showToast('Objective marked complete! +5 points to Sovereignty Score');
+            
+            // In a real app, this would update the score and trigger animations
+            const currentScore = parseInt(document.getElementById('sovereignty-score').textContent) || 0;
+            const newScore = Math.min(100, currentScore + 5);
+            document.getElementById('sovereignty-score').textContent = newScore;
+            
+            // Trigger confetti for completion
+            triggerConfetti();
+        }
+
+        // NEW: Mark Quick Win Complete
+        function markQuickWinComplete(type) {
+            showToast(`Quick win "${type}" completed! +5 points`);
+            
+            // In a real app, this would update the score
+            const currentScore = parseInt(document.getElementById('sovereignty-score').textContent) || 0;
+            const newScore = Math.min(100, currentScore + 5);
+            document.getElementById('sovereignty-score').textContent = newScore;
+            
+            // Remove the quick win from display
+            const quickWins = document.getElementById('quick-wins');
+            if (quickWins.children.length > 0) {
+                quickWins.removeChild(quickWins.children[0]);
+            }
+            
+            // Add more quick wins if empty
+            if (quickWins.children.length === 0) {
+                const newQuickWin = document.createElement('div');
+                newQuickWin.className = 'flex items-center justify-between p-3 bg-white/5 rounded';
+                newQuickWin.innerHTML = `
+                    <div>
+                        <div class="font-bold text-sm">Review insurance policies</div>
+                        <div class="text-xs text-gray-400">Potential savings: $20-50/month</div>
+                    </div>
+                    <button onclick="markQuickWinComplete('insurance')" class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-xs font-bold">
+                        +5 pts
+                    </button>
+                `;
+                quickWins.appendChild(newQuickWin);
+            }
+        }
+
+        // Rest of the existing functions remain the same...
         function updateChart(t1, dMin, t2, t3, savings, monthlySurplus, income) {
             try {
                 const totalExpenses = t1 + dMin + t2 + t3 + savings;
