@@ -3170,4 +3170,60 @@ Generated from The Lab at realamericanfinance.com
             } else {
                 savedScenarioTemplates.forEach((template, index) => {
                     const templateEl = document.createElement('div');
-                    templateEl.className = '
+                    templateEl.className = 'scenario-card';
+                    templateEl.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold">${template.name}</h4>
+                                <p class="text-xs text-gray-400">Saved ${new Date(template.date).toLocaleDateString()}</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="loadScenarioTemplate(${index})" class="text-blue-400 hover:text-blue-300">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <button onclick="deleteScenarioTemplate(${index})" class="text-red-400 hover:text-red-300">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(templateEl);
+                });
+            }
+            
+            document.getElementById('saved-scenarios-modal').classList.remove('hidden');
+        }
+
+        function closeSavedScenarios() {
+            document.getElementById('saved-scenarios-modal').classList.add('hidden');
+        }
+
+        function loadScenarioTemplate(index) {
+            const template = savedScenarioTemplates[index];
+            
+            document.getElementById('scenario-income').value = template.parameters.incomeChange;
+            document.getElementById('scenario-tier3').value = template.parameters.tier3Reduction;
+            document.getElementById('scenario-essentials').value = template.parameters.essentialsChange;
+            document.getElementById('scenario-side-hustle').value = template.parameters.sideHustle;
+            document.getElementById('scenario-extra-payment').value = template.parameters.extraPayment;
+            document.getElementById('scenario-interest').value = template.parameters.interestReduction;
+            document.getElementById('scenario-returns').value = template.parameters.returnRate;
+            document.getElementById('scenario-investment').value = template.parameters.investmentIncrease;
+            document.getElementById('scenario-years').value = template.parameters.projectionYears;
+            
+            updateSliderDisplay();
+            closeSavedScenarios();
+            openScenarioBuilder();
+            showToast(`Loaded template: ${template.name}`);
+        }
+
+        function deleteScenarioTemplate(index) {
+            if (confirm('Delete this scenario template?')) {
+                savedScenarioTemplates.splice(index, 1);
+                localStorage.setItem('raf_scenario_templates', JSON.stringify(savedScenarioTemplates));
+                showSavedScenarios();
+            }
+        }
+    </script>
+</body>
+</html>
