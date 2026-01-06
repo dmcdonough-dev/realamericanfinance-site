@@ -160,6 +160,32 @@
             70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
+
+        /* Comparison bars */
+        .comparison-bar-container {
+            position: relative;
+            height: 20px;
+            border-radius: 10px;
+            background: #1E293B;
+            overflow: hidden;
+        }
+
+        .comparison-bar-current {
+            position: absolute;
+            height: 100%;
+            background: linear-gradient(90deg, #B22234, #DC143C);
+            border-radius: 10px 0 0 10px;
+            z-index: 1;
+        }
+
+        .comparison-bar-scenario {
+            position: absolute;
+            height: 100%;
+            background: linear-gradient(90deg, #059669, #10B981);
+            border-radius: 10px 0 0 10px;
+            z-index: 2;
+            opacity: 0.8;
+        }
     </style>
     <script>
         tailwind.config = {
@@ -438,6 +464,17 @@
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Scenario Preview Modal -->
+    <div id="scenario-preview-modal" class="modal-overlay hidden">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-heading uppercase" id="scenario-preview-title">Scenario Preview</h3>
+                <button onclick="closeScenarioPreview()" class="text-2xl hover:text-crimson">&times;</button>
+            </div>
+            <div id="scenario-preview-content"></div>
         </div>
     </div>
 
@@ -1064,50 +1101,90 @@
                     <p class="text-gray-400 mb-6">Test different battle strategies against your financial fortress</p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="scenario-card" onclick="runPrebuiltScenario('raise_10')">
+                        <div class="scenario-card group" onclick="runPrebuiltScenario('raise_10')">
                             <div class="flex items-center mb-2">
-                                <div class="w-10 h-10 rounded-full bg-green-900/30 flex items-center justify-center mr-3">
+                                <div class="w-10 h-10 rounded-full bg-green-900/30 flex items-center justify-center mr-3 group-hover:scale-110 transition">
                                     <i class="fas fa-arrow-up text-green-500"></i>
                                 </div>
-                                <div>
+                                <div class="flex-1">
                                     <h4 class="font-bold">10% Pay Raise</h4>
                                     <p class="text-xs text-gray-400">Income surge, expenses hold</p>
                                 </div>
+                                <div class="text-right">
+                                    <div class="text-xs text-gray-400">Impact</div>
+                                    <div class="text-sm font-bold text-green-400">+5 pts</div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="text-xs text-gray-500 mb-1">Projected Score Increase</div>
+                                <div class="h-1 bg-navy-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-green-500" style="width: 70%"></div>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="scenario-card" onclick="runPrebuiltScenario('debt_free')">
+                        <div class="scenario-card group" onclick="runPrebuiltScenario('debt_free')">
                             <div class="flex items-center mb-2">
-                                <div class="w-10 h-10 rounded-full bg-red-900/30 flex items-center justify-center mr-3">
+                                <div class="w-10 h-10 rounded-full bg-red-900/30 flex items-center justify-center mr-3 group-hover:scale-110 transition">
                                     <i class="fas fa-weight-hanging text-red-500"></i>
                                 </div>
-                                <div>
+                                <div class="flex-1">
                                     <h4 class="font-bold">Debt-Free Assault</h4>
                                     <p class="text-xs text-gray-400">Eliminate all non-mortgage debt</p>
                                 </div>
+                                <div class="text-right">
+                                    <div class="text-xs text-gray-400">Impact</div>
+                                    <div class="text-sm font-bold text-red-400">+15 pts</div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="text-xs text-gray-500 mb-1">Projected Score Increase</div>
+                                <div class="h-1 bg-navy-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-red-500" style="width: 90%"></div>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="scenario-card" onclick="runPrebuiltScenario('market_crash')">
+                        <div class="scenario-card group" onclick="runPrebuiltScenario('market_crash')">
                             <div class="flex items-center mb-2">
-                                <div class="w-10 h-10 rounded-full bg-yellow-900/30 flex items-center justify-center mr-3">
+                                <div class="w-10 h-10 rounded-full bg-yellow-900/30 flex items-center justify-center mr-3 group-hover:scale-110 transition">
                                     <i class="fas fa-chart-line text-yellow-500"></i>
                                 </div>
-                                <div>
+                                <div class="flex-1">
                                     <h4 class="font-bold">Market Crash (-40%)</h4>
                                     <p class="text-xs text-gray-400">Portfolio stress test</p>
                                 </div>
+                                <div class="text-right">
+                                    <div class="text-xs text-gray-400">Impact</div>
+                                    <div class="text-sm font-bold text-yellow-400">-10 pts</div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="text-xs text-gray-500 mb-1">Projected Score Change</div>
+                                <div class="h-1 bg-navy-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-yellow-500" style="width: 40%"></div>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="scenario-card" onclick="runPrebuiltScenario('job_loss')">
+                        <div class="scenario-card group" onclick="runPrebuiltScenario('job_loss')">
                             <div class="flex items-center mb-2">
-                                <div class="w-10 h-10 rounded-full bg-orange-900/30 flex items-center justify-center mr-3">
+                                <div class="w-10 h-10 rounded-full bg-orange-900/30 flex items-center justify-center mr-3 group-hover:scale-110 transition">
                                     <i class="fas fa-briefcase text-orange-500"></i>
                                 </div>
-                                <div>
+                                <div class="flex-1">
                                     <h4 class="font-bold">Job Loss Siege</h4>
                                     <p class="text-xs text-gray-400">6 months unemployment</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xs text-gray-400">Impact</div>
+                                    <div class="text-sm font-bold text-orange-400">-20 pts</div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="text-xs text-gray-500 mb-1">Projected Score Change</div>
+                                <div class="h-1 bg-navy-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-orange-500" style="width: 30%"></div>
                                 </div>
                             </div>
                         </div>
@@ -1458,8 +1535,48 @@
         let activeScenarios = [];
         let savedScenarioTemplates = JSON.parse(localStorage.getItem('raf_scenario_templates')) || [];
 
+        // Scenario presets
+        const scenarioPresets = {
+            'raise_10': {
+                name: '10% Pay Raise',
+                description: 'Income surge, expenses hold',
+                incomeMultiplier: 1.10,
+                tier3Reduction: 0,
+                extraDebtPayment: 0,
+                icon: 'fa-arrow-up',
+                color: 'green'
+            },
+            'debt_free': {
+                name: 'Debt-Free Assault',
+                description: 'Eliminate all non-mortgage debt',
+                incomeMultiplier: 1.00,
+                tier3Reduction: 50,
+                extraDebtPayment: 500,
+                icon: 'fa-weight-hanging',
+                color: 'red'
+            },
+            'market_crash': {
+                name: 'Market Crash (-40%)',
+                description: 'Portfolio stress test',
+                incomeMultiplier: 1.00,
+                tier3Reduction: 30,
+                retirementMultiplier: 0.6,
+                icon: 'fa-chart-line',
+                color: 'yellow'
+            },
+            'job_loss': {
+                name: 'Job Loss Siege',
+                description: '6 months unemployment',
+                incomeMultiplier: 0.4,
+                tier3Reduction: 80,
+                emergencyTargetMonths: 12,
+                icon: 'fa-briefcase',
+                color: 'orange'
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', function () {
-            // Initialize chart
+            // Initialize chart with proper tooltips
             const canvas = document.getElementById('budgetChart');
             if (canvas) {
                 const ctx = canvas.getContext('2d');
@@ -1520,6 +1637,10 @@
             
             // Initialize scenario sliders
             initializeScenarioSliders();
+            
+            // Load active scenarios
+            activeScenarios = JSON.parse(localStorage.getItem('active_scenarios')) || [];
+            updateActiveScenariosDisplay();
             
             // Trigger initial calculation
             calculateAll();
@@ -1691,6 +1812,7 @@
                 localStorage.removeItem(`${CURRENT_VERSION}_stats`);
                 localStorage.removeItem(`${CURRENT_VERSION}_achievements`);
                 localStorage.removeItem(`${CURRENT_VERSION}_history`);
+                localStorage.removeItem('active_scenarios');
                 location.reload();
             }
         }
@@ -1783,23 +1905,22 @@
             // Sync logic for mobile debt cards
         }
 
-        // NEW: Net Worth Calculation
+        // FIXED: Net Worth Calculation
         function calculateNetWorth() {
-            const currentIronPot = parseFloat(document.getElementById('current-iron-pot').value) || 0;
-            const currentRetirement = parseFloat(document.getElementById('current-retirement').value) || 0;
-            const houseValue = parseFloat(document.getElementById('house-value').value) || 0;
-            const mortgageBalance = parseFloat(document.getElementById('mortgage-balance').value) || 0;
+            // Assets
+            const currentIronPot = parseFloat(document.getElementById('current-iron-pot')?.value) || 0;
+            const currentRetirement = parseFloat(document.getElementById('current-retirement')?.value) || 0;
+            const houseValue = parseFloat(document.getElementById('house-value')?.value) || 0;
             
-            // Calculate total debt
-            let dTotal = 0;
+            // Liabilities
+            let debtTotal = 0;
             document.querySelectorAll('.debt-balance-input').forEach(i => {
-                dTotal += parseFloat(i.value) || 0;
+                debtTotal += parseFloat(i.value) || 0;
             });
+            const mortgageBalance = parseFloat(document.getElementById('mortgage-balance')?.value) || 0;
             
-            const liquidAssets = currentIronPot + currentRetirement;
-            const realEstateEquity = Math.max(0, houseValue - mortgageBalance);
-            const totalAssets = liquidAssets + realEstateEquity;
-            const totalLiabilities = dTotal + mortgageBalance;
+            const totalAssets = currentIronPot + currentRetirement + houseValue;
+            const totalLiabilities = debtTotal + mortgageBalance;
             const netWorth = totalAssets - totalLiabilities;
             
             return netWorth;
@@ -2086,7 +2207,7 @@
 
                 checkAchievements(totalScore, totalDebtIncludingMortgage, currentIronPot, essentials);
 
-                // NEW: Calculate and update net worth
+                // FIXED: Calculate and update net worth
                 const netWorth = calculateNetWorth();
                 const netWorthEl = document.getElementById('net-worth-value');
                 if (netWorthEl) {
@@ -2101,7 +2222,7 @@
                     }
                 }
                 
-                // NEW: Update progress metrics and priority targets
+                // Update progress metrics and priority targets
                 const progressMetrics = calculateProgressMetrics();
                 updatePriorityTargetsDisplay(progressMetrics);
                 
@@ -2122,7 +2243,7 @@
             autoSaveProfile();
         }
 
-        // NEW: Progress Metrics Functions
+        // Progress Metrics Functions
         function calculateProgressMetrics() {
             const income = getMonthlyIncome();
             const dTotal = getTotalDebt();
@@ -2294,7 +2415,7 @@
             return Math.min(100, housingScore + equityScore);
         }
 
-        // NEW: Update Priority Targets Display
+        // Update Priority Targets Display
         function updatePriorityTargetsDisplay(metrics) {
             const targetsList = document.getElementById('targets-list');
             if (!targetsList) return;
@@ -2451,7 +2572,7 @@
             return objectives[pillarName] || 'Complete your budget to reveal specific objectives';
         }
 
-        // NEW: Update Timeline Marker
+        // Update Timeline Marker
         function updateTimelineMarker(totalScore, overallProgress) {
             const timelineMarker = document.getElementById('timeline-marker');
             if (!timelineMarker) return;
@@ -2500,7 +2621,7 @@
             }
         }
 
-        // NEW: Focus on Pillar
+        // Focus on Pillar
         function focusOnPillar(pillar) {
             const sections = {
                 'budget discipline': 'tier1-content',
@@ -2520,7 +2641,7 @@
             showToast(`Focusing resources on ${pillar.toUpperCase()}...`);
         }
 
-        // NEW: Toggle Target View
+        // Toggle Target View
         function toggleTargetView() {
             const progressOverview = document.getElementById('progress-overview');
             const toggleBtn = document.getElementById('toggle-view-btn');
@@ -2534,7 +2655,7 @@
             }
         }
 
-        // NEW: Mark Objective Complete
+        // Mark Objective Complete
         function markObjectiveComplete() {
             showToast('Objective marked complete! +5 points to Sovereignty Score');
             
@@ -2548,7 +2669,7 @@
             triggerConfetti();
         }
 
-        // NEW: Mark Quick Win Complete
+        // Mark Quick Win Complete
         function markQuickWinComplete(type) {
             showToast(`Quick win "${type}" completed! +5 points`);
             
@@ -2598,6 +2719,20 @@
                     myChart.data.datasets[0].backgroundColor = ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#10B981', '#DC143C'];
                     myChart.data.labels = ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Savings/Investments', 'Deficit'];
                 }
+                
+                // Ensure tooltips are enabled
+                if (myChart.options.plugins.tooltip) {
+                    myChart.options.plugins.tooltip.enabled = true;
+                    myChart.options.plugins.tooltip.callbacks = {
+                        label: function(context) {
+                            let label = context.label || '';
+                            let value = context.parsed;
+                            if (value === 0) return `${label}: $0`;
+                            return `${label}: $${value.toLocaleString()}`;
+                        }
+                    };
+                }
+                
                 myChart.update();
             } catch (error) {
                 console.error("Error updating chart:", error);
@@ -3114,7 +3249,7 @@ Generated from The Lab at realamericanfinance.com
             }, 3000);
         }
 
-        // SCENARIO FUNCTIONALITY
+        // IMPROVED SCENARIO FUNCTIONALITY
         function initializeScenarioSliders() {
             const sliders = document.querySelectorAll('.scenario-slider');
             sliders.forEach(slider => {
@@ -3154,13 +3289,228 @@ Generated from The Lab at realamericanfinance.com
         }
 
         function runPrebuiltScenario(type) {
-            showToast(`Running ${type} scenario...`);
-            // Scenario implementation would go here
+            const scenario = scenarioPresets[type];
+            if (!scenario) return;
+            
+            const modalContent = `
+                <div class="p-4">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-${scenario.color}-900/30 flex items-center justify-center mr-3">
+                            <i class="fas ${scenario.icon} text-${scenario.color}-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">${scenario.name}</h4>
+                            <p class="text-sm text-gray-400">${scenario.description}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h5 class="font-bold mb-2">Scenario Changes:</h5>
+                        <ul class="space-y-2 text-sm">
+                            ${scenario.incomeMultiplier !== 1 ? `<li>• Income: ${scenario.incomeMultiplier > 1 ? '+' : ''}${((scenario.incomeMultiplier - 1) * 100).toFixed(0)}%</li>` : ''}
+                            ${scenario.tier3Reduction > 0 ? `<li>• Tier 3 (Wants) reduction: ${scenario.tier3Reduction}%</li>` : ''}
+                            ${scenario.extraDebtPayment > 0 ? `<li>• Extra debt payment: $${scenario.extraDebtPayment}/month</li>` : ''}
+                            ${scenario.retirementMultiplier ? `<li>• Retirement portfolio: ${(scenario.retirementMultiplier * 100).toFixed(0)}% of current value</li>` : ''}
+                            ${scenario.emergencyTargetMonths ? `<li>• Emergency target: ${scenario.emergencyTargetMonths} months</li>` : ''}
+                        </ul>
+                    </div>
+                    
+                    <div class="flex gap-3">
+                        <button onclick="applyScenario('${type}')" class="flex-1 bg-crimson hover:bg-red-700 px-4 py-2 rounded text-sm font-bold">
+                            Apply to Base Plan
+                        </button>
+                        <button onclick="runScenarioOnly('${type}')" class="flex-1 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm">
+                            View Results Only
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            showScenarioModal(modalContent, scenario.name);
         }
 
-        function runCustomScenario() {
-            showToast('Custom scenario executed!');
-            closeScenarioBuilder();
+        function showScenarioModal(content, title) {
+            const modal = document.getElementById('scenario-preview-modal');
+            const titleEl = document.getElementById('scenario-preview-title');
+            const contentEl = document.getElementById('scenario-preview-content');
+            
+            if (titleEl) titleEl.textContent = title;
+            if (contentEl) contentEl.innerHTML = content;
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeScenarioPreview() {
+            const modal = document.getElementById('scenario-preview-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function applyScenario(type) {
+            const scenario = scenarioPresets[type];
+            
+            // Apply income change
+            const paycheck = document.getElementById('paycheck');
+            if (paycheck && scenario.incomeMultiplier !== 1) {
+                const currentValue = parseFloat(paycheck.value) || 0;
+                paycheck.value = Math.round(currentValue * scenario.incomeMultiplier);
+            }
+            
+            // Apply Tier 3 reduction
+            if (scenario.tier3Reduction > 0) {
+                document.querySelectorAll('.tier-3-input').forEach(input => {
+                    const currentValue = parseFloat(input.value) || 0;
+                    input.value = Math.round(currentValue * (1 - scenario.tier3Reduction / 100));
+                });
+            }
+            
+            // Apply to retirement if needed
+            if (scenario.retirementMultiplier) {
+                const retirement = document.getElementById('current-retirement');
+                if (retirement) {
+                    const currentValue = parseFloat(retirement.value) || 0;
+                    retirement.value = Math.round(currentValue * scenario.retirementMultiplier);
+                }
+            }
+            
+            // Recalculate everything
+            calculateAll();
+            closeScenarioPreview();
+            showToast(`${scenario.name} applied to your base plan!`);
+            
+            // Save this as an active scenario
+            saveScenarioResults(type);
+        }
+
+        function runScenarioOnly(type) {
+            const scenario = scenarioPresets[type];
+            
+            // Create a comparison view
+            const currentScore = document.getElementById('sovereignty-score')?.textContent || '0';
+            const currentSurplus = document.getElementById('surplus-val')?.textContent || '$0';
+            
+            // Calculate projected score
+            const projectedScore = Math.min(100, parseInt(currentScore) + getScenarioImpact(type));
+            const projectedSurplus = calculateProjectedSurplus(type);
+            
+            const resultsHTML = `
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-navy-900/50 p-4 rounded text-center">
+                            <div class="text-sm text-gray-400 mb-1">Current Score</div>
+                            <div class="text-2xl font-bold">${currentScore}/100</div>
+                        </div>
+                        <div class="bg-green-900/20 border border-green-500/30 p-4 rounded text-center">
+                            <div class="text-sm text-gray-400 mb-1">Projected Score</div>
+                            <div class="text-2xl font-bold text-green-400">${projectedScore}/100</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-navy-900/50 p-4 rounded">
+                        <div class="flex justify-between items-center mb-2">
+                            <span>Monthly War Chest</span>
+                            <div class="flex items-center">
+                                <span class="mr-3">${currentSurplus}</span>
+                                <i class="fas fa-arrow-right text-gray-500 mr-3"></i>
+                                <span class="text-green-400 font-bold">${projectedSurplus}</span>
+                            </div>
+                        </div>
+                        <div class="comparison-bar-container h-4 mt-2">
+                            <div class="comparison-bar-current" style="width: 50%"></div>
+                            <div class="comparison-bar-scenario" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="saveScenarioResults('${type}')" class="w-full bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded text-sm font-bold">
+                        <i class="fas fa-save mr-2"></i>Save These Results
+                    </button>
+                </div>
+            `;
+            
+            showScenarioModal(resultsHTML, `${scenario.name} Results`);
+        }
+
+        function getScenarioImpact(type) {
+            const impacts = {
+                'raise_10': 5,
+                'debt_free': 15,
+                'market_crash': -10,
+                'job_loss': -20
+            };
+            return impacts[type] || 0;
+        }
+
+        function calculateProjectedSurplus(type) {
+            const currentSurplus = document.getElementById('surplus-val')?.textContent || '$0';
+            const currentNum = parseInt(currentSurplus.replace(/[^0-9-]/g, '')) || 0;
+            
+            const projections = {
+                'raise_10': currentNum * 1.10,
+                'debt_free': currentNum + 500,
+                'market_crash': currentNum * 0.9,
+                'job_loss': currentNum * 0.4
+            };
+            
+            const projected = projections[type] || currentNum;
+            return projected >= 0 ? `$${Math.round(projected).toLocaleString()}` : `-$${Math.round(Math.abs(projected)).toLocaleString()}`;
+        }
+
+        function saveScenarioResults(type) {
+            const scenario = scenarioPresets[type];
+            const results = {
+                type: type,
+                name: scenario.name,
+                date: new Date().toISOString(),
+                projectedScore: getScenarioImpact(type),
+                applied: false
+            };
+            
+            activeScenarios.push(results);
+            localStorage.setItem('active_scenarios', JSON.stringify(activeScenarios));
+            
+            showToast(`Scenario "${scenario.name}" saved to your active scenarios!`);
+            updateActiveScenariosDisplay();
+            closeScenarioPreview();
+        }
+
+        function updateActiveScenariosDisplay() {
+            const container = document.getElementById('active-scenarios');
+            if (!container) return;
+            
+            if (activeScenarios.length === 0) {
+                container.innerHTML = '<p class="text-sm text-gray-400 italic">No scenarios active. Run a scenario above to see analysis.</p>';
+                return;
+            }
+            
+            let html = '';
+            activeScenarios.forEach((scenario, index) => {
+                const scenarioInfo = scenarioPresets[scenario.type];
+                const color = scenarioInfo?.color || 'gray';
+                
+                html += `
+                    <div class="flex items-center justify-between p-3 bg-white/5 rounded hover:bg-white/10 transition">
+                        <div>
+                            <div class="font-bold text-sm">${scenario.name}</div>
+                            <div class="text-xs text-gray-400">${new Date(scenario.date).toLocaleDateString()}</div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="applyScenario('${scenario.type}')" class="px-3 py-1 bg-crimson hover:bg-red-700 rounded text-xs">
+                                Apply
+                            </button>
+                            <button onclick="deleteScenario(${index})" class="px-3 py-1 bg-navy-800 hover:bg-navy-700 rounded text-xs">
+                                ×
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function deleteScenario(index) {
+            activeScenarios.splice(index, 1);
+            localStorage.setItem('active_scenarios', JSON.stringify(activeScenarios));
+            updateActiveScenariosDisplay();
+            showToast('Scenario removed');
         }
 
         function compareCurrentScenarios() {
@@ -3172,8 +3522,9 @@ Generated from The Lab at realamericanfinance.com
             if (modal) modal.classList.add('hidden');
         }
 
-        function applyScenario(scenarioType) {
-            showToast(`Applying ${scenarioType} to base plan...`);
+        function runCustomScenario() {
+            showToast('Custom scenario executed!');
+            closeScenarioBuilder();
         }
 
         function saveScenarioTemplate() {
@@ -3188,16 +3539,6 @@ Generated from The Lab at realamericanfinance.com
         function closeSavedScenarios() {
             const modal = document.getElementById('saved-scenarios-modal');
             if (modal) modal.classList.add('hidden');
-        }
-
-        function loadScenarioTemplate(index) {
-            showToast('Template loaded!');
-        }
-
-        function deleteScenarioTemplate(index) {
-            if (confirm('Delete this scenario template?')) {
-                showToast('Template deleted!');
-            }
         }
     </script>
 </body>
