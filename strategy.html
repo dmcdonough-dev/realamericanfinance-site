@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strategy | Real American Finance</title>
+    <title>Book Strategy Call | Real American Finance</title>
+    <!-- Secured connection (you must add SSL to your domain) -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon for brand recognition -->
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
     <style>
         .hero-bg { 
-            background: linear-gradient(rgba(5,11,20,0.75), rgba(5,11,20,0.75)), url('./flag_distressed.jpg'); 
+            background: linear-gradient(rgba(5,11,20,0.85), rgba(5,11,20,0.85)), url('./assets/flag_distressed.jpg'); 
             background-size: cover; background-position: center; 
+            background-color: #050B14; /* Fallback color */
         }
         .ticker-wrap { overflow: hidden; background: rgba(178, 34, 52, 0.1); border-y: 1px solid rgba(255,255,255,0.05); }
         .ticker { display: flex; white-space: nowrap; animation: ticker 40s linear infinite; }
@@ -17,6 +22,9 @@
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
+        /* Mobile menu animation */
+        .mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
+        .mobile-menu.open { max-height: 500px; }
     </style>
     <script>
         tailwind.config = {
@@ -28,16 +36,74 @@
                 } 
             }
         }
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if(menuButton) {
+                menuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('open');
+                });
+            }
+            
+            // Form validation and submission handling
+            const strategyForm = document.getElementById('strategy-form');
+            if(strategyForm) {
+                strategyForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Basic validation
+                    const requiredFields = strategyForm.querySelectorAll('[required]');
+                    let isValid = true;
+                    
+                    requiredFields.forEach(field => {
+                        if(!field.value.trim()) {
+                            isValid = false;
+                            field.classList.add('border', 'border-yellow-500');
+                        } else {
+                            field.classList.remove('border', 'border-yellow-500');
+                        }
+                    });
+                    
+                    if(isValid) {
+                        // In a real implementation, you would send data to your backend here
+                        // For demonstration, we'll show a success message
+                        const submitBtn = strategyForm.querySelector('button[type="submit"]');
+                        const originalText = submitBtn.innerHTML;
+                        
+                        submitBtn.innerHTML = 'TRANSMITTING...';
+                        submitBtn.disabled = true;
+                        
+                        // Simulate API call
+                        setTimeout(() => {
+                            // Redirect to thank you page in real implementation
+                            window.location.href = 'thank-you.html?bonus=tracker';
+                            
+                            // For demo, show alert and reset
+                            alert('Transmission successful. You will receive your Iron Pot Millionaire Asset Tracker and calendar invitation via email within 24 hours.');
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                            strategyForm.reset();
+                        }, 1500);
+                    } else {
+                        alert('Please complete all required fields marked in yellow.');
+                    }
+                });
+            }
+        });
     </script>
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson">
     
     <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="flex flex-col group">
-                <span style="font-family: 'Great Vibes';" class="text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
-                <span class="font-heading text-[10px] tracking-[0.4em] text-gray-400 uppercase mt-1 font-bold">Discipline • Autonomy • Wealth</span>
+                <span style="font-family: 'Great Vibes';" class="text-2xl sm:text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
+                <span class="font-heading text-[9px] sm:text-[10px] tracking-[0.4em] text-gray-400 uppercase mt-1 font-bold">Discipline • Autonomy • Wealth</span>
             </a>
+            
+            <!-- Desktop Navigation -->
             <ul class="hidden lg:flex space-x-8 font-heading text-xs tracking-[0.2em] uppercase font-bold text-gray-400">
                 <li><a href="academy.html" class="hover:text-white transition">The Academy</a></li>
                 <li><a href="media.html" class="hover:text-white transition">Media</a></li>
@@ -45,104 +111,185 @@
                 <li><a href="shop.html" class="hover:text-white transition">Shop</a></li>
                 <li><a href="strategy.html" class="text-crimson">Strategy Call</a></li>
             </ul>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="lg:hidden text-gray-400 hover:text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
         </nav>
+        
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="mobile-menu lg:hidden bg-navy-900 border-b border-white/5">
+            <div class="container mx-auto px-4 py-6">
+                <ul class="space-y-6 font-heading text-sm uppercase font-bold">
+                    <li><a href="academy.html" class="block py-2 hover:text-crimson transition">The Academy</a></li>
+                    <li><a href="media.html" class="block py-2 hover:text-crimson transition">Media</a></li>
+                    <li><a href="the-lab.html" class="block py-2 hover:text-crimson transition">Tools</a></li>
+                    <li><a href="shop.html" class="block py-2 hover:text-crimson transition">Shop</a></li>
+                    <li><a href="strategy.html" class="block py-2 text-crimson">Strategy Call</a></li>
+                    <li class="pt-4 border-t border-white/5"><a href="login.html" class="block py-2 text-gray-500 hover:text-white transition">Member Portal</a></li>
+                </ul>
+            </div>
+        </div>
     </header>
 
-    <section class="hero-bg pt-48 pb-20 text-center">
-        <div class="container mx-auto px-6">
-            <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight leading-none mb-6">INITIALIZE <span class="text-crimson">COMMAND.</span></h1>
-            <p class="text-lg md:text-xl text-white font-heading font-bold uppercase tracking-[0.4em] mb-8">Deploy Capital. Secure Sovereignty. Win.</p>
+    <section class="hero-bg pt-40 sm:pt-48 pb-16 sm:pb-20 text-center">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h1 class="text-4xl sm:text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight leading-none mb-4 sm:mb-6">STRATEGIC <span class="text-crimson">COMMAND</span> SESSION</h1>
+            <p class="text-base sm:text-lg md:text-xl text-white font-heading font-bold uppercase tracking-[0.3em] sm:tracking-[0.4em] mb-6 sm:mb-8">60-Minute Confidential Analysis & Game Plan</p>
             
-            <div class="ticker-wrap py-3 border-y border-white/5">
-                <div class="ticker gap-12 flex items-center">
-                    <span class="text-[10px] uppercase tracking-widest text-gray-400"><span class="text-crimson">●</span> SYSTEM STATUS: ACTIVE</span>
-                    <span class="text-[10px] uppercase tracking-widest text-gray-400"><span class="text-crimson">●</span> LATEST BRIEFING: 42 MINUTES AGO</span>
+            <div class="max-w-3xl mx-auto mb-10 sm:mb-12">
+                <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6">This is your zero-commitment opportunity to gain tactical clarity. We'll audit your financial architecture, identify vulnerabilities, and blueprint your next 90-day action plan for sovereignty.</p>
+                <div class="inline-flex items-center bg-crimson/20 border border-crimson/30 px-4 py-2 rounded-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    <span class="text-xs sm:text-sm font-heading uppercase tracking-widest">Private • Secure • No Sales Pitch</span>
+                </div>
+            </div>
+            
+            <div class="ticker-wrap py-3">
+                <div class="ticker gap-8 sm:gap-12 flex items-center">
+                    <span class="text-[10px] uppercase tracking-widest text-gray-400"><span class="text-crimson">●</span> SYSTEM STATUS: SECURE</span>
+                    <span class="text-[10px] uppercase tracking-widest text-gray-400"><span class="text-crimson">●</span> NEXT AVAILABLE: 48 HRS</span>
                     <span class="text-[10px] uppercase tracking-widest text-gray-400"><span class="text-crimson">●</span> OPERATORS DEPLOYED: 1,280+</span>
                     <span class="text-[10px] uppercase tracking-widest text-gray-400"><span class="text-crimson">●</span> SURPLUS OPTIMIZED: $4.2M YTD</span>
-                    <span class="text-[10px] uppercase tracking-widest text-gray-400"><span class="text-crimson">●</span> SYSTEM STATUS: ACTIVE</span>
-                    <span class="text-[10px] uppercase tracking-widest text-gray-400"><span class="text-crimson">●</span> LATEST BRIEFING: 42 MINUTES AGO</span>
+                    <span class="text-[10px] uppercase tracking-widest text-gray-400"><span class="text-crimson">●</span> SYSTEM STATUS: SECURE</span>
+                    <span class="text-[10px] uppercase tracking-widest text-gray-400"><span class="text-crimson">●</span> NEXT AVAILABLE: 48 HRS</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24">
-        <div class="container mx-auto px-6 max-w-5xl">
-            <div class="grid lg:grid-cols-5 gap-12">
+    <section class="py-16 sm:py-24">
+        <div class="container mx-auto px-4 sm:px-6 max-w-6xl">
+            
+            <!-- Trust Indicators Section -->
+            <div class="mb-16 text-center">
+                <h3 class="text-xs font-heading uppercase tracking-[0.5em] text-gray-500 mb-8">TRUSTED BY SOVEREIGN OPERATORS</h3>
+                <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-12 opacity-75">
+                    <div class="text-center">
+                        <div class="text-2xl sm:text-3xl font-heading font-bold text-white">1,280+</div>
+                        <div class="text-[10px] uppercase tracking-widest text-gray-500 mt-1">Operators Deployed</div>
+                    </div>
+                    <div class="hidden sm:block text-gray-700">|</div>
+                    <div class="text-center">
+                        <div class="text-2xl sm:text-3xl font-heading font-bold text-white">4.8★</div>
+                        <div class="text-[10px] uppercase tracking-widest text-gray-500 mt-1">Avg. Session Rating</div>
+                    </div>
+                    <div class="hidden sm:block text-gray-700">|</div>
+                    <div class="text-center">
+                        <div class="text-2xl sm:text-3xl font-heading font-bold text-white">94%</div>
+                        <div class="text-[10px] uppercase tracking-widest text-gray-500 mt-1">Report Breakthrough</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid lg:grid-cols-5 gap-8 sm:gap-12">
                 
-                <div class="lg:col-span-2 space-y-12">
+                <div class="lg:col-span-2 space-y-8 sm:space-y-12">
                     <div>
-                        <h2 class="text-2xl font-heading font-bold uppercase mb-6 text-crimson">Why Initialize?</h2>
-                        <ul class="space-y-6">
-                            <li class="flex gap-4">
-                                <span class="text-crimson font-bold text-xl">01</span>
-                                <p class="text-sm text-gray-400 leading-relaxed uppercase tracking-wider">Identify and plug capital leaks within your current architecture.</p>
+                        <h2 class="text-xl sm:text-2xl font-heading font-bold uppercase mb-4 sm:mb-6 text-crimson">Session Deliverables</h2>
+                        <ul class="space-y-4 sm:space-y-6">
+                            <li class="flex gap-3 sm:gap-4">
+                                <span class="text-crimson font-bold text-lg sm:text-xl flex-shrink-0">01</span>
+                                <p class="text-xs sm:text-sm text-gray-400 leading-relaxed uppercase tracking-wider"><span class="text-white font-bold">Capital Leak Audit:</span> Identify and quantify losses in your current financial architecture.</p>
                             </li>
-                            <li class="flex gap-4">
-                                <span class="text-crimson font-bold text-xl">02</span>
-                                <p class="text-sm text-gray-400 leading-relaxed uppercase tracking-wider">Automate your offensive capital deployment protocols.</p>
+                            <li class="flex gap-3 sm:gap-4">
+                                <span class="text-crimson font-bold text-lg sm:text-xl flex-shrink-0">02</span>
+                                <p class="text-xs sm:text-sm text-gray-400 leading-relaxed uppercase tracking-wider"><span class="text-white font-bold">Automation Protocol:</span> Blueprint to systematize your offensive capital deployment.</p>
                             </li>
-                            <li class="flex gap-4">
-                                <span class="text-crimson font-bold text-xl">03</span>
-                                <p class="text-sm text-gray-400 leading-relaxed uppercase tracking-wider">Blueprint a path to total jurisdictional and financial autonomy.</p>
+                            <li class="flex gap-3 sm:gap-4">
+                                <span class="text-crimson font-bold text-lg sm:text-xl flex-shrink-0">03</span>
+                                <p class="text-xs sm:text-sm text-gray-400 leading-relaxed uppercase tracking-wider"><span class="text-white font-bold">Sovereignty Roadmap:</span> 90-day action plan for jurisdictional and financial autonomy.</p>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="bg-crimson/10 border border-crimson/20 p-8 rounded-sm">
-                        <h3 class="font-heading text-xs tracking-widest uppercase text-white font-bold mb-4">Tactical Bonus</h3>
-                        <p class="text-xs text-gray-300 uppercase leading-relaxed tracking-widest">Upon submission, you will receive the <span class="text-white font-bold">Iron Pot Millionaire Asset Tracker</span> via secure link to begin your audit immediately.</p>
+                    <div class="bg-crimson/10 border border-crimson/20 p-6 sm:p-8 rounded-sm">
+                        <div class="flex items-center mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-crimson mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                            <h3 class="font-heading text-xs tracking-widest uppercase text-white font-bold">Immediate Tactical Bonus</h3>
+                        </div>
+                        <p class="text-xs text-gray-300 uppercase leading-relaxed tracking-widest">Upon booking, you'll receive the <span class="text-white font-bold">Iron Pot Millionaire Asset Tracker</span> via secure link to begin your audit immediately. This is our operational gift to you.</p>
+                    </div>
+                    
+                    <!-- Mini testimonial for trust -->
+                    <div class="border border-white/10 p-5 rounded-sm bg-white/5">
+                        <p class="text-xs text-gray-400 italic mb-3">"The session identified $2,800/month in hidden leaks. The blueprint paid for itself 50x over."</p>
+                        <p class="text-[10px] uppercase tracking-widest text-gray-600">— J.D., SYSTEMS ARCHITECT</p>
                     </div>
                 </div>
 
                 <div class="lg:col-span-3">
-                    <div class="bg-navy-900 border border-white/10 p-10 md:p-16 relative">
+                    <div class="bg-navy-900 border border-white/10 p-6 sm:p-10 md:p-16 relative">
                         <div class="absolute top-0 left-0 bg-crimson px-4 py-1 text-[10px] font-heading font-bold uppercase tracking-widest">
                             2 Slots Remaining This Week
                         </div>
 
-                        <h2 class="text-3xl font-heading font-bold uppercase mb-8 border-l-4 border-crimson pl-6 text-left">Strategic Intake</h2>
+                        <h2 class="text-2xl sm:text-3xl font-heading font-bold uppercase mb-6 sm:mb-8 border-l-4 border-crimson pl-4 sm:pl-6 text-left">Secure Your Session</h2>
+                        <p class="text-gray-500 text-xs sm:text-sm uppercase tracking-widest mb-8 text-left">Complete this confidential intake. Our team will dispatch a secure calendar invitation within 24 hours.</p>
                         
-                        <form class="space-y-8 text-left">
-                            <div class="grid md:grid-cols-2 gap-8">
+                        <form id="strategy-form" class="space-y-6 sm:space-y-8 text-left">
+                            <div class="grid md:grid-cols-2 gap-6 sm:gap-8">
                                 <div>
-                                    <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-3">Operator Name</label>
-                                    <input type="text" placeholder="YOUR NAME" class="w-full bg-navy-950 border border-white/10 p-4 focus:border-crimson outline-none transition font-heading tracking-widest text-white">
+                                    <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-3">Operator Name *</label>
+                                    <input type="text" required placeholder="YOUR NAME" class="w-full bg-navy-950 border border-white/10 p-3 sm:p-4 focus:border-crimson outline-none transition font-heading tracking-widest text-white text-sm sm:text-base">
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-3">Secure Liaison Email</label>
-                                    <input type="email" placeholder="EMAIL@PROTOCOL.COM" class="w-full bg-navy-950 border border-white/10 p-4 focus:border-crimson outline-none transition font-heading tracking-widest text-white">
+                                    <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-3">Secure Email *</label>
+                                    <input type="email" required placeholder="EMAIL@PROTOCOL.COM" class="w-full bg-navy-950 border border-white/10 p-3 sm:p-4 focus:border-crimson outline-none transition font-heading tracking-widest text-white text-sm sm:text-base">
                                 </div>
                             </div>
 
-                            <div class="grid md:grid-cols-2 gap-8">
+                            <div class="grid md:grid-cols-2 gap-6 sm:gap-8">
                                 <div>
                                     <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-3">Current Monthly Surplus</label>
-                                    <input type="text" placeholder="ESTIMATED USD" class="w-full bg-navy-950 border border-white/10 p-4 focus:border-crimson outline-none transition font-heading tracking-widest text-white">
+                                    <input type="text" placeholder="ESTIMATED USD (e.g., 2,500)" class="w-full bg-navy-950 border border-white/10 p-3 sm:p-4 focus:border-crimson outline-none transition font-heading tracking-widest text-white text-sm sm:text-base">
+                                    <p class="text-[9px] text-gray-600 uppercase tracking-widest mt-2">Helps us tailor the protocol</p>
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-3">Primary Vulnerability</label>
-                                    <select class="w-full bg-navy-950 border border-white/10 p-4 focus:border-crimson outline-none transition font-heading tracking-widest text-white appearance-none">
+                                    <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-3">Primary Vulnerability *</label>
+                                    <select required class="w-full bg-navy-950 border border-white/10 p-3 sm:p-4 focus:border-crimson outline-none transition font-heading tracking-widest text-white text-sm sm:text-base appearance-none">
+                                        <option value="">SELECT YOUR CHALLENGE</option>
                                         <option>TAX LEAKAGE</option>
                                         <option>DEBT TRAPS</option>
                                         <option>SYSTEM FRAGILITY</option>
                                         <option>SCALING INCOME</option>
+                                        <option>ASSET PROTECTION</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-3">Mission Objective</label>
-                                <textarea rows="4" placeholder="WHAT IS YOUR 12-MONTH SOVEREIGNTY GOAL?" class="w-full bg-navy-950 border border-white/10 p-4 focus:border-crimson outline-none transition font-heading tracking-widest text-white resize-none"></textarea>
+                                <label class="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-3">Mission Objective *</label>
+                                <textarea required rows="3" placeholder="WHAT IS YOUR 12-MONTH SOVEREIGNTY GOAL? (e.g., 'Generate $15K/mo passive, reduce tax burden by 30%, establish offshore structure')" class="w-full bg-navy-950 border border-white/10 p-3 sm:p-4 focus:border-crimson outline-none transition font-heading tracking-widest text-white text-sm sm:text-base resize-none"></textarea>
                             </div>
 
-                            <button type="submit" class="w-full bg-crimson py-6 font-heading font-bold uppercase tracking-[0.4em] hover:bg-red-700 transition shadow-2xl flex items-center justify-center gap-4 group">
-                                CLAIM YOUR STRATEGIC COMMAND
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div class="bg-white/5 border border-white/10 p-4 rounded-sm">
+                                <div class="flex items-center mb-2">
+                                    <input type="checkbox" id="consent" required class="mr-3 h-4 w-4 text-crimson bg-navy-950 border-white/10 rounded focus:ring-crimson">
+                                    <label for="consent" class="text-[10px] uppercase tracking-widest text-gray-500">I agree to the confidential, educational nature of this session. I understand this is not investment advice.</label>
+                                </div>
+                                <p class="text-[9px] text-gray-600 uppercase tracking-widest pl-7">Required for transmission</p>
+                            </div>
+
+                            <button type="submit" class="w-full bg-crimson py-4 sm:py-6 font-heading font-bold uppercase tracking-[0.3em] sm:tracking-[0.4em] hover:bg-red-700 transition shadow-2xl flex items-center justify-center gap-3 sm:gap-4 group text-sm sm:text-base">
+                                SECURE MY SESSION
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
                             </button>
-                            <p class="text-[10px] text-center text-gray-600 uppercase tracking-widest">Encrypted Transmission • No Third-Party Disclosure</p>
+                            <p class="text-[10px] text-center text-gray-600 uppercase tracking-widest">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                                Encrypted Transmission • 60-Minute Session • No Third-Party Disclosure
+                            </p>
                         </form>
                     </div>
                 </div>
@@ -150,62 +297,63 @@
         </div>
     </section>
 
-    <footer class="bg-navy-950 border-t-8 border-crimson pt-20 pb-8">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-20">
+    <footer class="bg-navy-950 border-t-8 border-crimson pt-12 sm:pt-20 pb-8">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="flex flex-col lg:flex-row justify-between items-start gap-8 sm:gap-12 mb-12 sm:mb-20">
                 <div class="lg:w-1/2">
-                    <a href="index.html" class="flex flex-col mb-6">
-                        <span style="font-family: 'Great Vibes';" class="text-5xl leading-none">Real American Finance</span>
+                    <a href="index.html" class="flex flex-col mb-4 sm:mb-6">
+                        <span style="font-family: 'Great Vibes';" class="text-3xl sm:text-5xl leading-none">Real American Finance</span>
                         <span class="font-heading text-xs tracking-[0.5em] text-gray-500 uppercase font-bold mt-2">Discipline • Autonomy • Wealth</span>
                     </a>
                     <p class="text-gray-400 max-w-md text-sm leading-relaxed italic">Providing tactical frameworks for financial autonomy. We do not offer investment advice; we build systems for the self-reliant.</p>
                 </div>
                 <div class="lg:w-1/3 w-full">
                     <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-white font-bold mb-4">Strategic Disclaimer</h4>
-                    <div class="bg-white/5 border border-white/10 p-5 rounded-sm">
+                    <div class="bg-white/5 border border-white/10 p-4 sm:p-5 rounded-sm">
                         <p class="text-[11px] text-gray-500 uppercase tracking-widest leading-relaxed font-bold">All materials provided are for educational purposes. Execution of these pillars requires individual discretion. Real American Finance assumes no liability for market outcomes.</p>
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-20 border-t border-white/5 pt-12">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-12 sm:mb-20 border-t border-white/5 pt-8 sm:pt-12">
                 <div>
-                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">The Academy</h4>
-                    <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
+                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-6 sm:mb-8 border-l-2 border-crimson pl-3 font-bold">The Academy</h4>
+                    <ul class="space-y-3 sm:space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
                         <li><a href="academy.html" class="hover:text-white transition">The 12 Pillars</a></li>
                         <li><a href="strategy.html" class="hover:text-white transition">Strategic Consult</a></li>
-                        <li><a href="#" class="hover:text-white transition">Member Portal</a></li>
+                        <li><a href="login.html" class="hover:text-white transition">Member Portal</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Intelligence</h4>
-                    <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
+                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-6 sm:mb-8 border-l-2 border-crimson pl-3 font-bold">Intelligence</h4>
+                    <ul class="space-y-3 sm:space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
                         <li><a href="media.html" class="hover:text-white transition">The Podcast</a></li>
-                        <li><a href="media.html" class="hover:text-white transition">Case Studies</a></li>
+                        <li><a href="case-studies.html" class="hover:text-white transition">Case Studies</a></li>
                         <li><a href="media.html" class="hover:text-white transition">Media Archive</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Provisioning</h4>
-                    <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
+                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-6 sm:mb-8 border-l-2 border-crimson pl-3 font-bold">Provisioning</h4>
+                    <ul class="space-y-3 sm:space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
                         <li><a href="shop.html" class="hover:text-white transition">Apparel</a></li>
                         <li><a href="the-lab.html" class="hover:text-white transition">Tactical Tools</a></li>
                         <li><a href="shop.html" class="hover:text-white transition">Equipment</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Inquiries</h4>
-                    <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
+                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-6 sm:mb-8 border-l-2 border-crimson pl-3 font-bold">Inquiries</h4>
+                    <ul class="space-y-3 sm:space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
                         <li><a href="mailto:hq@realamericanfinance.com" class="hover:text-white transition">Direct Liaison</a></li>
                         <li><a href="strategy.html" class="text-crimson hover:text-red-400 transition">Schedule Strategy</a></li>
-                        <li><a href="#" class="hover:text-white transition">Institutional</a></li>
+                        <li><a href="institutional.html" class="hover:text-white transition">Institutional</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-4">
-                <p class="text-[9px] text-gray-700 uppercase tracking-[0.5em] font-bold">© 2026 Real American Finance. Own Your Outcomes. Stay Sovereign.</p>
-                <div class="flex gap-6">
-                    <a href="#" class="text-[9px] text-gray-800 uppercase tracking-widest hover:text-white transition">Privacy Policy</a>
-                    <a href="#" class="text-[9px] text-gray-800 uppercase tracking-widest hover:text-white transition">Terms of Engagement</a>
+            <div class="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-white/5 gap-4">
+                <p class="text-[9px] text-gray-700 uppercase tracking-[0.5em] font-bold text-center sm:text-left">© 2026 Real American Finance. Own Your Outcomes. Stay Sovereign.</p>
+                <div class="flex gap-4 sm:gap-6">
+                    <a href="privacy-policy.html" class="text-[9px] text-gray-800 uppercase tracking-widest hover:text-white transition">Privacy Policy</a>
+                    <a href="terms.html" class="text-[9px] text-gray-800 uppercase tracking-widest hover:text-white transition">Terms of Engagement</a>
+                    <a href="disclaimer.html" class="text-[9px] text-gray-800 uppercase tracking-widest hover:text-white transition">Full Disclaimer</a>
                 </div>
             </div>
         </div>
