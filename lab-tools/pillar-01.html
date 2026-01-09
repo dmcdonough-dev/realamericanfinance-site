@@ -2,9 +2,12 @@
 <div class="space-y-8 animate-fade-in">
     <!-- Header with Progress -->
     <div class="flex justify-between items-center mb-2">
-        <h3 class="text-xl font-bold text-white">Iron Pot Calculator</h3>
+        <div>
+            <h3 class="text-xl font-bold text-white">Iron Pot Calculator</h3>
+            <p class="text-sm text-gray-400">Build your financial foundation</p>
+        </div>
         <div class="text-right">
-            <div class="text-xs text-gray-400">Your Progress</div>
+            <div class="text-xs text-gray-400">Pillar Progress</div>
             <div class="text-sm font-bold text-crimson" id="tool-pillar-progress">0%</div>
         </div>
     </div>
@@ -13,9 +16,28 @@
         <div id="tool-progress-bar" class="h-full bg-crimson transition-all duration-1000" style="width: 0%"></div>
     </div>
     
+    <!-- Quick Stats Bar -->
+    <div class="grid grid-cols-3 gap-4 mb-6">
+        <div class="text-center p-3 bg-navy-900/50 rounded border border-white/5">
+            <div class="text-sm text-gray-400">Monthly Surplus</div>
+            <div id="quick-surplus" class="text-lg font-bold text-green-400">$0</div>
+        </div>
+        <div class="text-center p-3 bg-navy-900/50 rounded border border-white/5">
+            <div class="text-sm text-gray-400">Needs %</div>
+            <div id="quick-needs" class="text-lg font-bold">0%</div>
+        </div>
+        <div class="text-center p-3 bg-navy-900/50 rounded border border-white/5">
+            <div class="text-sm text-gray-400">Iron Pot Progress</div>
+            <div id="quick-ironpot" class="text-lg font-bold text-crimson">0%</div>
+        </div>
+    </div>
+    
     <!-- Monthly Income Section -->
     <div class="p-6 bg-navy-900/50 rounded-lg border border-white/10">
-        <h4 class="text-lg font-bold mb-4">Monthly Income</h4>
+        <h4 class="text-lg font-bold mb-4 flex items-center">
+            <i class="fas fa-money-bill-wave text-green-400 mr-2"></i>
+            Monthly Income
+        </h4>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
                 <label class="block text-sm text-gray-400 mb-2">Net Monthly Income ($)</label>
@@ -34,213 +56,360 @@
         </div>
     </div>
     
-    <!-- Expenses Section -->
-    <div class="p-6 bg-navy-900/50 rounded-lg border border-white/10">
-        <h4 class="text-lg font-bold mb-4">Monthly Expenses</h4>
-        <div class="space-y-6">
+    <!-- Expenses & Savings Breakdown -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Left Column: Expenses -->
+        <div class="lg:col-span-2 space-y-6">
             <!-- Tier 1: Needs -->
-            <div class="p-4 border-l-4 border-white bg-white/5 rounded">
+            <div class="p-6 bg-navy-900/50 rounded-lg border border-white/10">
                 <div class="flex justify-between items-center mb-3">
-                    <h5 class="font-bold text-white">Tier 1: Needs (≤50% of income)</h5>
-                    <span class="text-xs px-2 py-1 bg-white/10 rounded">Essential Expenses</span>
+                    <h5 class="font-bold text-white flex items-center">
+                        <i class="fas fa-home text-blue-400 mr-2"></i>
+                        Tier 1: Needs (≤50% of income)
+                    </h5>
+                    <span class="text-xs px-2 py-1 bg-blue-500/20 text-blue-300 rounded">Essential Expenses</span>
                 </div>
                 <p class="text-xs text-gray-400 mb-4">Housing, food, utilities, transportation, insurance, minimum debt payments</p>
+                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Housing/Rent ($)</label>
                         <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="1500" value="1500" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Mortgage/rent + property tax</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Utilities ($)</label>
                         <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="300" value="300" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Electric, water, gas, internet</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Groceries ($)</label>
                         <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="400" value="400" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Food & household essentials</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Transportation ($)</label>
                         <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="250" value="250" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Car payment, gas, insurance, maintenance</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Insurance ($)</label>
                         <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="200" value="200" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Health, life, disability insurance</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Healthcare ($)</label>
                         <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="150" value="150" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Doctors, prescriptions, deductibles</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Minimum Debt Payments ($)</label>
                         <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="300" value="300" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Credit cards, student loans, personal loans</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Other Essentials ($)</label>
                         <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="100" value="100" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Child care, alimony, court-ordered payments</div>
                     </div>
                 </div>
+                
                 <div class="mt-4 pt-4 border-t border-white/10">
                     <div class="flex justify-between items-center">
                         <div>
-                            <div class="text-sm text-gray-400">Total Tier 1 (Needs)</div>
+                            <div class="text-sm text-gray-400">Total Tier 1</div>
                             <div id="tool-tier1-total" class="text-xl font-bold text-white">$0</div>
                         </div>
                         <div class="text-right">
-                            <div class="text-sm text-gray-400">Percentage of Income</div>
+                            <div class="text-sm text-gray-400">% of Income</div>
                             <div id="tool-tier1-percentage" class="text-xl font-bold">0%</div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Tier 3: Wants -->
-            <div class="p-4 border-l-4 border-gray-600 bg-gray-500/5 rounded">
+            <!-- Tier 2: Savings -->
+            <div class="p-6 bg-navy-900/50 rounded-lg border border-green-500/20">
                 <div class="flex justify-between items-center mb-3">
-                    <h5 class="font-bold text-gray-300">Tier 3: Wants (≤30% of income)</h5>
-                    <span class="text-xs px-2 py-1 bg-gray-500/10 rounded">Discretionary Spending</span>
+                    <h5 class="font-bold text-white flex items-center">
+                        <i class="fas fa-piggy-bank text-green-400 mr-2"></i>
+                        Tier 2: Savings (≥20% of income)
+                    </h5>
+                    <span class="text-xs px-2 py-1 bg-green-500/20 text-green-300 rounded">Wealth Building</span>
+                </div>
+                <p class="text-xs text-gray-400 mb-4">Emergency fund, investments, debt extra payments, future purchases</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Emergency Fund ($)</label>
+                        <input type="number" class="tool-tier2-expense input-underlined w-full p-2" placeholder="500" value="500" min="0">
+                        <div class="text-xs text-gray-500 mt-1">Iron Pot contributions</div>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Retirement Investments ($)</label>
+                        <input type="number" class="tool-tier2-expense input-underlined w-full p-2" placeholder="400" value="400" min="0">
+                        <div class="text-xs text-gray-500 mt-1">401k, IRA, brokerage</div>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Extra Debt Payments ($)</label>
+                        <input type="number" class="tool-tier2-expense input-underlined w-full p-2" placeholder="200" value="200" min="0">
+                        <div class="text-xs text-gray-500 mt-1">Above minimum payments</div>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Future Purchases ($)</label>
+                        <input type="number" class="tool-tier2-expense input-underlined w-full p-2" placeholder="100" value="100" min="0">
+                        <div class="text-xs text-gray-500 mt-1">Car, home, education fund</div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 pt-4 border-t border-green-500/20">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div class="text-sm text-gray-400">Total Tier 2</div>
+                            <div id="tool-tier2-total" class="text-xl font-bold text-green-400">$0</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm text-gray-400">% of Income</div>
+                            <div id="tool-tier2-percentage" class="text-xl font-bold">0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tier 3: Wants -->
+            <div class="p-6 bg-navy-900/50 rounded-lg border border-purple-500/20">
+                <div class="flex justify-between items-center mb-3">
+                    <h5 class="font-bold text-white flex items-center">
+                        <i class="fas fa-gamepad text-purple-400 mr-2"></i>
+                        Tier 3: Wants (≤30% of income)
+                    </h5>
+                    <span class="text-xs px-2 py-1 bg-purple-500/20 text-purple-300 rounded">Lifestyle Spending</span>
                 </div>
                 <p class="text-xs text-gray-400 mb-4">Entertainment, dining, subscriptions, hobbies, travel, shopping</p>
+                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Dining Out ($)</label>
                         <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="250" value="250" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Restaurants, coffee shops, bars</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Entertainment ($)</label>
                         <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="150" value="150" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Movies, concerts, events</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Shopping ($)</label>
                         <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="200" value="200" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Clothes, electronics, non-essentials</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Subscriptions ($)</label>
                         <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="100" value="100" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Streaming, software, memberships</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Hobbies ($)</label>
                         <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="150" value="150" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Sports, crafts, gaming, equipment</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Travel ($)</label>
                         <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="100" value="100" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Vacations, weekend trips</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Gifts/Donations ($)</label>
                         <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="75" value="75" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Birthdays, holidays, charities</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Other Discretionary ($)</label>
                         <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="50" value="50" min="0">
-                        <div class="text-xs text-gray-500 mt-1">Anything else not essential</div>
                     </div>
                 </div>
-                <div class="mt-4 pt-4 border-t border-gray-500/20">
+                
+                <div class="mt-4 pt-4 border-t border-purple-500/20">
                     <div class="flex justify-between items-center">
                         <div>
-                            <div class="text-sm text-gray-400">Total Tier 3 (Wants)</div>
-                            <div id="tool-tier3-total" class="text-xl font-bold text-gray-300">$0</div>
+                            <div class="text-sm text-gray-400">Total Tier 3</div>
+                            <div id="tool-tier3-total" class="text-xl font-bold text-purple-400">$0</div>
                         </div>
                         <div class="text-right">
-                            <div class="text-sm text-gray-400">Percentage of Income</div>
+                            <div class="text-sm text-gray-400">% of Income</div>
                             <div id="tool-tier3-percentage" class="text-xl font-bold">0%</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Iron Pot Calculator -->
-    <div class="p-6 bg-gradient-to-r from-crimson/10 to-purple-600/10 rounded-lg border border-crimson/20">
-        <h4 class="text-lg font-bold mb-4 text-white">Iron Pot Calculator</h4>
-        <p class="text-sm text-gray-300 mb-6">Your "Iron Pot" is your emergency fund - cash reserves that guarantee your survival regardless of income.</p>
         
-        <div class="mb-6">
-            <div class="flex justify-between items-center mb-2">
-                <label class="block text-sm text-gray-400">Target Emergency Fund</label>
-                <span id="tool-target-months-display" class="text-sm font-bold text-crimson">6 months of needs</span>
-            </label>
-            <input type="range" id="tool-target-months" min="3" max="12" value="6" step="1" class="w-full h-2 bg-navy-800 rounded-lg appearance-none cursor-pointer">
-            <div class="flex justify-between text-xs text-gray-400 mt-1">
-                <span>Minimum (3 months)</span>
-                <span>Standard (6 months)</span>
-                <span>Secure (12 months)</span>
-            </div>
-        </div>
-        
-        <div class="bg-navy-900/50 p-4 rounded-lg space-y-3">
-            <div class="flex justify-between items-center">
-                <div>
-                    <div class="text-sm text-gray-400">Current Monthly Needs</div>
-                    <div class="text-lg font-bold" id="tool-monthly-needs">$0</div>
+        <!-- Right Column: Charts & Analysis -->
+        <div class="space-y-6">
+            <!-- Doughnut Chart: Spending Breakdown -->
+            <div class="p-6 bg-navy-900/50 rounded-lg border border-white/10">
+                <h5 class="font-bold mb-4 flex items-center">
+                    <i class="fas fa-chart-pie text-crimson mr-2"></i>
+                    Spending Breakdown
+                </h5>
+                <div class="relative h-48 flex items-center justify-center">
+                    <canvas id="spendingChart"></canvas>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="text-sm text-gray-400">Total Expenses</div>
+                            <div id="chart-total" class="text-xl font-bold">$0</div>
+                        </div>
+                    </div>
                 </div>
-                <i class="fas fa-home text-crimson text-xl"></i>
+                <div class="grid grid-cols-3 gap-2 mt-4">
+                    <div class="text-center">
+                        <div class="flex items-center justify-center mb-1">
+                            <div class="w-3 h-3 rounded-full bg-blue-500 mr-1"></div>
+                            <div class="text-xs">Needs</div>
+                        </div>
+                        <div id="chart-needs" class="text-sm font-bold">0%</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center mb-1">
+                            <div class="w-3 h-3 rounded-full bg-green-500 mr-1"></div>
+                            <div class="text-xs">Savings</div>
+                        </div>
+                        <div id="chart-savings" class="text-sm font-bold">0%</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center mb-1">
+                            <div class="w-3 h-3 rounded-full bg-purple-500 mr-1"></div>
+                            <div class="text-xs">Wants</div>
+                        </div>
+                        <div id="chart-wants" class="text-sm font-bold">0%</div>
+                    </div>
+                </div>
             </div>
             
-            <div class="flex justify-between items-center">
-                <div>
-                    <div class="text-sm text-gray-400">Target Iron Pot Amount</div>
-                    <div class="text-lg font-bold text-crimson" id="tool-target-iron-pot">$0</div>
+            <!-- Iron Pot Calculator -->
+            <div class="p-6 bg-gradient-to-r from-crimson/10 to-purple-600/10 rounded-lg border border-crimson/20">
+                <h5 class="font-bold mb-4 text-white flex items-center">
+                    <i class="fas fa-shield-alt text-crimson mr-2"></i>
+                    Iron Pot Calculator
+                </h5>
+                
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-400 mb-2">Target Emergency Fund</label>
+                    <input type="range" id="tool-target-months" min="3" max="12" value="6" step="1" class="w-full h-2 bg-navy-800 rounded-lg appearance-none cursor-pointer">
+                    <div class="flex justify-between text-xs text-gray-400 mt-1">
+                        <span>3 months</span>
+                        <span id="tool-target-months-display" class="font-bold">6 months</span>
+                        <span>12 months</span>
+                    </div>
                 </div>
-                <i class="fas fa-piggy-bank text-crimson text-xl"></i>
+                
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-400">Monthly Needs</span>
+                        <span id="tool-monthly-needs" class="font-bold">$0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-400">Target Iron Pot</span>
+                        <span id="tool-target-iron-pot" class="font-bold text-crimson">$0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-400">Months to Target</span>
+                        <span id="tool-months-to-target" class="font-bold">--</span>
+                    </div>
+                </div>
+                
+                <!-- Progress Circle -->
+                <div class="mt-4 relative">
+                    <div class="text-center mb-2">
+                        <div class="text-sm text-gray-400">Iron Pot Progress</div>
+                        <div id="ironpot-progress-text" class="text-xl font-bold text-crimson">0%</div>
+                    </div>
+                    <div class="relative w-32 h-32 mx-auto">
+                        <canvas id="ironpotChart"></canvas>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="text-xs text-gray-400">Current</div>
+                                <div id="ironpot-current" class="text-lg font-bold">$0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="flex justify-between items-center">
-                <div>
-                    <div class="text-sm text-gray-400">Months to Reach Target</div>
-                    <div class="text-lg font-bold" id="tool-months-to-target">--</div>
+            <!-- Net Worth Snapshot -->
+            <div class="p-6 bg-navy-900/50 rounded-lg border border-white/10">
+                <h5 class="font-bold mb-4 flex items-center">
+                    <i class="fas fa-chart-line text-yellow-400 mr-2"></i>
+                    Net Worth Snapshot
+                </h5>
+                
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Assets ($)</label>
+                        <input type="number" id="tool-assets" class="input-underlined w-full p-2" placeholder="100000" value="100000" min="0">
+                        <div class="text-xs text-gray-500 mt-1">Cash, investments, property</div>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Liabilities ($)</label>
+                        <input type="number" id="tool-liabilities" class="input-underlined w-full p-2" placeholder="25000" value="25000" min="0">
+                        <div class="text-xs text-gray-500 mt-1">Debts, loans, mortgages</div>
+                    </div>
+                    
+                    <div class="pt-3 border-t border-white/10">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-400">Net Worth</span>
+                            <span id="tool-net-worth" class="text-lg font-bold text-green-400">$0</span>
+                        </div>
+                        <div class="text-xs text-gray-500 mt-1">Assets minus liabilities</div>
+                    </div>
                 </div>
-                <i class="fas fa-calendar-alt text-crimson text-xl"></i>
             </div>
         </div>
     </div>
     
     <!-- Results Dashboard -->
     <div class="p-6 bg-navy-900/50 rounded-lg border border-white/10">
-        <h4 class="text-lg font-bold mb-4">Your Sovereignty Analysis</h4>
+        <h4 class="text-lg font-bold mb-4 flex items-center">
+            <i class="fas fa-analytics text-crimson mr-2"></i>
+            Your Sovereignty Analysis
+        </h4>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div class="text-center p-4 bg-navy-900 rounded border border-white/5">
                 <div class="text-sm text-gray-400 mb-1">Monthly Surplus</div>
                 <div id="tool-monthly-surplus" class="text-2xl font-bold text-green-400">$0</div>
-                <div class="text-xs text-gray-500 mt-1">Income minus all expenses</div>
+                <div class="text-xs text-gray-500 mt-1">Income minus expenses</div>
             </div>
             <div class="text-center p-4 bg-navy-900 rounded border border-white/5">
-                <div class="text-sm text-gray-400 mb-1">Needs Percentage</div>
+                <div class="text-sm text-gray-400 mb-1">Needs %</div>
                 <div id="tool-needs-percentage" class="text-2xl font-bold">0%</div>
-                <div class="text-xs text-gray-500 mt-1">Target: ≤50% of income</div>
+                <div class="text-xs text-gray-500 mt-1">Target: ≤50%</div>
             </div>
             <div class="text-center p-4 bg-navy-900 rounded border border-white/5">
-                <div class="text-sm text-gray-400 mb-1">Iron Pot Progress</div>
-                <div id="tool-iron-pot-progress" class="text-2xl font-bold text-crimson">0%</div>
-                <div class="text-xs text-gray-500 mt-1">Based on current savings rate</div>
+                <div class="text-sm text-gray-400 mb-1">Savings %</div>
+                <div id="tool-savings-percentage" class="text-2xl font-bold text-green-400">0%</div>
+                <div class="text-xs text-gray-500 mt-1">Target: ≥20%</div>
+            </div>
+            <div class="text-center p-4 bg-navy-900 rounded border border-white/5">
+                <div class="text-sm text-gray-400 mb-1">Wants %</div>
+                <div id="tool-wants-percentage" class="text-2xl font-bold">0%</div>
+                <div class="text-xs text-gray-500 mt-1">Target: ≤30%</div>
             </div>
         </div>
         
-        <!-- Progress Bar -->
-        <div class="mb-6">
-            <div class="flex justify-between text-sm mb-2">
-                <span class="text-gray-400">Overall Pillar Progress</span>
-                <span id="tool-overall-progress" class="font-bold">0%</span>
+        <!-- Progress Bars -->
+        <div class="space-y-4 mb-6">
+            <div>
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-gray-400">Needs Progress (≤50%)</span>
+                    <span id="needs-progress-text" class="font-bold">0%</span>
+                </div>
+                <div class="h-2 bg-navy-800 rounded-full overflow-hidden">
+                    <div id="needs-progress-bar" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
+                </div>
             </div>
-            <div class="h-3 bg-navy-800 rounded-full overflow-hidden">
-                <div id="tool-overall-progress-bar" class="h-full bg-gradient-to-r from-crimson to-purple-600 transition-all duration-1000" style="width: 0%"></div>
+            <div>
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-gray-400">Savings Progress (≥20%)</span>
+                    <span id="savings-progress-text" class="font-bold">0%</span>
+                </div>
+                <div class="h-2 bg-navy-800 rounded-full overflow-hidden">
+                    <div id="savings-progress-bar" class="h-full bg-green-500 transition-all duration-1000" style="width: 0%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-gray-400">Wants Progress (≤30%)</span>
+                    <span id="wants-progress-text" class="font-bold">0%</span>
+                </div>
+                <div class="h-2 bg-navy-800 rounded-full overflow-hidden">
+                    <div id="wants-progress-bar" class="h-full bg-purple-500 transition-all duration-1000" style="width: 0%"></div>
+                </div>
             </div>
         </div>
         
@@ -248,7 +417,7 @@
         <div id="tool-recommendations" class="p-4 bg-gradient-to-r from-crimson/5 to-blue-500/5 rounded-lg border border-crimson/10">
             <h5 class="font-bold mb-3 text-white flex items-center">
                 <i class="fas fa-lightbulb text-yellow-400 mr-2"></i>
-                Recommendations
+                Action Plan
             </h5>
             <ul id="tool-recommendations-list" class="text-sm text-gray-300 space-y-2">
                 <li class="flex items-start">
@@ -260,406 +429,388 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+// Chart instances
+let spendingChart = null;
+let ironpotChart = null;
+
 // This function is called automatically when the tool loads
 function initPillar01() {
-    console.log('🚀 Pillar 01: Iron Pot Calculator initialized');
+    console.log('🚀 Pillar 01: Enhanced Iron Pot Calculator initialized');
+    
+    // Initialize charts
+    initializeCharts();
     
     // Setup event listeners
     setupToolCalculator();
     
-    // Calculate immediately with default values
+    // Calculate immediately
     setTimeout(calculateTool, 100);
     
-    // Restore saved data if exists
-    loadSavedData();
+    // Load saved data
+    setTimeout(loadSavedData, 200);
+}
+
+function initializeCharts() {
+    // Spending Doughnut Chart
+    const spendingCtx = document.getElementById('spendingChart').getContext('2d');
+    spendingChart = new Chart(spendingCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Needs', 'Savings', 'Wants'],
+            datasets: [{
+                data: [0, 0, 0],
+                backgroundColor: ['#3b82f6', '#10b981', '#8b5cf6'],
+                borderWidth: 0,
+                borderRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.label}: $${context.raw.toLocaleString()} (${context.parsed}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+    
+    // Iron Pot Progress Chart
+    const ironpotCtx = document.getElementById('ironpotChart').getContext('2d');
+    ironpotChart = new Chart(ironpotCtx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [0, 100],
+                backgroundColor: ['#b22234', 'rgba(178, 34, 52, 0.1)'],
+                borderWidth: 0,
+                borderRadius: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '75%',
+            rotation: -90,
+            circumference: 180,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
 }
 
 function setupToolCalculator() {
     // Income and frequency
-    const incomeInput = document.getElementById('tool-monthly-income');
-    const frequencySelect = document.getElementById('tool-pay-frequency');
+    document.getElementById('tool-monthly-income').addEventListener('input', calculateTool);
+    document.getElementById('tool-pay-frequency').addEventListener('change', calculateTool);
     
-    // Tier 1 inputs (Needs)
-    const tier1Inputs = document.querySelectorAll('.tool-tier1-expense');
+    // Expenses
+    document.querySelectorAll('.tool-tier1-expense, .tool-tier2-expense, .tool-tier3-expense').forEach(input => {
+        input.addEventListener('input', calculateTool);
+    });
     
-    // Tier 3 inputs (Wants)
-    const tier3Inputs = document.querySelectorAll('.tool-tier3-expense');
+    // Net worth
+    document.getElementById('tool-assets').addEventListener('input', calculateTool);
+    document.getElementById('tool-liabilities').addEventListener('input', calculateTool);
     
     // Target months slider
     const targetSlider = document.getElementById('tool-target-months');
-    const targetDisplay = document.getElementById('tool-target-months-display');
-    
-    // Add event listeners to all inputs
-    if (incomeInput) incomeInput.addEventListener('input', calculateTool);
-    if (frequencySelect) frequencySelect.addEventListener('change', calculateTool);
-    
-    tier1Inputs.forEach(input => {
-        input.addEventListener('input', calculateTool);
+    targetSlider.addEventListener('input', function() {
+        document.getElementById('tool-target-months-display').textContent = `${this.value} months`;
+        calculateTool();
     });
-    
-    tier3Inputs.forEach(input => {
-        input.addEventListener('input', calculateTool);
-    });
-    
-    if (targetSlider) {
-        targetSlider.addEventListener('input', function() {
-            const months = parseInt(this.value);
-            if (targetDisplay) {
-                let description = '';
-                if (months <= 4) description = 'Minimum';
-                else if (months <= 6) description = 'Standard';
-                else if (months <= 9) description = 'Secure';
-                else description = 'Maximum';
-                targetDisplay.textContent = `${description} (${months} months)`;
-            }
-            calculateTool();
-        });
-    }
-    
-    // Set initial display
-    if (targetDisplay && targetSlider) {
-        targetDisplay.textContent = `Standard (${targetSlider.value} months)`;
-    }
 }
 
 function calculateTool() {
     // Get income
-    const incomeInput = document.getElementById('tool-monthly-income');
-    const monthlyIncome = parseFloat(incomeInput?.value) || 0;
+    const monthlyIncome = parseFloat(document.getElementById('tool-monthly-income').value) || 0;
+    const frequency = document.getElementById('tool-pay-frequency').value;
     
     // Adjust for pay frequency
-    const frequencySelect = document.getElementById('tool-pay-frequency');
-    const frequency = frequencySelect?.value || 'monthly';
     let adjustedMonthlyIncome = monthlyIncome;
+    if (frequency === 'biweekly') adjustedMonthlyIncome *= 2.1667;
+    if (frequency === 'weekly') adjustedMonthlyIncome *= 4.3333;
     
-    if (frequency === 'biweekly') {
-        adjustedMonthlyIncome = monthlyIncome * 2.1667; // 26 pay periods / 12 months
-    } else if (frequency === 'weekly') {
-        adjustedMonthlyIncome = monthlyIncome * 4.3333; // 52 weeks / 12 months
-    }
-    
-    // Calculate Tier 1 (Needs) total
+    // Calculate tier totals
     let tier1Total = 0;
     document.querySelectorAll('.tool-tier1-expense').forEach(input => {
         tier1Total += parseFloat(input.value) || 0;
     });
     
-    // Calculate Tier 3 (Wants) total
+    let tier2Total = 0;
+    document.querySelectorAll('.tool-tier2-expense').forEach(input => {
+        tier2Total += parseFloat(input.value) || 0;
+    });
+    
     let tier3Total = 0;
     document.querySelectorAll('.tool-tier3-expense').forEach(input => {
         tier3Total += parseFloat(input.value) || 0;
     });
     
     // Calculate totals
-    const totalExpenses = tier1Total + tier3Total;
+    const totalExpenses = tier1Total + tier2Total + tier3Total;
     const monthlySurplus = adjustedMonthlyIncome - totalExpenses;
     
     // Calculate percentages
     const tier1Percentage = adjustedMonthlyIncome > 0 ? (tier1Total / adjustedMonthlyIncome * 100) : 0;
+    const tier2Percentage = adjustedMonthlyIncome > 0 ? (tier2Total / adjustedMonthlyIncome * 100) : 0;
     const tier3Percentage = adjustedMonthlyIncome > 0 ? (tier3Total / adjustedMonthlyIncome * 100) : 0;
     
-    // Get target months
-    const targetMonths = parseInt(document.getElementById('tool-target-months')?.value) || 6;
+    // Iron Pot calculations
+    const targetMonths = parseInt(document.getElementById('tool-target-months').value) || 6;
     const targetIronPot = tier1Total * targetMonths;
+    const existingSavings = tier2Total * 3; // Estimate 3 months of savings
+    const ironPotProgress = targetIronPot > 0 ? Math.min(100, (existingSavings / targetIronPot * 100)) : 0;
     
-    // Calculate months to target (simplified - assumes no existing savings)
+    // Net worth
+    const assets = parseFloat(document.getElementById('tool-assets').value) || 0;
+    const liabilities = parseFloat(document.getElementById('tool-liabilities').value) || 0;
+    const netWorth = assets - liabilities;
+    
+    // Update all displays
+    
+    // Quick stats
+    document.getElementById('quick-surplus').textContent = `$${monthlySurplus.toLocaleString()}`;
+    document.getElementById('quick-needs').textContent = `${tier1Percentage.toFixed(0)}%`;
+    document.getElementById('quick-ironpot').textContent = `${ironPotProgress.toFixed(0)}%`;
+    
+    // Tier totals
+    document.getElementById('tool-tier1-total').textContent = `$${tier1Total.toLocaleString()}`;
+    document.getElementById('tool-tier2-total').textContent = `$${tier2Total.toLocaleString()}`;
+    document.getElementById('tool-tier3-total').textContent = `$${tier3Total.toLocaleString()}`;
+    
+    // Tier percentages
+    document.getElementById('tool-tier1-percentage').textContent = `${tier1Percentage.toFixed(1)}%`;
+    document.getElementById('tool-tier2-percentage').textContent = `${tier2Percentage.toFixed(1)}%`;
+    document.getElementById('tool-tier3-percentage').textContent = `${tier3Percentage.toFixed(1)}%`;
+    
+    // Iron Pot section
+    document.getElementById('tool-monthly-needs').textContent = `$${tier1Total.toLocaleString()}`;
+    document.getElementById('tool-target-iron-pot').textContent = `$${targetIronPot.toLocaleString()}`;
+    
+    // Months to target
     let monthsToTarget = '--';
     if (monthlySurplus > 0) {
         monthsToTarget = Math.ceil(targetIronPot / monthlySurplus);
-    } else if (monthlySurplus === 0) {
-        monthsToTarget = '∞';
-    } else {
-        monthsToTarget = 'Never (deficit)';
     }
+    document.getElementById('tool-months-to-target').textContent = monthsToTarget;
     
-    // Calculate Iron Pot progress (simulate some existing savings)
-    const existingSavings = monthlySurplus * 2; // Assume 2 months of current surplus saved
-    const ironPotProgress = targetIronPot > 0 ? Math.min(100, (existingSavings / targetIronPot * 100)) : 0;
+    // Iron Pot progress circle
+    document.getElementById('ironpot-progress-text').textContent = `${ironPotProgress.toFixed(0)}%`;
+    document.getElementById('ironpot-current').textContent = `$${existingSavings.toLocaleString()}`;
     
-    // Calculate overall pillar progress (0-100%)
-    let pillarProgress = 0;
+    // Update Iron Pot chart
+    ironpotChart.data.datasets[0].data = [ironPotProgress, 100 - ironPotProgress];
+    ironpotChart.update();
     
-    // Tier 1 score (0-40 points)
-    if (tier1Percentage <= 50) pillarProgress += 40;
-    else if (tier1Percentage <= 55) pillarProgress += 30;
-    else if (tier1Percentage <= 60) pillarProgress += 20;
-    else if (tier1Percentage <= 65) pillarProgress += 10;
-    
-    // Tier 3 score (0-30 points)
-    if (tier3Percentage <= 30) pillarProgress += 30;
-    else if (tier3Percentage <= 35) pillarProgress += 20;
-    else if (tier3Percentage <= 40) pillarProgress += 10;
-    
-    // Surplus score (0-20 points)
-    if (monthlySurplus > 500) pillarProgress += 20;
-    else if (monthlySurplus > 250) pillarProgress += 15;
-    else if (monthlySurplus > 0) pillarProgress += 10;
-    else if (monthlySurplus >= -100) pillarProgress += 5;
-    
-    // Iron Pot progress score (0-10 points)
-    if (ironPotProgress >= 100) pillarProgress += 10;
-    else if (ironPotProgress >= 75) pillarProgress += 8;
-    else if (ironPotProgress >= 50) pillarProgress += 6;
-    else if (ironPotProgress >= 25) pillarProgress += 4;
-    else if (ironPotProgress > 0) pillarProgress += 2;
-    
-    // Cap at 100%
-    pillarProgress = Math.min(100, pillarProgress);
-    
-    // Update displays
-    
-    // Income and totals
-    if (document.getElementById('tool-tier1-total')) {
-        document.getElementById('tool-tier1-total').textContent = `$${tier1Total.toLocaleString()}`;
-    }
-    if (document.getElementById('tool-tier1-percentage')) {
-        const elem = document.getElementById('tool-tier1-percentage');
-        elem.textContent = `${tier1Percentage.toFixed(1)}%`;
-        elem.className = tier1Percentage <= 50 ? 'text-xl font-bold text-green-400' : 
-                         tier1Percentage <= 60 ? 'text-xl font-bold text-yellow-400' : 
-                         'text-xl font-bold text-red-400';
-    }
-    
-    if (document.getElementById('tool-tier3-total')) {
-        document.getElementById('tool-tier3-total').textContent = `$${tier3Total.toLocaleString()}`;
-    }
-    if (document.getElementById('tool-tier3-percentage')) {
-        const elem = document.getElementById('tool-tier3-percentage');
-        elem.textContent = `${tier3Percentage.toFixed(1)}%`;
-        elem.className = tier3Percentage <= 30 ? 'text-xl font-bold text-green-400' : 
-                         tier3Percentage <= 40 ? 'text-xl font-bold text-yellow-400' : 
-                         'text-xl font-bold text-red-400';
-    }
-    
-    // Iron Pot calculations
-    if (document.getElementById('tool-monthly-needs')) {
-        document.getElementById('tool-monthly-needs').textContent = `$${tier1Total.toLocaleString()}`;
-    }
-    if (document.getElementById('tool-target-iron-pot')) {
-        document.getElementById('tool-target-iron-pot').textContent = `$${targetIronPot.toLocaleString()}`;
-    }
-    if (document.getElementById('tool-months-to-target')) {
-        const elem = document.getElementById('tool-months-to-target');
-        elem.textContent = monthsToTarget;
-        if (typeof monthsToTarget === 'number') {
-            elem.className = monthsToTarget <= 12 ? 'text-lg font-bold text-green-400' : 
-                            monthsToTarget <= 24 ? 'text-lg font-bold text-yellow-400' : 
-                            'text-lg font-bold text-red-400';
-        }
-    }
+    // Net worth
+    document.getElementById('tool-net-worth').textContent = `$${netWorth.toLocaleString()}`;
     
     // Results dashboard
-    if (document.getElementById('tool-monthly-surplus')) {
-        const surplusElem = document.getElementById('tool-monthly-surplus');
-        surplusElem.textContent = `$${monthlySurplus.toLocaleString()}`;
-        surplusElem.className = monthlySurplus >= 500 ? 'text-2xl font-bold text-green-400' : 
-                               monthlySurplus >= 0 ? 'text-2xl font-bold text-yellow-400' : 
-                               'text-2xl font-bold text-red-400';
-    }
-    
-    if (document.getElementById('tool-needs-percentage')) {
-        const needsElem = document.getElementById('tool-needs-percentage');
-        needsElem.textContent = `${tier1Percentage.toFixed(1)}%`;
-        needsElem.className = tier1Percentage <= 50 ? 'text-2xl font-bold text-green-400' : 
-                             tier1Percentage <= 60 ? 'text-2xl font-bold text-yellow-400' : 
-                             'text-2xl font-bold text-red-400';
-    }
-    
-    if (document.getElementById('tool-iron-pot-progress')) {
-        document.getElementById('tool-iron-pot-progress').textContent = `${ironPotProgress.toFixed(1)}%`;
-    }
+    document.getElementById('tool-monthly-surplus').textContent = `$${monthlySurplus.toLocaleString()}`;
+    document.getElementById('tool-needs-percentage').textContent = `${tier1Percentage.toFixed(1)}%`;
+    document.getElementById('tool-savings-percentage').textContent = `${tier2Percentage.toFixed(1)}%`;
+    document.getElementById('tool-wants-percentage').textContent = `${tier3Percentage.toFixed(1)}%`;
     
     // Progress bars
-    if (document.getElementById('tool-overall-progress')) {
-        document.getElementById('tool-overall-progress').textContent = `${pillarProgress.toFixed(0)}%`;
-    }
-    if (document.getElementById('tool-overall-progress-bar')) {
-        document.getElementById('tool-overall-progress-bar').style.width = `${pillarProgress}%`;
-    }
+    const needsProgress = Math.min(100, (tier1Percentage / 50) * 100);
+    const savingsProgress = Math.min(100, (tier2Percentage / 20) * 100);
+    const wantsProgress = Math.min(100, (tier3Percentage / 30) * 100);
     
-    // Pillar progress in header
-    if (document.getElementById('tool-pillar-progress')) {
-        document.getElementById('tool-pillar-progress').textContent = `${pillarProgress.toFixed(0)}%`;
-    }
-    if (document.getElementById('tool-progress-bar')) {
-        document.getElementById('tool-progress-bar').style.width = `${pillarProgress}%`;
-    }
+    document.getElementById('needs-progress-text').textContent = `${tier1Percentage.toFixed(1)}%`;
+    document.getElementById('needs-progress-bar').style.width = `${needsProgress}%`;
+    
+    document.getElementById('savings-progress-text').textContent = `${tier2Percentage.toFixed(1)}%`;
+    document.getElementById('savings-progress-bar').style.width = `${savingsProgress}%`;
+    
+    document.getElementById('wants-progress-text').textContent = `${tier3Percentage.toFixed(1)}%`;
+    document.getElementById('wants-progress-bar').style.width = `${wantsProgress}%`;
+    
+    // Update spending chart
+    spendingChart.data.datasets[0].data = [tier1Total, tier2Total, tier3Total];
+    spendingChart.update();
+    
+    // Chart labels
+    const totalSpending = tier1Total + tier2Total + tier3Total;
+    document.getElementById('chart-total').textContent = `$${totalSpending.toLocaleString()}`;
+    document.getElementById('chart-needs').textContent = totalSpending > 0 ? `${((tier1Total / totalSpending) * 100).toFixed(0)}%` : '0%';
+    document.getElementById('chart-savings').textContent = totalSpending > 0 ? `${((tier2Total / totalSpending) * 100).toFixed(0)}%` : '0%';
+    document.getElementById('chart-wants').textContent = totalSpending > 0 ? `${((tier3Total / totalSpending) * 100).toFixed(0)}%` : '0%';
+    
+    // Calculate pillar progress
+    const pillarProgress = calculatePillarProgress(tier1Percentage, tier2Percentage, tier3Percentage, ironPotProgress);
+    document.getElementById('tool-pillar-progress').textContent = `${pillarProgress}%`;
+    document.getElementById('tool-progress-bar').style.width = `${pillarProgress}%`;
     
     // Generate recommendations
-    generateToolRecommendations(tier1Percentage, tier3Percentage, monthlySurplus, monthsToTarget);
+    generateRecommendations(tier1Percentage, tier2Percentage, tier3Percentage, monthlySurplus);
     
-    // Save current data
+    // Save data and update main app
     saveCurrentData();
-    
-    // Update user progress in main app
-    updateMainAppProgress(pillarProgress, tier1Percentage, monthlySurplus, ironPotProgress);
+    updateMainAppProgress(pillarProgress);
 }
 
-function generateToolRecommendations(tier1Percent, tier3Percent, monthlySurplus, monthsToTarget) {
+function calculatePillarProgress(tier1Percent, tier2Percent, tier3Percent, ironPotProgress) {
+    let score = 0;
+    
+    // Tier 1: Needs (max 40 points)
+    if (tier1Percent <= 50) score += 40;
+    else if (tier1Percent <= 55) score += 30;
+    else if (tier1Percent <= 60) score += 20;
+    else if (tier1Percent <= 65) score += 10;
+    
+    // Tier 2: Savings (max 40 points)
+    if (tier2Percent >= 20) score += 40;
+    else if (tier2Percent >= 15) score += 30;
+    else if (tier2Percent >= 10) score += 20;
+    else if (tier2Percent >= 5) score += 10;
+    
+    // Tier 3: Wants (max 20 points)
+    if (tier3Percent <= 30) score += 20;
+    else if (tier3Percent <= 35) score += 15;
+    else if (tier3Percent <= 40) score += 10;
+    else if (tier3Percent <= 45) score += 5;
+    
+    return Math.min(100, score);
+}
+
+function generateRecommendations(tier1Percent, tier2Percent, tier3Percent, monthlySurplus) {
     const recommendations = [];
     
-    // Analyze Tier 1 (Needs)
+    // Needs recommendations
     if (tier1Percent > 60) {
-        recommendations.push("🚨 <strong>CRITICAL</strong>: Needs are >60% of income. Focus IMMEDIATELY on reducing housing, transportation, or insurance costs.");
-    } else if (tier1Percent > 55) {
-        recommendations.push("⚠️ <strong>URGENT</strong>: Needs are 55-60%. You're vulnerable. Identify your top 2 needs expenses to reduce by 15%.");
+        recommendations.push("🚨 <strong>CRITICAL</strong>: Needs exceed 60%. Housing or transportation costs likely too high.");
     } else if (tier1Percent > 50) {
-        recommendations.push("📊 <strong>WARNING</strong>: Needs are 50-55%. You're at the edge. Find one area to optimize by 10%.");
-    } else if (tier1Percent <= 50) {
-        recommendations.push("✅ <strong>STRONG</strong>: Needs are ≤50% - Perfect foundation for sovereignty.");
+        recommendations.push("📊 <strong>OPTIMIZE</strong>: Needs are 50-60%. Look for one area to reduce by 10%.");
+    } else {
+        recommendations.push("✅ <strong>EXCELLENT</strong>: Needs under 50% - strong foundation!");
     }
     
-    // Analyze Tier 3 (Wants)
+    // Savings recommendations
+    if (tier2Percent < 10) {
+        recommendations.push("💰 <strong>SAVE MORE</strong>: Savings under 10%. Aim for at least 15% to build wealth.");
+    } else if (tier2Percent < 20) {
+        recommendations.push("📈 <strong>GOOD START</strong>: Savings 10-20%. Try increasing by 5% next month.");
+    } else {
+        recommendations.push("🚀 <strong>WEALTH BUILDER</strong>: Savings ≥20% - you're building real wealth!");
+    }
+    
+    // Wants recommendations
     if (tier3Percent > 40) {
-        recommendations.push("💸 <strong>EXCESSIVE</strong>: Wants are >40% of income. Identify 3+ discretionary expenses to eliminate or reduce by 50%.");
-    } else if (tier3Percent > 35) {
-        recommendations.push("📈 <strong>HIGH</strong>: Wants are 35-40%. Target 2-3 discretionary expenses to reduce by 30%.");
+        recommendations.push("💸 <strong>CUT BACK</strong>: Wants exceed 40%. Identify 2-3 discretionary expenses to reduce.");
     } else if (tier3Percent > 30) {
-        recommendations.push("🎯 <strong>ELEVATED</strong>: Wants are 30-35%. Consider optimizing subscriptions or dining out by 20%.");
-    } else if (tier3Percent <= 30) {
-        recommendations.push("💰 <strong>OPTIMAL</strong>: Wants are ≤30% - Excellent discretionary spending control.");
+        recommendations.push("🎯 <strong>OPTIMIZE</strong>: Wants 30-40%. Consider reducing subscriptions or dining out.");
+    } else {
+        recommendations.push("🎉 <strong>BALANCED</strong>: Wants ≤30% - excellent lifestyle balance!");
     }
     
-    // Analyze Surplus
+    // Surplus recommendations
     if (monthlySurplus < 0) {
-        recommendations.push("🔥 <strong>DEFICIT</strong>: You're spending more than you earn. Immediate action: reduce expenses or increase income by $500+.");
-    } else if (monthlySurplus < 250) {
-        recommendations.push("📉 <strong>MINIMAL</strong>: Surplus is <$250/month. Focus on increasing income or finding $100-200 in additional savings.");
+        recommendations.push("🔥 <strong>DEFICIT ALERT</strong>: Spending exceeds income. Immediate action required.");
     } else if (monthlySurplus < 500) {
-        recommendations.push("📊 <strong>MODERATE</strong>: Surplus is $250-500/month. Good start - aim to increase by 50% through optimization.");
-    } else if (monthlySurplus >= 500) {
-        recommendations.push("⚡ <strong>STRONG</strong>: Surplus ≥$500/month! Automate this amount to savings immediately.");
+        recommendations.push("📉 <strong>INCREASE SURPLUS</strong>: Surplus under $500. Look for ways to save more.");
     }
     
-    // Analyze Iron Pot timeline
-    if (typeof monthsToTarget === 'number') {
-        if (monthsToTarget > 36) {
-            recommendations.push("🐢 <strong>LONG-TERM</strong>: Iron Pot will take >3 years. Set intermediate 3-month targets first.");
-        } else if (monthsToTarget > 24) {
-            recommendations.push("📅 <strong>EXTENDED</strong>: Iron Pot timeline: 2-3 years. Focus on consistency over speed.");
-        } else if (monthsToTarget > 12) {
-            recommendations.push("🎯 <strong>MANAGEABLE</strong>: Iron Pot achievable in 1-2 years. Maintain this pace.");
-        } else if (monthsToTarget <= 12) {
-            recommendations.push("🚀 <strong>ACCELERATED</strong>: Iron Pot within 12 months! You're building fast.");
-        }
-    } else if (monthsToTarget === '∞') {
-        recommendations.push("⏸️ <strong>STALLED</strong>: No surplus means no progress. Address this immediately.");
-    } else if (monthsToTarget === 'Never (deficit)') {
-        recommendations.push("🛑 <strong>BLOCKED</strong>: Deficit prevents Iron Pot growth. Fix spending/income imbalance first.");
-    }
-    
-    // Update recommendations display
-    const listElement = document.getElementById('tool-recommendations-list');
-    if (listElement) {
-        listElement.innerHTML = recommendations.map(rec => 
-            `<li class="flex items-start py-2 border-b border-white/5 last:border-0">
-                <i class="fas fa-chevron-right text-crimson mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-sm">${rec}</span>
-             </li>`
-        ).join('');
-    }
+    // Update recommendations list
+    const list = document.getElementById('tool-recommendations-list');
+    list.innerHTML = recommendations.map(rec => 
+        `<li class="flex items-start py-2 border-b border-white/5 last:border-0">
+            <i class="fas fa-chevron-right text-crimson mr-3 mt-1 flex-shrink-0"></i>
+            <span class="text-sm">${rec}</span>
+         </li>`
+    ).join('');
 }
 
 function saveCurrentData() {
-    try {
-        const data = {
-            income: document.getElementById('tool-monthly-income')?.value || '',
-            frequency: document.getElementById('tool-pay-frequency')?.value || 'monthly',
-            tier1Expenses: Array.from(document.querySelectorAll('.tool-tier1-expense')).map(input => input.value),
-            tier3Expenses: Array.from(document.querySelectorAll('.tool-tier3-expense')).map(input => input.value),
-            targetMonths: document.getElementById('tool-target-months')?.value || '6',
-            lastUpdated: new Date().toISOString()
-        };
-        
-        localStorage.setItem('raf_pillar01_data', JSON.stringify(data));
-    } catch (error) {
-        console.log('Could not save data:', error);
-    }
+    const data = {
+        income: document.getElementById('tool-monthly-income').value,
+        frequency: document.getElementById('tool-pay-frequency').value,
+        tier1: Array.from(document.querySelectorAll('.tool-tier1-expense')).map(i => i.value),
+        tier2: Array.from(document.querySelectorAll('.tool-tier2-expense')).map(i => i.value),
+        tier3: Array.from(document.querySelectorAll('.tool-tier3-expense')).map(i => i.value),
+        assets: document.getElementById('tool-assets').value,
+        liabilities: document.getElementById('tool-liabilities').value,
+        targetMonths: document.getElementById('tool-target-months').value,
+        timestamp: new Date().toISOString()
+    };
+    localStorage.setItem('raf_pillar01_full', JSON.stringify(data));
 }
 
 function loadSavedData() {
-    try {
-        const saved = localStorage.getItem('raf_pillar01_data');
-        if (saved) {
-            const data = JSON.parse(saved);
-            
-            // Restore income
-            if (data.income && document.getElementById('tool-monthly-income')) {
-                document.getElementById('tool-monthly-income').value = data.income;
-            }
-            
-            // Restore frequency
-            if (data.frequency && document.getElementById('tool-pay-frequency')) {
-                document.getElementById('tool-pay-frequency').value = data.frequency;
-            }
-            
-            // Restore tier 1 expenses
-            if (data.tier1Expenses) {
-                const tier1Inputs = document.querySelectorAll('.tool-tier1-expense');
-                data.tier1Expenses.forEach((value, index) => {
-                    if (tier1Inputs[index]) {
-                        tier1Inputs[index].value = value;
-                    }
-                });
-            }
-            
-            // Restore tier 3 expenses
-            if (data.tier3Expenses) {
-                const tier3Inputs = document.querySelectorAll('.tool-tier3-expense');
-                data.tier3Expenses.forEach((value, index) => {
-                    if (tier3Inputs[index]) {
-                        tier3Inputs[index].value = value;
-                    }
-                });
-            }
-            
-            // Restore target months
-            if (data.targetMonths && document.getElementById('tool-target-months')) {
-                document.getElementById('tool-target-months').value = data.targetMonths;
-                const display = document.getElementById('tool-target-months-display');
-                if (display) {
-                    const months = parseInt(data.targetMonths);
-                    let description = '';
-                    if (months <= 4) description = 'Minimum';
-                    else if (months <= 6) description = 'Standard';
-                    else if (months <= 9) description = 'Secure';
-                    else description = 'Maximum';
-                    display.textContent = `${description} (${months} months)`;
-                }
-            }
-            
-            console.log('Loaded saved Pillar 01 data');
+    const saved = localStorage.getItem('raf_pillar01_full');
+    if (saved) {
+        const data = JSON.parse(saved);
+        
+        // Restore values
+        document.getElementById('tool-monthly-income').value = data.income || 5000;
+        document.getElementById('tool-pay-frequency').value = data.frequency || 'monthly';
+        document.getElementById('tool-assets').value = data.assets || 100000;
+        document.getElementById('tool-liabilities').value = data.liabilities || 25000;
+        document.getElementById('tool-target-months').value = data.targetMonths || 6;
+        document.getElementById('tool-target-months-display').textContent = `${data.targetMonths || 6} months`;
+        
+        // Restore tier 1 expenses
+        const tier1Inputs = document.querySelectorAll('.tool-tier1-expense');
+        if (data.tier1) {
+            data.tier1.forEach((value, i) => {
+                if (tier1Inputs[i]) tier1Inputs[i].value = value;
+            });
         }
-    } catch (error) {
-        console.log('Could not load saved data:', error);
+        
+        // Restore tier 2 expenses
+        const tier2Inputs = document.querySelectorAll('.tool-tier2-expense');
+        if (data.tier2) {
+            data.tier2.forEach((value, i) => {
+                if (tier2Inputs[i]) tier2Inputs[i].value = value;
+            });
+        }
+        
+        // Restore tier 3 expenses
+        const tier3Inputs = document.querySelectorAll('.tool-tier3-expense');
+        if (data.tier3) {
+            data.tier3.forEach((value, i) => {
+                if (tier3Inputs[i]) tier3Inputs[i].value = value;
+            });
+        }
+        
+        // Recalculate
+        setTimeout(calculateTool, 100);
     }
 }
 
-function updateMainAppProgress(pillarProgress, needsPercentage, monthlySurplus, ironPotProgress) {
-    // This function communicates with the parent page
+function updateMainAppProgress(pillarProgress) {
     try {
-        // Update the parent page's progress if the function exists
         if (typeof window.updateUserProgress === 'function') {
-            window.updateUserProgress(needsPercentage, monthlySurplus, ironPotProgress);
+            window.updateUserProgress(pillarProgress);
         }
         
-        // Also update localStorage directly for immediate sync
+        // Also update localStorage
         let userProgress = JSON.parse(localStorage.getItem('raf_user_progress') || '{"pillar01":0,"sovereigntyScore":0}');
         userProgress.pillar01 = pillarProgress;
-        userProgress.sovereigntyScore = Math.floor(pillarProgress / 5); // Simplified score
+        userProgress.sovereigntyScore = Math.floor(pillarProgress / 5);
         localStorage.setItem('raf_user_progress', JSON.stringify(userProgress));
-        
-        console.log('Updated main app progress:', pillarProgress);
     } catch (error) {
-        console.log('Could not update main app:', error);
+        console.log('Update error:', error);
     }
 }
 
-// Make the initialization function available globally
+// Make function available
 window.initPillar01 = initPillar01;
 
-// Add CSS for the slider
+// Add styles
 const style = document.createElement('style');
 style.textContent = `
     .animate-fade-in {
@@ -674,18 +825,8 @@ style.textContent = `
     input[type="range"]::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        background: #B22234;
-        cursor: pointer;
-        border: 3px solid white;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    }
-    
-    input[type="range"]::-moz-range-thumb {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         background: #B22234;
         cursor: pointer;
@@ -697,21 +838,6 @@ style.textContent = `
         border-bottom-color: #B22234;
         box-shadow: 0 1px 0 0 #B22234;
     }
-    
-    /* Number input spinner styling */
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-        opacity: 0.5;
-    }
-    
-    /* Smooth transitions */
-    .transition-all {
-        transition-property: all;
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        transition-duration: 300ms;
-    }
 `;
 document.head.appendChild(style);
-
-console.log('Pillar 01 tool loaded successfully');
 </script>
