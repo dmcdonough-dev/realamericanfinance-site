@@ -9,8 +9,41 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* All existing styles from your file plus new premium styles */
-        .hero-bg { background: linear-gradient(rgba(5,11,20,0.8), rgba(5,11,20,0.8)), url('./flag_distressed.jpg'); background-size: cover; background-position: center; }
+        /* All styles from your file remain the same */
+        .hero-bg { 
+            background: linear-gradient(rgba(5,11,20,0.85), rgba(5,11,20,0.9)), 
+                        url('https://images.unsplash.com/photo-1589656966895-2f33e7653819?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            position: relative;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.1) 2px,
+                    rgba(0, 0, 0, 0.1) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.1) 2px,
+                    rgba(0, 0, 0, 0.1) 4px
+                );
+            pointer-events: none;
+        }
+        
         .dashboard-card { background: #0A1A2F; border: 1px solid rgba(255,255,255,0.05); }
         .input-underlined { border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent; outline: none; transition: border-color 0.3s; color: white; }
         .input-underlined:focus { border-color: #B22234; }
@@ -181,30 +214,6 @@
             letter-spacing: 2px;
             color: #9CA3AF;
             font-weight: bold;
-        }
-        
-        .progress-ring {
-            position: relative;
-            width: 60px;
-            height: 60px;
-        }
-        
-        .progress-ring-circle {
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
-        }
-        
-        .pillar-progress {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
         }
         
         .access-tier {
@@ -385,6 +394,34 @@
                 padding-right: 1rem;
             }
         }
+        
+        /* Input styling for calculator */
+        .calc-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 10px 12px;
+            color: white;
+            font-size: 14px;
+            width: 100%;
+            transition: all 0.2s;
+        }
+        
+        .calc-input:focus {
+            outline: none;
+            border-color: #B22234;
+            box-shadow: 0 0 0 2px rgba(178, 34, 52, 0.2);
+        }
+        
+        .calc-label {
+            color: #9CA3AF;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
     </style>
     <script>
         tailwind.config = {
@@ -461,15 +498,27 @@
         </div>
     </div>
 
-
+    <!-- Upgrade Modal (Hidden by default) -->
+    <div id="upgrade-modal" class="modal-overlay hidden">
+        <div class="modal-content modal-slide-in">
+            <div id="upgrade-content">
+                <!-- Content will be inserted by JavaScript -->
+            </div>
+            <div class="text-center mt-6">
+                <button onclick="closeUpgradeModal()" class="text-sm text-gray-400 hover:text-white">
+                    Not now
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- HEADER -->
     <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex flex-col group">
+            <div class="flex flex-col group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
                 <span style="font-family: 'Great Vibes';" class="text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
                 <span class="font-heading text-[10px] tracking-[0.4em] text-gray-400 uppercase mt-1 font-bold">Academy • Autonomy • Wealth</span>
-            </a>
+            </div>
             
             <div class="flex items-center space-x-4">
                 <!-- User Tier Badge -->
@@ -500,10 +549,10 @@
     </header>
 
     <!-- HERO SECTION -->
-    <section class="hero-bg pt-48 pb-12 text-center">
-        <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight mb-4 leading-tight">THE <span class="text-crimson">LAB.</span></h1>
-        <p class="text-gray-400 font-heading uppercase tracking-[0.4em] mb-6">12 Pillars of Financial Sovereignty</p>
-        <div class="mt-8">
+    <section class="hero-bg pt-48 pb-12 text-center relative">
+        <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight mb-4 leading-tight relative z-10">THE <span class="text-crimson">LAB.</span></h1>
+        <p class="text-gray-400 font-heading uppercase tracking-[0.4em] mb-6 relative z-10">12 Pillars of Financial Sovereignty</p>
+        <div class="mt-8 relative z-10">
             <div class="inline-flex items-center bg-navy-900/50 px-6 py-3 rounded-lg border border-white/10">
                 <div class="text-left mr-6">
                     <div class="text-sm text-gray-400">Your Current Access</div>
@@ -1256,7 +1305,7 @@
     </footer>
 
     <script>
-        // Tool Data - Now references external files
+        // Tool Data - Now includes embedded tool content
         const labTools = {
             '01': {
                 id: '01',
@@ -1266,8 +1315,94 @@
                 icon: 'fa-gas-pump',
                 color: 'crimson',
                 insight: '"Sovereignty begins when survival is guaranteed."',
-                path: 'lab-tools/pillar-01.html',
-                isReady: true
+                isReady: true,
+                content: `
+                    <div class="space-y-6">
+                        <div class="text-center">
+                            <div class="w-20 h-20 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-gas-pump text-crimson text-3xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold">Iron Pot Calculator</h3>
+                            <p class="text-gray-400">Calculate your survival baseline</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-navy-900/50 p-4 rounded-lg">
+                                <h4 class="font-bold mb-3">Monthly Income</h4>
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="calc-label">Total Monthly Income</label>
+                                        <input type="number" id="monthly-income" value="5000" class="calc-input" placeholder="Enter amount" oninput="calculateIronPot()">
+                                    </div>
+                                    <div>
+                                        <label class="calc-label">Additional Income</label>
+                                        <input type="number" id="additional-income" value="0" class="calc-input" placeholder="Enter amount" oninput="calculateIronPot()">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-navy-900/50 p-4 rounded-lg">
+                                <h4 class="font-bold mb-3">Monthly Expenses</h4>
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="calc-label">Essential Expenses</label>
+                                        <input type="number" id="essential-expenses" value="3000" class="calc-input" placeholder="Rent, food, utilities" oninput="calculateIronPot()">
+                                    </div>
+                                    <div>
+                                        <label class="calc-label">Non-Essential Expenses</label>
+                                        <input type="number" id="non-essential-expenses" value="1000" class="calc-input" placeholder="Entertainment, dining out" oninput="calculateIronPot()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-navy-900/70 p-6 rounded-lg border border-crimson/30">
+                            <h4 class="font-bold mb-4 text-center">Your Financial Fuel</h4>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span>Total Monthly Income:</span>
+                                    <span class="font-bold" id="total-income">$5,000</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>Total Monthly Expenses:</span>
+                                    <span class="font-bold" id="total-expenses">$4,000</span>
+                                </div>
+                                <div class="h-px bg-white/10 my-2"></div>
+                                <div class="flex justify-between items-center text-lg">
+                                    <span>Monthly Surplus/Deficit:</span>
+                                    <span class="font-bold text-crimson" id="monthly-surplus">$1,000</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>Survival Baseline (% of income):</span>
+                                    <span class="font-bold" id="needs-percentage">60%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Iron Pot Progress</span>
+                                    <span id="iron-pot-progress">25%</span>
+                                </div>
+                                <div class="h-3 bg-navy-800 rounded-full overflow-hidden">
+                                    <div id="iron-pot-bar" class="h-full bg-crimson transition-all duration-1000" style="width: 25%"></div>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-2">Your Iron Pot is your 12-month survival fund. Target: 12 months of essential expenses.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-900/20 p-4 rounded-lg border border-green-500/30">
+                            <h4 class="font-bold mb-2 flex items-center">
+                                <i class="fas fa-lightbulb mr-2 text-green-400"></i>
+                                Strategic Insight
+                            </h4>
+                            <p class="text-sm" id="insight-text">With a 60% survival baseline, you're moderately secure. Focus on reducing non-essential expenses to reach 50% or below for true sovereignty.</p>
+                        </div>
+                        
+                        <button onclick="saveIronPotProgress()" class="w-full upgrade-button py-3">
+                            <i class="fas fa-calculator mr-2"></i>Calculate & Save Progress
+                        </button>
+                    </div>
+                `
             },
             '02': {
                 id: '02',
@@ -1277,7 +1412,6 @@
                 icon: 'fa-cogs',
                 color: 'blue',
                 insight: '"The architecture dictates the outcome."',
-                path: 'lab-tools/pillar-02.html',
                 isReady: false
             },
             '03': {
@@ -1288,7 +1422,6 @@
                 icon: 'fa-chart-line',
                 color: 'purple',
                 insight: '"Panic is a tax on the unprepared."',
-                path: 'lab-tools/pillar-03.html',
                 isReady: false
             },
             '04': {
@@ -1299,7 +1432,6 @@
                 icon: 'fa-weight-hanging',
                 color: 'red',
                 insight: '"Kill the debt. Keep the flow."',
-                path: 'lab-tools/pillar-04.html',
                 isReady: false
             },
             '05': {
@@ -1310,7 +1442,6 @@
                 icon: 'fa-tachometer-alt',
                 color: 'green',
                 insight: '"Scale your value, not your time."',
-                path: 'lab-tools/pillar-05.html',
                 isReady: false
             },
             '06': {
@@ -1321,7 +1452,6 @@
                 icon: 'fa-filter',
                 color: 'teal',
                 insight: '"What you keep matters more than what you make."',
-                path: 'lab-tools/pillar-06.html',
                 isReady: false
             },
             '07': {
@@ -1332,7 +1462,6 @@
                 icon: 'fa-globe-americas',
                 color: 'indigo',
                 insight: '"Your geography should respect your sovereignty."',
-                path: 'lab-tools/pillar-07.html',
                 isReady: false
             },
             '08': {
@@ -1343,7 +1472,6 @@
                 icon: 'fa-shield-alt',
                 color: 'gray',
                 insight: '"Protect what you build for those who follow."',
-                path: 'lab-tools/pillar-08.html',
                 isReady: false
             },
             '09': {
@@ -1354,7 +1482,6 @@
                 icon: 'fa-chess-board',
                 color: 'orange',
                 insight: '"Control the assets, not just the returns."',
-                path: 'lab-tools/pillar-09.html',
                 isReady: false
             },
             '10': {
@@ -1365,7 +1492,6 @@
                 icon: 'fa-handshake',
                 color: 'amber',
                 insight: '"Buy the wheels that already turn."',
-                path: 'lab-tools/pillar-10.html',
                 isReady: false
             },
             '11': {
@@ -1376,7 +1502,6 @@
                 icon: 'fa-hard-hat',
                 color: 'red',
                 insight: '"Build systems that thrive on chaos."',
-                path: 'lab-tools/pillar-11.html',
                 isReady: false
             },
             '12': {
@@ -1387,7 +1512,6 @@
                 icon: 'fa-door-open',
                 color: 'emerald',
                 insight: '"When work becomes optional, life becomes intentional."',
-                path: 'lab-tools/pillar-12.html',
                 isReady: false
             }
         };
@@ -1400,7 +1524,13 @@
             lastUpdate: new Date()
         };
         
-        let currentPillarId = null; // Track which pillar tool is open
+        let currentPillarId = null;
+        let ironPotData = {
+            monthlyIncome: 5000,
+            additionalIncome: 0,
+            essentialExpenses: 3000,
+            nonEssentialExpenses: 1000
+        };
         
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
@@ -1408,11 +1538,13 @@
             updateUI();
             setupModalEventListeners();
             
+            // Initialize the Iron Pot calculator
+            calculateIronPot();
+            
             console.log('Lab Tools system initialized');
-            console.log('Pillar 01 ready:', labTools['01'].isReady);
         });
         
-        // NEW: Smart Tool Loading System
+        // Smart Tool Loading System
         async function openToolModal(pillarId) {
             console.log('Opening tool:', pillarId);
             
@@ -1421,7 +1553,7 @@
             
             if (pillarNum === 1) {
                 // Always accessible - Pillar 01
-                await showToolModal(pillarId);
+                showToolModal(pillarId);
                 return;
             }
             
@@ -1436,10 +1568,10 @@
             }
             
             // User has access
-            await showToolModal(pillarId);
+            showToolModal(pillarId);
         }
 
-        async function showToolModal(pillarId) {
+        function showToolModal(pillarId) {
             const modal = document.getElementById('tool-modal');
             const tool = labTools[pillarId];
             
@@ -1461,75 +1593,31 @@
             if (iconElement) iconElement.className = `fas ${tool.icon} text-${tool.color}`;
             if (iconBg) iconBg.className = `w-10 h-10 rounded-full bg-${tool.color}/20 flex items-center justify-center mr-3`;
             
-            // Show loading state
-            document.getElementById('modal-content').innerHTML = `
-                <div class="text-center py-12">
-                    <i class="fas fa-spinner fa-spin text-3xl text-${tool.color} mb-4"></i>
-                    <p>Loading ${tool.title}...</p>
-                    <p class="text-sm text-gray-400 mt-2">Initializing tool interface</p>
-                </div>
-            `;
-            
-            // Show modal immediately (better UX)
+            // Show modal immediately
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
             currentPillarId = pillarId;
             
             // Load tool content
-            try {
-                const content = await loadToolContent(pillarId);
-                document.getElementById('modal-content').innerHTML = content;
+            if (tool.isReady && tool.content) {
+                document.getElementById('modal-content').innerHTML = tool.content;
                 
-                // Initialize tool JavaScript if function exists
-                if (typeof window[`initPillar${pillarId}`] === 'function') {
-                    setTimeout(() => window[`initPillar${pillarId}`](), 100);
+                // Initialize the calculator if it's pillar 01
+                if (pillarId === '01') {
+                    setTimeout(() => {
+                        // Set initial values from saved data
+                        document.getElementById('monthly-income').value = ironPotData.monthlyIncome;
+                        document.getElementById('additional-income').value = ironPotData.additionalIncome;
+                        document.getElementById('essential-expenses').value = ironPotData.essentialExpenses;
+                        document.getElementById('non-essential-expenses').value = ironPotData.nonEssentialExpenses;
+                        calculateIronPot();
+                    }, 50);
                 }
                 
                 console.log(`✅ Tool ${pillarId} loaded successfully`);
-            } catch (error) {
-                console.error('Error loading tool:', error);
-                document.getElementById('modal-content').innerHTML = `
-                    <div class="text-center py-12">
-                        <div class="w-20 h-20 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-exclamation-triangle text-red-400 text-3xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Unable to Load Tool</h3>
-                        <p class="text-gray-300 mb-6">There was an error loading ${tool.title}. Please try again.</p>
-                        <button onclick="closeToolModal()" class="px-6 py-3 bg-crimson hover:bg-red-700 rounded font-bold transition">
-                            Close
-                        </button>
-                    </div>
-                `;
-            }
-        }
-
-        async function loadToolContent(pillarId) {
-            const tool = labTools[pillarId];
-            
-            if (!tool.isReady) {
+            } else {
                 // Tool not ready - show placeholder
-                return getToolPlaceholder(pillarId);
-            }
-            
-            try {
-                // Try to load from external file
-                const response = await fetch(tool.path);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-                
-                const content = await response.text();
-                
-                // Check if we got actual HTML
-                if (!content.includes('<') || content.trim().length < 50) {
-                    throw new Error('Empty or invalid tool content');
-                }
-                
-                return content;
-            } catch (error) {
-                console.warn(`Could not load ${tool.path}, using placeholder:`, error.message);
-                return getToolPlaceholder(pillarId);
+                document.getElementById('modal-content').innerHTML = getToolPlaceholder(pillarId);
             }
         }
 
@@ -1633,18 +1721,156 @@
             }
         }
         
-        // User progress functions (keep these from your original)
+        // Iron Pot Calculator Functions
+        function calculateIronPot() {
+            // Get values from inputs
+            const monthlyIncomeInput = document.getElementById('monthly-income');
+            const additionalIncomeInput = document.getElementById('additional-income');
+            const essentialExpensesInput = document.getElementById('essential-expenses');
+            const nonEssentialExpensesInput = document.getElementById('non-essential-expenses');
+            
+            // Check if inputs exist (they won't if modal isn't open)
+            if (!monthlyIncomeInput || !additionalIncomeInput || !essentialExpensesInput || !nonEssentialExpensesInput) {
+                return;
+            }
+            
+            // Parse values with fallbacks
+            const monthlyIncome = parseFloat(monthlyIncomeInput.value) || 0;
+            const additionalIncome = parseFloat(additionalIncomeInput.value) || 0;
+            const essentialExpenses = parseFloat(essentialExpensesInput.value) || 0;
+            const nonEssentialExpenses = parseFloat(nonEssentialExpensesInput.value) || 0;
+            
+            // Store for later use
+            ironPotData = {
+                monthlyIncome,
+                additionalIncome,
+                essentialExpenses,
+                nonEssentialExpenses
+            };
+            
+            // Calculate totals
+            const totalIncome = monthlyIncome + additionalIncome;
+            const totalExpenses = essentialExpenses + nonEssentialExpenses;
+            const monthlySurplus = totalIncome - totalExpenses;
+            
+            // Calculate percentages
+            const needsPercentage = totalIncome > 0 ? Math.round((essentialExpenses / totalIncome) * 100) : 0;
+            
+            // Calculate Iron Pot progress (simplified)
+            let ironPotProgress = 0;
+            if (essentialExpenses > 0) {
+                const monthsCovered = monthlySurplus > 0 ? (monthlySurplus * 12) / essentialExpenses : 0;
+                ironPotProgress = Math.min(100, Math.round((monthsCovered / 12) * 100));
+            }
+            
+            // Update display elements
+            const totalIncomeEl = document.getElementById('total-income');
+            const totalExpensesEl = document.getElementById('total-expenses');
+            const monthlySurplusEl = document.getElementById('monthly-surplus');
+            const needsPercentageEl = document.getElementById('needs-percentage');
+            const ironPotProgressEl = document.getElementById('iron-pot-progress');
+            const ironPotBar = document.getElementById('iron-pot-bar');
+            const insightTextEl = document.getElementById('insight-text');
+            
+            if (totalIncomeEl) totalIncomeEl.textContent = `$${totalIncome.toLocaleString()}`;
+            if (totalExpensesEl) totalExpensesEl.textContent = `$${totalExpenses.toLocaleString()}`;
+            if (monthlySurplusEl) {
+                monthlySurplusEl.textContent = `$${monthlySurplus.toLocaleString()}`;
+                monthlySurplusEl.className = monthlySurplus >= 0 ? 'font-bold text-crimson' : 'font-bold text-red-400';
+            }
+            if (needsPercentageEl) needsPercentageEl.textContent = `${needsPercentage}%`;
+            if (ironPotProgressEl) ironPotProgressEl.textContent = `${ironPotProgress}%`;
+            if (ironPotBar) ironPotBar.style.width = `${ironPotProgress}%`;
+            
+            // Update insight text
+            if (insightTextEl) {
+                let insight = '';
+                if (needsPercentage <= 50) {
+                    insight = "Excellent! Your survival baseline is at 50% or below. You have strong financial sovereignty. Your Iron Pot should fill quickly.";
+                } else if (needsPercentage <= 60) {
+                    insight = "Good! You're moderately secure. Consider reducing non-essential expenses to reach 50% or below for true sovereignty.";
+                } else if (needsPercentage <= 75) {
+                    insight = "Attention needed. Your survival baseline is above 60%. Focus on reducing essential expenses where possible.";
+                } else {
+                    insight = "Critical! Your survival baseline is too high. Immediate action needed to reduce expenses and/or increase income.";
+                }
+                
+                if (monthlySurplus < 0) {
+                    insight += " You're operating at a deficit - this needs to be addressed immediately.";
+                }
+                
+                insightTextEl.textContent = insight;
+            }
+            
+            console.log('Iron Pot calculated:', {
+                totalIncome,
+                totalExpenses,
+                monthlySurplus,
+                needsPercentage,
+                ironPotProgress
+            });
+        }
+        
+        function saveIronPotProgress() {
+            // Recalculate to ensure we have latest data
+            calculateIronPot();
+            
+            // Update user progress based on calculations
+            const monthlySurplus = parseFloat(document.getElementById('monthly-surplus')?.textContent.replace(/[^0-9.-]+/g, "")) || 0;
+            const needsPercentageText = document.getElementById('needs-percentage')?.textContent || "0%";
+            const needsPercentage = parseInt(needsPercentageText) || 0;
+            const ironPotProgressText = document.getElementById('iron-pot-progress')?.textContent || "0%";
+            const ironPotProgress = parseInt(ironPotProgressText) || 0;
+            
+            // Calculate pillar 01 progress
+            let pillar01Progress = 0;
+            
+            // Score based on needs percentage
+            if (needsPercentage <= 50) pillar01Progress += 40;
+            else if (needsPercentage <= 60) pillar01Progress += 20;
+            else if (needsPercentage <= 75) pillar01Progress += 10;
+            
+            // Score based on monthly surplus
+            if (monthlySurplus > 1000) pillar01Progress += 30;
+            else if (monthlySurplus > 0) pillar01Progress += 20;
+            else if (monthlySurplus >= -100) pillar01Progress += 10;
+            
+            // Score based on Iron Pot progress
+            if (ironPotProgress >= 100) pillar01Progress += 30;
+            else if (ironPotProgress >= 75) pillar01Progress += 20;
+            else if (ironPotProgress >= 50) pillar01Progress += 15;
+            else if (ironPotProgress >= 25) pillar01Progress += 10;
+            
+            userProgress.pillar01 = Math.min(100, pillar01Progress);
+            userProgress.sovereigntyScore = Math.floor(userProgress.pillar01 / 5);
+            
+            saveUserData();
+            updateUI();
+            checkAchievements();
+            
+            showToast('Progress saved! Your Iron Pot calculations have been recorded.');
+            
+            console.log('Progress saved:', {
+                pillar01Progress: userProgress.pillar01,
+                sovereigntyScore: userProgress.sovereigntyScore
+            });
+        }
+        
+        // User progress functions
         function loadUserData() {
             const savedTier = localStorage.getItem('raf_user_tier');
             const savedProgress = localStorage.getItem('raf_user_progress');
+            const savedIronPot = localStorage.getItem('raf_ironpot_data');
             
             if (savedTier) userTier = savedTier;
             if (savedProgress) userProgress = JSON.parse(savedProgress);
+            if (savedIronPot) ironPotData = JSON.parse(savedIronPot);
         }
         
         function saveUserData() {
             localStorage.setItem('raf_user_tier', userTier);
             localStorage.setItem('raf_user_progress', JSON.stringify(userProgress));
+            localStorage.setItem('raf_ironpot_data', JSON.stringify(ironPotData));
         }
         
         function updateUI() {
@@ -1749,7 +1975,6 @@
             }
         }
         
-        // Keep your existing showUpgradeModal, closeUpgradeModal, setUserTier functions
         function showUpgradeModal(pillarOrTier) {
             const modal = document.getElementById('upgrade-modal');
             const content = document.getElementById('upgrade-content');
@@ -1881,6 +2106,28 @@
                     
                     <p class="text-center text-xs text-gray-400 mt-4">Includes 30-day money-back guarantee</p>
                 `;
+            } else if (pillarOrTier === 'all') {
+                modalContent = `
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-flag text-crimson text-3xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Start Your Sovereignty Journey</h4>
+                        <p class="text-gray-400 mb-4">Choose your path to financial freedom</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <button onclick="setUserTier('premium')" class="w-full upgrade-button py-3 text-lg">
+                            <i class="fas fa-bolt mr-2"></i>Premium Tier - $29/month
+                        </button>
+                        
+                        <button onclick="setUserTier('mastery')" class="w-full upgrade-button py-3 text-lg bg-yellow-600 hover:bg-yellow-700">
+                            <i class="fas fa-gem mr-2"></i>Mastery Tier - $99/month
+                        </button>
+                    </div>
+                    
+                    <p class="text-center text-xs text-gray-400">30-day money-back guarantee on both plans</p>
+                `;
             }
             
             content.innerHTML = modalContent;
@@ -1905,28 +2152,6 @@
             }
         }
         
-        // Progress update function (called by Pillar 01 tool)
-        window.updateUserProgress = function(needsPercentage, monthlySurplus, ironPotProgress) {
-            // Calculate pillar 01 progress
-            let pillar01Progress = 0;
-            
-            if (needsPercentage <= 50) pillar01Progress += 40;
-            else if (needsPercentage <= 60) pillar01Progress += 20;
-            
-            if (monthlySurplus > 0) pillar01Progress += 30;
-            else if (monthlySurplus >= -100) pillar01Progress += 10;
-            
-            if (ironPotProgress >= 100) pillar01Progress += 30;
-            else if (ironPotProgress >= 50) pillar01Progress += 15;
-            
-            userProgress.pillar01 = Math.min(100, pillar01Progress);
-            userProgress.sovereigntyScore = Math.floor(userProgress.pillar01 / 5);
-            
-            saveUserData();
-            updateUI();
-            checkAchievements();
-        }
-        
         function triggerAchievement(tier) {
             const achievementMsg = tier === 'premium' ? 
                 'Premium Unlocked! Welcome to Systems Architecture.' :
@@ -1946,8 +2171,12 @@
         }
         
         function showToast(message, type = 'info') {
+            // Remove existing toasts
+            const existingToasts = document.querySelectorAll('.custom-toast');
+            existingToasts.forEach(toast => toast.remove());
+            
             const toast = document.createElement('div');
-            toast.className = 'fixed bottom-4 right-4 bg-navy-900 border border-crimson px-4 py-3 rounded-lg shadow-lg z-50 animate-fade-in';
+            toast.className = 'custom-toast fixed bottom-4 right-4 bg-navy-900 border border-crimson px-4 py-3 rounded-lg shadow-lg z-50 animate-fade-in';
             toast.innerHTML = `
                 <div class="flex items-center">
                     <i class="fas fa-${type === 'achievement' ? 'trophy' : 'info-circle'} text-crimson mr-3"></i>
@@ -2003,6 +2232,8 @@
         window.showUpgradeModal = showUpgradeModal;
         window.closeUpgradeModal = closeUpgradeModal;
         window.setUserTier = setUserTier;
+        window.calculateIronPot = calculateIronPot;
+        window.saveIronPotProgress = saveIronPotProgress;
     </script>
 </body>
 </html>
