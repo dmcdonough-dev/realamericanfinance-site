@@ -2312,12 +2312,12 @@
                     datasets: [{
                         data: [0, 0, 0, 0, 0, 0],
                         backgroundColor: [
-                            '#FFFFFF',  // Tier 1: White
-                            '#B22234',  // Debt: Crimson
-                            '#9ca3af',  // Tier 2: Gray
-                            '#4b5563',  // Tier 3: Dark Gray
-                            '#10B981',  // Savings: Green
-                            '#00FF00'   // Surplus: Bright Green
+                            '#1E40AF',  // Tier 1: Navy Blue (essential, disciplined)
+   						 '#B22234',  // Debt: Your Crimson (urgent action needed)
+   						 '#475569',  // Tier 2: Slate Gray (infrastructure, support)
+  						  '#FBBF24',  // Tier 3: Amber/Gold (discretionary, luxury)
+  						  '#059669',  // Savings: Green (growth, strength)
+   						 '#22C55E'   // Surplus: Bright Green (victory!)
                         ],
                         borderWidth: 0,
                         hoverOffset: 10
@@ -4339,7 +4339,7 @@
             if (income <= 0) {
                 myChart.data.datasets[0].data = [0, 0, 0, 0, 0, 0];
                 myChart.data.datasets[0].backgroundColor = [
-                    '#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#10B981', '#00FF00'
+                    '#1E40AF', '#B22234', '#475569', '#FBBF24', '#059669', '#22C55E'
                 ];
             } 
             // If we have a surplus (income > expenses)
@@ -4355,12 +4355,12 @@
                 ];
                 // Correct colors for each segment
                 myChart.data.datasets[0].backgroundColor = [
-                    '#FFFFFF',  // Tier 1: Needs - White
-                    '#B22234',  // Debt Payments - Crimson
-                    '#9ca3af',  // Tier 2: Infrastructure - Gray
-                    '#4b5563',  // Tier 3: Wants - Dark Gray
-                    '#10B981',  // Savings - Green
-                    '#00FF00'   // Surplus - Bright Green
+                      '#1E40AF',  // Tier 1: Navy Blue (essential, disciplined)
+    '#B22234',  // Debt: Your Crimson (urgent action needed)
+    '#475569',  // Tier 2: Slate Gray (infrastructure, support)
+    '#FBBF24',  // Tier 3: Amber/Gold (discretionary, luxury)
+    '#059669',  // Savings: Green (growth, strength)
+    '#22C55E'   // Surplus: Bright Green (victory!)
                 ];
             } 
             // If we have a deficit (expenses > income)
@@ -4377,12 +4377,12 @@
                     deficit
                 ];
                 myChart.data.datasets[0].backgroundColor = [
-                    '#FFFFFF',  // Tier 1: Needs - White
-                    '#B22234',  // Debt Payments - Crimson
-                    '#9ca3af',  // Tier 2: Infrastructure - Gray
-                    '#4b5563',  // Tier 3: Wants - Dark Gray
-                    '#10B981',  // Savings - Green
-                    '#DC143C'   // Deficit - Crimson Red
+                    '#1E40AF',  // Tier 1: Navy Blue (essential, disciplined)
+    '#B22234',  // Debt: Your Crimson (urgent action needed)
+    '#475569',  // Tier 2: Slate Gray (infrastructure, support)
+    '#FBBF24',  // Tier 3: Amber/Gold (discretionary, luxury)
+    '#059669',  // Savings: Green (growth, strength)
+    '#22C55E'   // Surplus: Bright Green (victory!)
                 ];
             }
             
