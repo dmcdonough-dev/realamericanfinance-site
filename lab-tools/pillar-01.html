@@ -461,9 +461,22 @@ function initPillar01() {
 }
 
 function initializeCharts() {
+    // Destroy existing charts if they exist
+    if (spendingChart) {
+        spendingChart.destroy();
+    }
+    if (ironpotChart) {
+        ironpotChart.destroy();
+    }
+    
     // Spending Doughnut Chart
-    const spendingCtx = document.getElementById('spendingChart').getContext('2d');
-    spendingChart = new Chart(spendingCtx, {
+    const spendingCtx = document.getElementById('spendingChart');
+    if (!spendingCtx) {
+        console.error('Spending chart canvas not found!');
+        return;
+    }
+    
+    spendingChart = new Chart(spendingCtx.getContext('2d'), {
         type: 'doughnut',
         data: {
             labels: ['Needs', 'Savings', 'Wants'],
@@ -494,8 +507,13 @@ function initializeCharts() {
     });
     
     // Iron Pot Progress Chart
-    const ironpotCtx = document.getElementById('ironpotChart').getContext('2d');
-    ironpotChart = new Chart(ironpotCtx, {
+    const ironpotCtx = document.getElementById('ironpotChart');
+    if (!ironpotCtx) {
+        console.error('Iron Pot chart canvas not found!');
+        return;
+    }
+    
+    ironpotChart = new Chart(ironpotCtx.getContext('2d'), {
         type: 'doughnut',
         data: {
             datasets: [{
@@ -522,12 +540,19 @@ function initializeCharts() {
 
 function setupToolCalculator() {
     // Income and frequency with real-time validation
-    document.getElementById('tool-monthly-income').addEventListener('input', function() {
-        validateNumberInput(this);
-        calculateTool();
-    });
+    const incomeInput = document.getElementById('tool-monthly-income');
+    const frequencySelect = document.getElementById('tool-pay-frequency');
     
-    document.getElementById('tool-pay-frequency').addEventListener('change', calculateTool);
+    if (incomeInput) {
+        incomeInput.addEventListener('input', function() {
+            validateNumberInput(this);
+            calculateTool();
+        });
+    }
+    
+    if (frequencySelect) {
+        frequencySelect.addEventListener('change', calculateTool);
+    }
     
     // Expenses with real-time validation
     document.querySelectorAll('.tool-tier1-expense, .tool-tier2-expense, .tool-tier3-expense').forEach(input => {
@@ -538,30 +563,42 @@ function setupToolCalculator() {
     });
     
     // Net worth with real-time validation
-    document.getElementById('tool-assets').addEventListener('input', function() {
-        validateNumberInput(this);
-        calculateTool();
-    });
+    const assetsInput = document.getElementById('tool-assets');
+    const liabilitiesInput = document.getElementById('tool-liabilities');
     
-    document.getElementById('tool-liabilities').addEventListener('input', function() {
-        validateNumberInput(this);
-        calculateTool();
-    });
+    if (assetsInput) {
+        assetsInput.addEventListener('input', function() {
+            validateNumberInput(this);
+            calculateTool();
+        });
+    }
+    
+    if (liabilitiesInput) {
+        liabilitiesInput.addEventListener('input', function() {
+            validateNumberInput(this);
+            calculateTool();
+        });
+    }
     
     // Target months slider
     const targetSlider = document.getElementById('tool-target-months');
-    targetSlider.addEventListener('input', function() {
-        document.getElementById('tool-target-months-display').textContent = `${this.value} months`;
-        calculateTool();
-    });
+    if (targetSlider) {
+        targetSlider.addEventListener('input', function() {
+            document.getElementById('tool-target-months-display').textContent = `${this.value} months`;
+            calculateTool();
+        });
+    }
 }
 
 function setupResetFunction() {
-    document.getElementById('tool-reset-btn').addEventListener('click', function() {
-        if (confirm('Are you sure you want to reset all fields? This cannot be undone.')) {
-            resetAllFields();
-        }
-    });
+    const resetBtn = document.getElementById('tool-reset-btn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+            if (confirm('Are you sure you want to reset all fields? This cannot be undone.')) {
+                resetAllFields();
+            }
+        });
+    }
 }
 
 function resetAllFields() {
@@ -593,26 +630,33 @@ function resetAllFields() {
 }
 
 function validateNumberInput(inputElement) {
-    const value = parseFloat(inputElement.value);
+    if (!inputElement) return true;
+    
+    const value = inputElement.value.trim();
+    
+    // Allow empty field
+    if (value === '') return true;
+    
+    const numValue = parseFloat(value);
+    
+    // Check for non-numeric input
+    if (isNaN(numValue)) {
+        inputElement.value = '';
+        showNotification('Please enter a valid number', 'error');
+        return false;
+    }
     
     // Check for negative numbers
-    if (value < 0) {
+    if (numValue < 0) {
         inputElement.value = '';
         showNotification('Please enter a positive number', 'error');
         return false;
     }
     
     // Check for extremely large numbers (over $10 million)
-    if (value > 10000000) {
+    if (numValue > 10000000) {
         inputElement.value = '';
         showNotification('Please enter a realistic amount (under $10 million)', 'error');
-        return false;
-    }
-    
-    // Check for non-numeric input
-    if (isNaN(value) && inputElement.value !== '') {
-        inputElement.value = '';
-        showNotification('Please enter a valid number', 'error');
         return false;
     }
     
@@ -649,6 +693,8 @@ function showNotification(message, type = 'info') {
 }
 
 function calculateTool() {
+    console.log('Calculating...');
+    
     // Get and validate income
     const monthlyIncome = parseFloat(document.getElementById('tool-monthly-income').value) || 0;
     const frequency = document.getElementById('tool-pay-frequency').value;
@@ -712,6 +758,9 @@ function calculateTool() {
     const liabilities = parseFloat(document.getElementById('tool-liabilities').value) || 0;
     const netWorth = assets - liabilities;
     
+    console.log('Tier totals:', { tier1Total, tier2Total, tier3Total });
+    console.log('Percentages:', { tier1Percentage, tier2Percentage, tier3Percentage });
+    
     // Update all displays in real-time
     
     // Quick stats
@@ -747,8 +796,10 @@ function calculateTool() {
     document.getElementById('ironpot-current').textContent = `$${existingSavings.toLocaleString()}`;
     
     // Update Iron Pot chart
-    ironpotChart.data.datasets[0].data = [ironPotProgress, 100 - ironPotProgress];
-    ironpotChart.update();
+    if (ironpotChart) {
+        ironpotChart.data.datasets[0].data = [ironPotProgress, 100 - ironPotProgress];
+        ironpotChart.update('none'); // 'none' prevents animation for faster updates
+    }
     
     // Net worth
     document.getElementById('tool-net-worth').textContent = `$${netWorth.toLocaleString()}`;
@@ -774,8 +825,10 @@ function calculateTool() {
     document.getElementById('wants-progress-bar').style.width = `${wantsProgress}%`;
     
     // Update spending chart
-    spendingChart.data.datasets[0].data = [tier1Total, tier2Total, tier3Total];
-    spendingChart.update();
+    if (spendingChart) {
+        spendingChart.data.datasets[0].data = [tier1Total, tier2Total, tier3Total];
+        spendingChart.update('none'); // 'none' prevents animation for faster updates
+    }
     
     // Chart labels (handle division by zero)
     const totalSpending = tier1Total + tier2Total + tier3Total;
@@ -896,6 +949,7 @@ function generateRecommendations(tier1Percent, tier2Percent, tier3Percent, month
 
 function updateRecommendationsList(recommendations) {
     const list = document.getElementById('tool-recommendations-list');
+    if (!list) return;
     
     if (recommendations.length === 0) {
         list.innerHTML = `
@@ -916,18 +970,22 @@ function updateRecommendationsList(recommendations) {
 }
 
 function saveCurrentData() {
-    const data = {
-        income: document.getElementById('tool-monthly-income').value,
-        frequency: document.getElementById('tool-pay-frequency').value,
-        tier1: Array.from(document.querySelectorAll('.tool-tier1-expense')).map(i => i.value),
-        tier2: Array.from(document.querySelectorAll('.tool-tier2-expense')).map(i => i.value),
-        tier3: Array.from(document.querySelectorAll('.tool-tier3-expense')).map(i => i.value),
-        assets: document.getElementById('tool-assets').value,
-        liabilities: document.getElementById('tool-liabilities').value,
-        targetMonths: document.getElementById('tool-target-months').value,
-        timestamp: new Date().toISOString()
-    };
-    localStorage.setItem('raf_pillar01_full', JSON.stringify(data));
+    try {
+        const data = {
+            income: document.getElementById('tool-monthly-income').value,
+            frequency: document.getElementById('tool-pay-frequency').value,
+            tier1: Array.from(document.querySelectorAll('.tool-tier1-expense')).map(i => i.value),
+            tier2: Array.from(document.querySelectorAll('.tool-tier2-expense')).map(i => i.value),
+            tier3: Array.from(document.querySelectorAll('.tool-tier3-expense')).map(i => i.value),
+            assets: document.getElementById('tool-assets').value,
+            liabilities: document.getElementById('tool-liabilities').value,
+            targetMonths: document.getElementById('tool-target-months').value,
+            timestamp: new Date().toISOString()
+        };
+        localStorage.setItem('raf_pillar01_full', JSON.stringify(data));
+    } catch (error) {
+        console.error('Error saving data:', error);
+    }
 }
 
 function loadSavedData() {
@@ -996,8 +1054,16 @@ function updateMainAppProgress(pillarProgress) {
     }
 }
 
-// Make function available
+// Initialize immediately if DOM is already loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPillar01);
+} else {
+    initPillar01();
+}
+
+// Make function available globally
 window.initPillar01 = initPillar01;
+window.calculateTool = calculateTool;
 
 // Add styles
 const style = document.createElement('style');
@@ -1023,6 +1089,16 @@ style.textContent = `
         box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     }
     
+    input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #B22234;
+        cursor: pointer;
+        border: 3px solid white;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    
     .input-underlined:focus {
         border-bottom-color: #B22234;
         box-shadow: 0 1px 0 0 #B22234;
@@ -1035,6 +1111,13 @@ style.textContent = `
     @keyframes slideInRight {
         from { transform: translateX(100%); opacity: 0; }
         to { transform: translateX(0); opacity: 1; }
+    }
+    
+    /* Ensure chart containers have proper sizing */
+    #spendingChart, #ironpotChart {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
     }
 `;
 document.head.appendChild(style);
