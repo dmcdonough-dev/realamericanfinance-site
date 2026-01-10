@@ -1,24 +1,57 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iron Pot Millionaire | Real American Finance</title>
+    <title>Iron Pot Millionaire</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .bg-navy-950 { background-color: #050B14; }
-        .bg-navy-900 { background-color: #0A1A2F; }
-        .bg-navy-800 { background-color: #11243F; }
-        .text-crimson { color: #B22234; }
-        .bg-crimson { background-color: #B22234; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
-        .dashboard-card { 
-            background: #0A1A2F; 
-            border: 1px solid rgba(255,255,255,0.05); 
-            border-radius: 8px;
+        body {
+            background: #050B14;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        .card {
+            background: #0A1A2F;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .crimson {
+            color: #B22234;
+        }
+        
+        .bg-crimson {
+            background-color: #B22234;
+        }
+        
+        .tier-1 { border-left: 4px solid #FFFFFF; }
+        .tier-2 { border-left: 4px solid #9ca3af; }
+        .tier-3 { border-left: 4px solid #4b5563; }
+        .savings-tier { border-left: 4px solid #10B981; }
+        
+        input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 0;
+            width: 100%;
+            font-size: 16px;
+        }
+        
+        input:focus {
+            outline: none;
+            border-bottom-color: #B22234;
         }
         
         input::-webkit-outer-spin-button,
@@ -31,42 +64,23 @@
             -moz-appearance: textfield;
         }
         
-        .tier-1 { border-left: 4px solid #FFFFFF; background: rgba(255,255,255,0.04); }
-        .tier-2 { border-left: 4px solid #9ca3af; background: rgba(156,163,175,0.04); }
-        .tier-3 { border-left: 4px solid #4b5563; background: rgba(255,255,255,0.02); }
-        .savings-tier { border-left: 4px solid #10B981; background: rgba(16, 185, 129, 0.1); }
-        
-        .input-underlined {
-            border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            background: transparent;
-            outline: none;
-            color: white;
-            padding: 8px 0;
-            width: 100%;
-            transition: border-color 0.3s;
-        }
-        
-        .input-underlined:focus {
-            border-bottom-color: #B22234;
-        }
-        
         .badge {
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 10px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: bold;
         }
         
-        .badge-good { background: rgba(0, 255, 0, 0.3); color: white; }
-        .badge-warning { background: rgba(255, 255, 0, 0.3); color: black; }
-        .badge-danger { background: #B22234; color: white; }
+        .badge-good { background: rgba(0, 255, 0, 0.2); color: #00FF00; }
+        .badge-warning { background: rgba(255, 255, 0, 0.2); color: yellow; }
+        .badge-danger { background: rgba(178, 34, 52, 0.3); color: #B22234; }
         
         .progress-bar {
-            height: 8px;
+            height: 6px;
             background: rgba(255,255,255,0.1);
-            border-radius: 4px;
+            border-radius: 3px;
             overflow: hidden;
+            margin: 8px 0;
         }
         
         .progress-fill {
@@ -74,506 +88,550 @@
             background: #B22234;
             transition: width 0.5s ease;
         }
-        
-        .tier-input-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .tier-input-number {
-            width: 120px;
-            text-align: right;
-            font-weight: bold;
-        }
     </style>
 </head>
-<body class="bg-navy-950 text-white min-h-screen font-sans">
-
+<body class="min-h-screen p-4">
+    
     <!-- HEADER -->
-    <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div>
-                <h1 class="text-xl font-bold text-crimson">IRON POT MILLIONAIRE</h1>
-                <p class="text-xs text-gray-400">Financial Fortress Builder</p>
-            </div>
-            <div class="flex gap-2">
-                <button onclick="saveProfile()" class="px-3 py-1 text-xs border border-gray-700 rounded hover:border-crimson">
-                    <i class="fas fa-save mr-1"></i> Save
-                </button>
-                <button onclick="calculateAll()" class="px-3 py-1 text-xs bg-crimson rounded hover:bg-red-700">
-                    <i class="fas fa-calculator mr-1"></i> Calculate
-                </button>
-            </div>
-        </div>
+    <header class="mb-8">
+        <h1 class="text-3xl font-bold crimson mb-2">IRON POT MILLIONAIRE</h1>
+        <p class="text-gray-400">Build Your Financial Fortress</p>
     </header>
-
-    <!-- MAIN CONTENT -->
-    <main class="container mx-auto px-4 pt-20 pb-8">
-        
-        <!-- Income Section -->
-        <div class="dashboard-card p-6 mb-6">
-            <h2 class="text-lg font-bold mb-4 border-l-2 border-crimson pl-3">01. Monthly Income</h2>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm text-gray-400 mb-2">Net Monthly Income ($)</label>
-                    <input type="number" id="paycheck" class="input-underlined text-xl font-bold" placeholder="0" oninput="calculateAll()">
-                </div>
-                <div>
-                    <label class="block text-sm text-gray-400 mb-2">Pay Frequency</label>
-                    <select id="freq" class="input-underlined bg-navy-900 rounded p-2 w-full" onchange="calculateAll()">
-                        <option value="2">Semi-monthly (2x per month)</option>
-                        <option value="1">Monthly (1x per month)</option>
-                        <option value="4">Weekly (4x per month)</option>
-                        <option value="26">Bi-weekly (every 2 weeks)</option>
-                    </select>
-                </div>
-            </div>
-            <div class="mt-4 text-sm text-gray-400">
-                Monthly Income: $<span id="income-summary">0</span>
-            </div>
-        </div>
-        
-        <!-- Debt Section -->
-        <div class="dashboard-card p-6 mb-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-bold border-l-2 border-crimson pl-3">02. Debt</h2>
-                <button onclick="addDebtRow()" class="text-xs text-gray-400 hover:text-white">
-                    <i class="fas fa-plus mr-1"></i> Add Debt
-                </button>
-            </div>
+    
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             
-            <div id="debt-body">
-                <!-- Debt rows will be added here -->
-            </div>
-            
-            <div class="mt-4 grid grid-cols-2 gap-4 text-sm">
-                <div class="bg-navy-900/50 p-3 rounded">
-                    <div class="text-gray-400">Total Debt Balance</div>
-                    <div class="font-bold" id="total-debt-val">$0</div>
-                </div>
-                <div class="bg-navy-900/50 p-3 rounded">
-                    <div class="text-gray-400">Monthly Minimums</div>
-                    <div class="font-bold" id="mobile-debt-min">$0</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Expenses Section -->
-        <div class="dashboard-card p-6 mb-6">
-            <h2 class="text-lg font-bold mb-4 border-l-2 border-crimson pl-3">03. Monthly Expenses</h2>
-            
-            <!-- Tier 1: Needs -->
-            <div class="tier-1 p-4 mb-4 rounded">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-bold">Tier 1: Needs (≤50%)</h3>
-                    <span id="badge-t1" class="badge badge-danger">0%</span>
-                </div>
-                <div id="tier1-content">
-                    <div class="tier-input-container">
+            <!-- LEFT COLUMN - INPUTS -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- INCOME -->
+                <div class="card">
+                    <h2 class="text-xl font-bold mb-4">01. Monthly Income</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <span class="text-sm font-bold">Housing (Rent/Mortgage)</span>
-                            <div class="text-xs text-gray-500">Monthly payment only</div>
+                            <label class="block text-gray-400 mb-2">Net Monthly Income ($)</label>
+                            <input type="number" id="income" placeholder="0" oninput="calculateAll()" class="text-2xl font-bold">
                         </div>
-                        <input type="number" class="tier-1-input input-underlined tier-input-number" placeholder="0" oninput="calculateAll()">
+                        <div>
+                            <label class="block text-gray-400 mb-2">Pay Frequency</label>
+                            <select id="frequency" onchange="calculateAll()" class="w-full bg-navy-800 text-white p-3 rounded">
+                                <option value="1">Monthly</option>
+                                <option value="2">Semi-monthly</option>
+                                <option value="4">Weekly</option>
+                                <option value="26">Bi-weekly</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="tier-input-container">
-                        <div>
-                            <span class="text-sm font-bold">Utilities</span>
-                            <div class="text-xs text-gray-500">Electric, water, gas, trash</div>
-                        </div>
-                        <input type="number" class="tier-1-input input-underlined tier-input-number" placeholder="0" oninput="calculateAll()">
-                    </div>
-                    <div class="tier-input-container">
-                        <div>
-                            <span class="text-sm font-bold">Essential Groceries</span>
-                            <div class="text-xs text-gray-500">Food, household essentials</div>
-                        </div>
-                        <input type="number" class="tier-1-input input-underlined tier-input-number" placeholder="0" oninput="calculateAll()">
-                    </div>
-                    <div class="tier-input-container">
-                        <div>
-                            <span class="text-sm font-bold">Transportation</span>
-                            <div class="text-xs text-gray-500">Gas, tolls, parking, public transit</div>
-                        </div>
-                        <input type="number" class="tier-1-input input-underlined tier-input-number" placeholder="0" oninput="calculateAll()">
-                    </div>
-                    <div class="tier-input-container">
-                        <div>
-                            <span class="text-sm font-bold">Car Insurance</span>
-                            <div class="text-xs text-gray-500">Monthly premium</div>
-                        </div>
-                        <input type="number" class="tier-1-input input-underlined tier-input-number" placeholder="0" oninput="calculateAll()">
-                    </div>
-                    <div class="tier-input-container">
-                        <div>
-                            <span class="text-sm font-bold">Health Insurance</span>
-                            <div class="text-xs text-gray-500">Monthly premium</div>
-                        </div>
-                        <input type="number" class="tier-1-input input-underlined tier-input-number" placeholder="0" oninput="calculateAll()">
+                    <div class="mt-4 text-gray-400">
+                        Adjusted Monthly Income: <span id="adjusted-income" class="text-white font-bold">$0</span>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Tier 2: Infrastructure -->
-            <div class="tier-2 p-4 mb-4 rounded">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-bold text-gray-300">Tier 2: Infrastructure (≤20%)</h3>
-                    <span id="badge-t2" class="badge badge-warning">0%</span>
-                </div>
-                <div id="tier2-content">
-                    <div class="tier-input-container">
-                        <div>
-                            <span class="text-sm font-bold text-gray-300">Internet / Wifi</span>
-                            <div class="text-xs text-gray-500">Monthly bill</div>
-                        </div>
-                        <input type="number" class="tier-2-input input-underlined tier-input-number" placeholder="0" oninput="calculateAll()">
+                
+                <!-- DEBT -->
+                <div class="card">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold">02. Debt</h2>
+                        <button onclick="addDebt()" class="text-sm text-gray-400 hover:text-white">
+                            + Add Debt
+                        </button>
                     </div>
-                    <div class="tier-input-container">
-                        <div>
-                            <span class="text-sm font-bold text-gray-300">Cell Phone Plan</span>
-                            <div class="text-xs text-gray-500">Monthly bill</div>
-                        </div>
-                        <input type="number" class="tier-2-input input-underlined tier-input-number" placeholder="0" oninput="calculateAll()">
+                    
+                    <div id="debt-container" class="mb-4">
+                        <!-- Debt rows will go here -->
                     </div>
-                    <div class="tier-input-container">
-                        <div>
-                            <span class="text-sm font-bold text-gray-300">Gym Membership</span>
-                            <div class="text-xs text-gray-500">Fitness, yoga, classes</div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-navy-800/50 p-3 rounded">
+                            <div class="text-gray-400 text-sm">Total Debt</div>
+                            <div id="total-debt" class="font-bold">$0</div>
                         </div>
-                        <input type="number" class="tier-2-input input-underlined tier-input-number" placeholder="0" oninput="calculateAll()">
+                        <div class="bg-navy-800/50 p-3 rounded">
+                            <div class="text-gray-400 text-sm">Monthly Minimums</div>
+                            <div id="total-minimums" class="font-bold">$0</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Tier 3: Wants -->
-            <div class="tier-3 p-4 mb-4 rounded" id="tier-3-container">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-bold text-gray-100">Tier 3: Wants (≤30%)</h3>
-                    <span id="badge-t3" class="badge badge-danger">0%</span>
-                </div>
-                <div id="tier3-content">
-                    <div class="tier-input-container">
-                        <div>
-                            <span class="text-sm font-bold text-gray-100">Dining Out / Entertainment</span>
-                            <div class="text-xs text-gray-500">Restaurants, movies, concerts, bars</div>
+                
+                <!-- EXPENSES -->
+                <div class="card">
+                    <h2 class="text-xl font-bold mb-4">03. Monthly Expenses</h2>
+                    
+                    <!-- Tier 1 -->
+                    <div class="tier-1 p-4 mb-4 bg-white/5 rounded">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold">Tier 1: Needs (≤50%)</h3>
+                            <span id="tier1-percent" class="badge badge-danger">0%</span>
                         </div>
-                        <input type="number" class="tier-3-input input-underlined tier-input-number text-white font-bold" placeholder="0" oninput="calculateAll()">
+                        <div class="space-y-3">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-gray-400 text-sm mb-1">Housing</label>
+                                    <input type="number" class="tier1" placeholder="0" oninput="calculateAll()">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-400 text-sm mb-1">Utilities</label>
+                                    <input type="number" class="tier1" placeholder="0" oninput="calculateAll()">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-40 text-sm mb-1">Groceries</label>
+                                    <input type="number" class="tier1" placeholder="0" oninput="calculateAll()">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-400 text-sm mb-1">Transportation</label>
+                                    <input type="number" class="tier1" placeholder="0" oninput="calculateAll()">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tier-input-container">
-                        <div>
-                            <span class="text-sm font-bold text-gray-100">Shopping / Clothing</span>
-                            <div class="text-xs text-gray-500">New clothes, shoes, accessories</div>
+                    
+                    <!-- Tier 2 -->
+                    <div class="tier-2 p-4 mb-4 bg-gray-400/5 rounded">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-gray-300">Tier 2: Infrastructure (≤20%)</h3>
+                            <span id="tier2-percent" class="badge badge-warning">0%</span>
                         </div>
-                        <input type="number" class="tier-3-input input-underlined tier-input-number text-white font-bold" placeholder="0" oninput="calculateAll()">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-gray-400 text-sm mb-1">Internet/Phone</label>
+                                <input type="number" class="tier2" placeholder="0" oninput="calculateAll()">
+                            </div>
+                            <div>
+                                <label class="block text-gray-400 text-sm mb-1">Subscriptions</label>
+                                <input type="number" class="tier2" placeholder="0" oninput="calculateAll()">
+                            </div>
+                        </div>
                     </div>
-                    <div class="tier-input-container">
-                        <div>
-                            <span class="text-sm font-bold text-gray-100">Streaming Services</span>
-                            <div class="text-xs text-gray-500">Netflix, Spotify, Hulu, etc.</div>
+                    
+                    <!-- Tier 3 -->
+                    <div class="tier-3 p-4 mb-4 bg-gray-600/5 rounded">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-gray-200">Tier 3: Wants (≤30%)</h3>
+                            <span id="tier3-percent" class="badge badge-danger">0%</span>
                         </div>
-                        <input type="number" class="tier-3-input input-underlined tier-input-number text-white font-bold" placeholder="0" oninput="calculateAll()">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-gray-400 text-sm mb-1">Dining/Entertainment</label>
+                                <input type="number" class="tier3" placeholder="0" oninput="calculateAll()">
+                            </div>
+                            <div>
+                                <label class="block text-gray-400 text-sm mb-1">Shopping/Hobbies</label>
+                                <input type="number" class="tier3" placeholder="0" oninput="calculateAll()">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Savings -->
+                    <div class="savings-tier p-4 bg-green-500/10 rounded">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-green-300">Savings & Investments (≥20%)</h3>
+                            <span id="savings-percent" class="badge badge-good">0%</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-green-400 text-sm mb-1">Emergency Fund</label>
+                                <input type="number" class="savings" placeholder="0" oninput="calculateAll()">
+                            </div>
+                            <div>
+                                <label class="block text-green-400 text-sm mb-1">Retirement</label>
+                                <input type="number" class="savings" placeholder="0" oninput="calculateAll()">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Savings -->
-            <div class="savings-tier p-4 rounded">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-bold text-green-300">Savings & Investments (≥20%)</h3>
-                    <span id="badge-savings" class="badge badge-good">0%</span>
-                </div>
-                <div id="savings-content">
-                    <div class="tier-input-container">
-                        <div>
-                            <span class="text-sm font-bold text-green-200">Emergency Fund</span>
-                            <div class="text-xs text-green-500">Monthly addition to savings</div>
-                        </div>
-                        <input type="number" class="savings-input input-underlined tier-input-number text-green-300" placeholder="0" oninput="calculateAll()">
-                    </div>
-                    <div class="tier-input-container">
-                        <div>
-                            <span class="text-sm font-bold text-green-200">Retirement (401k/IRA/Roth)</span>
-                            <div class="text-xs text-green-500">Monthly retirement contributions</div>
-                        </div>
-                        <input type="number" class="savings-input input-underlined tier-input-number text-green-300" placeholder="0" oninput="calculateAll()">
-                    </div>
-                    <div class="mt-4 p-3 bg-green-900/10 border border-green-500/20 rounded">
-                        <div class="flex justify-between text-sm mb-2">
-                            <span class="text-green-300">Total Monthly Savings:</span>
-                            <span id="total-savings" class="font-bold text-green-300">$0</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-green-300">Savings Rate:</span>
-                            <span id="savings-rate" class="font-bold text-green-300">0%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Results Sidebar -->
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="md:col-span-2">
-                <!-- Chart -->
-                <div class="dashboard-card p-6">
-                    <h2 class="text-lg font-bold mb-4">Spending Breakdown</h2>
-                    <div style="position: relative; height: 300px;">
+            <!-- RIGHT COLUMN - CHART & RESULTS -->
+            <div class="space-y-6">
+                
+                <!-- PIE CHART -->
+                <div class="card">
+                    <h2 class="text-xl font-bold mb-4">Spending Breakdown</h2>
+                    <div style="position: relative; height: 300px; width: 100%;">
                         <canvas id="budgetChart"></canvas>
-                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                            <div id="center-remaining" class="text-3xl font-bold">$0</div>
-                            <div class="text-xs text-gray-400">Monthly Surplus</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="space-y-4">
-                <!-- Summary Stats -->
-                <div class="dashboard-card p-4">
-                    <h3 class="font-bold mb-3">50/30/20 Rule Status</h3>
-                    <div class="space-y-3 text-sm">
-                        <div class="flex justify-between">
-                            <span>Needs (≤50%)</span>
-                            <span id="rule-needs" class="font-bold">—</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Wants (≤30%)</span>
-                            <span id="rule-wants" class="font-bold">—</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Savings (≥20%)</span>
-                            <span id="rule-savings" class="font-bold">—</span>
+                        <div id="chart-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                            <div id="surplus" class="text-3xl font-bold crimson">$0</div>
+                            <div class="text-sm text-gray-400">Monthly Surplus</div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Key Metrics -->
-                <div class="dashboard-card p-4">
-                    <h3 class="font-bold mb-3">Key Metrics</h3>
-                    <div class="space-y-3 text-sm">
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">Total Debt Balance:</span>
-                            <span id="total-debt-display" class="font-bold">$0</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">Freedom Timeline:</span>
-                            <span id="countdown-val" class="font-bold text-crimson">N/A</span>
-                        </div>
-                        <div class="mt-4 p-3 bg-navy-900/50 border border-white/5 text-center">
-                            <div id="surplus-val" class="text-2xl font-bold text-crimson">$0</div>
-                            <span class="text-xs text-gray-500">Monthly War Chest</span>
+                <!-- SUMMARY -->
+                <div class="card">
+                    <h2 class="text-xl font-bold mb-4">Summary</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-400">Monthly Income</span>
+                                <span id="summary-income" class="font-bold">$0</span>
+                            </div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-400">Total Expenses</span>
+                                <span id="summary-expenses" class="font-bold">$0</span>
+                            </div>
+                            <div class="flex justify-between pt-2 border-t border-gray-800">
+                                <span class="text-gray-400">Savings Rate</span>
+                                <span id="savings-rate" class="font-bold text-green-400">0%</span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Actions -->
+                <!-- 50/30/20 RULE -->
+                <div class="card">
+                    <h2 class="text-xl font-bold mb-4">50/30/20 Rule</h2>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Needs (≤50%)</span>
+                                <span id="rule-needs">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="needs-bar" class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Wants (≤30%)</span>
+                                <span id="rule-wants">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="wants-bar" class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Savings (≥20%)</span>
+                                <span id="rule-savings">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="savings-bar" class="progress-fill bg-green-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ACTIONS -->
                 <div class="space-y-2">
-                    <button onclick="clearAllInputs()" class="w-full p-3 text-sm bg-red-900/30 border border-red-800 rounded hover:bg-red-800">
-                        <i class="fas fa-trash mr-2"></i> Clear All Data
+                    <button onclick="calculateAll()" class="w-full p-3 bg-crimson text-white font-bold rounded hover:bg-red-700">
+                        Calculate Now
                     </button>
-                    <button onclick="exportReport()" class="w-full p-3 text-sm bg-gray-800 border border-gray-700 rounded hover:bg-gray-700">
-                        <i class="fas fa-download mr-2"></i> Export Report
+                    <button onclick="clearAll()" class="w-full p-3 bg-gray-800 text-white rounded hover:bg-gray-700">
+                        Clear All Data
                     </button>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
     <script>
-        // GLOBAL VARIABLES
-        let myChart;
-        let isWarMode = false;
-        let p3Cache = [];
+        // GLOBALS
+        let budgetChart = null;
+        let debts = [];
         
-        // INITIALIZATION
+        // INITIALIZE ON LOAD
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize chart
+            console.log('Page loaded, initializing...');
+            initializeChart();
+            addDebt(); // Start with one debt row
+            calculateAll(); // Run initial calculation
+        });
+        
+        // INITIALIZE CHART - THIS IS THE FIX
+        function initializeChart() {
+            console.log('Initializing chart...');
             const canvas = document.getElementById('budgetChart');
-            if (canvas) {
-                const ctx = canvas.getContext('2d');
-                myChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Tier 1 (Needs)', 'Debt Minimums', 'Tier 2 (Infra)', 'Tier 3 (Wants)', 'Savings/Investments', 'Surplus'],
-                        datasets: [{
-                            data: [0, 0, 0, 0, 0, 100],
-                            backgroundColor: ['#FFFFFF', '#B22234', '#9ca3af', '#4b5563', '#10B981', '#00FF00'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        cutout: '70%',
-                        plugins: {
-                            legend: {
-                                display: false
+            
+            if (!canvas) {
+                console.error('Canvas element not found!');
+                return;
+            }
+            
+            // Make sure canvas has proper dimensions
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = 300;
+            
+            const ctx = canvas.getContext('2d');
+            
+            // Destroy existing chart if it exists
+            if (budgetChart) {
+                budgetChart.destroy();
+            }
+            
+            // Create new chart with initial data
+            budgetChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Needs', 'Debt', 'Infrastructure', 'Wants', 'Savings', 'Surplus'],
+                    datasets: [{
+                        data: [10, 10, 10, 10, 10, 50], // Start with visible segments
+                        backgroundColor: [
+                            '#FFFFFF',
+                            '#B22234',
+                            '#9ca3af',
+                            '#4b5563',
+                            '#10B981',
+                            '#00FF00'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'white',
+                                padding: 15,
+                                font: {
+                                    size: 11
+                                }
                             }
                         }
                     }
-                });
-            }
+                }
+            });
             
-            // Add initial debt row
-            addDebtRow();
-            
-            // Load saved data
-            loadProfile();
-            
-            // Run initial calculation
-            calculateAll();
-        });
+            console.log('Chart initialized successfully');
+        }
         
-        // DEBT MANAGEMENT
-        function addDebtRow() {
-            const debtBody = document.getElementById('debt-body');
-            if (!debtBody) return;
+        // ADD DEBT ROW
+        function addDebt() {
+            const container = document.getElementById('debt-container');
+            const index = debts.length;
+            
+            debts.push({
+                name: `Debt ${index + 1}`,
+                balance: 0,
+                minimum: 0,
+                rate: 0
+            });
             
             const row = document.createElement('div');
             row.className = 'grid grid-cols-4 gap-2 mb-2';
             row.innerHTML = `
                 <div>
-                    <input type="text" placeholder="Liability" class="debt-name-input input-underlined w-full text-sm" oninput="calculateAll()">
+                    <input type="text" placeholder="Name" class="debt-name w-full bg-navy-800 text-white p-2 rounded text-sm" 
+                           oninput="updateDebt(${index}, 'name', this.value)">
                 </div>
                 <div>
-                    <input type="number" placeholder="Min Payment" class="debt-min-input input-underlined w-full text-sm" oninput="calculateAll()">
+                    <input type="number" placeholder="Balance" class="debt-balance w-full bg-navy-800 text-white p-2 rounded text-sm" 
+                           oninput="updateDebt(${index}, 'balance', this.value)">
                 </div>
                 <div>
-                    <input type="number" placeholder="Balance" class="debt-balance-input input-underlined w-full text-sm" oninput="calculateAll()">
+                    <input type="number" placeholder="Min Payment" class="debt-minimum w-full bg-navy-800 text-white p-2 rounded text-sm" 
+                           oninput="updateDebt(${index}, 'minimum', this.value)">
                 </div>
-                <div class="flex items-center">
-                    <input type="number" step="0.1" placeholder="Rate %" class="debt-rate-input input-underlined w-full text-sm" oninput="calculateAll()">
-                    <button onclick="removeDebtRow(this)" class="ml-2 text-red-500 hover:text-red-700">
-                        <i class="fas fa-times"></i>
+                <div class="flex">
+                    <input type="number" placeholder="Rate %" class="debt-rate w-full bg-navy-800 text-white p-2 rounded text-sm" 
+                           oninput="updateDebt(${index}, 'rate', this.value)">
+                    <button onclick="removeDebt(${index})" class="ml-2 text-red-500 hover:text-red-700">
+                        ×
                     </button>
                 </div>
             `;
-            debtBody.appendChild(row);
+            
+            container.appendChild(row);
         }
         
-        function removeDebtRow(button) {
-            button.closest('.grid').remove();
+        // UPDATE DEBT
+        function updateDebt(index, field, value) {
+            if (index >= debts.length) return;
+            
+            if (field === 'name') {
+                debts[index][field] = value;
+            } else {
+                debts[index][field] = parseFloat(value) || 0;
+            }
+            
             calculateAll();
         }
         
-        // CORE CALCULATION ENGINE
+        // REMOVE DEBT
+        function removeDebt(index) {
+            debts.splice(index, 1);
+            updateDebtDisplay();
+            calculateAll();
+        }
+        
+        // UPDATE DEBT DISPLAY
+        function updateDebtDisplay() {
+            const container = document.getElementById('debt-container');
+            container.innerHTML = '';
+            
+            debts.forEach((debt, index) => {
+                const row = document.createElement('div');
+                row.className = 'grid grid-cols-4 gap-2 mb-2';
+                row.innerHTML = `
+                    <div>
+                        <input type="text" value="${debt.name}" class="debt-name w-full bg-navy-800 text-white p-2 rounded text-sm" 
+                               oninput="updateDebt(${index}, 'name', this.value)">
+                    </div>
+                    <div>
+                        <input type="number" value="${debt.balance}" class="debt-balance w-full bg-navy-800 text-white p-2 rounded text-sm" 
+                               oninput="updateDebt(${index}, 'balance', this.value)">
+                    </div>
+                    <div>
+                        <input type="number" value="${debt.minimum}" class="debt-minimum w-full bg-navy-800 text-white p-2 rounded text-sm" 
+                               oninput="updateDebt(${index}, 'minimum', this.value)">
+                    </div>
+                    <div class="flex">
+                        <input type="number" value="${debt.rate}" class="debt-rate w-full bg-navy-800 text-white p-2 rounded text-sm" 
+                               oninput="updateDebt(${index}, 'rate', this.value)">
+                        <button onclick="removeDebt(${index})" class="ml-2 text-red-500 hover:text-red-700">
+                            ×
+                        </button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+        
+        // MAIN CALCULATION FUNCTION
         function calculateAll() {
+            console.log('Calculating...');
+            
             try {
-                // Calculate income
-                const paycheck = parseFloat(document.getElementById('paycheck')?.value) || 0;
-                const freq = parseFloat(document.getElementById('freq')?.value) || 2;
+                // 1. CALCULATE INCOME
+                const incomeInput = parseFloat(document.getElementById('income').value) || 0;
+                const frequency = parseFloat(document.getElementById('frequency').value) || 1;
                 
-                let income = 0;
-                if (freq === 1) {
-                    income = paycheck;
-                } else if (freq === 2) {
-                    income = paycheck * 2;
-                } else if (freq === 4) {
-                    income = paycheck * 4.33;
-                } else if (freq === 26) {
-                    income = paycheck * 2.166;
+                let monthlyIncome = incomeInput;
+                if (frequency === 2) {
+                    monthlyIncome = incomeInput * 2;
+                } else if (frequency === 4) {
+                    monthlyIncome = incomeInput * 4.33;
+                } else if (frequency === 26) {
+                    monthlyIncome = incomeInput * 2.166;
+                }
+                
+                document.getElementById('adjusted-income').textContent = monthlyIncome.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+                
+                // 2. CALCULATE DEBT
+                let totalDebt = 0;
+                let totalMinimums = 0;
+                
+                debts.forEach(debt => {
+                    totalDebt += debt.balance;
+                    totalMinimums += debt.minimum;
+                });
+                
+                document.getElementById('total-debt').textContent = '$' + totalDebt.toLocaleString();
+                document.getElementById('total-minimums').textContent = '$' + totalMinimums.toLocaleString();
+                
+                // 3. CALCULATE EXPENSES
+                let tier1Total = 0;
+                document.querySelectorAll('.tier1').forEach(input => {
+                    tier1Total += parseFloat(input.value) || 0;
+                });
+                
+                let tier2Total = 0;
+                document.querySelectorAll('.tier2').forEach(input => {
+                    tier2Total += parseFloat(input.value) || 0;
+                });
+                
+                let tier3Total = 0;
+                document.querySelectorAll('.tier3').forEach(input => {
+                    tier3Total += parseFloat(input.value) || 0;
+                });
+                
+                let savingsTotal = 0;
+                document.querySelectorAll('.savings').forEach(input => {
+                    savingsTotal += parseFloat(input.value) || 0;
+                });
+                
+                // 4. CALCULATE PERCENTAGES
+                const needsPercent = monthlyIncome > 0 ? (tier1Total / monthlyIncome) * 100 : 0;
+                const wantsPercent = monthlyIncome > 0 ? (tier3Total / monthlyIncome) * 100 : 0;
+                const savingsPercent = monthlyIncome > 0 ? (savingsTotal / monthlyIncome) * 100 : 0;
+                const infraPercent = monthlyIncome > 0 ? (tier2Total / monthlyIncome) * 100 : 0;
+                
+                // 5. UPDATE BADGES
+                updateBadge('tier1-percent', needsPercent, 50, false);
+                updateBadge('tier2-percent', infraPercent, 20, false);
+                updateBadge('tier3-percent', wantsPercent, 30, false);
+                updateBadge('savings-percent', savingsPercent, 20, true);
+                
+                // 6. UPDATE 50/30/20 RULE
+                document.getElementById('rule-needs').textContent = needsPercent.toFixed(1) + '%';
+                document.getElementById('rule-wants').textContent = wantsPercent.toFixed(1) + '%';
+                document.getElementById('rule-savings').textContent = savingsPercent.toFixed(1) + '%';
+                
+                document.getElementById('needs-bar').style.width = Math.min(100, needsPercent) + '%';
+                document.getElementById('wants-bar').style.width = Math.min(100, wantsPercent) + '%';
+                document.getElementById('savings-bar').style.width = Math.min(100, savingsPercent) + '%';
+                
+                // 7. CALCULATE SURPLUS
+                const totalExpenses = tier1Total + totalMinimums + tier2Total + tier3Total + savingsTotal;
+                const surplus = monthlyIncome - totalExpenses;
+                
+                // 8. UPDATE SUMMARY
+                document.getElementById('summary-income').textContent = '$' + monthlyIncome.toLocaleString();
+                document.getElementById('summary-expenses').textContent = '$' + totalExpenses.toLocaleString();
+                document.getElementById('savings-rate').textContent = savingsPercent.toFixed(1) + '%';
+                
+                // 9. UPDATE SURPLUS DISPLAY
+                const surplusEl = document.getElementById('surplus');
+                if (surplus >= 0) {
+                    surplusEl.textContent = '$' + Math.round(surplus).toLocaleString();
+                    surplusEl.className = 'text-3xl font-bold text-green-500';
                 } else {
-                    income = paycheck * 2;
+                    surplusEl.textContent = '-$' + Math.round(Math.abs(surplus)).toLocaleString();
+                    surplusEl.className = 'text-3xl font-bold text-red-500';
                 }
                 
-                // Update income summary
-                const incomeSummary = document.getElementById('income-summary');
-                if (incomeSummary) {
-                    incomeSummary.textContent = income.toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
+                // 10. UPDATE CHART - THIS IS CRITICAL
+                if (budgetChart) {
+                    console.log('Updating chart with data:', {
+                        tier1Total, totalMinimums, tier2Total, tier3Total, savingsTotal, surplus
                     });
+                    
+                    // Force chart to show even with zeros
+                    const chartData = [
+                        Math.max(1, tier1Total), // Minimum 1 to show segment
+                        Math.max(1, totalMinimums),
+                        Math.max(1, tier2Total),
+                        Math.max(1, tier3Total),
+                        Math.max(1, savingsTotal),
+                        Math.max(1, Math.abs(surplus))
+                    ];
+                    
+                    budgetChart.data.datasets[0].data = chartData;
+                    
+                    // Set surplus/deficit color
+                    if (surplus >= 0) {
+                        budgetChart.data.datasets[0].backgroundColor[5] = '#00FF00';
+                        budgetChart.data.labels[5] = 'Surplus';
+                    } else {
+                        budgetChart.data.datasets[0].backgroundColor[5] = '#DC143C';
+                        budgetChart.data.labels[5] = 'Deficit';
+                    }
+                    
+                    budgetChart.update();
+                    console.log('Chart updated successfully');
+                } else {
+                    console.error('Chart not initialized!');
+                    initializeChart(); // Try to reinitialize
                 }
                 
-                // Calculate debt totals
-                let dMin = 0, dTotal = 0;
-                
-                document.querySelectorAll('.debt-min-input').forEach(i => {
-                    const val = parseFloat(i.value) || 0;
-                    dMin += val;
-                });
-                
-                document.querySelectorAll('.debt-balance-input').forEach(i => {
-                    const val = parseFloat(i.value) || 0;
-                    dTotal += val;
-                });
-                
-                // Update debt displays
-                const totalDebtVal = document.getElementById('total-debt-val');
-                const mobileDebtMin = document.getElementById('mobile-debt-min');
-                const totalDebtDisplay = document.getElementById('total-debt-display');
-                
-                if (totalDebtVal) totalDebtVal.textContent = '$' + dTotal.toLocaleString();
-                if (mobileDebtMin) mobileDebtMin.textContent = '$' + dMin.toLocaleString();
-                if (totalDebtDisplay) totalDebtDisplay.textContent = '$' + dTotal.toLocaleString();
-                
-                // Calculate tier totals
-                let t1 = 0, t2 = 0, t3 = 0, savings = 0;
-                
-                document.querySelectorAll('.tier-1-input').forEach(i => {
-                    const val = parseFloat(i.value) || 0;
-                    t1 += val;
-                });
-                
-                document.querySelectorAll('.tier-2-input').forEach(i => {
-                    const val = parseFloat(i.value) || 0;
-                    t2 += val;
-                });
-                
-                document.querySelectorAll('.tier-3-input').forEach(i => {
-                    const val = parseFloat(i.value) || 0;
-                    t3 += val;
-                });
-                
-                document.querySelectorAll('.savings-input').forEach(i => {
-                    const val = parseFloat(i.value) || 0;
-                    savings += val;
-                });
-                
-                // Calculate totals
-                const totalMonthlyOut = t1 + dMin + t2 + t3 + savings;
-                const monthlySurplus = income - totalMonthlyOut;
-                
-                // Calculate percentages
-                const needsPerc = income > 0 ? (t1 / income) * 100 : 0;
-                const wantsPerc = income > 0 ? (t3 / income) * 100 : 0;
-                const savingsPerc = income > 0 ? (savings / income) * 100 : 0;
-                const infraPerc = income > 0 ? (t2 / income) * 100 : 0;
-                
-                // Update badges
-                updateBadge('badge-t1', needsPerc, 50, false);
-                updateBadge('badge-t2', infraPerc, 20, false);
-                updateBadge('badge-t3', wantsPerc, 30, false);
-                updateBadge('badge-savings', savingsPerc, 20, true);
-                
-                // Update 50/30/20 rule
-                update503020(needsPerc, wantsPerc, savingsPerc);
-                
-                // Update surplus displays
-                updateSurplusDisplay(monthlySurplus);
-                
-                // Update freedom timeline
-                updateFreedomTimeline(dTotal, monthlySurplus);
-                
-                // Update savings summary
-                updateSavingsSummary(savings, income);
-                
-                // Update chart
-                updateChart(t1, dMin, t2, t3, savings, monthlySurplus);
-                
-                // Auto-save
-                saveProfile();
+                console.log('Calculation complete');
                 
             } catch (error) {
-                console.error("Error in calculateAll():", error);
+                console.error('Error in calculateAll:', error);
             }
         }
         
-        function updateBadge(id, current, target, isHigherBetter = false) {
-            const badge = document.getElementById(id);
+        // UPDATE BADGE
+        function updateBadge(elementId, current, target, isHigherBetter) {
+            const badge = document.getElementById(elementId);
             if (!badge) return;
             
-            badge.textContent = Math.round(current) + '%';
+            badge.textContent = current.toFixed(1) + '%';
             
             // Remove existing classes
             badge.className = 'badge';
@@ -598,235 +656,29 @@
             }
         }
         
-        function update503020(needsPerc, wantsPerc, savingsPerc) {
-            const needsEl = document.getElementById('rule-needs');
-            const wantsEl = document.getElementById('rule-wants');
-            const savingsEl = document.getElementById('rule-savings');
-            
-            if (needsEl) needsEl.textContent = needsPerc.toFixed(0) + '%';
-            if (wantsEl) wantsEl.textContent = wantsPerc.toFixed(0) + '%';
-            if (savingsEl) savingsEl.textContent = savingsPerc.toFixed(0) + '%';
-        }
-        
-        function updateSurplusDisplay(monthlySurplus) {
-            const centerEl = document.getElementById('center-remaining');
-            const surplusVal = document.getElementById('surplus-val');
-            
-            if (monthlySurplus >= 0) {
-                if (centerEl) {
-                    centerEl.textContent = '$' + Math.round(monthlySurplus).toLocaleString();
-                    centerEl.className = 'text-3xl font-bold text-green-500';
-                }
-                if (surplusVal) {
-                    surplusVal.textContent = '$' + Math.round(monthlySurplus).toLocaleString();
-                    surplusVal.className = 'text-2xl font-bold text-green-500';
-                }
-            } else {
-                const deficit = Math.abs(monthlySurplus);
-                if (centerEl) {
-                    centerEl.textContent = '-$' + Math.round(deficit).toLocaleString();
-                    centerEl.className = 'text-3xl font-bold text-red-500';
-                }
-                if (surplusVal) {
-                    surplusVal.textContent = '-$' + Math.round(deficit).toLocaleString();
-                    surplusVal.className = 'text-2xl font-bold text-red-500';
-                }
-            }
-        }
-        
-        function updateFreedomTimeline(dTotal, monthlySurplus) {
-            const countdownVal = document.getElementById('countdown-val');
-            if (!countdownVal) return;
-            
-            if (monthlySurplus > 0 && dTotal > 0) {
-                const months = Math.ceil(dTotal / monthlySurplus);
-                const years = Math.floor(months / 12);
-                const remainingMonths = months % 12;
-                let timeline = '';
-                if (years > 0) timeline += `${years} year${years > 1 ? 's' : ''} `;
-                if (remainingMonths > 0 || years === 0) timeline += `${remainingMonths} month${remainingMonths !== 1 ? 's' : ''}`;
-                countdownVal.textContent = timeline.trim();
-            } else if (dTotal === 0) {
-                countdownVal.textContent = "DEBT FREE";
-            } else {
-                countdownVal.textContent = "N/A";
-            }
-        }
-        
-        function updateSavingsSummary(savings, income) {
-            const totalSavings = document.getElementById('total-savings');
-            const savingsRate = document.getElementById('savings-rate');
-            
-            if (totalSavings) totalSavings.textContent = '$' + savings.toLocaleString();
-            if (savingsRate) {
-                const rate = income > 0 ? (savings / income) * 100 : 0;
-                savingsRate.textContent = rate.toFixed(1) + '%';
-            }
-        }
-        
-        function updateChart(t1, dMin, t2, t3, savings, monthlySurplus) {
-            if (!myChart) return;
-            
-            const totalExpenses = t1 + dMin + t2 + t3 + savings;
-            const remaining = Math.max(0, monthlySurplus);
-            const deficit = monthlySurplus < 0 ? Math.abs(monthlySurplus) : 0;
-            
-            if (deficit === 0) {
-                myChart.data.datasets[0].data = [t1, dMin, t2, t3, savings, remaining];
-                myChart.data.datasets[0].backgroundColor[5] = '#00FF00';
-                myChart.data.labels[5] = 'Surplus';
-            } else {
-                myChart.data.datasets[0].data = [t1, dMin, t2, t3, savings, deficit];
-                myChart.data.datasets[0].backgroundColor[5] = '#DC143C';
-                myChart.data.labels[5] = 'Deficit';
-            }
-            
-            myChart.update();
-        }
-        
-        // DATA PERSISTENCE
-        function saveProfile() {
-            const data = {
-                paycheck: document.getElementById('paycheck')?.value || '',
-                freq: document.getElementById('freq')?.value || '2',
-                debts: Array.from(document.querySelectorAll('#debt-body > div')).map(row => ({
-                    name: row.querySelector('.debt-name-input')?.value || '',
-                    min: row.querySelector('.debt-min-input')?.value || '0',
-                    bal: row.querySelector('.debt-balance-input')?.value || '0',
-                    rate: row.querySelector('.debt-rate-input')?.value || '0'
-                })),
-                t1: Array.from(document.querySelectorAll('.tier-1-input')).map(i => i.value || '0'),
-                t2: Array.from(document.querySelectorAll('.tier-2-input')).map(i => i.value || '0'),
-                t3: Array.from(document.querySelectorAll('.tier-3-input')).map(i => i.value || '0'),
-                savings: Array.from(document.querySelectorAll('.savings-input')).map(i => i.value || '0')
-            };
-            
-            localStorage.setItem('ironPotProfile', JSON.stringify(data));
-        }
-        
-        function loadProfile() {
-            const saved = localStorage.getItem('ironPotProfile');
-            if (!saved) return;
-            
-            try {
-                const data = JSON.parse(saved);
+        // CLEAR ALL DATA
+        function clearAll() {
+            if (confirm('Clear all data?')) {
+                document.getElementById('income').value = '';
+                document.getElementById('frequency').value = '1';
+                debts = [];
+                updateDebtDisplay();
+                addDebt();
                 
-                // Load basic data
-                document.getElementById('paycheck').value = data.paycheck || '';
-                document.getElementById('freq').value = data.freq || '2';
-                
-                // Load debts
-                const debtBody = document.getElementById('debt-body');
-                if (debtBody && data.debts) {
-                    debtBody.innerHTML = '';
-                    data.debts.forEach(debt => {
-                        const row = document.createElement('div');
-                        row.className = 'grid grid-cols-4 gap-2 mb-2';
-                        row.innerHTML = `
-                            <div>
-                                <input type="text" value="${debt.name}" class="debt-name-input input-underlined w-full text-sm" oninput="calculateAll()">
-                            </div>
-                            <div>
-                                <input type="number" value="${debt.min}" class="debt-min-input input-underlined w-full text-sm" oninput="calculateAll()">
-                            </div>
-                            <div>
-                                <input type="number" value="${debt.bal}" class="debt-balance-input input-underlined w-full text-sm" oninput="calculateAll()">
-                            </div>
-                            <div class="flex items-center">
-                                <input type="number" step="0.1" value="${debt.rate}" class="debt-rate-input input-underlined w-full text-sm" oninput="calculateAll()">
-                                <button onclick="removeDebtRow(this)" class="ml-2 text-red-500 hover:text-red-700">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        `;
-                        debtBody.appendChild(row);
-                    });
-                }
-                
-                // Load tier inputs
-                document.querySelectorAll('.tier-1-input').forEach((el, i) => {
-                    if (data.t1 && data.t1[i]) el.value = data.t1[i];
-                });
-                document.querySelectorAll('.tier-2-input').forEach((el, i) => {
-                    if (data.t2 && data.t2[i]) el.value = data.t2[i];
-                });
-                document.querySelectorAll('.tier-3-input').forEach((el, i) => {
-                    if (data.t3 && data.t3[i]) el.value = data.t3[i];
-                });
-                document.querySelectorAll('.savings-input').forEach((el, i) => {
-                    if (data.savings && data.savings[i]) el.value = data.savings[i];
+                document.querySelectorAll('.tier1, .tier2, .tier3, .savings').forEach(input => {
+                    input.value = '';
                 });
                 
-            } catch (error) {
-                console.error('Error loading saved data:', error);
-            }
-        }
-        
-        function clearAllInputs() {
-            if (confirm('Are you sure you want to clear all data?')) {
-                document.getElementById('paycheck').value = '';
-                document.getElementById('freq').value = '2';
-                
-                const debtBody = document.getElementById('debt-body');
-                if (debtBody) debtBody.innerHTML = '';
-                addDebtRow();
-                
-                document.querySelectorAll('.tier-1-input, .tier-2-input, .tier-3-input, .savings-input').forEach(i => {
-                    i.value = '';
-                });
-                
-                localStorage.removeItem('ironPotProfile');
                 calculateAll();
             }
         }
         
-        function exportReport() {
-            const income = document.getElementById('income-summary')?.textContent || '0';
-            const surplus = document.getElementById('surplus-val')?.textContent || '$0';
-            const savingsRate = document.getElementById('savings-rate')?.textContent || '0%';
-            
-            const report = `
-IRON POT MILLIONAIRE REPORT
-============================
-Date: ${new Date().toLocaleDateString()}
-
-INCOME
-------
-Monthly Income: $${income}
-
-EXPENSE BREAKDOWN
------------------
-Needs (Tier 1): ${document.getElementById('badge-t1')?.textContent || '0%'}
-Infrastructure (Tier 2): ${document.getElementById('badge-t2')?.textContent || '0%'}
-Wants (Tier 3): ${document.getElementById('badge-t3')?.textContent || '0%'}
-
-SAVINGS
--------
-Savings Rate: ${savingsRate}
-Monthly Surplus/Deficit: ${surplus}
-
-DEBT SUMMARY
-------------
-Total Debt: ${document.getElementById('total-debt-val')?.textContent || '$0'}
-Monthly Payments: ${document.getElementById('mobile-debt-min')?.textContent || '$0'}
-
-50/30/20 RULE
--------------
-Needs: ${document.getElementById('rule-needs')?.textContent || '0%'}
-Wants: ${document.getElementById('rule-wants')?.textContent || '0%'}
-Savings: ${document.getElementById('rule-savings')?.textContent || '0%'}
-            `.trim();
-            
-            const blob = new Blob([report], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'iron-pot-report.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
+        // RESIZE CHART ON WINDOW RESIZE
+        window.addEventListener('resize', function() {
+            if (budgetChart) {
+                budgetChart.resize();
+            }
+        });
         
     </script>
 </body>
