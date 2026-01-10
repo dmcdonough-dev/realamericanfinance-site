@@ -6,9 +6,14 @@
             <h3 class="text-xl font-bold text-white">Iron Pot Calculator</h3>
             <p class="text-sm text-gray-400">Build your financial foundation</p>
         </div>
-        <div class="text-right">
-            <div class="text-xs text-gray-400">Pillar Progress</div>
-            <div class="text-sm font-bold text-crimson" id="tool-pillar-progress">0%</div>
+        <div class="flex items-center gap-4">
+            <button id="tool-reset-btn" class="px-3 py-1 text-sm bg-navy-800 hover:bg-navy-700 text-gray-300 rounded-lg transition-colors border border-white/10">
+                <i class="fas fa-redo mr-1"></i> Reset
+            </button>
+            <div class="text-right">
+                <div class="text-xs text-gray-400">Pillar Progress</div>
+                <div class="text-sm font-bold text-crimson" id="tool-pillar-progress">0%</div>
+            </div>
         </div>
     </div>
     
@@ -41,7 +46,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
                 <label class="block text-sm text-gray-400 mb-2">Net Monthly Income ($)</label>
-                <input type="number" id="tool-monthly-income" class="input-underlined w-full p-3" placeholder="5000" value="5000" min="0" step="100">
+                <input type="number" id="tool-monthly-income" class="input-underlined w-full p-3" placeholder="Enter amount" min="0" step="100">
                 <div class="text-xs text-gray-500 mt-1">Your take-home pay after taxes</div>
             </div>
             <div>
@@ -74,35 +79,35 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Housing/Rent ($)</label>
-                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="1500" value="1500" min="0">
+                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Utilities ($)</label>
-                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="300" value="300" min="0">
+                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Groceries ($)</label>
-                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="400" value="400" min="0">
+                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Transportation ($)</label>
-                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="250" value="250" min="0">
+                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Insurance ($)</label>
-                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="200" value="200" min="0">
+                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Healthcare ($)</label>
-                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="150" value="150" min="0">
+                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Minimum Debt Payments ($)</label>
-                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="300" value="300" min="0">
+                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Other Essentials ($)</label>
-                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="100" value="100" min="0">
+                        <input type="number" class="tool-tier1-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                 </div>
                 
@@ -134,22 +139,22 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Emergency Fund ($)</label>
-                        <input type="number" class="tool-tier2-expense input-underlined w-full p-2" placeholder="500" value="500" min="0">
+                        <input type="number" class="tool-tier2-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                         <div class="text-xs text-gray-500 mt-1">Iron Pot contributions</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Retirement Investments ($)</label>
-                        <input type="number" class="tool-tier2-expense input-underlined w-full p-2" placeholder="400" value="400" min="0">
+                        <input type="number" class="tool-tier2-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                         <div class="text-xs text-gray-500 mt-1">401k, IRA, brokerage</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Extra Debt Payments ($)</label>
-                        <input type="number" class="tool-tier2-expense input-underlined w-full p-2" placeholder="200" value="200" min="0">
+                        <input type="number" class="tool-tier2-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                         <div class="text-xs text-gray-500 mt-1">Above minimum payments</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Future Purchases ($)</label>
-                        <input type="number" class="tool-tier2-expense input-underlined w-full p-2" placeholder="100" value="100" min="0">
+                        <input type="number" class="tool-tier2-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                         <div class="text-xs text-gray-500 mt-1">Car, home, education fund</div>
                     </div>
                 </div>
@@ -182,35 +187,35 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Dining Out ($)</label>
-                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="250" value="250" min="0">
+                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Entertainment ($)</label>
-                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="150" value="150" min="0">
+                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Shopping ($)</label>
-                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="200" value="200" min="0">
+                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Subscriptions ($)</label>
-                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="100" value="100" min="0">
+                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Hobbies ($)</label>
-                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="150" value="150" min="0">
+                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Travel ($)</label>
-                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="100" value="100" min="0">
+                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Gifts/Donations ($)</label>
-                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="75" value="75" min="0">
+                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Other Discretionary ($)</label>
-                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="50" value="50" min="0">
+                        <input type="number" class="tool-tier3-expense input-underlined w-full p-2" placeholder="Enter amount" min="0">
                     </div>
                 </div>
                 
@@ -331,12 +336,12 @@
                 <div class="space-y-3">
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Assets ($)</label>
-                        <input type="number" id="tool-assets" class="input-underlined w-full p-2" placeholder="100000" value="100000" min="0">
+                        <input type="number" id="tool-assets" class="input-underlined w-full p-2" placeholder="Enter amount" min="0">
                         <div class="text-xs text-gray-500 mt-1">Cash, investments, property</div>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Liabilities ($)</label>
-                        <input type="number" id="tool-liabilities" class="input-underlined w-full p-2" placeholder="25000" value="25000" min="0">
+                        <input type="number" id="tool-liabilities" class="input-underlined w-full p-2" placeholder="Enter amount" min="0">
                         <div class="text-xs text-gray-500 mt-1">Debts, loans, mortgages</div>
                     </div>
                     
@@ -445,6 +450,9 @@ function initPillar01() {
     // Setup event listeners
     setupToolCalculator();
     
+    // Add reset functionality
+    setupResetFunction();
+    
     // Calculate immediately
     setTimeout(calculateTool, 100);
     
@@ -513,18 +521,32 @@ function initializeCharts() {
 }
 
 function setupToolCalculator() {
-    // Income and frequency
-    document.getElementById('tool-monthly-income').addEventListener('input', calculateTool);
-    document.getElementById('tool-pay-frequency').addEventListener('change', calculateTool);
-    
-    // Expenses
-    document.querySelectorAll('.tool-tier1-expense, .tool-tier2-expense, .tool-tier3-expense').forEach(input => {
-        input.addEventListener('input', calculateTool);
+    // Income and frequency with real-time validation
+    document.getElementById('tool-monthly-income').addEventListener('input', function() {
+        validateNumberInput(this);
+        calculateTool();
     });
     
-    // Net worth
-    document.getElementById('tool-assets').addEventListener('input', calculateTool);
-    document.getElementById('tool-liabilities').addEventListener('input', calculateTool);
+    document.getElementById('tool-pay-frequency').addEventListener('change', calculateTool);
+    
+    // Expenses with real-time validation
+    document.querySelectorAll('.tool-tier1-expense, .tool-tier2-expense, .tool-tier3-expense').forEach(input => {
+        input.addEventListener('input', function() {
+            validateNumberInput(this);
+            calculateTool();
+        });
+    });
+    
+    // Net worth with real-time validation
+    document.getElementById('tool-assets').addEventListener('input', function() {
+        validateNumberInput(this);
+        calculateTool();
+    });
+    
+    document.getElementById('tool-liabilities').addEventListener('input', function() {
+        validateNumberInput(this);
+        calculateTool();
+    });
     
     // Target months slider
     const targetSlider = document.getElementById('tool-target-months');
@@ -534,37 +556,144 @@ function setupToolCalculator() {
     });
 }
 
+function setupResetFunction() {
+    document.getElementById('tool-reset-btn').addEventListener('click', function() {
+        if (confirm('Are you sure you want to reset all fields? This cannot be undone.')) {
+            resetAllFields();
+        }
+    });
+}
+
+function resetAllFields() {
+    // Reset income
+    document.getElementById('tool-monthly-income').value = '';
+    document.getElementById('tool-pay-frequency').value = 'monthly';
+    
+    // Reset all expense fields
+    document.querySelectorAll('.tool-tier1-expense, .tool-tier2-expense, .tool-tier3-expense').forEach(input => {
+        input.value = '';
+    });
+    
+    // Reset net worth
+    document.getElementById('tool-assets').value = '';
+    document.getElementById('tool-liabilities').value = '';
+    
+    // Reset target months
+    document.getElementById('tool-target-months').value = 6;
+    document.getElementById('tool-target-months-display').textContent = '6 months';
+    
+    // Clear saved data
+    localStorage.removeItem('raf_pillar01_full');
+    
+    // Recalculate
+    calculateTool();
+    
+    // Show success message
+    showNotification('All fields have been reset successfully!', 'success');
+}
+
+function validateNumberInput(inputElement) {
+    const value = parseFloat(inputElement.value);
+    
+    // Check for negative numbers
+    if (value < 0) {
+        inputElement.value = '';
+        showNotification('Please enter a positive number', 'error');
+        return false;
+    }
+    
+    // Check for extremely large numbers (over $10 million)
+    if (value > 10000000) {
+        inputElement.value = '';
+        showNotification('Please enter a realistic amount (under $10 million)', 'error');
+        return false;
+    }
+    
+    // Check for non-numeric input
+    if (isNaN(value) && inputElement.value !== '') {
+        inputElement.value = '';
+        showNotification('Please enter a valid number', 'error');
+        return false;
+    }
+    
+    return true;
+}
+
+function showNotification(message, type = 'info') {
+    // Remove existing notification
+    const existingNotif = document.querySelector('.tool-notification');
+    if (existingNotif) existingNotif.remove();
+    
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `tool-notification fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg transition-all duration-300 transform translate-x-0 ${
+        type === 'error' ? 'bg-red-500/90 text-white' :
+        type === 'success' ? 'bg-green-500/90 text-white' :
+        'bg-blue-500/90 text-white'
+    }`;
+    notification.innerHTML = `
+        <div class="flex items-center">
+            <i class="fas fa-${type === 'error' ? 'exclamation-triangle' : type === 'success' ? 'check-circle' : 'info-circle'} mr-2"></i>
+            <span>${message}</span>
+        </div>
+    `;
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Auto-remove after 3 seconds
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
 function calculateTool() {
-    // Get income
+    // Get and validate income
     const monthlyIncome = parseFloat(document.getElementById('tool-monthly-income').value) || 0;
     const frequency = document.getElementById('tool-pay-frequency').value;
+    
+    // Validate income
+    if (monthlyIncome < 0) {
+        document.getElementById('tool-monthly-income').value = '';
+        return;
+    }
     
     // Adjust for pay frequency
     let adjustedMonthlyIncome = monthlyIncome;
     if (frequency === 'biweekly') adjustedMonthlyIncome *= 2.1667;
     if (frequency === 'weekly') adjustedMonthlyIncome *= 4.3333;
     
-    // Calculate tier totals
+    // Calculate tier totals with validation
     let tier1Total = 0;
     document.querySelectorAll('.tool-tier1-expense').forEach(input => {
-        tier1Total += parseFloat(input.value) || 0;
+        const value = parseFloat(input.value) || 0;
+        if (value >= 0) {
+            tier1Total += value;
+        }
     });
     
     let tier2Total = 0;
     document.querySelectorAll('.tool-tier2-expense').forEach(input => {
-        tier2Total += parseFloat(input.value) || 0;
+        const value = parseFloat(input.value) || 0;
+        if (value >= 0) {
+            tier2Total += value;
+        }
     });
     
     let tier3Total = 0;
     document.querySelectorAll('.tool-tier3-expense').forEach(input => {
-        tier3Total += parseFloat(input.value) || 0;
+        const value = parseFloat(input.value) || 0;
+        if (value >= 0) {
+            tier3Total += value;
+        }
     });
     
     // Calculate totals
     const totalExpenses = tier1Total + tier2Total + tier3Total;
     const monthlySurplus = adjustedMonthlyIncome - totalExpenses;
     
-    // Calculate percentages
+    // Calculate percentages (handle division by zero)
     const tier1Percentage = adjustedMonthlyIncome > 0 ? (tier1Total / adjustedMonthlyIncome * 100) : 0;
     const tier2Percentage = adjustedMonthlyIncome > 0 ? (tier2Total / adjustedMonthlyIncome * 100) : 0;
     const tier3Percentage = adjustedMonthlyIncome > 0 ? (tier3Total / adjustedMonthlyIncome * 100) : 0;
@@ -572,15 +701,18 @@ function calculateTool() {
     // Iron Pot calculations
     const targetMonths = parseInt(document.getElementById('tool-target-months').value) || 6;
     const targetIronPot = tier1Total * targetMonths;
-    const existingSavings = tier2Total * 3; // Estimate 3 months of savings
+    
+    // Estimate existing savings from emergency fund input
+    const emergencyFundInput = document.querySelectorAll('.tool-tier2-expense')[0];
+    const existingSavings = parseFloat(emergencyFundInput?.value) || 0;
     const ironPotProgress = targetIronPot > 0 ? Math.min(100, (existingSavings / targetIronPot * 100)) : 0;
     
-    // Net worth
+    // Net worth calculations with validation
     const assets = parseFloat(document.getElementById('tool-assets').value) || 0;
     const liabilities = parseFloat(document.getElementById('tool-liabilities').value) || 0;
     const netWorth = assets - liabilities;
     
-    // Update all displays
+    // Update all displays in real-time
     
     // Quick stats
     document.getElementById('quick-surplus').textContent = `$${monthlySurplus.toLocaleString()}`;
@@ -601,10 +733,12 @@ function calculateTool() {
     document.getElementById('tool-monthly-needs').textContent = `$${tier1Total.toLocaleString()}`;
     document.getElementById('tool-target-iron-pot').textContent = `$${targetIronPot.toLocaleString()}`;
     
-    // Months to target
+    // Months to target (handle division by zero)
     let monthsToTarget = '--';
-    if (monthlySurplus > 0) {
+    if (monthlySurplus > 0 && targetIronPot > 0) {
         monthsToTarget = Math.ceil(targetIronPot / monthlySurplus);
+    } else if (monthlySurplus <= 0 && targetIronPot > 0) {
+        monthsToTarget = '∞';
     }
     document.getElementById('tool-months-to-target').textContent = monthsToTarget;
     
@@ -625,9 +759,9 @@ function calculateTool() {
     document.getElementById('tool-savings-percentage').textContent = `${tier2Percentage.toFixed(1)}%`;
     document.getElementById('tool-wants-percentage').textContent = `${tier3Percentage.toFixed(1)}%`;
     
-    // Progress bars
+    // Progress bars (with safety checks)
     const needsProgress = Math.min(100, (tier1Percentage / 50) * 100);
-    const savingsProgress = Math.min(100, (tier2Percentage / 20) * 100);
+    const savingsProgress = tier2Percentage > 0 ? Math.min(100, (tier2Percentage / 20) * 100) : 0;
     const wantsProgress = Math.min(100, (tier3Percentage / 30) * 100);
     
     document.getElementById('needs-progress-text').textContent = `${tier1Percentage.toFixed(1)}%`;
@@ -643,12 +777,19 @@ function calculateTool() {
     spendingChart.data.datasets[0].data = [tier1Total, tier2Total, tier3Total];
     spendingChart.update();
     
-    // Chart labels
+    // Chart labels (handle division by zero)
     const totalSpending = tier1Total + tier2Total + tier3Total;
     document.getElementById('chart-total').textContent = `$${totalSpending.toLocaleString()}`;
-    document.getElementById('chart-needs').textContent = totalSpending > 0 ? `${((tier1Total / totalSpending) * 100).toFixed(0)}%` : '0%';
-    document.getElementById('chart-savings').textContent = totalSpending > 0 ? `${((tier2Total / totalSpending) * 100).toFixed(0)}%` : '0%';
-    document.getElementById('chart-wants').textContent = totalSpending > 0 ? `${((tier3Total / totalSpending) * 100).toFixed(0)}%` : '0%';
+    
+    if (totalSpending > 0) {
+        document.getElementById('chart-needs').textContent = `${((tier1Total / totalSpending) * 100).toFixed(0)}%`;
+        document.getElementById('chart-savings').textContent = `${((tier2Total / totalSpending) * 100).toFixed(0)}%`;
+        document.getElementById('chart-wants').textContent = `${((tier3Total / totalSpending) * 100).toFixed(0)}%`;
+    } else {
+        document.getElementById('chart-needs').textContent = '0%';
+        document.getElementById('chart-savings').textContent = '0%';
+        document.getElementById('chart-wants').textContent = '0%';
+    }
     
     // Calculate pillar progress
     const pillarProgress = calculatePillarProgress(tier1Percentage, tier2Percentage, tier3Percentage, ironPotProgress);
@@ -656,7 +797,7 @@ function calculateTool() {
     document.getElementById('tool-progress-bar').style.width = `${pillarProgress}%`;
     
     // Generate recommendations
-    generateRecommendations(tier1Percentage, tier2Percentage, tier3Percentage, monthlySurplus);
+    generateRecommendations(tier1Percentage, tier2Percentage, tier3Percentage, monthlySurplus, ironPotProgress);
     
     // Save data and update main app
     saveCurrentData();
@@ -684,27 +825,40 @@ function calculatePillarProgress(tier1Percent, tier2Percent, tier3Percent, ironP
     else if (tier3Percent <= 40) score += 10;
     else if (tier3Percent <= 45) score += 5;
     
-    return Math.min(100, score);
+    // Add bonus for Iron Pot progress
+    if (ironPotProgress >= 100) score += 10;
+    else if (ironPotProgress >= 75) score += 7;
+    else if (ironPotProgress >= 50) score += 5;
+    else if (ironPotProgress >= 25) score += 3;
+    
+    return Math.min(100, Math.max(0, score));
 }
 
-function generateRecommendations(tier1Percent, tier2Percent, tier3Percent, monthlySurplus) {
+function generateRecommendations(tier1Percent, tier2Percent, tier3Percent, monthlySurplus, ironPotProgress) {
     const recommendations = [];
+    
+    // Basic instruction if no data
+    if (tier1Percent === 0 && tier2Percent === 0 && tier3Percent === 0) {
+        recommendations.push("📝 <strong>GET STARTED</strong>: Enter your income and expenses above to begin your financial analysis.");
+        updateRecommendationsList(recommendations);
+        return;
+    }
     
     // Needs recommendations
     if (tier1Percent > 60) {
-        recommendations.push("🚨 <strong>CRITICAL</strong>: Needs exceed 60%. Housing or transportation costs likely too high.");
+        recommendations.push("🚨 <strong>CRITICAL</strong>: Needs exceed 60%. Consider downsizing housing or finding cheaper transportation.");
     } else if (tier1Percent > 50) {
         recommendations.push("📊 <strong>OPTIMIZE</strong>: Needs are 50-60%. Look for one area to reduce by 10%.");
-    } else {
-        recommendations.push("✅ <strong>EXCELLENT</strong>: Needs under 50% - strong foundation!");
+    } else if (tier1Percent > 0) {
+        recommendations.push("✅ <strong>EXCELLENT</strong>: Needs under 50% - strong foundation for wealth building!");
     }
     
     // Savings recommendations
     if (tier2Percent < 10) {
-        recommendations.push("💰 <strong>SAVE MORE</strong>: Savings under 10%. Aim for at least 15% to build wealth.");
+        recommendations.push("💰 <strong>SAVE MORE</strong>: Savings under 10%. Start by saving 10% of every paycheck.");
     } else if (tier2Percent < 20) {
         recommendations.push("📈 <strong>GOOD START</strong>: Savings 10-20%. Try increasing by 5% next month.");
-    } else {
+    } else if (tier2Percent > 0) {
         recommendations.push("🚀 <strong>WEALTH BUILDER</strong>: Savings ≥20% - you're building real wealth!");
     }
     
@@ -713,21 +867,48 @@ function generateRecommendations(tier1Percent, tier2Percent, tier3Percent, month
         recommendations.push("💸 <strong>CUT BACK</strong>: Wants exceed 40%. Identify 2-3 discretionary expenses to reduce.");
     } else if (tier3Percent > 30) {
         recommendations.push("🎯 <strong>OPTIMIZE</strong>: Wants 30-40%. Consider reducing subscriptions or dining out.");
-    } else {
+    } else if (tier3Percent > 0) {
         recommendations.push("🎉 <strong>BALANCED</strong>: Wants ≤30% - excellent lifestyle balance!");
     }
     
-    // Surplus recommendations
-    if (monthlySurplus < 0) {
-        recommendations.push("🔥 <strong>DEFICIT ALERT</strong>: Spending exceeds income. Immediate action required.");
-    } else if (monthlySurplus < 500) {
-        recommendations.push("📉 <strong>INCREASE SURPLUS</strong>: Surplus under $500. Look for ways to save more.");
+    // Iron Pot recommendations
+    if (ironPotProgress < 25) {
+        recommendations.push("🛡️ <strong>BUILD EMERGENCY FUND</strong>: Iron Pot under 25%. Focus on saving 3 months of expenses first.");
+    } else if (ironPotProgress < 100) {
+        recommendations.push("🏦 <strong>CONTINUE SAVING</strong>: Iron Pot at " + ironPotProgress.toFixed(0) + "%. Keep contributing monthly.");
+    } else if (ironPotProgress >= 100) {
+        recommendations.push("🛡️ <strong>IRON POT COMPLETE</strong>: Emergency fund fully funded! Now focus on investments.");
     }
     
-    // Update recommendations list
+    // Surplus recommendations
+    if (monthlySurplus < -100) {
+        recommendations.push("🔥 <strong>DEFICIT ALERT</strong>: Spending exceeds income by $" + Math.abs(monthlySurplus).toLocaleString() + ". Immediate action required.");
+    } else if (monthlySurplus < 0) {
+        recommendations.push("⚠️ <strong>BUDGET REVIEW</strong>: Small deficit of $" + Math.abs(monthlySurplus).toLocaleString() + ". Review expenses.");
+    } else if (monthlySurplus < 500) {
+        recommendations.push("📉 <strong>INCREASE SURPLUS</strong>: Surplus under $500. Look for ways to save more.");
+    } else if (monthlySurplus > 1000) {
+        recommendations.push("🎯 <strong>GREAT SURPLUS</strong>: $" + monthlySurplus.toLocaleString() + " monthly surplus! Consider increasing investments.");
+    }
+    
+    updateRecommendationsList(recommendations);
+}
+
+function updateRecommendationsList(recommendations) {
     const list = document.getElementById('tool-recommendations-list');
-    list.innerHTML = recommendations.map(rec => 
-        `<li class="flex items-start py-2 border-b border-white/5 last:border-0">
+    
+    if (recommendations.length === 0) {
+        list.innerHTML = `
+            <li class="flex items-start py-2">
+                <i class="fas fa-chevron-right text-crimson mr-3 mt-1 flex-shrink-0"></i>
+                <span class="text-sm">Enter your financial details to get personalized recommendations.</span>
+            </li>
+        `;
+        return;
+    }
+    
+    list.innerHTML = recommendations.map((rec, index) => 
+        `<li class="flex items-start py-2 ${index < recommendations.length - 1 ? 'border-b border-white/5' : ''}">
             <i class="fas fa-chevron-right text-crimson mr-3 mt-1 flex-shrink-0"></i>
             <span class="text-sm">${rec}</span>
          </li>`
@@ -752,42 +933,50 @@ function saveCurrentData() {
 function loadSavedData() {
     const saved = localStorage.getItem('raf_pillar01_full');
     if (saved) {
-        const data = JSON.parse(saved);
-        
-        // Restore values
-        document.getElementById('tool-monthly-income').value = data.income || 5000;
-        document.getElementById('tool-pay-frequency').value = data.frequency || 'monthly';
-        document.getElementById('tool-assets').value = data.assets || 100000;
-        document.getElementById('tool-liabilities').value = data.liabilities || 25000;
-        document.getElementById('tool-target-months').value = data.targetMonths || 6;
-        document.getElementById('tool-target-months-display').textContent = `${data.targetMonths || 6} months`;
-        
-        // Restore tier 1 expenses
-        const tier1Inputs = document.querySelectorAll('.tool-tier1-expense');
-        if (data.tier1) {
-            data.tier1.forEach((value, i) => {
-                if (tier1Inputs[i]) tier1Inputs[i].value = value;
-            });
+        try {
+            const data = JSON.parse(saved);
+            
+            // Restore values if they exist
+            if (data.income) document.getElementById('tool-monthly-income').value = data.income;
+            if (data.frequency) document.getElementById('tool-pay-frequency').value = data.frequency;
+            if (data.assets) document.getElementById('tool-assets').value = data.assets;
+            if (data.liabilities) document.getElementById('tool-liabilities').value = data.liabilities;
+            if (data.targetMonths) {
+                document.getElementById('tool-target-months').value = data.targetMonths;
+                document.getElementById('tool-target-months-display').textContent = `${data.targetMonths} months`;
+            }
+            
+            // Restore tier 1 expenses
+            const tier1Inputs = document.querySelectorAll('.tool-tier1-expense');
+            if (data.tier1 && Array.isArray(data.tier1)) {
+                data.tier1.forEach((value, i) => {
+                    if (tier1Inputs[i] && value) tier1Inputs[i].value = value;
+                });
+            }
+            
+            // Restore tier 2 expenses
+            const tier2Inputs = document.querySelectorAll('.tool-tier2-expense');
+            if (data.tier2 && Array.isArray(data.tier2)) {
+                data.tier2.forEach((value, i) => {
+                    if (tier2Inputs[i] && value) tier2Inputs[i].value = value;
+                });
+            }
+            
+            // Restore tier 3 expenses
+            const tier3Inputs = document.querySelectorAll('.tool-tier3-expense');
+            if (data.tier3 && Array.isArray(data.tier3)) {
+                data.tier3.forEach((value, i) => {
+                    if (tier3Inputs[i] && value) tier3Inputs[i].value = value;
+                });
+            }
+            
+            // Recalculate
+            setTimeout(calculateTool, 100);
+            
+        } catch (error) {
+            console.error('Error loading saved data:', error);
+            localStorage.removeItem('raf_pillar01_full');
         }
-        
-        // Restore tier 2 expenses
-        const tier2Inputs = document.querySelectorAll('.tool-tier2-expense');
-        if (data.tier2) {
-            data.tier2.forEach((value, i) => {
-                if (tier2Inputs[i]) tier2Inputs[i].value = value;
-            });
-        }
-        
-        // Restore tier 3 expenses
-        const tier3Inputs = document.querySelectorAll('.tool-tier3-expense');
-        if (data.tier3) {
-            data.tier3.forEach((value, i) => {
-                if (tier3Inputs[i]) tier3Inputs[i].value = value;
-            });
-        }
-        
-        // Recalculate
-        setTimeout(calculateTool, 100);
     }
 }
 
@@ -837,6 +1026,15 @@ style.textContent = `
     .input-underlined:focus {
         border-bottom-color: #B22234;
         box-shadow: 0 1px 0 0 #B22234;
+    }
+    
+    .tool-notification {
+        animation: slideInRight 0.3s ease-out;
+    }
+    
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
     }
 `;
 document.head.appendChild(style);
