@@ -1,375 +1,700 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Iron Pot Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pillar 01: Iron Pot Millionaire | Real American Finance</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            background: #0a0a0a;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             color: white;
-            font-family: Arial, sans-serif;
+            min-height: 100vh;
             padding: 20px;
+        }
+        
+        .container {
             max-width: 1200px;
             margin: 0 auto;
         }
         
-        .section {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        h1, h2, h3 {
-            color: #ff4444;
-            margin-top: 0;
-        }
-        
-        input {
-            background: #2a2a2a;
-            border: 1px solid #444;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            width: 200px;
-            font-size: 16px;
-        }
-        
-        .chart-container {
-            width: 100%;
-            height: 400px;
-            margin-top: 20px;
-        }
-        
-        .results {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .result-box {
-            background: #2a2a2a;
-            padding: 15px;
-            border-radius: 5px;
+        header {
             text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
         }
         
-        .result-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #4CAF50;
-            margin: 10px 0;
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #B22234;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         
-        .tier {
-            margin-bottom: 15px;
-            padding: 15px;
-            border-left: 5px solid;
-            border-radius: 5px;
+        .subtitle {
+            color: #ccc;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
         }
         
-        .tier-1 { border-color: white; background: rgba(255,255,255,0.1); }
-        .tier-2 { border-color: #aaa; background: rgba(170,170,170,0.1); }
-        .tier-3 { border-color: #666; background: rgba(102,102,102,0.1); }
-        .savings { border-color: #4CAF50; background: rgba(76,175,80,0.1); }
+        .dashboard-card {
+            background: rgba(10, 26, 47, 0.9);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+        }
         
-        button {
-            background: #ff4444;
+        h2 {
+            color: #B22234;
+            margin-bottom: 20px;
+            border-left: 4px solid #B22234;
+            padding-left: 15px;
+            font-size: 1.8rem;
+        }
+        
+        h3 {
+            margin: 15px 0;
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
         }
         
-        button:hover {
-            background: #ff3333;
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         label {
-            display: block;
-            margin-bottom: 5px;
-            color: #ccc;
+            min-width: 200px;
+            color: #aaa;
         }
         
-        .row {
+        input, select {
+            padding: 12px 15px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            min-width: 200px;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #B22234;
+            box-shadow: 0 0 10px rgba(178, 34, 52, 0.5);
+        }
+        
+        .tier {
+            border-left: 5px solid;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tier-1 {
+            border-color: white;
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .tier-2 {
+            border-color: #9ca3af;
+            background: rgba(156,163,175,0.05);
+        }
+        
+        .tier-3 {
+            border-color: #4b5563;
+            background: rgba(76,85,99,0.05);
+        }
+        
+        .savings-tier {
+            border-color: #10B981;
+            background: rgba(16,185,129,0.1);
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .result-box {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #4CAF50;
+        }
+        
+        .chart-container {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        #pieChart {
+            width: 100%;
+            height: 400px;
+            margin: 20px auto;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin: 5px;
+        }
+        
+        .badge-good {
+            background: rgba(0,255,0,0.2);
+            color: #00FF00;
+            border: 1px solid rgba(0,255,0,0.3);
+        }
+        
+        .badge-warning {
+            background: rgba(255,255,0,0.2);
+            color: yellow;
+            border: 1px solid rgba(255,255,0,0.3);
+        }
+        
+        .badge-danger {
+            background: rgba(178,34,52,0.3);
+            color: #B22234;
+            border: 1px solid rgba(178,34,52,0.5);
+        }
+        
+        button {
+            background: #B22234;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin: 10px 5px;
+        }
+        
+        button:hover {
+            background: #CC3333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(178, 34, 52, 0.4);
+        }
+        
+        .action-buttons {
             display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #aaa;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            input, select {
+                width: 100%;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-
-    <h1>💰 Iron Pot Millionaire</h1>
-    <p>Enter your financial details below</p>
-    
-    <div class="section">
-        <h2>1. Monthly Income</h2>
-        <div class="row">
-            <div>
-                <label>Net Monthly Income ($)</label>
-                <input type="number" id="income" placeholder="3000" value="3000">
+    <div class="container">
+        <header>
+            <h1>PILLAR 01: IRON POT MILLIONAIRE</h1>
+            <div class="subtitle">Build Your Financial Fortress • Real American Finance</div>
+        </header>
+        
+        <!-- INCOME SECTION -->
+        <div class="dashboard-card">
+            <h2>01. Monthly Inflow</h2>
+            <div class="input-group">
+                <label>Net Monthly Income ($):</label>
+                <input type="number" id="income" value="3000" oninput="calculate()" placeholder="Enter your income">
             </div>
-            <div>
-                <label>Pay Frequency</label>
-                <select id="frequency" style="background:#2a2a2a;color:white;padding:10px;border-radius:5px;width:200px;">
+            <div class="input-group">
+                <label>Pay Frequency:</label>
+                <select id="frequency" onchange="calculate()">
                     <option value="1">Monthly</option>
-                    <option value="2" selected>Semi-monthly</option>
+                    <option value="2" selected>Semi-monthly (2x/month)</option>
                     <option value="4">Weekly</option>
+                    <option value="26">Bi-weekly (every 2 weeks)</option>
                 </select>
             </div>
+            <div class="input-group">
+                <div>Adjusted Monthly Income: <strong id="adjusted-income">$0</strong></div>
+            </div>
         </div>
+        
+        <!-- EXPENSES SECTION -->
+        <div class="dashboard-card">
+            <h2>02. Monthly Siege Engine</h2>
+            
+            <div class="tier tier-1">
+                <h3>🏰 Tier 1: Needs (≤50%)</h3>
+                <div class="input-group">
+                    <label>Housing (Rent/Mortgage):</label>
+                    <input type="number" id="housing" value="1200" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <label>Utilities:</label>
+                    <input type="number" id="utilities" value="200" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <label>Groceries:</label>
+                    <input type="number" id="groceries" value="400" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <label>Transportation:</label>
+                    <input type="number" id="transportation" value="150" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <div>Total Needs: <strong id="needs-total">$0</strong> (<span id="needs-percent" class="badge">0%</span>)</div>
+                </div>
+            </div>
+            
+            <div class="tier tier-2">
+                <h3>⚙️ Tier 2: Infrastructure (≤20%)</h3>
+                <div class="input-group">
+                    <label>Internet/Phone:</label>
+                    <input type="number" id="internet" value="100" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <label>Subscriptions:</label>
+                    <input type="number" id="subscriptions" value="50" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <div>Total Infrastructure: <strong id="infra-total">$0</strong> (<span id="infra-percent" class="badge">0%</span>)</div>
+                </div>
+            </div>
+            
+            <div class="tier tier-3">
+                <h3>🎯 Tier 3: Wants (≤30%)</h3>
+                <div class="input-group">
+                    <label>Dining/Entertainment:</label>
+                    <input type="number" id="dining" value="200" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <label>Shopping/Hobbies:</label>
+                    <input type="number" id="shopping" value="100" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <div>Total Wants: <strong id="wants-total">$0</strong> (<span id="wants-percent" class="badge">0%</span>)</div>
+                </div>
+            </div>
+            
+            <div class="tier savings-tier">
+                <h3>💰 Savings & Investments (≥20%)</h3>
+                <div class="input-group">
+                    <label>Emergency Fund:</label>
+                    <input type="number" id="emergency" value="200" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <label>Retirement:</label>
+                    <input type="number" id="retirement" value="300" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <div>Total Savings: <strong id="savings-total">$0</strong> (<span id="savings-percent" class="badge">0%</span>)</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- RESULTS SECTION -->
+        <div class="dashboard-card">
+            <h2>03. Sovereignty Dashboard</h2>
+            
+            <div class="action-buttons">
+                <button onclick="calculate()">Calculate Now</button>
+                <button onclick="resetAll()">Reset All</button>
+                <button onclick="exportData()">Export Report</button>
+            </div>
+            
+            <div class="results-grid">
+                <div class="result-box">
+                    <div>Monthly Income</div>
+                    <div class="result-value" id="result-income">$0</div>
+                </div>
+                <div class="result-box">
+                    <div>Total Expenses</div>
+                    <div class="result-value" id="result-expenses">$0</div>
+                </div>
+                <div class="result-box">
+                    <div>Monthly Surplus</div>
+                    <div class="result-value" id="result-surplus">$0</div>
+                </div>
+                <div class="result-box">
+                    <div>Savings Rate</div>
+                    <div class="result-value" id="result-savings-rate">0%</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <h3>Spending Breakdown</h3>
+                <div id="pieChart"></div>
+            </div>
+            
+            <h3>50/30/20 Rule Status</h3>
+            <div class="results-grid">
+                <div class="result-box">
+                    <div>Needs (≤50%)</div>
+                    <div class="result-value" id="rule-needs">0%</div>
+                    <div id="needs-status" class="badge">On Target</div>
+                </div>
+                <div class="result-box">
+                    <div>Wants (≤30%)</div>
+                    <div class="result-value" id="rule-wants">0%</div>
+                    <div id="wants-status" class="badge">On Target</div>
+                </div>
+                <div class="result-box">
+                    <div>Savings (≥20%)</div>
+                    <div class="result-value" id="rule-savings">0%</div>
+                    <div id="savings-status" class="badge">On Target</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Pillar 01: Iron Pot Millionaire • Real American Finance</p>
+            <p>© 2024 • Discipline • Autonomy • Wealth</p>
+        </footer>
     </div>
-    
-    <div class="section">
-        <h2>2. Monthly Expenses</h2>
-        
-        <div class="tier tier-1">
-            <h3>Tier 1: Needs (≤50%)</h3>
-            <div class="row">
-                <div><label>Housing</label><input type="number" class="tier1" placeholder="1200"></div>
-                <div><label>Utilities</label><input type="number" class="tier1" placeholder="200"></div>
-                <div><label>Groceries</label><input type="number" class="tier1" placeholder="400"></div>
-                <div><label>Transportation</label><input type="number" class="tier1" placeholder="150"></div>
-            </div>
-            <div class="row">
-                <div><label>Insurance</label><input type="number" class="tier1" placeholder="100"></div>
-                <div><label>Healthcare</label><input type="number" class="tier1" placeholder="50"></div>
-            </div>
-            <div>Total: $<span id="tier1-total">0</span> (<span id="tier1-percent">0%</span> of income)</div>
-        </div>
-        
-        <div class="tier tier-2">
-            <h3>Tier 2: Infrastructure (≤20%)</h3>
-            <div class="row">
-                <div><label>Internet/Phone</label><input type="number" class="tier2" placeholder="100"></div>
-                <div><label>Subscriptions</label><input type="number" class="tier2" placeholder="50"></div>
-            </div>
-            <div>Total: $<span id="tier2-total">0</span> (<span id="tier2-percent">0%</span> of income)</div>
-        </div>
-        
-        <div class="tier tier-3">
-            <h3>Tier 3: Wants (≤30%)</h3>
-            <div class="row">
-                <div><label>Dining/Entertainment</label><input type="number" class="tier3" placeholder="200"></div>
-                <div><label>Shopping/Hobbies</label><input type="number" class="tier3" placeholder="100"></div>
-            </div>
-            <div>Total: $<span id="tier3-total">0</span> (<span id="tier3-percent">0%</span> of income)</div>
-        </div>
-        
-        <div class="tier savings">
-            <h3>Savings & Investments (≥20%)</h3>
-            <div class="row">
-                <div><label>Emergency Fund</label><input type="number" class="savings" placeholder="200"></div>
-                <div><label>Retirement</label><input type="number" class="savings" placeholder="300"></div>
-            </div>
-            <div>Total: $<span id="savings-total">0</span> (<span id="savings-percent">0%</span> of income)</div>
-        </div>
-    </div>
-    
-    <div class="section">
-        <h2>3. Results</h2>
-        <button onclick="calculate()">Calculate Now</button>
-        
-        <div class="results">
-            <div class="result-box">
-                <div>Monthly Income</div>
-                <div class="result-value" id="result-income">$0</div>
-            </div>
-            <div class="result-box">
-                <div>Total Expenses</div>
-                <div class="result-value" id="result-expenses">$0</div>
-            </div>
-            <div class="result-box">
-                <div>Monthly Surplus</div>
-                <div class="result-value" id="result-surplus">$0</div>
-            </div>
-            <div class="result-box">
-                <div>Savings Rate</div>
-                <div class="result-value" id="result-savings-rate">0%</div>
-            </div>
-        </div>
-        
-        <div class="chart-container">
-            <h3>Spending Breakdown</h3>
-            <canvas id="chart" style="width:100%; height:100%; background:#2a2a2a; border-radius:5px;"></canvas>
-        </div>
-        
-        <h3>50/30/20 Rule Status</h3>
-        <div class="results">
-            <div class="result-box">
-                <div>Needs (≤50%)</div>
-                <div class="result-value" id="rule-needs">0%</div>
-            </div>
-            <div class="result-box">
-                <div>Wants (≤30%)</div>
-                <div class="result-value" id="rule-wants">0%</div>
-            </div>
-            <div class="result-box">
-                <div>Savings (≥20%)</div>
-                <div class="result-value" id="rule-savings">0%</div>
-            </div>
-        </div>
-    </div>
 
-<script>
-// Simple chart using vanilla JavaScript (no Chart.js dependency)
-let chart = null;
-
-function calculate() {
-    // Get income
-    let income = parseFloat(document.getElementById('income').value) || 0;
-    const freq = parseFloat(document.getElementById('frequency').value) || 2;
-    
-    // Adjust for frequency
-    if (freq === 2) income = income * 2;
-    if (freq === 4) income = income * 4.33;
-    
-    // Calculate tier totals
-    let tier1 = 0, tier2 = 0, tier3 = 0, savings = 0;
-    
-    document.querySelectorAll('.tier1').forEach(input => {
-        tier1 += parseFloat(input.value) || 0;
-    });
-    
-    document.querySelectorAll('.tier2').forEach(input => {
-        tier2 += parseFloat(input.value) || 0;
-    });
-    
-    document.querySelectorAll('.tier3').forEach(input => {
-        tier3 += parseFloat(input.value) || 0;
-    });
-    
-    document.querySelectorAll('.savings').forEach(input => {
-        savings += parseFloat(input.value) || 0;
-    });
-    
-    // Calculate totals
-    const totalExpenses = tier1 + tier2 + tier3 + savings;
-    const surplus = income - totalExpenses;
-    
-    // Calculate percentages
-    const tier1Percent = income > 0 ? (tier1 / income) * 100 : 0;
-    const tier2Percent = income > 0 ? (tier2 / income) * 100 : 0;
-    const tier3Percent = income > 0 ? (tier3 / income) * 100 : 0;
-    const savingsPercent = income > 0 ? (savings / income) * 100 : 0;
-    
-    // Update displays
-    document.getElementById('tier1-total').textContent = tier1.toFixed(0);
-    document.getElementById('tier2-total').textContent = tier2.toFixed(0);
-    document.getElementById('tier3-total').textContent = tier3.toFixed(0);
-    document.getElementById('savings-total').textContent = savings.toFixed(0);
-    
-    document.getElementById('tier1-percent').textContent = tier1Percent.toFixed(1) + '%';
-    document.getElementById('tier2-percent').textContent = tier2Percent.toFixed(1) + '%';
-    document.getElementById('tier3-percent').textContent = tier3Percent.toFixed(1) + '%';
-    document.getElementById('savings-percent').textContent = savingsPercent.toFixed(1) + '%';
-    
-    document.getElementById('result-income').textContent = '$' + income.toFixed(0);
-    document.getElementById('result-expenses').textContent = '$' + totalExpenses.toFixed(0);
-    document.getElementById('result-surplus').textContent = '$' + surplus.toFixed(0);
-    document.getElementById('result-savings-rate').textContent = savingsPercent.toFixed(1) + '%';
-    
-    document.getElementById('rule-needs').textContent = tier1Percent.toFixed(1) + '%';
-    document.getElementById('rule-wants').textContent = tier3Percent.toFixed(1) + '%';
-    document.getElementById('rule-savings').textContent = savingsPercent.toFixed(1) + '%';
-    
-    // Color code the rule percentages
-    ['rule-needs', 'rule-wants', 'rule-savings'].forEach(id => {
-        const el = document.getElementById(id);
-        const value = parseFloat(el.textContent);
-        if (id === 'rule-needs' && value <= 50) el.style.color = '#4CAF50';
-        else if (id === 'rule-needs' && value > 50) el.style.color = '#ff4444';
-        if (id === 'rule-wants' && value <= 30) el.style.color = '#4CAF50';
-        else if (id === 'rule-wants' && value > 30) el.style.color = '#ff4444';
-        if (id === 'rule-savings' && value >= 20) el.style.color = '#4CAF50';
-        else if (id === 'rule-savings' && value < 20) el.style.color = '#ff4444';
-    });
-    
-    // Create or update chart
-    updateChart(tier1, tier2, tier3, savings, surplus);
-}
-
-function updateChart(tier1, tier2, tier3, savings, surplus) {
-    const canvas = document.getElementById('chart');
-    const ctx = canvas.getContext('2d');
-    
-    // Set canvas size
-    canvas.width = canvas.parentElement.clientWidth;
-    canvas.height = 300;
-    
-    // Clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Data
-    const data = [tier1, tier2, tier3, savings, Math.max(0, surplus)];
-    const labels = ['Needs', 'Infrastructure', 'Wants', 'Savings', 'Surplus'];
-    const colors = ['#FFFFFF', '#AAAAAA', '#666666', '#4CAF50', surplus >= 0 ? '#00FF00' : '#FF4444'];
-    
-    // Calculate total for percentages
-    const total = data.reduce((a, b) => a + b, 0) || 1;
-    
-    // Draw pie chart
-    let startAngle = 0;
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const radius = Math.min(centerX, centerY) * 0.8;
-    
-    // Draw slices
-    for (let i = 0; i < data.length; i++) {
-        if (data[i] <= 0) continue;
+    <script>
+        // Initialize on load
+        window.onload = function() {
+            calculate();
+        };
         
-        const sliceAngle = (data[i] / total) * 2 * Math.PI;
+        function calculate() {
+            // Get income
+            let income = parseFloat(document.getElementById('income').value) || 0;
+            const freq = parseFloat(document.getElementById('frequency').value) || 2;
+            
+            // Adjust for frequency
+            if (freq === 1) income = income;
+            else if (freq === 2) income = income * 2;
+            else if (freq === 4) income = income * 4.33;
+            else if (freq === 26) income = income * 2.166;
+            
+            // Get expenses
+            const housing = parseFloat(document.getElementById('housing').value) || 0;
+            const utilities = parseFloat(document.getElementById('utilities').value) || 0;
+            const groceries = parseFloat(document.getElementById('groceries').value) || 0;
+            const transportation = parseFloat(document.getElementById('transportation').value) || 0;
+            const internet = parseFloat(document.getElementById('internet').value) || 0;
+            const subscriptions = parseFloat(document.getElementById('subscriptions').value) || 0;
+            const dining = parseFloat(document.getElementById('dining').value) || 0;
+            const shopping = parseFloat(document.getElementById('shopping').value) || 0;
+            const emergency = parseFloat(document.getElementById('emergency').value) || 0;
+            const retirement = parseFloat(document.getElementById('retirement').value) || 0;
+            
+            // Calculate totals
+            const needsTotal = housing + utilities + groceries + transportation;
+            const infraTotal = internet + subscriptions;
+            const wantsTotal = dining + shopping;
+            const savingsTotal = emergency + retirement;
+            
+            const totalExpenses = needsTotal + infraTotal + wantsTotal + savingsTotal;
+            const surplus = income - totalExpenses;
+            
+            // Calculate percentages
+            const needsPercent = income > 0 ? (needsTotal / income) * 100 : 0;
+            const infraPercent = income > 0 ? (infraTotal / income) * 100 : 0;
+            const wantsPercent = income > 0 ? (wantsTotal / income) * 100 : 0;
+            const savingsPercent = income > 0 ? (savingsTotal / income) * 100 : 0;
+            
+            // Update displays
+            document.getElementById('adjusted-income').textContent = '$' + income.toFixed(0);
+            document.getElementById('needs-total').textContent = '$' + needsTotal.toFixed(0);
+            document.getElementById('infra-total').textContent = '$' + infraTotal.toFixed(0);
+            document.getElementById('wants-total').textContent = '$' + wantsTotal.toFixed(0);
+            document.getElementById('savings-total').textContent = '$' + savingsTotal.toFixed(0);
+            
+            document.getElementById('needs-percent').textContent = needsPercent.toFixed(1) + '%';
+            document.getElementById('infra-percent').textContent = infraPercent.toFixed(1) + '%';
+            document.getElementById('wants-percent').textContent = wantsPercent.toFixed(1) + '%';
+            document.getElementById('savings-percent').textContent = savingsPercent.toFixed(1) + '%';
+            
+            document.getElementById('result-income').textContent = '$' + income.toFixed(0);
+            document.getElementById('result-expenses').textContent = '$' + totalExpenses.toFixed(0);
+            
+            if (surplus >= 0) {
+                document.getElementById('result-surplus').textContent = '$' + surplus.toFixed(0);
+                document.getElementById('result-surplus').style.color = '#4CAF50';
+            } else {
+                document.getElementById('result-surplus').textContent = '-$' + Math.abs(surplus).toFixed(0);
+                document.getElementById('result-surplus').style.color = '#B22234';
+            }
+            
+            document.getElementById('result-savings-rate').textContent = savingsPercent.toFixed(1) + '%';
+            document.getElementById('result-savings-rate').style.color = savingsPercent >= 20 ? '#4CAF50' : '#B22234';
+            
+            // Update 50/30/20 rule
+            document.getElementById('rule-needs').textContent = needsPercent.toFixed(1) + '%';
+            document.getElementById('rule-wants').textContent = wantsPercent.toFixed(1) + '%';
+            document.getElementById('rule-savings').textContent = savingsPercent.toFixed(1) + '%';
+            
+            // Update status badges
+            updateStatusBadge('needs-status', needsPercent, 50, false);
+            updateStatusBadge('wants-status', wantsPercent, 30, false);
+            updateStatusBadge('savings-status', savingsPercent, 20, true);
+            
+            // Update tier badges
+            updateBadge('needs-percent', needsPercent, 50, false);
+            updateBadge('infra-percent', infraPercent, 20, false);
+            updateBadge('wants-percent', wantsPercent, 30, false);
+            updateBadge('savings-percent', savingsPercent, 20, true);
+            
+            // Draw chart
+            drawPieChart(needsTotal, infraTotal, wantsTotal, savingsTotal, surplus);
+        }
         
-        ctx.beginPath();
-        ctx.fillStyle = colors[i];
-        ctx.moveTo(centerX, centerY);
-        ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
-        ctx.closePath();
-        ctx.fill();
+        function updateStatusBadge(id, value, target, isHigherBetter) {
+            const badge = document.getElementById(id);
+            if (!badge) return;
+            
+            if (isHigherBetter) {
+                if (value >= target) {
+                    badge.textContent = 'On Target';
+                    badge.className = 'badge badge-good';
+                } else if (value >= target * 0.5) {
+                    badge.textContent = 'Needs Work';
+                    badge.className = 'badge badge-warning';
+                } else {
+                    badge.textContent = 'Critical';
+                    badge.className = 'badge badge-danger';
+                }
+            } else {
+                if (value <= target) {
+                    badge.textContent = 'On Target';
+                    badge.className = 'badge badge-good';
+                } else if (value <= target * 1.5) {
+                    badge.textContent = 'Needs Work';
+                    badge.className = 'badge badge-warning';
+                } else {
+                    badge.textContent = 'Critical';
+                    badge.className = 'badge badge-danger';
+                }
+            }
+        }
         
-        // Draw label
-        const midAngle = startAngle + sliceAngle / 2;
-        const labelRadius = radius * 0.7;
-        const labelX = centerX + Math.cos(midAngle) * labelRadius;
-        const labelY = centerY + Math.sin(midAngle) * labelRadius;
+        function updateBadge(element, value, target, isHigherBetter) {
+            const badge = document.getElementById(element);
+            if (!badge) return;
+            
+            badge.className = 'badge';
+            
+            if (isHigherBetter) {
+                if (value >= target) {
+                    badge.classList.add('badge-good');
+                } else if (value >= target * 0.5) {
+                    badge.classList.add('badge-warning');
+                } else {
+                    badge.classList.add('badge-danger');
+                }
+            } else {
+                if (value <= target) {
+                    badge.classList.add('badge-good');
+                } else if (value <= target * 1.5) {
+                    badge.classList.add('badge-warning');
+                } else {
+                    badge.classList.add('badge-danger');
+                }
+            }
+        }
         
-        ctx.fillStyle = 'white';
-        ctx.font = '12px Arial';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(labels[i], labelX, labelY);
+        function drawPieChart(needs, infra, wants, savings, surplus) {
+            const container = document.getElementById('pieChart');
+            container.innerHTML = '';
+            
+            const categories = [
+                {name: 'Needs', value: needs, color: '#FFFFFF'},
+                {name: 'Infrastructure', value: infra, color: '#9ca3af'},
+                {name: 'Wants', value: wants, color: '#4b5563'},
+                {name: 'Savings', value: savings, color: '#10B981'},
+                {name: 'Surplus', value: Math.max(0, surplus), color: '#00FF00'},
+                {name: 'Deficit', value: Math.max(0, -surplus), color: '#B22234'}
+            ];
+            
+            const validCategories = categories.filter(cat => cat.value > 0);
+            const total = validCategories.reduce((sum, cat) => sum + cat.value, 0);
+            
+            if (total === 0) {
+                container.innerHTML = '<div style="text-align:center;padding:50px;color:#aaa;">Enter your income and expenses to see the chart</div>';
+                return;
+            }
+            
+            // Create SVG
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '100%');
+            svg.setAttribute('height', '400');
+            svg.setAttribute('viewBox', '0 0 400 400');
+            
+            let startAngle = 0;
+            const centerX = 200;
+            const centerY = 200;
+            const radius = 150;
+            
+            // Draw slices
+            validCategories.forEach(category => {
+                const sliceAngle = (category.value / total) * 360;
+                if (sliceAngle <= 0) return;
+                
+                const endAngle = startAngle + sliceAngle;
+                const startRad = (startAngle - 90) * Math.PI / 180;
+                const endRad = (endAngle - 90) * Math.PI / 180;
+                
+                const x1 = centerX + radius * Math.cos(startRad);
+                const y1 = centerY + radius * Math.sin(startRad);
+                const x2 = centerX + radius * Math.cos(endRad);
+                const y2 = centerY + radius * Math.sin(endRad);
+                
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                const largeArcFlag = sliceAngle > 180 ? 1 : 0;
+                
+                const d = [
+                    `M ${centerX} ${centerY}`,
+                    `L ${x1} ${y1}`,
+                    `A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2}`,
+                    'Z'
+                ].join(' ');
+                
+                path.setAttribute('d', d);
+                path.setAttribute('fill', category.color);
+                path.setAttribute('stroke', 'rgba(0,0,0,0.3)');
+                path.setAttribute('stroke-width', '2');
+                
+                svg.appendChild(path);
+                startAngle = endAngle;
+            });
+            
+            // Add center text
+            const textGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            
+            const surplusText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            surplusText.setAttribute('x', centerX.toString());
+            surplusText.setAttribute('y', (centerY - 10).toString());
+            surplusText.setAttribute('text-anchor', 'middle');
+            surplusText.setAttribute('font-size', '16');
+            surplusText.setAttribute('fill', '#aaa');
+            surplusText.textContent = surplus >= 0 ? 'SURPLUS' : 'DEFICIT';
+            textGroup.appendChild(surplusText);
+            
+            const amountText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            amountText.setAttribute('x', centerX.toString());
+            amountText.setAttribute('y', (centerY + 20).toString());
+            amountText.setAttribute('text-anchor', 'middle');
+            amountText.setAttribute('font-size', '28');
+            amountText.setAttribute('font-weight', 'bold');
+            amountText.setAttribute('fill', surplus >= 0 ? '#00FF00' : '#B22234');
+            amountText.textContent = '$' + Math.abs(surplus).toFixed(0);
+            textGroup.appendChild(amountText);
+            
+            svg.appendChild(textGroup);
+            container.appendChild(svg);
+        }
         
-        startAngle += sliceAngle;
-    }
-    
-    // Draw center text
-    ctx.fillStyle = 'white';
-    ctx.font = 'bold 20px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillText('Surplus', centerX, centerY - 15);
-    
-    ctx.font = 'bold 24px Arial';
-    ctx.fillStyle = surplus >= 0 ? '#00FF00' : '#FF4444';
-    ctx.fillText('$' + Math.abs(surplus).toFixed(0), centerX, centerY + 15);
-}
+        function resetAll() {
+            if (confirm('Reset all values to default?')) {
+                document.getElementById('income').value = '3000';
+                document.getElementById('frequency').value = '2';
+                document.getElementById('housing').value = '1200';
+                document.getElementById('utilities').value = '200';
+                document.getElementById('groceries').value = '400';
+                document.getElementById('transportation').value = '150';
+                document.getElementById('internet').value = '100';
+                document.getElementById('subscriptions').value = '50';
+                document.getElementById('dining').value = '200';
+                document.getElementById('shopping').value = '100';
+                document.getElementById('emergency').value = '200';
+                document.getElementById('retirement').value = '300';
+                calculate();
+            }
+        }
+        
+        function exportData() {
+            const data = {
+                income: document.getElementById('income').value,
+                needs: document.getElementById('needs-total').textContent,
+                wants: document.getElementById('wants-total').textContent,
+                savings: document.getElementById('savings-total').textContent,
+                surplus: document.getElementById('result-surplus').textContent,
+                savingsRate: document.getElementById('result-savings-rate').textContent,
+                date: new Date().toLocaleDateString()
+            };
+            
+            const report = `
+IRON POT MILLIONAIRE REPORT
+============================
+Date: ${data.date}
 
-// Initialize with example data
-window.onload = function() {
-    calculate(); // Run calculation on load
-};
+INCOME: ${data.income}
+NEEDS: ${data.needs}
+WANTS: ${data.wants}
+SAVINGS: ${data.savings}
+SURPLUS/DEFICIT: ${data.surplus}
+SAVINGS RATE: ${data.savingsRate}
 
-// Auto-calculate on input
-document.querySelectorAll('input, select').forEach(element => {
-    element.addEventListener('input', calculate);
-});
-</script>
-
+50/30/20 RULE:
+- Needs: ${document.getElementById('rule-needs').textContent}
+- Wants: ${document.getElementById('rule-wants').textContent}
+- Savings: ${document.getElementById('rule-savings').textContent}
+            `.trim();
+            
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'iron-pot-report.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('Report downloaded!');
+        }
+    </script>
 </body>
 </html>
