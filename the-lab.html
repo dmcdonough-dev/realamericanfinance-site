@@ -1114,6 +1114,341 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* ===== FINANCIAL BATTLE MAP STYLES ===== */
+
+        .battle-map-card {
+            background: linear-gradient(135deg, rgba(10, 26, 47, 0.9), rgba(17, 36, 63, 0.9));
+            border: 2px solid rgba(178, 34, 52, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .battle-map-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #B22234, #FFD700, #10B981);
+        }
+
+        .status-badge {
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(178, 34, 52, 0.2), rgba(178, 34, 52, 0.4));
+            z-index: 0;
+        }
+
+        .warrior-active {
+            border: 2px solid #B22234;
+            background: linear-gradient(135deg, rgba(178, 34, 52, 0.15), rgba(178, 34, 52, 0.25));
+        }
+
+        .commander-active {
+            border: 2px solid #FFD700;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.25));
+        }
+
+        .guardian-active {
+            border: 2px solid #10B981;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.25));
+        }
+
+        .badge-rank {
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: white;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .warrior-active .badge-rank {
+            color: #FF6B6B;
+        }
+
+        .commander-active .badge-rank {
+            color: #FFD700;
+        }
+
+        .guardian-active .badge-rank {
+            color: #10B981;
+        }
+
+        .badge-progress {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            position: relative;
+            z-index: 1;
+            margin-top: 4px;
+        }
+
+        .next-mission {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .next-mission:hover {
+            border-color: #B22234;
+            transform: translateY(-2px);
+        }
+
+        .next-mission::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 4px;
+            background: #B22234;
+        }
+
+        .locked-phase {
+            padding: 10px;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            cursor: not-allowed;
+        }
+
+        .phase-pillars {
+            margin-top: 12px;
+        }
+
+        .pillar-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            margin-bottom: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .pillar-item.complete {
+            border-left-color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .pillar-item.in-progress {
+            border-left-color: #B22234;
+            background: rgba(178, 34, 52, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        .pillar-item.locked {
+            border-left-color: #4B5563;
+            opacity: 0.6;
+        }
+
+        .pillar-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 10px;
+        }
+
+        .pillar-icon.complete {
+            background: #10B981;
+            color: white;
+        }
+
+        .pillar-icon.in-progress {
+            background: #B22234;
+            color: white;
+        }
+
+        .pillar-icon.locked {
+            background: #4B5563;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .pillar-info {
+            flex: 1;
+        }
+
+        .pillar-name {
+            font-size: 11px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .pillar-status {
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .pillar-progress {
+            font-size: 10px;
+            font-weight: bold;
+            min-width: 40px;
+            text-align: right;
+        }
+
+        /* Phase progress indicators */
+        .phase-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .phase-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .phase-circle.active {
+            background: #B22234;
+            color: white;
+            box-shadow: 0 0 10px rgba(178, 34, 52, 0.5);
+        }
+
+        .phase-circle.complete {
+            background: #10B981;
+            color: white;
+        }
+
+        .phase-circle.locked {
+            background: #4B5563;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .phase-line {
+            flex: 1;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 8px;
+            align-self: center;
+        }
+
+        .phase-line.complete {
+            background: #10B981;
+        }
+
+        .phase-line.active {
+            background: #B22234;
+        }
+
+        /* Academy modal */
+        .academy-modal {
+            background: linear-gradient(135deg, #0A1A2F, #11243F);
+            border: 2px solid #B22234;
+            border-radius: 16px;
+            max-width: 500px;
+        }
+
+        .academy-tier {
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .academy-tier:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .academy-tier.warrior {
+            background: linear-gradient(135deg, rgba(178, 34, 52, 0.2), rgba(178, 34, 52, 0.4));
+            border: 1px solid rgba(178, 34, 52, 0.5);
+        }
+
+        .academy-tier.commander {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.4));
+            border: 1px solid rgba(255, 215, 0, 0.5);
+        }
+
+        .academy-tier.guardian {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.4));
+            border: 1px solid rgba(16, 185, 129, 0.5);
+        }
+
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .tier-name {
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tier-price {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .tier-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tier-features li {
+            padding: 6px 0;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tier-features li i {
+            margin-right: 10px;
+            width: 16px;
+        }
+
+        .current-tier-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #B22234;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson flex flex-col min-h-screen" id="main-body">
@@ -1952,33 +2287,63 @@
                     </div>
                 </div>
                 
-                <!-- Roadmap Teaser -->
-                <div class="roadmap-teaser mt-6">
-                    <h4 class="text-sm font-bold mb-3 text-center"><i class="fas fa-road mr-2 text-crimson"></i> Coming in Premium Tools</h4>
-                    <ul class="space-y-2 text-xs">
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-400 mr-2"></i>
-                            <span>AI-powered recommendations</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-400 mr-2"></i>
-                            <span>Advanced tax optimization</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-400 mr-2"></i>
-                            <span>Investment portfolio analysis</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-400 mr-2"></i>
-                            <span>Unlimited scenario planning</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-400 mr-2"></i>
-                            <span>Historical trend analysis</span>
-                        </li>
-                    </ul>
-                    <button onclick="showUpgradeModal()" class="w-full mt-4 bg-gradient-to-r from-crimson to-purple-600 hover:from-red-700 hover:to-purple-700 py-2 rounded text-xs uppercase font-bold transition">
-                        <i class="fas fa-crown mr-2"></i>Explore Premium
+                <!-- Financial Battle Map -->
+                <div class="battle-map-card" id="battle-map-card">
+                    <h4 class="text-sm font-bold mb-3 text-center">
+                        <i class="fas fa-map-marked-alt mr-2 text-crimson"></i> Financial Battle Map
+                    </h4>
+                    
+                    <!-- Phase Progress -->
+                    <div class="phase-progress">
+                        <div class="phase-circle complete" title="Warrior Phase">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="phase-line complete"></div>
+                        <div class="phase-circle active" title="Commander Phase">
+                            <i class="fas fa-chess-knight"></i>
+                        </div>
+                        <div class="phase-line"></div>
+                        <div class="phase-circle locked" title="Guardian Phase">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Current Status Badge -->
+                    <div class="status-badge warrior-active" id="status-badge">
+                        <div class="badge-rank" id="current-rank">WARRIOR</div>
+                        <div class="badge-progress" id="current-progress">Phase 1 • 2/3 Pillars Complete</div>
+                    </div>
+                    
+                    <!-- Current Phase Pillars -->
+                    <div class="phase-pillars" id="phase-pillars">
+                        <!-- Pillars will be dynamically generated -->
+                    </div>
+                    
+                    <!-- Next Mission -->
+                    <div class="next-mission" onclick="focusOnNextMission()" style="cursor: pointer;">
+                        <div class="text-xs uppercase text-gray-400 mb-1">Next Mission</div>
+                        <div class="text-sm font-bold mb-1" id="next-mission-title">Eliminate High-Interest Debt</div>
+                        <div class="text-xs text-gray-400" id="next-mission-desc">Pillar 3 • Target: 0% APR > 15%</div>
+                        <div class="text-[10px] text-crimson mt-2">
+                            <i class="fas fa-crosshairs mr-1"></i>
+                            <span id="next-mission-action">Attack $8,500 credit card balance</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Locked Phase Preview -->
+                    <div class="locked-phase mt-3" onclick="showAcademyModal()" style="cursor: pointer;">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-xs font-bold">Commander Phase</div>
+                                <div class="text-[10px] text-gray-500">Unlocks at Score 41</div>
+                            </div>
+                            <i class="fas fa-lock text-gray-600"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA for Paid Tiers -->
+                    <button onclick="showAcademyModal()" class="w-full mt-4 bg-gradient-to-r from-crimson to-red-800 hover:from-red-700 hover:to-crimson py-2 rounded text-xs uppercase font-bold transition">
+                        <i class="fas fa-shield-alt mr-2"></i>Advance to Commander
                     </button>
                 </div>
             </div>
@@ -2120,6 +2485,129 @@
         <span>Custom categories saved</span>
     </div>
 
+    <!-- Academy Modal -->
+    <div id="academy-modal" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-navy-900 border-2 border-crimson rounded-xl shadow-2xl z-10000 max-w-4xl w-full max-h-[80vh] overflow-y-auto hidden">
+        <div class="p-6 academy-modal">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h3 class="text-2xl font-bold">Real American Finance Academy</h3>
+                    <p class="text-sm text-gray-400 mt-1">Three Tiers of Financial Sovereignty</p>
+                </div>
+                <button onclick="closeAcademyModal()" class="text-2xl hover:text-crimson transition">&times;</button>
+            </div>
+            
+            <!-- Current Progress -->
+            <div class="mb-8 p-4 bg-navy-800/50 rounded-lg">
+                <div class="text-sm font-bold mb-2">Your Current Progress</div>
+                <div class="flex items-center">
+                    <div class="mr-4">
+                        <div class="text-xs text-gray-400">Current Rank</div>
+                        <div class="text-lg font-bold text-crimson" id="modal-current-rank">WARRIOR</div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>Warrior Progress</span>
+                            <span id="modal-warrior-progress">66%</span>
+                        </div>
+                        <div class="h-2 bg-navy-900 rounded-full overflow-hidden">
+                            <div class="h-full bg-crimson" style="width: 66%" id="modal-warrior-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Academy Tiers -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Warrior Tier -->
+                <div class="academy-tier warrior" onclick="selectTier('warrior')">
+                    <div class="tier-header">
+                        <div class="tier-name text-crimson">WARRIOR</div>
+                        <div class="tier-price text-white">FREE</div>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4">Tactical survival & debt elimination</p>
+                    <ul class="tier-features">
+                        <li><i class="fas fa-check text-green-400"></i> Budget & Cash Flow Mastery</li>
+                        <li><i class="fas fa-check text-green-400"></i> Emergency Fund Basics</li>
+                        <li><i class="fas fa-check text-green-400"></i> Debt Elimination Strategy</li>
+                        <li><i class="fas fa-check text-green-400"></i> This Lab Calculator</li>
+                        <li><i class="fas fa-check text-green-400"></i> Basic Scenario Planning</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <div class="current-tier-badge" id="warrior-badge">CURRENT</div>
+                        <button class="w-full bg-crimson hover:bg-red-700 py-2 rounded text-sm font-bold transition">
+                            Current Tier
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Commander Tier -->
+                <div class="academy-tier commander" onclick="selectTier('commander')">
+                    <div class="tier-header">
+                        <div class="tier-name text-yellow-400">COMMANDER</div>
+                        <div class="tier-price text-white">$29<span class="text-sm">/month</span></div>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4">Strategic positioning & wealth building</p>
+                    <ul class="tier-features">
+                        <li><i class="fas fa-check text-green-400"></i> Everything in Warrior</li>
+                        <li><i class="fas fa-check text-green-400"></i> Full 6-Month Iron Pot</li>
+                        <li><i class="fas fa-check text-green-400"></i> Retirement Optimization</li>
+                        <li><i class="fas fa-check text-green-400"></i> Tax Strategy Tools</li>
+                        <li><i class="fas fa-check text-green-400"></i> Investment Planning</li>
+                        <li><i class="fas fa-check text-green-400"></i> Advanced Calculators</li>
+                        <li><i class="fas fa-check text-green-400"></i> Unlimited Scenarios</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <button class="w-full bg-yellow-500 hover:bg-yellow-600 py-2 rounded text-sm font-bold transition" id="commander-button">
+                            Upgrade to Commander
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Guardian Tier -->
+                <div class="academy-tier guardian" onclick="selectTier('guardian')">
+                    <div class="tier-header">
+                        <div class="tier-name text-green-400">GUARDIAN</div>
+                        <div class="tier-price text-white">$99<span class="text-sm">/month</span></div>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4">Wealth preservation & legacy building</p>
+                    <ul class="tier-features">
+                        <li><i class="fas fa-check text-green-400"></i> Everything in Commander</li>
+                        <li><i class="fas fa-check text-green-400"></i> Mortgage Freedom Planning</li>
+                        <li><i class="fas fa-check text-green-400"></i> Estate Planning Tools</li>
+                        <li><i class="fas fa-check text-green-400"></i> Generational Wealth Strategy</li>
+                        <li><i class="fas fa-check text-green-400"></i> Real Estate Investment Analysis</li>
+                        <li><i class="fas fa-check text-green-400"></i> Business Financial Planning</li>
+                        <li><i class="fas fa-check text-green-400"></i> Private Community Access</li>
+                        <li><i class="fas fa-check text-green-400"></i> 1:1 Strategy Sessions</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <button class="w-full bg-green-500 hover:bg-green-600 py-2 rounded text-sm font-bold transition">
+                            Become a Guardian
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Why Upgrade -->
+            <div class="bg-navy-800/30 p-4 rounded-lg">
+                <h4 class="text-sm font-bold mb-2">Why Advance to Commander?</h4>
+                <ul class="text-xs space-y-1 text-gray-300">
+                    <li><i class="fas fa-arrow-right text-crimson mr-2"></i> Get 5-year financial projections with your current data</li>
+                    <li><i class="fas fa-arrow-right text-crimson mr-2"></i> Unlock advanced tax optimization strategies</li>
+                    <li><i class="fas fa-arrow-right text-crimson mr-2"></i> Access investment portfolio allocation tools</li>
+                    <li><i class="fas fa-arrow-right text-crimson mr-2"></i> Run unlimited "what-if" financial scenarios</li>
+                </ul>
+            </div>
+            
+            <!-- Close Button -->
+            <div class="text-center mt-6">
+                <button onclick="closeAcademyModal()" class="bg-white/10 hover:bg-white/20 px-6 py-2 rounded text-sm transition">
+                    Continue as Warrior
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- JavaScript -->
     <script>
         // Tailwind config
@@ -2254,6 +2742,197 @@
         let draggedItem = null;
         let currentExpenses = JSON.parse(JSON.stringify(defaultExpenses));
 
+        // ===== FINANCIAL BATTLE MAP CONFIGURATION =====
+
+        const battleMapConfig = {
+            phases: {
+                warrior: {
+                    minScore: 0,
+                    maxScore: 40,
+                    rank: 'WARRIOR',
+                    color: 'crimson',
+                    pillars: [
+                        {
+                            id: 'budget',
+                            name: 'Budget & Cash Flow',
+                            description: 'Positive monthly surplus',
+                            check: function() {
+                                const surplus = getMonthlySurplus();
+                                const income = getMonthlyIncome();
+                                return surplus > 0 && income > 0;
+                            },
+                            progress: function() {
+                                const income = getMonthlyIncome();
+                                const allocations = calculateTierAllocations();
+                                const needsPercent = allocations.tier1Percent;
+                                const wantsPercent = allocations.tier3Percent;
+                                
+                                let progress = 0;
+                                if (income > 0) progress += 30;
+                                if (needsPercent > 0) progress += 20;
+                                if (needsPercent <= 50) progress += 20;
+                                if (wantsPercent <= 30) progress += 30;
+                                return Math.min(100, progress);
+                            }
+                        },
+                        {
+                            id: 'emergency1',
+                            name: '1-Month Emergency Fund',
+                            description: 'Cover basic expenses for 1 month',
+                            check: function() {
+                                const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
+                                const allocations = calculateTierAllocations();
+                                const monthlyEssentials = allocations.tier1Total;
+                                return emergencyFund >= monthlyEssentials;
+                            },
+                            progress: function() {
+                                const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
+                                const allocations = calculateTierAllocations();
+                                const monthlyEssentials = allocations.tier1Total;
+                                return monthlyEssentials > 0 ? Math.min(100, (emergencyFund / monthlyEssentials) * 100) : 0;
+                            }
+                        },
+                        {
+                            id: 'highInterestDebt',
+                            name: 'High-Interest Debt',
+                            description: 'No debt > 15% APR',
+                            check: function() {
+                                let hasHighInterest = false;
+                                document.querySelectorAll('.debt-rate-input').forEach(input => {
+                                    const rate = parseFloat(input.value) || 0;
+                                    if (rate > 15) hasHighInterest = true;
+                                });
+                                return !hasHighInterest;
+                            },
+                            progress: function() {
+                                const debtData = updateDebtSection();
+                                const totalDebt = debtData.totalBalance;
+                                let highInterestDebt = 0;
+                                
+                                document.querySelectorAll('#debt-body tr').forEach(row => {
+                                    const balance = parseCurrency(row.querySelector('.debt-balance-input')?.value);
+                                    const rate = parseFloat(row.querySelector('.debt-rate-input')?.value) || 0;
+                                    if (rate > 15) highInterestDebt += balance;
+                                });
+                                
+                                return totalDebt > 0 ? Math.max(0, 100 - (highInterestDebt / totalDebt * 100)) : 100;
+                            }
+                        }
+                    ]
+                },
+                commander: {
+                    minScore: 41,
+                    maxScore: 70,
+                    rank: 'COMMANDER',
+                    color: 'yellow',
+                    pillars: [
+                        {
+                            id: 'emergency6',
+                            name: '6-Month Iron Pot',
+                            description: 'Full emergency fund',
+                            check: function() {
+                                const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
+                                const allocations = calculateTierAllocations();
+                                const monthlyEssentials = allocations.tier1Total;
+                                return emergencyFund >= (monthlyEssentials * 6);
+                            },
+                            progress: function() {
+                                const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
+                                const allocations = calculateTierAllocations();
+                                const monthlyEssentials = allocations.tier1Total;
+                                const target = monthlyEssentials * 6;
+                                return target > 0 ? Math.min(100, (emergencyFund / target) * 100) : 0;
+                            }
+                        },
+                        {
+                            id: 'retirement',
+                            name: 'Retirement Foundation',
+                            description: 'On track for age-based targets',
+                            check: function() {
+                                const assetsData = updateAssetsSection();
+                                return assetsData.retirementProgress >= 50;
+                            },
+                            progress: function() {
+                                const assetsData = updateAssetsSection();
+                                return assetsData.retirementProgress;
+                            }
+                        },
+                        {
+                            id: 'savingsRate',
+                            name: '20% Savings Rate',
+                            description: 'Consistently save ≥20% of income',
+                            check: function() {
+                                const income = getMonthlyIncome();
+                                if (income <= 0) return false;
+                                
+                                let savingsTotal = 0;
+                                document.querySelectorAll('.savings-input').forEach(input => {
+                                    savingsTotal += parseCurrency(input.value);
+                                });
+                                
+                                const savingsPercent = (savingsTotal / income) * 100;
+                                return savingsPercent >= 20;
+                            },
+                            progress: function() {
+                                const income = getMonthlyIncome();
+                                if (income <= 0) return 0;
+                                
+                                let savingsTotal = 0;
+                                document.querySelectorAll('.savings-input').forEach(input => {
+                                    savingsTotal += parseCurrency(input.value);
+                                });
+                                
+                                const savingsPercent = (savingsTotal / income) * 100;
+                                return Math.min(100, (savingsPercent / 20) * 100);
+                            }
+                        }
+                    ]
+                },
+                guardian: {
+                    minScore: 71,
+                    maxScore: 100,
+                    rank: 'GUARDIAN',
+                    color: 'green',
+                    pillars: [
+                        {
+                            id: 'mortgage',
+                            name: 'Mortgage Freedom',
+                            description: 'Mortgage balance ≤ 50% of home value',
+                            check: function() {
+                                const houseValue = parseCurrency(document.getElementById('house-value').value);
+                                const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
+                                return houseValue > 0 && (mortgageBalance / houseValue) <= 0.5;
+                            },
+                            progress: function() {
+                                const houseValue = parseCurrency(document.getElementById('house-value').value);
+                                const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
+                                const equity = Math.max(0, houseValue - mortgageBalance);
+                                return houseValue > 0 ? Math.min(100, (equity / houseValue) * 100) : 0;
+                            }
+                        },
+                        {
+                            id: 'netWorth',
+                            name: 'Substantial Net Worth',
+                            description: 'Net worth > 10x annual expenses',
+                            check: function() {
+                                const assetsData = updateAssetsSection();
+                                const allocations = calculateTierAllocations();
+                                const annualExpenses = (allocations.tier1Total + allocations.tier2Total + allocations.tier3Total) * 12;
+                                return assetsData.netWorth > (annualExpenses * 10);
+                            },
+                            progress: function() {
+                                const assetsData = updateAssetsSection();
+                                const allocations = calculateTierAllocations();
+                                const annualExpenses = (allocations.tier1Total + allocations.tier2Total + allocations.tier3Total) * 12;
+                                const target = annualExpenses * 10;
+                                return target > 0 ? Math.min(100, (assetsData.netWorth / target) * 100) : 0;
+                            }
+                        }
+                    ]
+                }
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', function () {
             // Initialize chart
             initializeChart();
@@ -2296,6 +2975,11 @@
             // Update milestone tracker
             updateMilestoneTracker();
             
+            // Initialize battle map
+            setTimeout(() => {
+                updateBattleMap();
+            }, 500);
+            
             // Trigger initial calculation
             calculateAll();
         });
@@ -2312,12 +2996,12 @@
                     datasets: [{
                         data: [0, 0, 0, 0, 0, 0],
                         backgroundColor: [
-                            '#1E40AF',  // Tier 1: Navy Blue (essential, disciplined)
-   						 '#B22234',  // Debt: Your Crimson (urgent action needed)
-   						 '#475569',  // Tier 2: Slate Gray (infrastructure, support)
-  						  '#FBBF24',  // Tier 3: Amber/Gold (discretionary, luxury)
-  						  '#059669',  // Savings: Green (growth, strength)
-   						 '#22C55E'   // Surplus: Bright Green (victory!)
+                            '#1E40AF',
+                            '#B22234',
+                            '#475569',
+                            '#FBBF24',
+                            '#059669',
+                            '#22C55E'
                         ],
                         borderWidth: 0,
                         hoverOffset: 10
@@ -4160,6 +4844,7 @@
                 updateBudgetSection();
                 updateAssetsSection();
                 updateScoreSection();
+                updateBattleMap(); // ADDED: Update battle map
                 updateQuickStartPanel();
                 updateInsights();
                 
@@ -4353,21 +5038,13 @@
                     savingsTotal, 
                     surplus
                 ];
-                // Correct colors for each segment
                 myChart.data.datasets[0].backgroundColor = [
-                      '#1E40AF',  // Tier 1: Navy Blue (essential, disciplined)
-    '#B22234',  // Debt: Your Crimson (urgent action needed)
-    '#475569',  // Tier 2: Slate Gray (infrastructure, support)
-    '#FBBF24',  // Tier 3: Amber/Gold (discretionary, luxury)
-    '#059669',  // Savings: Green (growth, strength)
-    '#22C55E'   // Surplus: Bright Green (victory!)
+                    '#1E40AF', '#B22234', '#475569', '#FBBF24', '#059669', '#22C55E'
                 ];
             } 
             // If we have a deficit (expenses > income)
             else {
                 const deficit = Math.abs(surplus);
-                // For deficit, we need to adjust the visualization
-                // Show actual expenses and highlight the deficit
                 myChart.data.datasets[0].data = [
                     tier1, 
                     debtPayments, 
@@ -4377,12 +5054,7 @@
                     deficit
                 ];
                 myChart.data.datasets[0].backgroundColor = [
-                    '#1E40AF',  // Tier 1: Navy Blue (essential, disciplined)
-    '#B22234',  // Debt: Your Crimson (urgent action needed)
-    '#475569',  // Tier 2: Slate Gray (infrastructure, support)
-    '#FBBF24',  // Tier 3: Amber/Gold (discretionary, luxury)
-    '#059669',  // Savings: Green (growth, strength)
-    '#22C55E'   // Surplus: Bright Green (victory!)
+                    '#1E40AF', '#B22234', '#475569', '#FBBF24', '#059669', '#DC143C'
                 ];
             }
             
@@ -4510,34 +5182,34 @@
                 if (surplusSuggestion) surplusSuggestion.textContent = 'Reduce expenses or increase income';
             }
             
-			// Update housing percentage - using drag & drop system
-let housingCost = 0;
-
-// Check for housing expense in currentExpenses
-if (currentExpenses.tier1 && Array.isArray(currentExpenses.tier1)) {
-    const housingExpense = currentExpenses.tier1.find(exp => exp.id === 'housing');
-    if (housingExpense) {
-        housingCost = parseCurrency(housingExpense.amount);
-    }
-}
-
-// Also check custom expenses
-if (customExpenses && Array.isArray(customExpenses)) {
-    const customHousing = customExpenses.find(exp => exp.id === 'housing');
-    if (customHousing) {
-        housingCost = parseCurrency(customHousing.amount);
-    }
-}
-
-// Fallback: Check legacy input if it exists
-const legacyHousingInput = document.getElementById('housing');
-if (legacyHousingInput && legacyHousingInput.value) {
-    housingCost = parseCurrency(legacyHousingInput.value);
-}
-
-const housingPercent = income > 0 ? (housingCost / income * 100) : 0;
-const housingPercentEl = document.getElementById('housing-percent');
-if (housingPercentEl) housingPercentEl.textContent = `${housingPercent.toFixed(1)}%`;
+            // Update housing percentage
+            let housingCost = 0;
+            
+            // Check for housing expense in currentExpenses
+            if (currentExpenses.tier1 && Array.isArray(currentExpenses.tier1)) {
+                const housingExpense = currentExpenses.tier1.find(exp => exp.id === 'housing');
+                if (housingExpense) {
+                    housingCost = parseCurrency(housingExpense.amount);
+                }
+            }
+            
+            // Also check custom expenses
+            if (customExpenses && Array.isArray(customExpenses)) {
+                const customHousing = customExpenses.find(exp => exp.id === 'housing');
+                if (customHousing) {
+                    housingCost = parseCurrency(customHousing.amount);
+                }
+            }
+            
+            // Fallback: Check legacy input if it exists
+            const legacyHousingInput = document.getElementById('housing');
+            if (legacyHousingInput && legacyHousingInput.value) {
+                housingCost = parseCurrency(legacyHousingInput.value);
+            }
+            
+            const housingPercent = income > 0 ? (housingCost / income * 100) : 0;
+            const housingPercentEl = document.getElementById('housing-percent');
+            if (housingPercentEl) housingPercentEl.textContent = `${housingPercent.toFixed(1)}%`;
            
             return {
                 tier1Total,
@@ -4836,22 +5508,22 @@ if (housingPercentEl) housingPercentEl.textContent = `${housingPercent.toFixed(1
             return Math.max(0, score);
         }
 
-       function calculateRealEstateScore(budgetData, assetsData) {
-    let score = 0;
-    
-    // Housing cost should be ≤28% of income
-    if (budgetData.housingPercent <= 28) {
-        score += 10;
-    } else if (budgetData.housingPercent <= 35) {
-        score += 5;
-    }
-    
-    // Home equity progress
-    const equityProgress = assetsData.equityProgress;
-    score += Math.min(10, equityProgress / 10); // 100% equity = 10 points
-    
-    return Math.max(0, Math.min(20, score));
-}
+        function calculateRealEstateScore(budgetData, assetsData) {
+            let score = 0;
+            
+            // Housing cost should be ≤28% of income
+            if (budgetData.housingPercent <= 28) {
+                score += 10;
+            } else if (budgetData.housingPercent <= 35) {
+                score += 5;
+            }
+            
+            // Home equity progress
+            const equityProgress = assetsData.equityProgress;
+            score += Math.min(10, equityProgress / 10); // 100% equity = 10 points
+            
+            return Math.max(0, Math.min(20, score));
+        }
 
         function updateScoreSparkline() {
             const sparkline = document.getElementById('score-sparkline');
@@ -4958,78 +5630,78 @@ if (housingPercentEl) housingPercentEl.textContent = `${housingPercent.toFixed(1
             updateBenchmarks();
         }
 
-      function updateBenchmarks() {
-    const income = getMonthlyIncome();
-    
-    // Get housing cost from drag & drop system
-    let housingCost = 0;
-    
-    // Check for housing expense in currentExpenses
-    if (currentExpenses.tier1 && Array.isArray(currentExpenses.tier1)) {
-        const housingExpense = currentExpenses.tier1.find(exp => exp.id === 'housing');
-        if (housingExpense) {
-            housingCost = parseCurrency(housingExpense.amount);
+        function updateBenchmarks() {
+            const income = getMonthlyIncome();
+            
+            // Get housing cost from drag & drop system
+            let housingCost = 0;
+            
+            // Check for housing expense in currentExpenses
+            if (currentExpenses.tier1 && Array.isArray(currentExpenses.tier1)) {
+                const housingExpense = currentExpenses.tier1.find(exp => exp.id === 'housing');
+                if (housingExpense) {
+                    housingCost = parseCurrency(housingExpense.amount);
+                }
+            }
+            
+            // Also check custom expenses
+            if (customExpenses && Array.isArray(customExpenses)) {
+                const customHousing = customExpenses.find(exp => exp.id === 'housing');
+                if (customHousing) {
+                    housingCost = parseCurrency(customHousing.amount);
+                }
+            }
+            
+            // Fallback: Check legacy input if it exists
+            const legacyHousingInput = document.getElementById('housing');
+            if (legacyHousingInput && legacyHousingInput.value) {
+                housingCost = parseCurrency(legacyHousingInput.value);
+            }
+            
+            const housingPercent = income > 0 ? (housingCost / income * 100) : 0;
+            
+            const allocations = calculateTierAllocations();
+            const savingsPercent = allocations.tier1Total > 0 ? 0 : 0;
+            
+            // Industry benchmarks (simplified)
+            const benchmarks = {
+                housing: { good: 28, average: 33, high: 40 },
+                savings: { good: 20, average: 10, low: 5 },
+                dti: { good: 36, average: 43, high: 50 }
+            };
+            
+            // Update housing benchmark
+            let housingBenchmark = '';
+            if (housingPercent <= benchmarks.housing.good) {
+                housingBenchmark = `Good (≤${benchmarks.housing.good}%)`;
+            } else if (housingPercent <= benchmarks.housing.average) {
+                housingBenchmark = `Average (≤${benchmarks.housing.average}%)`;
+            } else {
+                housingBenchmark = `High (>${benchmarks.housing.average}%)`;
+            }
+            
+            // Update savings benchmark
+            let savingsBenchmark = '';
+            if (savingsPercent >= benchmarks.savings.good) {
+                savingsBenchmark = `Excellent (≥${benchmarks.savings.good}%)`;
+            } else if (savingsPercent >= benchmarks.savings.average) {
+                savingsBenchmark = `Average (≥${benchmarks.savings.average}%)`;
+            } else {
+                savingsBenchmark = `Low (<${benchmarks.savings.average}%)`;
+            }
+            
+            // Show benchmark comparison if income exists
+            const benchmarkEl = document.getElementById('income-benchmark');
+            const benchmarkText = document.getElementById('benchmark-text');
+            
+            if (income > 0 && benchmarkEl && benchmarkText) {
+                benchmarkEl.classList.remove('hidden');
+                benchmarkText.innerHTML = `
+                    Housing: <span class="${housingPercent <= benchmarks.housing.good ? 'benchmark-better' : housingPercent <= benchmarks.housing.average ? 'benchmark-same' : 'benchmark-worse'}">${housingBenchmark}</span><br>
+                    Savings: <span class="${savingsPercent >= benchmarks.savings.good ? 'benchmark-better' : savingsPercent >= benchmarks.savings.average ? 'benchmark-same' : 'benchmark-worse'}">${savingsBenchmark}</span>
+                `;
+            }
         }
-    }
-    
-    // Also check custom expenses
-    if (customExpenses && Array.isArray(customExpenses)) {
-        const customHousing = customExpenses.find(exp => exp.id === 'housing');
-        if (customHousing) {
-            housingCost = parseCurrency(customHousing.amount);
-        }
-    }
-    
-    // Fallback: Check legacy input if it exists
-    const legacyHousingInput = document.getElementById('housing');
-    if (legacyHousingInput && legacyHousingInput.value) {
-        housingCost = parseCurrency(legacyHousingInput.value);
-    }
-    
-    const housingPercent = income > 0 ? (housingCost / income * 100) : 0;
-    
-    const allocations = calculateTierAllocations();
-    const savingsPercent = allocations.tier1Total > 0 ? 0 : 0; // Placeholder - should calculate savings percent
-    
-    // Industry benchmarks (simplified)
-    const benchmarks = {
-        housing: { good: 28, average: 33, high: 40 },
-        savings: { good: 20, average: 10, low: 5 },
-        dti: { good: 36, average: 43, high: 50 }
-    };
-    
-    // Update housing benchmark
-    let housingBenchmark = '';
-    if (housingPercent <= benchmarks.housing.good) {
-        housingBenchmark = `Good (≤${benchmarks.housing.good}%)`;
-    } else if (housingPercent <= benchmarks.housing.average) {
-        housingBenchmark = `Average (≤${benchmarks.housing.average}%)`;
-    } else {
-        housingBenchmark = `High (>${benchmarks.housing.average}%)`;
-    }
-    
-    // Update savings benchmark
-    let savingsBenchmark = '';
-    if (savingsPercent >= benchmarks.savings.good) {
-        savingsBenchmark = `Excellent (≥${benchmarks.savings.good}%)`;
-    } else if (savingsPercent >= benchmarks.savings.average) {
-        savingsBenchmark = `Average (≥${benchmarks.savings.average}%)`;
-    } else {
-        savingsBenchmark = `Low (<${benchmarks.savings.average}%)`;
-    }
-    
-    // Show benchmark comparison if income exists
-    const benchmarkEl = document.getElementById('income-benchmark');
-    const benchmarkText = document.getElementById('benchmark-text');
-    
-    if (income > 0 && benchmarkEl && benchmarkText) {
-        benchmarkEl.classList.remove('hidden');
-        benchmarkText.innerHTML = `
-            Housing: <span class="${housingPercent <= benchmarks.housing.good ? 'benchmark-better' : housingPercent <= benchmarks.housing.average ? 'benchmark-same' : 'benchmark-worse'}">${housingBenchmark}</span><br>
-            Savings: <span class="${savingsPercent >= benchmarks.savings.good ? 'benchmark-better' : savingsPercent >= benchmarks.savings.average ? 'benchmark-same' : 'benchmark-worse'}">${savingsBenchmark}</span>
-        `;
-    }
-}
 
         function updateUserStats() {
             userStats.lastUpdate = new Date();
@@ -5597,7 +6269,7 @@ if (housingPercentEl) housingPercentEl.textContent = `${housingPercent.toFixed(1
                                     <div class="text-xs text-gray-400">See how a raise affects debt payoff</div>
                                 </div>
                                 <i class="fas fa-arrow-right text-crimson"></i>
-                            </div>
+                                </div>
                         </div>
                         
                         <div class="scenario-card" onclick="applyScenario('reduce_wants')">
@@ -5607,7 +6279,7 @@ if (housingPercentEl) housingPercentEl.textContent = `${housingPercent.toFixed(1
                                     <div class="text-xs text-gray-400">Cut discretionary spending</div>
                                 </div>
                                 <i class="fas fa-arrow-right text-crimson"></i>
-                            </div>
+                                </div>
                         </div>
                         
                         <div class="scenario-card" onclick="applyScenario('debt_consolidation')">
@@ -5617,7 +6289,7 @@ if (housingPercentEl) housingPercentEl.textContent = `${housingPercent.toFixed(1
                                     <div class="text-xs text-gray-400">Lower interest rates</div>
                                 </div>
                                 <i class="fas fa-arrow-right text-crimson"></i>
-                            </div>
+                                </div>
                         </div>
                     </div>
                     
@@ -5753,29 +6425,371 @@ if (housingPercentEl) housingPercentEl.textContent = `${housingPercent.toFixed(1
             }
         }
 
-        // Initialize missing modal functions
-        function openModal(content) {
-            const modalOverlay = document.getElementById('modal-overlay');
-            const modalContent = document.createElement('div');
-            modalContent.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-navy-900 border border-crimson rounded-lg shadow-2xl z-9999 max-w-lg w-full max-h-[80vh] overflow-y-auto';
-            modalContent.innerHTML = content;
+        // ===== FINANCIAL BATTLE MAP FUNCTIONS =====
+
+        function updateBattleMap() {
+            const scoreData = updateScoreSection();
+            const totalScore = scoreData.totalScore;
             
-            modalOverlay.appendChild(modalContent);
-            modalOverlay.classList.add('active');
+            // Determine current phase
+            let currentPhase = 'warrior';
+            let nextPhase = 'commander';
             
-            // Close modal when clicking outside
-            modalOverlay.addEventListener('click', function(e) {
-                if (e.target === modalOverlay) {
-                    closeModal();
-                }
+            if (totalScore >= battleMapConfig.phases.commander.minScore) {
+                currentPhase = 'commander';
+                nextPhase = 'guardian';
+            }
+            if (totalScore >= battleMapConfig.phases.guardian.minScore) {
+                currentPhase = 'guardian';
+                nextPhase = null;
+            }
+            
+            const phaseConfig = battleMapConfig.phases[currentPhase];
+            
+            // Update status badge
+            const statusBadge = document.getElementById('status-badge');
+            const currentRank = document.getElementById('current-rank');
+            const currentProgress = document.getElementById('current-progress');
+            
+            if (statusBadge) {
+                statusBadge.className = `status-badge ${currentPhase}-active`;
+            }
+            
+            if (currentRank) currentRank.textContent = phaseConfig.rank;
+            
+            // Calculate phase progress
+            const pillars = phaseConfig.pillars;
+            let completedPillars = 0;
+            let totalProgress = 0;
+            
+            pillars.forEach(pillar => {
+                if (pillar.check()) completedPillars++;
+                totalProgress += pillar.progress();
+            });
+            
+            const phaseProgress = Math.round(totalProgress / pillars.length);
+            
+            if (currentProgress) {
+                currentProgress.textContent = `${phaseConfig.rank} Phase • ${completedPillars}/${pillars.length} Pillars Complete`;
+            }
+            
+            // Update phase progress circles
+            updatePhaseProgressCircles(currentPhase);
+            
+            // Update pillars display
+            updatePillarsDisplay(currentPhase, pillars);
+            
+            // Update next mission
+            updateNextMission(currentPhase, pillars, completedPillars);
+            
+            // Update modal with current progress
+            updateAcademyModal(currentPhase, phaseProgress, completedPillars, pillars.length);
+            
+            // Return current phase info for other functions
+            return {
+                currentPhase,
+                phaseProgress,
+                completedPillars,
+                totalPillars: pillars.length
+            };
+        }
+
+        function updatePhaseProgressCircles(currentPhase) {
+            const circles = document.querySelectorAll('.phase-circle');
+            const lines = document.querySelectorAll('.phase-line');
+            
+            // Reset all
+            circles.forEach(circle => {
+                circle.className = 'phase-circle locked';
+            });
+            lines.forEach(line => {
+                line.className = 'phase-line';
+            });
+            
+            // Set based on current phase
+            if (currentPhase === 'warrior') {
+                circles[0].className = 'phase-circle active';
+                lines[0].className = 'phase-line complete';
+                circles[1].className = 'phase-circle locked';
+                circles[2].className = 'phase-circle locked';
+            } else if (currentPhase === 'commander') {
+                circles[0].className = 'phase-circle complete';
+                lines[0].className = 'phase-line complete';
+                circles[1].className = 'phase-circle active';
+                lines[1].className = 'phase-line active';
+                circles[2].className = 'phase-circle locked';
+            } else if (currentPhase === 'guardian') {
+                circles[0].className = 'phase-circle complete';
+                lines[0].className = 'phase-line complete';
+                circles[1].className = 'phase-circle complete';
+                lines[1].className = 'phase-line complete';
+                circles[2].className = 'phase-circle active';
+            }
+        }
+
+        function updatePillarsDisplay(phase, pillars) {
+            const pillarsContainer = document.getElementById('phase-pillars');
+            if (!pillarsContainer) return;
+            
+            pillarsContainer.innerHTML = '';
+            
+            pillars.forEach(pillar => {
+                const isComplete = pillar.check();
+                const progress = pillar.progress();
+                
+                const pillarEl = document.createElement('div');
+                pillarEl.className = `pillar-item ${isComplete ? 'complete' : 'in-progress'}`;
+                
+                pillarEl.innerHTML = `
+                    <div class="pillar-icon ${isComplete ? 'complete' : 'in-progress'}">
+                        ${isComplete ? '✓' : '⌛'}
+                    </div>
+                    <div class="pillar-info">
+                        <div class="pillar-name">${pillar.name}</div>
+                        <div class="pillar-status">${pillar.description}</div>
+                    </div>
+                    <div class="pillar-progress">${Math.round(progress)}%</div>
+                `;
+                
+                pillarsContainer.appendChild(pillarEl);
             });
         }
 
-        function closeModal() {
-            const modalOverlay = document.getElementById('modal-overlay');
-            modalOverlay.innerHTML = '';
-            modalOverlay.classList.remove('active');
+        function updateNextMission(phase, pillars, completedCount) {
+            const nextMissionTitle = document.getElementById('next-mission-title');
+            const nextMissionDesc = document.getElementById('next-mission-desc');
+            const nextMissionAction = document.getElementById('next-mission-action');
+            
+            if (!nextMissionTitle || !nextMissionDesc || !nextMissionAction) return;
+            
+            // Find first incomplete pillar
+            const incompletePillar = pillars.find(pillar => !pillar.check());
+            
+            if (incompletePillar) {
+                nextMissionTitle.textContent = incompletePillar.name;
+                nextMissionDesc.textContent = `Pillar ${completedCount + 1} • ${incompletePillar.description}`;
+                
+                // Generate specific action based on pillar
+                let action = '';
+                switch(incompletePillar.id) {
+                    case 'budget':
+                        const surplus = getMonthlySurplus();
+                        if (surplus <= 0) {
+                            action = 'Adjust expenses to create positive surplus';
+                        } else {
+                            action = 'Ensure needs ≤50% and wants ≤30% of income';
+                        }
+                        break;
+                    case 'emergency1':
+                        const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
+                        const allocations = calculateTierAllocations();
+                        const monthlyEssentials = allocations.tier1Total;
+                        const needed = monthlyEssentials - emergencyFund;
+                        action = needed > 0 ? `Add $${Math.round(needed)} to emergency fund` : 'Fund is complete!';
+                        break;
+                    case 'highInterestDebt':
+                        let highInterestTotal = 0;
+                        document.querySelectorAll('#debt-body tr').forEach(row => {
+                            const balance = parseCurrency(row.querySelector('.debt-balance-input')?.value);
+                            const rate = parseFloat(row.querySelector('.debt-rate-input')?.value) || 0;
+                            if (rate > 15) highInterestTotal += balance;
+                        });
+                        action = highInterestTotal > 0 ? `Attack $${Math.round(highInterestTotal)} high-interest debt` : 'No high-interest debt found';
+                        break;
+                    case 'emergency6':
+                        const emergencyFund6 = parseCurrency(document.getElementById('current-iron-pot').value);
+                        const allocations6 = calculateTierAllocations();
+                        const monthlyEssentials6 = allocations6.tier1Total;
+                        const target6 = monthlyEssentials6 * 6;
+                        const needed6 = target6 - emergencyFund6;
+                        action = needed6 > 0 ? `Add $${Math.round(needed6)} to reach 6-month fund` : 'Iron Pot complete!';
+                        break;
+                    default:
+                        action = 'Complete this pillar to advance';
+                }
+                
+                nextMissionAction.textContent = action;
+            } else {
+                // All pillars complete, prepare for next phase
+                nextMissionTitle.textContent = `Advance to ${phase === 'warrior' ? 'Commander' : 'Guardian'}`;
+                nextMissionDesc.textContent = 'Complete current phase to unlock next tier';
+                nextMissionAction.textContent = 'Click here to explore next phase features';
+            }
         }
+
+        function focusOnNextMission() {
+            const battleInfo = updateBattleMap();
+            const phase = battleInfo.currentPhase;
+            const pillars = battleMapConfig.phases[phase].pillars;
+            const incompletePillar = pillars.find(pillar => !pillar.check());
+            
+            if (incompletePillar) {
+                // Scroll to relevant section based on pillar
+                switch(incompletePillar.id) {
+                    case 'budget':
+                        scrollToSection('budget');
+                        showToast('Focus on completing your budget');
+                        break;
+                    case 'emergency1':
+                    case 'emergency6':
+                        scrollToSection('assets');
+                        showToast('Focus on building your emergency fund');
+                        break;
+                    case 'highInterestDebt':
+                        scrollToSection('debt');
+                        showToast('Focus on eliminating high-interest debt');
+                        break;
+                    case 'retirement':
+                    case 'savingsRate':
+                        scrollToSection('assets');
+                        showToast('Focus on retirement and savings');
+                        break;
+                    default:
+                        showToast('Complete your current phase pillars');
+                }
+            } else {
+                // All pillars complete, show academy modal
+                showAcademyModal();
+            }
+        }
+
+        function updateAcademyModal(currentPhase, phaseProgress, completedPillars, totalPillars) {
+            // Update current rank in modal
+            const modalCurrentRank = document.getElementById('modal-current-rank');
+            if (modalCurrentRank) modalCurrentRank.textContent = currentPhase.toUpperCase();
+            
+            // Update warrior progress
+            const modalWarriorProgress = document.getElementById('modal-warrior-progress');
+            const modalWarriorBar = document.getElementById('modal-warrior-bar');
+            
+            if (modalWarriorProgress) modalWarriorProgress.textContent = `${phaseProgress}%`;
+            if (modalWarriorBar) modalWarriorBar.style.width = `${phaseProgress}%`;
+            
+            // Update current tier badges
+            const warriorBadge = document.getElementById('warrior-badge');
+            const commanderButton = document.getElementById('commander-button');
+            
+            if (warriorBadge) {
+                warriorBadge.style.display = currentPhase === 'warrior' ? 'block' : 'none';
+            }
+            
+            if (commanderButton) {
+                if (currentPhase === 'warrior') {
+                    commanderButton.textContent = 'Upgrade to Commander';
+                    commanderButton.className = 'w-full bg-yellow-500 hover:bg-yellow-600 py-2 rounded text-sm font-bold transition';
+                } else if (currentPhase === 'commander') {
+                    commanderButton.textContent = 'Current Tier';
+                    commanderButton.className = 'w-full bg-yellow-700 py-2 rounded text-sm font-bold transition cursor-default';
+                    commanderButton.onclick = null;
+                } else {
+                    commanderButton.textContent = 'Already a Guardian';
+                    commanderButton.className = 'w-full bg-gray-600 py-2 rounded text-sm font-bold transition cursor-default';
+                    commanderButton.onclick = null;
+                }
+            }
+        }
+
+        function showAcademyModal() {
+            const modal = document.getElementById('academy-modal');
+            const overlay = document.getElementById('modal-overlay');
+            
+            if (modal && overlay) {
+                modal.classList.remove('hidden');
+                overlay.classList.add('active');
+                
+                // Update modal with current data
+                updateBattleMap();
+                
+                // Close when clicking outside
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) {
+                        closeAcademyModal();
+                    }
+                });
+            }
+        }
+
+        function closeAcademyModal() {
+            const modal = document.getElementById('academy-modal');
+            const overlay = document.getElementById('modal-overlay');
+            
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+            if (overlay) {
+                overlay.classList.remove('active');
+            }
+        }
+
+        function selectTier(tier) {
+            if (tier === 'warrior') {
+                showToast('You are already in Warrior tier');
+                return;
+            }
+            
+            const currentPhase = updateBattleMap().currentPhase;
+            
+            if (tier === 'commander' && currentPhase === 'warrior') {
+                // Show upgrade confirmation
+                const content = `
+                    <div class="text-center p-6">
+                        <div class="text-4xl mb-4 text-yellow-400">
+                            <i class="fas fa-chess-knight"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Upgrade to Commander</h4>
+                        <p class="text-sm text-gray-300 mb-4">Unlock strategic wealth building tools</p>
+                        
+                        <div class="space-y-3 text-left mb-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-400 mr-3"></i>
+                                <span class="text-sm">Advanced tax optimization tools</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-400 mr-3"></i>
+                                <span class="text-sm">Investment portfolio analysis</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-400 mr-3"></i>
+                                <span class="text-sm">5-year financial projections</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-400 mr-3"></i>
+                                <span class="text-sm">Unlimited scenario planning</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="text-2xl font-bold">$29<span class="text-sm text-gray-400">/month</span></div>
+                            <div class="text-xs text-gray-500">Cancel anytime</div>
+                        </div>
+                        
+                        <div class="flex space-x-3">
+                            <button onclick="closeModal()" class="flex-1 bg-white/10 hover:bg-white/20 py-3 rounded text-sm transition">
+                                Not Now
+                            </button>
+                            <button onclick="processUpgrade('commander')" class="flex-1 bg-yellow-500 hover:bg-yellow-600 py-3 rounded text-sm font-bold transition">
+                                Upgrade Now
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                openModal(content);
+            } else if (tier === 'guardian') {
+                showToast('Guardian tier coming soon!');
+            }
+        }
+
+        function processUpgrade(tier) {
+            closeModal();
+            showToast(`Redirecting to ${tier} upgrade page...`);
+            
+            // In a real implementation, this would redirect to your payment processor
+            setTimeout(() => {
+                window.open('https://realamericanfinance.com/academy', '_blank');
+            }, 1500);
+        }
+
     </script>
 </body>
 </html>
