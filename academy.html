@@ -17,9 +17,16 @@
         .pillar-row:nth-child(even) .flex-container { flex-direction: row-reverse; }
         .font-cursive { font-family: 'Great Vibes', cursive; }
         .teaser-badge {
-            background: rgba(178, 34, 52, 0.2);
+            background: rgba(178, 34, 52, 0.25);
             border: 1px solid #B22234;
-            color: #B22234;
+            color: #ffdddd;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
         }
     </style>
     <script>
@@ -36,7 +43,6 @@
 </head>
 <body class="text-white font-sans selection:bg-crimson">
 
-    <!-- Header (unchanged) -->
     <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="flex flex-col group">
@@ -52,7 +58,6 @@
         </nav>
     </header>
 
-    <!-- Hero -->
     <section class="hero-bg pt-48 pb-24 border-b border-white/5">
         <div class="container mx-auto px-6 text-center max-w-4xl">
             <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight leading-none mb-6">THE <span class="text-crimson">ACADEMY.</span></h1>
@@ -82,7 +87,7 @@
         </div>
     </div>
 
-    <!-- Phase 01 Header -->
+    <!-- Phase 01 -->
     <div class="bg-crimson/5 py-12 border-b border-crimson/20">
         <div class="container mx-auto px-6 text-center">
             <h2 class="font-heading text-3xl tracking-[0.4em] uppercase text-white">Phase 01: The Architecture</h2>
@@ -91,7 +96,7 @@
     </div>
 
     <div class="pillar-sections">
-        <!-- Phase 01 Pillars (full, unchanged) -->
+        <!-- Pillar 01 -->
         <section class="pillar-row py-24 border-b border-white/5">
             <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
                 <div class="lg:w-3/5">
@@ -115,22 +120,108 @@
             </div>
         </section>
 
-        <!-- Repeat for 02, 03, 04 as in your original code – full content here -->
+        <!-- Pillar 02 -->
+        <section class="pillar-row py-24 border-b border-white/5 bg-navy-900/30">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">02</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">The Transmission</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Wealth Architecture</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Engineering automated capital routing. We replace the fragility of willpower with "Flow Logic," directing every dollar toward its highest and best use the moment it hits the hub.</p>
+                    <div class="bg-white/5 border-l-2 border-crimson p-6 mb-8">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-crimson mb-2">Tactical Case Study</h4>
+                        <p class="text-sm text-gray-400 italic">"Hub-and-spoke automation: 15% to Defense, 20% to Offense, remainder to the Iron Pot. Manual saving is eliminated."</p>
+                    </div>
+                    <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Discipline replaced by automation.</p>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"The architecture dictates the outcome."</p>
+                </div>
+            </div>
+        </section>
 
-        <!-- Phase 01 CTA (as before) -->
+        <!-- Pillar 03 -->
+        <section class="pillar-row py-24 border-b border-white/5">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">03</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">The Gauges</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Scenario Planning</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Financial stress-testing for black swan events. We codify responses in a 'cold' state to ensure that market panic never dictates your strategic direction.</p>
+                    <div class="bg-white/5 border-l-2 border-crimson p-6 mb-8">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-crimson mb-2">Tactical Case Study</h4>
+                        <p class="text-sm text-gray-400 italic">"Writing a 50% income drop protocol: Activate 'Recession Budget,' pivot to high-leverage Skill X, bridge with Iron Pot."</p>
+                    </div>
+                    <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Stop worrying, start preparing.</p>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Panic is a tax on the unprepared."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pillar 04 -->
+        <section class="pillar-row py-24 border-b border-white/5 bg-navy-900/30">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">04</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Line Clearing</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Debt Neutralization</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Reclaiming monthly cash flow. Consumer debt is a lien against your future energy; we treat it as an enemy combatant to be neutralized with sniper precision.</p>
+                    <div class="bg-white/5 border-l-2 border-crimson p-6 mb-8">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-crimson mb-2">Tactical Case Study</h4>
+                        <p class="text-sm text-gray-400 italic">"Neutralize a $500/mo car payment. Instantly reallocate $6k/year into offensive capital for Phase 02."</p>
+                    </div>
+                    <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Funding the future, not the past.</p>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Kill the debt. Keep the flow."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 01 CTA -->
+        <div class="bg-navy-900/70 py-16 border-t border-b border-crimson/30">
+            <div class="container mx-auto px-6 text-center">
+                <h3 class="font-heading text-3xl uppercase tracking-wider mb-6 text-white">Build Your Foundation – Free Today</h3>
+                <p class="text-lg text-gray-300 mb-6">In The Lab you get the complete interactive Phase 01 dashboard (scroll to see all sections):</p>
+                <ul class="text-left max-w-2xl mx-auto text-gray-200 mb-8 space-y-3 text-base list-disc pl-6">
+                    <li>Monthly Income & Surplus Calculation</li>
+                    <li>Debt Reconnaissance + Avalanche Payoff Timeline</li>
+                    <li>Advanced Monthly Budget with Iron Pot & War Mode</li>
+                    <li>Assets & Net Worth Tracker + Basic Scenario Testing</li>
+                </ul>
+                <p class="text-lg text-gray-300 mb-8">Everything auto-saves, no credit card required.</p>
+                <a href="https://realamericanfinance.com/the-lab" class="bg-crimson hover:bg-red-700 text-white font-heading font-bold py-6 px-12 text-xl uppercase tracking-widest transition rounded-sm inline-block">
+                    Enter The Lab – Free Phase 01 Access
+                </a>
+            </div>
+        </div>
 
         <!-- Phase 02 Header -->
         <div class="bg-crimson/10 py-16 border-b border-crimson/30 mt-12">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="font-heading text-3xl md:text-4xl tracking-[0.4em] uppercase text-white mb-6">Phase 02: The Expansion</h2>
-                <p class="text-lg text-gray-300 mb-8 max-w-3xl mx-auto">High-leverage earning, tax optimization, jurisdictional positioning & estate governance (Pillars 05–08)</p>
-                <p class="text-md text-gray-400 mb-6 italic">Tools launching progressively in Premium</p>
+                <p class="text-lg text-gray-300 mb-8 max-w-3xl mx-auto">High-leverage earning, tax optimization, jurisdictional positioning & estate governance</p>
+                <p class="text-md text-gray-400 mb-6 italic">Tools launching progressively in Premium tier</p>
             </div>
         </div>
 
-        <!-- Now filled teaser pillars for Phase 02 -->
+        <!-- Teaser Pillars for Phase 02 -->
         <section class="pillar-row py-24 border-b border-white/5">
-            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container relative">
                 <div class="lg:w-3/5">
                     <div class="flex items-center gap-4 mb-6">
                         <span class="text-crimson font-heading text-3xl font-bold">05</span>
@@ -138,11 +229,11 @@
                         <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">The Turbo</span>
                     </div>
                     <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">High-Leverage Earning</h3>
-                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Decoupling income from time — shift from trading hours to scalable value creation that multiplies without linear effort.</p>
-                    <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Time-seller → Solution-provider.</p>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Decoupling income from hours worked — shift to scalable value creation that multiplies output without proportional personal energy input.</p>
+                    <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: From time-seller to solution-provider.</p>
                 </div>
                 <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm relative">
-                    <span class="teaser-badge absolute top-4 right-4 px-3 py-1 text-xs font-bold uppercase rounded-full">Premium</span>
+                    <span class="teaser-badge">Premium</span>
                     <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
                     <p class="text-xl font-heading text-white italic leading-snug">"Leverage is the multiplier of effort."</p>
                 </div>
@@ -150,7 +241,7 @@
         </section>
 
         <section class="pillar-row py-24 border-b border-white/5 bg-navy-900/30">
-            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container relative">
                 <div class="lg:w-3/5">
                     <div class="flex items-center gap-4 mb-6">
                         <span class="text-crimson font-heading text-3xl font-bold">06</span>
@@ -158,25 +249,213 @@
                         <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">The Sieve</span>
                     </div>
                     <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Tax Optimization</h3>
-                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Treat taxes as a controllable business expense — legally minimize leakage to retain maximum surplus for reinvestment.</p>
-                    <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Tax as unavoidable → tax as avoidable overhead.</p>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Structural efficiency — treat the IRS as a business expense to be legally minimized for maximum surplus retention.</p>
+                    <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Tax as unavoidable → tax as controllable overhead.</p>
                 </div>
                 <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm relative">
-                    <span class="teaser-badge absolute top-4 right-4 px-3 py-1 text-xs font-bold uppercase rounded-full">Premium</span>
+                    <span class="teaser-badge">Premium</span>
                     <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
                     <p class="text-xl font-heading text-white italic leading-snug">"Retain your margin."</p>
                 </div>
             </div>
         </section>
 
-        <!-- Add similar for 07 and 08 -->
+        <section class="pillar-row py-24 border-b border-white/5">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container relative">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">07</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Positioning</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Jurisdictional Freedom</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Geographic positioning for maximum ROI — move your nexus to jurisdictions that respect sovereignty and reward your efforts.</p>
+                    <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Accept the default → choose the optimal environment.</p>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm relative">
+                    <span class="teaser-badge">Premium</span>
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Go where you are celebrated."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pillar-row py-24 border-b border-white/5 bg-navy-900/30">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container relative">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">08</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">The Wall</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Estate Governance</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Build the outer wall — ensure generational wealth is governed by private protocol, not public courts or probate.</p>
+                    <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Legacy exposed to litigation → legacy protected and controlled.</p>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm relative">
+                    <span class="teaser-badge">Premium</span>
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Own nothing. Control everything."</p>
+                </div>
+            </div>
+        </section>
 
         <!-- Phase 02 CTA -->
+        <div class="bg-crimson/20 py-16 border-t border-b border-crimson/40">
+            <div class="container mx-auto px-6 text-center">
+                <h3 class="font-heading text-3xl uppercase tracking-wider mb-6 text-white">Ready for Expansion & Leverage?</h3>
+                <p class="text-lg text-gray-300 mb-8">Premium tier unlocks the full Phase 02 toolkit as tools launch.</p>
+                <a href="https://realamericanfinance.com/the-lab" class="bg-white text-crimson font-heading font-bold py-6 px-12 text-xl uppercase tracking-widest hover:bg-gray-100 transition rounded-sm inline-block">
+                    Go Premium – $29/mo
+                </a>
+            </div>
+        </div>
 
-        <!-- Phase 03 Header + similar teaser pillars for 09–12 with Mastery badge -->
+        <!-- Phase 03 Header -->
+        <div class="bg-crimson/20 py-16 border-b border-crimson/40 mt-12">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="font-heading text-3xl md:text-4xl tracking-[0.4em] uppercase text-white mb-6">Phase 03: The Sovereignty</h2>
+                <p class="text-lg text-gray-300 mb-8 max-w-3xl mx-auto">Direct ownership, proven cash flow acquisition, antifragility & perpetual autonomy</p>
+                <p class="text-md text-gray-400 mb-6 italic">Full sovereignty tools – Mastery tier</p>
+            </div>
+        </div>
 
+        <!-- Teaser Pillars for Phase 03 -->
+        <section class="pillar-row py-24 border-b border-white/5">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container relative">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">09</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Deployment</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Strategic Allocation</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Move from passive speculation to direct ownership of hard assets where you maintain control.</p>
+                    <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Renting your wealth → owning the machine.</p>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm relative">
+                    <span class="teaser-badge">Mastery</span>
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Don't rent your wealth. Own the machine."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pillar-row py-24 border-b border-white/5 bg-navy-900/30">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container relative">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">10</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Expansion</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Business Acquisition</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Buy proven cash flow engines instead of starting from zero — acquire existing wheels that already turn profit.</p>
+                    <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Reinventing → acquiring the wheel.</p>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm relative">
+                    <span class="teaser-badge">Mastery</span>
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Acquire your income."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pillar-row py-24 border-b border-white/5">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container relative">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">11</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Shielding</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">Antifragility Audit</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Build resilience beyond digital systems — eliminate counterparty risk to survive systemic failures.</p>
+                    <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Digital dependency → true decoupling.</p>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm relative">
+                    <span class="teaser-badge">Mastery</span>
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"Survival is the ultimate win."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pillar-row py-24 border-b border-white/5 bg-navy-900/30">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16 items-center flex-container relative">
+                <div class="lg:w-3/5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-crimson font-heading text-3xl font-bold">12</span>
+                        <div class="h-px w-12 bg-crimson/30"></div>
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Sovereignty</span>
+                    </div>
+                    <h3 class="text-5xl font-heading font-bold mb-6 uppercase text-white">The Perpetual Exit</h3>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">Achieve total time autonomy — the machine generates more than you spend; labor becomes optional, impact permanent.</p>
+                    <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Trading time for money → perpetual motion.</p>
+                </div>
+                <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm relative">
+                    <span class="teaser-badge">Mastery</span>
+                    <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
+                    <p class="text-xl font-heading text-white italic leading-snug">"The machine works for you."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <div class="bg-navy-900 py-20 border-t border-white/10">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="font-heading text-4xl uppercase tracking-wider mb-6">The Map Inspires.<br>The Lab Executes.</h2>
+                <p class="text-xl text-gray-300 mb-10">Choose your tier and begin your journey to sovereignty.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-8">
+                    <a href="https://realamericanfinance.com/the-lab" class="bg-white/10 hover:bg-white/20 border-2 border-white/30 text-white font-heading font-bold py-6 px-12 uppercase tracking-widest transition rounded-sm">
+                        Free – Phase 01
+                    </a>
+                    <a href="https://realamericanfinance.com/the-lab" class="bg-crimson hover:bg-red-700 text-white font-heading font-bold py-6 px-12 uppercase tracking-widest transition rounded-sm">
+                        Premium $29/mo
+                    </a>
+                    <a href="https://realamericanfinance.com/the-lab" class="bg-gradient-to-r from-crimson to-red-800 hover:from-red-700 hover:to-red-900 text-white font-heading font-bold py-6 px-12 uppercase tracking-widest transition rounded-sm">
+                        Mastery $99/mo
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Footer unchanged -->
+    <footer class="bg-navy-950 border-t-8 border-crimson pt-24 pb-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-16 mb-24">
+                <div class="lg:col-span-2">
+                    <a href="index.html" class="flex flex-col mb-8">
+                        <span class="font-cursive text-5xl leading-none text-white">Real American Finance</span>
+                        <span class="font-heading text-xs tracking-[0.5em] text-crimson uppercase font-bold mt-2">Sovereignty Through Discipline</span>
+                    </a>
+                    <p class="text-gray-400 max-w-md leading-relaxed mb-8">The architecture for the modern operator. We engineer autonomy through capital flow and jurisdictional strategy.</p>
+                </div>
+                <div>
+                    <h4 class="font-heading text-sm tracking-[0.3em] uppercase text-white mb-8">The Ecosystem</h4>
+                    <ul class="space-y-4 font-heading text-xs tracking-[0.2em] text-gray-500 uppercase">
+                        <li><a href="academy.html" class="hover:text-white transition">The 12 Pillars</a></li>
+                        <li><a href="media.html" class="hover:text-white transition">Intel & Media</a></li>
+                        <li><a href="the-lab.html" class="hover:text-white transition">The Lab</a></li>
+                        <li><a href="strategy.html" class="hover:text-white transition">Governance Call</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-heading text-sm tracking-[0.3em] uppercase text-white mb-8">Sovereignty Intel</h4>
+                    <form class="flex flex-col gap-4">
+                        <input type="email" placeholder="OPERATOR@EMAIL.COM" class="bg-navy-900 border border-white/10 px-4 py-3 text-xs font-heading tracking-widest focus:border-crimson outline-none transition">
+                        <button class="bg-crimson text-white font-heading font-bold py-3 text-xs tracking-[0.3em] uppercase hover:bg-red-700 transition">Authorize Access</button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-white/5 pt-12 text-center">
+                <p class="text-[10px] text-gray-600 uppercase tracking-widest">© 2026 Real American Finance. Institutional Doctrine.</p>
+                <div class="mt-8 p-6 border border-white/5 bg-navy-900/50">
+                    <h5 class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-2">Strategic Disclaimer</h5>
+                    <p class="text-[9px] text-gray-600 uppercase tracking-widest leading-relaxed">Educational purposes only. Execution requires individual discretion. We are not licensed financial advisors or attorneys.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
