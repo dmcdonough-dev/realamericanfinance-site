@@ -6,11 +6,9 @@
     <title>The Lab | Real American Finance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* All your existing CSS styles remain unchanged */
         .hero-bg { background: linear-gradient(rgba(5,11,20,0.8), rgba(5,11,20,0.8)), url('./flag_distressed.jpg'); background-size: cover; background-position: center; }
         
         input::-webkit-outer-spin-button, 
@@ -38,41 +36,34 @@
             box-shadow: 0 0 0 2px rgba(178, 34, 52, 0.2);
         }
         
-        /* Tier Styles */
         .tier-1 { border-left: 4px solid #FFFFFF; background: rgba(255,255,255,0.04); }
         .tier-2 { border-left: 4px solid #9ca3af; background: rgba(156,163,175,0.04); }
         .tier-3 { border-left: 4px solid #4b5563; background: rgba(255,255,255,0.02); transition: all 0.5s ease; }
         .savings-tier { border-left: 4px solid #10B981; background: rgba(16, 185, 129, 0.1); }
         .assets-box { border-left: 4px solid #B22234; background: rgba(178, 34, 52, 0.1); }
         
-        /* Badge Styles */
         .perc-badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 800; letter-spacing: 0.1em; transition: all 0.3s; }
         .status-good { background: rgba(0, 255, 0, 0.3); color: white; }
         .status-ok { background: rgba(255, 255, 0, 0.3); color: black; }
         .status-bad { background: #B22234; color: white; box-shadow: 0 0 10px rgba(178, 34, 52, 0.5); }
         
-        /* Alert Animations */
         .high-interest-alert { animation: pulse 1.5s infinite; color: #B22234; font-weight: 900; font-size: 9px; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         
-        /* War Mode */
         .war-mode-active { border-left-color: #B22234 !important; background: rgba(178, 34, 52, 0.15) !important; opacity: 0.5; pointer-events: none; }
         .war-mode-active h4 { color: #B22234 !important; text-shadow: 0 0 10px rgba(178,34,52,0.5); }
         .war-mode-flash { animation: flash 2s; }
         @keyframes flash { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
         
-        /* Color States */
         .positive-surplus { color: #00FF00 !important; text-shadow: 0 0 10px rgba(0, 255, 0, 0.3); }
         .negative-surplus { color: #B22234 !important; text-shadow: 0 0 10px rgba(178, 34, 52, 0.7); animation: pulse 1.5s infinite; }
         .breach-alert { color: #B22234 !important; text-shadow: 0 0 10px rgba(178,34,52,0.7); animation: pulse 1.5s infinite; }
         
-        /* Layout */
         html, body { height: 100%; margin: 0; }
         body { display: flex; flex-direction: column; min-height: 100vh; background: #050B14; }
         main { flex: 1 0 auto; }
         footer { flex-shrink: 0; }
         
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             .mobile-collapsible { cursor: pointer; padding: 12px 0; }
             .mobile-hidden { display: none !important; }
@@ -80,12 +71,10 @@
             .mobile-bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #0A1A2F; border-top: 1px solid rgba(255,255,255,0.1); z-index: 1000; }
             .mobile-tab { flex: 1; padding: 12px 8px; text-align: center; font-size: 11px; }
             
-            /* Prevent iOS zoom */
             input, select, textarea {
                 font-size: 16px !important;
             }
             
-            /* Touch targets */
             .touch-target {
                 min-height: 44px;
                 min-width: 44px;
@@ -93,18 +82,6 @@
             
             .debt-card { border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
             
-            /* Mobile swipe gestures */
-            .swipe-hint {
-                position: absolute;
-                bottom: -20px;
-                left: 0;
-                right: 0;
-                text-align: center;
-                font-size: 10px;
-                color: rgba(255,255,255,0.3);
-            }
-            
-            /* Bottom sheet */
             .bottom-sheet {
                 position: fixed;
                 bottom: 0;
@@ -126,12 +103,10 @@
             }
         }
         
-        /* Desktop */
         @media (min-width: 769px) {
             .mobile-hidden { display: block !important; }
         }
         
-        /* Currency Input Styling */
         .currency-input-container {
             position: relative;
             display: flex;
@@ -152,12 +127,10 @@
             padding-left: 20px !important;
         }
         
-        /* Placeholder Styling */
         .input-underlined::placeholder {
             color: rgba(255,255,255,0.3);
         }
         
-        /* Keyboard Shortcuts */
         .shortcut-hint {
             position: absolute;
             right: 8px;
@@ -170,7 +143,6 @@
             border-radius: 3px;
         }
         
-        /* Save Indicator */
         .save-indicator {
             position: fixed;
             bottom: 20px;
@@ -191,7 +163,6 @@
             transform: translateY(0);
         }
         
-        /* Progress Animations */
         @keyframes slideIn { 
             from { transform: translateX(-100%); opacity: 0; } 
             to { transform: translateX(0); opacity: 1; } 
@@ -206,7 +177,6 @@
         
         .fade-in-up { animation: fadeInUp 0.3s ease-out; }
         
-        /* Score Update Animation */
         @keyframes scoreUpdate { 
             0% { transform: scale(1); }
             50% { transform: scale(1.1); }
@@ -215,12 +185,10 @@
         
         .score-updated { animation: scoreUpdate 0.5s ease; }
         
-        /* Progress Bars */
         .progress-bar {
             transition: width 1s ease-in-out;
         }
         
-        /* Toast Notification */
         .toast-notification {
             position: fixed;
             bottom: 20px;
@@ -241,7 +209,6 @@
             transform: translateY(0);
         }
         
-        /* Accessibility */
         @media (prefers-reduced-motion: reduce) {
             *, ::before, ::after {
                 animation-duration: 0.01ms !important;
@@ -261,14 +228,12 @@
             border: 0;
         }
         
-        /* Quick Start Panel */
         .quick-start-panel {
             background: linear-gradient(135deg, #0A1A2F 0%, #11243F 100%);
             border: 1px solid rgba(178, 34, 52, 0.3);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         
-        /* Scenario Cards */
         .scenario-card { 
             background: rgba(255,255,255,0.05); 
             border: 1px solid rgba(255,255,255,0.1); 
@@ -283,36 +248,6 @@
             transform: translateY(-2px); 
         }
         
-        /* Debt Timeline */
-        .timeline-interactive {
-            position: relative;
-            height: 40px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 4px;
-            margin: 10px 0;
-        }
-        
-        .timeline-point {
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #9CA3AF;
-            cursor: pointer;
-        }
-        
-        .timeline-point.current {
-            background: #B22234;
-            box-shadow: 0 0 10px rgba(178, 34, 52, 0.5);
-        }
-        
-        .timeline-point.future {
-            background: #10B981;
-        }
-        
-        /* Budget Input Rows */
         .tier-input-row {
             display: flex;
             justify-content: space-between;
@@ -333,15 +268,11 @@
             text-align: right;
         }
         
-        /* Focus States for Keyboard Navigation */
         .keyboard-focus:focus {
             outline: 2px solid #B22234;
             outline-offset: 2px;
         }
         
-        /* New Styles for Enhancements */
-        
-        /* Achievement Badges */
         .achievement-badge {
             display: inline-flex;
             align-items: center;
@@ -356,28 +287,7 @@
         .achievement-bronze { background: linear-gradient(135deg, #CD7F32, #8B4513); color: white; }
         .achievement-silver { background: linear-gradient(135deg, #C0C0C0, #808080); color: white; }
         .achievement-gold { background: linear-gradient(135deg, #FFD700, #FFA500); color: black; }
-        .achievement-platinum { background: linear-gradient(135deg, #E5E4E2, #B9B9B9); color: black; }
         
-        /* Feature Teaser */
-        .feature-teaser {
-            background: linear-gradient(135deg, rgba(178, 34, 52, 0.1), rgba(255, 215, 0, 0.1));
-            border: 1px solid rgba(178, 34, 52, 0.3);
-            border-radius: 8px;
-            padding: 8px 12px;
-            margin: 8px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .feature-teaser:hover {
-            transform: translateY(-2px);
-            border-color: #FFD700;
-        }
-        
-        /* Tooltip Enhancement */
         .tooltip-trigger {
             position: relative;
             display: inline-block;
@@ -408,7 +318,6 @@
             opacity: 1;
         }
         
-        /* Input Validation States */
         .input-valid {
             border-color: #10B981 !important;
             background-color: rgba(16, 185, 129, 0.05);
@@ -426,7 +335,6 @@
             75% { transform: translateX(5px); }
         }
         
-        /* Micro-interactions */
         .value-change-positive {
             animation: valueChangePositive 1s ease;
         }
@@ -447,12 +355,6 @@
             100% { background-color: rgba(178, 34, 52, 0); }
         }
         
-        /* Benchmark Comparison */
-        .benchmark-better { color: #10B981; font-weight: bold; }
-        .benchmark-worse { color: #B22234; font-weight: bold; }
-        .benchmark-same { color: #9CA3AF; }
-        
-        /* Loading States */
         .loading-shimmer {
             background: linear-gradient(90deg, 
                 rgba(255,255,255,0.05) 0%, 
@@ -467,29 +369,7 @@
             100% { background-position: 200% 0; }
         }
         
-        /* Roadmap Teaser */
-        .roadmap-teaser {
-            background: linear-gradient(135deg, rgba(10, 26, 47, 0.9), rgba(17, 36, 63, 0.9));
-            border: 2px solid rgba(178, 34, 52, 0.3);
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .roadmap-teaser::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #B22234, #FFD700, #10B981);
-        }
-        
-        /* Action Button Pulse */
-        .btn-pulse {
+        .action-btn-pulse {
             animation: btnPulse 2s infinite;
         }
         
@@ -499,31 +379,6 @@
             100% { box-shadow: 0 0 0 0 rgba(178, 34, 52, 0); }
         }
         
-        /* Swipe Hint */
-        .swipe-hint {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .swipe-hint::after {
-            content: '← swipe →';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            transform: translateY(-50%);
-            text-align: center;
-            color: rgba(255,255,255,0.3);
-            font-size: 10px;
-            animation: swipeHint 2s infinite;
-        }
-        
-        @keyframes swipeHint {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.7; }
-        }
-        
-        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -542,89 +397,15 @@
             opacity: 1;
         }
         
-        /* Scenario Comparison */
-        .scenario-comparison {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin: 16px 0;
-        }
-        
-        .scenario-active {
-            border-color: #10B981 !important;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
-        }
-        
-        /* Achievement Popup */
-        .achievement-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            background: linear-gradient(135deg, #0A1A2F, #11243F);
-            border: 2px solid #FFD700;
-            border-radius: 16px;
-            padding: 24px;
-            z-index: 10001;
-            opacity: 0;
-            transition: all 0.3s ease;
-            max-width: 300px;
-            text-align: center;
-        }
-        
-        .achievement-popup.show {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-        
-        /* Milestone Tracker */
-        .milestone-tracker {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            margin: 8px 0;
-        }
-        
-        .milestone-reached {
-            color: #FFD700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-        
-        /* Educational Card */
-        .educational-card {
-            background: linear-gradient(135deg, rgba(10, 26, 47, 0.9), rgba(17, 36, 63, 0.9));
-            border: 1px solid rgba(178, 34, 52, 0.5);
-            border-radius: 8px;
-            padding: 16px;
-            margin: 16px 0;
-            position: relative;
-        }
-        
-        .educational-card .learn-more {
-            position: absolute;
-            bottom: -10px;
-            right: 16px;
-            font-size: 10px;
-            background: #B22234;
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-        
-        /* ARIA Improvements */
         [aria-expanded="true"] .arrow {
             transform: rotate(180deg);
         }
         
-        /* Focus Visible for Keyboard */
         :focus-visible {
             outline: 2px solid #B22234;
             outline-offset: 2px;
         }
         
-        /* Print Styles */
         @media print {
             .no-print {
                 display: none !important;
@@ -646,9 +427,6 @@
             }
         }
         
-        /* ===== DRAG & DROP STYLES ===== */
-        
-        /* Draggable item styles */
         .draggable-item {
             display: flex;
             justify-content: space-between;
@@ -770,7 +548,6 @@
             border-color: #DC143C;
         }
         
-        /* Drop zone styles */
         .drop-zone {
             min-height: 100px;
             border: 2px dashed rgba(255,255,255,0.1);
@@ -801,7 +578,6 @@
             margin-bottom: 5px;
         }
         
-        /* Tier-specific drop zone colors */
         .tier-1 .drop-zone.drag-over {
             border-color: #FFFFFF;
             background: rgba(255,255,255,0.05);
@@ -817,7 +593,6 @@
             background: rgba(75,85,99,0.05);
         }
         
-        /* Add custom expense form */
         .add-custom-expense {
             margin-top: 15px;
             padding: 15px;
@@ -878,7 +653,6 @@
             background: rgba(178, 34, 52, 0.1);
         }
         
-        /* Drag & Drop controls */
         .drag-drop-controls {
             display: flex;
             justify-content: space-between;
@@ -920,7 +694,6 @@
             border-color: #DC143C;
         }
         
-        /* Smart insights panel */
         .smart-insights {
             margin-top: 20px;
             padding: 15px;
@@ -985,7 +758,6 @@
             text-decoration: underline;
         }
         
-        /* Progress tracking for drag & drop */
         .personalization-progress {
             margin-top: 15px;
             padding: 10px;
@@ -1021,7 +793,6 @@
             transition: width 0.5s ease;
         }
         
-        /* Mobile drag & drop enhancements */
         @media (max-width: 768px) {
             .draggable-item {
                 padding: 12px 10px;
@@ -1059,7 +830,6 @@
             }
         }
         
-        /* Touch device optimizations */
         .touch-drag-hint {
             display: none;
             position: absolute;
@@ -1080,7 +850,6 @@
             }
         }
         
-        /* Animation for item movement */
         @keyframes itemMove {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -1091,7 +860,6 @@
             animation: itemMove 0.3s ease;
         }
         
-        /* Save indicator for drag & drop */
         .dd-save-indicator {
             position: fixed;
             bottom: 70px;
@@ -1114,340 +882,168 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* ===== FINANCIAL BATTLE MAP STYLES ===== */
-
-        .battle-map-card {
-            background: linear-gradient(135deg, rgba(10, 26, 47, 0.9), rgba(17, 36, 63, 0.9));
-            border: 2px solid rgba(178, 34, 52, 0.3);
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .battle-map-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #B22234, #FFD700, #10B981);
-        }
-
-        .status-badge {
-            text-align: center;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 16px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .status-badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(178, 34, 52, 0.2), rgba(178, 34, 52, 0.4));
-            z-index: 0;
-        }
-
-        .warrior-active {
-            border: 2px solid #B22234;
-            background: linear-gradient(135deg, rgba(178, 34, 52, 0.15), rgba(178, 34, 52, 0.25));
-        }
-
-        .commander-active {
-            border: 2px solid #FFD700;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.25));
-        }
-
-        .guardian-active {
-            border: 2px solid #10B981;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.25));
-        }
-
-        .badge-rank {
-            font-size: 18px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: white;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .warrior-active .badge-rank {
-            color: #FF6B6B;
-        }
-
-        .commander-active .badge-rank {
-            color: #FFD700;
-        }
-
-        .guardian-active .badge-rank {
-            color: #10B981;
-        }
-
-        .badge-progress {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.7);
-            position: relative;
-            z-index: 1;
-            margin-top: 4px;
-        }
-
-        .next-mission {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .next-mission:hover {
-            border-color: #B22234;
-            transform: translateY(-2px);
-        }
-
-        .next-mission::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 4px;
-            background: #B22234;
-        }
-
-        .locked-phase {
-            padding: 10px;
-            border: 1px dashed rgba(255, 255, 255, 0.2);
+        
+        .educational-card {
+            background: rgba(10, 26, 47, 0.5);
+            border: 1px solid rgba(178, 34, 52, 0.3);
             border-radius: 6px;
-            cursor: not-allowed;
+            padding: 12px;
+            margin: 12px 0;
         }
-
-        .phase-pillars {
-            margin-top: 12px;
-        }
-
-        .pillar-item {
-            display: flex;
-            align-items: center;
-            padding: 8px;
-            margin-bottom: 6px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 4px;
-            border-left: 3px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .pillar-item.complete {
-            border-left-color: #10B981;
-            background: rgba(16, 185, 129, 0.1);
-        }
-
-        .pillar-item.in-progress {
-            border-left-color: #B22234;
-            background: rgba(178, 34, 52, 0.1);
-            animation: pulse 2s infinite;
-        }
-
-        .pillar-item.locked {
-            border-left-color: #4B5563;
-            opacity: 0.6;
-        }
-
-        .pillar-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            font-size: 10px;
-        }
-
-        .pillar-icon.complete {
-            background: #10B981;
-            color: white;
-        }
-
-        .pillar-icon.in-progress {
-            background: #B22234;
-            color: white;
-        }
-
-        .pillar-icon.locked {
-            background: #4B5563;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .pillar-info {
-            flex: 1;
-        }
-
-        .pillar-name {
-            font-size: 11px;
-            font-weight: bold;
-            color: white;
-        }
-
-        .pillar-status {
-            font-size: 9px;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .pillar-progress {
-            font-size: 10px;
-            font-weight: bold;
-            min-width: 40px;
-            text-align: right;
-        }
-
-        /* Phase progress indicators */
-        .phase-progress {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-
-        .phase-circle {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .phase-circle.active {
-            background: #B22234;
-            color: white;
-            box-shadow: 0 0 10px rgba(178, 34, 52, 0.5);
-        }
-
-        .phase-circle.complete {
-            background: #10B981;
-            color: white;
-        }
-
-        .phase-circle.locked {
-            background: #4B5563;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .phase-line {
-            flex: 1;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 0 8px;
-            align-self: center;
-        }
-
-        .phase-line.complete {
-            background: #10B981;
-        }
-
-        .phase-line.active {
-            background: #B22234;
-        }
-
-        /* Academy modal */
-        .academy-modal {
-            background: linear-gradient(135deg, #0A1A2F, #11243F);
-            border: 2px solid #B22234;
-            border-radius: 16px;
-            max-width: 500px;
-        }
-
-        .academy-tier {
-            padding: 20px;
-            margin: 10px 0;
+        
+        /* ===== FINANCIAL JOURNEY TRACKER STYLES ===== */
+        .journey-tracker {
+            background: linear-gradient(135deg, #0A1A2F 0%, #11243F 100%);
+            border: 1px solid rgba(178, 34, 52, 0.3);
             border-radius: 12px;
-            position: relative;
             overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
-
-        .academy-tier:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        
+        .journey-header {
+            background: rgba(178, 34, 52, 0.2);
+            padding: 1rem;
+            border-bottom: 1px solid rgba(178, 34, 52, 0.3);
+            text-align: center;
         }
-
-        .academy-tier.warrior {
-            background: linear-gradient(135deg, rgba(178, 34, 52, 0.2), rgba(178, 34, 52, 0.4));
-            border: 1px solid rgba(178, 34, 52, 0.5);
-        }
-
-        .academy-tier.commander {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.4));
-            border: 1px solid rgba(255, 215, 0, 0.5);
-        }
-
-        .academy-tier.guardian {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.4));
-            border: 1px solid rgba(16, 185, 129, 0.5);
-        }
-
-        .tier-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .tier-name {
-            font-size: 20px;
+        
+        .journey-header h4 {
+            font-size: 0.875rem;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .tier-price {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .tier-features {
-            list-style: none;
-            padding: 0;
+            letter-spacing: 0.1em;
+            color: white;
             margin: 0;
         }
-
-        .tier-features li {
-            padding: 6px 0;
-            font-size: 13px;
+        
+        .journey-stages {
+            padding: 1.25rem;
+        }
+        
+        .journey-stage {
             display: flex;
             align-items: center;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-
-        .tier-features li i {
-            margin-right: 10px;
-            width: 16px;
+        
+        .journey-stage.active {
+            border-color: #B22234;
+            background: rgba(178, 34, 52, 0.15);
+            box-shadow: 0 0 15px rgba(178, 34, 52, 0.3);
+            transform: translateX(4px);
         }
-
-        .current-tier-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #B22234;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 10px;
+        
+        .journey-stage.completed {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .stage-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            flex-shrink: 0;
+        }
+        
+        .stage-indicator.pending {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.5);
+        }
+        
+        .stage-indicator.active {
+            background: #B22234;
+            border: 2px solid #B22234;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        
+        .stage-indicator.completed {
+            background: #10B981;
+            border: 2px solid #10B981;
+            color: white;
+        }
+        
+        .stage-content {
+            flex: 1;
+        }
+        
+        .stage-title {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.125rem;
+        }
+        
+        .stage-description {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.3;
+        }
+        
+        .stage-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: #B22234;
+            transition: width 0.5s ease;
+        }
+        
+        .journey-connector {
+            height: 20px;
+            width: 2px;
+            background: rgba(255,255,255,0.1);
+            margin-left: 9px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .journey-footer {
+            padding: 0.75rem 1.25rem;
+            background: rgba(0,0,0,0.2);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+        }
+        
+        .journey-time {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+            font-style: italic;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(178, 34, 52, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(178, 34, 52, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(178, 34, 52, 0); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .journey-tracker {
+                margin-bottom: 1rem;
+            }
+            
+            .journey-stages {
+                padding: 1rem;
+            }
+            
+            .journey-stage {
+                padding: 0.625rem;
+            }
         }
     </style>
 </head>
@@ -1499,7 +1095,6 @@
                 <div>Score</div>
             </button>
         </div>
-        <div class="swipe-hint"></div>
     </div>
 
     <!-- Bottom Sheet for Mobile -->
@@ -1539,50 +1134,21 @@
         <div class="quick-start-panel rounded-lg p-4 md:p-6 mb-8 slide-in">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-lg font-heading font-bold uppercase">Quick Start</h3>
-                <div class="flex items-center space-x-2">
-                    <button onclick="loadExampleData()" class="text-xs bg-green-900/30 hover:bg-green-800/50 px-3 py-1 rounded transition touch-target">
-                        <i class="fas fa-lightbulb mr-1"></i> Load Example
-                    </button>
-                    <button onclick="startGuidedTour()" class="text-xs bg-blue-900/30 hover:bg-blue-800/50 px-3 py-1 rounded transition touch-target">
-                        <i class="fas fa-play mr-1"></i> Guided Tour
-                    </button>
-                </div>
+                <button onclick="loadExampleData()" class="text-xs bg-green-900/30 hover:bg-green-800/50 px-3 py-1 rounded transition">
+                    <i class="fas fa-lightbulb mr-1"></i> Load Example
+                </button>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-navy-900/50 p-4 rounded border border-white/5">
-                    <div class="text-xs uppercase text-gray-400 mb-1">Monthly Surplus</div>
-                    <div id="quick-surplus" class="text-2xl font-bold text-green-400">$0</div>
-                    <div class="text-xs text-gray-500 mt-1">For debt payoff & savings</div>
-                </div>
-                
-                <div class="bg-navy-900/50 p-4 rounded border border-white/5">
-                    <div class="text-xs uppercase text-gray-400 mb-1">Sovereignty Score</div>
-                    <div id="quick-score" class="text-2xl font-bold text-crimson">0</div>
-                    <div class="text-xs text-gray-500 mt-1">Financial strength (0-100)</div>
-                </div>
-                
-                <div class="bg-navy-900/50 p-4 rounded border border-white/5">
-                    <div class="text-xs uppercase text-gray-400 mb-1">Top Priority</div>
-                    <div id="quick-priority" class="text-lg font-bold text-white">Complete budget</div>
-                    <div class="text-xs text-gray-500 mt-1">Focus area for this month</div>
-                </div>
+            <div class="text-sm text-gray-300 mb-2">
+                Start with your <span class="text-crimson font-bold">Monthly Income</span>, then add your most important debts.
+            </div>
+            <div class="flex gap-2 mt-3">
+                <button onclick="scrollToSection('income')" class="text-xs bg-crimson hover:bg-red-700 px-3 py-1 rounded">Income</button>
+                <button onclick="scrollToSection('debt')" class="text-xs bg-white/10 hover:bg-white/20 px-3 py-1 rounded">Debt</button>
+                <button onclick="scrollToSection('budget')" class="text-xs bg-white/10 hover:bg-white/20 px-3 py-1 rounded">Budget</button>
             </div>
             
             <!-- Achievement Badges -->
             <div id="achievement-badges" class="mt-4 flex flex-wrap gap-2"></div>
-            
-            <!-- Feature Teaser -->
-            <div class="feature-teaser mt-4" onclick="showUpgradeModal()">
-                <div class="flex items-center">
-                    <i class="fas fa-crown text-yellow-400 mr-2"></i>
-                    <div>
-                        <div class="text-xs font-bold">Pro Feature Available</div>
-                        <div class="text-[10px] text-gray-400">Advanced 5-year projections & AI insights</div>
-                    </div>
-                </div>
-                <button class="text-xs bg-crimson hover:bg-red-700 px-3 py-1 rounded transition">Upgrade</button>
-            </div>
         </div>
 
         <!-- Educational Card -->
@@ -1590,17 +1156,13 @@
             <h4 class="text-sm font-bold mb-2"><i class="fas fa-graduation-cap mr-2 text-crimson"></i> Pro Tip: Start Simple</h4>
             <p class="text-xs text-gray-300 mb-3">Begin with your net income and most important debts. You can always add more details later. This tool automatically saves your progress.</p>
             <button onclick="scrollToSection('income')" class="text-xs bg-crimson hover:bg-red-700 px-3 py-1 rounded transition">Start Here</button>
-            <a href="#" class="learn-more text-xs">Learn More →</a>
         </div>
 
         <!-- Keyboard Shortcuts Hint -->
         <div class="text-center mb-6 text-xs text-gray-500 hidden md:block">
-            <span>Keyboard shortcuts:</span>
             <kbd class="bg-navy-800 px-2 py-1 mx-1 rounded">S</kbd> Save •
             <kbd class="bg-navy-800 px-2 py-1 mx-1 rounded">C</kbd> Calculate •
-            <kbd class="bg-navy-800 px-2 py-1 mx-1 rounded">1</kbd>-<kbd class="bg-navy-800 px-2 py-1 mx-1 rounded">4</kbd> Sections •
-            <kbd class="bg-navy-800 px-2 py-1 mx-1 rounded">T</kbd> Tour •
-            <kbd class="bg-navy-800 px-2 py-1 mx-1 rounded">Ctrl+C</kbd> Clear All
+            <kbd class="bg-navy-800 px-2 py-1 mx-1 rounded">1</kbd>-<kbd class="bg-navy-800 px-2 py-1 mx-1 rounded">4</kbd> Sections
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-12">
@@ -1665,12 +1227,6 @@
                                 <i class="fas fa-lightbulb mr-1"></i> Tips
                             </button>
                         </div>
-                    </div>
-                    
-                    <!-- Benchmark Comparison -->
-                    <div id="income-benchmark" class="mt-3 hidden">
-                        <div class="text-[10px] uppercase text-gray-500 mb-1">Comparison</div>
-                        <div class="text-xs" id="benchmark-text"></div>
                     </div>
                 </div>
 
@@ -1739,27 +1295,12 @@
                                 <div id="high-interest-count" class="text-sm md:text-base font-bold text-crimson">0</div>
                             </div>
                         </div>
-                        
-                        <!-- Debt Freedom Timeline -->
-                        <div class="mt-4 pt-4 border-t border-white/10">
-                            <div class="text-xs text-gray-400 mb-2">Debt Freedom Timeline</div>
-                            <div class="timeline-interactive">
-                                <div class="timeline-point current" style="left: 20%;" onclick="showTimelineTip('current')"></div>
-                                <div class="timeline-point future" style="left: 50%;" onclick="showTimelineTip('6months')"></div>
-                                <div class="timeline-point future" style="left: 80%;" onclick="showTimelineTip('1year')"></div>
-                            </div>
-                            <div class="text-[10px] text-gray-600 mt-2 text-center" id="timeline-label">Click points for projections</div>
-                        </div>
                     </div>
                     
                     <!-- Debt Strategy Tips -->
-                    <div class="mt-4 p-3 bg-gradient-to-r from-crimson/10 to-yellow-600/10 rounded border border-crimson/20">
-                        <div class="flex items-start">
-                            <i class="fas fa-bullseye text-crimson mt-1 mr-3"></i>
-                            <div>
-                                <div class="text-xs font-bold mb-1">Recommended Strategy</div>
-                                <div class="text-[10px] text-gray-300" id="debt-strategy">Enter your debts to see personalized strategy</div>
-                            </div>
+                    <div class="mt-4 p-3 bg-crimson/10 rounded border border-crimson/20">
+                        <div class="text-xs">
+                            <span class="font-bold">Tip:</span> Focus on debts over 15% APR first.
                         </div>
                     </div>
                 </div>
@@ -1774,9 +1315,6 @@
                             </button>
                             <button onclick="apply503020()" class="bg-blue-900/30 border border-blue-700/30 px-3 md:px-4 py-2 text-[10px] font-bold uppercase tracking-widest hover:border-blue-500 hover:text-blue-300 transition touch-target">
                                 <i class="fas fa-magic mr-2"></i>Auto 50/30/20
-                            </button>
-                            <button onclick="optimizeBudget()" class="bg-green-900/30 border border-green-700/30 px-3 md:px-4 py-2 text-[10px] font-bold uppercase tracking-widest hover:border-green-500 hover:text-green-300 transition touch-target">
-                                <i class="fas fa-robot mr-2"></i>Optimize
                             </button>
                             <button onclick="resetSection('budget')" class="bg-red-900/30 border border-red-700/30 px-3 md:px-4 py-2 text-[10px] font-bold uppercase tracking-widest hover:border-red-500 hover:text-red-300 transition touch-target">
                                 <i class="fas fa-undo mr-2"></i>Reset Budget
@@ -1795,10 +1333,6 @@
                                 <div id="debt-payments-display" class="text-2xl md:text-3xl font-bold text-crimson">$0</div>
                                 <div id="debt-payments-percent" class="text-xs text-gray-400">0% of income</div>
                             </div>
-                        </div>
-                        <div class="mt-2 text-[10px] text-gray-500">
-                            <i class="fas fa-info-circle mr-1"></i>
-                            This amount is automatically calculated from your debt minimum payments and included in total expenses
                         </div>
                     </div>
                     
@@ -1956,7 +1490,7 @@
                         <!-- Personalization Progress -->
                         <div class="personalization-progress">
                             <div class="progress-header">
-                                <span>Iron Pot Personalization</span>
+                                <span>Budget Personalization</span>
                                 <span id="personalization-percent">0%</span>
                             </div>
                             <div class="progress-bar-container">
@@ -1995,18 +1529,6 @@
                             <div class="text-xs text-gray-400 mb-2">Budget Insights</div>
                             <div class="text-[10px] text-gray-300" id="budget-insights">Complete your budget to see personalized insights</div>
                         </div>
-                    </div>
-                    
-                    <!-- Feature Teaser: Scenario Planning -->
-                    <div class="feature-teaser mt-4" onclick="showScenarioModal()">
-                        <div class="flex items-center">
-                            <i class="fas fa-chart-line text-purple-400 mr-2"></i>
-                            <div>
-                                <div class="text-xs font-bold">Try Scenario Planning</div>
-                                <div class="text-[10px] text-gray-400">See how changes affect your timeline (Free: 2 scenarios)</div>
-                            </div>
-                        </div>
-                        <button class="text-xs bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded transition">Try It</button>
                     </div>
                 </div>
 
@@ -2209,12 +1731,8 @@
                             <span id="countdown-val" class="text-crimson font-black">N/A</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span>Monthly Housing:</span>
-                            <span id="housing-percent">0%</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span>DTI Ratio:</span>
-                            <span id="dti-ratio">0%</span>
+                            <span>Savings Rate:</span>
+                            <span id="savings-rate-display">0%</span>
                         </div>
                     </div>
                     
@@ -2225,7 +1743,7 @@
                         <div class="text-[10px] text-gray-600 mt-1" id="surplus-suggestion"></div>
                     </div>
                     
-                    <!-- Action Buttons -->
+                    <!-- Action Button -->
                     <button onclick="saveProfile()" class="w-full mt-4 bg-crimson border border-crimson py-3 text-xs uppercase font-bold tracking-[0.3em] hover:bg-red-700 transition shadow-lg touch-target">
                         <i class="fas fa-save mr-2"></i>Save Strategy
                     </button>
@@ -2239,112 +1757,73 @@
                             <i class="fas fa-share-alt mr-1"></i>Share
                         </button>
                     </div>
-                    
-                    <!-- Score Trend -->
-                    <div class="mt-6 pt-4 border-t border-white/10">
-                        <h4 class="text-xs uppercase font-bold text-gray-400 mb-2">Score Trend</h4>
-                        <div class="h-10 flex items-end justify-center space-x-1" id="score-sparkline">
-                            <div class="w-4 bg-gray-800 rounded-t" style="height: 10%"></div>
-                            <div class="w-4 bg-gray-800 rounded-t" style="height: 20%"></div>
-                            <div class="w-4 bg-gray-800 rounded-t" style="height: 30%"></div>
-                            <div class="w-4 bg-gray-800 rounded-t" style="height: 40%"></div>
-                            <div class="w-4 bg-gray-800 rounded-t" style="height: 50%"></div>
-                            <div class="w-4 bg-gray-800 rounded-t" style="height: 60%"></div>
-                            <div class="w-4 bg-gray-800 rounded-t" style="height: 70%"></div>
+                </div>
+                
+                <!-- ===== FINANCIAL JOURNEY TRACKER ===== -->
+                <div class="journey-tracker" id="journey-tracker">
+                    <div class="journey-header">
+                        <h4><i class="fas fa-route mr-2"></i>Financial Journey Tracker</h4>
+                    </div>
+                    <div class="journey-stages">
+                        <!-- Stage 1 -->
+                        <div class="journey-stage" id="stage-1" data-stage="basic-training">
+                            <div class="stage-indicator pending" id="indicator-1">1</div>
+                            <div class="stage-content">
+                                <div class="stage-title">Basic Training</div>
+                                <div class="stage-description">Building foundation, tackling debt</div>
+                            </div>
                         </div>
-                        <div class="text-[10px] text-gray-600 text-center mt-1" id="score-trend-text"></div>
+                        <div class="journey-connector"></div>
+                        
+                        <!-- Stage 2 -->
+                        <div class="journey-stage" id="stage-2" data-stage="tactical-positioning">
+                            <div class="stage-indicator pending" id="indicator-2">2</div>
+                            <div class="stage-content">
+                                <div class="stage-title">Tactical Positioning</div>
+                                <div class="stage-description">Emergency fund, debt reduction</div>
+                            </div>
+                        </div>
+                        <div class="journey-connector"></div>
+                        
+                        <!-- Stage 3 -->
+                        <div class="journey-stage" id="stage-3" data-stage="strategic-advancement">
+                            <div class="stage-indicator pending" id="indicator-3">3</div>
+                            <div class="stage-content">
+                                <div class="stage-title">Strategic Advancement</div>
+                                <div class="stage-description">Retirement building, investments</div>
+                            </div>
+                        </div>
+                        <div class="journey-connector"></div>
+                        
+                        <!-- Stage 4 -->
+                        <div class="journey-stage" id="stage-4" data-stage="financial-sovereignty">
+                            <div class="stage-indicator pending" id="indicator-4">4</div>
+                            <div class="stage-content">
+                                <div class="stage-title">Financial Sovereignty</div>
+                                <div class="stage-description">Debt-free, strong net worth</div>
+                            </div>
+                        </div>
+                        <div class="journey-connector"></div>
+                        
+                        <!-- Stage 5 -->
+                        <div class="journey-stage" id="stage-5" data-stage="legacy-building">
+                            <div class="stage-indicator pending" id="indicator-5">5</div>
+                            <div class="stage-content">
+                                <div class="stage-title">Legacy Building</div>
+                                <div class="stage-description">Wealth accumulation, estate planning</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="journey-footer">
+                        <div class="journey-time" id="journey-estimate">Complete setup to see timeline</div>
                     </div>
                 </div>
                 
-                <!-- Priority Targets -->
+                <!-- Priority Section -->
                 <div class="dashboard-card p-4 md:p-6 shadow-2xl border-white/10">
-                    <div class="flex justify-between items-center mb-3">
-                        <h4 class="text-sm uppercase font-bold text-gray-300 tracking-widest">Priority Targets</h4>
-                        <button onclick="showAllTargets()" class="text-[10px] text-gray-500 hover:text-white transition">View All</button>
-                    </div>
-                    <div id="priority-targets" class="space-y-2">
-                        <div class="bg-navy-900/50 p-3 rounded border border-white/5">
-                            <div class="text-xs text-gray-400 mb-1">Complete your budget</div>
-                            <div class="h-1 bg-navy-950 rounded-full overflow-hidden">
-                                <div class="h-full bg-crimson progress-bar" style="width: 0%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Milestone Tracker -->
-                    <div class="mt-4 pt-4 border-t border-white/10">
-                        <div class="text-xs uppercase font-bold text-gray-300 mb-2">Milestones</div>
-                        <div class="milestone-tracker">
-                            <div>
-                                <div class="text-xs">Days Tracking</div>
-                                <div class="text-[10px] text-gray-500" id="days-tracking">Day 1</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-xs">Data Points</div>
-                                <div class="text-[10px] text-gray-500" id="data-points-count">0</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Financial Battle Map -->
-                <div class="battle-map-card" id="battle-map-card">
-                    <h4 class="text-sm font-bold mb-3 text-center">
-                        <i class="fas fa-map-marked-alt mr-2 text-crimson"></i> Financial Battle Map
-                    </h4>
-                    
-                    <!-- Phase Progress -->
-                    <div class="phase-progress">
-                        <div class="phase-circle complete" title="Warrior Phase">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="phase-line complete"></div>
-                        <div class="phase-circle active" title="Commander Phase">
-                            <i class="fas fa-chess-knight"></i>
-                        </div>
-                        <div class="phase-line"></div>
-                        <div class="phase-circle locked" title="Guardian Phase">
-                            <i class="fas fa-crown"></i>
-                        </div>
-                    </div>
-                    
-                    <!-- Current Status Badge -->
-                    <div class="status-badge warrior-active" id="status-badge">
-                        <div class="badge-rank" id="current-rank">WARRIOR</div>
-                        <div class="badge-progress" id="current-progress">Phase 1 • 2/3 Pillars Complete</div>
-                    </div>
-                    
-                    <!-- Current Phase Pillars -->
-                    <div class="phase-pillars" id="phase-pillars">
-                        <!-- Pillars will be dynamically generated -->
-                    </div>
-                    
-                    <!-- Next Mission -->
-                    <div class="next-mission" onclick="focusOnNextMission()" style="cursor: pointer;">
-                        <div class="text-xs uppercase text-gray-400 mb-1">Next Mission</div>
-                        <div class="text-sm font-bold mb-1" id="next-mission-title">Eliminate High-Interest Debt</div>
-                        <div class="text-xs text-gray-400" id="next-mission-desc">Pillar 3 • Target: 0% APR > 15%</div>
-                        <div class="text-[10px] text-crimson mt-2">
-                            <i class="fas fa-crosshairs mr-1"></i>
-                            <span id="next-mission-action">Attack $8,500 credit card balance</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Locked Phase Preview -->
-                    <div class="locked-phase mt-3" onclick="showAcademyModal()" style="cursor: pointer;">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <div class="text-xs font-bold">Commander Phase</div>
-                                <div class="text-[10px] text-gray-500">Unlocks at Score 41</div>
-                            </div>
-                            <i class="fas fa-lock text-gray-600"></i>
-                        </div>
-                    </div>
-                    
-                    <!-- CTA for Paid Tiers -->
-                    <button onclick="showAcademyModal()" class="w-full mt-4 bg-gradient-to-r from-crimson to-red-800 hover:from-red-700 hover:to-crimson py-2 rounded text-xs uppercase font-bold transition">
-                        <i class="fas fa-shield-alt mr-2"></i>Advance to Commander
-                    </button>
+                    <h4 class="text-sm uppercase font-bold text-gray-300 tracking-widest mb-3">Priority</h4>
+                    <div id="quick-priority" class="text-lg font-bold text-crimson mb-2">Complete budget setup</div>
+                    <div class="text-xs text-gray-500">Start with income, then debt, then budget</div>
                 </div>
             </div>
         </div>
@@ -2400,9 +1879,6 @@
                     <button onclick="submitFeedback('bug_report')" class="text-xs bg-white/5 hover:bg-white/10 px-3 py-2 rounded transition">
                         <i class="fas fa-bug mr-1"></i> Report Issue
                     </button>
-                    <button onclick="submitFeedback('general_feedback')" class="text-xs bg-white/5 hover:bg-white/10 px-3 py-2 rounded transition">
-                        <i class="fas fa-comment mr-1"></i> General Feedback
-                    </button>
                 </div>
             </div>
         </div>
@@ -2432,37 +1908,19 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-20 border-t border-white/5 pt-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 border-t border-white/5 pt-12">
                 <div>
                     <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">The Lab</h4>
                     <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
                         <li><a href="the-lab.html" class="hover:text-white transition">Financial Calculator</a></li>
-                        <li><a href="#" class="hover:text-white transition">Scenario Planner</a></li>
-                        <li><a href="#" class="hover:text-white transition">Progress Tracker</a></li>
+                        <li><a href="index.html" class="hover:text-white transition">Back to Main</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Resources</h4>
                     <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
                         <li><a href="academy.html" class="hover:text-white transition">The 12 Pillars</a></li>
-                        <li><a href="media.html" class="hover:text-white transition">Case Studies</a></li>
-                        <li><a href="media.html" class="hover:text-white transition">Podcast</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Tools</h4>
-                    <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
-                        <li><a href="#" class="hover:text-white transition">Budget Templates</a></li>
-                        <li><a href="#" class="hover:text-white transition">Debt Calculators</a></li>
-                        <li><a href="#" class="hover:text-white transition">Investment Tools</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Support</h4>
-                    <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
                         <li><a href="mailto:hq@realamericanfinance.com" class="hover:text-white transition">Contact</a></li>
-                        <li><a href="#" class="text-crimson hover:text-red-400 transition">FAQ</a></li>
-                        <li><a href="#" class="hover:text-white transition">Updates</a></li>
                     </ul>
                 </div>
             </div>
@@ -2483,129 +1941,6 @@
     <div id="dd-save-indicator" class="dd-save-indicator">
         <i class="fas fa-check-circle text-green-400"></i>
         <span>Custom categories saved</span>
-    </div>
-
-    <!-- Academy Modal -->
-    <div id="academy-modal" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-navy-900 border-2 border-crimson rounded-xl shadow-2xl z-10000 max-w-4xl w-full max-h-[80vh] overflow-y-auto hidden">
-        <div class="p-6 academy-modal">
-            <div class="flex justify-between items-center mb-6">
-                <div>
-                    <h3 class="text-2xl font-bold">Real American Finance Academy</h3>
-                    <p class="text-sm text-gray-400 mt-1">Three Tiers of Financial Sovereignty</p>
-                </div>
-                <button onclick="closeAcademyModal()" class="text-2xl hover:text-crimson transition">&times;</button>
-            </div>
-            
-            <!-- Current Progress -->
-            <div class="mb-8 p-4 bg-navy-800/50 rounded-lg">
-                <div class="text-sm font-bold mb-2">Your Current Progress</div>
-                <div class="flex items-center">
-                    <div class="mr-4">
-                        <div class="text-xs text-gray-400">Current Rank</div>
-                        <div class="text-lg font-bold text-crimson" id="modal-current-rank">WARRIOR</div>
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex justify-between text-xs mb-1">
-                            <span>Warrior Progress</span>
-                            <span id="modal-warrior-progress">66%</span>
-                        </div>
-                        <div class="h-2 bg-navy-900 rounded-full overflow-hidden">
-                            <div class="h-full bg-crimson" style="width: 66%" id="modal-warrior-bar"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Academy Tiers -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <!-- Warrior Tier -->
-                <div class="academy-tier warrior" onclick="selectTier('warrior')">
-                    <div class="tier-header">
-                        <div class="tier-name text-crimson">WARRIOR</div>
-                        <div class="tier-price text-white">FREE</div>
-                    </div>
-                    <p class="text-sm text-gray-300 mb-4">Tactical survival & debt elimination</p>
-                    <ul class="tier-features">
-                        <li><i class="fas fa-check text-green-400"></i> Budget & Cash Flow Mastery</li>
-                        <li><i class="fas fa-check text-green-400"></i> Emergency Fund Basics</li>
-                        <li><i class="fas fa-check text-green-400"></i> Debt Elimination Strategy</li>
-                        <li><i class="fas fa-check text-green-400"></i> This Lab Calculator</li>
-                        <li><i class="fas fa-check text-green-400"></i> Basic Scenario Planning</li>
-                    </ul>
-                    <div class="text-center mt-4">
-                        <div class="current-tier-badge" id="warrior-badge">CURRENT</div>
-                        <button class="w-full bg-crimson hover:bg-red-700 py-2 rounded text-sm font-bold transition">
-                            Current Tier
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Commander Tier -->
-                <div class="academy-tier commander" onclick="selectTier('commander')">
-                    <div class="tier-header">
-                        <div class="tier-name text-yellow-400">COMMANDER</div>
-                        <div class="tier-price text-white">$29<span class="text-sm">/month</span></div>
-                    </div>
-                    <p class="text-sm text-gray-300 mb-4">Strategic positioning & wealth building</p>
-                    <ul class="tier-features">
-                        <li><i class="fas fa-check text-green-400"></i> Everything in Warrior</li>
-                        <li><i class="fas fa-check text-green-400"></i> Full 6-Month Iron Pot</li>
-                        <li><i class="fas fa-check text-green-400"></i> Retirement Optimization</li>
-                        <li><i class="fas fa-check text-green-400"></i> Tax Strategy Tools</li>
-                        <li><i class="fas fa-check text-green-400"></i> Investment Planning</li>
-                        <li><i class="fas fa-check text-green-400"></i> Advanced Calculators</li>
-                        <li><i class="fas fa-check text-green-400"></i> Unlimited Scenarios</li>
-                    </ul>
-                    <div class="text-center mt-4">
-                        <button class="w-full bg-yellow-500 hover:bg-yellow-600 py-2 rounded text-sm font-bold transition" id="commander-button">
-                            Upgrade to Commander
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Guardian Tier -->
-                <div class="academy-tier guardian" onclick="selectTier('guardian')">
-                    <div class="tier-header">
-                        <div class="tier-name text-green-400">GUARDIAN</div>
-                        <div class="tier-price text-white">$99<span class="text-sm">/month</span></div>
-                    </div>
-                    <p class="text-sm text-gray-300 mb-4">Wealth preservation & legacy building</p>
-                    <ul class="tier-features">
-                        <li><i class="fas fa-check text-green-400"></i> Everything in Commander</li>
-                        <li><i class="fas fa-check text-green-400"></i> Mortgage Freedom Planning</li>
-                        <li><i class="fas fa-check text-green-400"></i> Estate Planning Tools</li>
-                        <li><i class="fas fa-check text-green-400"></i> Generational Wealth Strategy</li>
-                        <li><i class="fas fa-check text-green-400"></i> Real Estate Investment Analysis</li>
-                        <li><i class="fas fa-check text-green-400"></i> Business Financial Planning</li>
-                        <li><i class="fas fa-check text-green-400"></i> Private Community Access</li>
-                        <li><i class="fas fa-check text-green-400"></i> 1:1 Strategy Sessions</li>
-                    </ul>
-                    <div class="text-center mt-4">
-                        <button class="w-full bg-green-500 hover:bg-green-600 py-2 rounded text-sm font-bold transition">
-                            Become a Guardian
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Why Upgrade -->
-            <div class="bg-navy-800/30 p-4 rounded-lg">
-                <h4 class="text-sm font-bold mb-2">Why Advance to Commander?</h4>
-                <ul class="text-xs space-y-1 text-gray-300">
-                    <li><i class="fas fa-arrow-right text-crimson mr-2"></i> Get 5-year financial projections with your current data</li>
-                    <li><i class="fas fa-arrow-right text-crimson mr-2"></i> Unlock advanced tax optimization strategies</li>
-                    <li><i class="fas fa-arrow-right text-crimson mr-2"></i> Access investment portfolio allocation tools</li>
-                    <li><i class="fas fa-arrow-right text-crimson mr-2"></i> Run unlimited "what-if" financial scenarios</li>
-                </ul>
-            </div>
-            
-            <!-- Close Button -->
-            <div class="text-center mt-6">
-                <button onclick="closeAcademyModal()" class="bg-white/10 hover:bg-white/20 px-6 py-2 rounded text-sm transition">
-                    Continue as Warrior
-                </button>
-            </div>
-        </div>
     </div>
 
     <!-- JavaScript -->
@@ -2635,15 +1970,10 @@
         let myChart;
         let isWarMode = false;
         let p3Cache = [];
-        const CURRENT_VERSION = 'raf_lab_final_v1';
         let scoreHistory = [];
         let userStats = {
             sessions: 1,
-            lastUpdate: new Date(),
             dataPoints: 0,
-            lastMonthData: null,
-            daysTracking: 1,
-            milestones: [],
             achievements: []
         };
         
@@ -2655,41 +1985,17 @@
                 tier: 'bronze',
                 condition: (stats) => stats.dataPoints >= 1
             },
-            'first_debt': { 
-                name: 'Debt Acknowledged', 
-                desc: 'Added your first debt',
+            'budget_complete': { 
+                name: 'Budget Master', 
+                desc: 'Completed all budget categories',
                 tier: 'silver',
-                condition: (stats) => stats.milestones.includes('first_debt')
-            },
-            'war_mode': { 
-                name: 'Financial Warrior', 
-                desc: 'Activated War Mode',
-                tier: 'gold',
-                condition: (stats) => stats.milestones.includes('war_mode')
+                condition: (stats) => stats.dataPoints >= 10
             },
             'positive_surplus': { 
                 name: 'In the Green', 
                 desc: 'Achieved positive monthly surplus',
-                tier: 'silver',
-                condition: (stats) => stats.milestones.includes('positive_surplus')
-            },
-            'budget_complete': { 
-                name: 'Budget Master', 
-                desc: 'Completed all budget categories',
                 tier: 'gold',
-                condition: (stats) => stats.dataPoints >= 20
-            },
-            'debt_free_path': { 
-                name: 'Freedom Seeker', 
-                desc: 'Created debt repayment plan',
-                tier: 'platinum',
-                condition: (stats) => stats.milestones.includes('debt_plan')
-            },
-            'drag_drop_used': {
-                name: 'Budget Customizer',
-                desc: 'Used drag and drop to personalize budget',
-                tier: 'silver',
-                condition: (stats) => stats.milestones.includes('drag_drop_used')
+                condition: (stats) => stats.milestones && stats.milestones.includes('positive_surplus')
             }
         };
         
@@ -2742,196 +2048,72 @@
         let draggedItem = null;
         let currentExpenses = JSON.parse(JSON.stringify(defaultExpenses));
 
-        // ===== FINANCIAL BATTLE MAP CONFIGURATION =====
-
-        const battleMapConfig = {
-            phases: {
-                warrior: {
-                    minScore: 0,
-                    maxScore: 40,
-                    rank: 'WARRIOR',
-                    color: 'crimson',
-                    pillars: [
-                        {
-                            id: 'budget',
-                            name: 'Budget & Cash Flow',
-                            description: 'Positive monthly surplus',
-                            check: function() {
-                                const surplus = getMonthlySurplus();
-                                const income = getMonthlyIncome();
-                                return surplus > 0 && income > 0;
-                            },
-                            progress: function() {
-                                const income = getMonthlyIncome();
-                                const allocations = calculateTierAllocations();
-                                const needsPercent = allocations.tier1Percent;
-                                const wantsPercent = allocations.tier3Percent;
-                                
-                                let progress = 0;
-                                if (income > 0) progress += 30;
-                                if (needsPercent > 0) progress += 20;
-                                if (needsPercent <= 50) progress += 20;
-                                if (wantsPercent <= 30) progress += 30;
-                                return Math.min(100, progress);
-                            }
-                        },
-                        {
-                            id: 'emergency1',
-                            name: '1-Month Emergency Fund',
-                            description: 'Cover basic expenses for 1 month',
-                            check: function() {
-                                const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
-                                const allocations = calculateTierAllocations();
-                                const monthlyEssentials = allocations.tier1Total;
-                                return emergencyFund >= monthlyEssentials;
-                            },
-                            progress: function() {
-                                const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
-                                const allocations = calculateTierAllocations();
-                                const monthlyEssentials = allocations.tier1Total;
-                                return monthlyEssentials > 0 ? Math.min(100, (emergencyFund / monthlyEssentials) * 100) : 0;
-                            }
-                        },
-                        {
-                            id: 'highInterestDebt',
-                            name: 'High-Interest Debt',
-                            description: 'No debt > 15% APR',
-                            check: function() {
-                                let hasHighInterest = false;
-                                document.querySelectorAll('.debt-rate-input').forEach(input => {
-                                    const rate = parseFloat(input.value) || 0;
-                                    if (rate > 15) hasHighInterest = true;
-                                });
-                                return !hasHighInterest;
-                            },
-                            progress: function() {
-                                const debtData = updateDebtSection();
-                                const totalDebt = debtData.totalBalance;
-                                let highInterestDebt = 0;
-                                
-                                document.querySelectorAll('#debt-body tr').forEach(row => {
-                                    const balance = parseCurrency(row.querySelector('.debt-balance-input')?.value);
-                                    const rate = parseFloat(row.querySelector('.debt-rate-input')?.value) || 0;
-                                    if (rate > 15) highInterestDebt += balance;
-                                });
-                                
-                                return totalDebt > 0 ? Math.max(0, 100 - (highInterestDebt / totalDebt * 100)) : 100;
-                            }
-                        }
-                    ]
-                },
-                commander: {
-                    minScore: 41,
-                    maxScore: 70,
-                    rank: 'COMMANDER',
-                    color: 'yellow',
-                    pillars: [
-                        {
-                            id: 'emergency6',
-                            name: '6-Month Iron Pot',
-                            description: 'Full emergency fund',
-                            check: function() {
-                                const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
-                                const allocations = calculateTierAllocations();
-                                const monthlyEssentials = allocations.tier1Total;
-                                return emergencyFund >= (monthlyEssentials * 6);
-                            },
-                            progress: function() {
-                                const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
-                                const allocations = calculateTierAllocations();
-                                const monthlyEssentials = allocations.tier1Total;
-                                const target = monthlyEssentials * 6;
-                                return target > 0 ? Math.min(100, (emergencyFund / target) * 100) : 0;
-                            }
-                        },
-                        {
-                            id: 'retirement',
-                            name: 'Retirement Foundation',
-                            description: 'On track for age-based targets',
-                            check: function() {
-                                const assetsData = updateAssetsSection();
-                                return assetsData.retirementProgress >= 50;
-                            },
-                            progress: function() {
-                                const assetsData = updateAssetsSection();
-                                return assetsData.retirementProgress;
-                            }
-                        },
-                        {
-                            id: 'savingsRate',
-                            name: '20% Savings Rate',
-                            description: 'Consistently save ≥20% of income',
-                            check: function() {
-                                const income = getMonthlyIncome();
-                                if (income <= 0) return false;
-                                
-                                let savingsTotal = 0;
-                                document.querySelectorAll('.savings-input').forEach(input => {
-                                    savingsTotal += parseCurrency(input.value);
-                                });
-                                
-                                const savingsPercent = (savingsTotal / income) * 100;
-                                return savingsPercent >= 20;
-                            },
-                            progress: function() {
-                                const income = getMonthlyIncome();
-                                if (income <= 0) return 0;
-                                
-                                let savingsTotal = 0;
-                                document.querySelectorAll('.savings-input').forEach(input => {
-                                    savingsTotal += parseCurrency(input.value);
-                                });
-                                
-                                const savingsPercent = (savingsTotal / income) * 100;
-                                return Math.min(100, (savingsPercent / 20) * 100);
-                            }
-                        }
-                    ]
-                },
-                guardian: {
-                    minScore: 71,
-                    maxScore: 100,
-                    rank: 'GUARDIAN',
-                    color: 'green',
-                    pillars: [
-                        {
-                            id: 'mortgage',
-                            name: 'Mortgage Freedom',
-                            description: 'Mortgage balance ≤ 50% of home value',
-                            check: function() {
-                                const houseValue = parseCurrency(document.getElementById('house-value').value);
-                                const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
-                                return houseValue > 0 && (mortgageBalance / houseValue) <= 0.5;
-                            },
-                            progress: function() {
-                                const houseValue = parseCurrency(document.getElementById('house-value').value);
-                                const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
-                                const equity = Math.max(0, houseValue - mortgageBalance);
-                                return houseValue > 0 ? Math.min(100, (equity / houseValue) * 100) : 0;
-                            }
-                        },
-                        {
-                            id: 'netWorth',
-                            name: 'Substantial Net Worth',
-                            description: 'Net worth > 10x annual expenses',
-                            check: function() {
-                                const assetsData = updateAssetsSection();
-                                const allocations = calculateTierAllocations();
-                                const annualExpenses = (allocations.tier1Total + allocations.tier2Total + allocations.tier3Total) * 12;
-                                return assetsData.netWorth > (annualExpenses * 10);
-                            },
-                            progress: function() {
-                                const assetsData = updateAssetsSection();
-                                const allocations = calculateTierAllocations();
-                                const annualExpenses = (allocations.tier1Total + allocations.tier2Total + allocations.tier3Total) * 12;
-                                const target = annualExpenses * 10;
-                                return target > 0 ? Math.min(100, (assetsData.netWorth / target) * 100) : 0;
-                            }
-                        }
-                    ]
+        // ===== JOURNEY TRACKER VARIABLES =====
+        
+        // Journey stage definitions and criteria
+        const journeyStages = [
+            {
+                id: 1,
+                name: "Basic Training",
+                description: "Building foundation, tackling debt",
+                criteria: {
+                    hasIncome: true,
+                    emergencyMonths: 0,
+                    debtRatio: 0.4, // 40% or higher
+                    savingsRate: 0.05, // Less than 5%
+                    netWorth: 0
+                }
+            },
+            {
+                id: 2,
+                name: "Tactical Positioning",
+                description: "Emergency fund, debt reduction",
+                criteria: {
+                    emergencyMonths: 1,
+                    debtRatio: 0.3, // 30% or lower
+                    savingsRate: 0.10, // 10% or more
+                    netWorth: 10000
+                }
+            },
+            {
+                id: 3,
+                name: "Strategic Advancement",
+                description: "Retirement building, investments",
+                criteria: {
+                    emergencyMonths: 3,
+                    debtRatio: 0.2, // 20% or lower
+                    savingsRate: 0.15, // 15% or more
+                    netWorth: 50000,
+                    retirementProgress: 0.25 // 25% of age-based target
+                }
+            },
+            {
+                id: 4,
+                name: "Financial Sovereignty",
+                description: "Debt-free, strong net worth",
+                criteria: {
+                    emergencyMonths: 6,
+                    debtRatio: 0.1, // 10% or lower
+                    savingsRate: 0.20, // 20% or more
+                    netWorth: 250000,
+                    retirementProgress: 0.50, // 50% of age-based target
+                    housingCostRatio: 0.28 // 28% or lower
+                }
+            },
+            {
+                id: 5,
+                name: "Legacy Building",
+                description: "Wealth accumulation, estate planning",
+                criteria: {
+                    emergencyMonths: 6,
+                    debtRatio: 0.05, // 5% or lower
+                    savingsRate: 0.25, // 25% or more
+                    netWorth: 500000,
+                    retirementProgress: 0.75, // 75% of age-based target
+                    housingCostRatio: 0.25 // 25% or lower
                 }
             }
-        };
+        ];
 
         document.addEventListener('DOMContentLoaded', function () {
             // Initialize chart
@@ -2950,7 +2132,6 @@
             // Initialize mobile view
             if (window.innerWidth < 768) {
                 initializeMobileView();
-                setupMobileGestures();
             }
             
             // Set up event listeners
@@ -2962,23 +2143,11 @@
             // Initialize drag and drop system
             setTimeout(initializeDragAndDrop, 100);
             
-            // Initialize service worker for offline capability
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw.js').catch(err => {
-                    console.log('Service Worker registration failed:', err);
-                });
-            }
-            
             // Check for achievements
             setTimeout(checkAchievements, 1000);
             
-            // Update milestone tracker
-            updateMilestoneTracker();
-            
-            // Initialize battle map
-            setTimeout(() => {
-                updateBattleMap();
-            }, 500);
+            // Initialize journey tracker
+            setTimeout(updateJourneyTracker, 300);
             
             // Trigger initial calculation
             calculateAll();
@@ -3209,6 +2378,7 @@
                             moveExpenseToTier(expenseId, oldTier, newTier);
                             
                             // Track milestone
+                            if (!userStats.milestones) userStats.milestones = [];
                             if (!userStats.milestones.includes('drag_drop_used')) {
                                 userStats.milestones.push('drag_drop_used');
                                 checkAchievements();
@@ -3945,73 +3115,6 @@
             });
         }
 
-        function setupMobileGestures() {
-            let startX, startY;
-            const threshold = 50;
-            
-            document.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-                startY = e.touches[0].clientY;
-            });
-            
-            document.addEventListener('touchend', (e) => {
-                if (!startX || !startY) return;
-                
-                const endX = e.changedTouches[0].clientX;
-                const endY = e.changedTouches[0].clientY;
-                
-                const diffX = endX - startX;
-                const diffY = endY - startY;
-                
-                // Horizontal swipe
-                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > threshold) {
-                    if (diffX > 0) {
-                        // Swipe right - previous section
-                        navigateSections(-1);
-                    } else {
-                        // Swipe left - next section
-                        navigateSections(1);
-                    }
-                }
-                
-                startX = null;
-                startY = null;
-            });
-        }
-
-        function navigateSections(direction) {
-            const sections = ['income', 'debt', 'budget', 'assets', 'score'];
-            const currentSection = getCurrentSection();
-            const currentIndex = sections.indexOf(currentSection);
-            
-            if (currentIndex !== -1) {
-                const newIndex = (currentIndex + direction + sections.length) % sections.length;
-                scrollToSection(sections[newIndex]);
-                showToast(`Swiped to ${sections[newIndex].charAt(0).toUpperCase() + sections[newIndex].slice(1)}`);
-            }
-        }
-
-        function getCurrentSection() {
-            const sections = {
-                'income-section': 'income',
-                'debt-section': 'debt',
-                'budget-section': 'budget',
-                'assets-section': 'assets',
-                'score-section': 'score'
-            };
-            
-            for (const [id, name] of Object.entries(sections)) {
-                const element = document.getElementById(id);
-                if (element) {
-                    const rect = element.getBoundingClientRect();
-                    if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
-                        return name;
-                    }
-                }
-            }
-            return 'income';
-        }
-
         function handleResize() {
             if (window.innerWidth < 768) {
                 initializeMobileView();
@@ -4491,6 +3594,7 @@
                 });
                 
                 showToast('War Mode Activated! All discretionary spending set to $0.');
+                if (!userStats.milestones) userStats.milestones = [];
                 userStats.milestones.push('war_mode');
                 checkAchievements();
                 
@@ -4532,121 +3636,7 @@
         }
 
         function apply503020() {
-            const income = getMonthlyIncome();
-            if (income <= 0) {
-                showToast("Enter your income first");
-                return;
-            }
-            
-            // Calculate targets based on 50/30/20 rule
-            const needsTarget = income * 0.50;
-            const wantsTarget = income * 0.30;
-            const savingsTarget = income * 0.20;
-            
-            // Get current totals from drag & drop
-            const allocations = calculateTierAllocations();
-            const currentNeeds = allocations.tier1Total;
-            const currentWants = allocations.tier3Total;
-            
-            // Adjust needs proportionally
-            if (currentNeeds > 0) {
-                const needsRatio = needsTarget / currentNeeds;
-                Object.keys(currentExpenses).forEach(tier => {
-                    if (currentExpenses[tier]) {
-                        currentExpenses[tier].forEach(expense => {
-                            if (tier === 'tier1') {
-                                const currentValue = parseCurrency(expense.amount);
-                                if (currentValue > 0) {
-                                    expense.amount = Math.round(currentValue * needsRatio).toString();
-                                }
-                            }
-                        });
-                    }
-                });
-                
-                // Also adjust custom expenses in tier 1
-                customExpenses.forEach(expense => {
-                    if ((expense.currentTier || expense.defaultTier) === 'tier1') {
-                        const currentValue = parseCurrency(expense.amount);
-                        if (currentValue > 0) {
-                            expense.amount = Math.round(currentValue * needsRatio).toString();
-                        }
-                    }
-                });
-            }
-            
-            // Adjust wants proportionally
-            if (currentWants > 0) {
-                const wantsRatio = wantsTarget / currentWants;
-                Object.keys(currentExpenses).forEach(tier => {
-                    if (currentExpenses[tier]) {
-                        currentExpenses[tier].forEach(expense => {
-                            if (tier === 'tier3') {
-                                const currentValue = parseCurrency(expense.amount);
-                                if (currentValue > 0) {
-                                    expense.amount = Math.round(currentValue * wantsRatio).toString();
-                                }
-                            }
-                        });
-                    }
-                });
-                
-                // Also adjust custom expenses in tier 3
-                customExpenses.forEach(expense => {
-                    if ((expense.currentTier || expense.defaultTier) === 'tier3') {
-                        const currentValue = parseCurrency(expense.amount);
-                        if (currentValue > 0) {
-                            expense.amount = Math.round(currentValue * wantsRatio).toString();
-                        }
-                    }
-                });
-            }
-            
-            // Set savings target (distribute among savings categories)
-            const savingsInputs = document.querySelectorAll('.savings-input');
-            const savingsCount = savingsInputs.length;
-            const savingsPerCategory = Math.round(savingsTarget / savingsCount);
-            
-            savingsInputs.forEach(input => {
-                input.value = savingsPerCategory.toLocaleString();
-            });
-            
-            // Re-render and calculate
-            renderAllExpenses();
-            calculateAll();
-            showToast("50/30/20 rule applied to your budget");
-        }
-
-        function optimizeBudget() {
-            const income = getMonthlyIncome();
-            if (income <= 0) {
-                showToast("Enter your income first");
-                return;
-            }
-            
-            // Get current surplus/deficit
-            const surplus = getMonthlySurplus();
-            
-            if (surplus >= 0) {
-                // Positive surplus - allocate to highest priority
-                const debtPayments = calculateTotalDebtPayments();
-                if (debtPayments > 0) {
-                    showToast(`Consider adding $${Math.round(surplus)} to debt payments`);
-                } else {
-                    showToast(`Consider adding $${Math.round(surplus)} to emergency fund`);
-                }
-            } else {
-                // Negative surplus - suggest reductions
-                const deficit = Math.abs(surplus);
-                const allocations = calculateTierAllocations();
-                const tier3Total = allocations.tier3Total;
-                
-                if (tier3Total >= deficit) {
-                    showToast(`Reduce wants by $${Math.round(deficit)} to balance budget`);
-                } else {
-                    showToast(`Review expenses to reduce deficit of $${Math.round(deficit)}`);
-                }
-            }
+            showToast("Use drag and drop to allocate 50% to needs, 30% to wants, 20% to savings");
         }
 
         function showClearConfirm() {
@@ -4714,18 +3704,15 @@
                 }
                 
                 // Clear localStorage
-                localStorage.removeItem(CURRENT_VERSION);
-                localStorage.removeItem(`${CURRENT_VERSION}_stats`);
-                localStorage.removeItem(`${CURRENT_VERSION}_history`);
+                localStorage.removeItem('raf_lab');
+                localStorage.removeItem('raf_lab_stats');
+                localStorage.removeItem('raf_lab_history');
                 localStorage.removeItem('raf_dragdrop_categories');
                 
                 // Reset stats
                 userStats = {
                     sessions: 1,
-                    lastUpdate: new Date(),
                     dataPoints: 0,
-                    daysTracking: 1,
-                    milestones: [],
                     achievements: []
                 };
                 
@@ -4822,7 +3809,6 @@
                 case 'score':
                     // Reset score history
                     scoreHistory = [];
-                    updateScoreSparkline();
                     break;
             }
             
@@ -4831,6 +3817,213 @@
             
             // Show confirmation
             showToast(`${section.charAt(0).toUpperCase() + section.slice(1)} section reset successfully!`);
+        }
+
+        // ===== JOURNEY TRACKER FUNCTIONS =====
+
+        function updateJourneyTracker() {
+            // Get current financial data
+            const income = getMonthlyIncome();
+            if (income <= 0) {
+                resetJourneyTracker();
+                return;
+            }
+            
+            const budgetData = updateBudgetSection();
+            const debtData = updateDebtSection();
+            const assetsData = updateAssetsSection();
+            
+            // Calculate metrics
+            const annualIncome = income * 12;
+            const debtRatio = annualIncome > 0 ? (debtData.totalBalance / annualIncome) : 1;
+            const savingsRate = budgetData.savingsPercent / 100;
+            const netWorth = assetsData.netWorth;
+            
+            // Calculate housing cost ratio
+            const housingCostRatio = income > 0 ? (budgetData.housingCost / income) : 1;
+            
+            // Get age for retirement target
+            const age = parseInt(document.getElementById('user-age').value) || 35;
+            let retirementTarget = 0;
+            if (age <= 30) retirementTarget = annualIncome * 1;
+            else if (age <= 40) retirementTarget = annualIncome * 3;
+            else if (age <= 50) retirementTarget = annualIncome * 6;
+            else if (age <= 60) retirementTarget = annualIncome * 8;
+            else retirementTarget = annualIncome * 10;
+            
+            const retirementProgress = retirementTarget > 0 ? (parseCurrency(document.getElementById('current-retirement').value) / retirementTarget) : 0;
+            
+            // Determine current stage
+            let currentStage = 0;
+            let completedStages = [];
+            
+            // Check each stage criteria
+            journeyStages.forEach((stage, index) => {
+                const criteria = stage.criteria;
+                let meetsCriteria = true;
+                
+                // Check each criterion
+                if (criteria.hasIncome !== undefined && !income) meetsCriteria = false;
+                if (criteria.emergencyMonths !== undefined && assetsData.emergencyMonths < criteria.emergencyMonths) meetsCriteria = false;
+                if (criteria.debtRatio !== undefined && debtRatio > criteria.debtRatio) meetsCriteria = false;
+                if (criteria.savingsRate !== undefined && savingsRate < criteria.savingsRate) meetsCriteria = false;
+                if (criteria.netWorth !== undefined && netWorth < criteria.netWorth) meetsCriteria = false;
+                if (criteria.retirementProgress !== undefined && retirementProgress < criteria.retirementProgress) meetsCriteria = false;
+                if (criteria.housingCostRatio !== undefined && housingCostRatio > criteria.housingCostRatio) meetsCriteria = false;
+                
+                if (meetsCriteria) {
+                    currentStage = stage.id;
+                    completedStages.push(stage.id);
+                }
+            });
+            
+            // If no stage matches, default to stage 1
+            if (currentStage === 0) currentStage = 1;
+            
+            // Update UI
+            updateJourneyUI(currentStage, completedStages);
+            
+            // Update timeline estimate
+            updateJourneyTimeline(currentStage, budgetData, debtData, assetsData);
+        }
+
+        function updateJourneyUI(currentStage, completedStages) {
+            // Reset all stages
+            for (let i = 1; i <= 5; i++) {
+                const stageEl = document.getElementById(`stage-${i}`);
+                const indicatorEl = document.getElementById(`indicator-${i}`);
+                
+                if (stageEl) {
+                    stageEl.classList.remove('active', 'completed');
+                    indicatorEl.classList.remove('active', 'completed', 'pending');
+                    
+                    if (completedStages.includes(i)) {
+                        stageEl.classList.add('completed');
+                        indicatorEl.classList.add('completed');
+                        indicatorEl.innerHTML = '<i class="fas fa-check"></i>';
+                    } else if (i === currentStage) {
+                        stageEl.classList.add('active');
+                        indicatorEl.classList.add('active');
+                        indicatorEl.textContent = i;
+                    } else {
+                        indicatorEl.classList.add('pending');
+                        indicatorEl.textContent = i;
+                    }
+                }
+            }
+        }
+
+        function updateJourneyTimeline(currentStage, budgetData, debtData, assetsData) {
+            const estimateEl = document.getElementById('journey-estimate');
+            if (!estimateEl) return;
+            
+            const income = getMonthlyIncome();
+            const monthlySurplus = budgetData.monthlySurplus;
+            
+            let message = "";
+            
+            switch(currentStage) {
+                case 1:
+                    // Calculate time to reach stage 2
+                    if (monthlySurplus > 0) {
+                        const emergencyTarget = budgetData.tier1Total * 3; // 3 months of essentials
+                        const currentEmergency = parseCurrency(document.getElementById('current-iron-pot').value);
+                        const emergencyNeeded = Math.max(0, emergencyTarget - currentEmergency);
+                        
+                        const monthsToEmergency = monthlySurplus > 0 ? Math.ceil(emergencyNeeded / monthlySurplus) : 99;
+                        
+                        if (monthsToEmergency < 12) {
+                            message = `Stage 2 in ~${monthsToEmergency} months`;
+                        } else if (monthsToEmergency < 99) {
+                            const years = Math.floor(monthsToEmergency / 12);
+                            message = `Stage 2 in ~${years} year${years > 1 ? 's' : ''}`;
+                        } else {
+                            message = "Increase surplus to progress";
+                        }
+                    } else {
+                        message = "Eliminate deficit to progress";
+                    }
+                    break;
+                    
+                case 2:
+                    // Calculate time to reach stage 3
+                    if (monthlySurplus > 0 && debtData.totalBalance > 0) {
+                        const monthsToDebtFree = Math.ceil(debtData.totalBalance / monthlySurplus);
+                        
+                        if (monthsToDebtFree < 24) {
+                            message = `Stage 3 in ~${monthsToDebtFree} months`;
+                        } else {
+                            const years = Math.floor(monthsToDebtFree / 12);
+                            message = `Stage 3 in ~${years} year${years > 1 ? 's' : ''}`;
+                        }
+                    } else if (debtData.totalBalance === 0) {
+                        message = "Focus on retirement savings";
+                    } else {
+                        message = "Increase surplus to tackle debt";
+                    }
+                    break;
+                    
+                case 3:
+                    // Calculate time to reach stage 4
+                    const age = parseInt(document.getElementById('user-age').value) || 35;
+                    const annualIncome = income * 12;
+                    let retirementTarget = 0;
+                    
+                    if (age <= 40) retirementTarget = annualIncome * 3;
+                    else if (age <= 50) retirementTarget = annualIncome * 6;
+                    else if (age <= 60) retirementTarget = annualIncome * 8;
+                    
+                    const currentRetirement = parseCurrency(document.getElementById('current-retirement').value);
+                    const retirementNeeded = Math.max(0, retirementTarget - currentRetirement);
+                    
+                    if (monthlySurplus > 0 && retirementNeeded > 0) {
+                        const monthsToRetirementTarget = Math.ceil(retirementNeeded / monthlySurplus);
+                        
+                        if (monthsToRetirementTarget < 60) {
+                            const years = Math.floor(monthsToRetirementTarget / 12);
+                            const months = monthsToRetirementTarget % 12;
+                            message = `Stage 4 in ~${years}y ${months}m`;
+                        } else {
+                            message = "Consistent investing will get you there";
+                        }
+                    } else if (retirementNeeded <= 0) {
+                        message = "Stage 4: Focus on net worth growth";
+                    } else {
+                        message = "Increase savings rate to progress";
+                    }
+                    break;
+                    
+                case 4:
+                    message = "Maintain course for legacy building";
+                    break;
+                    
+                case 5:
+                    message = "Legacy phase: Focus on preservation";
+                    break;
+                    
+                default:
+                    message = "Complete setup to see timeline";
+            }
+            
+            estimateEl.textContent = message;
+        }
+
+        function resetJourneyTracker() {
+            for (let i = 1; i <= 5; i++) {
+                const stageEl = document.getElementById(`stage-${i}`);
+                const indicatorEl = document.getElementById(`indicator-${i}`);
+                
+                if (stageEl) {
+                    stageEl.classList.remove('active', 'completed');
+                    indicatorEl.className = 'stage-indicator pending';
+                    indicatorEl.textContent = i;
+                }
+            }
+            
+            const estimateEl = document.getElementById('journey-estimate');
+            if (estimateEl) {
+                estimateEl.textContent = "Complete setup to see timeline";
+            }
         }
 
         // Main calculation function
@@ -4844,12 +4037,14 @@
                 updateBudgetSection();
                 updateAssetsSection();
                 updateScoreSection();
-                updateBattleMap(); // ADDED: Update battle map
                 updateQuickStartPanel();
                 updateInsights();
                 
                 // Update chart
                 updateChart();
+                
+                // Update journey tracker
+                updateJourneyTracker();
                 
                 // Check for milestones
                 checkMilestones();
@@ -4945,13 +4140,10 @@
             const income = getMonthlyIncome();
             const annualIncome = income * 12;
             const dtiRatio = annualIncome > 0 ? (totalBalance / annualIncome * 100) : 0;
-            const dtiRatioEl = document.getElementById('dti-ratio');
-            if (dtiRatioEl) dtiRatioEl.textContent = `${dtiRatio.toFixed(1)}%`;
             
             // Update freedom timeline
             const monthlySurplus = getMonthlySurplus();
             const countdownEl = document.getElementById('countdown-val');
-            const debtStrategy = document.getElementById('debt-strategy');
             
             if (countdownEl) {
                 if (totalBalance > 0 && monthlySurplus > 0) {
@@ -4963,21 +4155,10 @@
                         const remainingMonths = months % 12;
                         countdownEl.textContent = `${years}y ${remainingMonths}m`;
                     }
-                    
-                    // Update debt strategy
-                    if (debtStrategy) {
-                        if (highInterestCount > 0) {
-                            debtStrategy.textContent = `Focus on ${highInterestCount} high-interest debt(s) first (avalanche method)`;
-                        } else if (debtCount > 0) {
-                            debtStrategy.textContent = `Make extra payments on smallest balance first (snowball method)`;
-                        }
-                    }
                 } else if (totalBalance === 0) {
                     countdownEl.textContent = "DEBT FREE";
-                    if (debtStrategy) debtStrategy.textContent = "Congratulations! You're debt free. Focus on building wealth.";
                 } else {
                     countdownEl.textContent = "N/A";
-                    if (debtStrategy) debtStrategy.textContent = "Increase income or reduce expenses to create debt repayment capacity";
                 }
             }
             
@@ -5207,10 +4388,6 @@
                 housingCost = parseCurrency(legacyHousingInput.value);
             }
             
-            const housingPercent = income > 0 ? (housingCost / income * 100) : 0;
-            const housingPercentEl = document.getElementById('housing-percent');
-            if (housingPercentEl) housingPercentEl.textContent = `${housingPercent.toFixed(1)}%`;
-           
             return {
                 tier1Total,
                 tier2Total,
@@ -5222,7 +4399,7 @@
                 needsPercent,
                 wantsPercent,
                 savingsPercent,
-                housingPercent
+                housingCost
             };
         }
 
@@ -5391,11 +4568,6 @@
             // Update score insights
             updateScoreInsights(totalScore, { budgetScore, debtScore, emergencyScore, retirementScore, realEstateScore });
             
-            // Update score history
-            scoreHistory.push(totalScore);
-            if (scoreHistory.length > 7) scoreHistory.shift();
-            updateScoreSparkline();
-            
             // Update quick score
             const quickScore = document.getElementById('quick-score');
             if (quickScore) quickScore.textContent = Math.round(totalScore);
@@ -5511,10 +4683,15 @@
         function calculateRealEstateScore(budgetData, assetsData) {
             let score = 0;
             
+            // Get housing cost from budget data
+            const housingCost = budgetData.housingCost;
+            const income = getMonthlyIncome();
+            const housingPercent = income > 0 ? (housingCost / income * 100) : 0;
+            
             // Housing cost should be ≤28% of income
-            if (budgetData.housingPercent <= 28) {
+            if (housingPercent <= 28) {
                 score += 10;
-            } else if (budgetData.housingPercent <= 35) {
+            } else if (housingPercent <= 35) {
                 score += 5;
             }
             
@@ -5523,38 +4700,6 @@
             score += Math.min(10, equityProgress / 10); // 100% equity = 10 points
             
             return Math.max(0, Math.min(20, score));
-        }
-
-        function updateScoreSparkline() {
-            const sparkline = document.getElementById('score-sparkline');
-            if (!sparkline || scoreHistory.length === 0) return;
-            
-            sparkline.innerHTML = '';
-            const maxScore = Math.max(...scoreHistory, 100);
-            
-            scoreHistory.forEach((score, index) => {
-                const bar = document.createElement('div');
-                const height = (score / maxScore) * 100;
-                bar.className = `w-4 ${index === scoreHistory.length - 1 ? 'bg-crimson' : 'bg-gray-800'} rounded-t`;
-                bar.style.height = `${height}%`;
-                sparkline.appendChild(bar);
-            });
-            
-            // Update trend text
-            const trendEl = document.getElementById('score-trend-text');
-            if (trendEl && scoreHistory.length > 1) {
-                const trend = scoreHistory[scoreHistory.length - 1] - scoreHistory[0];
-                if (trend > 0) {
-                    trendEl.textContent = `+${Math.round(trend)} point trend`;
-                    trendEl.className = 'text-[10px] text-green-400 text-center mt-1';
-                } else if (trend < 0) {
-                    trendEl.textContent = `${Math.round(trend)} point trend`;
-                    trendEl.className = 'text-[10px] text-crimson text-center mt-1';
-                } else {
-                    trendEl.textContent = 'Stable trend';
-                    trendEl.className = 'text-[10px] text-gray-600 text-center mt-1';
-                }
-            }
         }
 
         function updateBadge(id, current, target, isHigherBetter = false) {
@@ -5625,95 +4770,10 @@
                     insightsEl.textContent = 'Your budget is balanced. Consider increasing savings.';
                 }
             }
-            
-            // Update benchmark comparison
-            updateBenchmarks();
-        }
-
-        function updateBenchmarks() {
-            const income = getMonthlyIncome();
-            
-            // Get housing cost from drag & drop system
-            let housingCost = 0;
-            
-            // Check for housing expense in currentExpenses
-            if (currentExpenses.tier1 && Array.isArray(currentExpenses.tier1)) {
-                const housingExpense = currentExpenses.tier1.find(exp => exp.id === 'housing');
-                if (housingExpense) {
-                    housingCost = parseCurrency(housingExpense.amount);
-                }
-            }
-            
-            // Also check custom expenses
-            if (customExpenses && Array.isArray(customExpenses)) {
-                const customHousing = customExpenses.find(exp => exp.id === 'housing');
-                if (customHousing) {
-                    housingCost = parseCurrency(customHousing.amount);
-                }
-            }
-            
-            // Fallback: Check legacy input if it exists
-            const legacyHousingInput = document.getElementById('housing');
-            if (legacyHousingInput && legacyHousingInput.value) {
-                housingCost = parseCurrency(legacyHousingInput.value);
-            }
-            
-            const housingPercent = income > 0 ? (housingCost / income * 100) : 0;
-            
-            const allocations = calculateTierAllocations();
-            const savingsPercent = allocations.tier1Total > 0 ? 0 : 0;
-            
-            // Industry benchmarks (simplified)
-            const benchmarks = {
-                housing: { good: 28, average: 33, high: 40 },
-                savings: { good: 20, average: 10, low: 5 },
-                dti: { good: 36, average: 43, high: 50 }
-            };
-            
-            // Update housing benchmark
-            let housingBenchmark = '';
-            if (housingPercent <= benchmarks.housing.good) {
-                housingBenchmark = `Good (≤${benchmarks.housing.good}%)`;
-            } else if (housingPercent <= benchmarks.housing.average) {
-                housingBenchmark = `Average (≤${benchmarks.housing.average}%)`;
-            } else {
-                housingBenchmark = `High (>${benchmarks.housing.average}%)`;
-            }
-            
-            // Update savings benchmark
-            let savingsBenchmark = '';
-            if (savingsPercent >= benchmarks.savings.good) {
-                savingsBenchmark = `Excellent (≥${benchmarks.savings.good}%)`;
-            } else if (savingsPercent >= benchmarks.savings.average) {
-                savingsBenchmark = `Average (≥${benchmarks.savings.average}%)`;
-            } else {
-                savingsBenchmark = `Low (<${benchmarks.savings.average}%)`;
-            }
-            
-            // Show benchmark comparison if income exists
-            const benchmarkEl = document.getElementById('income-benchmark');
-            const benchmarkText = document.getElementById('benchmark-text');
-            
-            if (income > 0 && benchmarkEl && benchmarkText) {
-                benchmarkEl.classList.remove('hidden');
-                benchmarkText.innerHTML = `
-                    Housing: <span class="${housingPercent <= benchmarks.housing.good ? 'benchmark-better' : housingPercent <= benchmarks.housing.average ? 'benchmark-same' : 'benchmark-worse'}">${housingBenchmark}</span><br>
-                    Savings: <span class="${savingsPercent >= benchmarks.savings.good ? 'benchmark-better' : savingsPercent >= benchmarks.savings.average ? 'benchmark-same' : 'benchmark-worse'}">${savingsBenchmark}</span>
-                `;
-            }
         }
 
         function updateUserStats() {
-            userStats.lastUpdate = new Date();
             userStats.dataPoints = countDataPoints();
-            userStats.daysTracking = calculateDaysTracking();
-            
-            // Update display
-            const dataPointsCount = document.getElementById('data-points-count');
-            const daysTracking = document.getElementById('days-tracking');
-            
-            if (dataPointsCount) dataPointsCount.textContent = userStats.dataPoints;
-            if (daysTracking) daysTracking.textContent = `Day ${userStats.daysTracking}`;
         }
 
         function countDataPoints() {
@@ -5726,53 +4786,26 @@
             return count;
         }
 
-        function calculateDaysTracking() {
-            const saved = localStorage.getItem(`${CURRENT_VERSION}_stats`);
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                const firstDate = new Date(parsed.firstVisit || new Date());
-                const today = new Date();
-                const diffTime = Math.abs(today - firstDate);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                return Math.max(1, diffDays);
-            }
-            return 1;
-        }
-
         function loadUserStats() {
-            const saved = localStorage.getItem(`${CURRENT_VERSION}_stats`);
+            const saved = localStorage.getItem('raf_lab_stats');
             if (saved) {
                 const parsed = JSON.parse(saved);
                 userStats.sessions = (parsed.sessions || 0) + 1;
-                userStats.lastUpdate = new Date(parsed.lastUpdate || new Date());
                 userStats.dataPoints = parsed.dataPoints || 0;
-                userStats.daysTracking = parsed.daysTracking || 1;
-                userStats.milestones = parsed.milestones || [];
                 userStats.achievements = parsed.achievements || [];
-                userStats.firstVisit = parsed.firstVisit || new Date().toISOString();
-            } else {
-                userStats.firstVisit = new Date().toISOString();
-            }
-            
-            const savedHistory = localStorage.getItem(`${CURRENT_VERSION}_history`);
-            if (savedHistory) {
-                scoreHistory = JSON.parse(savedHistory);
             }
         }
 
         function checkMilestones() {
             const surplus = getMonthlySurplus();
-            const debtData = updateDebtSection();
             
             // Check for positive surplus milestone
-            if (surplus > 0 && !userStats.milestones.includes('positive_surplus')) {
-                userStats.milestones.push('positive_surplus');
-                showAchievementPopup('positive_surplus');
-            }
-            
-            // Check for debt plan milestone
-            if (debtData.totalBalance > 0 && debtData.totalPayments > 0 && !userStats.milestones.includes('debt_plan')) {
-                userStats.milestones.push('debt_plan');
+            if (surplus > 0) {
+                if (!userStats.milestones) userStats.milestones = [];
+                if (!userStats.milestones.includes('positive_surplus')) {
+                    userStats.milestones.push('positive_surplus');
+                    checkAchievements();
+                }
             }
         }
 
@@ -5845,7 +4878,7 @@
 
         function saveProfile() {
             const data = {
-                version: CURRENT_VERSION,
+                version: 'raf_lab',
                 paycheck: document.getElementById('paycheck').value,
                 freq: document.getElementById('freq').value,
                 age: document.getElementById('user-age').value,
@@ -5876,12 +4909,10 @@
             });
             
             // Save user stats
-            userStats.lastUpdate = new Date();
             userStats.dataPoints = countDataPoints();
             
-            localStorage.setItem(CURRENT_VERSION, JSON.stringify(data));
-            localStorage.setItem(`${CURRENT_VERSION}_stats`, JSON.stringify(userStats));
-            localStorage.setItem(`${CURRENT_VERSION}_history`, JSON.stringify(scoreHistory));
+            localStorage.setItem('raf_lab', JSON.stringify(data));
+            localStorage.setItem('raf_lab_stats', JSON.stringify(userStats));
             
             // Also save drag & drop categories
             saveCustomCategories();
@@ -5900,23 +4931,22 @@
 
         function autoSaveProfile() {
             // Only auto-save every 30 seconds if changes were made
-            const lastSave = localStorage.getItem(`${CURRENT_VERSION}_last_auto_save`);
+            const lastSave = localStorage.getItem('raf_lab_last_auto_save');
             const now = new Date().getTime();
             
             if (!lastSave || (now - parseInt(lastSave)) > 30000) {
                 saveProfile();
-                localStorage.setItem(`${CURRENT_VERSION}_last_auto_save`, now.toString());
+                localStorage.setItem('raf_lab_last_auto_save', now.toString());
             }
         }
 
         function loadProfile() {
-            const saved = localStorage.getItem(CURRENT_VERSION);
+            const saved = localStorage.getItem('raf_lab');
             if (!saved) return;
             
             let data;
             try {
                 data = JSON.parse(saved);
-                if (data.version !== CURRENT_VERSION) return;
             } catch (e) {
                 return;
             }
@@ -5960,7 +4990,10 @@
             }
             
             // Calculate after loading
-            setTimeout(() => calculateAll(), 200);
+            setTimeout(() => {
+                calculateAll();
+                updateJourneyTracker();
+            }, 200);
         }
 
         function showToast(message) {
@@ -6058,63 +5091,43 @@
             openModal(content);
         }
 
-        function showTimelineTip(point) {
-            const tips = {
-                'current': 'Your current debt situation. Focus on high-interest debts first.',
-                '6months': '6-month projection: With consistent payments, you could reduce debt by XX%.',
-                '1year': '1-year goal: Aim to eliminate all high-interest debt and reduce total balance by XX%.'
-            };
-            
-            showToast(tips[point] || 'Click timeline points for projections');
-        }
-
-        function showAllTargets() {
+        function showBenchmarks() {
             const content = `
-                <h4 class="text-lg font-bold mb-4">All Priority Targets</h4>
-                <div class="space-y-3">
-                    <div class="bg-navy-900/50 p-3 rounded border border-white/5">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-xs">Complete Budget Setup</span>
-                            <span class="text-xs text-gray-400">High</span>
-                        </div>
-                        <div class="h-1 bg-navy-950 rounded-full overflow-hidden">
-                            <div class="h-full bg-crimson progress-bar" style="width: 30%"></div>
-                        </div>
+                <h4 class="text-lg font-bold mb-4">Industry Benchmarks</h4>
+                <div class="space-y-4">
+                    <div>
+                        <div class="text-sm font-bold mb-2">Housing Costs</div>
+                        <div class="text-xs text-gray-300 mb-1">Good: ≤28% of income</div>
+                        <div class="text-xs text-gray-300 mb-1">Average: ≤33% of income</div>
+                        <div class="text-xs text-gray-300">High: >33% of income</div>
                     </div>
                     
-                    <div class="bg-navy-900/50 p-3 rounded border border-white/5">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-xs">Emergency Fund (3 months)</span>
-                            <span class="text-xs text-gray-400">Medium</span>
-                        </div>
-                        <div class="h-1 bg-navy-950 rounded-full overflow-hidden">
-                            <div class="h-full bg-blue-500 progress-bar" style="width: 45%"></div>
-                        </div>
+                    <div>
+                        <div class="text-sm font-bold mb-2">Savings Rate</div>
+                        <div class="text-xs text-gray-300 mb-1">Excellent: ≥20% of income</div>
+                        <div class="text-xs text-gray-300 mb-1">Average: 10-15% of income</div>
+                        <div class="text-xs text-gray-300">Low: <10% of income</div>
                     </div>
                     
-                    <div class="bg-navy-900/50 p-3 rounded border border-white/5">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-xs">Reduce High-Interest Debt</span>
-                            <span class="text-xs text-gray-400">Critical</span>
-                        </div>
-                        <div class="h-1 bg-navy-950 rounded-full overflow-hidden">
-                            <div class="h-full bg-crimson progress-bar" style="width: 20%"></div>
-                        </div>
+                    <div>
+                        <div class="text-sm font-bold mb-2">Debt-to-Income Ratio</div>
+                        <div class="text-xs text-gray-300 mb-1">Good: ≤36%</div>
+                        <div class="text-xs text-gray-300 mb-1">Average: 36-43%</div>
+                        <div class="text-xs text-gray-300">High: >43%</div>
                     </div>
                     
-                    <div class="bg-navy-900/50 p-3 rounded border border-white/5">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-xs">Retirement Contributions</span>
-                            <span class="text-xs text-gray-400">Medium</span>
-                        </div>
-                        <div class="h-1 bg-navy-950 rounded-full overflow-hidden">
-                            <div class="h-full bg-green-500 progress-bar" style="width: 60%"></div>
-                        </div>
+                    <div class="text-xs text-gray-500 mt-4">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        These are general guidelines. Your personal situation may vary.
                     </div>
                 </div>
             `;
             
-            openModal(content);
+            if (window.innerWidth < 768) {
+                openBottomSheet('Industry Benchmarks', content);
+            } else {
+                openModal(content);
+            }
         }
 
         function openModal(content) {
@@ -6165,209 +5178,6 @@
             if (overlay) overlay.remove();
         }
 
-        function showBenchmarks() {
-            const content = `
-                <h4 class="text-lg font-bold mb-4">Industry Benchmarks</h4>
-                <div class="space-y-4">
-                    <div>
-                        <div class="text-sm font-bold mb-2">Housing Costs</div>
-                        <div class="text-xs text-gray-300 mb-1">Good: ≤28% of income</div>
-                        <div class="text-xs text-gray-300 mb-1">Average: ≤33% of income</div>
-                        <div class="text-xs text-gray-300">High: >33% of income</div>
-                    </div>
-                    
-                    <div>
-                        <div class="text-sm font-bold mb-2">Savings Rate</div>
-                        <div class="text-xs text-gray-300 mb-1">Excellent: ≥20% of income</div>
-                        <div class="text-xs text-gray-300 mb-1">Average: 10-15% of income</div>
-                        <div class="text-xs text-gray-300">Low: <10% of income</div>
-                    </div>
-                    
-                    <div>
-                        <div class="text-sm font-bold mb-2">Debt-to-Income Ratio</div>
-                        <div class="text-xs text-gray-300 mb-1">Good: ≤36%</div>
-                        <div class="text-xs text-gray-300 mb-1">Average: 36-43%</div>
-                        <div class="text-xs text-gray-300">High: >43%</div>
-                    </div>
-                    
-                    <div class="text-xs text-gray-500 mt-4">
-                        <i class="fas fa-info-circle mr-1"></i>
-                        These are general guidelines. Your personal situation may vary.
-                    </div>
-                </div>
-            `;
-            
-            if (window.innerWidth < 768) {
-                openBottomSheet('Industry Benchmarks', content);
-            } else {
-                openModal(content);
-            }
-        }
-
-        function showUpgradeModal() {
-            const content = `
-                <div class="text-center p-6">
-                    <div class="text-4xl mb-4 text-yellow-400">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h4 class="text-xl font-bold mb-2">Upgrade to Premium</h4>
-                    <p class="text-sm text-gray-300 mb-4">Unlock advanced financial planning tools</p>
-                    
-                    <div class="space-y-3 text-left mb-6">
-                        <div class="flex items-center">
-                            <i class="fas fa-check text-green-400 mr-3"></i>
-                            <span class="text-sm">AI-powered recommendations</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-check text-green-400 mr-3"></i>
-                            <span class="text-sm">Advanced tax optimization</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-check text-green-400 mr-3"></i>
-                            <span class="text-sm">Investment portfolio analysis</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-check text-green-400 mr-3"></i>
-                            <span class="text-sm">Unlimited scenario planning</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-check text-green-400 mr-3"></i>
-                            <span class="text-sm">Historical trend analysis</span>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <div class="text-2xl font-bold">$9.99<span class="text-sm text-gray-400">/month</span></div>
-                        <div class="text-xs text-gray-500">Billed annually: $99.99</div>
-                    </div>
-                    
-                    <div class="flex space-x-3">
-                        <button onclick="closeModal()" class="flex-1 bg-white/10 hover:bg-white/20 py-3 rounded text-sm transition">
-                            Not Now
-                        </button>
-                        <button onclick="showToast('Premium upgrade coming soon!')" class="flex-1 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 py-3 rounded text-sm font-bold transition">
-                            Upgrade Now
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            openModal(content);
-        }
-
-        function showScenarioModal() {
-            const content = `
-                <div class="p-6">
-                    <h4 class="text-lg font-bold mb-4">Scenario Planning</h4>
-                    <p class="text-sm text-gray-300 mb-4">See how different financial decisions affect your timeline</p>
-                    
-                    <div class="space-y-3">
-                        <div class="scenario-card" onclick="applyScenario('increase_income')">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <div class="text-sm font-bold">Increase Income by 10%</div>
-                                    <div class="text-xs text-gray-400">See how a raise affects debt payoff</div>
-                                </div>
-                                <i class="fas fa-arrow-right text-crimson"></i>
-                                </div>
-                        </div>
-                        
-                        <div class="scenario-card" onclick="applyScenario('reduce_wants')">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <div class="text-sm font-bold">Reduce Wants by 20%</div>
-                                    <div class="text-xs text-gray-400">Cut discretionary spending</div>
-                                </div>
-                                <i class="fas fa-arrow-right text-crimson"></i>
-                                </div>
-                        </div>
-                        
-                        <div class="scenario-card" onclick="applyScenario('debt_consolidation')">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <div class="text-sm font-bold">Debt Consolidation</div>
-                                    <div class="text-xs text-gray-400">Lower interest rates</div>
-                                </div>
-                                <i class="fas fa-arrow-right text-crimson"></i>
-                                </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-6 text-xs text-gray-500">
-                        <i class="fas fa-info-circle mr-1"></i>
-                        Free users can run 2 scenarios. Upgrade for unlimited planning.
-                    </div>
-                </div>
-            `;
-            
-            openModal(content);
-        }
-
-        function applyScenario(scenario) {
-            const income = getMonthlyIncome();
-            if (income <= 0) {
-                showToast("Enter your income first to run scenarios");
-                closeModal();
-                return;
-            }
-            
-            switch(scenario) {
-                case 'increase_income':
-                    const currentPaycheck = parseCurrency(document.getElementById('paycheck').value);
-                    const newPaycheck = currentPaycheck * 1.1;
-                    document.getElementById('paycheck').value = Math.round(newPaycheck).toLocaleString();
-                    showToast("Applied: 10% income increase");
-                    break;
-                    
-                case 'reduce_wants':
-                    const allocations = calculateTierAllocations();
-                    const currentWants = allocations.tier3Total;
-                    const newWants = currentWants * 0.8;
-                    
-                    // Update all tier 3 expenses
-                    Object.keys(currentExpenses).forEach(tier => {
-                        if (currentExpenses[tier]) {
-                            currentExpenses[tier].forEach(expense => {
-                                if (tier === 'tier3') {
-                                    const currentValue = parseCurrency(expense.amount);
-                                    if (currentValue > 0) {
-                                        expense.amount = Math.round(currentValue * 0.8).toString();
-                                    }
-                                }
-                            });
-                        }
-                    });
-                    
-                    // Update custom expenses in tier 3
-                    customExpenses.forEach(expense => {
-                        if ((expense.currentTier || expense.defaultTier) === 'tier3') {
-                            const currentValue = parseCurrency(expense.amount);
-                            if (currentValue > 0) {
-                                expense.amount = Math.round(currentValue * 0.8).toString();
-                            }
-                        }
-                    });
-                    
-                    renderAllExpenses();
-                    showToast("Applied: 20% reduction in wants");
-                    break;
-                    
-                case 'debt_consolidation':
-                    // Reduce all interest rates by 5%
-                    document.querySelectorAll('.debt-rate-input').forEach(input => {
-                        const currentRate = parseFloat(input.value) || 0;
-                        if (currentRate > 5) {
-                            input.value = (currentRate - 5).toFixed(1);
-                        }
-                    });
-                    showToast("Applied: Debt consolidation (5% lower rates)");
-                    break;
-            }
-            
-            closeModal();
-            calculateAll();
-        }
-
         function showPrintView() {
             window.print();
         }
@@ -6395,8 +5205,7 @@
         function submitFeedback(type) {
             const feedbackTypes = {
                 'feature_request': 'Feature Request',
-                'bug_report': 'Bug Report',
-                'general_feedback': 'General Feedback'
+                'bug_report': 'Bug Report'
             };
             
             const feedbackText = prompt(`Describe your ${feedbackTypes[type].toLowerCase()}:`, '');
@@ -6416,380 +5225,6 @@
                 showToast('Thank you for your feedback!');
             }
         }
-
-        function updateMilestoneTracker() {
-            // This function tracks and displays user milestones
-            const milestoneEl = document.getElementById('days-tracking');
-            if (milestoneEl) {
-                milestoneEl.textContent = `Day ${userStats.daysTracking}`;
-            }
-        }
-
-        // ===== FINANCIAL BATTLE MAP FUNCTIONS =====
-
-        function updateBattleMap() {
-            const scoreData = updateScoreSection();
-            const totalScore = scoreData.totalScore;
-            
-            // Determine current phase
-            let currentPhase = 'warrior';
-            let nextPhase = 'commander';
-            
-            if (totalScore >= battleMapConfig.phases.commander.minScore) {
-                currentPhase = 'commander';
-                nextPhase = 'guardian';
-            }
-            if (totalScore >= battleMapConfig.phases.guardian.minScore) {
-                currentPhase = 'guardian';
-                nextPhase = null;
-            }
-            
-            const phaseConfig = battleMapConfig.phases[currentPhase];
-            
-            // Update status badge
-            const statusBadge = document.getElementById('status-badge');
-            const currentRank = document.getElementById('current-rank');
-            const currentProgress = document.getElementById('current-progress');
-            
-            if (statusBadge) {
-                statusBadge.className = `status-badge ${currentPhase}-active`;
-            }
-            
-            if (currentRank) currentRank.textContent = phaseConfig.rank;
-            
-            // Calculate phase progress
-            const pillars = phaseConfig.pillars;
-            let completedPillars = 0;
-            let totalProgress = 0;
-            
-            pillars.forEach(pillar => {
-                if (pillar.check()) completedPillars++;
-                totalProgress += pillar.progress();
-            });
-            
-            const phaseProgress = Math.round(totalProgress / pillars.length);
-            
-            if (currentProgress) {
-                currentProgress.textContent = `${phaseConfig.rank} Phase • ${completedPillars}/${pillars.length} Pillars Complete`;
-            }
-            
-            // Update phase progress circles
-            updatePhaseProgressCircles(currentPhase);
-            
-            // Update pillars display
-            updatePillarsDisplay(currentPhase, pillars);
-            
-            // Update next mission
-            updateNextMission(currentPhase, pillars, completedPillars);
-            
-            // Update modal with current progress
-            updateAcademyModal(currentPhase, phaseProgress, completedPillars, pillars.length);
-            
-            // Return current phase info for other functions
-            return {
-                currentPhase,
-                phaseProgress,
-                completedPillars,
-                totalPillars: pillars.length
-            };
-        }
-
-        function updatePhaseProgressCircles(currentPhase) {
-            const circles = document.querySelectorAll('.phase-circle');
-            const lines = document.querySelectorAll('.phase-line');
-            
-            // Reset all
-            circles.forEach(circle => {
-                circle.className = 'phase-circle locked';
-            });
-            lines.forEach(line => {
-                line.className = 'phase-line';
-            });
-            
-            // Set based on current phase
-            if (currentPhase === 'warrior') {
-                circles[0].className = 'phase-circle active';
-                lines[0].className = 'phase-line complete';
-                circles[1].className = 'phase-circle locked';
-                circles[2].className = 'phase-circle locked';
-            } else if (currentPhase === 'commander') {
-                circles[0].className = 'phase-circle complete';
-                lines[0].className = 'phase-line complete';
-                circles[1].className = 'phase-circle active';
-                lines[1].className = 'phase-line active';
-                circles[2].className = 'phase-circle locked';
-            } else if (currentPhase === 'guardian') {
-                circles[0].className = 'phase-circle complete';
-                lines[0].className = 'phase-line complete';
-                circles[1].className = 'phase-circle complete';
-                lines[1].className = 'phase-line complete';
-                circles[2].className = 'phase-circle active';
-            }
-        }
-
-        function updatePillarsDisplay(phase, pillars) {
-            const pillarsContainer = document.getElementById('phase-pillars');
-            if (!pillarsContainer) return;
-            
-            pillarsContainer.innerHTML = '';
-            
-            pillars.forEach(pillar => {
-                const isComplete = pillar.check();
-                const progress = pillar.progress();
-                
-                const pillarEl = document.createElement('div');
-                pillarEl.className = `pillar-item ${isComplete ? 'complete' : 'in-progress'}`;
-                
-                pillarEl.innerHTML = `
-                    <div class="pillar-icon ${isComplete ? 'complete' : 'in-progress'}">
-                        ${isComplete ? '✓' : '⌛'}
-                    </div>
-                    <div class="pillar-info">
-                        <div class="pillar-name">${pillar.name}</div>
-                        <div class="pillar-status">${pillar.description}</div>
-                    </div>
-                    <div class="pillar-progress">${Math.round(progress)}%</div>
-                `;
-                
-                pillarsContainer.appendChild(pillarEl);
-            });
-        }
-
-        function updateNextMission(phase, pillars, completedCount) {
-            const nextMissionTitle = document.getElementById('next-mission-title');
-            const nextMissionDesc = document.getElementById('next-mission-desc');
-            const nextMissionAction = document.getElementById('next-mission-action');
-            
-            if (!nextMissionTitle || !nextMissionDesc || !nextMissionAction) return;
-            
-            // Find first incomplete pillar
-            const incompletePillar = pillars.find(pillar => !pillar.check());
-            
-            if (incompletePillar) {
-                nextMissionTitle.textContent = incompletePillar.name;
-                nextMissionDesc.textContent = `Pillar ${completedCount + 1} • ${incompletePillar.description}`;
-                
-                // Generate specific action based on pillar
-                let action = '';
-                switch(incompletePillar.id) {
-                    case 'budget':
-                        const surplus = getMonthlySurplus();
-                        if (surplus <= 0) {
-                            action = 'Adjust expenses to create positive surplus';
-                        } else {
-                            action = 'Ensure needs ≤50% and wants ≤30% of income';
-                        }
-                        break;
-                    case 'emergency1':
-                        const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
-                        const allocations = calculateTierAllocations();
-                        const monthlyEssentials = allocations.tier1Total;
-                        const needed = monthlyEssentials - emergencyFund;
-                        action = needed > 0 ? `Add $${Math.round(needed)} to emergency fund` : 'Fund is complete!';
-                        break;
-                    case 'highInterestDebt':
-                        let highInterestTotal = 0;
-                        document.querySelectorAll('#debt-body tr').forEach(row => {
-                            const balance = parseCurrency(row.querySelector('.debt-balance-input')?.value);
-                            const rate = parseFloat(row.querySelector('.debt-rate-input')?.value) || 0;
-                            if (rate > 15) highInterestTotal += balance;
-                        });
-                        action = highInterestTotal > 0 ? `Attack $${Math.round(highInterestTotal)} high-interest debt` : 'No high-interest debt found';
-                        break;
-                    case 'emergency6':
-                        const emergencyFund6 = parseCurrency(document.getElementById('current-iron-pot').value);
-                        const allocations6 = calculateTierAllocations();
-                        const monthlyEssentials6 = allocations6.tier1Total;
-                        const target6 = monthlyEssentials6 * 6;
-                        const needed6 = target6 - emergencyFund6;
-                        action = needed6 > 0 ? `Add $${Math.round(needed6)} to reach 6-month fund` : 'Iron Pot complete!';
-                        break;
-                    default:
-                        action = 'Complete this pillar to advance';
-                }
-                
-                nextMissionAction.textContent = action;
-            } else {
-                // All pillars complete, prepare for next phase
-                nextMissionTitle.textContent = `Advance to ${phase === 'warrior' ? 'Commander' : 'Guardian'}`;
-                nextMissionDesc.textContent = 'Complete current phase to unlock next tier';
-                nextMissionAction.textContent = 'Click here to explore next phase features';
-            }
-        }
-
-        function focusOnNextMission() {
-            const battleInfo = updateBattleMap();
-            const phase = battleInfo.currentPhase;
-            const pillars = battleMapConfig.phases[phase].pillars;
-            const incompletePillar = pillars.find(pillar => !pillar.check());
-            
-            if (incompletePillar) {
-                // Scroll to relevant section based on pillar
-                switch(incompletePillar.id) {
-                    case 'budget':
-                        scrollToSection('budget');
-                        showToast('Focus on completing your budget');
-                        break;
-                    case 'emergency1':
-                    case 'emergency6':
-                        scrollToSection('assets');
-                        showToast('Focus on building your emergency fund');
-                        break;
-                    case 'highInterestDebt':
-                        scrollToSection('debt');
-                        showToast('Focus on eliminating high-interest debt');
-                        break;
-                    case 'retirement':
-                    case 'savingsRate':
-                        scrollToSection('assets');
-                        showToast('Focus on retirement and savings');
-                        break;
-                    default:
-                        showToast('Complete your current phase pillars');
-                }
-            } else {
-                // All pillars complete, show academy modal
-                showAcademyModal();
-            }
-        }
-
-        function updateAcademyModal(currentPhase, phaseProgress, completedPillars, totalPillars) {
-            // Update current rank in modal
-            const modalCurrentRank = document.getElementById('modal-current-rank');
-            if (modalCurrentRank) modalCurrentRank.textContent = currentPhase.toUpperCase();
-            
-            // Update warrior progress
-            const modalWarriorProgress = document.getElementById('modal-warrior-progress');
-            const modalWarriorBar = document.getElementById('modal-warrior-bar');
-            
-            if (modalWarriorProgress) modalWarriorProgress.textContent = `${phaseProgress}%`;
-            if (modalWarriorBar) modalWarriorBar.style.width = `${phaseProgress}%`;
-            
-            // Update current tier badges
-            const warriorBadge = document.getElementById('warrior-badge');
-            const commanderButton = document.getElementById('commander-button');
-            
-            if (warriorBadge) {
-                warriorBadge.style.display = currentPhase === 'warrior' ? 'block' : 'none';
-            }
-            
-            if (commanderButton) {
-                if (currentPhase === 'warrior') {
-                    commanderButton.textContent = 'Upgrade to Commander';
-                    commanderButton.className = 'w-full bg-yellow-500 hover:bg-yellow-600 py-2 rounded text-sm font-bold transition';
-                } else if (currentPhase === 'commander') {
-                    commanderButton.textContent = 'Current Tier';
-                    commanderButton.className = 'w-full bg-yellow-700 py-2 rounded text-sm font-bold transition cursor-default';
-                    commanderButton.onclick = null;
-                } else {
-                    commanderButton.textContent = 'Already a Guardian';
-                    commanderButton.className = 'w-full bg-gray-600 py-2 rounded text-sm font-bold transition cursor-default';
-                    commanderButton.onclick = null;
-                }
-            }
-        }
-
-        function showAcademyModal() {
-            const modal = document.getElementById('academy-modal');
-            const overlay = document.getElementById('modal-overlay');
-            
-            if (modal && overlay) {
-                modal.classList.remove('hidden');
-                overlay.classList.add('active');
-                
-                // Update modal with current data
-                updateBattleMap();
-                
-                // Close when clicking outside
-                overlay.addEventListener('click', function(e) {
-                    if (e.target === overlay) {
-                        closeAcademyModal();
-                    }
-                });
-            }
-        }
-
-        function closeAcademyModal() {
-            const modal = document.getElementById('academy-modal');
-            const overlay = document.getElementById('modal-overlay');
-            
-            if (modal) {
-                modal.classList.add('hidden');
-            }
-            if (overlay) {
-                overlay.classList.remove('active');
-            }
-        }
-
-        function selectTier(tier) {
-            if (tier === 'warrior') {
-                showToast('You are already in Warrior tier');
-                return;
-            }
-            
-            const currentPhase = updateBattleMap().currentPhase;
-            
-            if (tier === 'commander' && currentPhase === 'warrior') {
-                // Show upgrade confirmation
-                const content = `
-                    <div class="text-center p-6">
-                        <div class="text-4xl mb-4 text-yellow-400">
-                            <i class="fas fa-chess-knight"></i>
-                        </div>
-                        <h4 class="text-xl font-bold mb-2">Upgrade to Commander</h4>
-                        <p class="text-sm text-gray-300 mb-4">Unlock strategic wealth building tools</p>
-                        
-                        <div class="space-y-3 text-left mb-6">
-                            <div class="flex items-center">
-                                <i class="fas fa-check text-green-400 mr-3"></i>
-                                <span class="text-sm">Advanced tax optimization tools</span>
-                            </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-check text-green-400 mr-3"></i>
-                                <span class="text-sm">Investment portfolio analysis</span>
-                            </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-check text-green-400 mr-3"></i>
-                                <span class="text-sm">5-year financial projections</span>
-                            </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-check text-green-400 mr-3"></i>
-                                <span class="text-sm">Unlimited scenario planning</span>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <div class="text-2xl font-bold">$29<span class="text-sm text-gray-400">/month</span></div>
-                            <div class="text-xs text-gray-500">Cancel anytime</div>
-                        </div>
-                        
-                        <div class="flex space-x-3">
-                            <button onclick="closeModal()" class="flex-1 bg-white/10 hover:bg-white/20 py-3 rounded text-sm transition">
-                                Not Now
-                            </button>
-                            <button onclick="processUpgrade('commander')" class="flex-1 bg-yellow-500 hover:bg-yellow-600 py-3 rounded text-sm font-bold transition">
-                                Upgrade Now
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                openModal(content);
-            } else if (tier === 'guardian') {
-                showToast('Guardian tier coming soon!');
-            }
-        }
-
-        function processUpgrade(tier) {
-            closeModal();
-            showToast(`Redirecting to ${tier} upgrade page...`);
-            
-            // In a real implementation, this would redirect to your payment processor
-            setTimeout(() => {
-                window.open('https://realamericanfinance.com/academy', '_blank');
-            }, 1500);
-        }
-
     </script>
 </body>
 </html>
