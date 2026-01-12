@@ -1977,6 +1977,73 @@
             achievements: []
         };
         
+        // ===== JOURNEY TRACKER VARIABLES =====
+        
+        // Journey stage definitions and criteria
+        const journeyStages = [
+            {
+                id: 1,
+                name: 'Basic Training',
+                description: 'Building foundation, tackling debt',
+                criteria: {
+                    hasIncome: true,
+                    emergencyMonths: 0,  // Just started
+                    debtRatio: 1,        // Very high debt allowed
+                    savingsRate: 0,
+                    netWorth: -1000000   // Can have negative net worth
+                }
+            },
+            {
+                id: 2,
+                name: 'Tactical Positioning',
+                description: 'Emergency fund, debt reduction',
+                criteria: {
+                    emergencyMonths: 1,  // At least 1 month emergency fund
+                    debtRatio: 0.75,     // Debt ≤ 75% of annual income
+                    savingsRate: 0.05,   // At least 5% savings rate
+                    netWorth: -50000     // Improving net worth
+                }
+            },
+            {
+                id: 3,
+                name: 'Strategic Advancement',
+                description: 'Retirement building, investments',
+                criteria: {
+                    emergencyMonths: 3,  // 3+ months emergency fund
+                    debtRatio: 0.5,      // Debt ≤ 50% of annual income
+                    savingsRate: 0.10,   // At least 10% savings rate
+                    retirementProgress: 0.25, // 25% of retirement target
+                    netWorth: 0          // Positive net worth
+                }
+            },
+            {
+                id: 4,
+                name: 'Financial Sovereignty',
+                description: 'Debt-free, strong net worth',
+                criteria: {
+                    emergencyMonths: 6,  // Full emergency fund
+                    debtRatio: 0.25,     // Low debt
+                    savingsRate: 0.15,   // 15%+ savings rate
+                    retirementProgress: 0.5, // 50% of retirement target
+                    housingCostRatio: 0.3, // Housing ≤ 30% of income
+                    netWorth: 50000      // $50k+ net worth
+                }
+            },
+            {
+                id: 5,
+                name: 'Legacy Building',
+                description: 'Wealth accumulation, estate planning',
+                criteria: {
+                    emergencyMonths: 6,  // Full emergency fund
+                    debtRatio: 0.1,      // Minimal debt
+                    savingsRate: 0.20,   // 20%+ savings rate
+                    retirementProgress: 0.75, // 75% of retirement target
+                    housingCostRatio: 0.25, // Housing ≤ 25% of income
+                    netWorth: 250000     // $250k+ net worth
+                }
+            }
+        ];
+        
         // Achievement definitions
         const achievements = {
             'first_income': { 
@@ -2047,73 +2114,6 @@
         let customExpenses = [];
         let draggedItem = null;
         let currentExpenses = JSON.parse(JSON.stringify(defaultExpenses));
-
-        // ===== JOURNEY TRACKER VARIABLES =====
-        
-        // Journey stage definitions and criteria
-        const journeyStages = [
-            {
-                id: 1,
-                name: "Basic Training",
-                description: "Building foundation, tackling debt",
-                criteria: {
-                    hasIncome: true,
-                    emergencyMonths: 0,
-                    debtRatio: 0.4, // 40% or higher
-                    savingsRate: 0.05, // Less than 5%
-                    netWorth: 0
-                }
-            },
-            {
-                id: 2,
-                name: "Tactical Positioning",
-                description: "Emergency fund, debt reduction",
-                criteria: {
-                    emergencyMonths: 1,
-                    debtRatio: 0.3, // 30% or lower
-                    savingsRate: 0.10, // 10% or more
-                    netWorth: 10000
-                }
-            },
-            {
-                id: 3,
-                name: "Strategic Advancement",
-                description: "Retirement building, investments",
-                criteria: {
-                    emergencyMonths: 3,
-                    debtRatio: 0.2, // 20% or lower
-                    savingsRate: 0.15, // 15% or more
-                    netWorth: 50000,
-                    retirementProgress: 0.25 // 25% of age-based target
-                }
-            },
-            {
-                id: 4,
-                name: "Financial Sovereignty",
-                description: "Debt-free, strong net worth",
-                criteria: {
-                    emergencyMonths: 6,
-                    debtRatio: 0.1, // 10% or lower
-                    savingsRate: 0.20, // 20% or more
-                    netWorth: 250000,
-                    retirementProgress: 0.50, // 50% of age-based target
-                    housingCostRatio: 0.28 // 28% or lower
-                }
-            },
-            {
-                id: 5,
-                name: "Legacy Building",
-                description: "Wealth accumulation, estate planning",
-                criteria: {
-                    emergencyMonths: 6,
-                    debtRatio: 0.05, // 5% or lower
-                    savingsRate: 0.25, // 25% or more
-                    netWorth: 500000,
-                    retirementProgress: 0.75, // 75% of age-based target
-                    housingCostRatio: 0.25 // 25% or lower
-                }
-            }
-        ];
 
         document.addEventListener('DOMContentLoaded', function () {
             // Initialize chart
@@ -3101,7 +3101,381 @@
             return tierNames[tierId] || tierId;
         }
 
-        // ===== EXISTING FUNCTIONS (Updated for drag & drop integration) =====
+        // ===== CALCULATION FUNCTIONS FOR JOURNEY TRACKER =====
+
+        function calculateBudgetData() {
+            const income = getMonthlyIncome();
+            
+            // Calculate totals from drag & drop
+            const allocations = calculateTierAllocations();
+            const tier1Total = allocations.tier1Total;
+            const tier2Total = allocations.tier2Total;
+            const tier3Total = allocations.tier3Total;
+            
+            // Get savings total
+            let savingsTotal = 0;
+            document.querySelectorAll('.savings-input').forEach(input => {
+                savingsTotal += parseCurrency(input.value);
+            });
+            
+            // Get debt payments
+            const debtPayments = calculateTotalDebtPayments();
+            
+            // Calculate totals
+            const totalExpenses = tier1Total + tier2Total + tier3Total + savingsTotal + debtPayments;
+            const monthlySurplus = income - totalExpenses;
+            
+            // Calculate percentages (EXCLUDING debt payments from these percentages)
+            const needsPercent = income > 0 ? (tier1Total / income * 100) : 0;
+            const wantsPercent = income > 0 ? (tier3Total / income * 100) : 0;
+            const savingsPercent = income > 0 ? (savingsTotal / income * 100) : 0;
+            
+            // Get housing cost
+            let housingCost = 0;
+            
+            // Check for housing expense in currentExpenses
+            if (currentExpenses.tier1 && Array.isArray(currentExpenses.tier1)) {
+                const housingExpense = currentExpenses.tier1.find(exp => exp.id === 'housing');
+                if (housingExpense) {
+                    housingCost = parseCurrency(housingExpense.amount);
+                }
+            }
+            
+            // Also check custom expenses
+            if (customExpenses && Array.isArray(customExpenses)) {
+                const customHousing = customExpenses.find(exp => exp.id === 'housing');
+                if (customHousing) {
+                    housingCost = parseCurrency(customHousing.amount);
+                }
+            }
+            
+            // Fallback: Check legacy input if it exists
+            const legacyHousingInput = document.getElementById('housing');
+            if (legacyHousingInput && legacyHousingInput.value) {
+                housingCost = parseCurrency(legacyHousingInput.value);
+            }
+            
+            return {
+                tier1Total,
+                tier2Total,
+                tier3Total,
+                savingsTotal,
+                debtPayments,
+                totalExpenses,
+                monthlySurplus,
+                needsPercent,
+                wantsPercent,
+                savingsPercent,
+                housingCost
+            };
+        }
+
+        function calculateDebtData() {
+            let totalBalance = 0;
+            let totalPayments = 0;
+            let totalInterest = 0;
+            let debtCount = 0;
+            let highInterestCount = 0;
+            
+            // Calculate from debt table
+            document.querySelectorAll('#debt-body tr').forEach(row => {
+                const balance = parseCurrency(row.querySelector('.debt-balance-input')?.value);
+                const payment = parseCurrency(row.querySelector('.debt-min-input')?.value);
+                const rate = parseFloat(row.querySelector('.debt-rate-input')?.value) || 0;
+                
+                if (balance > 0) {
+                    totalBalance += balance;
+                    totalPayments += payment;
+                    totalInterest += rate;
+                    debtCount++;
+                    
+                    if (rate > 25) {
+                        highInterestCount++;
+                    }
+                }
+            });
+            
+            // Add mortgage
+            const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
+            totalBalance += mortgageBalance;
+            
+            // Calculate averages
+            const avgInterest = debtCount > 0 ? totalInterest / debtCount : 0;
+            
+            return {
+                totalBalance,
+                totalPayments,
+                avgInterest,
+                highInterestCount,
+                mortgageBalance
+            };
+        }
+
+        function calculateAssetsData() {
+            // Get asset values
+            const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
+            const retirement = parseCurrency(document.getElementById('current-retirement').value);
+            const houseValue = parseCurrency(document.getElementById('house-value').value);
+            const otherAssets = parseCurrency(document.getElementById('other-assets').value);
+            const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
+            
+            // Get debt from debt section
+            const debtData = calculateDebtData();
+            const totalDebt = debtData.totalBalance;
+            
+            // Calculate totals
+            const totalAssets = emergencyFund + retirement + houseValue + otherAssets;
+            const totalLiabilities = totalDebt;
+            const netWorth = totalAssets - totalLiabilities;
+            
+            // Calculate progress indicators
+            const budgetData = calculateBudgetData();
+            const tier1Total = budgetData.tier1Total;
+            
+            const emergencyMonths = tier1Total > 0 ? emergencyFund / tier1Total : 0;
+            
+            const age = parseInt(document.getElementById('user-age').value) || 35;
+            const income = getMonthlyIncome();
+            const annualIncome = income * 12;
+            
+            // Retirement targets based on age
+            let retirementTarget = 0;
+            if (age <= 30) retirementTarget = annualIncome * 1;
+            else if (age <= 40) retirementTarget = annualIncome * 3;
+            else if (age <= 50) retirementTarget = annualIncome * 6;
+            else if (age <= 60) retirementTarget = annualIncome * 8;
+            else retirementTarget = annualIncome * 10;
+            
+            const retirementProgress = retirementTarget > 0 ? (retirement / retirementTarget * 100) : 0;
+            const equityProgress = houseValue > 0 ? ((houseValue - mortgageBalance) / houseValue * 100) : 0;
+            
+            return {
+                totalAssets,
+                totalLiabilities,
+                netWorth,
+                emergencyMonths,
+                retirementProgress,
+                equityProgress,
+                emergencyFund,
+                retirement,
+                houseValue,
+                mortgageBalance,
+                age,
+                income,
+                annualIncome,
+                retirementTarget
+            };
+        }
+
+        // ===== JOURNEY TRACKER FUNCTIONS =====
+
+        function updateJourneyTracker() {
+            // Get current financial data using calculation functions
+            const income = getMonthlyIncome();
+            
+            if (income <= 0) {
+                resetJourneyTracker();
+                return;
+            }
+            
+            try {
+                const budgetData = calculateBudgetData();
+                const debtData = calculateDebtData();
+                const assetsData = calculateAssetsData();
+                
+                // Calculate metrics
+                const annualIncome = income * 12;
+                const debtRatio = annualIncome > 0 ? (debtData.totalBalance / annualIncome) : 1;
+                const savingsRate = budgetData.savingsPercent / 100;
+                const netWorth = assetsData.netWorth;
+                
+                // Calculate housing cost ratio
+                const housingCostRatio = income > 0 ? (budgetData.housingCost / income) : 1;
+                
+                // Get retirement progress
+                const retirementProgress = assetsData.retirementTarget > 0 ? (assetsData.retirement / assetsData.retirementTarget) : 0;
+                
+                // Determine current stage
+                let currentStage = 1; // Default to stage 1
+                let completedStages = [];
+                
+                // Check each stage criteria
+                journeyStages.forEach((stage) => {
+                    const criteria = stage.criteria;
+                    let meetsAllCriteria = true;
+                    
+                    // Check each criterion
+                    if (criteria.hasIncome !== undefined && income <= 0) meetsAllCriteria = false;
+                    if (criteria.emergencyMonths !== undefined && assetsData.emergencyMonths < criteria.emergencyMonths) meetsAllCriteria = false;
+                    if (criteria.debtRatio !== undefined && debtRatio > criteria.debtRatio) meetsAllCriteria = false;
+                    if (criteria.savingsRate !== undefined && savingsRate < criteria.savingsRate) meetsAllCriteria = false;
+                    if (criteria.netWorth !== undefined && netWorth < criteria.netWorth) meetsAllCriteria = false;
+                    if (criteria.retirementProgress !== undefined && retirementProgress < criteria.retirementProgress) meetsAllCriteria = false;
+                    if (criteria.housingCostRatio !== undefined && housingCostRatio > criteria.housingCostRatio) meetsAllCriteria = false;
+                    
+                    if (meetsAllCriteria) {
+                        completedStages.push(stage.id);
+                        // Update current stage to this one (highest completed stage)
+                        currentStage = stage.id;
+                    }
+                });
+                
+                // Update UI
+                updateJourneyUI(currentStage, completedStages);
+                
+                // Update timeline estimate
+                updateJourneyTimeline(currentStage, budgetData, debtData, assetsData);
+                
+            } catch (error) {
+                console.error('Error updating journey tracker:', error);
+                resetJourneyTracker();
+            }
+        }
+
+        function updateJourneyUI(currentStage, completedStages) {
+            // Reset all stages
+            for (let i = 1; i <= 5; i++) {
+                const stageEl = document.getElementById(`stage-${i}`);
+                const indicatorEl = document.getElementById(`indicator-${i}`);
+                
+                if (stageEl && indicatorEl) {
+                    // Remove all classes first
+                    stageEl.classList.remove('active', 'completed');
+                    indicatorEl.className = 'stage-indicator';
+                    
+                    if (completedStages.includes(i)) {
+                        stageEl.classList.add('completed');
+                        indicatorEl.classList.add('completed');
+                        indicatorEl.innerHTML = '<i class="fas fa-check"></i>';
+                    } else if (i === currentStage) {
+                        stageEl.classList.add('active');
+                        indicatorEl.classList.add('active');
+                        indicatorEl.textContent = i;
+                    } else {
+                        indicatorEl.classList.add('pending');
+                        indicatorEl.textContent = i;
+                    }
+                }
+            }
+        }
+
+        function updateJourneyTimeline(currentStage, budgetData, debtData, assetsData) {
+            const estimateEl = document.getElementById('journey-estimate');
+            if (!estimateEl) return;
+            
+            const income = getMonthlyIncome();
+            const monthlySurplus = budgetData.monthlySurplus;
+            
+            let message = "";
+            
+            switch(currentStage) {
+                case 1:
+                    // Calculate time to reach stage 2
+                    if (monthlySurplus > 0) {
+                        const emergencyTarget = budgetData.tier1Total * 3; // 3 months of essentials
+                        const currentEmergency = parseCurrency(document.getElementById('current-iron-pot').value);
+                        const emergencyNeeded = Math.max(0, emergencyTarget - currentEmergency);
+                        
+                        const monthsToEmergency = monthlySurplus > 0 ? Math.ceil(emergencyNeeded / monthlySurplus) : 99;
+                        
+                        if (monthsToEmergency < 12) {
+                            message = `Stage 2 in ~${monthsToEmergency} months`;
+                        } else if (monthsToEmergency < 99) {
+                            const years = Math.floor(monthsToEmergency / 12);
+                            message = `Stage 2 in ~${years} year${years > 1 ? 's' : ''}`;
+                        } else {
+                            message = "Increase surplus to progress";
+                        }
+                    } else {
+                        message = "Eliminate deficit to progress";
+                    }
+                    break;
+                    
+                case 2:
+                    // Calculate time to reach stage 3
+                    if (monthlySurplus > 0 && debtData.totalBalance > 0) {
+                        const monthsToDebtFree = Math.ceil(debtData.totalBalance / monthlySurplus);
+                        
+                        if (monthsToDebtFree < 24) {
+                            message = `Stage 3 in ~${monthsToDebtFree} months`;
+                        } else {
+                            const years = Math.floor(monthsToDebtFree / 12);
+                            message = `Stage 3 in ~${years} year${years > 1 ? 's' : ''}`;
+                        }
+                    } else if (debtData.totalBalance === 0) {
+                        message = "Focus on retirement savings";
+                    } else {
+                        message = "Increase surplus to tackle debt";
+                    }
+                    break;
+                    
+                case 3:
+                    // Calculate time to reach stage 4
+                    const age = parseInt(document.getElementById('user-age').value) || 35;
+                    const annualIncome = income * 12;
+                    let retirementTarget = 0;
+                    
+                    if (age <= 40) retirementTarget = annualIncome * 3;
+                    else if (age <= 50) retirementTarget = annualIncome * 6;
+                    else if (age <= 60) retirementTarget = annualIncome * 8;
+                    
+                    const currentRetirement = parseCurrency(document.getElementById('current-retirement').value);
+                    const retirementNeeded = Math.max(0, retirementTarget - currentRetirement);
+                    
+                    if (monthlySurplus > 0 && retirementNeeded > 0) {
+                        const monthsToRetirementTarget = Math.ceil(retirementNeeded / monthlySurplus);
+                        
+                        if (monthsToRetirementTarget < 60) {
+                            const years = Math.floor(monthsToRetirementTarget / 12);
+                            const months = monthsToRetirementTarget % 12;
+                            message = `Stage 4 in ~${years}y ${months}m`;
+                        } else {
+                            message = "Consistent investing will get you there";
+                        }
+                    } else if (retirementNeeded <= 0) {
+                        message = "Stage 4: Focus on net worth growth";
+                    } else {
+                        message = "Increase savings rate to progress";
+                    }
+                    break;
+                    
+                case 4:
+                    message = "Maintain course for legacy building";
+                    break;
+                    
+                case 5:
+                    message = "Legacy phase: Focus on preservation";
+                    break;
+                    
+                default:
+                    message = "Complete setup to see timeline";
+            }
+            
+            estimateEl.textContent = message;
+        }
+
+        function resetJourneyTracker() {
+            for (let i = 1; i <= 5; i++) {
+                const stageEl = document.getElementById(`stage-${i}`);
+                const indicatorEl = document.getElementById(`indicator-${i}`);
+                
+                if (stageEl) {
+                    stageEl.classList.remove('active', 'completed');
+                }
+                
+                if (indicatorEl) {
+                    indicatorEl.className = 'stage-indicator pending';
+                    indicatorEl.textContent = i;
+                }
+            }
+            
+            const estimateEl = document.getElementById('journey-estimate');
+            if (estimateEl) {
+                estimateEl.textContent = "Complete setup to see timeline";
+            }
+        }
+
+        // ===== EXISTING FUNCTIONS (Updated to use calculation functions) =====
 
         function initializeMobileView() {
             const sections = ['tier1', 'tier2', 'tier3', 'savings'];
@@ -3819,213 +4193,6 @@
             showToast(`${section.charAt(0).toUpperCase() + section.slice(1)} section reset successfully!`);
         }
 
-        // ===== JOURNEY TRACKER FUNCTIONS =====
-
-        function updateJourneyTracker() {
-            // Get current financial data
-            const income = getMonthlyIncome();
-            if (income <= 0) {
-                resetJourneyTracker();
-                return;
-            }
-            
-            const budgetData = updateBudgetSection();
-            const debtData = updateDebtSection();
-            const assetsData = updateAssetsSection();
-            
-            // Calculate metrics
-            const annualIncome = income * 12;
-            const debtRatio = annualIncome > 0 ? (debtData.totalBalance / annualIncome) : 1;
-            const savingsRate = budgetData.savingsPercent / 100;
-            const netWorth = assetsData.netWorth;
-            
-            // Calculate housing cost ratio
-            const housingCostRatio = income > 0 ? (budgetData.housingCost / income) : 1;
-            
-            // Get age for retirement target
-            const age = parseInt(document.getElementById('user-age').value) || 35;
-            let retirementTarget = 0;
-            if (age <= 30) retirementTarget = annualIncome * 1;
-            else if (age <= 40) retirementTarget = annualIncome * 3;
-            else if (age <= 50) retirementTarget = annualIncome * 6;
-            else if (age <= 60) retirementTarget = annualIncome * 8;
-            else retirementTarget = annualIncome * 10;
-            
-            const retirementProgress = retirementTarget > 0 ? (parseCurrency(document.getElementById('current-retirement').value) / retirementTarget) : 0;
-            
-            // Determine current stage
-            let currentStage = 0;
-            let completedStages = [];
-            
-            // Check each stage criteria
-            journeyStages.forEach((stage, index) => {
-                const criteria = stage.criteria;
-                let meetsCriteria = true;
-                
-                // Check each criterion
-                if (criteria.hasIncome !== undefined && !income) meetsCriteria = false;
-                if (criteria.emergencyMonths !== undefined && assetsData.emergencyMonths < criteria.emergencyMonths) meetsCriteria = false;
-                if (criteria.debtRatio !== undefined && debtRatio > criteria.debtRatio) meetsCriteria = false;
-                if (criteria.savingsRate !== undefined && savingsRate < criteria.savingsRate) meetsCriteria = false;
-                if (criteria.netWorth !== undefined && netWorth < criteria.netWorth) meetsCriteria = false;
-                if (criteria.retirementProgress !== undefined && retirementProgress < criteria.retirementProgress) meetsCriteria = false;
-                if (criteria.housingCostRatio !== undefined && housingCostRatio > criteria.housingCostRatio) meetsCriteria = false;
-                
-                if (meetsCriteria) {
-                    currentStage = stage.id;
-                    completedStages.push(stage.id);
-                }
-            });
-            
-            // If no stage matches, default to stage 1
-            if (currentStage === 0) currentStage = 1;
-            
-            // Update UI
-            updateJourneyUI(currentStage, completedStages);
-            
-            // Update timeline estimate
-            updateJourneyTimeline(currentStage, budgetData, debtData, assetsData);
-        }
-
-        function updateJourneyUI(currentStage, completedStages) {
-            // Reset all stages
-            for (let i = 1; i <= 5; i++) {
-                const stageEl = document.getElementById(`stage-${i}`);
-                const indicatorEl = document.getElementById(`indicator-${i}`);
-                
-                if (stageEl) {
-                    stageEl.classList.remove('active', 'completed');
-                    indicatorEl.classList.remove('active', 'completed', 'pending');
-                    
-                    if (completedStages.includes(i)) {
-                        stageEl.classList.add('completed');
-                        indicatorEl.classList.add('completed');
-                        indicatorEl.innerHTML = '<i class="fas fa-check"></i>';
-                    } else if (i === currentStage) {
-                        stageEl.classList.add('active');
-                        indicatorEl.classList.add('active');
-                        indicatorEl.textContent = i;
-                    } else {
-                        indicatorEl.classList.add('pending');
-                        indicatorEl.textContent = i;
-                    }
-                }
-            }
-        }
-
-        function updateJourneyTimeline(currentStage, budgetData, debtData, assetsData) {
-            const estimateEl = document.getElementById('journey-estimate');
-            if (!estimateEl) return;
-            
-            const income = getMonthlyIncome();
-            const monthlySurplus = budgetData.monthlySurplus;
-            
-            let message = "";
-            
-            switch(currentStage) {
-                case 1:
-                    // Calculate time to reach stage 2
-                    if (monthlySurplus > 0) {
-                        const emergencyTarget = budgetData.tier1Total * 3; // 3 months of essentials
-                        const currentEmergency = parseCurrency(document.getElementById('current-iron-pot').value);
-                        const emergencyNeeded = Math.max(0, emergencyTarget - currentEmergency);
-                        
-                        const monthsToEmergency = monthlySurplus > 0 ? Math.ceil(emergencyNeeded / monthlySurplus) : 99;
-                        
-                        if (monthsToEmergency < 12) {
-                            message = `Stage 2 in ~${monthsToEmergency} months`;
-                        } else if (monthsToEmergency < 99) {
-                            const years = Math.floor(monthsToEmergency / 12);
-                            message = `Stage 2 in ~${years} year${years > 1 ? 's' : ''}`;
-                        } else {
-                            message = "Increase surplus to progress";
-                        }
-                    } else {
-                        message = "Eliminate deficit to progress";
-                    }
-                    break;
-                    
-                case 2:
-                    // Calculate time to reach stage 3
-                    if (monthlySurplus > 0 && debtData.totalBalance > 0) {
-                        const monthsToDebtFree = Math.ceil(debtData.totalBalance / monthlySurplus);
-                        
-                        if (monthsToDebtFree < 24) {
-                            message = `Stage 3 in ~${monthsToDebtFree} months`;
-                        } else {
-                            const years = Math.floor(monthsToDebtFree / 12);
-                            message = `Stage 3 in ~${years} year${years > 1 ? 's' : ''}`;
-                        }
-                    } else if (debtData.totalBalance === 0) {
-                        message = "Focus on retirement savings";
-                    } else {
-                        message = "Increase surplus to tackle debt";
-                    }
-                    break;
-                    
-                case 3:
-                    // Calculate time to reach stage 4
-                    const age = parseInt(document.getElementById('user-age').value) || 35;
-                    const annualIncome = income * 12;
-                    let retirementTarget = 0;
-                    
-                    if (age <= 40) retirementTarget = annualIncome * 3;
-                    else if (age <= 50) retirementTarget = annualIncome * 6;
-                    else if (age <= 60) retirementTarget = annualIncome * 8;
-                    
-                    const currentRetirement = parseCurrency(document.getElementById('current-retirement').value);
-                    const retirementNeeded = Math.max(0, retirementTarget - currentRetirement);
-                    
-                    if (monthlySurplus > 0 && retirementNeeded > 0) {
-                        const monthsToRetirementTarget = Math.ceil(retirementNeeded / monthlySurplus);
-                        
-                        if (monthsToRetirementTarget < 60) {
-                            const years = Math.floor(monthsToRetirementTarget / 12);
-                            const months = monthsToRetirementTarget % 12;
-                            message = `Stage 4 in ~${years}y ${months}m`;
-                        } else {
-                            message = "Consistent investing will get you there";
-                        }
-                    } else if (retirementNeeded <= 0) {
-                        message = "Stage 4: Focus on net worth growth";
-                    } else {
-                        message = "Increase savings rate to progress";
-                    }
-                    break;
-                    
-                case 4:
-                    message = "Maintain course for legacy building";
-                    break;
-                    
-                case 5:
-                    message = "Legacy phase: Focus on preservation";
-                    break;
-                    
-                default:
-                    message = "Complete setup to see timeline";
-            }
-            
-            estimateEl.textContent = message;
-        }
-
-        function resetJourneyTracker() {
-            for (let i = 1; i <= 5; i++) {
-                const stageEl = document.getElementById(`stage-${i}`);
-                const indicatorEl = document.getElementById(`indicator-${i}`);
-                
-                if (stageEl) {
-                    stageEl.classList.remove('active', 'completed');
-                    indicatorEl.className = 'stage-indicator pending';
-                    indicatorEl.textContent = i;
-                }
-            }
-            
-            const estimateEl = document.getElementById('journey-estimate');
-            if (estimateEl) {
-                estimateEl.textContent = "Complete setup to see timeline";
-            }
-        }
-
         // Main calculation function
         function calculateAll() {
             try {
@@ -4090,36 +4257,7 @@
         }
 
         function updateDebtSection() {
-            let totalBalance = 0;
-            let totalPayments = 0;
-            let totalInterest = 0;
-            let debtCount = 0;
-            let highInterestCount = 0;
-            
-            // Calculate from debt table
-            document.querySelectorAll('#debt-body tr').forEach(row => {
-                const balance = parseCurrency(row.querySelector('.debt-balance-input')?.value);
-                const payment = parseCurrency(row.querySelector('.debt-min-input')?.value);
-                const rate = parseFloat(row.querySelector('.debt-rate-input')?.value) || 0;
-                
-                if (balance > 0) {
-                    totalBalance += balance;
-                    totalPayments += payment;
-                    totalInterest += rate;
-                    debtCount++;
-                    
-                    if (rate > 25) {
-                        highInterestCount++;
-                    }
-                }
-            });
-            
-            // Add mortgage
-            const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
-            totalBalance += mortgageBalance;
-            
-            // Calculate averages
-            const avgInterest = debtCount > 0 ? totalInterest / debtCount : 0;
+            const debtData = calculateDebtData();
             
             // Update displays
             const totalDebtBalance = document.getElementById('total-debt-balance');
@@ -4129,25 +4267,24 @@
             const totalDebtVal = document.getElementById('total-debt-val');
             const autoDebtTotal = document.getElementById('auto-debt-total');
             
-            if (totalDebtBalance) totalDebtBalance.textContent = `$${Math.round(totalBalance).toLocaleString()}`;
-            if (totalDebtPayments) totalDebtPayments.textContent = `$${Math.round(totalPayments).toLocaleString()}`;
-            if (avgInterestRate) avgInterestRate.textContent = `${avgInterest.toFixed(1)}%`;
-            if (highInterestCountEl) highInterestCountEl.textContent = highInterestCount;
-            if (totalDebtVal) totalDebtVal.textContent = `$${Math.round(totalBalance).toLocaleString()}`;
-            if (autoDebtTotal) autoDebtTotal.textContent = `$${Math.round(totalBalance - mortgageBalance).toLocaleString()}`;
+            if (totalDebtBalance) totalDebtBalance.textContent = `$${Math.round(debtData.totalBalance).toLocaleString()}`;
+            if (totalDebtPayments) totalDebtPayments.textContent = `$${Math.round(debtData.totalPayments).toLocaleString()}`;
+            if (avgInterestRate) avgInterestRate.textContent = `${debtData.avgInterest.toFixed(1)}%`;
+            if (highInterestCountEl) highInterestCountEl.textContent = debtData.highInterestCount;
+            if (totalDebtVal) totalDebtVal.textContent = `$${Math.round(debtData.totalBalance).toLocaleString()}`;
+            if (autoDebtTotal) autoDebtTotal.textContent = `$${Math.round(debtData.totalBalance - debtData.mortgageBalance).toLocaleString()}`;
             
             // Update DTI ratio
             const income = getMonthlyIncome();
             const annualIncome = income * 12;
-            const dtiRatio = annualIncome > 0 ? (totalBalance / annualIncome * 100) : 0;
             
             // Update freedom timeline
             const monthlySurplus = getMonthlySurplus();
             const countdownEl = document.getElementById('countdown-val');
             
             if (countdownEl) {
-                if (totalBalance > 0 && monthlySurplus > 0) {
-                    const months = Math.ceil(totalBalance / monthlySurplus);
+                if (debtData.totalBalance > 0 && monthlySurplus > 0) {
+                    const months = Math.ceil(debtData.totalBalance / monthlySurplus);
                     if (months < 12) {
                         countdownEl.textContent = `${months} months`;
                     } else {
@@ -4155,20 +4292,12 @@
                         const remainingMonths = months % 12;
                         countdownEl.textContent = `${years}y ${remainingMonths}m`;
                     }
-                } else if (totalBalance === 0) {
+                } else if (debtData.totalBalance === 0) {
                     countdownEl.textContent = "DEBT FREE";
                 } else {
                     countdownEl.textContent = "N/A";
                 }
             }
-            
-            return {
-                totalBalance,
-                totalPayments,
-                avgInterest,
-                highInterestCount,
-                mortgageBalance
-            };
         }
 
         function calculateTotalDebtPayments() {
@@ -4269,63 +4398,40 @@
         }
 
         function updateBudgetSection() {
+            const budgetData = calculateBudgetData();
             const income = getMonthlyIncome();
-            
-            // Calculate totals from drag & drop
-            const allocations = calculateTierAllocations();
-            const tier1Total = allocations.tier1Total;
-            const tier2Total = allocations.tier2Total;
-            const tier3Total = allocations.tier3Total;
-            
-            // Get savings total
-            let savingsTotal = 0;
-            document.querySelectorAll('.savings-input').forEach(input => {
-                savingsTotal += parseCurrency(input.value);
-            });
-            
-            // Get debt payments
-            const debtPayments = calculateTotalDebtPayments();
             
             // Update debt payments display
             const debtPaymentsDisplay = document.getElementById('debt-payments-display');
             const debtPaymentsPercent = document.getElementById('debt-payments-percent');
-            if (debtPaymentsDisplay) debtPaymentsDisplay.textContent = `$${Math.round(debtPayments).toLocaleString()}`;
+            if (debtPaymentsDisplay) debtPaymentsDisplay.textContent = `$${Math.round(budgetData.debtPayments).toLocaleString()}`;
             if (debtPaymentsPercent) {
-                const debtPercent = income > 0 ? (debtPayments / income * 100) : 0;
+                const debtPercent = income > 0 ? (budgetData.debtPayments / income * 100) : 0;
                 debtPaymentsPercent.textContent = `${debtPercent.toFixed(1)}% of income`;
             }
-            
-            // Calculate totals
-            const totalExpenses = tier1Total + tier2Total + tier3Total + savingsTotal + debtPayments;
-            const monthlySurplus = income - totalExpenses;
-            
-            // Calculate percentages (EXCLUDING debt payments from these percentages)
-            const needsPercent = income > 0 ? (tier1Total / income * 100) : 0;
-            const wantsPercent = income > 0 ? (tier3Total / income * 100) : 0;
-            const savingsPercent = income > 0 ? (savingsTotal / income * 100) : 0;
             
             // Update progress bars
             const needsPercentEl = document.getElementById('needs-percent');
             const wantsPercentEl = document.getElementById('wants-percent');
             const savingsPercentEl = document.getElementById('savings-percent');
             
-            if (needsPercentEl) needsPercentEl.textContent = `${needsPercent.toFixed(0)}%`;
-            if (wantsPercentEl) wantsPercentEl.textContent = `${wantsPercent.toFixed(0)}%`;
-            if (savingsPercentEl) savingsPercentEl.textContent = `${savingsPercent.toFixed(0)}%`;
+            if (needsPercentEl) needsPercentEl.textContent = `${budgetData.needsPercent.toFixed(0)}%`;
+            if (wantsPercentEl) wantsPercentEl.textContent = `${budgetData.wantsPercent.toFixed(0)}%`;
+            if (savingsPercentEl) savingsPercentEl.textContent = `${budgetData.savingsPercent.toFixed(0)}%`;
             
             const needsBar = document.getElementById('needs-bar');
             const wantsBar = document.getElementById('wants-bar');
             const savingsBar = document.getElementById('savings-bar');
             
-            if (needsBar) needsBar.style.width = `${Math.min(needsPercent, 100)}%`;
-            if (wantsBar) wantsBar.style.width = `${Math.min(wantsPercent, 100)}%`;
-            if (savingsBar) savingsBar.style.width = `${Math.min(savingsPercent, 100)}%`;
+            if (needsBar) needsBar.style.width = `${Math.min(budgetData.needsPercent, 100)}%`;
+            if (wantsBar) wantsBar.style.width = `${Math.min(budgetData.wantsPercent, 100)}%`;
+            if (savingsBar) savingsBar.style.width = `${Math.min(budgetData.savingsPercent, 100)}%`;
             
             // Update badges
-            updateBadge('badge-t1', needsPercent, 50, false);
+            updateBadge('badge-t1', budgetData.needsPercent, 50, false);
             updateBadge('badge-t2', 0, 20, false);
-            updateBadge('badge-t3', wantsPercent, 30, false);
-            updateBadge('badge-savings', savingsPercent, 20, true);
+            updateBadge('badge-t3', budgetData.wantsPercent, 30, false);
+            updateBadge('badge-savings', budgetData.savingsPercent, 20, true);
             
             // Update summary
             const totalExpensesEl = document.getElementById('total-expenses');
@@ -4333,10 +4439,10 @@
             const savingsRateDisplay = document.getElementById('savings-rate-display');
             const monthlySurplusDisplay = document.getElementById('monthly-surplus-display');
             
-            if (totalExpensesEl) totalExpensesEl.textContent = `$${Math.round(totalExpenses).toLocaleString()}`;
-            if (totalSavingsDisplay) totalSavingsDisplay.textContent = `$${Math.round(savingsTotal).toLocaleString()}`;
-            if (savingsRateDisplay) savingsRateDisplay.textContent = `${savingsPercent.toFixed(1)}%`;
-            if (monthlySurplusDisplay) monthlySurplusDisplay.textContent = `$${Math.round(monthlySurplus).toLocaleString()}`;
+            if (totalExpensesEl) totalExpensesEl.textContent = `$${Math.round(budgetData.totalExpenses).toLocaleString()}`;
+            if (totalSavingsDisplay) totalSavingsDisplay.textContent = `$${Math.round(budgetData.savingsTotal).toLocaleString()}`;
+            if (savingsRateDisplay) savingsRateDisplay.textContent = `${budgetData.savingsPercent.toFixed(1)}%`;
+            if (monthlySurplusDisplay) monthlySurplusDisplay.textContent = `$${Math.round(budgetData.monthlySurplus).toLocaleString()}`;
             
             // Update surplus displays
             const surplusVal = document.getElementById('surplus-val');
@@ -4344,16 +4450,16 @@
             const centerLabel = document.getElementById('center-label');
             const surplusSuggestion = document.getElementById('surplus-suggestion');
             
-            if (monthlySurplus >= 0) {
+            if (budgetData.monthlySurplus >= 0) {
                 if (surplusVal) {
-                    surplusVal.textContent = `$${Math.round(monthlySurplus).toLocaleString()}`;
+                    surplusVal.textContent = `$${Math.round(budgetData.monthlySurplus).toLocaleString()}`;
                     surplusVal.className = 'text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-crimson';
                 }
-                if (centerRemaining) centerRemaining.textContent = `$${Math.round(monthlySurplus).toLocaleString()}`;
+                if (centerRemaining) centerRemaining.textContent = `$${Math.round(budgetData.monthlySurplus).toLocaleString()}`;
                 if (centerLabel) centerLabel.textContent = 'Monthly Surplus';
                 if (surplusSuggestion) surplusSuggestion.textContent = 'Use this for debt payoff or investments';
             } else {
-                const deficit = Math.abs(monthlySurplus);
+                const deficit = Math.abs(budgetData.monthlySurplus);
                 if (surplusVal) {
                     surplusVal.textContent = `-$${Math.round(deficit).toLocaleString()}`;
                     surplusVal.className = 'text-2xl md:text-3xl lg:text-4xl font-heading font-bold negative-surplus';
@@ -4363,44 +4469,7 @@
                 if (surplusSuggestion) surplusSuggestion.textContent = 'Reduce expenses or increase income';
             }
             
-            // Update housing percentage
-            let housingCost = 0;
-            
-            // Check for housing expense in currentExpenses
-            if (currentExpenses.tier1 && Array.isArray(currentExpenses.tier1)) {
-                const housingExpense = currentExpenses.tier1.find(exp => exp.id === 'housing');
-                if (housingExpense) {
-                    housingCost = parseCurrency(housingExpense.amount);
-                }
-            }
-            
-            // Also check custom expenses
-            if (customExpenses && Array.isArray(customExpenses)) {
-                const customHousing = customExpenses.find(exp => exp.id === 'housing');
-                if (customHousing) {
-                    housingCost = parseCurrency(customHousing.amount);
-                }
-            }
-            
-            // Fallback: Check legacy input if it exists
-            const legacyHousingInput = document.getElementById('housing');
-            if (legacyHousingInput && legacyHousingInput.value) {
-                housingCost = parseCurrency(legacyHousingInput.value);
-            }
-            
-            return {
-                tier1Total,
-                tier2Total,
-                tier3Total,
-                savingsTotal,
-                debtPayments,
-                totalExpenses,
-                monthlySurplus,
-                needsPercent,
-                wantsPercent,
-                savingsPercent,
-                housingCost
-            };
+            return budgetData;
         }
 
         function getMonthlySurplus() {
@@ -4420,55 +4489,20 @@
         }
 
         function updateAssetsSection() {
-            // Get asset values
-            const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
-            const retirement = parseCurrency(document.getElementById('current-retirement').value);
-            const houseValue = parseCurrency(document.getElementById('house-value').value);
-            const otherAssets = parseCurrency(document.getElementById('other-assets').value);
-            const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
-            
-            // Get debt from debt section
-            const debtData = updateDebtSection();
-            const totalDebt = debtData.totalBalance;
-            
-            // Calculate totals
-            const totalAssets = emergencyFund + retirement + houseValue + otherAssets;
-            const totalLiabilities = totalDebt;
-            const netWorth = totalAssets - totalLiabilities;
-            
-            // Calculate progress indicators
-            const allocations = calculateTierAllocations();
-            const tier1Total = allocations.tier1Total;
-            
-            const emergencyMonths = tier1Total > 0 ? emergencyFund / tier1Total : 0;
-            
-            const age = parseInt(document.getElementById('user-age').value) || 35;
-            const income = getMonthlyIncome();
-            const annualIncome = income * 12;
-            
-            // Retirement targets based on age
-            let retirementTarget = 0;
-            if (age <= 30) retirementTarget = annualIncome * 1;
-            else if (age <= 40) retirementTarget = annualIncome * 3;
-            else if (age <= 50) retirementTarget = annualIncome * 6;
-            else if (age <= 60) retirementTarget = annualIncome * 8;
-            else retirementTarget = annualIncome * 10;
-            
-            const retirementProgress = retirementTarget > 0 ? (retirement / retirementTarget * 100) : 0;
-            const equityProgress = houseValue > 0 ? ((houseValue - mortgageBalance) / houseValue * 100) : 0;
+            const assetsData = calculateAssetsData();
             
             // Update displays
             const netWorthValue = document.getElementById('net-worth-value');
             const netWorthInsight = document.getElementById('net-worth-insight');
             
-            if (netWorthValue) netWorthValue.textContent = `$${Math.round(netWorth).toLocaleString()}`;
+            if (netWorthValue) netWorthValue.textContent = `$${Math.round(assetsData.netWorth).toLocaleString()}`;
             
             // Style net worth based on value
             if (netWorthValue) {
-                if (netWorth < 0) {
+                if (assetsData.netWorth < 0) {
                     netWorthValue.className = 'text-xl md:text-2xl font-bold negative-surplus';
                     if (netWorthInsight) netWorthInsight.textContent = 'Focus on debt reduction first';
-                } else if (netWorth < 50000) {
+                } else if (assetsData.netWorth < 50000) {
                     netWorthValue.className = 'text-xl md:text-2xl font-bold text-yellow-400';
                     if (netWorthInsight) netWorthInsight.textContent = 'Building foundation';
                 } else {
@@ -4482,21 +4516,21 @@
             const retirementProgressBar = document.getElementById('retirement-progress-bar');
             const equityProgressBar = document.getElementById('equity-progress-bar');
             
-            if (emergencyProgressBar) emergencyProgressBar.style.width = `${Math.min((emergencyMonths / 6) * 100, 100)}%`;
-            if (retirementProgressBar) retirementProgressBar.style.width = `${Math.min(retirementProgress, 100)}%`;
-            if (equityProgressBar) equityProgressBar.style.width = `${Math.min(equityProgress, 100)}%`;
+            if (emergencyProgressBar) emergencyProgressBar.style.width = `${Math.min((assetsData.emergencyMonths / 6) * 100, 100)}%`;
+            if (retirementProgressBar) retirementProgressBar.style.width = `${Math.min(assetsData.retirementProgress, 100)}%`;
+            if (equityProgressBar) equityProgressBar.style.width = `${Math.min(assetsData.equityProgress, 100)}%`;
             
             // Update labels
             const emergencyMonthsEl = document.getElementById('emergency-months');
             const retirementPercent = document.getElementById('retirement-percent');
             const equityPercent = document.getElementById('equity-percent');
             
-            if (emergencyMonthsEl) emergencyMonthsEl.textContent = `${emergencyMonths.toFixed(1)}/6 months`;
-            if (retirementPercent) retirementPercent.textContent = `${Math.round(retirementProgress)}% of target`;
-            if (equityPercent) equityPercent.textContent = `${Math.round(equityProgress)}% equity`;
+            if (emergencyMonthsEl) emergencyMonthsEl.textContent = `${assetsData.emergencyMonths.toFixed(1)}/6 months`;
+            if (retirementPercent) retirementPercent.textContent = `${Math.round(assetsData.retirementProgress)}% of target`;
+            if (equityPercent) equityPercent.textContent = `${Math.round(assetsData.equityProgress)}% equity`;
             
             // Update emergency fund progress
-            const potProgress = Math.min((emergencyMonths / 6) * 100, 100);
+            const potProgress = Math.min((assetsData.emergencyMonths / 6) * 100, 100);
             const potProgressEl = document.getElementById('pot-progress');
             const potBar = document.getElementById('pot-bar');
             
@@ -4506,30 +4540,23 @@
             // Update allocation tips
             const allocationTips = document.getElementById('allocation-tips');
             if (allocationTips) {
-                if (emergencyMonths < 3) {
+                if (assetsData.emergencyMonths < 3) {
                     allocationTips.textContent = 'Priority: Build emergency fund to 3-6 months of essential expenses';
-                } else if (retirementProgress < 50) {
+                } else if (assetsData.retirementProgress < 50) {
                     allocationTips.textContent = 'Focus on retirement savings to reach age-based targets';
                 } else {
                     allocationTips.textContent = 'Consider taxable investment accounts and real estate';
                 }
             }
             
-            return {
-                totalAssets,
-                totalLiabilities,
-                netWorth,
-                emergencyMonths,
-                retirementProgress,
-                equityProgress
-            };
+            return assetsData;
         }
 
         function updateScoreSection() {
             const income = getMonthlyIncome();
-            const budgetData = updateBudgetSection();
-            const debtData = updateDebtSection();
-            const assetsData = updateAssetsSection();
+            const budgetData = calculateBudgetData();
+            const debtData = calculateDebtData();
+            const assetsData = calculateAssetsData();
             
             // Calculate pillar scores
             const budgetScore = calculateBudgetScore(budgetData, income);
