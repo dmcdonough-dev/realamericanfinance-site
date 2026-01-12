@@ -946,6 +946,12 @@
             background: rgba(16, 185, 129, 0.1);
         }
         
+        .journey-stage.locked {
+            opacity: 0.5;
+            filter: grayscale(0.7);
+            cursor: not-allowed;
+        }
+        
         .stage-indicator {
             width: 20px;
             height: 20px;
@@ -976,6 +982,13 @@
             background: #10B981;
             border: 2px solid #10B981;
             color: white;
+        }
+        
+        .stage-indicator.locked {
+            background: linear-gradient(135deg, #4b5563, #6b7280);
+            border: 2px solid #6b7280;
+            color: rgba(255,255,255,0.5);
+            cursor: not-allowed;
         }
         
         .stage-content {
@@ -1023,6 +1036,51 @@
             font-size: 0.7rem;
             color: rgba(255,255,255,0.5);
             font-style: italic;
+        }
+        
+        /* Phase labels */
+        .phase-label {
+            position: relative;
+            padding-left: 10px;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .phase-label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 12px;
+            background: currentColor;
+            border-radius: 2px;
+        }
+        
+        /* Add upgrade CTA for locked stages */
+        .upgrade-cta {
+            display: none;
+            position: absolute;
+            top: -30px;
+            left: 0;
+            right: 0;
+            background: #B22234;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .journey-stage.locked:hover .upgrade-cta {
+            display: block;
+        }
+        
+        .journey-stage.locked:hover {
+            transform: none !important;
+            border-color: rgba(255,255,255,0.1) !important;
         }
         
         @keyframes pulse {
@@ -1575,9 +1633,9 @@
                                 </div>
                                 <div class="currency-input-container">
                                     <input type="text" id="current-iron-pot" oninput="formatCurrency(this); calculateAll();" 
-                                           class="input-underlined w-32 text-right touch-target" 
-                                           placeholder="0"
-                                           aria-label="Emergency fund amount">
+                                       class="input-underlined w-32 text-right touch-target" 
+                                       placeholder="0"
+                                       aria-label="Emergency fund amount">
                                 </div>
                             </div>
                             
@@ -1588,9 +1646,9 @@
                                 </div>
                                 <div class="currency-input-container">
                                     <input type="text" id="current-retirement" oninput="formatCurrency(this); calculateAll();" 
-                                           class="input-underlined w-32 text-right touch-target" 
-                                           placeholder="0"
-                                           aria-label="Retirement savings">
+                                       class="input-underlined w-32 text-right touch-target" 
+                                       placeholder="0"
+                                       aria-label="Retirement savings">
                                 </div>
                             </div>
                             
@@ -1601,9 +1659,9 @@
                                 </div>
                                 <div class="currency-input-container">
                                     <input type="text" id="house-value" oninput="formatCurrency(this); calculateAll();" 
-                                           class="input-underlined w-32 text-right touch-target" 
-                                           placeholder="0"
-                                           aria-label="House value">
+                                       class="input-underlined w-32 text-right touch-target" 
+                                       placeholder="0"
+                                       aria-label="House value">
                                 </div>
                             </div>
                             
@@ -1614,9 +1672,9 @@
                                 </div>
                                 <div class="currency-input-container">
                                     <input type="text" id="other-assets" oninput="formatCurrency(this); calculateAll();" 
-                                           class="input-underlined w-32 text-right touch-target" 
-                                           placeholder="0"
-                                           aria-label="Other assets">
+                                       class="input-underlined w-32 text-right touch-target" 
+                                       placeholder="0"
+                                       aria-label="Other assets">
                                 </div>
                             </div>
                         </div>
@@ -1632,9 +1690,9 @@
                                 </div>
                                 <div class="currency-input-container">
                                     <input type="text" id="mortgage-balance" oninput="formatCurrency(this); calculateAll();" 
-                                           class="input-underlined w-32 text-right touch-target" 
-                                           placeholder="0"
-                                           aria-label="Mortgage balance">
+                                       class="input-underlined w-32 text-right touch-target" 
+                                       placeholder="0"
+                                       aria-label="Mortgage balance">
                                 </div>
                             </div>
                             
@@ -1762,60 +1820,89 @@
                 <!-- ===== FINANCIAL JOURNEY TRACKER ===== -->
                 <div class="journey-tracker" id="journey-tracker">
                     <div class="journey-header">
-                        <h4><i class="fas fa-route mr-2"></i>Financial Journey Tracker</h4>
+                        <h4><i class="fas fa-route mr-2"></i>Financial Journey</h4>
+                        <div class="text-xs text-gray-400 mt-1">RAF Academy Phases</div>
                     </div>
                     <div class="journey-stages">
+                        
+                        <!-- Phase 01: The Architecture -->
+                        <div class="phase-label text-xs uppercase font-bold text-crimson mt-4 mb-2 px-3">
+                            Phase 01: The Architecture
+                        </div>
+                        
                         <!-- Stage 1 -->
-                        <div class="journey-stage" id="stage-1" data-stage="basic-training">
+                        <div class="journey-stage" id="stage-1" data-stage="survival-baseline">
                             <div class="stage-indicator pending" id="indicator-1">1</div>
                             <div class="stage-content">
-                                <div class="stage-title">Basic Training</div>
-                                <div class="stage-description">Building foundation, tackling debt</div>
+                                <div class="stage-title">Survival Baseline</div>
+                                <div class="stage-description">1-month fund, stop bleeding</div>
                             </div>
                         </div>
                         <div class="journey-connector"></div>
                         
                         <!-- Stage 2 -->
-                        <div class="journey-stage" id="stage-2" data-stage="tactical-positioning">
+                        <div class="journey-stage" id="stage-2" data-stage="debt-engagement">
                             <div class="stage-indicator pending" id="indicator-2">2</div>
                             <div class="stage-content">
-                                <div class="stage-title">Tactical Positioning</div>
-                                <div class="stage-description">Emergency fund, debt reduction</div>
+                                <div class="stage-title">Debt Engagement</div>
+                                <div class="stage-description">Attack >10% APR debt</div>
                             </div>
                         </div>
                         <div class="journey-connector"></div>
                         
                         <!-- Stage 3 -->
-                        <div class="journey-stage" id="stage-3" data-stage="strategic-advancement">
+                        <div class="journey-stage" id="stage-3" data-stage="iron-pot-complete">
                             <div class="stage-indicator pending" id="indicator-3">3</div>
                             <div class="stage-content">
-                                <div class="stage-title">Strategic Advancement</div>
-                                <div class="stage-description">Retirement building, investments</div>
+                                <div class="stage-title">Iron Pot Complete</div>
+                                <div class="stage-description">6-month fund, debt neutralized</div>
                             </div>
                         </div>
                         <div class="journey-connector"></div>
                         
                         <!-- Stage 4 -->
-                        <div class="journey-stage" id="stage-4" data-stage="financial-sovereignty">
+                        <div class="journey-stage" id="stage-4" data-stage="architecture-active">
                             <div class="stage-indicator pending" id="indicator-4">4</div>
                             <div class="stage-content">
-                                <div class="stage-title">Financial Sovereignty</div>
-                                <div class="stage-description">Debt-free, strong net worth</div>
+                                <div class="stage-title">Architecture Active</div>
+                                <div class="stage-description">Phase 01 complete</div>
                             </div>
                         </div>
-                        <div class="journey-connector"></div>
                         
-                        <!-- Stage 5 -->
-                        <div class="journey-stage" id="stage-5" data-stage="legacy-building">
-                            <div class="stage-indicator pending" id="indicator-5">5</div>
+                        <!-- Phase 02: The Expansion (Premium) -->
+                        <div class="phase-label text-xs uppercase font-bold text-blue-400 mt-6 mb-2 px-3">
+                            Phase 02: The Expansion <span class="text-gray-500">(Premium)</span>
+                        </div>
+                        
+                        <!-- Stage 5 (Locked) -->
+                        <div class="journey-stage locked" id="stage-5" data-stage="high-leverage-earning">
+                            <div class="stage-indicator locked" id="indicator-5"><i class="fas fa-lock"></i></div>
                             <div class="stage-content">
-                                <div class="stage-title">Legacy Building</div>
-                                <div class="stage-description">Wealth accumulation, estate planning</div>
+                                <div class="stage-title">High-Leverage Earning</div>
+                                <div class="stage-description">Income 1.5x expenses</div>
+                                <div class="upgrade-cta">Upgrade to Premium</div>
                             </div>
                         </div>
+                        
+                        <!-- Phase 03: Sovereignty (Mastery) -->
+                        <div class="phase-label text-xs uppercase font-bold text-purple-400 mt-6 mb-2 px-3">
+                            Phase 03: Sovereignty <span class="text-gray-500">(Mastery)</span>
+                        </div>
+                        
+                        <!-- Stage 9 (Locked) -->
+                        <div class="journey-stage locked" id="stage-9" data-stage="direct-ownership">
+                            <div class="stage-indicator locked" id="indicator-9"><i class="fas fa-lock"></i></div>
+                            <div class="stage-content">
+                                <div class="stage-title">Direct Ownership</div>
+                                <div class="stage-description">Control cash-flow assets</div>
+                                <div class="upgrade-cta">Upgrade to Mastery</div>
+                            </div>
+                        </div>
+                        
                     </div>
                     <div class="journey-footer">
-                        <div class="journey-time" id="journey-estimate">Complete setup to see timeline</div>
+                        <div class="journey-time" id="journey-estimate">Enter income to begin journey</div>
+                        <div class="text-[10px] text-gray-600 mt-1">Based on RAF Academy 12 Pillars</div>
                     </div>
                 </div>
                 
@@ -1981,66 +2068,81 @@
         
         // Journey stage definitions and criteria
         const journeyStages = [
+            // ===== PHASE 01: THE ARCHITECTURE (FREE) =====
             {
                 id: 1,
-                name: 'Basic Training',
-                description: 'Building foundation, tackling debt',
+                phase: 'architecture',
+                name: 'Survival Baseline',
+                description: '1 month emergency fund, stop bleeding',
                 criteria: {
-                    hasIncome: true,
-                    emergencyMonths: 0,  // Just started
-                    debtRatio: 1,        // Very high debt allowed
-                    savingsRate: 0,
-                    netWorth: -1000000   // Can have negative net worth
-                }
+                    emergencyMonths: 1,           // 1 month of Tier 1 expenses
+                    cashFlowPositive: true,       // Monthly surplus ≥ $0
+                    highInterestDebt: 25          // No debt > 25% APR (starting point)
+                },
+                unlocked: true
             },
             {
                 id: 2,
-                name: 'Tactical Positioning',
-                description: 'Emergency fund, debt reduction',
+                phase: 'architecture',
+                name: 'Debt Engagement',
+                description: 'Attack >10% APR debt, build 3-month fund',
                 criteria: {
-                    emergencyMonths: 1,  // At least 1 month emergency fund
-                    debtRatio: 0.75,     // Debt ≤ 75% of annual income
-                    savingsRate: 0.05,   // At least 5% savings rate
-                    netWorth: -50000     // Improving net worth
-                }
+                    emergencyMonths: 3,           // 3 months of Tier 1 expenses
+                    highInterestDebt: 15,         // No debt > 15% APR
+                    savingsRate: 0.05             // 5% savings rate
+                },
+                unlocked: true
             },
             {
                 id: 3,
-                name: 'Strategic Advancement',
-                description: 'Retirement building, investments',
+                phase: 'architecture',
+                name: 'Iron Pot Complete',
+                description: '6-month fund, debt neutralized',
                 criteria: {
-                    emergencyMonths: 3,  // 3+ months emergency fund
-                    debtRatio: 0.5,      // Debt ≤ 50% of annual income
-                    savingsRate: 0.10,   // At least 10% savings rate
-                    retirementProgress: 0.25, // 25% of retirement target
-                    netWorth: 0          // Positive net worth
-                }
+                    emergencyMonths: 6,           // 6 months of Tier 1 expenses
+                    highInterestDebt: 10,         // No debt > 10% APR
+                    savingsRate: 0.15,            // 15% savings rate
+                    canSurviveIncomeDrop: 0.25    // Survive 25% income drop
+                },
+                unlocked: true
             },
             {
                 id: 4,
-                name: 'Financial Sovereignty',
-                description: 'Debt-free, strong net worth',
+                phase: 'architecture',
+                name: 'Architecture Active',
+                description: 'Full Phase 01 complete',
                 criteria: {
-                    emergencyMonths: 6,  // Full emergency fund
-                    debtRatio: 0.25,     // Low debt
-                    savingsRate: 0.15,   // 15%+ savings rate
-                    retirementProgress: 0.5, // 50% of retirement target
-                    housingCostRatio: 0.3, // Housing ≤ 30% of income
-                    netWorth: 50000      // $50k+ net worth
-                }
+                    emergencyMonths: 6,           // 6 months of Tier 1 expenses ✓
+                    highInterestDebt: 10,         // No debt > 10% APR ✓
+                    savingsRate: 0.20,            // 20%+ savings rate ✓
+                    canSurviveIncomeDrop: 0.50    // Survive 50% income drop ✓
+                },
+                unlocked: true
             },
+            // ===== PHASE 02: THE EXPANSION (PREMIUM) =====
             {
                 id: 5,
-                name: 'Legacy Building',
-                description: 'Wealth accumulation, estate planning',
+                phase: 'expansion',
+                name: 'High-Leverage Earning',
+                description: 'Income 1.5x expenses, tax optimization',
                 criteria: {
-                    emergencyMonths: 6,  // Full emergency fund
-                    debtRatio: 0.1,      // Minimal debt
-                    savingsRate: 0.20,   // 20%+ savings rate
-                    retirementProgress: 0.75, // 75% of retirement target
-                    housingCostRatio: 0.25, // Housing ≤ 25% of income
-                    netWorth: 250000     // $250k+ net worth
-                }
+                    incomeToExpenseRatio: 1.5,    // Income covers expenses 1.5x
+                    taxAdvantagedPercent: 0.15,   // 15% in tax-advantaged accounts
+                    unlocked: false               // Premium feature
+                },
+                unlocked: false
+            },
+            // ===== PHASE 03: SOVEREIGNTY (MASTERY) =====
+            {
+                id: 9,
+                phase: 'sovereignty',
+                name: 'Direct Ownership',
+                description: 'Control cash-flow assets',
+                criteria: {
+                    directAssetControl: 0.3,      // 30% assets under direct control
+                    unlocked: false               // Mastery feature
+                },
+                unlocked: false
             }
         ];
         
@@ -3270,7 +3372,6 @@
         // ===== JOURNEY TRACKER FUNCTIONS =====
 
         function updateJourneyTracker() {
-            // Get current financial data using calculation functions
             const income = getMonthlyIncome();
             
             if (income <= 0) {
@@ -3283,48 +3384,82 @@
                 const debtData = calculateDebtData();
                 const assetsData = calculateAssetsData();
                 
-                // Calculate metrics
-                const annualIncome = income * 12;
-                const debtRatio = annualIncome > 0 ? (debtData.totalBalance / annualIncome) : 1;
+                // Calculate core metrics
+                const emergencyMonths = assetsData.emergencyMonths;
+                const monthlySurplus = budgetData.monthlySurplus;
                 const savingsRate = budgetData.savingsPercent / 100;
-                const netWorth = assetsData.netWorth;
                 
-                // Calculate housing cost ratio
-                const housingCostRatio = income > 0 ? (budgetData.housingCost / income) : 1;
+                // Calculate high-interest debt status
+                let maxDebtAPR = 0;
+                document.querySelectorAll('.debt-rate-input').forEach(input => {
+                    const rate = parseFloat(input.value) || 0;
+                    if (rate > maxDebtAPR) maxDebtAPR = rate;
+                });
                 
-                // Get retirement progress
-                const retirementProgress = assetsData.retirementTarget > 0 ? (assetsData.retirement / assetsData.retirementTarget) : 0;
+                // Calculate income-to-expense ratio
+                const totalExpenses = budgetData.totalExpenses;
+                const incomeToExpenseRatio = income > 0 ? income / totalExpenses : 0;
                 
-                // Determine current stage
-                let currentStage = 1; // Default to stage 1
+                // Calculate survival metrics (simplified)
+                const monthsAtCurrentSpending = emergencyMonths;
+                const canSurvive25Drop = monthsAtCurrentSpending >= 1.5;
+                const canSurvive50Drop = monthsAtCurrentSpending >= 3;
+                
+                // Track progress
+                let currentStage = 0;
                 let completedStages = [];
                 
                 // Check each stage criteria
                 journeyStages.forEach((stage) => {
+                    if (!stage.unlocked) return; // Skip locked stages
+                    
                     const criteria = stage.criteria;
                     let meetsAllCriteria = true;
                     
-                    // Check each criterion
-                    if (criteria.hasIncome !== undefined && income <= 0) meetsAllCriteria = false;
-                    if (criteria.emergencyMonths !== undefined && assetsData.emergencyMonths < criteria.emergencyMonths) meetsAllCriteria = false;
-                    if (criteria.debtRatio !== undefined && debtRatio > criteria.debtRatio) meetsAllCriteria = false;
-                    if (criteria.savingsRate !== undefined && savingsRate < criteria.savingsRate) meetsAllCriteria = false;
-                    if (criteria.netWorth !== undefined && netWorth < criteria.netWorth) meetsAllCriteria = false;
-                    if (criteria.retirementProgress !== undefined && retirementProgress < criteria.retirementProgress) meetsAllCriteria = false;
-                    if (criteria.housingCostRatio !== undefined && housingCostRatio > criteria.housingCostRatio) meetsAllCriteria = false;
+                    if (criteria.emergencyMonths !== undefined && emergencyMonths < criteria.emergencyMonths) {
+                        meetsAllCriteria = false;
+                    }
+                    
+                    if (criteria.cashFlowPositive !== undefined && monthlySurplus < 0) {
+                        meetsAllCriteria = false;
+                    }
+                    
+                    if (criteria.highInterestDebt !== undefined && maxDebtAPR > criteria.highInterestDebt) {
+                        meetsAllCriteria = false;
+                    }
+                    
+                    if (criteria.savingsRate !== undefined && savingsRate < criteria.savingsRate) {
+                        meetsAllCriteria = false;
+                    }
+                    
+                    if (criteria.canSurviveIncomeDrop === 0.25 && !canSurvive25Drop) {
+                        meetsAllCriteria = false;
+                    }
+                    
+                    if (criteria.canSurviveIncomeDrop === 0.50 && !canSurvive50Drop) {
+                        meetsAllCriteria = false;
+                    }
+                    
+                    if (criteria.incomeToExpenseRatio !== undefined && incomeToExpenseRatio < criteria.incomeToExpenseRatio) {
+                        meetsAllCriteria = false;
+                    }
                     
                     if (meetsAllCriteria) {
                         completedStages.push(stage.id);
-                        // Update current stage to this one (highest completed stage)
                         currentStage = stage.id;
                     }
                 });
+                
+                // If no stage matches, show stage 1 as current
+                if (currentStage === 0 && income > 0) {
+                    currentStage = 1;
+                }
                 
                 // Update UI
                 updateJourneyUI(currentStage, completedStages);
                 
                 // Update timeline estimate
-                updateJourneyTimeline(currentStage, budgetData, debtData, assetsData);
+                updateJourneyTimeline(currentStage, budgetData, debtData, assetsData, maxDebtAPR);
                 
             } catch (error) {
                 console.error('Error updating journey tracker:', error);
@@ -3333,15 +3468,23 @@
         }
 
         function updateJourneyUI(currentStage, completedStages) {
-            // Reset all stages
+            // Clear all first
             for (let i = 1; i <= 5; i++) {
                 const stageEl = document.getElementById(`stage-${i}`);
                 const indicatorEl = document.getElementById(`indicator-${i}`);
                 
                 if (stageEl && indicatorEl) {
-                    // Remove all classes first
-                    stageEl.classList.remove('active', 'completed');
+                    stageEl.classList.remove('active', 'completed', 'locked');
                     indicatorEl.className = 'stage-indicator';
+                    
+                    const stageData = journeyStages.find(s => s.id === i);
+                    if (stageData && !stageData.unlocked) {
+                        // Show locked state for premium stages
+                        stageEl.classList.add('locked');
+                        indicatorEl.className = 'stage-indicator locked';
+                        indicatorEl.innerHTML = '<i class="fas fa-lock"></i>';
+                        continue;
+                    }
                     
                     if (completedStages.includes(i)) {
                         stageEl.classList.add('completed');
@@ -3359,96 +3502,65 @@
             }
         }
 
-        function updateJourneyTimeline(currentStage, budgetData, debtData, assetsData) {
+        function updateJourneyTimeline(currentStage, budgetData, debtData, assetsData, maxDebtAPR) {
             const estimateEl = document.getElementById('journey-estimate');
             if (!estimateEl) return;
             
-            const income = getMonthlyIncome();
+            const emergencyMonths = assetsData.emergencyMonths;
             const monthlySurplus = budgetData.monthlySurplus;
+            const savingsRate = budgetData.savingsPercent / 100;
             
             let message = "";
             
             switch(currentStage) {
                 case 1:
-                    // Calculate time to reach stage 2
-                    if (monthlySurplus > 0) {
-                        const emergencyTarget = budgetData.tier1Total * 3; // 3 months of essentials
-                        const currentEmergency = parseCurrency(document.getElementById('current-iron-pot').value);
-                        const emergencyNeeded = Math.max(0, emergencyTarget - currentEmergency);
-                        
-                        const monthsToEmergency = monthlySurplus > 0 ? Math.ceil(emergencyNeeded / monthlySurplus) : 99;
-                        
-                        if (monthsToEmergency < 12) {
-                            message = `Stage 2 in ~${monthsToEmergency} months`;
-                        } else if (monthsToEmergency < 99) {
-                            const years = Math.floor(monthsToEmergency / 12);
-                            message = `Stage 2 in ~${years} year${years > 1 ? 's' : ''}`;
-                        } else {
-                            message = "Increase surplus to progress";
-                        }
+                    if (emergencyMonths < 1) {
+                        const needed = 1 - emergencyMonths;
+                        const monthlyNeeded = budgetData.tier1Total * needed;
+                        message = `Save $${Math.round(monthlyNeeded).toLocaleString()} for 1-month fund`;
+                    } else if (maxDebtAPR > 25) {
+                        message = "Attack debt >25% APR first";
                     } else {
-                        message = "Eliminate deficit to progress";
+                        message = "Increase surplus to progress";
                     }
                     break;
                     
                 case 2:
-                    // Calculate time to reach stage 3
-                    if (monthlySurplus > 0 && debtData.totalBalance > 0) {
-                        const monthsToDebtFree = Math.ceil(debtData.totalBalance / monthlySurplus);
-                        
-                        if (monthsToDebtFree < 24) {
-                            message = `Stage 3 in ~${monthsToDebtFree} months`;
-                        } else {
-                            const years = Math.floor(monthsToDebtFree / 12);
-                            message = `Stage 3 in ~${years} year${years > 1 ? 's' : ''}`;
-                        }
-                    } else if (debtData.totalBalance === 0) {
-                        message = "Focus on retirement savings";
+                    if (emergencyMonths < 3) {
+                        const needed = 3 - emergencyMonths;
+                        message = `Build emergency fund to 3 months (${emergencyMonths.toFixed(1)}/3)`;
+                    } else if (maxDebtAPR > 15) {
+                        message = "Reduce debt to ≤15% APR";
+                    } else if (savingsRate < 0.05) {
+                        message = "Increase savings to 5%";
                     } else {
-                        message = "Increase surplus to tackle debt";
+                        message = "Progressing well";
                     }
                     break;
                     
                 case 3:
-                    // Calculate time to reach stage 4
-                    const age = parseInt(document.getElementById('user-age').value) || 35;
-                    const annualIncome = income * 12;
-                    let retirementTarget = 0;
-                    
-                    if (age <= 40) retirementTarget = annualIncome * 3;
-                    else if (age <= 50) retirementTarget = annualIncome * 6;
-                    else if (age <= 60) retirementTarget = annualIncome * 8;
-                    
-                    const currentRetirement = parseCurrency(document.getElementById('current-retirement').value);
-                    const retirementNeeded = Math.max(0, retirementTarget - currentRetirement);
-                    
-                    if (monthlySurplus > 0 && retirementNeeded > 0) {
-                        const monthsToRetirementTarget = Math.ceil(retirementNeeded / monthlySurplus);
-                        
-                        if (monthsToRetirementTarget < 60) {
-                            const years = Math.floor(monthsToRetirementTarget / 12);
-                            const months = monthsToRetirementTarget % 12;
-                            message = `Stage 4 in ~${years}y ${months}m`;
-                        } else {
-                            message = "Consistent investing will get you there";
-                        }
-                    } else if (retirementNeeded <= 0) {
-                        message = "Stage 4: Focus on net worth growth";
+                    if (emergencyMonths < 6) {
+                        const needed = 6 - emergencyMonths;
+                        message = `Complete 6-month fund (${emergencyMonths.toFixed(1)}/6)`;
+                    } else if (maxDebtAPR > 10) {
+                        message = "Neutralize all debt >10% APR";
+                    } else if (savingsRate < 0.15) {
+                        message = "Increase savings to 15%";
                     } else {
-                        message = "Increase savings rate to progress";
+                        message = "Almost Phase 01 complete";
                     }
                     break;
                     
                 case 4:
-                    message = "Maintain course for legacy building";
-                    break;
-                    
-                case 5:
-                    message = "Legacy phase: Focus on preservation";
+                    if (savingsRate < 0.20) {
+                        message = "Reach 20%+ savings rate";
+                    } else {
+                        message = "Phase 01 Complete! Ready for Phase 02";
+                    }
                     break;
                     
                 default:
-                    message = "Complete setup to see timeline";
+                    message = "Complete Phase 01 to unlock advanced phases";
             }
             
             estimateEl.textContent = message;
@@ -3459,19 +3571,25 @@
                 const stageEl = document.getElementById(`stage-${i}`);
                 const indicatorEl = document.getElementById(`indicator-${i}`);
                 
-                if (stageEl) {
+                if (stageEl && indicatorEl) {
                     stageEl.classList.remove('active', 'completed');
-                }
-                
-                if (indicatorEl) {
-                    indicatorEl.className = 'stage-indicator pending';
-                    indicatorEl.textContent = i;
+                    indicatorEl.className = 'stage-indicator';
+                    
+                    const stageData = journeyStages.find(s => s.id === i);
+                    if (stageData && !stageData.unlocked) {
+                        stageEl.classList.add('locked');
+                        indicatorEl.className = 'stage-indicator locked';
+                        indicatorEl.innerHTML = '<i class="fas fa-lock"></i>';
+                    } else {
+                        indicatorEl.classList.add('pending');
+                        indicatorEl.textContent = i;
+                    }
                 }
             }
             
             const estimateEl = document.getElementById('journey-estimate');
             if (estimateEl) {
-                estimateEl.textContent = "Complete setup to see timeline";
+                estimateEl.textContent = "Enter income to begin journey";
             }
         }
 
