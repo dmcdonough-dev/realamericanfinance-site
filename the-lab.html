@@ -1103,6 +1103,302 @@
                 padding: 0.625rem;
             }
         }
+        
+        /* NEW STYLES FOR ENHANCED FEATURES */
+        
+        /* Debt priority colors */
+        .debt-row {
+            transition: all 0.3s ease;
+        }
+        
+        .debt-priority-low {
+            background: rgba(34, 197, 94, 0.1) !important;
+            border-left: 3px solid #10B981 !important;
+        }
+        
+        .debt-priority-medium {
+            background: rgba(245, 158, 11, 0.1) !important;
+            border-left: 3px solid #F59E0B !important;
+        }
+        
+        .debt-priority-high {
+            background: rgba(239, 68, 68, 0.1) !important;
+            border-left: 3px solid #EF4444 !important;
+        }
+        
+        .debt-priority-emergency {
+            background: rgba(220, 38, 38, 0.2) !important;
+            border-left: 3px solid #DC2626 !important;
+            animation: pulse 2s infinite;
+        }
+        
+        /* Action Plan Panel */
+        .action-plan-panel {
+            background: linear-gradient(135deg, rgba(10, 26, 47, 0.9), rgba(17, 36, 63, 0.9));
+            border: 2px solid rgba(178, 34, 52, 0.5);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-plan-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #B22234, #FF6B6B);
+        }
+        
+        .action-plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .action-plan-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .action-plan-priority {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            background: #B22234;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .action-plan-content {
+            margin-bottom: 1rem;
+        }
+        
+        .action-plan-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            border-left: 3px solid #B22234;
+        }
+        
+        .action-plan-step.completed {
+            opacity: 0.7;
+            border-left-color: #10B981;
+        }
+        
+        .action-plan-step-icon {
+            font-size: 1rem;
+            color: #B22234;
+            margin-top: 0.125rem;
+        }
+        
+        .action-plan-step.completed .action-plan-step-icon {
+            color: #10B981;
+        }
+        
+        .action-plan-step-content {
+            flex: 1;
+        }
+        
+        .action-plan-step-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+        
+        .action-plan-step-description {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+        }
+        
+        .action-plan-timeline {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .action-plan-timeline i {
+            color: #B22234;
+        }
+        
+        /* Debt Payoff Calculator */
+        .payoff-calculator {
+            background: rgba(10, 26, 47, 0.7);
+            border: 1px solid rgba(178, 34, 52, 0.3);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-top: 1rem;
+        }
+        
+        .payoff-strategy {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .strategy-btn {
+            flex: 1;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .strategy-btn.active {
+            background: rgba(178, 34, 52, 0.3);
+            border-color: #B22234;
+            color: white;
+        }
+        
+        .extra-payment-input {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .extra-payment-input label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            white-space: nowrap;
+        }
+        
+        .payoff-results {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .payoff-result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .payoff-result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .payoff-result-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .payoff-result-value {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .payoff-result-value.savings {
+            color: #10B981;
+        }
+        
+        /* Achievement Celebrations */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 99999;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+        }
+        
+        .achievement-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: linear-gradient(135deg, #0A1A2F, #11243F);
+            border: 2px solid;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            z-index: 100000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 90%;
+            width: 300px;
+        }
+        
+        .achievement-popup.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        /* Debt type dropdown styling */
+        .debt-type-select {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            color: white;
+            padding: 8px;
+            font-size: 12px;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        .debt-type-select:focus {
+            outline: none;
+            border-color: #B22234;
+            background: rgba(178, 34, 52, 0.1);
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .action-plan-panel {
+                padding: 1rem;
+            }
+            
+            .payoff-strategy {
+                flex-direction: column;
+            }
+            
+            .debt-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .debt-input-group {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson flex flex-col min-h-screen" id="main-body">
@@ -1188,6 +1484,45 @@
 
     <!-- MAIN CONTENT -->
     <main class="container mx-auto px-4 md:px-6 py-6 md:py-12 flex-1" id="main-content">
+        <!-- Smart Action Plan Panel -->
+        <div class="action-plan-panel slide-in" id="action-plan-panel">
+            <div class="action-plan-header">
+                <div class="action-plan-title">
+                    <i class="fas fa-bullseye text-crimson"></i>
+                    <span>Your Action Plan</span>
+                </div>
+                <div class="action-plan-priority" id="action-plan-priority">High Priority</div>
+            </div>
+            
+            <div class="action-plan-content" id="action-plan-content">
+                <div class="action-plan-step" id="current-action-step">
+                    <div class="action-plan-step-icon">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="action-plan-step-content">
+                        <div class="action-plan-step-title" id="current-action-title">Complete your income information</div>
+                        <div class="action-plan-step-description" id="current-action-description">Enter your monthly income to get started with personalized recommendations.</div>
+                    </div>
+                </div>
+                
+                <div class="action-plan-timeline" id="action-timeline">
+                    <i class="fas fa-clock"></i>
+                    <span id="timeline-estimate">Start by entering income above</span>
+                </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="mt-4">
+                <div class="flex justify-between text-xs mb-1">
+                    <span>Journey Progress</span>
+                    <span id="journey-progress-percent">0%</span>
+                </div>
+                <div class="h-2 bg-navy-950 rounded-full overflow-hidden">
+                    <div id="journey-progress-bar" class="h-full bg-crimson progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
         <!-- Quick Start Panel -->
         <div class="quick-start-panel rounded-lg p-4 md:p-6 mb-8 slide-in">
             <div class="flex justify-between items-center mb-4">
@@ -1288,7 +1623,7 @@
                     </div>
                 </div>
 
-                <!-- 02. Debt Reconnaissance -->
+                <!-- 02. Debt Reconnaissance - ENHANCED -->
                 <div class="dashboard-card p-4 md:p-6 lg:p-8 shadow-2xl" id="debt-section">
                     <div class="flex justify-between items-center mb-4 md:mb-6">
                         <h3 class="text-lg md:text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-3 md:pl-4">02. Debt Reconnaissance</h3>
@@ -1296,9 +1631,12 @@
                             <div class="tooltip-trigger">
                                 <i class="fas fa-info-circle text-gray-500 hover:text-crimson cursor-pointer touch-target"></i>
                                 <div class="tooltip-content">
-                                    <strong>High-Interest Alert:</strong> Debts over 25% APR are marked for immediate attention.<br><br>
-                                    <strong>Payment Strategy:</strong> We recommend the "avalanche method" - attacking highest interest debts first while making minimum payments on others.<br><br>
-                                    <strong>Pro Tip:</strong> Consider balance transfer cards for high-interest credit card debt.
+                                    <strong>Priority Colors:</strong><br>
+                                    <span style="color:#10B981">Green:</span> Low priority (<5% APR)<br>
+                                    <span style="color:#F59E0B">Yellow:</span> Medium priority (5-10% APR)<br>
+                                    <span style="color:#EF4444">Red:</span> High priority (>10% APR)<br>
+                                    <span style="color:#DC2626">Blinking Red:</span> Emergency (>25% APR)<br><br>
+                                    <strong>Smart Strategy:</strong> We calculate optimal payoff order using the avalanche method (highest interest first).
                                 </div>
                             </div>
                             <button onclick="resetSection('debt')" class="text-xs bg-red-900/30 hover:bg-red-800/50 px-2 py-1 rounded transition touch-target">
@@ -1310,12 +1648,58 @@
                         </div>
                     </div>
                     
-                    <!-- Debt Table -->
-                    <div class="overflow-x-auto">
+                    <!-- Debt Payoff Calculator -->
+                    <div class="payoff-calculator" id="payoff-calculator">
+                        <div class="flex items-center justify-between mb-3">
+                            <h5 class="text-sm font-bold">Debt Payoff Strategy</h5>
+                            <div class="text-xs text-gray-400" id="total-interest-savings">$0 potential savings</div>
+                        </div>
+                        
+                        <div class="payoff-strategy">
+                            <button class="strategy-btn active" id="avalanche-btn" onclick="setPayoffStrategy('avalanche')">
+                                <i class="fas fa-mountain mr-1"></i> Avalanche
+                            </button>
+                            <button class="strategy-btn" id="snowball-btn" onclick="setPayoffStrategy('snowball')">
+                                <i class="fas fa-snowflake mr-1"></i> Snowball
+                            </button>
+                        </div>
+                        
+                        <div class="extra-payment-input">
+                            <label for="extra-payment">Extra monthly payment:</label>
+                            <div class="currency-input-container">
+                                <input type="text" 
+                                       id="extra-payment" 
+                                       oninput="formatCurrency(this); updatePayoffCalculator()"
+                                       class="input-underlined w-32 text-right"
+                                       placeholder="0"
+                                       value="0">
+                            </div>
+                        </div>
+                        
+                        <div class="payoff-results" id="payoff-results">
+                            <div class="payoff-result-item">
+                                <span class="payoff-result-label">Payoff Timeline</span>
+                                <span class="payoff-result-value" id="payoff-timeline">N/A</span>
+                            </div>
+                            <div class="payoff-result-item">
+                                <span class="payoff-result-label">Interest Savings</span>
+                                <span class="payoff-result-value savings" id="interest-savings">$0</span>
+                            </div>
+                            <div class="payoff-result-item">
+                                <span class="payoff-result-label">Recommended Payment</span>
+                                <span class="payoff-result-value" id="recommended-payment">$0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Debt Table - ENHANCED -->
+                    <div class="overflow-x-auto mt-6">
                         <table class="w-full text-left text-xs uppercase font-bold text-gray-500 tracking-widest">
                             <thead>
                                 <tr class="border-b border-white/10">
+                                    <th class="pb-3 px-2">Priority</th>
                                     <th class="pb-3 px-2">Liability</th>
+                                    <th class="pb-3 px-2">Type</th>
                                     <th class="pb-3 px-2">Min. Payment</th>
                                     <th class="pb-3 px-2">Balance</th>
                                     <th class="pb-3 px-2">Interest Rate</th>
@@ -1358,7 +1742,7 @@
                     <!-- Debt Strategy Tips -->
                     <div class="mt-4 p-3 bg-crimson/10 rounded border border-crimson/20">
                         <div class="text-xs">
-                            <span class="font-bold">Tip:</span> Focus on debts over 15% APR first.
+                            <span class="font-bold">Tip:</span> Focus on debts over 10% APR first for maximum interest savings.
                         </div>
                     </div>
                 </div>
@@ -1837,6 +2221,7 @@
                                 <div class="stage-title">Survival Baseline</div>
                                 <div class="stage-description">1-month fund, stop bleeding</div>
                             </div>
+                            <div class="stage-progress" id="stage-1-progress" style="width: 0%"></div>
                         </div>
                         <div class="journey-connector"></div>
                         
@@ -1847,6 +2232,7 @@
                                 <div class="stage-title">Debt Engagement</div>
                                 <div class="stage-description">Attack >10% APR debt</div>
                             </div>
+                            <div class="stage-progress" id="stage-2-progress" style="width: 0%"></div>
                         </div>
                         <div class="journey-connector"></div>
                         
@@ -1857,6 +2243,7 @@
                                 <div class="stage-title">Iron Pot Complete</div>
                                 <div class="stage-description">6-month fund, debt neutralized</div>
                             </div>
+                            <div class="stage-progress" id="stage-3-progress" style="width: 0%"></div>
                         </div>
                         <div class="journey-connector"></div>
                         
@@ -1867,6 +2254,7 @@
                                 <div class="stage-title">Architecture Active</div>
                                 <div class="stage-description">Phase 01 complete</div>
                             </div>
+                            <div class="stage-progress" id="stage-4-progress" style="width: 0%"></div>
                         </div>
                         
                         <!-- Phase 02: The Expansion (Premium) -->
@@ -2030,6 +2418,9 @@
         <span>Custom categories saved</span>
     </div>
 
+    <!-- Confetti Container for Celebrations -->
+    <div id="confetti-container" class="confetti-container"></div>
+
     <!-- JavaScript -->
     <script>
         // Tailwind config
@@ -2063,6 +2454,20 @@
             dataPoints: 0,
             achievements: []
         };
+        
+        // Payoff strategy
+        let currentPayoffStrategy = 'avalanche'; // 'avalanche' or 'snowball'
+        
+        // Debt types for dropdown
+        const debtTypes = [
+            { value: 'credit_card', label: 'Credit Card', icon: 'fa-credit-card' },
+            { value: 'personal_loan', label: 'Personal Loan', icon: 'fa-hand-holding-usd' },
+            { value: 'student_loan', label: 'Student Loan', icon: 'fa-graduation-cap' },
+            { value: 'auto_loan', label: 'Auto Loan', icon: 'fa-car' },
+            { value: 'mortgage', label: 'Mortgage', icon: 'fa-home' },
+            { value: 'medical', label: 'Medical', icon: 'fa-file-medical' },
+            { value: 'other', label: 'Other', icon: 'fa-file-invoice-dollar' }
+        ];
         
         // ===== JOURNEY TRACKER VARIABLES =====
         
@@ -2165,6 +2570,30 @@
                 desc: 'Achieved positive monthly surplus',
                 tier: 'gold',
                 condition: (stats) => stats.milestones && stats.milestones.includes('positive_surplus')
+            },
+            'emergency_fund_1_month': {
+                name: 'Safety Net Started',
+                desc: 'Built 1-month emergency fund',
+                tier: 'bronze',
+                condition: (stats) => stats.milestones && stats.milestones.includes('emergency_fund_1_month')
+            },
+            'emergency_fund_3_months': {
+                name: 'Solid Foundation',
+                desc: 'Built 3-month emergency fund',
+                tier: 'silver',
+                condition: (stats) => stats.milestones && stats.milestones.includes('emergency_fund_3_months')
+            },
+            'emergency_fund_6_months': {
+                name: 'Iron Pot Complete',
+                desc: 'Built 6-month emergency fund',
+                tier: 'gold',
+                condition: (stats) => stats.milestones && stats.milestones.includes('emergency_fund_6_months')
+            },
+            'debt_free_high_interest': {
+                name: 'High-Interest Free',
+                desc: 'Eliminated all debt >10% APR',
+                tier: 'gold',
+                condition: (stats) => stats.milestones && stats.milestones.includes('debt_free_high_interest')
             }
         };
         
@@ -2250,6 +2679,9 @@
             
             // Initialize journey tracker
             setTimeout(updateJourneyTracker, 300);
+            
+            // Initialize action plan
+            updateActionPlan();
             
             // Trigger initial calculation
             calculateAll();
@@ -3203,170 +3635,516 @@
             return tierNames[tierId] || tierId;
         }
 
-        // ===== CALCULATION FUNCTIONS FOR JOURNEY TRACKER =====
+        // ===== ENHANCED DEBT MANAGEMENT FUNCTIONS =====
 
-        function calculateBudgetData() {
-            const income = getMonthlyIncome();
+        function addDebtRow() {
+            const debtBody = document.getElementById('debt-body');
+            if (!debtBody) return;
             
-            // Calculate totals from drag & drop
-            const allocations = calculateTierAllocations();
-            const tier1Total = allocations.tier1Total;
-            const tier2Total = allocations.tier2Total;
-            const tier3Total = allocations.tier3Total;
+            const rowCount = debtBody.querySelectorAll('tr').length;
+            const rowId = `debt-${rowCount + 1}`;
             
-            // Get savings total
-            let savingsTotal = 0;
-            document.querySelectorAll('.savings-input').forEach(input => {
-                savingsTotal += parseCurrency(input.value);
-            });
+            const row = document.createElement('tr');
+            row.id = rowId;
+            row.className = "debt-row border-b border-white/5";
+            row.innerHTML = `
+                <td class="py-3 px-2">
+                    <div class="text-center">
+                        <span class="text-xs font-bold" id="priority-${rowId}">${rowCount + 1}</span>
+                    </div>
+                </td>
+                <td class="py-3 px-2">
+                    <input type="text" 
+                           placeholder="Chase Sapphire" 
+                           class="debt-name-input bg-transparent w-full outline-none text-white text-xs uppercase touch-target" 
+                           oninput="calculateAll(); validateInput(this); updateDebtPriority()"
+                           aria-label="Debt name">
+                </td>
+                <td class="py-3 px-2">
+                    <select class="debt-type-select touch-target" onchange="updateDebtPriority()">
+                        ${debtTypes.map(type => `<option value="${type.value}">${type.label}</option>`).join('')}
+                    </select>
+                </td>
+                <td class="py-3 px-2">
+                    <div class="currency-input-container">
+                        <input type="text" 
+                               class="debt-min-input bg-transparent w-full outline-none text-white text-xs touch-target" 
+                               oninput="formatCurrency(this); calculateAll(); validateInput(this); updateDebtPriority()" 
+                               placeholder="0"
+                               aria-label="Minimum payment">
+                    </div>
+                </td>
+                <td class="py-3 px-2">
+                    <div class="currency-input-container">
+                        <input type="text" 
+                               class="debt-balance-input bg-transparent w-full outline-none text-white text-xs touch-target" 
+                               oninput="formatCurrency(this); calculateAll(); validateInput(this); updateDebtPriority()" 
+                               placeholder="0"
+                               aria-label="Debt balance">
+                    </div>
+                </td>
+                <td class="py-3 px-2">
+                    <input type="number" 
+                           step="0.1" 
+                           class="debt-rate-input bg-transparent w-full outline-none text-white text-xs touch-target" 
+                           oninput="calculateAll(); validateInput(this); updateDebtPriority()" 
+                           placeholder="0"
+                           aria-label="Interest rate">
+                </td>
+                <td class="text-right">
+                    <button onclick="removeDebtRow('${rowId}')" class="hover:text-crimson transition text-lg touch-target" aria-label="Remove debt">
+                        ×
+                    </button>
+                </td>
+            `;
             
-            // Get debt payments
-            const debtPayments = calculateTotalDebtPayments();
-            
-            // Calculate totals
-            const totalExpenses = tier1Total + tier2Total + tier3Total + savingsTotal + debtPayments;
-            const monthlySurplus = income - totalExpenses;
-            
-            // Calculate percentages (EXCLUDING debt payments from these percentages)
-            const needsPercent = income > 0 ? (tier1Total / income * 100) : 0;
-            const wantsPercent = income > 0 ? (tier3Total / income * 100) : 0;
-            const savingsPercent = income > 0 ? (savingsTotal / income * 100) : 0;
-            
-            // Get housing cost
-            let housingCost = 0;
-            
-            // Check for housing expense in currentExpenses
-            if (currentExpenses.tier1 && Array.isArray(currentExpenses.tier1)) {
-                const housingExpense = currentExpenses.tier1.find(exp => exp.id === 'housing');
-                if (housingExpense) {
-                    housingCost = parseCurrency(housingExpense.amount);
-                }
-            }
-            
-            // Also check custom expenses
-            if (customExpenses && Array.isArray(customExpenses)) {
-                const customHousing = customExpenses.find(exp => exp.id === 'housing');
-                if (customHousing) {
-                    housingCost = parseCurrency(customHousing.amount);
-                }
-            }
-            
-            // Fallback: Check legacy input if it exists
-            const legacyHousingInput = document.getElementById('housing');
-            if (legacyHousingInput && legacyHousingInput.value) {
-                housingCost = parseCurrency(legacyHousingInput.value);
-            }
-            
-            return {
-                tier1Total,
-                tier2Total,
-                tier3Total,
-                savingsTotal,
-                debtPayments,
-                totalExpenses,
-                monthlySurplus,
-                needsPercent,
-                wantsPercent,
-                savingsPercent,
-                housingCost
-            };
+            debtBody.appendChild(row);
+            updateDebtPriority();
+            checkAchievements();
         }
 
-        function calculateDebtData() {
-            let totalBalance = 0;
-            let totalPayments = 0;
-            let totalInterest = 0;
-            let debtCount = 0;
-            let highInterestCount = 0;
+        function removeDebtRow(rowId) {
+            const row = document.getElementById(rowId);
+            if (row) {
+                row.remove();
+                calculateAll();
+                updateDebtPriority();
+            }
+        }
+
+        function updateDebtPriority() {
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            const debts = [];
             
-            // Calculate from debt table
-            document.querySelectorAll('#debt-body tr').forEach(row => {
-                const balance = parseCurrency(row.querySelector('.debt-balance-input')?.value);
-                const payment = parseCurrency(row.querySelector('.debt-min-input')?.value);
-                const rate = parseFloat(row.querySelector('.debt-rate-input')?.value) || 0;
+            // Collect all debts
+            debtRows.forEach((row, index) => {
+                const rateInput = row.querySelector('.debt-rate-input');
+                const balanceInput = row.querySelector('.debt-balance-input');
+                const nameInput = row.querySelector('.debt-name-input');
+                const minInput = row.querySelector('.debt-min-input');
+                const typeSelect = row.querySelector('.debt-type-select');
                 
-                if (balance > 0) {
-                    totalBalance += balance;
-                    totalPayments += payment;
-                    totalInterest += rate;
-                    debtCount++;
+                if (rateInput && balanceInput && nameInput) {
+                    const rate = parseFloat(rateInput.value) || 0;
+                    const balance = parseCurrency(balanceInput.value) || 0;
+                    const name = nameInput.value || 'Unnamed Debt';
+                    const minPayment = parseCurrency(minInput?.value) || 0;
+                    const type = typeSelect?.value || 'other';
                     
-                    if (rate > 25) {
-                        highInterestCount++;
+                    if (balance > 0) {
+                        debts.push({
+                            id: row.id,
+                            name: name,
+                            type: type,
+                            rate: rate,
+                            balance: balance,
+                            minPayment: minPayment,
+                            priority: calculateDebtPriorityScore(rate, balance, type)
+                        });
                     }
                 }
             });
             
-            // Add mortgage
-            const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
-            totalBalance += mortgageBalance;
+            // Sort debts based on current strategy
+            if (currentPayoffStrategy === 'avalanche') {
+                debts.sort((a, b) => {
+                    // First by interest rate (highest first), then by balance
+                    if (b.rate !== a.rate) return b.rate - a.rate;
+                    return b.balance - a.balance;
+                });
+            } else { // snowball
+                debts.sort((a, b) => {
+                    // First by balance (smallest first), then by interest rate
+                    if (a.balance !== b.balance) return a.balance - b.balance;
+                    return b.rate - a.rate;
+                });
+            }
             
-            // Calculate averages
-            const avgInterest = debtCount > 0 ? totalInterest / debtCount : 0;
+            // Update priority numbers and colors
+            debts.forEach((debt, index) => {
+                const row = document.getElementById(debt.id);
+                if (row) {
+                    // Update priority number
+                    const priorityEl = row.querySelector(`#priority-${debt.id}`);
+                    if (priorityEl) {
+                        priorityEl.textContent = index + 1;
+                    }
+                    
+                    // Update row color based on interest rate
+                    row.classList.remove('debt-priority-low', 'debt-priority-medium', 'debt-priority-high', 'debt-priority-emergency');
+                    
+                    if (debt.rate > 25) {
+                        row.classList.add('debt-priority-emergency');
+                    } else if (debt.rate > 10) {
+                        row.classList.add('debt-priority-high');
+                    } else if (debt.rate > 5) {
+                        row.classList.add('debt-priority-medium');
+                    } else if (debt.rate > 0) {
+                        row.classList.add('debt-priority-low');
+                    }
+                }
+            });
+            
+            // Update payoff calculator
+            updatePayoffCalculator();
+            
+            return debts;
+        }
+
+        function calculateDebtPriorityScore(interestRate, balance, type) {
+            // Higher interest = higher priority
+            let score = interestRate * 10;
+            
+            // Adjust for balance size (for snowball method consideration)
+            if (balance < 1000) score += 5; // Small debts get slight boost
+            if (balance > 10000) score += 3; // Large debts get small boost
+            
+            // Adjust for debt type
+            if (type === 'credit_card') score += 10; // Credit cards are high priority
+            if (type === 'personal_loan') score += 5;
+            if (type === 'medical') score += 3;
+            
+            return score;
+        }
+
+        function setPayoffStrategy(strategy) {
+            currentPayoffStrategy = strategy;
+            
+            // Update button states
+            const avalancheBtn = document.getElementById('avalanche-btn');
+            const snowballBtn = document.getElementById('snowball-btn');
+            
+            if (avalancheBtn && snowballBtn) {
+                avalancheBtn.classList.toggle('active', strategy === 'avalanche');
+                snowballBtn.classList.toggle('active', strategy === 'snowball');
+            }
+            
+            // Update debt priorities
+            updateDebtPriority();
+            
+            // Update payoff calculator
+            updatePayoffCalculator();
+            
+            showToast(`Strategy changed to ${strategy === 'avalanche' ? 'Avalanche (highest interest first)' : 'Snowball (smallest balance first)'}`);
+        }
+
+  function updatePayoffCalculator() {
+    // FIX: Don't call updateDebtPriority() - collect debts directly
+    const debtRows = document.querySelectorAll('#debt-body tr');
+    const debts = [];
+    
+    // Collect debt data directly without recursion
+    debtRows.forEach((row) => {
+        const rateInput = row.querySelector('.debt-rate-input');
+        const balanceInput = row.querySelector('.debt-balance-input');
+        const nameInput = row.querySelector('.debt-name-input');
+        const minInput = row.querySelector('.debt-min-input');
+        const typeSelect = row.querySelector('.debt-type-select');
+        
+        if (rateInput && balanceInput && nameInput) {
+            const rate = parseFloat(rateInput.value) || 0;
+            const balance = parseCurrency(balanceInput.value) || 0;
+            const name = nameInput.value || 'Unnamed Debt';
+            const minPayment = parseCurrency(minInput?.value) || 0;
+            const type = typeSelect?.value || 'other';
+            
+            if (balance > 0) {
+                debts.push({
+                    id: row.id,
+                    name: name,
+                    type: type,
+                    rate: rate,
+                    balance: balance,
+                    minPayment: minPayment
+                });
+            }
+        }
+    });
+    
+    const extraPayment = parseCurrency(document.getElementById('extra-payment').value) || 0;
+    
+    if (debts.length === 0) {
+        updatePayoffResults(0, 0, 0, 0);
+        return;
+    }
+    
+    // The rest of your existing function continues here...
+    // Calculate payoff timeline and interest savings
+    let totalBalance = 0;
+    let totalMonthlyMin = 0;
+    let totalInterest = 0;
+    
+    debts.forEach(debt => {
+        totalBalance += debt.balance;
+        totalMonthlyMin += debt.minPayment;
+    });
+    
+    const monthlySurplus = getMonthlySurplus();
+    const availableForDebt = monthlySurplus + extraPayment;
+    
+    if (availableForDebt <= 0) {
+        updatePayoffResults(0, 0, totalMonthlyMin, 0);
+        return;
+    }
+    
+    // Sort debts for simulation (copy the sorting logic from updateDebtPriority)
+    const simDebts = JSON.parse(JSON.stringify(debts));
+    if (currentPayoffStrategy === 'avalanche') {
+        simDebts.sort((a, b) => {
+            if (b.rate !== a.rate) return b.rate - a.rate;
+            return b.balance - a.balance;
+        });
+    } else { // snowball
+        simDebts.sort((a, b) => {
+            if (a.balance !== b.balance) return a.balance - b.balance;
+            return b.rate - a.rate;
+        });
+    }
+    
+    // Simulate payoff using current strategy order
+    const payoffResults = simulatePayoff(simDebts, availableForDebt);
+    
+    updatePayoffResults(
+        payoffResults.months,
+        payoffResults.interestPaid,
+        totalMonthlyMin + Math.min(availableForDebt, payoffResults.extraPayment),
+        payoffResults.interestSavings
+    );
+}
+
+        function simulatePayoff(debts, extraPayment) {
+            // Clone debts for simulation
+            const simDebts = JSON.parse(JSON.stringify(debts));
+            let months = 0;
+            let totalInterestPaid = 0;
+            let totalPaid = 0;
+            
+            // Calculate minimum payment baseline
+            const baselineInterest = calculateTotalInterest(simDebts, 0);
+            
+            while (simDebts.length > 0 && months < 600) { // 50 year limit
+                months++;
+                
+                // Sort debts by current strategy
+                if (currentPayoffStrategy === 'avalanche') {
+                    simDebts.sort((a, b) => b.rate - a.rate);
+                } else {
+                    simDebts.sort((a, b) => a.balance - b.balance);
+                }
+                
+                let remainingExtra = extraPayment;
+                
+                // Apply payments
+                for (let i = 0; i < simDebts.length; i++) {
+                    const debt = simDebts[i];
+                    
+                    // Calculate monthly interest
+                    const monthlyInterest = debt.balance * (debt.rate / 100 / 12);
+                    totalInterestPaid += monthlyInterest;
+                    
+                    // Apply minimum payment + extra if this is the first debt
+                    let payment = debt.minPayment;
+                    if (i === 0 && remainingExtra > 0) {
+                        payment += remainingExtra;
+                        remainingExtra = 0;
+                    }
+                    
+                    // Apply to balance
+                    const principalPayment = Math.max(0, payment - monthlyInterest);
+                    debt.balance -= principalPayment;
+                    totalPaid += payment;
+                    
+                    // Remove paid-off debts
+                    if (debt.balance <= 0) {
+                        simDebts.splice(i, 1);
+                        i--;
+                    }
+                }
+                
+                // Break if all debts are paid
+                if (simDebts.length === 0) break;
+            }
+            
+            const interestSavings = baselineInterest - totalInterestPaid;
             
             return {
-                totalBalance,
-                totalPayments,
-                avgInterest,
-                highInterestCount,
-                mortgageBalance
+                months: months,
+                interestPaid: totalInterestPaid,
+                extraPayment: extraPayment,
+                interestSavings: Math.max(0, interestSavings)
             };
         }
 
-        function calculateAssetsData() {
-            // Get asset values
-            const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
-            const retirement = parseCurrency(document.getElementById('current-retirement').value);
-            const houseValue = parseCurrency(document.getElementById('house-value').value);
-            const otherAssets = parseCurrency(document.getElementById('other-assets').value);
-            const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
+        function calculateTotalInterest(debts, extraPayment) {
+            // Simple interest calculation for baseline
+            let totalInterest = 0;
             
-            // Get debt from debt section
-            const debtData = calculateDebtData();
-            const totalDebt = debtData.totalBalance;
+            debts.forEach(debt => {
+                if (debt.rate > 0 && debt.balance > 0) {
+                    const monthlyRate = debt.rate / 100 / 12;
+                    const monthlyPayment = debt.minPayment + (extraPayment / debts.length);
+                    const months = Math.ceil(debt.balance / monthlyPayment);
+                    
+                    // Simple interest approximation
+                    totalInterest += debt.balance * monthlyRate * months * 0.5; // Rough estimate
+                }
+            });
             
-            // Calculate totals
-            const totalAssets = emergencyFund + retirement + houseValue + otherAssets;
-            const totalLiabilities = totalDebt;
-            const netWorth = totalAssets - totalLiabilities;
+            return totalInterest;
+        }
+
+        function updatePayoffResults(months, interestPaid, recommendedPayment, interestSavings) {
+            const payoffTimeline = document.getElementById('payoff-timeline');
+            const interestSavingsEl = document.getElementById('interest-savings');
+            const recommendedPaymentEl = document.getElementById('recommended-payment');
+            const totalInterestSavings = document.getElementById('total-interest-savings');
             
-            // Calculate progress indicators
+            if (payoffTimeline) {
+                if (months > 0) {
+                    if (months < 12) {
+                        payoffTimeline.textContent = `${months} months`;
+                    } else {
+                        const years = Math.floor(months / 12);
+                        const remainingMonths = months % 12;
+                        payoffTimeline.textContent = `${years}y ${remainingMonths}m`;
+                    }
+                } else {
+                    payoffTimeline.textContent = 'N/A';
+                }
+            }
+            
+            if (interestSavingsEl) {
+                interestSavingsEl.textContent = `$${Math.round(interestSavings).toLocaleString()}`;
+            }
+            
+            if (recommendedPaymentEl) {
+                recommendedPaymentEl.textContent = `$${Math.round(recommendedPayment).toLocaleString()}`;
+            }
+            
+            if (totalInterestSavings) {
+                totalInterestSavings.textContent = `$${Math.round(interestSavings).toLocaleString()} potential savings`;
+            }
+        }
+
+        // ===== ACTION PLAN FUNCTIONS =====
+
+        function updateActionPlan() {
             const budgetData = calculateBudgetData();
-            const tier1Total = budgetData.tier1Total;
-            
-            const emergencyMonths = tier1Total > 0 ? emergencyFund / tier1Total : 0;
-            
-            const age = parseInt(document.getElementById('user-age').value) || 35;
+            const debtData = calculateDebtData();
+            const assetsData = calculateAssetsData();
             const income = getMonthlyIncome();
-            const annualIncome = income * 12;
             
-            // Retirement targets based on age
-            let retirementTarget = 0;
-            if (age <= 30) retirementTarget = annualIncome * 1;
-            else if (age <= 40) retirementTarget = annualIncome * 3;
-            else if (age <= 50) retirementTarget = annualIncome * 6;
-            else if (age <= 60) retirementTarget = annualIncome * 8;
-            else retirementTarget = annualIncome * 10;
+            let actionTitle = '';
+            let actionDescription = '';
+            let priorityLevel = 'Medium';
+            let timelineEstimate = '';
             
-            const retirementProgress = retirementTarget > 0 ? (retirement / retirementTarget * 100) : 0;
-            const equityProgress = houseValue > 0 ? ((houseValue - mortgageBalance) / houseValue * 100) : 0;
+            // Determine current stage and next action
+            if (income <= 0) {
+                actionTitle = 'Enter your monthly income';
+                actionDescription = 'Start by entering your net monthly income in the Income section above.';
+                priorityLevel = 'High';
+                timelineEstimate = 'Complete now to get started';
+            } else if (assetsData.emergencyMonths < 1) {
+                const needed = 1 - assetsData.emergencyMonths;
+                const monthlyNeeded = budgetData.tier1Total * needed;
+                actionTitle = 'Build 1-month emergency fund';
+                actionDescription = `Save $${Math.round(monthlyNeeded).toLocaleString()} to cover 1 month of essential expenses.`;
+                priorityLevel = 'High';
+                timelineEstimate = `~${Math.ceil(monthlyNeeded / budgetData.monthlySurplus)} months at current rate`;
+            } else if (debtData.highInterestCount > 0) {
+                // Find highest interest debt
+                let highestInterestDebt = null;
+                let highestRate = 0;
+                
+                document.querySelectorAll('#debt-body tr').forEach(row => {
+                    const rateInput = row.querySelector('.debt-rate-input');
+                    const nameInput = row.querySelector('.debt-name-input');
+                    const balanceInput = row.querySelector('.debt-balance-input');
+                    
+                    if (rateInput && nameInput && balanceInput) {
+                        const rate = parseFloat(rateInput.value) || 0;
+                        const balance = parseCurrency(balanceInput.value) || 0;
+                        const name = nameInput.value || 'Unnamed Debt';
+                        
+                        if (rate > highestRate && balance > 0) {
+                            highestRate = rate;
+                            highestInterestDebt = { name, rate, balance };
+                        }
+                    }
+                });
+                
+                if (highestInterestDebt) {
+                    actionTitle = `Attack ${highestInterestDebt.name} (${highestInterestDebt.rate}% APR)`;
+                    actionDescription = `This high-interest debt is costing you $${Math.round(highestInterestDebt.balance * highestInterestDebt.rate / 100 / 12).toLocaleString()} in interest monthly.`;
+                    priorityLevel = 'High';
+                    
+                    if (budgetData.monthlySurplus > 0) {
+                        const months = Math.ceil(highestInterestDebt.balance / budgetData.monthlySurplus);
+                        timelineEstimate = `~${months} months at current surplus`;
+                    } else {
+                        timelineEstimate = 'Increase surplus to start paying down';
+                    }
+                }
+            } else if (assetsData.emergencyMonths < 3) {
+                const needed = 3 - assetsData.emergencyMonths;
+                actionTitle = 'Build 3-month emergency fund';
+                actionDescription = `You have ${assetsData.emergencyMonths.toFixed(1)} months covered. Aim for 3 months for better security.`;
+                priorityLevel = 'Medium';
+                
+                if (budgetData.monthlySurplus > 0) {
+                    const monthsNeeded = Math.ceil((budgetData.tier1Total * needed) / budgetData.monthlySurplus);
+                    timelineEstimate = `~${monthsNeeded} months at current rate`;
+                }
+            } else if (budgetData.savingsPercent < 15) {
+                actionTitle = 'Increase savings rate to 15%';
+                actionDescription = `Your current savings rate is ${budgetData.savingsPercent.toFixed(1)}%. Aim for 15% to build wealth faster.`;
+                priorityLevel = 'Medium';
+                timelineEstimate = 'Adjust budget allocations above';
+            } else {
+                actionTitle = 'Maintain and optimize';
+                actionDescription = 'Great work! Your foundation is solid. Consider increasing retirement contributions or investment allocations.';
+                priorityLevel = 'Low';
+                timelineEstimate = 'Ongoing optimization';
+            }
             
-            return {
-                totalAssets,
-                totalLiabilities,
-                netWorth,
-                emergencyMonths,
-                retirementProgress,
-                equityProgress,
-                emergencyFund,
-                retirement,
-                houseValue,
-                mortgageBalance,
-                age,
-                income,
-                annualIncome,
-                retirementTarget
-            };
+            // Update action plan UI
+            const actionTitleEl = document.getElementById('current-action-title');
+            const actionDescriptionEl = document.getElementById('current-action-description');
+            const priorityEl = document.getElementById('action-plan-priority');
+            const timelineEl = document.getElementById('timeline-estimate');
+            
+            if (actionTitleEl) actionTitleEl.textContent = actionTitle;
+            if (actionDescriptionEl) actionDescriptionEl.textContent = actionDescription;
+            if (priorityEl) {
+                priorityEl.textContent = priorityLevel + ' Priority';
+                priorityEl.style.background = priorityLevel === 'High' ? '#B22234' : 
+                                            priorityLevel === 'Medium' ? '#F59E0B' : '#10B981';
+            }
+            if (timelineEl) timelineEl.textContent = timelineEstimate;
+            
+            // Update journey progress
+            updateJourneyProgress();
+        }
+
+        function updateJourneyProgress() {
+            const stages = document.querySelectorAll('.journey-stage');
+            let completedCount = 0;
+            
+            stages.forEach(stage => {
+                if (stage.classList.contains('completed')) {
+                    completedCount++;
+                }
+            });
+            
+            const totalStages = 4; // Only count Phase 01 stages
+            const progressPercent = Math.round((completedCount / totalStages) * 100);
+            
+            const progressBar = document.getElementById('journey-progress-bar');
+            const progressPercentEl = document.getElementById('journey-progress-percent');
+            
+            if (progressBar) progressBar.style.width = `${progressPercent}%`;
+            if (progressPercentEl) progressPercentEl.textContent = `${progressPercent}%`;
         }
 
         // ===== JOURNEY TRACKER FUNCTIONS =====
@@ -3396,16 +4174,12 @@
                     if (rate > maxDebtAPR) maxDebtAPR = rate;
                 });
                 
-                // Calculate income-to-expense ratio
-                const totalExpenses = budgetData.totalExpenses;
-                const incomeToExpenseRatio = income > 0 ? income / totalExpenses : 0;
-                
                 // Calculate survival metrics (simplified)
                 const monthsAtCurrentSpending = emergencyMonths;
                 const canSurvive25Drop = monthsAtCurrentSpending >= 1.5;
                 const canSurvive50Drop = monthsAtCurrentSpending >= 3;
                 
-                // Track progress
+                // Track progress for each stage
                 let currentStage = 0;
                 let completedStages = [];
                 
@@ -3415,38 +4189,94 @@
                     
                     const criteria = stage.criteria;
                     let meetsAllCriteria = true;
+                    let progressPercent = 0;
                     
-                    if (criteria.emergencyMonths !== undefined && emergencyMonths < criteria.emergencyMonths) {
-                        meetsAllCriteria = false;
+                    // Stage 1: Survival Baseline
+                    if (stage.id === 1) {
+                        const emergencyProgress = Math.min(emergencyMonths / 1, 1) * 100;
+                        const cashFlowProgress = monthlySurplus >= 0 ? 100 : 0;
+                        const debtProgress = maxDebtAPR <= 25 ? 100 : Math.max(0, (25 / maxDebtAPR) * 100);
+                        
+                        progressPercent = (emergencyProgress * 0.4 + cashFlowProgress * 0.4 + debtProgress * 0.2);
+                        
+                        if (emergencyMonths >= 1 && monthlySurplus >= 0 && maxDebtAPR <= 25) {
+                            completedStages.push(stage.id);
+                            if (!userStats.milestones) userStats.milestones = [];
+                            if (!userStats.milestones.includes('emergency_fund_1_month')) {
+                                userStats.milestones.push('emergency_fund_1_month');
+                                triggerCelebration('achievement', 'Safety Net Started');
+                            }
+                        } else {
+                            currentStage = Math.max(currentStage, 1);
+                        }
                     }
                     
-                    if (criteria.cashFlowPositive !== undefined && monthlySurplus < 0) {
-                        meetsAllCriteria = false;
+                    // Stage 2: Debt Engagement
+                    else if (stage.id === 2) {
+                        const emergencyProgress = Math.min(emergencyMonths / 3, 1) * 100;
+                        const debtProgress = maxDebtAPR <= 15 ? 100 : Math.max(0, (15 / maxDebtAPR) * 100);
+                        const savingsProgress = Math.min(savingsRate / 0.05, 1) * 100;
+                        
+                        progressPercent = (emergencyProgress * 0.5 + debtProgress * 0.3 + savingsProgress * 0.2);
+                        
+                        if (emergencyMonths >= 3 && maxDebtAPR <= 15 && savingsRate >= 0.05) {
+                            completedStages.push(stage.id);
+                            if (!userStats.milestones) userStats.milestones = [];
+                            if (!userStats.milestones.includes('emergency_fund_3_months')) {
+                                userStats.milestones.push('emergency_fund_3_months');
+                                triggerCelebration('achievement', 'Solid Foundation');
+                            }
+                        } else if (currentStage < 2) {
+                            currentStage = 2;
+                        }
                     }
                     
-                    if (criteria.highInterestDebt !== undefined && maxDebtAPR > criteria.highInterestDebt) {
-                        meetsAllCriteria = false;
+                    // Stage 3: Iron Pot Complete
+                    else if (stage.id === 3) {
+                        const emergencyProgress = Math.min(emergencyMonths / 6, 1) * 100;
+                        const debtProgress = maxDebtAPR <= 10 ? 100 : Math.max(0, (10 / maxDebtAPR) * 100);
+                        const savingsProgress = Math.min(savingsRate / 0.15, 1) * 100;
+                        const survivalProgress = canSurvive25Drop ? 100 : 0;
+                        
+                        progressPercent = (emergencyProgress * 0.4 + debtProgress * 0.3 + savingsProgress * 0.2 + survivalProgress * 0.1);
+                        
+                        if (emergencyMonths >= 6 && maxDebtAPR <= 10 && savingsRate >= 0.15 && canSurvive25Drop) {
+                            completedStages.push(stage.id);
+                            if (!userStats.milestones) userStats.milestones = [];
+                            if (!userStats.milestones.includes('emergency_fund_6_months')) {
+                                userStats.milestones.push('emergency_fund_6_months');
+                                triggerCelebration('achievement', 'Iron Pot Complete');
+                            }
+                            if (!userStats.milestones.includes('debt_free_high_interest')) {
+                                userStats.milestones.push('debt_free_high_interest');
+                                triggerCelebration('achievement', 'High-Interest Free');
+                            }
+                        } else if (currentStage < 3) {
+                            currentStage = 3;
+                        }
                     }
                     
-                    if (criteria.savingsRate !== undefined && savingsRate < criteria.savingsRate) {
-                        meetsAllCriteria = false;
+                    // Stage 4: Architecture Active
+                    else if (stage.id === 4) {
+                        const emergencyProgress = emergencyMonths >= 6 ? 100 : 0;
+                        const debtProgress = maxDebtAPR <= 10 ? 100 : 0;
+                        const savingsProgress = savingsRate >= 0.20 ? 100 : 0;
+                        const survivalProgress = canSurvive50Drop ? 100 : 0;
+                        
+                        progressPercent = (emergencyProgress * 0.25 + debtProgress * 0.25 + savingsProgress * 0.25 + survivalProgress * 0.25);
+                        
+                        if (emergencyMonths >= 6 && maxDebtAPR <= 10 && savingsRate >= 0.20 && canSurvive50Drop) {
+                            completedStages.push(stage.id);
+                            triggerCelebration('milestone', 'Phase 01 Complete!');
+                        } else if (currentStage < 4) {
+                            currentStage = 4;
+                        }
                     }
                     
-                    if (criteria.canSurviveIncomeDrop === 0.25 && !canSurvive25Drop) {
-                        meetsAllCriteria = false;
-                    }
-                    
-                    if (criteria.canSurviveIncomeDrop === 0.50 && !canSurvive50Drop) {
-                        meetsAllCriteria = false;
-                    }
-                    
-                    if (criteria.incomeToExpenseRatio !== undefined && incomeToExpenseRatio < criteria.incomeToExpenseRatio) {
-                        meetsAllCriteria = false;
-                    }
-                    
-                    if (meetsAllCriteria) {
-                        completedStages.push(stage.id);
-                        currentStage = stage.id;
+                    // Update stage progress bar
+                    const progressBar = document.getElementById(`stage-${stage.id}-progress`);
+                    if (progressBar) {
+                        progressBar.style.width = `${progressPercent}%`;
                     }
                 });
                 
@@ -3460,6 +4290,12 @@
                 
                 // Update timeline estimate
                 updateJourneyTimeline(currentStage, budgetData, debtData, assetsData, maxDebtAPR);
+                
+                // Update action plan
+                updateActionPlan();
+                
+                // Check achievements
+                checkAchievements();
                 
             } catch (error) {
                 console.error('Error updating journey tracker:', error);
@@ -3584,6 +4420,12 @@
                         indicatorEl.classList.add('pending');
                         indicatorEl.textContent = i;
                     }
+                    
+                    // Reset progress bars
+                    const progressBar = document.getElementById(`stage-${i}-progress`);
+                    if (progressBar) {
+                        progressBar.style.width = '0%';
+                    }
                 }
             }
             
@@ -3591,6 +4433,103 @@
             if (estimateEl) {
                 estimateEl.textContent = "Enter income to begin journey";
             }
+        }
+
+        // ===== CELEBRATION FUNCTIONS =====
+
+        function triggerCelebration(type, message) {
+            switch(type) {
+                case 'achievement':
+                    showAchievementPopup(message);
+                    createConfetti();
+                    break;
+                case 'milestone':
+                    showToast(`🎉 ${message}!`);
+                    createConfetti();
+                    break;
+            }
+        }
+
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            const colors = ['#B22234', '#FFFFFF', '#10B981', '#F59E0B', '#3B82F6'];
+            
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.top = '-10px';
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                container.appendChild(confetti);
+                
+                // Animate
+                const animation = confetti.animate([
+                    { 
+                        transform: `translate(0, 0) rotate(0deg)`,
+                        opacity: 1 
+                    },
+                    { 
+                        transform: `translate(${Math.random() * 200 - 100}px, 100vh) rotate(${Math.random() * 720}deg)`,
+                        opacity: 0 
+                    }
+                ], {
+                    duration: 3000 + Math.random() * 2000,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+                });
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+            
+            // Play sound if available
+            if (typeof Audio !== 'undefined') {
+                try {
+                    const audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ');
+                    audio.volume = 0.3;
+                    audio.play().catch(() => {});
+                } catch (e) {
+                    // Sound not supported
+                }
+            }
+        }
+
+        function showAchievementPopup(achievementName) {
+            const achievement = Object.values(achievements).find(a => a.name === achievementName);
+            if (!achievement) return;
+            
+            const popup = document.createElement('div');
+            popup.className = 'achievement-popup';
+            popup.innerHTML = `
+                <div class="text-3xl mb-2">
+                    <i class="fas fa-trophy ${achievement.tier === 'gold' ? 'text-yellow-400' : achievement.tier === 'silver' ? 'text-gray-300' : 'text-amber-600'}"></i>
+                </div>
+                <h4 class="text-lg font-bold mb-1">Achievement Unlocked!</h4>
+                <div class="text-sm font-bold mb-2">${achievement.name}</div>
+                <div class="text-xs text-gray-300 mb-4">${achievement.desc}</div>
+                <button onclick="this.parentElement.classList.remove('show')" class="text-xs bg-crimson hover:bg-red-700 px-4 py-2 rounded transition">
+                    Awesome!
+                </button>
+            `;
+            
+            document.getElementById('main-body').appendChild(popup);
+            
+            setTimeout(() => {
+                popup.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                popup.classList.remove('show');
+                setTimeout(() => {
+                    if (popup.parentNode) popup.parentNode.removeChild(popup);
+                }, 300);
+            }, 3000);
         }
 
         // ===== EXISTING FUNCTIONS (Updated to use calculation functions) =====
@@ -3848,13 +4787,18 @@
                     position: 'top'
                 },
                 {
+                    element: '#action-plan-panel',
+                    message: 'Your Action Plan shows the next step in your financial journey',
+                    position: 'top'
+                },
+                {
                     element: '#budget-section',
                     message: 'Drag and drop expenses between tiers to customize your budget',
                     position: 'top'
                 },
                 {
-                    element: '#assets-section',
-                    message: 'Track your assets and net worth here',
+                    element: '#journey-tracker',
+                    message: 'Track your progress through the Financial Journey stages',
                     position: 'top'
                 },
                 {
@@ -3931,129 +4875,91 @@
                 // Add example debts
                 addDebtRow();
                 setTimeout(() => {
-                    const debtInputs = document.querySelectorAll('.debt-name-input, .debt-min-input, .debt-balance-input, .debt-rate-input');
-                    if (debtInputs.length >= 4) {
-                        debtInputs[0].value = 'Credit Card';
-                        debtInputs[1].value = '150';
-                        debtInputs[2].value = '8,500';
-                        debtInputs[3].value = '18.5';
+                    const debtInputs = document.querySelectorAll('.debt-name-input, .debt-type-select, .debt-min-input, .debt-balance-input, .debt-rate-input');
+                    if (debtInputs.length >= 5) {
+                        debtInputs[0].value = 'Chase Credit Card';
+                        debtInputs[1].value = 'credit_card';
+                        debtInputs[2].value = '150';
+                        debtInputs[3].value = '8,500';
+                        debtInputs[4].value = '22.5';
                     }
                     
                     // Add second debt
                     addDebtRow();
                     setTimeout(() => {
-                        const secondDebtInputs = document.querySelectorAll('.debt-name-input, .debt-min-input, .debt-balance-input, .debt-rate-input');
-                        if (secondDebtInputs.length >= 8) {
-                            secondDebtInputs[4].value = 'Student Loan';
-                            secondDebtInputs[5].value = '300';
-                            secondDebtInputs[6].value = '25,000';
-                            secondDebtInputs[7].value = '5.5';
+                        const debtRows = document.querySelectorAll('#debt-body tr');
+                        if (debtRows.length >= 2) {
+                            const secondDebtInputs = debtRows[1].querySelectorAll('.debt-name-input, .debt-type-select, .debt-min-input, .debt-balance-input, .debt-rate-input');
+                            if (secondDebtInputs.length >= 5) {
+                                secondDebtInputs[0].value = 'Student Loan';
+                                secondDebtInputs[1].value = 'student_loan';
+                                secondDebtInputs[2].value = '300';
+                                secondDebtInputs[3].value = '25,000';
+                                secondDebtInputs[4].value = '5.5';
+                            }
                         }
                         
-                        // Set example amounts for drag & drop expenses
-                        const exampleAmounts = {
-                            'housing': '1,800',
-                            'property-taxes': '300',
-                            'utilities': '250',
-                            'groceries': '600',
-                            'transportation': '350',
-                            'car-insurance': '120',
-                            'health-insurance': '450',
-                            'internet': '80',
-                            'phone': '100',
-                            'maintenance': '200',
-                            'dining': '400',
-                            'shopping': '200',
-                            'streaming': '50',
-                            'misc': '150'
-                        };
-                        
-                        // Update drag & drop system with example amounts
-                        Object.keys(currentExpenses).forEach(tier => {
-                            if (currentExpenses[tier]) {
-                                currentExpenses[tier].forEach(expense => {
-                                    if (exampleAmounts[expense.id]) {
-                                        expense.amount = exampleAmounts[expense.id];
-                                    }
-                                });
+                        // Add third debt
+                        addDebtRow();
+                        setTimeout(() => {
+                            const debtRows = document.querySelectorAll('#debt-body tr');
+                            if (debtRows.length >= 3) {
+                                const thirdDebtInputs = debtRows[2].querySelectorAll('.debt-name-input, .debt-type-select, .debt-min-input, .debt-balance-input, .debt-rate-input');
+                                if (thirdDebtInputs.length >= 5) {
+                                    thirdDebtInputs[0].value = 'Emergency Medical';
+                                    thirdDebtInputs[1].value = 'medical';
+                                    thirdDebtInputs[2].value = '200';
+                                    thirdDebtInputs[3].value = '5,000';
+                                    thirdDebtInputs[4].value = '18.0';
+                                }
                             }
-                        });
-                        
-                        // Update savings
-                        document.getElementById('emergency-fund').value = '500';
-                        document.getElementById('retirement').value = '1,000';
-                        
-                        // Re-render drag & drop
-                        renderAllExpenses();
-                        calculateAll();
-                        
-                        showToast('Example data loaded. Edit values to match your situation.');
-                        checkAchievements();
+                            
+                            // Set example amounts for drag & drop expenses
+                            const exampleAmounts = {
+                                'housing': '1,800',
+                                'property-taxes': '300',
+                                'utilities': '250',
+                                'groceries': '600',
+                                'transportation': '350',
+                                'car-insurance': '120',
+                                'health-insurance': '450',
+                                'internet': '80',
+                                'phone': '100',
+                                'maintenance': '200',
+                                'dining': '400',
+                                'shopping': '200',
+                                'streaming': '50',
+                                'misc': '150'
+                            };
+                            
+                            // Update drag & drop system with example amounts
+                            Object.keys(currentExpenses).forEach(tier => {
+                                if (currentExpenses[tier]) {
+                                    currentExpenses[tier].forEach(expense => {
+                                        if (exampleAmounts[expense.id]) {
+                                            expense.amount = exampleAmounts[expense.id];
+                                        }
+                                    });
+                                }
+                            });
+                            
+                            // Update savings
+                            document.getElementById('emergency-fund').value = '500';
+                            document.getElementById('retirement').value = '1,000';
+                            
+                            // Set extra payment
+                            document.getElementById('extra-payment').value = '200';
+                            
+                            // Re-render drag & drop
+                            renderAllExpenses();
+                            calculateAll();
+                            updateDebtPriority();
+                            
+                            showToast('Example data loaded. Edit values to match your situation.');
+                            checkAchievements();
+                        }, 100);
                     }, 100);
                 }, 100);
-            }
-        }
-
-        function addDebtRow() {
-            const debtBody = document.getElementById('debt-body');
-            if (!debtBody) return;
-            
-            const rowCount = debtBody.querySelectorAll('tr').length;
-            const rowId = `debt-${rowCount + 1}`;
-            
-            const row = document.createElement('tr');
-            row.id = rowId;
-            row.className = "border-b border-white/5";
-            row.innerHTML = `
-                <td class="py-3 px-2">
-                    <input type="text" 
-                           placeholder="Credit Card" 
-                           class="debt-name-input bg-transparent w-full outline-none text-white text-xs uppercase touch-target" 
-                           oninput="calculateAll(); validateInput(this)"
-                           aria-label="Debt name">
-                </td>
-                <td class="py-3 px-2">
-                    <div class="currency-input-container">
-                        <input type="text" 
-                               class="debt-min-input bg-transparent w-full outline-none text-white text-xs touch-target" 
-                               oninput="formatCurrency(this); calculateAll(); validateInput(this)" 
-                               placeholder="0"
-                               aria-label="Minimum payment">
-                    </div>
-                </td>
-                <td class="py-3 px-2">
-                    <div class="currency-input-container">
-                        <input type="text" 
-                               class="debt-balance-input bg-transparent w-full outline-none text-white text-xs touch-target" 
-                               oninput="formatCurrency(this); calculateAll(); validateInput(this)" 
-                               placeholder="0"
-                               aria-label="Debt balance">
-                    </div>
-                </td>
-                <td class="py-3 px-2">
-                    <input type="number" 
-                           step="0.1" 
-                           class="debt-rate-input bg-transparent w-full outline-none text-white text-xs touch-target" 
-                           oninput="calculateAll(); validateInput(this)" 
-                           placeholder="0"
-                           aria-label="Interest rate">
-                </td>
-                <td class="text-right">
-                    <button onclick="removeDebtRow('${rowId}')" class="hover:text-crimson transition text-lg touch-target" aria-label="Remove debt">
-                        ×
-                    </button>
-                </td>
-            `;
-            
-            debtBody.appendChild(row);
-            checkAchievements();
-        }
-
-        function removeDebtRow(rowId) {
-            const row = document.getElementById(rowId);
-            if (row) {
-                row.remove();
-                calculateAll();
             }
         }
 
@@ -4178,6 +5084,9 @@
                     input.classList.remove('input-valid', 'input-invalid');
                 });
                 
+                // Clear extra payment
+                document.getElementById('extra-payment').value = '0';
+                
                 // Clear all debt rows
                 const debtBody = document.getElementById('debt-body');
                 if (debtBody) {
@@ -4211,6 +5120,7 @@
                 // Re-render and recalculate
                 renderAllExpenses();
                 calculateAll();
+                updateDebtPriority();
                 
                 // Show confirmation
                 showToast('All data cleared successfully!');
@@ -4267,6 +5177,7 @@
                         addDebtRow();
                     }
                     document.getElementById('mortgage-balance').value = '';
+                    document.getElementById('extra-payment').value = '0';
                     break;
                     
                 case 'budget':
@@ -4311,6 +5222,228 @@
             showToast(`${section.charAt(0).toUpperCase() + section.slice(1)} section reset successfully!`);
         }
 
+// ===== BUDGET CALCULATION FUNCTIONS =====
+
+function calculateBudgetData() {
+    const income = getMonthlyIncome();
+    const allocations = calculateTierAllocations();
+    
+    // Get savings total
+    let savingsTotal = 0;
+    document.querySelectorAll('.savings-input').forEach(input => {
+        savingsTotal += parseCurrency(input.value);
+    });
+    
+    // Get debt payments
+    const debts = updateDebtPriority();
+    let debtPayments = 0;
+    debts.forEach(debt => {
+        debtPayments += debt.minPayment;
+    });
+    
+    // Calculate totals
+    const tier1Total = allocations.tier1Total;
+    const tier2Total = allocations.tier2Total;
+    const tier3Total = allocations.tier3Total;
+    
+    const totalExpenses = tier1Total + tier2Total + tier3Total + savingsTotal + debtPayments;
+    const monthlySurplus = income - totalExpenses;
+    
+    // Calculate percentages
+    const needsPercent = income > 0 ? (tier1Total / income * 100) : 0;
+    const wantsPercent = income > 0 ? (tier3Total / income * 100) : 0;
+    const savingsPercent = income > 0 ? (savingsTotal / income * 100) : 0;
+    
+    return {
+        income,
+        tier1Total,
+        tier2Total,
+        tier3Total,
+        savingsTotal,
+        debtPayments,
+        totalExpenses,
+        monthlySurplus,
+        needsPercent,
+        wantsPercent,
+        savingsPercent
+    };
+}
+
+function calculateDebtData() {
+    const debts = updateDebtPriority();
+    
+    let totalBalance = 0;
+    let totalPayments = 0;
+    let highInterestCount = 0;
+    let totalInterest = 0;
+    
+    debts.forEach(debt => {
+        totalBalance += debt.balance;
+        totalPayments += debt.minPayment;
+        totalInterest += debt.rate;
+        
+        if (debt.rate > 10) {
+            highInterestCount++;
+        }
+    });
+    
+    // Add mortgage
+    const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
+    totalBalance += mortgageBalance;
+    
+    return {
+        totalBalance,
+        totalPayments,
+        highInterestCount,
+        totalInterest,
+        mortgageBalance
+    };
+}
+
+function calculateAssetsData() {
+    const budgetData = calculateBudgetData();
+    
+    // Get assets
+    const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
+    const retirement = parseCurrency(document.getElementById('current-retirement').value);
+    const houseValue = parseCurrency(document.getElementById('house-value').value);
+    const otherAssets = parseCurrency(document.getElementById('other-assets').value);
+    const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
+    
+    // Calculate emergency fund months
+    const emergencyMonths = budgetData.tier1Total > 0 ? emergencyFund / budgetData.tier1Total : 0;
+    
+    // Calculate net worth
+    const totalAssets = emergencyFund + retirement + houseValue + otherAssets;
+    const totalLiabilities = budgetData.debtPayments * 1000 + mortgageBalance; // Simplified
+    const netWorth = totalAssets - totalLiabilities;
+    
+    return {
+        emergencyFund,
+        retirement,
+        houseValue,
+        otherAssets,
+        mortgageBalance,
+        emergencyMonths,
+        totalAssets,
+        totalLiabilities,
+        netWorth
+    };
+}
+
+function updateBadge(badgeId, currentPercent, targetPercent, isSavings = false) {
+    const badge = document.getElementById(badgeId);
+    if (!badge) return;
+    
+    badge.textContent = `${currentPercent.toFixed(0)}%`;
+    
+    // Remove all status classes
+    badge.classList.remove('status-good', 'status-ok', 'status-bad');
+    
+    if (isSavings) {
+        // For savings, higher is better
+        if (currentPercent >= targetPercent) {
+            badge.classList.add('status-good');
+        } else if (currentPercent >= targetPercent * 0.5) {
+            badge.classList.add('status-ok');
+        } else {
+            badge.classList.add('status-bad');
+        }
+    } else {
+        // For expenses, lower is better
+        if (currentPercent <= targetPercent) {
+            badge.classList.add('status-good');
+        } else if (currentPercent <= targetPercent * 1.1) {
+            badge.classList.add('status-ok');
+        } else {
+            badge.classList.add('status-bad');
+        }
+    }
+}
+
+function updateUserStats() {
+    // Track that user is interacting with the tool
+    if (!userStats.dataPoints) userStats.dataPoints = 0;
+    userStats.dataPoints++;
+}
+
+function loadUserStats() {
+    const saved = localStorage.getItem('raf_lab_stats');
+    if (saved) {
+        try {
+            userStats = JSON.parse(saved);
+        } catch (e) {
+            console.error('Error loading stats:', e);
+        }
+    }
+}
+
+function updateQuickStartPanel() {
+    // This can be expanded to show progress
+}
+
+function checkMilestones() {
+    // Check for various financial milestones
+    const budgetData = calculateBudgetData();
+    const assetsData = calculateAssetsData();
+    
+    if (!userStats.milestones) userStats.milestones = [];
+    
+    // Check for positive surplus milestone
+    if (budgetData.monthlySurplus > 0 && !userStats.milestones.includes('positive_surplus')) {
+        userStats.milestones.push('positive_surplus');
+    }
+    
+    // Check emergency fund milestones
+    if (assetsData.emergencyMonths >= 1 && !userStats.milestones.includes('emergency_fund_1_month')) {
+        userStats.milestones.push('emergency_fund_1_month');
+    }
+    
+    if (assetsData.emergencyMonths >= 3 && !userStats.milestones.includes('emergency_fund_3_months')) {
+        userStats.milestones.push('emergency_fund_3_months');
+    }
+    
+    if (assetsData.emergencyMonths >= 6 && !userStats.milestones.includes('emergency_fund_6_months')) {
+        userStats.milestones.push('emergency_fund_6_months');
+    }
+}
+
+function updateScoreSection() {
+    // Simplified scoring - you can expand this
+    const budgetData = calculateBudgetData();
+    const assetsData = calculateAssetsData();
+    const debtData = calculateDebtData();
+    
+    // Calculate individual scores (simplified)
+    const budgetScore = Math.min(20, Math.round(budgetData.savingsPercent / 5));
+    const debtScore = Math.min(20, Math.round((100 - (debtData.totalBalance / getMonthlyIncome())) / 5));
+    const emergencyScore = Math.min(20, Math.round(assetsData.emergencyMonths * 3.33));
+    const retirementScore = Math.min(20, Math.round(assetsData.retirement / (getMonthlyIncome() * 12) / 2));
+    const realEstateScore = 10; // Simplified
+    
+    // Update score displays
+    document.getElementById('score-budget').textContent = budgetScore;
+    document.getElementById('score-debt').textContent = debtScore;
+    document.getElementById('score-emergency').textContent = emergencyScore;
+    document.getElementById('score-retirement').textContent = retirementScore;
+    document.getElementById('score-realestate').textContent = realEstateScore;
+    
+    // Calculate total score
+    const totalScore = budgetScore + debtScore + emergencyScore + retirementScore + realEstateScore;
+    document.getElementById('sovereignty-score').textContent = totalScore;
+    
+    // Update score history
+    scoreHistory.push({
+        date: new Date().toISOString(),
+        score: totalScore
+    });
+    
+    // Limit history
+    if (scoreHistory.length > 10) scoreHistory = scoreHistory.slice(-10);
+}
+
+// ===== EXISTING calculateAll FUNCTION =====
+
         // Main calculation function
         function calculateAll() {
             try {
@@ -4323,13 +5456,19 @@
                 updateAssetsSection();
                 updateScoreSection();
                 updateQuickStartPanel();
-                updateInsights();
+                  generateSmartInsights();
                 
                 // Update chart
                 updateChart();
                 
                 // Update journey tracker
                 updateJourneyTracker();
+                
+                // Update action plan
+                updateActionPlan();
+                
+                // Update debt priority
+                updateDebtPriority();
                 
                 // Check for milestones
                 checkMilestones();
@@ -4375,7 +5514,31 @@
         }
 
         function updateDebtSection() {
-            const debtData = calculateDebtData();
+            const debts = updateDebtPriority();
+            
+            let totalBalance = 0;
+            let totalPayments = 0;
+            let totalInterest = 0;
+            let debtCount = 0;
+            let highInterestCount = 0;
+            
+            debts.forEach(debt => {
+                totalBalance += debt.balance;
+                totalPayments += debt.minPayment;
+                totalInterest += debt.rate;
+                debtCount++;
+                
+                if (debt.rate > 10) {
+                    highInterestCount++;
+                }
+            });
+            
+            // Add mortgage
+            const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
+            totalBalance += mortgageBalance;
+            
+            // Calculate averages
+            const avgInterest = debtCount > 0 ? totalInterest / debtCount : 0;
             
             // Update displays
             const totalDebtBalance = document.getElementById('total-debt-balance');
@@ -4385,12 +5548,12 @@
             const totalDebtVal = document.getElementById('total-debt-val');
             const autoDebtTotal = document.getElementById('auto-debt-total');
             
-            if (totalDebtBalance) totalDebtBalance.textContent = `$${Math.round(debtData.totalBalance).toLocaleString()}`;
-            if (totalDebtPayments) totalDebtPayments.textContent = `$${Math.round(debtData.totalPayments).toLocaleString()}`;
-            if (avgInterestRate) avgInterestRate.textContent = `${debtData.avgInterest.toFixed(1)}%`;
-            if (highInterestCountEl) highInterestCountEl.textContent = debtData.highInterestCount;
-            if (totalDebtVal) totalDebtVal.textContent = `$${Math.round(debtData.totalBalance).toLocaleString()}`;
-            if (autoDebtTotal) autoDebtTotal.textContent = `$${Math.round(debtData.totalBalance - debtData.mortgageBalance).toLocaleString()}`;
+            if (totalDebtBalance) totalDebtBalance.textContent = `$${Math.round(totalBalance).toLocaleString()}`;
+            if (totalDebtPayments) totalDebtPayments.textContent = `$${Math.round(totalPayments).toLocaleString()}`;
+            if (avgInterestRate) avgInterestRate.textContent = `${avgInterest.toFixed(1)}%`;
+            if (highInterestCountEl) highInterestCountEl.textContent = highInterestCount;
+            if (totalDebtVal) totalDebtVal.textContent = `$${Math.round(totalBalance).toLocaleString()}`;
+            if (autoDebtTotal) autoDebtTotal.textContent = `$${Math.round(totalBalance - mortgageBalance).toLocaleString()}`;
             
             // Update DTI ratio
             const income = getMonthlyIncome();
@@ -4401,8 +5564,8 @@
             const countdownEl = document.getElementById('countdown-val');
             
             if (countdownEl) {
-                if (debtData.totalBalance > 0 && monthlySurplus > 0) {
-                    const months = Math.ceil(debtData.totalBalance / monthlySurplus);
+                if (totalBalance > 0 && monthlySurplus > 0) {
+                    const months = Math.ceil(totalBalance / monthlySurplus);
                     if (months < 12) {
                         countdownEl.textContent = `${months} months`;
                     } else {
@@ -4410,7 +5573,7 @@
                         const remainingMonths = months % 12;
                         countdownEl.textContent = `${years}y ${remainingMonths}m`;
                     }
-                } else if (debtData.totalBalance === 0) {
+                } else if (totalBalance === 0) {
                     countdownEl.textContent = "DEBT FREE";
                 } else {
                     countdownEl.textContent = "N/A";
@@ -4418,21 +5581,66 @@
             }
         }
 
-        function calculateTotalDebtPayments() {
-            let totalPayments = 0;
-            document.querySelectorAll('.debt-min-input').forEach(input => {
-                totalPayments += parseCurrency(input.value);
-            });
-            return totalPayments;
+       function getMonthlySurplus() {
+    // Calculate income directly
+    const paycheck = parseCurrency(document.getElementById('paycheck').value);
+    const freq = parseFloat(document.getElementById('freq').value) || 2;
+    
+    let income = 0;
+    if (freq === 1) income = paycheck;
+    else if (freq === 2) income = paycheck * 2;
+    else if (freq === 4) income = paycheck * 4.33;
+    else if (freq === 26) income = paycheck * 2.166;
+    else income = paycheck * 2;
+    
+    if (income <= 0) return 0;
+    
+    // Calculate expenses directly (no function calls!)
+    let totalExpenses = 0;
+    
+    // 1. Savings inputs
+    document.querySelectorAll('.savings-input').forEach(input => {
+        totalExpenses += parseCurrency(input.value);
+    });
+    
+    // 2. Debt minimum payments (from inputs only)
+    document.querySelectorAll('.debt-min-input').forEach(input => {
+        totalExpenses += parseCurrency(input.value);
+    });
+    
+    // 3. Mortgage
+    totalExpenses += parseCurrency(document.getElementById('mortgage-balance').value) * 0.005; // Rough estimate
+    
+    // 4. Tier expenses (simplified)
+    const tierInputs = [
+        'housing', 'property-taxes', 'utilities', 'groceries', 'transportation',
+        'car-insurance', 'health-insurance', 'childcare', 'internet', 'phone',
+        'supplies', 'maintenance', 'security', 'gym', 'dining', 'shopping',
+        'streaming', 'cloud', 'pets-nonessential', 'charity', 'misc'
+    ];
+    
+    tierInputs.forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+            totalExpenses += parseCurrency(input.value);
         }
-
+    });
+    
+    // Return surplus
+    return income - totalExpenses;
+}
         function updateChart() {
             if (!myChart) return;
             
             // Get current data
             const income = getMonthlyIncome();
             const allocations = calculateTierAllocations();
-            const debtPayments = calculateTotalDebtPayments();
+            const debts = updateDebtPriority();
+            
+            let debtPayments = 0;
+            debts.forEach(debt => {
+                debtPayments += debt.minPayment;
+            });
             
             const tier1 = allocations.tier1Total;
             const tier2 = allocations.tier2Total;
@@ -4590,9 +5798,14 @@
             return budgetData;
         }
 
-        function getMonthlySurplus() {
+        function calculateBudgetData() {
             const income = getMonthlyIncome();
+            
+            // Calculate totals from drag & drop
             const allocations = calculateTierAllocations();
+            const tier1Total = allocations.tier1Total;
+            const tier2Total = allocations.tier2Total;
+            const tier3Total = allocations.tier3Total;
             
             // Get savings total
             let savingsTotal = 0;
@@ -4600,13 +5813,64 @@
                 savingsTotal += parseCurrency(input.value);
             });
             
-            const debtPayments = calculateTotalDebtPayments();
+            // Get debt payments
+            const debts = updateDebtPriority();
+            let debtPayments = 0;
+            debts.forEach(debt => {
+                debtPayments += debt.minPayment;
+            });
             
-            const totalExpenses = allocations.tier1Total + allocations.tier2Total + allocations.tier3Total + savingsTotal + debtPayments;
-            return income - totalExpenses;
+            // Calculate totals
+            const totalExpenses = tier1Total + tier2Total + tier3Total + savingsTotal + debtPayments;
+            const monthlySurplus = income - totalExpenses;
+            
+            // Calculate percentages (EXCLUDING debt payments from these percentages)
+            const needsPercent = income > 0 ? (tier1Total / income * 100) : 0;
+            const wantsPercent = income > 0 ? (tier3Total / income * 100) : 0;
+            const savingsPercent = income > 0 ? (savingsTotal / income * 100) : 0;
+            
+            // Get housing cost
+            let housingCost = 0;
+            
+            // Check for housing expense in currentExpenses
+            if (currentExpenses.tier1 && Array.isArray(currentExpenses.tier1)) {
+                const housingExpense = currentExpenses.tier1.find(exp => exp.id === 'housing');
+                if (housingExpense) {
+                    housingCost = parseCurrency(housingExpense.amount);
+                }
+            }
+            
+            // Also check custom expenses
+            if (customExpenses && Array.isArray(customExpenses)) {
+                const customHousing = customExpenses.find(exp => exp.id === 'housing');
+                if (customHousing) {
+                    housingCost = parseCurrency(customHousing.amount);
+                }
+            }
+            
+            // Fallback: Check legacy input if it exists
+            const legacyHousingInput = document.getElementById('housing');
+            if (legacyHousingInput && legacyHousingInput.value) {
+                housingCost = parseCurrency(legacyHousingInput.value);
+            }
+            
+            return {
+                tier1Total,
+                tier2Total,
+                tier3Total,
+                savingsTotal,
+                debtPayments,
+                totalExpenses,
+                monthlySurplus,
+                needsPercent,
+                wantsPercent,
+                savingsPercent,
+                housingCost
+            };
         }
 
         function updateAssetsSection() {
+            const budgetData = calculateBudgetData();
             const assetsData = calculateAssetsData();
             
             // Update displays
@@ -4668,6 +5932,66 @@
             }
             
             return assetsData;
+        }
+
+        function calculateAssetsData() {
+            // Get asset values
+            const emergencyFund = parseCurrency(document.getElementById('current-iron-pot').value);
+            const retirement = parseCurrency(document.getElementById('current-retirement').value);
+            const houseValue = parseCurrency(document.getElementById('house-value').value);
+            const otherAssets = parseCurrency(document.getElementById('other-assets').value);
+            const mortgageBalance = parseCurrency(document.getElementById('mortgage-balance').value);
+            
+            // Get debt from debt section
+            const debts = updateDebtPriority();
+            let totalDebt = 0;
+            debts.forEach(debt => {
+                totalDebt += debt.balance;
+            });
+            totalDebt += mortgageBalance;
+            
+            // Calculate totals
+            const totalAssets = emergencyFund + retirement + houseValue + otherAssets;
+            const totalLiabilities = totalDebt;
+            const netWorth = totalAssets - totalLiabilities;
+            
+            // Calculate progress indicators
+            const budgetData = calculateBudgetData();
+            const tier1Total = budgetData.tier1Total;
+            
+            const emergencyMonths = tier1Total > 0 ? emergencyFund / tier1Total : 0;
+            
+            const age = parseInt(document.getElementById('user-age').value) || 35;
+            const income = getMonthlyIncome();
+            const annualIncome = income * 12;
+            
+            // Retirement targets based on age
+            let retirementTarget = 0;
+            if (age <= 30) retirementTarget = annualIncome * 1;
+            else if (age <= 40) retirementTarget = annualIncome * 3;
+            else if (age <= 50) retirementTarget = annualIncome * 6;
+            else if (age <= 60) retirementTarget = annualIncome * 8;
+            else retirementTarget = annualIncome * 10;
+            
+            const retirementProgress = retirementTarget > 0 ? (retirement / retirementTarget * 100) : 0;
+            const equityProgress = houseValue > 0 ? ((houseValue - mortgageBalance) / houseValue * 100) : 0;
+            
+            return {
+                totalAssets,
+                totalLiabilities,
+                netWorth,
+                emergencyMonths,
+                retirementProgress,
+                equityProgress,
+                emergencyFund,
+                retirement,
+                houseValue,
+                mortgageBalance,
+                age,
+                income,
+                annualIncome,
+                retirementTarget
+            };
         }
 
         function updateScoreSection() {
@@ -4938,6 +6262,7 @@
                 userStats.sessions = (parsed.sessions || 0) + 1;
                 userStats.dataPoints = parsed.dataPoints || 0;
                 userStats.achievements = parsed.achievements || [];
+                userStats.milestones = parsed.milestones || [];
             }
         }
 
@@ -4985,45 +6310,16 @@
             
             // Show popup for new achievements
             newAchievements.forEach(achievement => {
-                showAchievementPopup(achievement.key);
+                triggerCelebration('achievement', achievement.name);
             });
-        }
-
-        function showAchievementPopup(achievementKey) {
-            const achievement = achievements[achievementKey];
-            if (!achievement) return;
             
-            const popup = document.createElement('div');
-            popup.className = 'achievement-popup';
-            popup.innerHTML = `
-                <div class="text-3xl mb-2">
-                    <i class="fas fa-trophy text-${achievement.tier === 'gold' ? 'yellow' : achievement.tier === 'silver' ? 'gray' : 'bronze'}-400"></i>
-                </div>
-                <h4 class="text-lg font-bold mb-1">Achievement Unlocked!</h4>
-                <div class="text-sm font-bold mb-2">${achievement.name}</div>
-                <div class="text-xs text-gray-300 mb-4">${achievement.desc}</div>
-                <button onclick="this.parentElement.classList.remove('show')" class="text-xs bg-crimson hover:bg-red-700 px-4 py-2 rounded transition">
-                    Awesome!
-                </button>
-            `;
-            
-            document.getElementById('main-body').appendChild(popup);
-            
-            setTimeout(() => {
-                popup.classList.add('show');
-            }, 100);
-            
-            setTimeout(() => {
-                popup.classList.remove('show');
-                setTimeout(() => {
-                    if (popup.parentNode) popup.parentNode.removeChild(popup);
-                }, 300);
-            }, 3000);
+            // Save updated stats
+            localStorage.setItem('raf_lab_stats', JSON.stringify(userStats));
         }
 
         function saveProfile() {
             const data = {
-                version: 'raf_lab',
+                version: 'raf_lab_v2',
                 paycheck: document.getElementById('paycheck').value,
                 freq: document.getElementById('freq').value,
                 age: document.getElementById('user-age').value,
@@ -5032,6 +6328,8 @@
                 houseValue: document.getElementById('house-value').value,
                 otherAssets: document.getElementById('other-assets').value,
                 mortgageBalance: document.getElementById('mortgage-balance').value,
+                extraPayment: document.getElementById('extra-payment').value,
+                payoffStrategy: currentPayoffStrategy,
                 savings: {}
             };
             
@@ -5046,6 +6344,7 @@
             document.querySelectorAll('#debt-body tr').forEach(row => {
                 const debt = {
                     name: row.querySelector('.debt-name-input')?.value || '',
+                    type: row.querySelector('.debt-type-select')?.value || 'other',
                     min: row.querySelector('.debt-min-input')?.value || '0',
                     balance: row.querySelector('.debt-balance-input')?.value || '0',
                     rate: row.querySelector('.debt-rate-input')?.value || '0'
@@ -5106,6 +6405,17 @@
             document.getElementById('other-assets').value = data.otherAssets || '';
             document.getElementById('mortgage-balance').value = data.mortgageBalance || '';
             
+            // Load extra payment
+            if (data.extraPayment) {
+                document.getElementById('extra-payment').value = data.extraPayment;
+            }
+            
+            // Load payoff strategy
+            if (data.payoffStrategy) {
+                currentPayoffStrategy = data.payoffStrategy;
+                setPayoffStrategy(data.payoffStrategy);
+            }
+            
             // Load savings categories
             if (data.savings) {
                 budgetCategories.savings.forEach(cat => {
@@ -5126,6 +6436,7 @@
                         if (rows[index]) {
                             const row = rows[index];
                             row.querySelector('.debt-name-input').value = debt.name || '';
+                            row.querySelector('.debt-type-select').value = debt.type || 'other';
                             row.querySelector('.debt-min-input').value = debt.min || '0';
                             row.querySelector('.debt-balance-input').value = debt.balance || '0';
                             row.querySelector('.debt-rate-input').value = debt.rate || '0';
@@ -5138,6 +6449,7 @@
             setTimeout(() => {
                 calculateAll();
                 updateJourneyTracker();
+                updateDebtPriority();
             }, 200);
         }
 
@@ -5172,7 +6484,7 @@
         function showPillarInfo(pillar) {
             const info = {
                 budgeting: '50% or less on needs, 30% or less on wants, 20% or more to savings/debt repayment.',
-                debt: 'Debt-to-income ratio should be ≤36%. High-interest debt (>25%) reduces your score.',
+                debt: 'Debt-to-income ratio should be ≤36%. High-interest debt (>10%) reduces your score.',
                 emergency: 'Emergency fund should cover 3-6 months of essential expenses.',
                 retirement: 'Age-based targets: 30s = 1x income, 40s = 3x, 50s = 6x, 60s = 8x.',
                 realestate: 'Housing costs should be ≤28% of income. Higher home equity improves score.'
@@ -5330,8 +6642,9 @@
         function shareProgress() {
             const score = document.getElementById('sovereignty-score').textContent;
             const surplus = document.getElementById('surplus-val').textContent;
+            const journeyStage = document.querySelector('.journey-stage.active .stage-title')?.textContent || 'Starting out';
             
-            const shareText = `My Sovereignty Score: ${score}/100 | Monthly Surplus: ${surplus}\n\nTrack your financial progress with Real American Finance Lab.`;
+            const shareText = `My Sovereignty Score: ${score}/100 | Monthly Surplus: ${surplus} | Current Stage: ${journeyStage}\n\nTrack your financial progress with Real American Finance Lab.`;
             
             if (navigator.share) {
                 navigator.share({
