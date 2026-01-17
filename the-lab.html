@@ -4156,7 +4156,15 @@
             const name = nameInput.value || 'Unnamed Debt';
             const minPayment = parseCurrency(minInput?.value) || 0;
             const type = typeSelect?.value || 'other';
-            
+            // --- AUTO-FILL MORTGAGE START ---
+                    // If the dropdown is set to mortgage, copy the number to section 04
+                    if (type === 'mortgage') {
+                        const targetBox = document.getElementById('mortgage-balance');
+                        if (targetBox) {
+                            targetBox.value = balanceInput.value;
+                        }
+                    }
+                    // --- AUTO-FILL MORTGAGE END ---
             if (balance > 0) {
                 debts.push({
                     id: row.id,
