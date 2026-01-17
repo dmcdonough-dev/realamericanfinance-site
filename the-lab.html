@@ -4026,33 +4026,58 @@
             const debts = [];
             
             // Collect all debts
-            debtRows.forEach((row, index) => {
-                const rateInput = row.querySelector('.debt-rate-input');
-                const balanceInput = row.querySelector('.debt-balance-input');
-                const nameInput = row.querySelector('.debt-name-input');
-                const minInput = row.querySelector('.debt-min-input');
-                const typeSelect = row.querySelector('.debt-type-select');
-                
-                if (rateInput && balanceInput && nameInput) {
-                    const rate = parseFloat(rateInput.value) || 0;
-                    const balance = parseCurrency(balanceInput.value) || 0;
-                    const name = nameInput.value || 'Unnamed Debt';
-                    const minPayment = parseCurrency(minInput?.value) || 0;
-                    const type = typeSelect?.value || 'other';
-                    
-                    if (balance > 0) {
-                        debts.push({
-                            id: row.id,
-                            name: name,
-                            type: type,
-                            rate: rate,
-                            balance: balance,
-                            minPayment: minPayment,
-                            priority: calculateDebtPriorityScore(rate, balance, type)
-                        });
+     debtRows.forEach((row) => {
+        const rateInput = row.querySelector('.debt-rate-input');
+        const balanceInput = row.querySelector('.debt-balance-input');
+        const nameInput = row.querySelector('.debt-name-input');
+        const minInput = row.querySelector('.debt-min-input');
+        const typeSelect = row.querySelector('.debt-type-select');
+        
+        if (rateInput && balanceInput && nameInput) {
+            const rate = parseFloat(rateInput.value) || 0;
+            const balance = parseCurrency(balanceInput.value) || 0;
+            const name = nameInput.value || 'Unnamed Debt';
+            const minPayment = parseCurrency(minInput?.value) || 0;
+            const type = typeSelect?.value || 'other';
+
+ // --- THE MORTGAGE REDIRECT ---
+            if (type === 'mortgage') {
+                // 1. Update Asset Section (Section 04) - This part works!
+                const targetBox = document.getElementById('mortgage-balance');
+                if (targetBox) {
+                    targetBox.value = balanceInput.value;
+                }
+
+                // 2. Update the "Source Data" for the Budget (Section 03)
+                // We find the 'housing' item in your expense list and update its amount
+                if (currentExpenses && currentExpenses.tier1) {
+                    const housingExpense = currentExpenses.tier1.find(exp => exp.id === 'housing');
+                    if (housingExpense) {
+                        housingExpense.amount = minInput.value;
+                        // This triggers the Drag & Drop system to show the new number
+                        renderAllExpenses(); 
                     }
                 }
-            });
+
+                // 3. EXIT
+                return; 
+            }
+            // --- REGULAR DEBT (Credit Cards, etc.) ---
+            if (balance > 0) {
+                debts.push({
+                    id: row.id,
+                    name: name,
+                    type: type,
+                    rate: rate,
+                    balance: balance,
+                    minPayment: minPayment,
+                    // We check if the scoring function exists so it doesn't crash
+                    priority: typeof calculateDebtPriorityScore === 'function' ? 
+                              calculateDebtPriorityScore(rate, balance, type) : 0
+                });
+            }
+        }
+    });
             
             // Sort debts based on current strategy
             if (currentPayoffStrategy === 'avalanche') {
@@ -4156,15 +4181,24 @@
             const name = nameInput.value || 'Unnamed Debt';
             const minPayment = parseCurrency(minInput?.value) || 0;
             const type = typeSelect?.value || 'other';
-            // --- AUTO-FILL MORTGAGE START ---
-                    // If the dropdown is set to mortgage, copy the number to section 04
-                    if (type === 'mortgage') {
-                        const targetBox = document.getElementById('mortgage-balance');
-                        if (targetBox) {
-                            targetBox.value = balanceInput.value;
-                        }
-                    }
-                    // --- AUTO-FILL MORTGAGE END ---
+           // --- MORTGAGE AUTO-FILL START ---
+            if (type === 'mortgage') {
+                // This updates the Liability balance in Section 04
+                const targetBox = document.getElementById('mortgage-balance');
+                if (targetBox) {
+                    targetBox.value = balanceInput.value;
+                }
+
+                // This updates the Housing box in Section 03 (The Budget)
+                const housingBox = document.getElementById('housing');
+                if (housingBox) {
+                    housingBox.value = minInput.value;
+                }
+
+                // This tells the computer: "I handled the mortgage, skip the rest of this row!"
+                return; 
+            }
+            // --- MORTGAGE AUTO-FILL END ---
             if (balance > 0) {
                 debts.push({
                     id: row.id,
