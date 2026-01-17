@@ -20,6 +20,15 @@
         input[type="number"] { 
             -moz-appearance: textfield; 
         }
+		
+		.scenario-card {
+            transition: all 0.3s ease;
+        }
+        .scenario-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
         
         .dashboard-card { background: #0A1A2F; border: 1px solid rgba(255,255,255,0.05); }
         .input-underlined { 
@@ -1103,6 +1112,237 @@
                 padding: 0.625rem;
             }
         }
+		
+/* ===== SCENARIO PLANNING STYLES ===== */
+
+.scenario-quick-buttons {
+
+  margin-bottom: 1.5rem;
+
+}
+
+
+
+.scenario-btn {
+
+  background: rgba(255, 255, 255, 0.03);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 6px;
+
+  padding: 0.75rem;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition: all 0.3s;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  height: 100%;
+
+}
+
+
+
+.scenario-btn:hover {
+
+  background: rgba(148, 85, 211, 0.1);
+
+  border-color: #9455D3;
+
+  transform: translateY(-2px);
+
+}
+
+
+
+.scenario-btn i {
+
+  font-size: 1.25rem;
+
+  margin-bottom: 0.5rem;
+
+  color: #9455D3;
+
+}
+
+
+
+.scenario-builder {
+
+  background: rgba(10, 26, 47, 0.5);
+
+}
+
+
+
+.scenario-label {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  font-size: 0.8rem;
+
+  color: rgba(255, 255, 255, 0.8);
+
+  margin-bottom: 0.5rem;
+
+}
+
+
+
+.scenario-slider {
+
+  width: 100%;
+
+  height: 6px;
+
+  -webkit-appearance: none;
+
+  background: rgba(255, 255, 255, 0.1);
+
+  border-radius: 3px;
+
+  outline: none;
+
+}
+
+
+
+.scenario-slider::-webkit-slider-thumb {
+
+  -webkit-appearance: none;
+
+  width: 18px;
+
+  height: 18px;
+
+  border-radius: 50%;
+
+  background: #9455D3;
+
+  cursor: pointer;
+
+  border: 2px solid #0A1A2F;
+
+  box-shadow: 0 0 5px rgba(148, 85, 211, 0.5);
+
+}
+
+
+
+.scenario-slider::-moz-range-thumb {
+
+  width: 18px;
+
+  height: 18px;
+
+  border-radius: 50%;
+
+  background: #9455D3;
+
+  cursor: pointer;
+
+  border: 2px solid #0A1A2F;
+
+}
+
+
+
+.scenario-run-btn {
+
+  background: linear-gradient(135deg, #9455D3, #B22234);
+
+  border: none;
+
+  color: white;
+
+  padding: 0.5rem 1rem;
+
+  border-radius: 4px;
+
+  font-size: 0.8rem;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: all 0.3s;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex: 1;
+
+}
+
+
+
+.scenario-run-btn:hover {
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 4px 12px rgba(148, 85, 211, 0.3);
+
+}
+
+
+
+.scenario-compare-btn {
+
+  background: rgba(255, 255, 255, 0.05);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  color: rgba(255, 255, 255, 0.7);
+
+  padding: 0.5rem 1rem;
+
+  border-radius: 4px;
+
+  font-size: 0.8rem;
+
+  cursor: pointer;
+
+  transition: all 0.3s;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex: 1;
+
+}
+
+
+
+.scenario-compare-btn:hover {
+
+  background: rgba(178, 34, 52, 0.1);
+
+  border-color: #B22234;
+
+  color: white;
+
+}
+		
         
         /* NEW STYLES FOR ENHANCED FEATURES */
         
@@ -1510,7 +1750,109 @@
                     <span id="timeline-estimate">Start by entering income above</span>
                 </div>
             </div>
-            
+			
+<div class="dashboard-card p-4 md:p-6 lg:p-8 shadow-2xl" id="scenario-section">
+    <div class="flex justify-between items-center mb-4 md:mb-6">
+        <h3 class="text-lg md:text-xl font-heading font-bold uppercase border-l-2 border-[#9455D3] pl-3 md:pl-4">03.5 Scenario Planning</h3>
+        <div class="flex items-center space-x-2">
+            <button onclick="resetScenario()" class="text-xs bg-red-900/30 hover:bg-red-800/50 px-2 py-1 rounded transition">
+                <i class="fas fa-undo mr-1"></i> Reset
+            </button>
+        </div>
+    </div>
+
+    <div class="scenario-quick-buttons mb-6">
+        <div class="text-xs uppercase text-gray-400 mb-3">Quick Scenarios</div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <button onclick="runScenario('income_increase_10')" class="scenario-btn">
+                <i class="fas fa-arrow-up"></i>
+                <div>Income +10%</div>
+                <div class="text-[10px] text-gray-400">Boost earnings</div>
+            </button>
+            <button onclick="runScenario('debt_refinance')" class="scenario-btn">
+                <i class="fas fa-percentage"></i>
+                <div>Refinance</div>
+                <div class="text-[10px] text-gray-400">Lower APRs</div>
+            </button>
+            <button onclick="runScenario('emergency_expense')" class="scenario-btn">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>$5K Hit</div>
+                <div class="text-[10px] text-gray-400">Emergency</div>
+            </button>
+            <button onclick="runScenario('side_hustle_500')" class="scenario-btn">
+                <i class="fas fa-briefcase"></i>
+                <div>Side Hustle</div>
+                <div class="text-[10px] text-gray-400">+$500/mo</div>
+            </button>
+        </div>
+    </div>
+
+    <div class="scenario-builder mb-6 p-4 rounded border border-white/10">
+        <h4 class="text-sm font-bold mb-4 flex items-center">
+            <i class="fas fa-sliders-h mr-2 text-[#9455D3]"></i> Custom Scenario Builder
+        </h4>
+
+        <div class="space-y-4">
+            <div class="scenario-input">
+                <label class="scenario-label">
+                    <span>Income Change: <span id="income-change-display" class="font-bold">0%</span></span>
+                </label>
+                <input type="range" id="income-change" min="-50" max="50" value="0" class="scenario-slider" oninput="updateScenarioSlider('income')">
+            </div>
+
+            <div class="scenario-input">
+                <label class="scenario-label">
+                    <span>Side Hustle Income: $<span id="side-hustle-display" class="font-bold">0</span>/mo</span>
+                </label>
+                <input type="range" id="side-hustle" min="0" max="5000" value="0" step="100" class="scenario-slider" oninput="updateScenarioSlider('side-hustle')">
+            </div>
+
+            <div class="scenario-input">
+                <label class="scenario-label">
+                    <span>One-Time Emergency: $<span id="emergency-cost-display" class="font-bold">0</span></span>
+                </label>
+                <input type="range" id="emergency-cost" min="0" max="10000" value="0" step="500" class="scenario-slider" oninput="updateScenarioSlider('emergency')">
+            </div>
+
+            <div class="scenario-input">
+                <label class="scenario-label">
+                    <span>Cut Spending: <span id="spending-cut-display" class="font-bold">0%</span></span>
+                </label>
+                <input type="range" id="spending-cut" min="0" max="100" value="0" class="scenario-slider" oninput="updateScenarioSlider('spending')">
+            </div>
+
+            <div class="flex gap-2 mt-4">
+                <button onclick="runCustomScenario()" class="scenario-run-btn">
+                    <i class="fas fa-play mr-2"></i> Run Scenario
+                </button>
+                <button onclick="resetScenario()" class="scenario-compare-btn">
+                    <i class="fas fa-exchange-alt mr-2"></i> Compare
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="scenario-results-panel">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div class="result-item">
+                <div class="result-label">Debt Free Year</div>
+                <div id="scenario-debt-free" class="result-value">N/A</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Iron Pot Months</div>
+                <div id="scenario-emergency" class="result-value">N/A</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Monthly Surplus</div>
+                <div id="scenario-surplus" class="result-value">N/A</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Sovereignty Score</div>
+                <div id="scenario-score" class="result-value">N/A</div>
+            </div>
+        </div>
+    </div>
+</div>
             <!-- Progress Bar -->
             <div class="mt-4">
                 <div class="flex justify-between text-xs mb-1">
@@ -2471,84 +2813,51 @@
         
         // ===== JOURNEY TRACKER VARIABLES =====
         
-        // Journey stage definitions and criteria
+// Journey stage definitions and criteria
         const journeyStages = [
-            // ===== PHASE 01: THE ARCHITECTURE (FREE) =====
+            // ===== PHASE 01: THE FOUNDATION (Steps 1-4) =====
             {
                 id: 1,
                 phase: 'architecture',
-                name: 'Survival Baseline',
-                description: '1 month emergency fund, stop bleeding',
+                name: 'The Foundation',
+                description: 'Debt killed, 401k match, 1-mo buffer',
                 criteria: {
-                    emergencyMonths: 1,           // 1 month of Tier 1 expenses
+                    emergencyMonths: 1,           // 1 month of essential expenses
                     cashFlowPositive: true,       // Monthly surplus ≥ $0
-                    highInterestDebt: 25          // No debt > 25% APR (starting point)
+                    highInterestDebt: 10          // No debt > 10% APR
                 },
                 unlocked: true
             },
+            // ===== PHASE 02: THE FORTRESS (Steps 5-9) =====
             {
                 id: 2,
                 phase: 'architecture',
-                name: 'Debt Engagement',
-                description: 'Attack >10% APR debt, build 3-month fund',
+                name: 'The Fortress',
+                description: 'Roth maxed, 6-mo fund, mortgage attack',
                 criteria: {
-                    emergencyMonths: 3,           // 3 months of Tier 1 expenses
-                    highInterestDebt: 15,         // No debt > 15% APR
-                    savingsRate: 0.05             // 5% savings rate
+                    emergencyMonths: 6,           // Full 6-month cushion
+                    savingsRate: 0.15,            // 15% Savings rate (for Roth/Investments)
+                    hasMortgagePlan: true         // Ready to pound the mortgage
                 },
                 unlocked: true
             },
+            // ===== PHASE 03: THE IRON POT (Steps 10-11) =====
             {
                 id: 3,
                 phase: 'architecture',
-                name: 'Iron Pot Complete',
-                description: '6-month fund, debt neutralized',
+                name: 'The Iron Pot',
+                description: 'Wealth building & giving phase',
                 criteria: {
-                    emergencyMonths: 6,           // 6 months of Tier 1 expenses
-                    highInterestDebt: 10,         // No debt > 10% APR
-                    savingsRate: 0.15,            // 15% savings rate
-                    canSurviveIncomeDrop: 0.25    // Survive 25% income drop
+                    emergencyMonths: 6,
+                    savingsRate: 0.20,            // Aggressive wealth building
+                    netWorthGrowth: true          // Positive trajectory
                 },
                 unlocked: true
             },
-            {
-                id: 4,
-                phase: 'architecture',
-                name: 'Architecture Active',
-                description: 'Full Phase 01 complete',
-                criteria: {
-                    emergencyMonths: 6,           // 6 months of Tier 1 expenses ✓
-                    highInterestDebt: 10,         // No debt > 10% APR ✓
-                    savingsRate: 0.20,            // 20%+ savings rate ✓
-                    canSurviveIncomeDrop: 0.50    // Survive 50% income drop ✓
-                },
-                unlocked: true
-            },
-            // ===== PHASE 02: THE EXPANSION (PREMIUM) =====
-            {
-                id: 5,
-                phase: 'expansion',
-                name: 'High-Leverage Earning',
-                description: 'Income 1.5x expenses, tax optimization',
-                criteria: {
-                    incomeToExpenseRatio: 1.5,    // Income covers expenses 1.5x
-                    taxAdvantagedPercent: 0.15,   // 15% in tax-advantaged accounts
-                    unlocked: false               // Premium feature
-                },
-                unlocked: false
-            },
-            // ===== PHASE 03: SOVEREIGNTY (MASTERY) =====
-            {
-                id: 9,
-                phase: 'sovereignty',
-                name: 'Direct Ownership',
-                description: 'Control cash-flow assets',
-                criteria: {
-                    directAssetControl: 0.3,      // 30% assets under direct control
-                    unlocked: false               // Mastery feature
-                },
-                unlocked: false
-            }
+            // Remaining IDs (4, 5, 9) kept as placeholders to avoid breaking existing UI loops
+            { id: 4, phase: 'expansion', name: 'Legacy Active', description: 'Giving and estate planning complete', criteria: {}, unlocked: true },
+            { id: 5, phase: 'expansion', name: 'Expansion', description: 'Premium content', criteria: {}, unlocked: false },
+            { id: 9, phase: 'sovereignty', name: 'Mastery', description: 'Premium content', criteria: {}, unlocked: false }
         ];
         
         // Achievement definitions
@@ -4028,105 +4337,95 @@
 
         // ===== ACTION PLAN FUNCTIONS =====
 
-        function updateActionPlan() {
-            const budgetData = calculateBudgetData();
-            const debtData = calculateDebtData();
-            const assetsData = calculateAssetsData();
-            const income = getMonthlyIncome();
-            
-            let actionTitle = '';
-            let actionDescription = '';
-            let priorityLevel = 'Medium';
-            let timelineEstimate = '';
-            
-            // Determine current stage and next action
-            if (income <= 0) {
-                actionTitle = 'Enter your monthly income';
-                actionDescription = 'Start by entering your net monthly income in the Income section above.';
-                priorityLevel = 'High';
-                timelineEstimate = 'Complete now to get started';
-            } else if (assetsData.emergencyMonths < 1) {
-                const needed = 1 - assetsData.emergencyMonths;
-                const monthlyNeeded = budgetData.tier1Total * needed;
-                actionTitle = 'Build 1-month emergency fund';
-                actionDescription = `Save $${Math.round(monthlyNeeded).toLocaleString()} to cover 1 month of essential expenses.`;
-                priorityLevel = 'High';
-                timelineEstimate = `~${Math.ceil(monthlyNeeded / budgetData.monthlySurplus)} months at current rate`;
-            } else if (debtData.highInterestCount > 0) {
-                // Find highest interest debt
-                let highestInterestDebt = null;
-                let highestRate = 0;
-                
-                document.querySelectorAll('#debt-body tr').forEach(row => {
-                    const rateInput = row.querySelector('.debt-rate-input');
-                    const nameInput = row.querySelector('.debt-name-input');
-                    const balanceInput = row.querySelector('.debt-balance-input');
-                    
-                    if (rateInput && nameInput && balanceInput) {
-                        const rate = parseFloat(rateInput.value) || 0;
-                        const balance = parseCurrency(balanceInput.value) || 0;
-                        const name = nameInput.value || 'Unnamed Debt';
-                        
-                        if (rate > highestRate && balance > 0) {
-                            highestRate = rate;
-                            highestInterestDebt = { name, rate, balance };
-                        }
-                    }
-                });
-                
-                if (highestInterestDebt) {
-                    actionTitle = `Attack ${highestInterestDebt.name} (${highestInterestDebt.rate}% APR)`;
-                    actionDescription = `This high-interest debt is costing you $${Math.round(highestInterestDebt.balance * highestInterestDebt.rate / 100 / 12).toLocaleString()} in interest monthly.`;
-                    priorityLevel = 'High';
-                    
-                    if (budgetData.monthlySurplus > 0) {
-                        const months = Math.ceil(highestInterestDebt.balance / budgetData.monthlySurplus);
-                        timelineEstimate = `~${months} months at current surplus`;
-                    } else {
-                        timelineEstimate = 'Increase surplus to start paying down';
-                    }
-                }
-            } else if (assetsData.emergencyMonths < 3) {
-                const needed = 3 - assetsData.emergencyMonths;
-                actionTitle = 'Build 3-month emergency fund';
-                actionDescription = `You have ${assetsData.emergencyMonths.toFixed(1)} months covered. Aim for 3 months for better security.`;
-                priorityLevel = 'Medium';
-                
-                if (budgetData.monthlySurplus > 0) {
-                    const monthsNeeded = Math.ceil((budgetData.tier1Total * needed) / budgetData.monthlySurplus);
-                    timelineEstimate = `~${monthsNeeded} months at current rate`;
-                }
-            } else if (budgetData.savingsPercent < 15) {
-                actionTitle = 'Increase savings rate to 15%';
-                actionDescription = `Your current savings rate is ${budgetData.savingsPercent.toFixed(1)}%. Aim for 15% to build wealth faster.`;
-                priorityLevel = 'Medium';
-                timelineEstimate = 'Adjust budget allocations above';
-            } else {
-                actionTitle = 'Maintain and optimize';
-                actionDescription = 'Great work! Your foundation is solid. Consider increasing retirement contributions or investment allocations.';
-                priorityLevel = 'Low';
-                timelineEstimate = 'Ongoing optimization';
-            }
-            
-            // Update action plan UI
-            const actionTitleEl = document.getElementById('current-action-title');
-            const actionDescriptionEl = document.getElementById('current-action-description');
-            const priorityEl = document.getElementById('action-plan-priority');
-            const timelineEl = document.getElementById('timeline-estimate');
-            
-            if (actionTitleEl) actionTitleEl.textContent = actionTitle;
-            if (actionDescriptionEl) actionDescriptionEl.textContent = actionDescription;
-            if (priorityEl) {
-                priorityEl.textContent = priorityLevel + ' Priority';
-                priorityEl.style.background = priorityLevel === 'High' ? '#B22234' : 
-                                            priorityLevel === 'Medium' ? '#F59E0B' : '#10B981';
-            }
-            if (timelineEl) timelineEl.textContent = timelineEstimate;
-            
-            // Update journey progress
-            updateJourneyProgress();
-        }
+function updateActionPlan() {
+    const budgetData = calculateBudgetData();
+    const debtData = calculateDebtData();
+    const assetsData = calculateAssetsData();
+    const income = getMonthlyIncome();
+    const userAge = parseInt(document.getElementById('user-age').value) || 0;
+    
+    let actionTitle = '';
+    let actionDescription = '';
+    let priorityLevel = 'Medium';
+    let timelineEstimate = '';
 
+    // Step 1: Stability Baseline
+    if (income <= 0) {
+        actionTitle = 'Enter Your Income';
+        actionDescription = 'Start by entering your net income to activate your Iron Pot plan.';
+        priorityLevel = 'High';
+    } 
+    // Step 2 & 3: High-Interest Debt & Buffer
+    else if (assetsData.emergencyMonths < 1) {
+        actionTitle = '1-Month Essential Buffer';
+        actionDescription = 'Build a 1-month cushion in a HYSA before attacking debt.';
+        priorityLevel = 'High';
+    } 
+    else if (debtData.highInterestCount > 0) {
+        actionTitle = 'Kill High-Interest Debt (>10%)';
+        actionDescription = 'Aggressively target debts with interest rates above 10% APR.';
+        priorityLevel = 'High';
+    }
+    // Step 4: Employer Match
+    else if (parseCurrency(document.getElementById('retirement').value) <= 0) {
+        actionTitle = 'Capture Employer Match';
+        actionDescription = 'Ensure you are contributing enough to your 401(k) to get the free match.';
+        priorityLevel = 'High';
+    }
+    // Step 5: Low/Medium Debt (Student Loans/Car)
+    else if (debtData.totalBalance > 0 && debtData.highInterestCount === 0) {
+        actionTitle = 'Drain Medium/Low Debt';
+        actionDescription = 'Neutralize remaining debts (student/auto) to clear your cash flow.';
+        priorityLevel = 'Medium';
+    }
+    // Step 6: Roth IRA
+    else if (parseCurrency(document.getElementById('current-retirement').value) < 7000) {
+        actionTitle = 'Max Out Roth IRA';
+        actionDescription = 'Fill your tax-free bucket for 2026 ($7,000 individual limit).';
+        priorityLevel = 'Medium';
+    }
+    // Step 7: Full E-Fund
+    else if (assetsData.emergencyMonths < 6) {
+        actionTitle = 'Complete 6-Month E-Fund';
+        actionDescription = 'Build your full job-loss cushion for maximum sovereignty.';
+        priorityLevel = 'Medium';
+    }
+    // Step 8: Sinking Funds
+    else if (budgetData.monthlySurplus > 0 && assetsData.emergencyMonths >= 6) {
+        // We assume they move to sinking funds here
+        actionTitle = 'Fund Your Sinking Funds';
+        actionDescription = 'Save cash for known upcoming expenses (car, home repairs, life events).';
+        priorityLevel = 'Medium';
+    }
+    // Step 9: The Fortress (Age 46 Priority)
+    else if (userAge >= 45 && parseCurrency(document.getElementById('mortgage-balance').value) > 0) {
+        actionTitle = 'Pound the Mortgage Early';
+        actionDescription = 'Direct your surplus to accelerate mortgage payoff and build your fortress.';
+        priorityLevel = 'High';
+    }
+    // Step 10 & 11: The Iron Pot & Legacy
+    else {
+        actionTitle = 'Build the Iron Pot & Give';
+        actionDescription = 'You are in the wealth-building phase. Grow your taxable accounts and give back.';
+        priorityLevel = 'Low';
+    }
+
+    // Update the existing UI elements (No design changes)
+    const actionTitleEl = document.getElementById('current-action-title');
+    const actionDescriptionEl = document.getElementById('current-action-description');
+    const priorityEl = document.getElementById('action-plan-priority');
+    
+    if (actionTitleEl) actionTitleEl.textContent = actionTitle;
+    if (actionDescriptionEl) actionDescriptionEl.textContent = actionDescription;
+    if (priorityEl) {
+        priorityEl.textContent = priorityLevel + ' Priority';
+        priorityEl.style.background = priorityLevel === 'High' ? '#B22234' : priorityLevel === 'Medium' ? '#F59E0B' : '#10B981';
+    }
+	
+	
+    
+    updateJourneyProgress();
+}
         function updateJourneyProgress() {
             const stages = document.querySelectorAll('.journey-stage');
             let completedCount = 0;
@@ -4137,7 +4436,7 @@
                 }
             });
             
-            const totalStages = 4; // Only count Phase 01 stages
+            const totalStages = 3; // Only count Phase 01 stages
             const progressPercent = Math.round((completedCount / totalStages) * 100);
             
             const progressBar = document.getElementById('journey-progress-bar');
@@ -5475,6 +5774,9 @@ function updateScoreSection() {
                 
                 // Auto-save after calculation
                 autoSaveProfile();
+				
+				// Add this line right here:
+                if (typeof updateProResults === 'function') updateProResults();
                 
             } catch (error) {
                 console.error("Error in calculateAll:", error);
@@ -6683,6 +6985,203 @@ function updateScoreSection() {
                 showToast('Thank you for your feedback!');
             }
         }
+		
+		// --- FIXED SCENARIO PLANNING LOGIC ---
+    // Store original data to allow "Reset"
+let originalData = null;
+
+function captureState() {
+    if (!originalData) {
+        originalData = {
+            income: document.getElementById('monthly-paycheck').value,
+            cash: document.getElementById('current-iron-pot')?.value || document.getElementById('current-cash')?.value,
+            cc: document.getElementById('cc-debt')?.value || 0
+        };
+    }
+}
+
+function resetScenario() {
+    // Reset the main inputs
+    if (originalData) {
+        document.getElementById('monthly-paycheck').value = originalData.income;
+        // ... (rest of your reset logic)
+    }
+
+    // Reset the Sliders back to 0
+    document.getElementById('income-change').value = 0;
+    document.getElementById('side-hustle').value = 0;
+    document.getElementById('emergency-cost').value = 0;
+    document.getElementById('spending-cut').value = 0;
+    
+    // Update the displays next to sliders
+    updateScenarioSlider('income');
+    updateScenarioSlider('side-hustle');
+    updateScenarioSlider('emergency');
+    updateScenarioSlider('spending');
+
+    calculateAll();
+    showToast("Life Restored to Actuals");
+}
+
+function runScenario(type) {
+    captureState();
+    const msgBox = document.getElementById('scenario-msg');
+    const incomeInput = document.getElementById('monthly-paycheck');
+    const cashInput = document.getElementById('current-iron-pot') || document.getElementById('current-cash');
+    const ccInput = document.getElementById('cc-debt') || document.getElementById('debt-1-amount');
+
+    msgBox.classList.remove('hidden');
+    
+    if (type === 'job_loss') {
+        incomeInput.value = 0;
+        msgBox.innerHTML = "<strong>CRITICAL:</strong> Your paycheck is $0. Look at your Surplus—you are bleeding cash. Time to cut Tier 3 spending.";
+    } 
+    else if (type === 'emergency') {
+        let cash = parseFloat(cashInput.value) || 0;
+        if (cash >= 5000) {
+            cashInput.value = cash - 5000;
+            msgBox.innerHTML = "<strong>SUCCESS:</strong> You paid the $5,000 in cash. Your Fortress held. No debt created.";
+        } else {
+            let gap = 5000 - cash;
+            cashInput.value = 0;
+            if (ccInput) ccInput.value = (parseFloat(ccInput.value) || 0) + gap;
+            msgBox.innerHTML = `<strong>DEBT TRAP:</strong> You ran out of cash. $${gap.toLocaleString()} was put on a Credit Card at 20% interest.`;
+        }
+    }
+    else if (type === 'mortgage_attack') {
+        const surplus = getMonthlySurplus();
+        msgBox.innerHTML = `<strong>STRATEGY:</strong> You are diverting $${Math.round(surplus)} to principal. This buys back your sovereignty years earlier.`;
+    }
+    else if (type === 'income_up') {
+        incomeInput.value = Math.round(parseFloat(incomeInput.value) * 1.10);
+        msgBox.innerHTML = "<strong>OPPORTUNITY:</strong> 10% raise detected. Don't buy a car—put this extra cash into your Iron Pot.";
+    }
+
+    updateAllCalculations();
+    updateScenarioResults();
+}
+
+function updateScenarioResults() {
+    const assets = calculateAssetsData();
+    const surplus = getMonthlySurplus();
+    
+    document.getElementById('res-survival').textContent = assets.emergencyMonths.toFixed(1) + ' Mo';
+    document.getElementById('res-surplus').textContent = '$' + Math.round(surplus).toLocaleString();
+    document.getElementById('res-surplus-box').style.borderColor = surplus < 0 ? '#B22234' : '#10B981';
+    
+    // Sovereignty Score Brainstorm Logic: (Cash / Total Debt)
+    const totalDebt = calculateDebtData().totalBalance || 1; 
+    const score = Math.min(100, (assets.totalLiquid / totalDebt) * 100);
+    document.getElementById('res-sovereignty').textContent = Math.round(score) + '/100';
+    
+    document.getElementById('res-date').textContent = surplus > 0 ? 'Accelerated' : 'Delayed';
+}    
+		
+// --- PRO SCENARIO ENGINE: FINAL VERSION ---
+
+// 1. Label Updater: Makes the sliders show percentages and dollar amounts
+function updateScenarioSlider(type) {
+    const ids = {
+        'income': { input: 'income-change', display: 'income-change-display', suffix: '%' },
+        'side-hustle': { input: 'side-hustle', display: 'side-hustle-display', suffix: '' },
+        'emergency': { input: 'emergency-cost', display: 'emergency-cost-display', suffix: '' },
+        'spending': { input: 'spending-cut', display: 'spending-cut-display', suffix: '%' }
+    };
+    
+    const config = ids[type];
+    const input = document.getElementById(config.input);
+    const display = document.getElementById(config.display);
+    
+    if (input && display) {
+        let val = input.value;
+        display.textContent = (type === 'income' && val > 0 ? '+' : '') + val + config.suffix;
+    }
+}
+
+// 2. Quick Buttons: One-click stress tests
+function runScenario(type) {
+    const incInput = document.getElementById('monthly-paycheck');
+    const cashInput = document.getElementById('current-iron-pot') || document.getElementById('current-cash');
+
+    if (type === 'income_increase_10' && incInput) {
+        incInput.value = Math.round((parseFloat(incInput.value) || 0) * 1.1);
+    } else if (type === 'side_hustle_500' && incInput) {
+        incInput.value = (parseFloat(incInput.value) || 0) + 500;
+    } else if (type === 'emergency_expense' && cashInput) {
+        cashInput.value = Math.max(0, (parseFloat(cashInput.value) || 0) - 5000);
+    }
+
+    // This triggers your file's main math engine
+    if (typeof calculateAll === 'function') calculateAll();
+}
+
+// 3. Custom Run: Applies all sliders at once
+function runCustomScenario() {
+    const incomePercent = parseFloat(document.getElementById('income-change').value) / 100;
+    const sideHustle = parseFloat(document.getElementById('side-hustle').value);
+    const incInput = document.getElementById('monthly-paycheck');
+
+    if (incInput) {
+        // 1. Get current value and strip everything but numbers
+        let currentVal = parseFloat(incInput.value.replace(/[^\d.-]/g, '')) || 0;
+        
+        // 2. Calculate the boost
+        let newVal = Math.round(currentVal * (1 + incomePercent) + sideHustle);
+        
+        // 3. BYPASS THE MASK: Set value and then manually trigger your file's formatter
+        incInput.value = newVal;
+        if (typeof formatCurrency === 'function') {
+            formatCurrency(incInput); // This is the secret sauce for your file
+        }
+
+        // 4. Force the Lab to recalculate everything
+        incInput.dispatchEvent(new Event('input', { bubbles: true }));
+        incInput.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    if (typeof calculateAll === 'function') calculateAll();
+    showToast("Scenario Active: Income Updated.");
+}
+
+
+// 4. Results Panel: Updates the 4 "Pro" boxes
+function updateProResults() {
+    // We wrap these in try/catch so the whole page doesn't break if an ID is missing
+    try {
+        const surplus = typeof getMonthlySurplus === 'function' ? getMonthlySurplus() : 0;
+        const assets = typeof calculateAssetsData === 'function' ? calculateAssetsData() : { emergencyMonths: 0, totalLiquid: 0 };
+        const debts = typeof calculateDebtData === 'function' ? calculateDebtData() : { totalBalance: 0 };
+
+        const elSurplus = document.getElementById('scenario-surplus');
+        const elEmergency = document.getElementById('scenario-emergency');
+        const elDebtFree = document.getElementById('scenario-debt-free');
+        const elScore = document.getElementById('scenario-score');
+
+        if (elSurplus) elSurplus.textContent = '$' + Math.round(surplus).toLocaleString();
+        if (elEmergency) elEmergency.textContent = assets.emergencyMonths.toFixed(1) + ' Mo';
+        
+        if (elDebtFree) {
+            if (surplus <= 0) {
+                elDebtFree.textContent = 'NEVER';
+                elDebtFree.style.color = '#ef4444'; // Red
+            } else {
+                const months = (debts.totalBalance || 0) / surplus;
+                elDebtFree.textContent = new Date().getFullYear() + Math.floor(months / 12);
+                elDebtFree.style.color = 'white';
+            }
+        }
+
+        if (elScore) {
+            const score = (debts.totalBalance > 0) ? 
+                Math.min(100, (assets.totalLiquid / (debts.totalBalance * 0.1)) * 10) : 100;
+            elScore.textContent = Math.round(score) + '/100';
+        }
+    } catch (e) {
+        console.log("Scenario Result Update waiting for data...");
+    }
+}		
+
+		
     </script>
 </body>
 </html>
