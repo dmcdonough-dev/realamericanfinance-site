@@ -1063,56 +1063,53 @@
                     </div>
                 </div>
 
-                <!-- 06. Advanced Debt Strategy (MASTERY - LOCKED) -->
+                <!-- 06. Mastery Suite (MASTERY - LOCKED) -->
                 <div class="dashboard-card p-4 md:p-6 lg:p-8 shadow-2xl premium-locked">
                     <div class="flex justify-between items-center mb-4 md:mb-6">
                         <h3 class="text-lg md:text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-3 md:pl-4">
-                            06. Advanced Debt Strategy
+                            06. Mastery Suite
                             <span class="tier-badge tier-mastery ml-3">Mastery</span>
                         </h3>
                     </div>
                     
                     <div class="lock-badge">
                         <i class="fas fa-crown lock-icon" style="color: #A78BFA;"></i>
-                        <h4 class="text-xl font-bold mb-2">Mastery Feature</h4>
+                        <h4 class="text-xl font-bold mb-2">Mastery Feature Suite</h4>
                         <p class="text-sm text-gray-300 mb-4 max-w-md mx-auto">
-                            AI-powered debt optimization, custom payoff strategies, and real-time interest savings calculations.
+                            AI-powered debt optimization, investment portfolio tracking, real estate analysis, tax optimization, and advanced financial reporting.
                         </p>
                         <button onclick="showPricingModal()" class="upgrade-btn" style="background: linear-gradient(135deg, #9333ea, #6b21a8);">
-                            <i class="fas fa-sparkles mr-2"></i>Unlock for $49.99/mo
+                            <i class="fas fa-crown mr-2"></i>Unlock for $49.99/mo
                         </button>
                     </div>
                     
+                    <!-- Combined preview content showing both debt AND investment features -->
                     <div style="filter: blur(8px); opacity: 0.3;">
-                        <div class="space-y-3">
-                            <div class="bg-white/5 p-3 rounded">
-                                <div class="text-xs text-gray-400">Avalanche vs Snowball</div>
-                                <div class="text-sm">Potential savings: $4,523</div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-3">
+                                <div class="bg-white/5 p-3 rounded">
+                                    <div class="text-xs text-gray-400">AI Debt Optimization</div>
+                                    <div class="text-sm">Custom payoff strategies & savings</div>
+                                </div>
+                                <div class="bg-white/5 p-3 rounded">
+                                    <div class="text-xs text-gray-400">Investment Tracking</div>
+                                    <div class="text-sm">Portfolio analytics & performance</div>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="bg-white/5 p-3 rounded">
+                                    <div class="text-xs text-gray-400">Real Estate Analyzer</div>
+                                    <div class="text-sm">Property ROI & valuation</div>
+                                </div>
+                                <div class="bg-white/5 p-3 rounded">
+                                    <div class="text-xs text-gray-400">Tax Optimization</div>
+                                    <div class="text-sm">Maximize deductions & credits</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- 07. Investment Portfolio Tracker (MASTERY - LOCKED) -->
-                <div class="dashboard-card p-4 md:p-6 lg:p-8 shadow-2xl premium-locked">
-                    <div class="flex justify-between items-center mb-4 md:mb-6">
-                        <h3 class="text-lg md:text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-3 md:pl-4">
-                            07. Investment Portfolio Tracker
-                            <span class="tier-badge tier-mastery ml-3">Mastery</span>
-                        </h3>
-                    </div>
-                    
-                    <div class="lock-badge">
-                        <i class="fas fa-chart-line lock-icon" style="color: #A78BFA;"></i>
-                        <h4 class="text-xl font-bold mb-2">Mastery Feature</h4>
-                        <p class="text-sm text-gray-300 mb-4 max-w-md mx-auto">
-                            Track stocks, bonds, real estate, and alternative investments with real-time performance metrics.
-                        </p>
-                        <button onclick="showPricingModal()" class="upgrade-btn" style="background: linear-gradient(135deg, #9333ea, #6b21a8);">
-                            <i class="fas fa-sparkles mr-2"></i>Unlock Mastery
-                        </button>
-                    </div>
-                </div>
+              
 
             </div>
 
@@ -1489,6 +1486,69 @@
         // Mode state
         let isDetailedMode = false;
         let categoryValues = {}; // Store values when switching modes
+
+        // ===== MISSING FUNCTIONS - ADDED =====
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all data? This cannot be undone.')) {
+                // Clear inputs
+                document.getElementById('paycheck').value = '';
+                document.getElementById('freq').value = '2';
+                
+                // Clear debt rows
+                const debtBody = document.getElementById('debt-body');
+                const mobileDebtBody = document.getElementById('debt-body-mobile');
+                if (debtBody) debtBody.innerHTML = '';
+                if (mobileDebtBody) mobileDebtBody.innerHTML = '';
+                
+                // Clear budget categories
+                const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
+                
+                mode.needs.forEach(category => {
+                    const input = document.getElementById(category.id);
+                    if (input) input.value = '';
+                });
+                
+                mode.wants.forEach(category => {
+                    const input = document.getElementById(category.id);
+                    if (input) input.value = '';
+                });
+                
+                mode.savings.forEach(category => {
+                    const input = document.getElementById(category.id);
+                    if (input) input.value = '';
+                });
+                
+                // Clear localStorage
+                localStorage.removeItem('raf_lab_data');
+                
+                // Clear category values
+                categoryValues = {};
+                
+                // Reset mode
+                isDetailedMode = false;
+                const toggle = document.getElementById('modeToggle');
+                if (toggle) toggle.checked = false;
+                document.getElementById('budget-section').classList.remove('detailed-mode');
+                
+                // Update mode labels
+                const labels = document.querySelectorAll('.mode-label');
+                if (labels.length >= 2) {
+                    labels[0].classList.add('active');
+                    labels[1].classList.remove('active');
+                }
+                
+                // Add initial debt row
+                addDebtRow();
+                
+                // Reinitialize categories
+                initializeBudgetCategories();
+                
+                // Recalculate
+                calculateAll();
+                
+                showToast('All data cleared successfully');
+            }
+        }
 
         // ===== MODE TOGGLE FUNCTIONS =====
         function toggleBudgetMode() {
@@ -1953,14 +2013,6 @@
             URL.revokeObjectURL(url);
             showToast('Data exported successfully');
         }
-
-        // ===== KEEP EXISTING FUNCTIONS (with mode awareness) =====
-        // All other functions remain the same but will work with the mode system
-        // since they use calculateMonthlyEssentials() and calculateSurplus() 
-        // which have been updated for mode awareness
-
-        // ... [Keep all other existing functions from the previous version] ...
-        // I'm showing a few key ones that need to stay:
 
         // ===== MORTGAGE AUTO-POPULATION FUNCTIONS =====
         function autoPopulateHousingFromMortgage() {
