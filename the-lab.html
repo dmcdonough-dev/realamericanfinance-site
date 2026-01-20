@@ -499,19 +499,93 @@
         .priority-medium { background: rgba(59, 130, 246, 0.2); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.3); }
         .priority-low { background: rgba(34, 197, 94, 0.2); color: #86EFAC; border: 1px solid rgba(34, 197, 94, 0.3); }
         
-        /* Insights Panel */
-        .insight-card {
-            background: rgba(10, 26, 47, 0.5);
-            border-left: 4px solid;
+        /* Action Card Styling */
+        .action-card {
+            background: rgba(10, 26, 47, 0.7);
             border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 8px;
-            transition: all 0.3s ease;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid;
         }
         
-        .insight-card.warning { border-color: #F59E0B; background: rgba(245, 158, 11, 0.1); }
-        .insight-card.info { border-color: #3B82F6; background: rgba(59, 130, 246, 0.1); }
-        .insight-card.success { border-color: #10B981; background: rgba(16, 185, 129, 0.1); }
+        .action-card.emergency {
+            border-color: #EF4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .action-card.debt-emergency {
+            border-color: #F59E0B;
+            background: rgba(245, 158, 11, 0.1);
+        }
+        
+        .action-card.deficit {
+            border-color: #FBBF24;
+            background: rgba(251, 191, 36, 0.1);
+        }
+        
+        .action-card.savings-low {
+            border-color: #3B82F6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .action-card.housing-high {
+            border-color: #8B5CF6;
+            background: rgba(139, 92, 246, 0.1);
+        }
+        
+        .action-card.debt-moderate {
+            border-color: #7C3AED;
+            background: rgba(124, 58, 237, 0.1);
+        }
+        
+        .action-card.surplus-debt {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .action-card.surplus-emergency {
+            border-color: #0EA5E9;
+            background: rgba(14, 165, 233, 0.1);
+        }
+        
+        .action-card.surplus-retirement {
+            border-color: #059669;
+            background: rgba(5, 150, 105, 0.1);
+        }
+        
+        .action-card.surplus-invest {
+            border-color: #047857;
+            background: rgba(4, 120, 87, 0.1);
+        }
+        
+        .action-card.good {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .action-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .action-card:hover .action-icon {
+            transform: scale(1.1);
+        }
+        
+        .action-details {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 12px;
+            padding-top: 12px;
+        }
+        
+        .priority-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
         
         /* Tooltips */
         .educational-tooltip {
@@ -595,7 +669,7 @@
                 font-size: 4rem !important;
             }
             
-            /* NEW: Better mobile touch targets */
+            /* Better mobile touch targets */
             .budget-category-card {
                 padding: 12px;
                 margin-bottom: 8px;
@@ -1191,22 +1265,22 @@
                     </div>
                 </div>
 
-                <!-- Financial Insights (MOVED TO SIDEBAR) -->
-                <div class="dashboard-card p-4 md:p-6 mb-6 shadow-2xl" id="insights-section">
+                <!-- 04. Next Financial Action (MOVED TO SIDEBAR) -->
+                <div class="dashboard-card p-4 md:p-6 mb-6 shadow-2xl" id="action-section">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-heading font-bold uppercase border-l-2 border-crimson pl-3 md:pl-4">
-                            Financial Insights
+                            04. Next Financial Action
                             <span class="tier-badge tier-free ml-3">Free</span>
                         </h3>
-                        <button onclick="refreshInsights()" class="text-xs bg-blue-900/30 hover:bg-blue-800/50 px-3 py-2 rounded transition">
+                        <button onclick="refreshNextAction()" class="text-xs bg-blue-900/30 hover:bg-blue-800/50 px-3 py-2 rounded transition">
                             <i class="fas fa-sync-alt mr-1"></i> Refresh
                         </button>
                     </div>
                     
-                    <div id="insights-container">
+                    <div id="action-container">
                         <div class="text-center py-8 text-gray-500">
-                            <i class="fas fa-chart-line text-3xl mb-3"></i>
-                            <p>Enter your financial data above to see personalized insights</p>
+                            <i class="fas fa-bullseye text-3xl mb-3"></i>
+                            <p>Enter your financial data above to see your priority action</p>
                         </div>
                     </div>
                 </div>
@@ -1238,7 +1312,7 @@
                             <i class="fas fa-check text-green-400"></i>
                         </div>
                         <div class="flex justify-between py-2 border-b border-white/5">
-                            <span>Financial Insights</span>
+                            <span>Next Financial Action</span>
                             <i class="fas fa-check text-green-400"></i>
                         </div>
                         <div class="flex justify-between py-2 border-b border-white/5">
@@ -1286,7 +1360,7 @@
                     <ul class="feature-list">
                         <li><i class="fas fa-check"></i> Enhanced budgeting tools</li>
                         <li><i class="fas fa-check"></i> Debt management with priorities</li>
-                        <li><i class="fas fa-check"></i> Financial insights & recommendations</li>
+                        <li><i class="fas fa-check"></i> Next Financial Action priority</li>
                         <li><i class="fas fa-check"></i> Progress indicators</li>
                         <li><i class="fas fa-check"></i> Data export/import</li>
                         <li><i class="fas fa-check"></i> Mobile optimization</li>
@@ -1486,6 +1560,229 @@
         // Mode state
         let isDetailedMode = false;
         let categoryValues = {}; // Store values when switching modes
+
+        // ===== NEXT FINANCIAL ACTION FUNCTIONS =====
+        function calculateNextFinancialAction() {
+            const income = getMonthlyIncome();
+            const debtPayments = getTotalDebtPayments();
+            const surplus = calculateSurplus();
+            const emergencyFund = parseCurrency(document.getElementById('emergency_fund')?.value || 0);
+            const monthlyEssentials = calculateMonthlyEssentials();
+            const monthsCovered = monthlyEssentials > 0 ? emergencyFund / monthlyEssentials : 0;
+            
+            // 1. Check for emergency fund crisis (CRITICAL - No emergency fund or less than 1 month)
+            if (emergencyFund === 0 || monthsCovered < 1) {
+                const targetAmount = Math.round(monthlyEssentials * 1);
+                return {
+                    priority: 1,
+                    type: 'emergency',
+                    icon: 'fa-shield-alt',
+                    title: 'Build Emergency Fund',
+                    message: `Start with $${targetAmount.toLocaleString()} (1 month of essentials)`,
+                    action: 'Set aside money each month until you have 3-6 months saved',
+                    why: 'Protects you from unexpected expenses without going into debt'
+                };
+            }
+            
+            // 2. Check for high-interest debt (>15%) - FINANCIAL EMERGENCY
+            let highestRate = 0;
+            let totalHighInterest = 0;
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            
+            debtRows.forEach(row => {
+                const rateInput = row.querySelector('td:nth-child(5) .debt-input');
+                const balanceInput = row.querySelector('td:nth-child(3) .debt-input');
+                if (rateInput && balanceInput) {
+                    const rate = parseFloat(rateInput.value) || 0;
+                    const balance = parseCurrency(balanceInput.value);
+                    if (rate > 15 && balance > 0) {
+                        totalHighInterest += balance;
+                        highestRate = Math.max(highestRate, rate);
+                    }
+                }
+            });
+            
+            if (totalHighInterest > 0) {
+                return {
+                    priority: 2,
+                    type: 'debt-emergency',
+                    icon: 'fa-fire',
+                    title: 'Attack High-Interest Debt',
+                    message: `Pay off $${totalHighInterest.toLocaleString()} at ${highestRate}%+ APR`,
+                    action: 'Avalanche method: Focus on highest rate first',
+                    why: `Debt at ${highestRate}% is costing you ${(highestRate/12).toFixed(1)}% monthly in interest`
+                };
+            }
+            
+            // 3. Check for monthly deficit - SPENDING PROBLEM
+            if (surplus < 0) {
+                return {
+                    priority: 3,
+                    type: 'deficit',
+                    icon: 'fa-exclamation-triangle',
+                    title: 'Fix Monthly Deficit',
+                    message: `You're overspending by $${Math.abs(surplus).toLocaleString()}/month`,
+                    action: 'Reduce expenses in "Wants" category first',
+                    why: 'Sustained deficits lead to debt accumulation'
+                };
+            }
+            
+            // 4. Check for low savings rate (<10%) - BUILDING WEALTH
+            const savingsRate = calculateSavingsRate();
+            if (savingsRate < 10) {
+                const targetAmount = Math.round(income * 0.10);
+                return {
+                    priority: 4,
+                    type: 'savings-low',
+                    icon: 'fa-piggy-bank',
+                    title: 'Increase Savings Rate',
+                    message: `Current rate: ${savingsRate.toFixed(1)}% (Target: 10%)`,
+                    action: `Increase savings by $${targetAmount.toLocaleString()}/month`,
+                    why: 'Building wealth requires consistent savings'
+                };
+            }
+            
+            // 5. Check for high housing cost (>35% of income) - LIVING EXPENSE PROBLEM
+            const housingCost = parseCurrency(document.getElementById('housing')?.value || 0);
+            const housingPercentage = income > 0 ? (housingCost / income) * 100 : 0;
+            if (housingPercentage > 35) {
+                const targetAmount = Math.round(income * 0.30);
+                return {
+                    priority: 5,
+                    type: 'housing-high',
+                    icon: 'fa-home',
+                    title: 'Reduce Housing Costs',
+                    message: `Housing is ${housingPercentage.toFixed(1)}% of income (Max: 30%)`,
+                    action: `Target housing cost: $${targetAmount.toLocaleString()}/month or less`,
+                    why: 'High housing costs limit financial flexibility'
+                };
+            }
+            
+            // 6. Check for moderate debt load (DTI > 25%) - DEBT MANAGEMENT
+            const dti = calculateDebtToIncomeRatio();
+            if (dti > 25) {
+                return {
+                    priority: 6,
+                    type: 'debt-moderate',
+                    icon: 'fa-balance-scale',
+                    title: 'Reduce Debt Payments',
+                    message: `Debt payments are ${dti.toFixed(1)}% of income (Max: 25%)`,
+                    action: 'Consider debt consolidation or extra payments',
+                    why: 'High DTI limits borrowing ability for homes/cars'
+                };
+            }
+            
+            // 7. Allocate surplus (everything else is good!) - OPTIMIZATION PHASE
+            if (surplus > 0) {
+                // Check what to do with surplus
+                const totalDebt = getTotalDebtBalance();
+                const retirement = parseCurrency(document.getElementById('retirement')?.value || 0);
+                const retirementPercentage = income > 0 ? (retirement / income) * 100 : 0;
+                
+                if (totalDebt > 0) {
+                    // Still have debt (but not high-interest)
+                    return {
+                        priority: 7,
+                        type: 'surplus-debt',
+                        icon: 'fa-rocket',
+                        title: 'Accelerate Debt Payoff',
+                        message: `Put $${surplus.toLocaleString()}/month toward remaining debt`,
+                        action: 'Apply surplus to highest interest debt first',
+                        why: 'Every extra payment reduces total interest cost'
+                    };
+                } else if (monthsCovered < 6) {
+                    // Build full emergency fund
+                    const targetAmount = Math.round(monthlyEssentials * 6);
+                    return {
+                        priority: 7,
+                        type: 'surplus-emergency',
+                        icon: 'fa-shield-alt',
+                        title: 'Build 6-Month Emergency Fund',
+                        message: `Add $${surplus.toLocaleString()}/month to emergency savings`,
+                        action: `Target: $${targetAmount.toLocaleString()} (6 months of essentials)`,
+                        why: 'Full emergency fund provides complete financial security'
+                    };
+                } else if (retirementPercentage < 15) {
+                    // Boost retirement savings
+                    const targetAmount = Math.round(income * 0.15 - retirement);
+                    return {
+                        priority: 7,
+                        type: 'surplus-retirement',
+                        icon: 'fa-chart-line',
+                        title: 'Boost Retirement Savings',
+                        message: `Increase retirement to 15% of income`,
+                        action: `Add $${targetAmount > 0 ? targetAmount.toLocaleString() : 'more'}/month to retirement`,
+                        why: 'Compound growth over time builds wealth'
+                    };
+                } else {
+                    // Invest for growth
+                    return {
+                        priority: 7,
+                        type: 'surplus-invest',
+                        icon: 'fa-gem',
+                        title: 'Invest for Growth',
+                        message: `Invest $${surplus.toLocaleString()}/month in taxable account`,
+                        action: 'Consider index funds or other investments',
+                        why: 'Wealth accumulation and financial independence phase'
+                    };
+                }
+            }
+            
+            // Default if nothing else matches (everything is perfect)
+            return {
+                priority: 8,
+                type: 'good',
+                icon: 'fa-check-circle',
+                title: 'On Track!',
+                message: 'All financial basics are covered',
+                action: 'Consider long-term goals (house, education, etc.)',
+                why: 'You\'re following sound financial principles'
+            };
+        }
+
+        function displayNextFinancialAction() {
+            const container = document.getElementById('action-container');
+            if (!container) return;
+            
+            const action = calculateNextFinancialAction();
+            
+            let html = `
+                <div class="action-card ${action.type}">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="action-icon bg-white/10 p-3 rounded-full">
+                            <i class="fas ${action.icon} text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">${action.title}</h4>
+                            <div class="text-sm text-gray-300">${action.message}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-details">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs uppercase tracking-wider text-gray-400">What to do:</span>
+                            <span class="priority-tag ${getPriorityClass(action.priority)}">Priority ${action.priority}</span>
+                        </div>
+                        <div class="text-sm mb-2 font-medium">${action.action}</div>
+                        <div class="text-xs text-gray-400 italic">${action.why}</div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function getPriorityClass(priority) {
+            if (priority <= 2) return 'priority-emergency';
+            if (priority <= 4) return 'priority-high';
+            if (priority <= 6) return 'priority-medium';
+            return 'priority-low';
+        }
+
+        function refreshNextAction() {
+            displayNextFinancialAction();
+            showToast('Action recommendation refreshed');
+        }
 
         // ===== MISSING FUNCTIONS - ADDED =====
         function clearAllData() {
@@ -1715,7 +2012,7 @@
             saveBtn.disabled = true;
             
             const data = {
-                version: 'raf_lab_v4', // Updated version for modes
+                version: 'raf_lab_v5', // Updated version for next action
                 timestamp: new Date().toISOString(),
                 mode: isDetailedMode ? 'detailed' : 'quick',
                 paycheck: document.getElementById('paycheck').value,
@@ -1725,7 +2022,8 @@
                     needs: {},
                     wants: {},
                     savings: {}
-                }
+                },
+                nextAction: calculateNextFinancialAction()
             };
             
             // Save current mode's categories
@@ -1929,12 +2227,11 @@
                         }, 500);
                     }
                     
-                    // Check and show mortgage auto-population status
-                    const housingInput = document.getElementById('housing');
-                    if (housingInput && housingInput.dataset.autoPopulated === 'true') {
+                    // Show saved next action if available
+                    if (data.nextAction) {
                         setTimeout(() => {
-                            showToast('✓ Mortgage payment auto-populated to Housing budget');
-                        }, 1000);
+                            showToast(`✓ Previously: ${data.nextAction.title}`);
+                        }, 1500);
                     }
                 }, 100);
                 
@@ -1947,7 +2244,7 @@
         // ===== EXPORT DATA UPDATED FOR MODES =====
         function exportData() {
             const data = {
-                version: 'raf_lab_v4', // Updated version
+                version: 'raf_lab_v5', // Updated version
                 timestamp: new Date().toISOString(),
                 mode: isDetailedMode ? 'detailed' : 'quick',
                 income: {
@@ -1961,6 +2258,7 @@
                     wants: {},
                     savings: {}
                 },
+                nextAction: calculateNextFinancialAction(),
                 summary: {
                     totalDebt: getTotalDebtBalance(),
                     monthlyPayments: getTotalDebtPayments(),
@@ -2482,7 +2780,7 @@
             return true;
         }
 
-        // ===== FINANCIAL INSIGHTS FUNCTIONS =====
+        // ===== FINANCIAL CALCULATION FUNCTIONS =====
         function calculateDebtToIncomeRatio() {
             const income = getMonthlyIncome();
             const debtPayments = getTotalDebtPayments();
@@ -2493,214 +2791,6 @@
             const income = getMonthlyIncome();
             const surplus = calculateSurplus();
             return income > 0 ? (surplus > 0 ? surplus / income : 0) * 100 : 0;
-        }
-
-        function generateFinancialInsights() {
-            const insights = [];
-            const income = getMonthlyIncome();
-            const debtPayments = getTotalDebtPayments();
-            const surplus = calculateSurplus();
-            const emergencyFund = parseCurrency(document.getElementById('emergency_fund')?.value || 0);
-            
-            // Debt-to-Income Ratio Insight
-            const dti = calculateDebtToIncomeRatio();
-            if (dti > 36) {
-                insights.push({
-                    type: 'warning',
-                    icon: 'fa-exclamation-triangle',
-                    message: `High Debt-to-Income Ratio (${dti.toFixed(1)}%)`,
-                    action: 'Consider reducing debt payments or increasing income',
-                    detail: `Your debt payments are ${dti.toFixed(1)}% of your monthly income. The recommended maximum is 36%.`
-                });
-            } else if (dti > 20) {
-                insights.push({
-                    type: 'info',
-                    icon: 'fa-info-circle',
-                    message: `Moderate Debt-to-Income Ratio (${dti.toFixed(1)}%)`,
-                    action: 'Monitor your debt levels',
-                    detail: 'Your debt payments are at a manageable level.'
-                });
-            } else if (dti > 0) {
-                insights.push({
-                    type: 'success',
-                    icon: 'fa-check-circle',
-                    message: `Good Debt-to-Income Ratio (${dti.toFixed(1)}%)`,
-                    action: 'Continue current strategy',
-                    detail: 'Your debt payments are well within recommended limits.'
-                });
-            }
-            
-            // Emergency Fund Insight
-            const monthlyEssentials = calculateMonthlyEssentials();
-            const monthsCovered = monthlyEssentials > 0 ? emergencyFund / monthlyEssentials : 0;
-            if (monthsCovered < 3 && emergencyFund > 0) {
-                insights.push({
-                    type: 'warning',
-                    icon: 'fa-shield-alt',
-                    message: `Emergency Fund: ${monthsCovered.toFixed(1)} months coverage`,
-                    action: 'Increase emergency fund contributions',
-                    detail: `Target 3-6 months of essential expenses ($${Math.round(monthlyEssentials * 3).toLocaleString()} - $${Math.round(monthlyEssentials * 6).toLocaleString()}).`
-                });
-            } else if (monthsCovered < 6 && emergencyFund > 0) {
-                insights.push({
-                    type: 'info',
-                    icon: 'fa-shield-alt',
-                    message: `Emergency Fund: ${monthsCovered.toFixed(1)} months coverage`,
-                    action: 'Consider building to 6 months',
-                    detail: 'Good start! Consider increasing to 6 months for better security.'
-                });
-            } else if (emergencyFund > 0) {
-                insights.push({
-                    type: 'success',
-                    icon: 'fa-shield-alt',
-                    message: `Emergency Fund: ${monthsCovered.toFixed(1)} months coverage`,
-                    action: 'Excellent emergency fund!',
-                    detail: 'You have a strong financial safety net.'
-                });
-            } else {
-                insights.push({
-                    type: 'warning',
-                    icon: 'fa-shield-alt',
-                    message: `No Emergency Fund allocated`,
-                    action: 'Start building an emergency fund',
-                    detail: `Aim for 3-6 months of essential expenses ($${Math.round(monthlyEssentials * 3).toLocaleString()} - $${Math.round(monthlyEssentials * 6).toLocaleString()}).`
-                });
-            }
-            
-            // Savings Rate Insight
-            const savingsRate = calculateSavingsRate();
-            if (savingsRate < 10) {
-                insights.push({
-                    type: 'warning',
-                    icon: 'fa-piggy-bank',
-                    message: `Savings Rate: ${savingsRate.toFixed(1)}%`,
-                    action: 'Increase savings rate to at least 10%',
-                    detail: 'Aim to save 10-20% of your income for long-term financial health.'
-                });
-            } else if (savingsRate < 20) {
-                insights.push({
-                    type: 'info',
-                    icon: 'fa-piggy-bank',
-                    message: `Savings Rate: ${savingsRate.toFixed(1)}%`,
-                    action: 'Aim for 20% savings rate',
-                    detail: 'Good progress! Try increasing to 20% for faster wealth building.'
-                });
-            } else {
-                insights.push({
-                    type: 'success',
-                    icon: 'fa-piggy-bank',
-                    message: `Savings Rate: ${savingsRate.toFixed(1)}%`,
-                    action: 'Excellent savings rate!',
-                    detail: 'You are saving at a rate that will build significant wealth over time.'
-                });
-            }
-            
-            // High-Interest Debt Insight
-            const highInterestCount = getHighInterestDebtCount();
-            if (highInterestCount > 0) {
-                insights.push({
-                    type: 'warning',
-                    icon: 'fa-credit-card',
-                    message: `${highInterestCount} high-interest debt${highInterestCount > 1 ? 's' : ''} detected`,
-                    action: 'Prioritize paying off high-interest debts first',
-                    detail: 'Debts with interest rates above 10% should be your top priority for payoff.'
-                });
-            }
-            
-            // Budget Balance Insight
-            if (surplus < 0) {
-                insights.push({
-                    type: 'warning',
-                    icon: 'fa-balance-scale',
-                    message: `Monthly Deficit: $${Math.abs(surplus).toLocaleString()}`,
-                    action: 'Reduce expenses or increase income',
-                    detail: 'You are spending more than you earn. Review your budget categories.'
-                });
-            } else if (surplus > 0) {
-                insights.push({
-                    type: 'success',
-                    icon: 'fa-balance-scale',
-                    message: `Monthly Surplus: $${surplus.toLocaleString()}`,
-                    action: 'Allocate surplus to debt payoff or savings',
-                    detail: 'Great job! You have money left over each month.'
-                });
-            }
-            
-            // Housing Affordability Insight
-            const housingCost = parseCurrency(document.getElementById('housing')?.value || 0);
-            const housingPercentage = income > 0 ? (housingCost / income) * 100 : 0;
-            if (housingPercentage > 30) {
-                insights.push({
-                    type: 'warning',
-                    icon: 'fa-home',
-                    message: `Housing costs: ${housingPercentage.toFixed(1)}% of income`,
-                    action: 'Consider reducing housing costs',
-                    detail: 'Recommended maximum is 30% of monthly income on housing.'
-                });
-            }
-            
-            // Debt Strategy Recommendation
-            if (getHighInterestDebtCount() > 0) {
-                const totalHighInterest = calculateTotalHighInterestDebt();
-                insights.push({
-                    type: 'info',
-                    icon: 'fa-lightbulb',
-                    message: `High-interest debt: $${totalHighInterest.toLocaleString()}`,
-                    action: 'Use Avalanche method for maximum savings',
-                    detail: 'Pay off debts with highest interest rates first.'
-                });
-            }
-            
-            // Mode-specific insight
-            insights.push({
-                type: 'info',
-                icon: isDetailedMode ? 'fa-list' : 'fa-bolt',
-                message: `Using ${isDetailedMode ? 'Detailed' : 'Quick'} Mode`,
-                action: isDetailedMode ? 'Switch to Quick Mode for simplicity' : 'Switch to Detailed Mode for precision',
-                detail: isDetailedMode ? 'You are viewing all 28 budget categories.' : 'You are viewing 10 combined budget categories.'
-            });
-            
-            return insights;
-        }
-
-        function displayFinancialInsights() {
-            const container = document.getElementById('insights-container');
-            if (!container) return;
-            
-            const insights = generateFinancialInsights();
-            
-            if (insights.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-8 text-gray-500">
-                        <i class="fas fa-chart-line text-3xl mb-3"></i>
-                        <p>Enter your financial data above to see personalized insights</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '';
-            insights.forEach(insight => {
-                html += `
-                    <div class="insight-card ${insight.type} mb-3">
-                        <div class="flex items-start gap-3">
-                            <i class="fas ${insight.icon} mt-1"></i>
-                            <div class="flex-1">
-                                <div class="font-bold text-sm mb-1">${insight.message}</div>
-                                <div class="text-xs text-gray-300 mb-1">${insight.detail}</div>
-                                <div class="text-xs font-semibold text-${insight.type}">${insight.action}</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function refreshInsights() {
-            displayFinancialInsights();
-            showToast('Insights refreshed');
         }
 
         // ===== BUDGET CATEGORY SUMMARIES =====
@@ -2940,8 +3030,8 @@
             // 10. Update progress indicators
             updateProgressIndicators();
             
-            // 11. Update insights
-            displayFinancialInsights();
+            // 11. Update next financial action
+            displayNextFinancialAction();
             
             // 12. Update chart
             updateChart(income, needsTotal + wantsTotal, debtPayments, savingsTotal, surplus);
@@ -3125,7 +3215,7 @@
                 { key: '1-3', action: 'Jump to sections' },
                 { key: 'Ctrl+S', action: 'Save data' },
                 { key: 'D', action: 'Add debt row' },
-                { key: 'Ctrl+R', action: 'Refresh insights' },
+                { key: 'Ctrl+R', action: 'Refresh next action' },
                 { key: 'Escape', action: 'Close modals' },
                 { key: 'M', action: 'Toggle budget mode' }
             ];
@@ -3208,7 +3298,7 @@
                 case 'r':
                     if (e.ctrlKey || e.metaKey) {
                         e.preventDefault();
-                        refreshInsights();
+                        refreshNextAction();
                     }
                     break;
                 case '/':
@@ -3326,6 +3416,7 @@
                 income: getMonthlyIncome(),
                 debtRatio: calculateDebtToIncomeRatio(),
                 savingsRate: calculateSavingsRate(),
+                nextAction: calculateNextFinancialAction(),
                 mode: isDetailedMode ? 'detailed' : 'quick',
                 timestamp: new Date().toISOString()
             }));
@@ -3564,7 +3655,7 @@
         window.showPricingModal = showPricingModal;
         window.closePricingModal = closePricingModal;
         window.showToast = showToast;
-        window.refreshInsights = refreshInsights;
+        window.refreshNextAction = refreshNextAction;
         window.toggleWantsSection = toggleWantsSection;
         window.toggleSavingsSection = toggleSavingsSection;
         window.shareDashboard = shareDashboard;
@@ -3582,6 +3673,8 @@
         window.getBudgetCategoryTotals = getBudgetCategoryTotals;
         window.showBudgetSummary = showBudgetSummary;
         window.toggleBudgetMode = toggleBudgetMode;
+        window.calculateNextFinancialAction = calculateNextFinancialAction;
+        window.displayNextFinancialAction = displayNextFinancialAction;
     </script>
 </body>
 </html>
