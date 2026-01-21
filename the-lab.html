@@ -297,6 +297,89 @@
             color: #B22234;
         }
         
+        /* WAR MODE Styles */
+        .war-mode-toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(178, 34, 52, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(178, 34, 52, 0.3);
+        }
+        
+        .war-mode-toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+        
+        .war-mode-toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .war-mode-toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #374151;
+            border: 2px solid #4B5563;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .war-mode-toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        .war-mode-toggle-switch input:checked + .war-mode-toggle-slider {
+            background-color: #DC2626;
+            border-color: #DC2626;
+        }
+        
+        .war-mode-toggle-switch input:checked + .war-mode-toggle-slider:before {
+            transform: translateX(22px);
+        }
+        
+        .war-mode-label {
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .war-mode-label.active {
+            color: #DC2626;
+            text-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+        }
+        
+        .war-mode-active .budget-category-card.war-mode-affected {
+            opacity: 0.5;
+            filter: grayscale(0.8);
+            background: rgba(220, 38, 38, 0.05);
+            border-color: rgba(220, 38, 38, 0.2);
+        }
+        
+        .war-mode-active .budget-category-card.war-mode-affected input {
+            color: #6B7280;
+            text-decoration: line-through;
+        }
+        
         /* Quick Mode Categories */
         .budget-category-card {
             background: rgba(10, 26, 47, 0.5);
@@ -1070,6 +1153,21 @@
                         </div>
                     </div>
                     
+                    <!-- WAR MODE TOGGLE -->
+                    <div id="war-mode-container" class="war-mode-toggle-container hidden">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-fire text-red-500"></i>
+                            <span class="war-mode-label">WAR MODE</span>
+                        </div>
+                        <label class="war-mode-toggle-switch">
+                            <input type="checkbox" id="warModeToggle" onchange="toggleWarMode()">
+                            <span class="war-mode-toggle-slider"></span>
+                        </label>
+                        <div class="text-xs text-gray-400 flex-1 text-right">
+                            Eliminate all wants/needs when in deficit
+                        </div>
+                    </div>
+                    
                     <!-- Budget Mode Toggle -->
                     <div class="mode-toggle-container mb-6">
                         <span class="mode-label">Quick Mode</span>
@@ -1388,6 +1486,13 @@
                                 <div class="text-gray-400">Use Quick Mode for simplicity, Detailed for precision</div>
                             </div>
                         </div>
+                        <div class="flex items-start gap-2">
+                            <i class="fas fa-fire text-red-500 mt-1"></i>
+                            <div>
+                                <span class="font-bold">War Mode:</span>
+                                <div class="text-gray-400">Toggle War Mode when in deficit to eliminate wants/needs</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1423,6 +1528,10 @@
                         </div>
                         <div class="flex justify-between py-2 border-b border-white/5">
                             <span>Quick/Detailed Modes</span>
+                            <i class="fas fa-check text-green-400"></i>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-white/5">
+                            <span>War Mode</span>
                             <i class="fas fa-check text-green-400"></i>
                         </div>
                         <div class="flex justify-between py-2 border-b border-white/5 opacity-50">
@@ -1467,6 +1576,7 @@
                         <li><i class="fas fa-check"></i> Enhanced budgeting tools</li>
                         <li><i class="fas fa-check"></i> Debt management with priorities</li>
                         <li><i class="fas fa-check"></i> Next Financial Action priority</li>
+                        <li><i class="fas fa-check"></i> War Mode for deficit situations</li>
                         <li><i class="fas fa-check"></i> Progress indicators</li>
                         <li><i class="fas fa-check"></i> Data export/import</li>
                         <li><i class="fas fa-check"></i> Mobile optimization</li>
@@ -1582,6 +1692,10 @@
         let myChart;
         let calculationCache = new Map();
         let calculationTimeout;
+        
+        // War Mode state
+        let isWarModeActive = false;
+        let originalCategoryValues = {}; // Store original values when War Mode is activated
         
         // ===== ENHANCED DATA STRUCTURES =====
         const debtTypes = [
@@ -1711,6 +1825,124 @@
         let isDetailedMode = false;
         let categoryValues = {}; // Store values when switching modes
         let savingsValues = {}; // Store savings values
+
+        // ===== WAR MODE FUNCTIONS =====
+        function toggleWarMode() {
+            const toggle = document.getElementById('warModeToggle');
+            const budgetSection = document.getElementById('budget-section');
+            const warModeContainer = document.getElementById('war-mode-container');
+            
+            isWarModeActive = toggle.checked;
+            
+            if (isWarModeActive) {
+                // Activate War Mode
+                budgetSection.classList.add('war-mode-active');
+                showToast('WAR MODE ACTIVATED: All wants/needs set to zero');
+                
+                // Save original values
+                saveOriginalCategoryValues();
+                
+                // Set all wants/needs categories to zero
+                zeroOutWantsAndNeeds();
+            } else {
+                // Deactivate War Mode
+                budgetSection.classList.remove('war-mode-active');
+                showToast('War Mode deactivated');
+                
+                // Restore original values
+                restoreOriginalCategoryValues();
+            }
+            
+            // Update War Mode label
+            const warModeLabel = document.querySelector('.war-mode-label');
+            if (warModeLabel) {
+                warModeLabel.classList.toggle('active', isWarModeActive);
+            }
+            
+            // Recalculate
+            debouncedCalculateAll();
+        }
+
+        function saveOriginalCategoryValues() {
+            originalCategoryValues = {};
+            const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
+            
+            // Save needs
+            mode.needs.forEach(category => {
+                const input = document.getElementById(category.id);
+                if (input) {
+                    originalCategoryValues[category.id] = input.value;
+                }
+            });
+            
+            // Save wants
+            mode.wants.forEach(category => {
+                const input = document.getElementById(category.id);
+                if (input) {
+                    originalCategoryValues[category.id] = input.value;
+                }
+            });
+        }
+
+        function restoreOriginalCategoryValues() {
+            const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
+            
+            // Restore needs
+            mode.needs.forEach(category => {
+                const input = document.getElementById(category.id);
+                if (input && originalCategoryValues[category.id] !== undefined) {
+                    input.value = originalCategoryValues[category.id];
+                }
+            });
+            
+            // Restore wants
+            mode.wants.forEach(category => {
+                const input = document.getElementById(category.id);
+                if (input && originalCategoryValues[category.id] !== undefined) {
+                    input.value = originalCategoryValues[category.id];
+                }
+            });
+        }
+
+        function zeroOutWantsAndNeeds() {
+            const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
+            
+            // Zero out needs
+            mode.needs.forEach(category => {
+                const input = document.getElementById(category.id);
+                if (input) {
+                    input.value = '';
+                }
+            });
+            
+            // Zero out wants
+            mode.wants.forEach(category => {
+                const input = document.getElementById(category.id);
+                if (input) {
+                    input.value = '';
+                }
+            });
+        }
+
+        function checkAndShowWarModeToggle() {
+            const surplus = calculateSurplus();
+            const warModeContainer = document.getElementById('war-mode-container');
+            
+            if (surplus < 0) {
+                // Show War Mode toggle when in deficit
+                warModeContainer.classList.remove('hidden');
+            } else {
+                // Hide War Mode toggle when surplus is positive
+                warModeContainer.classList.add('hidden');
+                
+                // Auto-deactivate War Mode if surplus becomes positive
+                if (isWarModeActive) {
+                    const toggle = document.getElementById('warModeToggle');
+                    if (toggle) toggle.checked = false;
+                    toggleWarMode();
+                }
+            }
+        }
 
         // ===== BASIC HELPER FUNCTIONS =====
         function parseCurrency(value) {
@@ -2274,7 +2506,7 @@
             container.innerHTML = html || '<div class="text-center py-4 text-gray-500">Enter data to see progress metrics</div>';
         }
 
-        // ===== ENHANCED NEXT FINANCIAL ACTION WITH 4-TIER PRIORITY =====
+        // ===== ENHANCED NEXT FINANCIAL ACTION WITH WAR MODE SUPPORT =====
         function getTierColor(tier) {
             switch(tier) {
                 case 1: return '#EF4444'; // Red
@@ -2304,6 +2536,37 @@
             const debtPayments = getTotalDebtPayments();
             const surplus = calculateSurplus();
             const monthsCovered = monthlyEssentials > 0 ? emergencyFundTotal / monthlyEssentials : 0;
+            
+            // WAR MODE SPECIAL CASE: If War Mode is active but still in deficit
+            if (isWarModeActive && surplus < 0) {
+                const deficitAmount = Math.abs(surplus);
+                return {
+                    tier: 1,
+                    type: 'war-mode-deficit',
+                    icon: 'fa-sack-dollar',
+                    title: 'WAR MODE: INCREASE INCOME',
+                    message: `Even with all wants/needs eliminated, you're still $${deficitAmount.toLocaleString()}/month short`,
+                    action: `Increase income by $${deficitAmount.toLocaleString()}/month`,
+                    why: 'Essential debt payments and savings exceed your current income',
+                    priority: 'Critical',
+                    color: 'red'
+                };
+            }
+            
+            // WAR MODE ACTIVE: Special message
+            if (isWarModeActive) {
+                return {
+                    tier: 1,
+                    type: 'war-mode-active',
+                    icon: 'fa-shield-alt',
+                    title: 'WAR MODE: ELIMINATING EXPENSES',
+                    message: `All wants/needs temporarily set to zero to balance budget`,
+                    action: 'Focus on income generation and debt elimination',
+                    why: 'Temporary austerity to achieve financial stability',
+                    priority: 'Critical',
+                    color: 'red'
+                };
+            }
             
             // TIER 1: FINANCIAL FIREFIGHTING (Critical Issues)
             // 1. Emergency Fund Crisis
@@ -2341,13 +2604,14 @@
             
             // 3. Monthly Deficit
             if (surplus < 0) {
+                const deficitAmount = Math.abs(surplus);
                 return {
                     tier: 1,
                     type: 'monthly-deficit',
                     icon: 'fa-exclamation-triangle',
                     title: 'CRITICAL: Fix Monthly Deficit',
-                    message: `You're overspending by $${Math.abs(surplus).toLocaleString()}/month`,
-                    action: 'Reduce expenses in "Wants" category first',
+                    message: `You're overspending by $${deficitAmount.toLocaleString()}/month`,
+                    action: `Activate War Mode or increase income by $${deficitAmount.toLocaleString()}`,
                     why: 'Sustained deficits lead to debt accumulation',
                     priority: 'Critical',
                     color: 'red'
@@ -2666,7 +2930,7 @@
             // Create needs categories
             mode.needs.forEach(category => {
                 const div = document.createElement('div');
-                div.className = `flex justify-between items-center budget-category-card ${categoryClass}`;
+                div.className = `flex justify-between items-center budget-category-card ${categoryClass} war-mode-affected`;
                 div.innerHTML = `
                     <span class="text-xs text-gray-300">${category.label}</span>
                     <div class="currency-input-container w-32 relative">
@@ -2685,7 +2949,7 @@
             // Create wants categories
             mode.wants.forEach(category => {
                 const div = document.createElement('div');
-                div.className = `flex justify-between items-center budget-category-card ${categoryClass}`;
+                div.className = `flex justify-between items-center budget-category-card ${categoryClass} war-mode-affected`;
                 div.innerHTML = `
                     <span class="text-xs text-gray-300">${category.label}</span>
                     <div class="currency-input-container w-32">
@@ -2888,14 +3152,17 @@
                     'Reduce expenses or increase income';
             }
             
-            // 11. Update progress indicators
+            // 11. Check and show War Mode toggle
+            checkAndShowWarModeToggle();
+            
+            // 12. Update progress indicators
             updateProgressIndicators();
             displayFinancialProgress();
             
-            // 12. Update next financial action
+            // 13. Update next financial action
             displayNextFinancialAction();
             
-            // 13. Update chart
+            // 14. Update chart
             updateChart(income, needsTotal + wantsTotal, debtPayments, savingsTotal, surplus);
         }
 
@@ -2975,9 +3242,10 @@
             saveBtn.disabled = true;
             
             const data = {
-                version: 'raf_lab_v6',
+                version: 'raf_lab_v7',
                 timestamp: new Date().toISOString(),
                 mode: isDetailedMode ? 'detailed' : 'quick',
+                warMode: isWarModeActive,
                 paycheck: document.getElementById('paycheck').value,
                 freq: document.getElementById('freq').value,
                 age: document.getElementById('age-input').value,
@@ -3008,6 +3276,11 @@
                     total: document.getElementById(`${category.id}_total`)?.value || ''
                 };
             });
+            
+            // Save original values if War Mode is active
+            if (isWarModeActive) {
+                data.originalValues = originalCategoryValues;
+            }
             
             // Save debts
             document.querySelectorAll('#debt-body tr').forEach(row => {
@@ -3105,6 +3378,27 @@
                 // Reinitialize categories with loaded values
                 initializeBudgetCategories();
                 
+                // Set War Mode if saved
+                if (data.warMode) {
+                    isWarModeActive = true;
+                    const warModeToggle = document.getElementById('warModeToggle');
+                    if (warModeToggle) {
+                        warModeToggle.checked = true;
+                        document.getElementById('budget-section').classList.add('war-mode-active');
+                        
+                        // Load original values if available
+                        if (data.originalValues) {
+                            originalCategoryValues = data.originalValues;
+                        }
+                        
+                        // Update War Mode label
+                        const warModeLabel = document.querySelector('.war-mode-label');
+                        if (warModeLabel) {
+                            warModeLabel.classList.add('active');
+                        }
+                    }
+                }
+                
                 // Update mode labels
                 const labels = document.querySelectorAll('.mode-label');
                 if (labels.length >= 2) {
@@ -3129,6 +3423,13 @@
                         setTimeout(() => {
                             showToast('✓ Loaded in Quick Mode');
                         }, 500);
+                    }
+                    
+                    // Show War Mode info if active
+                    if (isWarModeActive) {
+                        setTimeout(() => {
+                            showToast('⚠ WAR MODE ACTIVE: All wants/needs zeroed');
+                        }, 1000);
                     }
                 }, 100);
                 
@@ -3179,12 +3480,19 @@
                 // Clear stored values
                 categoryValues = {};
                 savingsValues = {};
+                originalCategoryValues = {};
                 
-                // Reset mode
+                // Reset modes
                 isDetailedMode = false;
+                isWarModeActive = false;
+                
                 const toggle = document.getElementById('modeToggle');
                 if (toggle) toggle.checked = false;
                 document.getElementById('budget-section').classList.remove('detailed-mode');
+                document.getElementById('budget-section').classList.remove('war-mode-active');
+                
+                const warModeToggle = document.getElementById('warModeToggle');
+                if (warModeToggle) warModeToggle.checked = false;
                 
                 // Update mode labels
                 const labels = document.querySelectorAll('.mode-label');
@@ -3193,11 +3501,18 @@
                     labels[1].classList.remove('active');
                 }
                 
+                const warModeLabel = document.querySelector('.war-mode-label');
+                if (warModeLabel) warModeLabel.classList.remove('active');
+                
                 // Add initial debt row
                 addDebtRow();
                 
                 // Reinitialize categories
                 initializeBudgetCategories();
+                
+                // Hide War Mode container
+                const warModeContainer = document.getElementById('war-mode-container');
+                if (warModeContainer) warModeContainer.classList.add('hidden');
                 
                 // Recalculate
                 calculateAll();
@@ -3208,9 +3523,10 @@
 
         function exportData() {
             const data = {
-                version: 'raf_lab_v6',
+                version: 'raf_lab_v7',
                 timestamp: new Date().toISOString(),
                 mode: isDetailedMode ? 'detailed' : 'quick',
+                warMode: isWarModeActive,
                 income: {
                     paycheck: document.getElementById('paycheck').value,
                     frequency: document.getElementById('freq').value,
@@ -3254,6 +3570,11 @@
                     total: parseCurrency(document.getElementById(`${category.id}_total`)?.value || 0)
                 };
             });
+            
+            // Add original values if War Mode is active
+            if (isWarModeActive) {
+                data.originalValues = originalCategoryValues;
+            }
             
             // Add debt data
             document.querySelectorAll('#debt-body tr').forEach(row => {
@@ -3318,13 +3639,14 @@
                 savingsRate: (getTotalMonthlySavings() / getMonthlyIncome()) * 100,
                 nextAction: calculateNextFinancialAction(),
                 mode: isDetailedMode ? 'detailed' : 'quick',
+                warMode: isWarModeActive,
                 timestamp: new Date().toISOString()
             };
             
             const encodedData = btoa(JSON.stringify(data));
             
             // Copy to clipboard
-            const shareText = `My Financial Snapshot:\n- Monthly Income: $${data.income.toLocaleString()}\n- Debt-to-Income: ${data.debtRatio.toFixed(1)}%\n- Savings Rate: ${data.savingsRate.toFixed(1)}%\n- Next Action: ${data.nextAction.title}\n\nGenerated with Real American Finance`;
+            const shareText = `My Financial Snapshot:\n- Monthly Income: $${data.income.toLocaleString()}\n- Debt-to-Income: ${data.debtRatio.toFixed(1)}%\n- Savings Rate: ${data.savingsRate.toFixed(1)}%\n- Next Action: ${data.nextAction.title}\n- War Mode: ${data.warMode ? 'ACTIVE' : 'Inactive'}\n\nGenerated with Real American Finance`;
             
             navigator.clipboard.writeText(shareText)
                 .then(() => showToast('Financial snapshot copied to clipboard!'))
@@ -3393,7 +3715,7 @@
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing enhanced financial dashboard...');
+            console.log('DOM loaded, initializing enhanced financial dashboard with War Mode...');
             
             // Initialize chart
             const canvas = document.getElementById('budgetChart');
@@ -3447,7 +3769,7 @@
                 loadFromLocalStorage();
             }, 100);
             
-            console.log('Enhanced financial dashboard initialization complete');
+            console.log('Enhanced financial dashboard with War Mode initialization complete');
         });
 
         // Close modal when clicking outside
@@ -3484,6 +3806,7 @@
         window.updateDebtEventHandlers = updateDebtEventHandlers;
         window.handleFileImport = handleFileImport;
         window.shareDashboard = shareDashboard;
+        window.toggleWarMode = toggleWarMode;
     </script>
 </body>
 </html>
