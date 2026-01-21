@@ -231,72 +231,6 @@
             color: #6B7280;
         }
         
-        /* Mode Toggle Switch */
-        .mode-toggle-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .mode-toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 30px;
-        }
-        
-        .mode-toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .mode-toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #1E293B;
-            border: 2px solid #374151;
-            transition: .4s;
-            border-radius: 34px;
-        }
-        
-        .mode-toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 2px;
-            bottom: 2px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        
-        input:checked + .mode-toggle-slider {
-            background-color: #B22234;
-            border-color: #B22234;
-        }
-        
-        input:checked + .mode-toggle-slider:before {
-            transform: translateX(30px);
-        }
-        
-        .mode-label {
-            font-size: 0.75rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .mode-label.active {
-            color: #B22234;
-        }
-        
         /* WAR MODE Styles */
         .war-mode-toggle-container {
             display: flex;
@@ -380,7 +314,7 @@
             text-decoration: line-through;
         }
         
-        /* Quick Mode Categories */
+        /* Budget Categories */
         .budget-category-card {
             background: rgba(10, 26, 47, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -407,18 +341,6 @@
             color: #9ca3af;
             margin-bottom: 8px;
             padding-left: 4px;
-        }
-        
-        .detailed-category {
-            display: none;
-        }
-        
-        .detailed-mode .detailed-category {
-            display: flex;
-        }
-        
-        .detailed-mode .quick-category {
-            display: none;
         }
         
         /* All existing styles from original file */
@@ -1168,20 +1090,6 @@
                         </div>
                     </div>
                     
-                    <!-- Budget Mode Toggle -->
-                    <div class="mode-toggle-container mb-6">
-                        <span class="mode-label">Quick Mode</span>
-                        <label class="mode-toggle-switch">
-                            <input type="checkbox" id="modeToggle" onchange="toggleBudgetMode()">
-                            <span class="mode-toggle-slider"></span>
-                        </label>
-                        <span class="mode-label">Detailed Mode</span>
-                        <span class="ml-auto text-xs text-gray-500">
-                            <i class="fas fa-info-circle mr-1"></i>
-                            Detailed Mode shows all 28 categories
-                        </span>
-                    </div>
-                    
                     <!-- Budget Progress Indicators -->
                     <div class="mb-6">
                         <div class="flex justify-between text-xs mb-1">
@@ -1209,28 +1117,18 @@
                         </div>
                     </div>
 
-                    <!-- Wants Section (Hidden by default, can be toggled) -->
+                    <!-- Wants Section -->
                     <div class="mb-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <h4 class="text-sm uppercase font-bold text-white tracking-wide">Wants & Lifestyle</h4>
-                            <button onclick="toggleWantsSection()" class="text-xs text-gray-400 hover:text-white">
-                                <i class="fas fa-chevron-down mr-1"></i> Show/Hide
-                            </button>
-                        </div>
-                        <div id="wants-categories" class="space-y-3 hidden">
+                        <h4 class="text-sm uppercase font-bold text-white tracking-wide mb-3">Wants & Lifestyle</h4>
+                        <div id="wants-categories" class="space-y-3">
                             <!-- Dynamic categories will be added here -->
                         </div>
                     </div>
 
                     <!-- ENHANCED SAVINGS SECTION WITH DUAL INPUTS -->
                     <div class="mb-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <h4 class="text-sm uppercase font-bold text-white tracking-wide">Savings & Investments</h4>
-                            <button onclick="toggleSavingsSection()" class="text-xs text-gray-400 hover:text-white">
-                                <i class="fas fa-chevron-down mr-1"></i> Show/Hide
-                            </button>
-                        </div>
-                        <div id="savings-categories" class="space-y-3 hidden">
+                        <h4 class="text-sm uppercase font-bold text-white tracking-wide mb-3">Savings & Investments</h4>
+                        <div id="savings-categories" class="space-y-3">
                             <!-- Dual-input savings cards will be added here -->
                         </div>
                     </div>
@@ -1480,13 +1378,6 @@
                             </div>
                         </div>
                         <div class="flex items-start gap-2">
-                            <i class="fas fa-sliders-h text-gray-500 mt-1"></i>
-                            <div>
-                                <span class="font-bold">Budget Mode:</span>
-                                <div class="text-gray-400">Use Quick Mode for simplicity, Detailed for precision</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
                             <i class="fas fa-fire text-red-500 mt-1"></i>
                             <div>
                                 <span class="font-bold">War Mode:</span>
@@ -1524,10 +1415,6 @@
                         </div>
                         <div class="flex justify-between py-2 border-b border-white/5">
                             <span>Next Financial Action</span>
-                            <i class="fas fa-check text-green-400"></i>
-                        </div>
-                        <div class="flex justify-between py-2 border-b border-white/5">
-                            <span>Quick/Detailed Modes</span>
                             <i class="fas fa-check text-green-400"></i>
                         </div>
                         <div class="flex justify-between py-2 border-b border-white/5">
@@ -1580,7 +1467,6 @@
                         <li><i class="fas fa-check"></i> Progress indicators</li>
                         <li><i class="fas fa-check"></i> Data export/import</li>
                         <li><i class="fas fa-check"></i> Mobile optimization</li>
-                        <li><i class="fas fa-check"></i> Quick/Detailed budget modes</li>
                         <li class="locked"><i class="fas fa-times"></i> Scenario planning</li>
                         <li class="locked"><i class="fas fa-times"></i> Advanced debt tools</li>
                         <li class="locked"><i class="fas fa-times"></i> Investment tracking</li>
@@ -1733,24 +1619,27 @@
             }
         ];
 
-        // Additional savings for detailed mode
-        const detailedSavingsCategories = [
-            ...savingsCategories,
-            {
-                id: 'education_fund',
-                label: 'Education Fund',
-                description: 'College savings (529 plan) or course fees',
-                monthlyDefault: 0,
-                totalDefault: 0
-            },
-            {
-                id: 'home_down_payment',
-                label: 'Home Down Payment',
-                description: 'Savings for future home purchase down payment',
-                monthlyDefault: 0,
-                totalDefault: 0
-            }
-        ];
+        // SIMPLIFIED BUDGET CATEGORIES (14 total - no toggle needed)
+        const budgetCategories = {
+            needs: [
+                { id: 'mortgage_rent', label: 'Mortgage/Rent', default: 0 },
+                { id: 'debt_minimums', label: 'Debt Minimum Payments', default: 0 },
+                { id: 'utilities', label: 'Utilities', default: 0 },
+                { id: 'phone_bill', label: 'Phone Bill', default: 0 },
+                { id: 'car_gas', label: 'Car Gas', default: 0 },
+                { id: 'car_insurance', label: 'Car Insurance', default: 0 },
+                { id: 'groceries', label: 'Groceries', default: 0 },
+                { id: 'household_essentials', label: 'Household Essentials', default: 0 },
+                { id: 'pet_care', label: 'Pet Care', default: 0 },
+                { id: 'health_insurance', label: 'Health Insurance/Medical', default: 0 }
+            ],
+            wants: [
+                { id: 'gym_membership', label: 'Gym Membership', default: 0 },
+                { id: 'subscriptions', label: 'Subscriptions', default: 0 },
+                { id: 'dining_entertainment', label: 'Dining/Entertainment', default: 0 },
+                { id: 'shopping_fun_money', label: 'Shopping/Fun Money', default: 0 }
+            ]
+        };
 
         // Age-based retirement targets
         const retirementTargets = {
@@ -1764,67 +1653,9 @@
             65: 10  // 10× annual income by age 65
         };
 
-        // UPDATED BUDGET CATEGORIES WITH QUICK/DETAILED MODES
-        const budgetCategories = {
-            // Quick Mode categories (10 total)
-            quick: {
-                needs: [
-                    { id: 'housing', label: 'Rent/Mortgage', default: 0, isQuick: true },
-                    { id: 'utilities_combined', label: 'Utilities (Electric/Gas/Water)', default: 0, isQuick: true },
-                    { id: 'car_expenses', label: 'Car Expenses', default: 0, isQuick: true },
-                    { id: 'phone_bill', label: 'Phone Bill', default: 0, isQuick: true },
-                    { id: 'groceries', label: 'Groceries', default: 0, isQuick: true },
-                    { id: 'healthcare_combined', label: 'Medical/Healthcare', default: 0, isQuick: true },
-                    { id: 'insurance_combined', label: 'Insurance', default: 0, isQuick: true }
-                ],
-                wants: [
-                    { id: 'dining', label: 'Dining Out', default: 0, isQuick: true },
-                    { id: 'entertainment', label: 'Entertainment', default: 0, isQuick: true },
-                    { id: 'shopping', label: 'Shopping', default: 0, isQuick: true },
-                    { id: 'subscriptions', label: 'Subscriptions', default: 0, isQuick: true }
-                ]
-            },
-            // Detailed Mode categories (28 total)
-            detailed: {
-                needs: [
-                    { id: 'housing', label: 'Rent/Mortgage', default: 0, isDetailed: true },
-                    { id: 'electric_gas', label: 'Electric/Gas', default: 0, isDetailed: true },
-                    { id: 'water_sewer', label: 'Water/Sewer', default: 0, isDetailed: true },
-                    { id: 'internet_wifi', label: 'Internet/Wifi', default: 0, isDetailed: true },
-                    { id: 'trash_recycling', label: 'Trash/Recycling', default: 0, isDetailed: true },
-                    { id: 'car_insurance', label: 'Car Insurance', default: 0, isDetailed: true },
-                    { id: 'gas_fuel', label: 'Gas/Fuel', default: 0, isDetailed: true },
-                    { id: 'tolls_parking', label: 'Tolls/Parking', default: 0, isDetailed: true },
-                    { id: 'car_maintenance', label: 'Car Maintenance/Repairs', default: 0, isDetailed: true },
-                    { id: 'phone_bill', label: 'Phone Bill', default: 0, isDetailed: true },
-                    { id: 'groceries', label: 'Groceries', default: 0, isDetailed: true },
-                    { id: 'household_essentials', label: 'Household Essentials', default: 0, isDetailed: true },
-                    { id: 'health_insurance', label: 'Health Insurance', default: 0, isDetailed: true },
-                    { id: 'doctor_copays', label: 'Doctor Copays/Visits', default: 0, isDetailed: true },
-                    { id: 'prescriptions', label: 'Prescriptions/Medicine', default: 0, isDetailed: true },
-                    { id: 'pet_care', label: 'Pet Care', default: 0, isDetailed: true },
-                    { id: 'basic_clothing', label: 'Basic Clothing', default: 0, isDetailed: true },
-                    { id: 'life_insurance', label: 'Life Insurance', default: 0, isDetailed: true }
-                ],
-                wants: [
-                    { id: 'dining', label: 'Dining Out', default: 0, isDetailed: true },
-                    { id: 'entertainment', label: 'Entertainment', default: 0, isDetailed: true },
-                    { id: 'shopping', label: 'Shopping', default: 0, isDetailed: true },
-                    { id: 'subscriptions', label: 'Subscriptions', default: 0, isDetailed: true },
-                    { id: 'gym_membership', label: 'Gym Membership', default: 0, isDetailed: true },
-                    { id: 'travel_vacation', label: 'Travel/Vacation', default: 0, isDetailed: true },
-                    { id: 'personal_care', label: 'Personal Care', default: 0, isDetailed: true },
-                    { id: 'gifts_donations', label: 'Gifts/Donations', default: 0, isDetailed: true },
-                    { id: 'home_decor', label: 'Home Decor/Furniture', default: 0, isDetailed: true },
-                    { id: 'electronics_gadgets', label: 'Electronics/Gadgets', default: 0, isDetailed: true }
-                ]
-            }
-        };
-
-        // Mode state
-        let isDetailedMode = false;
-        let categoryValues = {}; // Store values when switching modes
-        let savingsValues = {}; // Store savings values
+        // Category values storage
+        let categoryValues = {};
+        let savingsValues = {};
 
         // ===== WAR MODE FUNCTIONS =====
         function toggleWarMode() {
@@ -1865,10 +1696,9 @@
 
         function saveOriginalCategoryValues() {
             originalCategoryValues = {};
-            const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
             
             // Save needs
-            mode.needs.forEach(category => {
+            budgetCategories.needs.forEach(category => {
                 const input = document.getElementById(category.id);
                 if (input) {
                     originalCategoryValues[category.id] = input.value;
@@ -1876,7 +1706,7 @@
             });
             
             // Save wants
-            mode.wants.forEach(category => {
+            budgetCategories.wants.forEach(category => {
                 const input = document.getElementById(category.id);
                 if (input) {
                     originalCategoryValues[category.id] = input.value;
@@ -1885,10 +1715,8 @@
         }
 
         function restoreOriginalCategoryValues() {
-            const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
-            
             // Restore needs
-            mode.needs.forEach(category => {
+            budgetCategories.needs.forEach(category => {
                 const input = document.getElementById(category.id);
                 if (input && originalCategoryValues[category.id] !== undefined) {
                     input.value = originalCategoryValues[category.id];
@@ -1896,7 +1724,7 @@
             });
             
             // Restore wants
-            mode.wants.forEach(category => {
+            budgetCategories.wants.forEach(category => {
                 const input = document.getElementById(category.id);
                 if (input && originalCategoryValues[category.id] !== undefined) {
                     input.value = originalCategoryValues[category.id];
@@ -1905,10 +1733,8 @@
         }
 
         function zeroOutWantsAndNeeds() {
-            const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
-            
             // Zero out needs
-            mode.needs.forEach(category => {
+            budgetCategories.needs.forEach(category => {
                 const input = document.getElementById(category.id);
                 if (input) {
                     input.value = '';
@@ -1916,7 +1742,7 @@
             });
             
             // Zero out wants
-            mode.wants.forEach(category => {
+            budgetCategories.wants.forEach(category => {
                 const input = document.getElementById(category.id);
                 if (input) {
                     input.value = '';
@@ -1964,12 +1790,12 @@
                 input.value = parts.join('.');
             }
             
-            // If this is the housing input, track manual changes
-            if (input.id === 'housing') {
+            // If this is the mortgage/rent input, track manual changes
+            if (input.id === 'mortgage_rent') {
                 trackHousingManualChange(input);
             }
             
-            // Store the value for mode switching
+            // Store the value for persistence
             if (input.id.includes('_monthly') || input.id.includes('_total')) {
                 savingsValues[input.id] = input.value;
             } else {
@@ -2224,7 +2050,7 @@
 
         // ===== MORTGAGE AUTO-POPULATION FUNCTIONS =====
         function autoPopulateHousingFromMortgage() {
-            const housingInput = document.getElementById('housing');
+            const housingInput = document.getElementById('mortgage_rent');
             if (!housingInput) return;
             
             // Check if housing value was auto-populated
@@ -2341,9 +2167,8 @@
         // ===== BUDGET CALCULATION FUNCTIONS =====
         function calculateMonthlyEssentials() {
             let total = 0;
-            const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
             
-            mode.needs.forEach(category => {
+            budgetCategories.needs.forEach(category => {
                 total += parseCurrency(document.getElementById(category.id)?.value || 0);
             });
             return total;
@@ -2351,9 +2176,8 @@
 
         function getTotalMonthlySavings() {
             let total = 0;
-            const savingsCats = isDetailedMode ? detailedSavingsCategories : savingsCategories;
             
-            savingsCats.forEach(category => {
+            savingsCategories.forEach(category => {
                 const monthlyInput = document.getElementById(`${category.id}_monthly`);
                 if (monthlyInput) {
                     total += parseCurrency(monthlyInput.value);
@@ -2369,11 +2193,10 @@
             const debtPayments = getTotalDebtPayments();
             
             // Calculate wants from inputs
-            const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
             let wantsTotal = 0;
             let savingsTotal = 0;
             
-            mode.wants.forEach(category => {
+            budgetCategories.wants.forEach(category => {
                 wantsTotal += parseCurrency(document.getElementById(category.id)?.value || 0);
             });
             
@@ -2694,7 +2517,7 @@
             }
             
             // 7. High Housing Cost (>35% of income)
-            const housingCost = parseCurrency(document.getElementById('housing')?.value || 0);
+            const housingCost = parseCurrency(document.getElementById('mortgage_rent')?.value || 0);
             const housingPercentage = income > 0 ? (housingCost / income) * 100 : 0;
             if (housingPercentage > 35) {
                 const targetAmount = Math.round(income * 0.30);
@@ -2834,33 +2657,6 @@
         }
 
         // ===== BUDGET CATEGORY MANAGEMENT =====
-        function saveCurrentValues() {
-            // Save all current category values
-            const allCategories = [...budgetCategories.quick.needs, ...budgetCategories.quick.wants,
-                                   ...budgetCategories.detailed.needs, ...budgetCategories.detailed.wants];
-            
-            allCategories.forEach(category => {
-                const input = document.getElementById(category.id);
-                if (input && input.value) {
-                    categoryValues[category.id] = input.value;
-                }
-            });
-            
-            // Save savings values
-            const allSavingsCategories = [...savingsCategories, ...detailedSavingsCategories];
-            allSavingsCategories.forEach(category => {
-                const monthlyInput = document.getElementById(`${category.id}_monthly`);
-                const totalInput = document.getElementById(`${category.id}_total`);
-                
-                if (monthlyInput && monthlyInput.value) {
-                    savingsValues[`${category.id}_monthly`] = monthlyInput.value;
-                }
-                if (totalInput && totalInput.value) {
-                    savingsValues[`${category.id}_total`] = totalInput.value;
-                }
-            });
-        }
-
         function getCategoryValue(categoryId) {
             return categoryValues[categoryId] || '';
         }
@@ -2871,9 +2667,7 @@
             
             savingsContainer.innerHTML = '';
             
-            const savingsCats = isDetailedMode ? detailedSavingsCategories : savingsCategories;
-            
-            savingsCats.forEach(category => {
+            savingsCategories.forEach(category => {
                 const monthlyValue = savingsValues[`${category.id}_monthly`] || '';
                 const totalValue = savingsValues[`${category.id}_total`] || '';
                 
@@ -2924,13 +2718,10 @@
             if (needsContainer) needsContainer.innerHTML = '';
             if (wantsContainer) wantsContainer.innerHTML = '';
             
-            const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
-            const categoryClass = isDetailedMode ? 'detailed-category' : 'quick-category';
-            
             // Create needs categories
-            mode.needs.forEach(category => {
+            budgetCategories.needs.forEach(category => {
                 const div = document.createElement('div');
-                div.className = `flex justify-between items-center budget-category-card ${categoryClass} war-mode-affected`;
+                div.className = `flex justify-between items-center budget-category-card war-mode-affected`;
                 div.innerHTML = `
                     <span class="text-xs text-gray-300">${category.label}</span>
                     <div class="currency-input-container w-32 relative">
@@ -2947,9 +2738,9 @@
             });
             
             // Create wants categories
-            mode.wants.forEach(category => {
+            budgetCategories.wants.forEach(category => {
                 const div = document.createElement('div');
-                div.className = `flex justify-between items-center budget-category-card ${categoryClass} war-mode-affected`;
+                div.className = `flex justify-between items-center budget-category-card war-mode-affected`;
                 div.innerHTML = `
                     <span class="text-xs text-gray-300">${category.label}</span>
                     <div class="currency-input-container w-32">
@@ -3069,10 +2860,9 @@
             const needsTotal = calculateMonthlyEssentials();
             
             // Calculate wants
-            const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
             let wantsTotal = 0;
             
-            mode.wants.forEach(category => {
+            budgetCategories.wants.forEach(category => {
                 wantsTotal += parseCurrency(document.getElementById(category.id)?.value || 0);
             });
             
@@ -3180,52 +2970,6 @@
             }
         }
 
-        // ===== UI AND MODE FUNCTIONS =====
-        function toggleBudgetMode() {
-            const toggle = document.getElementById('modeToggle');
-            const budgetSection = document.getElementById('budget-section');
-            
-            isDetailedMode = toggle.checked;
-            
-            // Save current values before switching
-            saveCurrentValues();
-            
-            if (isDetailedMode) {
-                budgetSection.classList.add('detailed-mode');
-                showToast('Switched to Detailed Mode (28 categories)');
-            } else {
-                budgetSection.classList.remove('detailed-mode');
-                showToast('Switched to Quick Mode (10 categories)');
-            }
-            
-            // Reinitialize categories with saved values
-            initializeBudgetCategories();
-            
-            // Update mode labels
-            const labels = document.querySelectorAll('.mode-label');
-            if (labels.length >= 2) {
-                labels[0].classList.toggle('active', !isDetailedMode);
-                labels[1].classList.toggle('active', isDetailedMode);
-            }
-            
-            // Recalculate with new categories
-            debouncedCalculateAll();
-        }
-
-        function toggleWantsSection() {
-            const section = document.getElementById('wants-categories');
-            if (section) {
-                section.classList.toggle('hidden');
-            }
-        }
-
-        function toggleSavingsSection() {
-            const section = document.getElementById('savings-categories');
-            if (section) {
-                section.classList.toggle('hidden');
-            }
-        }
-
         function refreshNextAction() {
             displayNextFinancialAction();
             displayFinancialProgress();
@@ -3242,9 +2986,8 @@
             saveBtn.disabled = true;
             
             const data = {
-                version: 'raf_lab_v7',
+                version: 'raf_lab_v8_simplified',
                 timestamp: new Date().toISOString(),
-                mode: isDetailedMode ? 'detailed' : 'quick',
                 warMode: isWarModeActive,
                 paycheck: document.getElementById('paycheck').value,
                 freq: document.getElementById('freq').value,
@@ -3258,19 +3001,16 @@
                 nextAction: calculateNextFinancialAction()
             };
             
-            // Save current mode's categories
-            const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
-            
-            mode.needs.forEach(category => {
+            // Save current categories
+            budgetCategories.needs.forEach(category => {
                 data.budget.needs[category.id] = document.getElementById(category.id)?.value || '';
             });
-            mode.wants.forEach(category => {
+            budgetCategories.wants.forEach(category => {
                 data.budget.wants[category.id] = document.getElementById(category.id)?.value || '';
             });
             
             // Save savings data
-            const savingsCats = isDetailedMode ? detailedSavingsCategories : savingsCategories;
-            savingsCats.forEach(category => {
+            savingsCategories.forEach(category => {
                 data.savings[category.id] = {
                     monthly: document.getElementById(`${category.id}_monthly`)?.value || '',
                     total: document.getElementById(`${category.id}_total`)?.value || ''
@@ -3321,16 +3061,6 @@
                 if (data.paycheck) document.getElementById('paycheck').value = data.paycheck;
                 if (data.freq) document.getElementById('freq').value = data.freq;
                 if (data.age) document.getElementById('age-input').value = data.age;
-                
-                // Set mode
-                if (data.mode === 'detailed') {
-                    isDetailedMode = true;
-                    const toggle = document.getElementById('modeToggle');
-                    if (toggle) toggle.checked = true;
-                    document.getElementById('budget-section').classList.add('detailed-mode');
-                } else {
-                    isDetailedMode = false;
-                }
                 
                 // Load budget categories
                 if (data.budget) {
@@ -3399,13 +3129,6 @@
                     }
                 }
                 
-                // Update mode labels
-                const labels = document.querySelectorAll('.mode-label');
-                if (labels.length >= 2) {
-                    labels[0].classList.toggle('active', !isDetailedMode);
-                    labels[1].classList.toggle('active', isDetailedMode);
-                }
-                
                 // Recalculate
                 setTimeout(() => {
                     calculateAll();
@@ -3413,17 +3136,6 @@
                     
                     // Set up event handlers after loading
                     updateDebtEventHandlers();
-                    
-                    // Show mode info
-                    if (isDetailedMode) {
-                        setTimeout(() => {
-                            showToast('✓ Loaded in Detailed Mode');
-                        }, 500);
-                    } else {
-                        setTimeout(() => {
-                            showToast('✓ Loaded in Quick Mode');
-                        }, 500);
-                    }
                     
                     // Show War Mode info if active
                     if (isWarModeActive) {
@@ -3453,21 +3165,18 @@
                 if (mobileDebtBody) mobileDebtBody.innerHTML = '';
                 
                 // Clear budget categories
-                const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
-                
-                mode.needs.forEach(category => {
+                budgetCategories.needs.forEach(category => {
                     const input = document.getElementById(category.id);
                     if (input) input.value = '';
                 });
                 
-                mode.wants.forEach(category => {
+                budgetCategories.wants.forEach(category => {
                     const input = document.getElementById(category.id);
                     if (input) input.value = '';
                 });
                 
                 // Clear savings values
-                const savingsCats = isDetailedMode ? detailedSavingsCategories : savingsCategories;
-                savingsCats.forEach(category => {
+                savingsCategories.forEach(category => {
                     const monthlyInput = document.getElementById(`${category.id}_monthly`);
                     const totalInput = document.getElementById(`${category.id}_total`);
                     if (monthlyInput) monthlyInput.value = '';
@@ -3482,24 +3191,12 @@
                 savingsValues = {};
                 originalCategoryValues = {};
                 
-                // Reset modes
-                isDetailedMode = false;
+                // Reset War Mode
                 isWarModeActive = false;
-                
-                const toggle = document.getElementById('modeToggle');
-                if (toggle) toggle.checked = false;
-                document.getElementById('budget-section').classList.remove('detailed-mode');
                 document.getElementById('budget-section').classList.remove('war-mode-active');
                 
                 const warModeToggle = document.getElementById('warModeToggle');
                 if (warModeToggle) warModeToggle.checked = false;
-                
-                // Update mode labels
-                const labels = document.querySelectorAll('.mode-label');
-                if (labels.length >= 2) {
-                    labels[0].classList.add('active');
-                    labels[1].classList.remove('active');
-                }
                 
                 const warModeLabel = document.querySelector('.war-mode-label');
                 if (warModeLabel) warModeLabel.classList.remove('active');
@@ -3523,9 +3220,8 @@
 
         function exportData() {
             const data = {
-                version: 'raf_lab_v7',
+                version: 'raf_lab_v8_simplified',
                 timestamp: new Date().toISOString(),
-                mode: isDetailedMode ? 'detailed' : 'quick',
                 warMode: isWarModeActive,
                 income: {
                     paycheck: document.getElementById('paycheck').value,
@@ -3549,21 +3245,18 @@
                 }
             };
             
-            // Add budget data for current mode
-            const mode = isDetailedMode ? budgetCategories.detailed : budgetCategories.quick;
-            
-            mode.needs.forEach(category => {
+            // Add budget data
+            budgetCategories.needs.forEach(category => {
                 const value = parseCurrency(document.getElementById(category.id)?.value || 0);
                 data.budget.needs[category.id] = { label: category.label, value: value };
             });
-            mode.wants.forEach(category => {
+            budgetCategories.wants.forEach(category => {
                 const value = parseCurrency(document.getElementById(category.id)?.value || 0);
                 data.budget.wants[category.id] = { label: category.label, value: value };
             });
             
             // Add savings data
-            const savingsCats = isDetailedMode ? detailedSavingsCategories : savingsCategories;
-            savingsCats.forEach(category => {
+            savingsCategories.forEach(category => {
                 data.savings[category.id] = {
                     label: category.label,
                     monthly: parseCurrency(document.getElementById(`${category.id}_monthly`)?.value || 0),
@@ -3638,12 +3331,9 @@
                 debtRatio: calculateDebtToIncomeRatio(),
                 savingsRate: (getTotalMonthlySavings() / getMonthlyIncome()) * 100,
                 nextAction: calculateNextFinancialAction(),
-                mode: isDetailedMode ? 'detailed' : 'quick',
                 warMode: isWarModeActive,
                 timestamp: new Date().toISOString()
             };
-            
-            const encodedData = btoa(JSON.stringify(data));
             
             // Copy to clipboard
             const shareText = `My Financial Snapshot:\n- Monthly Income: $${data.income.toLocaleString()}\n- Debt-to-Income: ${data.debtRatio.toFixed(1)}%\n- Savings Rate: ${data.savingsRate.toFixed(1)}%\n- Next Action: ${data.nextAction.title}\n- War Mode: ${data.warMode ? 'ACTIVE' : 'Inactive'}\n\nGenerated with Real American Finance`;
@@ -3715,7 +3405,7 @@
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing enhanced financial dashboard with War Mode...');
+            console.log('DOM loaded, initializing simplified financial dashboard...');
             
             // Initialize chart
             const canvas = document.getElementById('budgetChart');
@@ -3769,7 +3459,7 @@
                 loadFromLocalStorage();
             }, 100);
             
-            console.log('Enhanced financial dashboard with War Mode initialization complete');
+            console.log('Simplified financial dashboard initialization complete');
         });
 
         // Close modal when clicking outside
@@ -3795,9 +3485,6 @@
         window.closePricingModal = closePricingModal;
         window.showToast = showToast;
         window.refreshNextAction = refreshNextAction;
-        window.toggleWantsSection = toggleWantsSection;
-        window.toggleSavingsSection = toggleSavingsSection;
-        window.toggleBudgetMode = toggleBudgetMode;
         window.updateDebtPriority = updateDebtPriority;
         window.updateDebtType = updateDebtType;
         window.autoPopulateHousingFromMortgage = autoPopulateHousingFromMortgage;
