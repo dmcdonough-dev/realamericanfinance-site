@@ -466,7 +466,7 @@
             background: rgba(178, 34, 52, 0.1);
         }
 
-        /* Fix for select dropdown styling */
+    /* Fix for select dropdown styling */
 select {
     background: #0A1A2F !important;
     color: white !important;
@@ -499,7 +499,7 @@ select:focus {
     background: rgba(178, 34, 52, 0.1) !important;
     border: none !important;
     box-shadow: none !important;
-}
+}    
         
         /* ===== NEW STYLES FOR ENHANCED SAVINGS ===== */
         
@@ -869,6 +869,50 @@ select:focus {
         }
         
         .mortgage-populated:hover .mortgage-tooltip {
+            opacity: 1;
+        }
+        
+        /* DEBT MINIMUMS AUTO-POPULATION STYLES */
+        .debt-minimums-populated {
+            border-color: #8B5CF6 !important;
+            background: rgba(139, 92, 246, 0.1) !important;
+        }
+        
+        .debt-minimums-populated-indicator {
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            background: #8B5CF6;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            z-index: 10;
+        }
+        
+        .debt-minimums-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1E293B;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 100;
+            border: 1px solid #8B5CF6;
+        }
+        
+        .debt-minimums-populated:hover .debt-minimums-tooltip {
             opacity: 1;
         }
         
@@ -1825,9 +1869,13 @@ select:focus {
                 input.value = parts.join('.');
             }
             
-            // If this is the mortgage/rent input, track manual changes
+            // Track manual changes for auto-populated fields
             if (input.id === 'mortgage_rent') {
                 trackHousingManualChange(input);
+            }
+            
+            if (input.id === 'debt_minimums') {
+                trackDebtMinimumsManualChange(input);
             }
             
             // Store the value for persistence
@@ -1908,8 +1956,9 @@ select:focus {
             if (row) row.remove();
             if (mobileCard) mobileCard.remove();
             
-            // Update housing after removal
+            // Update housing and debt minimums after removal
             autoPopulateHousingFromMortgage();
+            autoPopulateDebtMinimums();
             debouncedCalculateAll();
         }
 
@@ -1954,7 +2003,7 @@ select:focus {
                     <div class="currency-input-container">
                         <input type="text" 
                                class="debt-input text-right" 
-                               oninput="formatCurrency(this); autoPopulateHousingFromMortgage(); debouncedCalculateAll()" 
+                               oninput="formatCurrency(this); autoPopulateHousingFromMortgage(); autoPopulateDebtMinimums(); debouncedCalculateAll()" 
                                placeholder="0"
                                aria-label="Minimum payment">
                     </div>
@@ -2159,6 +2208,66 @@ select:focus {
             }
         }
 
+        // ===== DEBT MINIMUMS AUTO-POPULATION FUNCTIONS =====
+        function autoPopulateDebtMinimums() {
+            const debtMinsInput = document.getElementById('debt_minimums');
+            if (!debtMinsInput) return;
+            
+            // Check if user manually changed it
+            if (debtMinsInput.dataset.autoPopulated === 'true') {
+                // If user manually changed it, don't auto-update
+                if (debtMinsInput.dataset.lastManualValue && 
+                    debtMinsInput.value !== debtMinsInput.dataset.lastManualValue) {
+                    return;
+                }
+            }
+            
+            const totalDebtPayments = getTotalDebtPayments();
+            
+            if (totalDebtPayments > 0) {
+                // Format the currency for display
+                const formattedPayment = formatNumberForInput(totalDebtPayments);
+                
+                // Set the debt minimums input value
+                debtMinsInput.value = formattedPayment;
+                debtMinsInput.dataset.autoPopulated = 'true';
+                debtMinsInput.dataset.lastAutoValue = formattedPayment;
+                
+                // Add visual indicator
+                debtMinsInput.parentElement.classList.add('relative');
+                debtMinsInput.parentElement.classList.add('debt-minimums-populated');
+                
+                if (!debtMinsInput.parentElement.querySelector('.debt-minimums-populated-indicator')) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'debt-minimums-populated-indicator';
+                    indicator.title = 'Auto-populated from debt section';
+                    indicator.innerHTML = '<i class="fas fa-file-invoice-dollar"></i>';
+                    
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'debt-minimums-tooltip';
+                    tooltip.textContent = 'Auto-populated from debt';
+                    indicator.appendChild(tooltip);
+                    
+                    debtMinsInput.parentElement.appendChild(indicator);
+                }
+            } else if (debtMinsInput.dataset.autoPopulated === 'true') {
+                // Clear if no debt but was previously auto-populated
+                if (debtMinsInput.dataset.lastManualValue) {
+                    debtMinsInput.value = debtMinsInput.dataset.lastManualValue;
+                } else {
+                    debtMinsInput.value = '';
+                }
+                debtMinsInput.dataset.autoPopulated = 'false';
+                
+                // Remove visual indicator
+                debtMinsInput.parentElement.classList.remove('debt-minimums-populated');
+                const indicator = debtMinsInput.parentElement.querySelector('.debt-minimums-populated-indicator');
+                if (indicator) {
+                    indicator.remove();
+                }
+            }
+        }
+
         function formatNumberForInput(number) {
             if (isNaN(number) || number === 0) return '';
             return number.toLocaleString('en-US', {
@@ -2185,6 +2294,24 @@ select:focus {
             }
         }
 
+        function trackDebtMinimumsManualChange(input) {
+            if (input.dataset.autoPopulated === 'true') {
+                // User is overriding auto-populated value
+                input.dataset.autoPopulated = 'false';
+                input.dataset.lastManualValue = input.value;
+                
+                // Remove visual indicator
+                input.parentElement.classList.remove('debt-minimums-populated');
+                const indicator = input.parentElement.querySelector('.debt-minimums-populated-indicator');
+                if (indicator) {
+                    indicator.remove();
+                }
+            } else if (input.value && input.value !== input.dataset.lastManualValue) {
+                // Track manual changes
+                input.dataset.lastManualValue = input.value;
+            }
+        }
+
         function updateDebtEventHandlers() {
             // Add event listeners to all debt payment inputs
             document.querySelectorAll('#debt-body tr').forEach(row => {
@@ -2194,6 +2321,7 @@ select:focus {
                     typeSelect.addEventListener('change', function() {
                         // If changing to/from mortgage, update housing
                         autoPopulateHousingFromMortgage();
+                        autoPopulateDebtMinimums();
                     });
                 }
             });
@@ -2885,8 +3013,9 @@ select:focus {
         }
 
         function calculateAll() {
-            // First, auto-populate housing from mortgage
+            // First, auto-populate housing and debt minimums
             autoPopulateHousingFromMortgage();
+            autoPopulateDebtMinimums();
             
             // 1. Get monthly income
             const income = getMonthlyIncome();
@@ -3523,7 +3652,9 @@ select:focus {
         window.updateDebtPriority = updateDebtPriority;
         window.updateDebtType = updateDebtType;
         window.autoPopulateHousingFromMortgage = autoPopulateHousingFromMortgage;
+        window.autoPopulateDebtMinimums = autoPopulateDebtMinimums;
         window.trackHousingManualChange = trackHousingManualChange;
+        window.trackDebtMinimumsManualChange = trackDebtMinimumsManualChange;
         window.validateBudgetInput = validateBudgetInput;
         window.updateDebtEventHandlers = updateDebtEventHandlers;
         window.handleFileImport = handleFileImport;
