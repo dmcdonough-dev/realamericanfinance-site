@@ -465,6 +465,41 @@
         .debt-input:focus {
             background: rgba(178, 34, 52, 0.1);
         }
+
+        /* Fix for select dropdown styling */
+select {
+    background: #0A1A2F !important;
+    color: white !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+select option {
+    background: #0A1A2F;
+    color: white;
+    padding: 8px;
+}
+
+select:focus {
+    outline: none;
+    border-color: #B22234 !important;
+    box-shadow: 0 0 0 2px rgba(178, 34, 52, 0.2) !important;
+}
+
+/* For the debt table specifically */
+.debt-input select {
+    background: transparent !important;
+    border: none !important;
+    padding: 4px !important;
+    width: 100% !important;
+}
+
+.debt-input select:focus {
+    background: rgba(178, 34, 52, 0.1) !important;
+    border: none !important;
+    box-shadow: none !important;
+}
         
         /* ===== NEW STYLES FOR ENHANCED SAVINGS ===== */
         
