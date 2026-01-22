@@ -314,6 +314,15 @@
             text-decoration: line-through;
         }
         
+        /* War Mode Disabled Inputs - ADDED FOR BUG FIX #2 */
+        .war-mode-disabled {
+            background: rgba(255, 255, 255, 0.05) !important;
+            pointer-events: none !important;
+            cursor: not-allowed !important;
+            border-color: rgba(220, 38, 38, 0.3) !important;
+            color: #6B7280 !important;
+        }
+        
         /* Budget Categories */
         .budget-category-card {
             background: rgba(10, 26, 47, 0.5);
@@ -465,41 +474,38 @@
         .debt-input:focus {
             background: rgba(178, 34, 52, 0.1);
         }
-
-    /* Fix for select dropdown styling */
-select {
-    background: #0A1A2F !important;
-    color: white !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
-    border-radius: 4px;
-    padding: 8px;
-}
-
-select option {
-    background: #0A1A2F;
-    color: white;
-    padding: 8px;
-}
-
-select:focus {
-    outline: none;
-    border-color: #B22234 !important;
-    box-shadow: 0 0 0 2px rgba(178, 34, 52, 0.2) !important;
-}
-
-/* For the debt table specifically */
-.debt-input select {
-    background: transparent !important;
-    border: none !important;
-    padding: 4px !important;
-    width: 100% !important;
-}
-
-.debt-input select:focus {
-    background: rgba(178, 34, 52, 0.1) !important;
-    border: none !important;
-    box-shadow: none !important;
-}    
+        
+        /* ===== FIXED DEBT DROPDOWN STYLES ===== */
+        .debt-type-select {
+            background: #0A1A2F !important;
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            border-radius: 4px !important;
+            padding: 4px 8px !important;
+            font-size: 0.7rem !important;
+            text-transform: uppercase !important;
+            width: 100% !important;
+            cursor: pointer !important;
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 8px center !important;
+            background-size: 12px !important;
+        }
+        
+        .debt-type-select option {
+            background: #0A1A2F !important;
+            color: white !important;
+            padding: 8px !important;
+        }
+        
+        .debt-type-select:focus {
+            border-color: #B22234 !important;
+            box-shadow: 0 0 0 1px rgba(178, 34, 52, 0.3) !important;
+            outline: none !important;
+        }
         
         /* ===== NEW STYLES FOR ENHANCED SAVINGS ===== */
         
@@ -796,6 +802,13 @@ select:focus {
                 grid-template-columns: 1fr;
                 gap: 8px;
             }
+            
+            /* Debt dropdown mobile fixes */
+            .debt-type-select {
+                font-size: 14px !important;
+                min-height: 40px !important;
+                padding: 8px 12px !important;
+            }
         }
         
         /* Focus indicators for accessibility */
@@ -935,6 +948,45 @@ select:focus {
             padding: 2px 6px;
             font-family: monospace;
             font-size: 0.875rem;
+        }
+        
+        /* ===== NEW STYLES FOR IMPROVEMENTS ===== */
+        .monthly-view-summary {
+            background: rgba(10, 26, 47, 0.7);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .category-percentage {
+            font-size: 0.65rem;
+            color: #9ca3af;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        
+        .clear-category-btn {
+            color: #9ca3af;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s;
+            margin-left: 8px;
+        }
+        
+        .clear-category-btn:hover {
+            color: #B22234;
+            background: rgba(178, 34, 52, 0.1);
         }
     </style>
 </head>
@@ -1166,6 +1218,22 @@ select:focus {
                         </label>
                         <div class="text-xs text-gray-400 flex-1 text-right">
                             Eliminate all wants/needs when in deficit
+                        </div>
+                    </div>
+                    
+                    <!-- NEW: Monthly View Summary -->
+                    <div class="grid grid-cols-3 gap-4 mb-6" id="monthly-view-summary">
+                        <div class="bg-white/5 p-3 rounded text-center">
+                            <div class="text-xs text-gray-400 mb-1">Total Budget</div>
+                            <div id="total-budget-display" class="text-lg font-bold">$0</div>
+                        </div>
+                        <div class="bg-white/5 p-3 rounded text-center">
+                            <div class="text-xs text-gray-400 mb-1">Remaining</div>
+                            <div id="budget-remaining-display" class="text-lg font-bold positive-surplus">$0</div>
+                        </div>
+                        <div class="bg-white/5 p-3 rounded text-center">
+                            <div class="text-xs text-gray-400 mb-1">% Spent</div>
+                            <div id="budget-percentage-display" class="text-lg font-bold">0%</div>
                         </div>
                     </div>
                     
@@ -1799,6 +1867,8 @@ select:focus {
                 const input = document.getElementById(category.id);
                 if (input && originalCategoryValues[category.id] !== undefined) {
                     input.value = originalCategoryValues[category.id];
+                    // Remove war-mode-disabled class from needs (just in case)
+                    input.classList.remove('war-mode-disabled');
                 }
             });
             
@@ -1807,6 +1877,8 @@ select:focus {
                 const input = document.getElementById(category.id);
                 if (input && originalCategoryValues[category.id] !== undefined) {
                     input.value = originalCategoryValues[category.id];
+                    // Remove war-mode-disabled class from wants
+                    input.classList.remove('war-mode-disabled');
                 }
             });
         }
@@ -1817,14 +1889,19 @@ select:focus {
                 const input = document.getElementById(category.id);
                 if (input) {
                     input.value = '';
+                    // Needs remain editable during War Mode, so don't add war-mode-disabled class
                 }
             });
             
-            // Zero out wants
+            // Zero out wants AND disable them
             budgetCategories.wants.forEach(category => {
                 const input = document.getElementById(category.id);
                 if (input) {
                     input.value = '';
+                    // Add war-mode-disabled class to wants inputs
+                    input.classList.add('war-mode-disabled');
+                    // Make them non-editable
+                    input.readOnly = true;
                 }
             });
         }
@@ -1970,13 +2047,13 @@ select:focus {
             const rowCount = debtBody.querySelectorAll('tr').length;
             const rowId = `debt-${Date.now()}-${rowCount}`;
             
-            // Create desktop row
+            // Create desktop row with FIXED dark dropdown
             const row = document.createElement('tr');
             row.id = rowId;
             row.className = "debt-row border-b border-white/5";
             row.innerHTML = `
                 <td class="py-3 px-2">
-                    <select class="debt-input text-xs uppercase bg-transparent w-full" onchange="updateDebtType(this); autoPopulateHousingFromMortgage();">
+                    <select class="debt-type-select" onchange="updateDebtType(this); autoPopulateHousingFromMortgage();">
                         <option value="">Select Type</option>
                         ${debtTypes.map(type => 
                             `<option value="${type.value}">${type.label}</option>`
@@ -2032,7 +2109,7 @@ select:focus {
             debtBody.appendChild(row);
             
             // Fill with data
-            const typeSelect = row.querySelector('select');
+            const typeSelect = row.querySelector('.debt-type-select');
             const inputs = row.querySelectorAll('.debt-input');
             
             if (typeSelect && inputs.length >= 4) {
@@ -2056,7 +2133,7 @@ select:focus {
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const typeSelect = row.querySelector('select');
+                const typeSelect = row.querySelector('.debt-type-select');
                 const paymentInput = row.querySelector('td:nth-child(4) .debt-input');
                 
                 // Skip mortgage payments (they're already in housing budget)
@@ -2151,7 +2228,7 @@ select:focus {
             
             debtRows.forEach(row => {
                 // Check if this is a mortgage debt
-                const typeSelect = row.querySelector('select');
+                const typeSelect = row.querySelector('.debt-type-select');
                 if (typeSelect && typeSelect.value === 'mortgage') {
                     const paymentInput = row.querySelector('td:nth-child(4) .debt-input');
                     if (paymentInput) {
@@ -2315,7 +2392,7 @@ select:focus {
         function updateDebtEventHandlers() {
             // Add event listeners to all debt payment inputs
             document.querySelectorAll('#debt-body tr').forEach(row => {
-                const typeSelect = row.querySelector('select');
+                const typeSelect = row.querySelector('.debt-type-select');
                 
                 if (typeSelect) {
                     typeSelect.addEventListener('change', function() {
@@ -2325,6 +2402,130 @@ select:focus {
                     });
                 }
             });
+        }
+
+        // ===== NEW IMPROVEMENT FUNCTIONS =====
+        function updateMonthlyViewSummary() {
+            const income = getMonthlyIncome();
+            const needsTotal = calculateMonthlyEssentials();
+            
+            // Calculate wants
+            let wantsTotal = 0;
+            budgetCategories.wants.forEach(category => {
+                wantsTotal += parseCurrency(document.getElementById(category.id)?.value || 0);
+            });
+            
+            // Calculate savings
+            const savingsTotal = getTotalMonthlySavings();
+            
+            // Total budget (needs + wants + savings)
+            const totalBudget = needsTotal + wantsTotal + savingsTotal;
+            
+            // Remaining (income - total budget)
+            const remaining = income - totalBudget;
+            
+            // Percentage spent
+            const percentageSpent = income > 0 ? (totalBudget / income) * 100 : 0;
+            
+            // Update displays
+            const totalBudgetDisplay = document.getElementById('total-budget-display');
+            const budgetRemainingDisplay = document.getElementById('budget-remaining-display');
+            const budgetPercentageDisplay = document.getElementById('budget-percentage-display');
+            
+            if (totalBudgetDisplay) {
+                totalBudgetDisplay.textContent = `$${Math.round(totalBudget).toLocaleString()}`;
+            }
+            
+            if (budgetRemainingDisplay) {
+                budgetRemainingDisplay.textContent = `$${Math.round(remaining).toLocaleString()}`;
+                if (remaining >= 0) {
+                    budgetRemainingDisplay.classList.remove('negative-surplus');
+                    budgetRemainingDisplay.classList.add('positive-surplus');
+                } else {
+                    budgetRemainingDisplay.classList.remove('positive-surplus');
+                    budgetRemainingDisplay.classList.add('negative-surplus');
+                }
+            }
+            
+            if (budgetPercentageDisplay) {
+                budgetPercentageDisplay.textContent = `${percentageSpent.toFixed(1)}%`;
+                // Color code based on percentage
+                if (percentageSpent <= 80) {
+                    budgetPercentageDisplay.classList.remove('text-yellow-500', 'text-red-500');
+                    budgetPercentageDisplay.classList.add('text-green-400');
+                } else if (percentageSpent <= 95) {
+                    budgetPercentageDisplay.classList.remove('text-green-400', 'text-red-500');
+                    budgetPercentageDisplay.classList.add('text-yellow-500');
+                } else {
+                    budgetPercentageDisplay.classList.remove('text-green-400', 'text-yellow-500');
+                    budgetPercentageDisplay.classList.add('text-red-500');
+                }
+            }
+        }
+
+        function updateCategoryPercentages() {
+            const income = getMonthlyIncome();
+            if (income <= 0) return;
+            
+            // Update needs categories
+            budgetCategories.needs.forEach(category => {
+                const input = document.getElementById(category.id);
+                const parent = input?.closest('.budget-category-card');
+                const value = parseCurrency(input?.value || 0);
+                const percentage = ((value / income) * 100).toFixed(1);
+                
+                if (parent) {
+                    // Remove existing percentage badge
+                    const existingBadge = parent.querySelector('.category-percentage');
+                    if (existingBadge) {
+                        existingBadge.remove();
+                    }
+                    
+                    // Add new percentage badge if value > 0
+                    if (value > 0) {
+                        const badge = document.createElement('span');
+                        badge.className = 'category-percentage';
+                        badge.textContent = `${percentage}%`;
+                        const labelSpan = parent.querySelector('span.text-xs');
+                        if (labelSpan) {
+                            labelSpan.appendChild(badge);
+                        }
+                    }
+                }
+            });
+            
+            // Update wants categories
+            budgetCategories.wants.forEach(category => {
+                const input = document.getElementById(category.id);
+                const parent = input?.closest('.budget-category-card');
+                const value = parseCurrency(input?.value || 0);
+                const percentage = ((value / income) * 100).toFixed(1);
+                
+                if (parent) {
+                    // Remove existing percentage badge
+                    const existingBadge = parent.querySelector('.category-percentage');
+                    if (existingBadge) {
+                        existingBadge.remove();
+                    }
+                    
+                    // Add new percentage badge if value > 0
+                    if (value > 0) {
+                        const badge = document.createElement('span');
+                        badge.className = 'category-percentage';
+                        badge.textContent = `${percentage}%`;
+                        const labelSpan = parent.querySelector('span.text-xs');
+                        if (labelSpan) {
+                            labelSpan.appendChild(badge);
+                        }
+                    }
+                }
+            });
+        }
+
+        function clearCategory(input) {
+            input.value = '';
+            formatCurrency(input);
+            showToast(`Cleared ${input.id.replace('_', ' ')}`);
         }
 
         // ===== BUDGET CALCULATION FUNCTIONS =====
@@ -2492,7 +2693,7 @@ select:focus {
             container.innerHTML = html || '<div class="text-center py-4 text-gray-500">Enter data to see progress metrics</div>';
         }
 
-        // ===== ENHANCED NEXT FINANCIAL ACTION WITH WAR MODE SUPPORT =====
+        // ===== ENHANCED NEXT FINANCIAL ACTION - UPDATED LOGIC =====
         function getTierColor(tier) {
             switch(tier) {
                 case 1: return '#EF4444'; // Red
@@ -2522,8 +2723,13 @@ select:focus {
             const debtPayments = getTotalDebtPayments();
             const surplus = calculateSurplus();
             const monthsCovered = monthlyEssentials > 0 ? emergencyFundTotal / monthlyEssentials : 0;
+            const highInterestDebt = calculateTotalHighInterestDebt();
+            const highestRate = getHighestInterestRate();
+            const totalDebt = getTotalDebtBalance();
             
-            // WAR MODE SPECIAL CASE: If War Mode is active but still in deficit
+            // ===== TIER 1: FINANCIAL FIREFIGHTING (UPDATED ORDER) =====
+            
+            // WAR MODE SPECIAL CASES
             if (isWarModeActive && surplus < 0) {
                 const deficitAmount = Math.abs(surplus);
                 return {
@@ -2539,7 +2745,6 @@ select:focus {
                 };
             }
             
-            // WAR MODE ACTIVE: Special message
             if (isWarModeActive) {
                 return {
                     tier: 1,
@@ -2554,41 +2759,7 @@ select:focus {
                 };
             }
             
-            // TIER 1: FINANCIAL FIREFIGHTING (Critical Issues)
-            // 1. Emergency Fund Crisis
-            if (emergencyFundTotal === 0 || monthsCovered < 1) {
-                const targetAmount = Math.round(monthlyEssentials * 1);
-                return {
-                    tier: 1,
-                    type: 'emergency-fund-crisis',
-                    icon: 'fa-shield-alt',
-                    title: 'EMERGENCY: Build 1-Month Emergency Fund',
-                    message: `You have ${monthsCovered.toFixed(1)} months covered (Need: 1 month)`,
-                    action: `Save $${targetAmount.toLocaleString()} for basic expenses`,
-                    why: 'Protects you from unexpected expenses without going into debt',
-                    priority: 'Critical',
-                    color: 'red'
-                };
-            }
-            
-            // 2. High-Interest Debt Emergency (>15% APR)
-            const highInterestDebt = calculateTotalHighInterestDebt();
-            const highestRate = getHighestInterestRate();
-            if (highInterestDebt > 0 && highestRate > 15) {
-                return {
-                    tier: 1,
-                    type: 'high-interest-emergency',
-                    icon: 'fa-fire',
-                    title: 'EMERGENCY: Attack High-Interest Debt',
-                    message: `$${highInterestDebt.toLocaleString()} at ${highestRate}%+ APR`,
-                    action: 'Avalanche method: Focus on highest rate debt first',
-                    why: `Debt at ${highestRate}% is costing you ${(highestRate/12).toFixed(1)}% monthly interest`,
-                    priority: 'Critical',
-                    color: 'red'
-                };
-            }
-            
-            // 3. Monthly Deficit
+            // 1. MONTHLY DEFICIT - NOW FIRST IN TIER 1
             if (surplus < 0) {
                 const deficitAmount = Math.abs(surplus);
                 return {
@@ -2604,7 +2775,38 @@ select:focus {
                 };
             }
             
-            // TIER 2: RETIREMENT READINESS (If Age Provided)
+            // 2. Emergency Fund Crisis (BUT only if not in deficit)
+            if (emergencyFundTotal === 0 || monthsCovered < 1) {
+                const targetAmount = Math.round(monthlyEssentials * 1);
+                return {
+                    tier: 1,
+                    type: 'emergency-fund-crisis',
+                    icon: 'fa-shield-alt',
+                    title: 'EMERGENCY: Build 1-Month Emergency Fund',
+                    message: `You have ${monthsCovered.toFixed(1)} months covered (Need: 1 month)`,
+                    action: `Save $${targetAmount.toLocaleString()} for basic expenses`,
+                    why: 'Protects you from unexpected expenses without going into debt',
+                    priority: 'Critical',
+                    color: 'red'
+                };
+            }
+            
+            // 3. High-Interest Debt Emergency (>15% APR)
+            if (highInterestDebt > 0 && highestRate > 15) {
+                return {
+                    tier: 1,
+                    type: 'high-interest-emergency',
+                    icon: 'fa-fire',
+                    title: 'EMERGENCY: Attack High-Interest Debt',
+                    message: `$${highInterestDebt.toLocaleString()} at ${highestRate}%+ APR`,
+                    action: 'Avalanche method: Focus on highest rate debt first',
+                    why: `Debt at ${highestRate}% is costing you ${(highestRate/12).toFixed(1)}% monthly interest`,
+                    priority: 'Critical',
+                    color: 'red'
+                };
+            }
+            
+            // ===== TIER 2: RETIREMENT READINESS =====
             if (age > 0 && income > 0) {
                 const annualIncome = income * 12;
                 const targetMultiplier = getRetirementTargetForAge(age);
@@ -2643,8 +2845,7 @@ select:focus {
                 };
             }
             
-            // TIER 3: SAVINGS OPTIMIZATION
-            // 5. Low Savings Rate (<10%)
+            // ===== TIER 3: SAVINGS OPTIMIZATION =====
             const totalMonthlySavings = getTotalMonthlySavings();
             const savingsRate = income > 0 ? (totalMonthlySavings / income) * 100 : 0;
             
@@ -2663,7 +2864,6 @@ select:focus {
                 };
             }
             
-            // 6. Moderate Debt Load
             const dti = calculateDebtToIncomeRatio();
             if (dti > 25) {
                 return {
@@ -2679,7 +2879,6 @@ select:focus {
                 };
             }
             
-            // 7. High Housing Cost (>35% of income)
             const housingCost = parseCurrency(document.getElementById('mortgage_rent')?.value || 0);
             const housingPercentage = income > 0 ? (housingCost / income) * 100 : 0;
             if (housingPercentage > 35) {
@@ -2697,9 +2896,7 @@ select:focus {
                 };
             }
             
-            // TIER 4: WEALTH BUILDING (All basics covered)
-            // 8. Still have non-mortgage debt
-            const totalDebt = getTotalDebtBalance();
+            // ===== TIER 4: WEALTH BUILDING =====
             if (totalDebt > 0 && surplus > 0) {
                 return {
                     tier: 4,
@@ -2714,7 +2911,6 @@ select:focus {
                 };
             }
             
-            // 9. Build full emergency fund (3-6 months)
             if (monthsCovered < 6) {
                 const targetAmount = Math.round(monthlyEssentials * 6);
                 return {
@@ -2730,7 +2926,6 @@ select:focus {
                 };
             }
             
-            // 10. Boost retirement if behind target
             if (age > 0 && income > 0) {
                 const annualIncome = income * 12;
                 const targetMultiplier = getRetirementTargetForAge(age);
@@ -2753,7 +2948,6 @@ select:focus {
                 }
             }
             
-            // 11. Invest for growth
             if (surplus > 0) {
                 return {
                     tier: 4,
@@ -2768,7 +2962,6 @@ select:focus {
                 };
             }
             
-            // Default if nothing else matches (everything is perfect)
             return {
                 tier: 4,
                 type: 'on-track',
@@ -2881,39 +3074,53 @@ select:focus {
             if (needsContainer) needsContainer.innerHTML = '';
             if (wantsContainer) wantsContainer.innerHTML = '';
             
-            // Create needs categories
+            // Create needs categories with clear buttons
             budgetCategories.needs.forEach(category => {
                 const div = document.createElement('div');
                 div.className = `flex justify-between items-center budget-category-card war-mode-affected`;
                 div.innerHTML = `
-                    <span class="text-xs text-gray-300">${category.label}</span>
-                    <div class="currency-input-container w-32 relative">
-                        <input type="text" 
-                               id="${category.id}" 
-                               oninput="formatCurrency(this); if(validateBudgetInput(this)) debouncedCalculateAll()" 
-                               class="input-underlined text-right" 
-                               value="${getCategoryValue(category.id)}"
-                               placeholder="0"
-                               aria-label="${category.label} expense">
+                    <div class="flex items-center">
+                        <span class="text-xs text-gray-300">${category.label}</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="currency-input-container w-32 relative mr-2">
+                            <input type="text" 
+                                   id="${category.id}" 
+                                   oninput="formatCurrency(this); if(validateBudgetInput(this)) debouncedCalculateAll()" 
+                                   class="input-underlined text-right" 
+                                   value="${getCategoryValue(category.id)}"
+                                   placeholder="0"
+                                   aria-label="${category.label} expense">
+                        </div>
+                        <button onclick="clearCategory(this.previousElementSibling.querySelector('input'))" class="clear-category-btn" aria-label="Clear ${category.label}">
+                            ×
+                        </button>
                     </div>
                 `;
                 if (needsContainer) needsContainer.appendChild(div);
             });
             
-            // Create wants categories
+            // Create wants categories with clear buttons
             budgetCategories.wants.forEach(category => {
                 const div = document.createElement('div');
                 div.className = `flex justify-between items-center budget-category-card war-mode-affected`;
                 div.innerHTML = `
-                    <span class="text-xs text-gray-300">${category.label}</span>
-                    <div class="currency-input-container w-32">
-                        <input type="text" 
-                               id="${category.id}" 
-                               oninput="formatCurrency(this); if(validateBudgetInput(this)) debouncedCalculateAll()" 
-                               class="input-underlined text-right" 
-                               value="${getCategoryValue(category.id)}"
-                               placeholder="0"
-                               aria-label="${category.label} expense">
+                    <div class="flex items-center">
+                        <span class="text-xs text-gray-300">${category.label}</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="currency-input-container w-32 relative mr-2">
+                            <input type="text" 
+                                   id="${category.id}" 
+                                   oninput="formatCurrency(this); if(validateBudgetInput(this)) debouncedCalculateAll()" 
+                                   class="input-underlined text-right" 
+                                   value="${getCategoryValue(category.id)}"
+                                   placeholder="0"
+                                   aria-label="${category.label} expense">
+                        </div>
+                        <button onclick="clearCategory(this.previousElementSibling.querySelector('input'))" class="clear-category-btn" aria-label="Clear ${category.label}">
+                            ×
+                        </button>
                     </div>
                 `;
                 if (wantsContainer) wantsContainer.appendChild(div);
@@ -2965,6 +3172,13 @@ select:focus {
             const positiveSurplus = Math.max(0, surplus);
             const negativeSurplus = Math.max(0, -surplus);
             
+            // ===== BUG FIX #1: Don't double-count debt in expenses =====
+            // Get debt_minimums value to exclude it from expenses calculation
+            const debtMinimumsValue = parseCurrency(document.getElementById('debt_minimums')?.value || 0);
+            
+            // Adjusted expenses (needs + wants) without debt_minimums to avoid double-counting
+            const adjustedExpenses = Math.max(0, expenses - debtMinimumsValue);
+            
             if (income <= 0) {
                 myChart.data.datasets[0].data = [0, 0, 0, 0];
                 myChart.data.datasets[0].backgroundColor = [
@@ -2975,10 +3189,10 @@ select:focus {
                 ];
             } else if (surplus >= 0) {
                 myChart.data.datasets[0].data = [
-                    expenses,           // Regular expenses (needs + wants) ONLY
-                    debtPayments,       // Debt payments (from debt section) ONLY
-                    savings,            // Savings
-                    positiveSurplus     // Surplus
+                    adjustedExpenses,           // Regular expenses (needs + wants) WITHOUT debt_minimums
+                    debtPayments,               // Debt payments (from debt section) ONLY
+                    savings,                    // Savings
+                    positiveSurplus             // Surplus
                 ];
                 myChart.data.datasets[0].backgroundColor = [
                     '#1E40AF',    // Expenses - blue
@@ -2988,10 +3202,10 @@ select:focus {
                 ];
             } else {
                 myChart.data.datasets[0].data = [
-                    expenses,           // Regular expenses (needs + wants) ONLY
-                    debtPayments,       // Debt payments (from debt section) ONLY
-                    savings,            // Savings
-                    negativeSurplus     // Deficit
+                    adjustedExpenses,           // Regular expenses (needs + wants) WITHOUT debt_minimums
+                    debtPayments,               // Debt payments (from debt section) ONLY
+                    savings,                    // Savings
+                    negativeSurplus             // Deficit
                 ];
                 myChart.data.datasets[0].backgroundColor = [
                     '#1E40AF',    // Expenses - blue
@@ -3003,7 +3217,7 @@ select:focus {
             
             // Update chart labels for tooltips
             myChart.data.labels = [
-                `Expenses: $${Math.round(expenses).toLocaleString()}`,
+                `Expenses: $${Math.round(adjustedExpenses).toLocaleString()}`,
                 `Debt Payments: $${Math.round(debtPayments).toLocaleString()}`,
                 `Savings: $${Math.round(savings).toLocaleString()}`,
                 surplus >= 0 ? `Surplus: $${Math.round(surplus).toLocaleString()}` : `Deficit: $${Math.round(Math.abs(surplus)).toLocaleString()}`
@@ -3116,8 +3330,14 @@ select:focus {
             // 13. Update next financial action
             displayNextFinancialAction();
             
-            // 14. Update chart
+            // 14. Update chart - FIXED to not double-count debt
             updateChart(income, needsTotal + wantsTotal, debtPayments, savingsTotal, surplus);
+            
+            // NEW: Update monthly view summary
+            updateMonthlyViewSummary();
+            
+            // NEW: Update category percentages
+            updateCategoryPercentages();
         }
 
         function debouncedCalculateAll() {
@@ -3188,7 +3408,7 @@ select:focus {
             
             // Save debts
             document.querySelectorAll('#debt-body tr').forEach(row => {
-                const typeSelect = row.querySelector('select');
+                const typeSelect = row.querySelector('.debt-type-select');
                 const inputs = row.querySelectorAll('.debt-input');
                 if (inputs.length >= 4) {
                     data.debts.push({
@@ -3331,12 +3551,20 @@ select:focus {
                 // Clear budget categories
                 budgetCategories.needs.forEach(category => {
                     const input = document.getElementById(category.id);
-                    if (input) input.value = '';
+                    if (input) {
+                        input.value = '';
+                        input.classList.remove('war-mode-disabled');
+                        input.readOnly = false;
+                    }
                 });
                 
                 budgetCategories.wants.forEach(category => {
                     const input = document.getElementById(category.id);
-                    if (input) input.value = '';
+                    if (input) {
+                        input.value = '';
+                        input.classList.remove('war-mode-disabled');
+                        input.readOnly = false;
+                    }
                 });
                 
                 // Clear savings values
@@ -3435,7 +3663,7 @@ select:focus {
             
             // Add debt data
             document.querySelectorAll('#debt-body tr').forEach(row => {
-                const typeSelect = row.querySelector('select');
+                const typeSelect = row.querySelector('.debt-type-select');
                 const inputs = row.querySelectorAll('.debt-input');
                 if (inputs.length >= 4) {
                     const rate = parseFloat(inputs[3].value) || 0;
@@ -3660,6 +3888,9 @@ select:focus {
         window.handleFileImport = handleFileImport;
         window.shareDashboard = shareDashboard;
         window.toggleWarMode = toggleWarMode;
+        window.clearCategory = clearCategory;
+        window.updateMonthlyViewSummary = updateMonthlyViewSummary;
+        window.updateCategoryPercentages = updateCategoryPercentages;
     </script>
 </body>
 </html>
