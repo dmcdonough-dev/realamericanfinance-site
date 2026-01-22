@@ -321,6 +321,7 @@
             cursor: not-allowed !important;
             border-color: rgba(220, 38, 38, 0.3) !important;
             color: #6B7280 !important;
+            opacity: 0.6 !important;
         }
         
         /* Budget Categories */
@@ -1869,6 +1870,10 @@
                     input.value = originalCategoryValues[category.id];
                     // Remove war-mode-disabled class from needs (just in case)
                     input.classList.remove('war-mode-disabled');
+                    input.readOnly = false;
+                    input.disabled = false;
+                    // Trigger format to update display
+                    formatCurrency(input);
                 }
             });
             
@@ -1879,17 +1884,26 @@
                     input.value = originalCategoryValues[category.id];
                     // Remove war-mode-disabled class from wants
                     input.classList.remove('war-mode-disabled');
+                    input.readOnly = false;
+                    input.disabled = false;
+                    // Trigger format to update display
+                    formatCurrency(input);
                 }
             });
         }
 
         function zeroOutWantsAndNeeds() {
-            // Zero out needs
+            // Zero out needs (set to 0 but keep editable during War Mode)
             budgetCategories.needs.forEach(category => {
                 const input = document.getElementById(category.id);
                 if (input) {
-                    input.value = '';
+                    input.value = '0';
                     // Needs remain editable during War Mode, so don't add war-mode-disabled class
+                    input.classList.remove('war-mode-disabled');
+                    input.readOnly = false;
+                    input.disabled = false;
+                    // Trigger format to update display
+                    formatCurrency(input);
                 }
             });
             
@@ -1897,11 +1911,14 @@
             budgetCategories.wants.forEach(category => {
                 const input = document.getElementById(category.id);
                 if (input) {
-                    input.value = '';
+                    input.value = '0';
                     // Add war-mode-disabled class to wants inputs
                     input.classList.add('war-mode-disabled');
                     // Make them non-editable
                     input.readOnly = true;
+                    input.disabled = true; // Actually disable the input
+                    // Trigger format to update display
+                    formatCurrency(input);
                 }
             });
         }
@@ -3555,6 +3572,7 @@
                         input.value = '';
                         input.classList.remove('war-mode-disabled');
                         input.readOnly = false;
+                        input.disabled = false;
                     }
                 });
                 
@@ -3564,6 +3582,7 @@
                         input.value = '';
                         input.classList.remove('war-mode-disabled');
                         input.readOnly = false;
+                        input.disabled = false;
                     }
                 });
                 
