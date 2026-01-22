@@ -231,7 +231,7 @@
             color: #6B7280;
         }
         
-        /* WAR MODE Styles */
+        /* WAR MODE Styles - UPDATED to target only Wants */
         .war-mode-toggle-container {
             display: flex;
             align-items: center;
@@ -302,14 +302,15 @@
             text-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
         }
         
-        .war-mode-active .budget-category-card.war-mode-affected {
+        /* Target ONLY Wants categories in War Mode - FIXED */
+        .war-mode-active #wants-categories .budget-category-card {
             opacity: 0.5;
             filter: grayscale(0.8);
             background: rgba(220, 38, 38, 0.05);
             border-color: rgba(220, 38, 38, 0.2);
         }
         
-        .war-mode-active .budget-category-card.war-mode-affected input {
+        .war-mode-active #wants-categories .budget-category-card input {
             color: #6B7280;
             text-decoration: line-through;
         }
@@ -3085,7 +3086,7 @@
             // Create needs categories with clear buttons
             budgetCategories.needs.forEach(category => {
                 const div = document.createElement('div');
-                div.className = `flex justify-between items-center budget-category-card war-mode-affected`;
+                div.className = `flex justify-between items-center budget-category-card`;
                 div.innerHTML = `
                     <div class="flex items-center">
                         <span class="text-xs text-gray-300">${category.label}</span>
@@ -3111,7 +3112,7 @@
             // Create wants categories with clear buttons
             budgetCategories.wants.forEach(category => {
                 const div = document.createElement('div');
-                div.className = `flex justify-between items-center budget-category-card war-mode-affected`;
+                div.className = `flex justify-between items-center budget-category-card`;
                 div.innerHTML = `
                     <div class="flex items-center">
                         <span class="text-xs text-gray-300">${category.label}</span>
