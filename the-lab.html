@@ -1218,7 +1218,7 @@
                             <span class="war-mode-toggle-slider"></span>
                         </label>
                         <div class="text-xs text-gray-400 flex-1 text-right">
-                            Eliminate all wants/needs when in deficit
+                            Eliminate wants & lifestyle when in deficit
                         </div>
                     </div>
                     
@@ -1529,7 +1529,7 @@
                             <i class="fas fa-fire text-red-500 mt-1"></i>
                             <div>
                                 <span class="font-bold">War Mode:</span>
-                                <div class="text-gray-400">Toggle War Mode when in deficit to eliminate wants/needs</div>
+                                <div class="text-gray-400">Toggle War Mode when in deficit to eliminate Wants only</div>
                             </div>
                         </div>
                     </div>
@@ -1805,7 +1805,7 @@
         let categoryValues = {};
         let savingsValues = {};
 
-        // ===== WAR MODE FUNCTIONS =====
+        // ===== WAR MODE FUNCTIONS (FIXED - Only affects WANTS) =====
         function toggleWarMode() {
             const toggle = document.getElementById('warModeToggle');
             const budgetSection = document.getElementById('budget-section');
@@ -1816,13 +1816,16 @@
             if (isWarModeActive) {
                 // Activate War Mode
                 budgetSection.classList.add('war-mode-active');
-                showToast('WAR MODE ACTIVATED: All wants/needs set to zero');
+                showToast('WAR MODE ACTIVATED: All WANTS set to zero');
                 
                 // Save original values
                 saveOriginalCategoryValues();
                 
-                // Set all wants/needs categories to zero
-                zeroOutWantsAndNeeds();
+                // Set only WANTS categories to zero (NEEDS remain editable)
+                zeroOutWantsOnly();
+                
+                // FIX: Ensure War Mode toggle is ALWAYS visible when active
+                warModeContainer.classList.remove('hidden');
             } else {
                 // Deactivate War Mode
                 budgetSection.classList.remove('war-mode-active');
@@ -1845,15 +1848,7 @@
         function saveOriginalCategoryValues() {
             originalCategoryValues = {};
             
-            // Save needs
-            budgetCategories.needs.forEach(category => {
-                const input = document.getElementById(category.id);
-                if (input) {
-                    originalCategoryValues[category.id] = input.value;
-                }
-            });
-            
-            // Save wants
+            // Save WANTS only (NEEDS remain editable during War Mode)
             budgetCategories.wants.forEach(category => {
                 const input = document.getElementById(category.id);
                 if (input) {
@@ -1863,21 +1858,7 @@
         }
 
         function restoreOriginalCategoryValues() {
-            // Restore needs
-            budgetCategories.needs.forEach(category => {
-                const input = document.getElementById(category.id);
-                if (input && originalCategoryValues[category.id] !== undefined) {
-                    input.value = originalCategoryValues[category.id];
-                    // Remove war-mode-disabled class from needs (just in case)
-                    input.classList.remove('war-mode-disabled');
-                    input.readOnly = false;
-                    input.disabled = false;
-                    // Trigger format to update display
-                    formatCurrency(input);
-                }
-            });
-            
-            // Restore wants
+            // Restore WANTS only
             budgetCategories.wants.forEach(category => {
                 const input = document.getElementById(category.id);
                 if (input && originalCategoryValues[category.id] !== undefined) {
@@ -1890,24 +1871,17 @@
                     formatCurrency(input);
                 }
             });
+            
+            // Remove war-mode-disabled class from any inputs that might have it
+            document.querySelectorAll('.war-mode-disabled').forEach(input => {
+                input.classList.remove('war-mode-disabled');
+                input.readOnly = false;
+                input.disabled = false;
+            });
         }
 
-        function zeroOutWantsAndNeeds() {
-            // Zero out needs (set to 0 but keep editable during War Mode)
-            budgetCategories.needs.forEach(category => {
-                const input = document.getElementById(category.id);
-                if (input) {
-                    input.value = '0';
-                    // Needs remain editable during War Mode, so don't add war-mode-disabled class
-                    input.classList.remove('war-mode-disabled');
-                    input.readOnly = false;
-                    input.disabled = false;
-                    // Trigger format to update display
-                    formatCurrency(input);
-                }
-            });
-            
-            // Zero out wants AND disable them
+        function zeroOutWantsOnly() {
+            // ONLY zero out WANTS categories and disable them
             budgetCategories.wants.forEach(category => {
                 const input = document.getElementById(category.id);
                 if (input) {
@@ -1921,25 +1895,36 @@
                     formatCurrency(input);
                 }
             });
+            
+            // NEEDS categories remain untouched and editable
+            budgetCategories.needs.forEach(category => {
+                const input = document.getElementById(category.id);
+                if (input) {
+                    // Remove any war-mode styling from needs
+                    input.classList.remove('war-mode-disabled');
+                    input.readOnly = false;
+                    input.disabled = false;
+                }
+            });
         }
 
         function checkAndShowWarModeToggle() {
             const surplus = calculateSurplus();
             const warModeContainer = document.getElementById('war-mode-container');
             
+            // FIX: ALWAYS show War Mode toggle when War Mode is ACTIVE
+            if (isWarModeActive) {
+                warModeContainer.classList.remove('hidden');
+                return; // Don't hide it when War Mode is active
+            }
+            
+            // Only show/hide based on surplus when War Mode is NOT active
             if (surplus < 0) {
-                // Show War Mode toggle when in deficit
+                // Show War Mode toggle when in deficit and War Mode is not active
                 warModeContainer.classList.remove('hidden');
             } else {
-                // Hide War Mode toggle when surplus is positive
+                // Hide War Mode toggle when surplus is positive and War Mode is not active
                 warModeContainer.classList.add('hidden');
-                
-                // Auto-deactivate War Mode if surplus becomes positive
-                if (isWarModeActive) {
-                    const toggle = document.getElementById('warModeToggle');
-                    if (toggle) toggle.checked = false;
-                    toggleWarMode();
-                }
             }
         }
 
@@ -2621,6 +2606,12 @@
             const emergencyFundTotal = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
             const retirementTotal = parseCurrency(document.getElementById('retirement_total')?.value || 0);
             const monthlyEssentials = calculateMonthlyEssentials();
+            const debtPayments = getTotalDebtPayments();
+            const surplus = calculateSurplus();
+            const monthsCovered = monthlyEssentials > 0 ? emergencyFundTotal / monthlyEssentials : 0;
+            const highInterestDebt = calculateTotalHighInterestDebt();
+            const highestRate = getHighestInterestRate();
+            const totalDebt = getTotalDebtBalance();
             
             let html = '';
             
@@ -2754,9 +2745,9 @@
                     type: 'war-mode-deficit',
                     icon: 'fa-sack-dollar',
                     title: 'WAR MODE: INCREASE INCOME',
-                    message: `Even with all wants/needs eliminated, you're still $${deficitAmount.toLocaleString()}/month short`,
+                    message: `Even with all WANTS eliminated, you're still $${deficitAmount.toLocaleString()}/month short`,
                     action: `Increase income by $${deficitAmount.toLocaleString()}/month`,
-                    why: 'Essential debt payments and savings exceed your current income',
+                    why: 'Essential expenses and debt payments exceed your current income',
                     priority: 'Critical',
                     color: 'red'
                 };
@@ -2767,8 +2758,8 @@
                     tier: 1,
                     type: 'war-mode-active',
                     icon: 'fa-shield-alt',
-                    title: 'WAR MODE: ELIMINATING EXPENSES',
-                    message: `All wants/needs temporarily set to zero to balance budget`,
+                    title: 'WAR MODE: ELIMINATING WANTS',
+                    message: `All WANTS & Lifestyle expenses temporarily set to zero`,
                     action: 'Focus on income generation and debt elimination',
                     why: 'Temporary austerity to achieve financial stability',
                     priority: 'Critical',
@@ -2785,7 +2776,7 @@
                     icon: 'fa-exclamation-triangle',
                     title: 'CRITICAL: Fix Monthly Deficit',
                     message: `You're overspending by $${deficitAmount.toLocaleString()}/month`,
-                    action: `Activate War Mode or increase income by $${deficitAmount.toLocaleString()}`,
+                    action: `Activate War Mode (eliminates WANTS) or increase income by $${deficitAmount.toLocaleString()}`,
                     why: 'Sustained deficits lead to debt accumulation',
                     priority: 'Critical',
                     color: 'red'
@@ -3337,7 +3328,7 @@
                     'Reduce expenses or increase income';
             }
             
-            // 11. Check and show War Mode toggle
+            // 11. Check and show War Mode toggle (FIXED LOGIC)
             checkAndShowWarModeToggle();
             
             // 12. Update progress indicators
@@ -3541,7 +3532,7 @@
                     // Show War Mode info if active
                     if (isWarModeActive) {
                         setTimeout(() => {
-                            showToast('⚠ WAR MODE ACTIVE: All wants/needs zeroed');
+                            showToast('⚠ WAR MODE ACTIVE: All WANTS zeroed');
                         }, 1000);
                     }
                 }, 100);
@@ -3618,9 +3609,9 @@
                 // Reinitialize categories
                 initializeBudgetCategories();
                 
-                // Hide War Mode container
+                // Hide War Mode container (but will show if in deficit)
                 const warModeContainer = document.getElementById('war-mode-container');
-                if (warModeContainer) warModeContainer.classList.add('hidden');
+                // Don't force hide - let checkAndShowWarModeToggle handle it
                 
                 // Recalculate
                 calculateAll();
