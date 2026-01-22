@@ -3182,63 +3182,121 @@
             }
         }
 
+        // ===== IMPROVED PIE CHART FUNCTION WITH BUCKET COLORS =====
         function updateChart(income, expenses, debtPayments, savings, surplus) {
             if (!myChart) return;
             
-            const positiveSurplus = Math.max(0, surplus);
-            const negativeSurplus = Math.max(0, -surplus);
+            // ===== Calculate category totals for bucket coloring =====
+            const needsWithoutDebt = calculateMonthlyEssentials() - parseCurrency(document.getElementById('debt_minimums')?.value || 0);
+            let wantsTotal = 0;
+            budgetCategories.wants.forEach(category => {
+                wantsTotal += parseCurrency(document.getElementById(category.id)?.value || 0);
+            });
             
-            // ===== BUG FIX #1: Don't double-count debt in expenses =====
-            // Get debt_minimums value to exclude it from expenses calculation
-            const debtMinimumsValue = parseCurrency(document.getElementById('debt_minimums')?.value || 0);
+            const debtMinimumsTotal = parseCurrency(document.getElementById('debt_minimums')?.value || 0);
+            const savingsTotal = getTotalMonthlySavings();
             
-            // Adjusted expenses (needs + wants) without debt_minimums to avoid double-counting
-            const adjustedExpenses = Math.max(0, expenses - debtMinimumsValue);
+            // ===== BUCKET COLOR SCHEME WITH CLEAN DATA =====
+            const data = [];
+            const colors = [];
+            const categoryNames = [];
+            const categoryPercentages = [];
             
-            if (income <= 0) {
-                myChart.data.datasets[0].data = [0, 0, 0, 0];
-                myChart.data.datasets[0].backgroundColor = [
-                    '#1E40AF',
-                    '#FBBF24',
-                    '#059669',
-                    '#22C55E'
-                ];
-            } else if (surplus >= 0) {
-                myChart.data.datasets[0].data = [
-                    adjustedExpenses,           // Regular expenses (needs + wants) WITHOUT debt_minimums
-                    debtPayments,               // Debt payments (from debt section) ONLY
-                    savings,                    // Savings
-                    positiveSurplus             // Surplus
-                ];
-                myChart.data.datasets[0].backgroundColor = [
-                    '#1E40AF',    // Expenses - blue
-                    '#B22234',    // Debt - crimson
-                    '#059669',    // Savings - green
-                    '#22C55E'     // Surplus - light green
-                ];
-            } else {
-                myChart.data.datasets[0].data = [
-                    adjustedExpenses,           // Regular expenses (needs + wants) WITHOUT debt_minimums
-                    debtPayments,               // Debt payments (from debt section) ONLY
-                    savings,                    // Savings
-                    negativeSurplus             // Deficit
-                ];
-                myChart.data.datasets[0].backgroundColor = [
-                    '#1E40AF',    // Expenses - blue
-                    '#B22234',    // Debt - crimson
-                    '#059669',    // Savings - green
-                    '#DC143C'     // Deficit - red
-                ];
+            // Helper function to add bucket
+            const addBucket = (value, name, color) => {
+                if (value > 0) {
+                    data.push(value);
+                    colors.push(color);
+                    categoryNames.push(name);
+                    
+                    // Calculate percentage of total budget (not income)
+                    const totalBudget = debtMinimumsTotal + needsWithoutDebt + wantsTotal + savingsTotal;
+                    const percentage = totalBudget > 0 ? ((value / totalBudget) * 100).toFixed(1) : 0;
+                    categoryPercentages.push(percentage);
+                }
+            };
+            
+            // Add buckets in priority order
+            addBucket(debtMinimumsTotal, 'Debt Minimums', '#B22234');       // Crimson
+            addBucket(needsWithoutDebt, 'Essential Needs', '#1E40AF');      // Royal Blue
+            addBucket(wantsTotal, 'Wants & Lifestyle', '#F59E0B');          // Amber
+            addBucket(savingsTotal, 'Savings & Investments', '#059669');    // Emerald Green
+            
+            // Handle surplus/deficit separately
+            if (surplus > 0) {
+                addBucket(surplus, 'Monthly Surplus', '#22C55E');           // Bright Green
+            } else if (surplus < 0) {
+                const deficit = Math.abs(surplus);
+                addBucket(deficit, 'Monthly Deficit', '#DC2626');           // Bright Red
             }
             
-            // Update chart labels for tooltips
-            myChart.data.labels = [
-                `Expenses: $${Math.round(adjustedExpenses).toLocaleString()}`,
-                `Debt Payments: $${Math.round(debtPayments).toLocaleString()}`,
-                `Savings: $${Math.round(savings).toLocaleString()}`,
-                surplus >= 0 ? `Surplus: $${Math.round(surplus).toLocaleString()}` : `Deficit: $${Math.round(Math.abs(surplus)).toLocaleString()}`
-            ];
+            // ===== Fallback for empty state =====
+            if (data.length === 0) {
+                data.push(1);
+                colors.push('#6B7280');
+                categoryNames.push('No Data');
+                categoryPercentages.push(100);
+            }
             
+            // ===== Update chart data =====
+            myChart.data.datasets[0].data = data;
+            myChart.data.datasets[0].backgroundColor = colors;
+            
+            // Clear any existing labels (we'll use tooltips instead)
+            myChart.data.labels = categoryNames;
+            
+            // ===== ENHANCED TOOLTIPS =====
+            myChart.options.plugins.tooltip = {
+                enabled: true,
+                backgroundColor: 'rgba(10, 26, 47, 0.95)',
+                titleColor: '#FFFFFF',
+                bodyColor: '#FFFFFF',
+                borderColor: '#B22234',
+                borderWidth: 1,
+                cornerRadius: 6,
+                padding: 12,
+                displayColors: true,
+                callbacks: {
+                    // Main label - shows amount AND percentage
+                    label: function(context) {
+                        const value = context.parsed;
+                        const index = context.dataIndex;
+                        
+                        // Format currency nicely
+                        const formattedValue = new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'USD',
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0
+                        }).format(value);
+                        
+                        // Show percentage of total budget
+                        const percentage = categoryPercentages[index];
+                        
+                        // Show percentage of income for surplus/deficit
+                        if (categoryNames[index] === 'Monthly Surplus' || categoryNames[index] === 'Monthly Deficit') {
+                            const incomePercentage = income > 0 ? ((value / income) * 100).toFixed(1) : 0;
+                            return `${formattedValue} (${incomePercentage}% of income)`;
+                        }
+                        
+                        return `${formattedValue} (${percentage}% of budget)`;
+                    },
+                    // Remove the default label (we're handling it above)
+                    afterLabel: function() {
+                        return null;
+                    }
+                }
+            };
+            
+            // ===== Add visual hover effects =====
+            myChart.options.hover = {
+                onHover: function(event, elements) {
+                    event.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+                },
+                animationDuration: 150
+            };
+            
+            // ===== Update the chart =====
             myChart.update();
         }
 
@@ -3346,7 +3404,7 @@
             // 13. Update next financial action
             displayNextFinancialAction();
             
-            // 14. Update chart - FIXED to not double-count debt
+            // 14. Update chart - FIXED with bucket coloring
             updateChart(income, needsTotal + wantsTotal, debtPayments, savingsTotal, surplus);
             
             // NEW: Update monthly view summary
@@ -3824,15 +3882,10 @@
                 myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Expenses', 'Debt', 'Savings', 'Surplus'],
+                        labels: ['No Data'],
                         datasets: [{
-                            data: [0, 0, 0, 0],
-                            backgroundColor: [
-                                '#1E40AF',
-                                '#B22234',
-                                '#059669',
-                                '#22C55E'
-                            ],
+                            data: [1],
+                            backgroundColor: ['#6B7280'],
                             borderWidth: 0,
                             hoverOffset: 10
                         }]
@@ -3842,14 +3895,7 @@
                         plugins: {
                             legend: { display: false },
                             tooltip: {
-                                enabled: true,
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.label || '';
-                                        let value = context.parsed;
-                                        return `${label}: $${value.toLocaleString()}`;
-                                    }
-                                }
+                                enabled: false // We'll enable it in updateChart with custom settings
                             }
                         },
                         responsive: true,
