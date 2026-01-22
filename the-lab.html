@@ -1772,7 +1772,7 @@
         const budgetCategories = {
             needs: [
                 { id: 'mortgage_rent', label: 'Mortgage/Rent', default: 0 },
-                { id: 'debt_minimums', label: 'Debt Minimum Payments', default: 0 },
+                { id: 'debt_minimums', label: 'Debt Minimum Payments (Info Only)', default: 0 },
                 { id: 'utilities', label: 'Utilities', default: 0 },
                 { id: 'phone_bill', label: 'Phone Bill', default: 0 },
                 { id: 'car_gas', label: 'Car Gas', default: 0 },
@@ -2470,8 +2470,11 @@
             const income = getMonthlyIncome();
             if (income <= 0) return;
             
-            // Update needs categories
+            // Update needs categories (EXCLUDING debt_minimums)
             budgetCategories.needs.forEach(category => {
+                // Skip debt_minimums since it's just informational
+                if (category.id === 'debt_minimums') return;
+                
                 const input = document.getElementById(category.id);
                 const parent = input?.closest('.budget-category-card');
                 const value = parseCurrency(input?.value || 0);
@@ -2536,6 +2539,8 @@
             let total = 0;
             
             budgetCategories.needs.forEach(category => {
+                // SKIP debt_minimums from the calculation - it's informational only
+                if (category.id === 'debt_minimums') return;
                 total += parseCurrency(document.getElementById(category.id)?.value || 0);
             });
             return total;
@@ -2556,8 +2561,8 @@
 
         function calculateSurplus() {
             const income = getMonthlyIncome();
-            const needsTotal = calculateMonthlyEssentials();
-            const debtPayments = getTotalDebtPayments();
+            const needsTotal = calculateMonthlyEssentials(); // EXCLUDES debt_minimums
+            const debtPayments = getTotalDebtPayments(); // From debt section ONLY
             
             // Calculate wants from inputs
             let wantsTotal = 0;
@@ -2570,6 +2575,8 @@
             // Calculate savings from monthly contributions only
             savingsTotal = getTotalMonthlySavings();
             
+            // CORRECTED: Debt payments are NOT included in needsTotal (debt_minimums is excluded)
+            // They are added separately here
             return income - needsTotal - wantsTotal - savingsTotal - debtPayments;
         }
 
