@@ -9,11 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-       .hero-bg { 
-    background: linear-gradient(rgba(5,11,20,0.65), rgba(5,11,20,0.65)), url('./flag_distressed.jpg'); 
-    background-size: cover; 
-    background-position: center;
-}
+        /* All existing CSS styles remain the same */
+        .hero-bg { 
+            background: linear-gradient(rgba(5,11,20,0.65), rgba(5,11,20,0.65)), url('./flag_distressed.jpg'); 
+            background-size: cover; 
+            background-position: center;
+        }
         
         input::-webkit-outer-spin-button, 
         input::-webkit-inner-spin-button { 
@@ -125,7 +126,150 @@
             border: 1px solid rgba(167, 139, 250, 0.3);
         }
         
-        /* Pricing Modal */
+        /* ===== NEW: 50/30/20 BUDGET RULE STYLES ===== */
+        .budget-rule-container {
+            background: rgba(10, 26, 47, 0.7);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .budget-rule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .budget-rule-title {
+            font-size: 0.875rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #fff;
+        }
+        
+        .budget-rule-target {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        .budget-rule-bars {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .budget-rule-bar {
+            flex: 1;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .budget-rule-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .budget-rule-fill.needs {
+            background: linear-gradient(90deg, #3B82F6, #60A5FA);
+        }
+        
+        .budget-rule-fill.wants {
+            background: linear-gradient(90deg, #F59E0B, #FBBF24);
+        }
+        
+        .budget-rule-fill.savings {
+            background: linear-gradient(90deg, #10B981, #34D399);
+        }
+        
+        .budget-rule-fill.emergency {
+            background: linear-gradient(90deg, #EF4444, #F87171);
+            animation: pulse-emergency 1.5s infinite;
+        }
+        
+        @keyframes pulse-emergency {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .budget-rule-labels {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .budget-rule-label {
+            flex: 1;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #9ca3af;
+        }
+        
+        .budget-rule-label.active {
+            font-weight: bold;
+        }
+        
+        .budget-rule-label.emergency {
+            color: #EF4444;
+            font-weight: bold;
+        }
+        
+        .budget-rule-label.needs.active {
+            color: #3B82F6;
+        }
+        
+        .budget-rule-label.wants.active {
+            color: #F59E0B;
+        }
+        
+        .budget-rule-label.savings.active {
+            color: #10B981;
+        }
+        
+        .budget-rule-percentages {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4px;
+            font-size: 0.65rem;
+        }
+        
+        .budget-rule-percentage {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .budget-rule-percentage.good {
+            color: #10B981;
+        }
+        
+        .budget-rule-percentage.warning {
+            color: #F59E0B;
+        }
+        
+        .budget-rule-percentage.emergency {
+            color: #EF4444;
+            animation: pulse-emergency 1.5s infinite;
+        }
+        
+        .budget-rule-target-line {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.5);
+            z-index: 5;
+        }
+        
+        /* ===== EXISTING STYLES ===== */
         .pricing-modal {
             display: none;
             position: fixed;
@@ -235,7 +379,7 @@
             color: #6B7280;
         }
         
-        /* WAR MODE Styles - UPDATED to target only Wants */
+        /* WAR MODE Styles */
         .war-mode-toggle-container {
             display: flex;
             align-items: center;
@@ -306,7 +450,7 @@
             text-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
         }
         
-        /* Target ONLY Wants categories in War Mode - FIXED */
+        /* Target ONLY Wants categories in War Mode */
         .war-mode-active #wants-categories .budget-category-card {
             opacity: 0.5;
             filter: grayscale(0.8);
@@ -319,7 +463,7 @@
             text-decoration: line-through;
         }
         
-        /* War Mode Disabled Inputs - ADDED FOR BUG FIX #2 */
+        /* War Mode Disabled Inputs */
         .war-mode-disabled {
             background: rgba(255, 255, 255, 0.05) !important;
             pointer-events: none !important;
@@ -742,8 +886,8 @@
             
             /* Touch-friendly inputs */
             input, select, textarea {
-                font-size: 16px !important; /* Prevents iOS zoom */
-                min-height: 44px !important; /* Minimum touch target */
+                font-size: 16px !important;
+                min-height: 44px !important;
             }
             
             .touch-target {
@@ -997,12 +1141,11 @@
         
         /* Special styling for Debt Minimums card */
         .budget-category-card.debt-minimums-special {
-            border-left: 4px solid #EF4444 !important;  /* Red border to match chart */
-            background: rgba(239, 68, 68, 0.1) !important;  /* Light red background */
+            border-left: 4px solid #EF4444 !important;
+            background: rgba(239, 68, 68, 0.1) !important;
             border-style: solid !important;
         }
         
-        /* Optional: Add a small info icon */
         .debt-minimums-special .category-label::after {
             content: " (auto)";
             color: #9ca3af;
@@ -1162,8 +1305,8 @@
                         <table class="w-full text-left text-xs uppercase font-bold text-gray-500 tracking-widest">
                             <thead>
                                 <tr class="border-b border-white/10">
-                                    <th class="pb-3 px-2">Type</th>
-                                    <th class="pb-3 px-2">Liability</th>
+                                    <!-- UPDATED: Removed "Liability" column, now just "Debt Type" with icon -->
+                                    <th class="pb-3 px-2">Debt Type</th>
                                     <th class="pb-3 px-2">Balance</th>
                                     <th class="pb-3 px-2">Min. Payment</th>
                                     <th class="pb-3 px-2">Interest Rate</th>
@@ -1224,6 +1367,41 @@
                         </h3>
                         <div class="text-xs text-gray-400">
                             <i class="fas fa-keyboard mr-1"></i> Shortcut: Press '3'
+                        </div>
+                    </div>
+                    
+                    <!-- ===== NEW: 50/30/20 BUDGET RULE DISPLAY ===== -->
+                    <div class="budget-rule-container" id="budget-rule-container">
+                        <div class="budget-rule-header">
+                            <div class="budget-rule-title">50/30/20 Budget Rule</div>
+                            <div class="budget-rule-target">Target: 50% Needs | 30% Wants | 20% Savings</div>
+                        </div>
+                        
+                        <div class="budget-rule-bars">
+                            <div class="budget-rule-bar">
+                                <div id="needs-rule-fill" class="budget-rule-fill needs" style="width: 0%"></div>
+                                <div class="budget-rule-target-line" style="left: 50%"></div>
+                            </div>
+                            <div class="budget-rule-bar">
+                                <div id="wants-rule-fill" class="budget-rule-fill wants" style="width: 0%"></div>
+                                <div class="budget-rule-target-line" style="left: 30%"></div>
+                            </div>
+                            <div class="budget-rule-bar">
+                                <div id="savings-rule-fill" class="budget-rule-fill savings" style="width: 0%"></div>
+                                <div class="budget-rule-target-line" style="left: 20%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="budget-rule-labels">
+                            <div id="needs-rule-label" class="budget-rule-label needs">Needs</div>
+                            <div id="wants-rule-label" class="budget-rule-label wants">Wants</div>
+                            <div id="savings-rule-label" class="budget-rule-label savings">Savings</div>
+                        </div>
+                        
+                        <div class="budget-rule-percentages">
+                            <div id="needs-rule-percentage" class="budget-rule-percentage">0%</div>
+                            <div id="wants-rule-percentage" class="budget-rule-percentage">0%</div>
+                            <div id="savings-rule-percentage" class="budget-rule-percentage">0%</div>
                         </div>
                     </div>
                     
@@ -1391,7 +1569,6 @@
                         </div>
                     </div>
                 </div>
-              
 
             </div>
 
@@ -1427,8 +1604,9 @@
                     <div class="relative w-full mb-4 md:mb-6">
                         <canvas id="budgetChart" width="400" height="400"></canvas>
                         <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                            <!-- CHANGED: Now shows "Monthly Deficit" when in deficit -->
+                            <span id="center-label" class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mb-1 md:mb-2">Monthly Surplus</span>
                             <span id="center-remaining" class="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-white leading-none">$0</span>
-                            <span class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mt-1 md:mt-2">Monthly Surplus</span>
                         </div>
                     </div>
 
@@ -1552,6 +1730,13 @@
                                 <div class="text-gray-400">Toggle War Mode when in deficit to eliminate Wants only</div>
                             </div>
                         </div>
+                        <div class="flex items-start gap-2">
+                            <i class="fas fa-chart-pie text-blue-500 mt-1"></i>
+                            <div>
+                                <span class="font-bold">50/30/20 Rule:</span>
+                                <div class="text-gray-400">Target: 50% Needs, 30% Wants, 20% Savings of income</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1575,6 +1760,10 @@
                     <div class="space-y-2 text-xs">
                         <div class="flex justify-between py-2 border-b border-white/5">
                             <span>Enhanced Budgeting</span>
+                            <i class="fas fa-check text-green-400"></i>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-white/5">
+                            <span>50/30/20 Rule Tracking</span>
                             <i class="fas fa-check text-green-400"></i>
                         </div>
                         <div class="flex justify-between py-2 border-b border-white/5">
@@ -1629,6 +1818,7 @@
                     <p class="text-sm text-gray-400 mb-4">Perfect for getting started</p>
                     <ul class="feature-list">
                         <li><i class="fas fa-check"></i> Enhanced budgeting tools</li>
+                        <li><i class="fas fa-check"></i> 50/30/20 Budget Rule Tracking</li>
                         <li><i class="fas fa-check"></i> Debt management with priorities</li>
                         <li><i class="fas fa-check"></i> Next Financial Action priority</li>
                         <li><i class="fas fa-check"></i> War Mode for deficit situations</li>
@@ -1751,15 +1941,50 @@
         let isWarModeActive = false;
         let originalCategoryValues = {}; // Store original values when War Mode is activated
         
-        // ===== ENHANCED DATA STRUCTURES =====
+        // ===== UPDATED DEBT TYPES ARRAY WITH ICONS & COLORS =====
         const debtTypes = [
-            { value: 'credit_card', label: 'Credit Card', icon: 'fa-credit-card' },
-            { value: 'student_loan', label: 'Student Loan', icon: 'fa-graduation-cap' },
-            { value: 'auto_loan', label: 'Auto Loan', icon: 'fa-car' },
-            { value: 'mortgage', label: 'Mortgage', icon: 'fa-home' },
-            { value: 'medical', label: 'Medical', icon: 'fa-file-medical' },
-            { value: 'personal_loan', label: 'Personal Loan', icon: 'fa-hand-holding-usd' },
-            { value: 'klarna', label: 'Klarna/Buy Now Pay Later', icon: 'fa-shopping-bag' }
+            { 
+                value: 'credit_card', 
+                label: 'Credit Card', 
+                icon: 'fa-credit-card',
+                color: '#EF4444' // Red
+            },
+            { 
+                value: 'student_loan', 
+                label: 'Student Loan', 
+                icon: 'fa-graduation-cap',
+                color: '#3B82F6' // Blue
+            },
+            { 
+                value: 'auto_loan', 
+                label: 'Auto Loan', 
+                icon: 'fa-car',
+                color: '#10B981' // Green
+            },
+            { 
+                value: 'mortgage', 
+                label: 'Mortgage', 
+                icon: 'fa-home',
+                color: '#8B5CF6' // Purple
+            },
+            { 
+                value: 'medical', 
+                label: 'Medical', 
+                icon: 'fa-file-medical',
+                color: '#F59E0B' // Orange
+            },
+            { 
+                value: 'personal_loan', 
+                label: 'Personal Loan', 
+                icon: 'fa-hand-holding-usd',
+                color: '#EC4899' // Pink
+            },
+            { 
+                value: 'klarna', 
+                label: 'Klarna/Buy Now Pay Later', 
+                icon: 'fa-shopping-bag',
+                color: '#06B6D4' // Cyan
+            }
         ];
 
         // ENHANCED SAVINGS CATEGORIES WITH DUAL INPUTS
@@ -1787,7 +2012,7 @@
             }
         ];
 
-        // SIMPLIFIED BUDGET CATEGORIES (14 total - no toggle needed) - UPDATED: debt_minimums moved above mortgage_rent
+        // SIMPLIFIED BUDGET CATEGORIES (14 total - no toggle needed)
         const budgetCategories = {
             needs: [
                 { id: 'debt_minimums', label: 'Debt Minimum Payments (Info Only)', default: 0 },
@@ -1824,6 +2049,135 @@
         // Category values storage
         let categoryValues = {};
         let savingsValues = {};
+
+        // ===== NEW: 50/30/20 BUDGET RULE FUNCTIONS =====
+        function update503020Rule() {
+            const income = getMonthlyIncome();
+            if (income <= 0) return;
+            
+            // Calculate totals
+            const needsTotal = calculateMonthlyEssentials();
+            const wantsTotal = calculateMonthlyWants();
+            const savingsTotal = getTotalMonthlySavings();
+            
+            // Calculate percentages
+            const needsPercentage = (needsTotal / income) * 100;
+            const wantsPercentage = (wantsTotal / income) * 100;
+            const savingsPercentage = (savingsTotal / income) * 100;
+            
+            // Update progress bars (capped at 100% for display)
+            const needsFill = document.getElementById('needs-rule-fill');
+            const wantsFill = document.getElementById('wants-rule-fill');
+            const savingsFill = document.getElementById('savings-rule-fill');
+            
+            if (needsFill) needsFill.style.width = `${Math.min(needsPercentage, 100)}%`;
+            if (wantsFill) wantsFill.style.width = `${Math.min(wantsPercentage, 100)}%`;
+            if (savingsFill) savingsFill.style.width = `${Math.min(savingsPercentage, 100)}%`;
+            
+            // Update percentages display
+            const needsPercentageEl = document.getElementById('needs-rule-percentage');
+            const wantsPercentageEl = document.getElementById('wants-rule-percentage');
+            const savingsPercentageEl = document.getElementById('savings-rule-percentage');
+            
+            if (needsPercentageEl) {
+                needsPercentageEl.textContent = `${needsPercentage.toFixed(1)}%`;
+                // Emergency if > 50%
+                if (needsPercentage > 50) {
+                    needsPercentageEl.className = 'budget-rule-percentage emergency';
+                    needsFill.className = 'budget-rule-fill emergency';
+                } else if (needsPercentage > 40) {
+                    needsPercentageEl.className = 'budget-rule-percentage warning';
+                    needsFill.className = 'budget-rule-fill needs';
+                } else {
+                    needsPercentageEl.className = 'budget-rule-percentage good';
+                    needsFill.className = 'budget-rule-fill needs';
+                }
+            }
+            
+            if (wantsPercentageEl) {
+                wantsPercentageEl.textContent = `${wantsPercentage.toFixed(1)}%`;
+                // Emergency if > 30%
+                if (wantsPercentage > 30) {
+                    wantsPercentageEl.className = 'budget-rule-percentage emergency';
+                    wantsFill.className = 'budget-rule-fill emergency';
+                } else if (wantsPercentage > 25) {
+                    wantsPercentageEl.className = 'budget-rule-percentage warning';
+                    wantsFill.className = 'budget-rule-fill wants';
+                } else {
+                    wantsPercentageEl.className = 'budget-rule-percentage good';
+                    wantsFill.className = 'budget-rule-fill wants';
+                }
+            }
+            
+            if (savingsPercentageEl) {
+                savingsPercentageEl.textContent = `${savingsPercentage.toFixed(1)}%`;
+                // Emergency if < 20% (but only if spending is > 80%)
+                if (savingsPercentage < 20 && (needsPercentage + wantsPercentage) > 80) {
+                    savingsPercentageEl.className = 'budget-rule-percentage emergency';
+                    savingsFill.className = 'budget-rule-fill emergency';
+                } else if (savingsPercentage < 15) {
+                    savingsPercentageEl.className = 'budget-rule-percentage warning';
+                    savingsFill.className = 'budget-rule-fill savings';
+                } else {
+                    savingsPercentageEl.className = 'budget-rule-percentage good';
+                    savingsFill.className = 'budget-rule-fill savings';
+                }
+            }
+            
+            // Update labels with emergency highlighting
+            const needsLabel = document.getElementById('needs-rule-label');
+            const wantsLabel = document.getElementById('wants-rule-label');
+            const savingsLabel = document.getElementById('savings-rule-label');
+            
+            if (needsLabel) {
+                needsLabel.className = needsPercentage > 50 ? 
+                    'budget-rule-label emergency' : 
+                    'budget-rule-label needs active';
+            }
+            
+            if (wantsLabel) {
+                wantsLabel.className = wantsPercentage > 30 ? 
+                    'budget-rule-label emergency' : 
+                    'budget-rule-label wants active';
+            }
+            
+            if (savingsLabel) {
+                savingsLabel.className = (savingsPercentage < 20 && (needsPercentage + wantsPercentage) > 80) ? 
+                    'budget-rule-label emergency' : 
+                    'budget-rule-label savings active';
+            }
+            
+            // Show toast if any category is in emergency
+            if (needsPercentage > 50 || wantsPercentage > 30 || (savingsPercentage < 20 && (needsPercentage + wantsPercentage) > 80)) {
+                showBudgetRuleEmergencyToast(needsPercentage, wantsPercentage, savingsPercentage);
+            }
+        }
+        
+        function showBudgetRuleEmergencyToast(needsPct, wantsPct, savingsPct) {
+            const emergencies = [];
+            
+            if (needsPct > 50) {
+                emergencies.push(`Needs (${needsPct.toFixed(1)}% > 50% target)`);
+            }
+            if (wantsPct > 30) {
+                emergencies.push(`Wants (${wantsPct.toFixed(1)}% > 30% target)`);
+            }
+            if (savingsPct < 20 && (needsPct + wantsPct) > 80) {
+                emergencies.push(`Savings (${savingsPct.toFixed(1)}% < 20% target)`);
+            }
+            
+            if (emergencies.length > 0) {
+                showToast(`50/30/20 EMERGENCY: ${emergencies.join(', ')}`);
+            }
+        }
+        
+        function calculateMonthlyWants() {
+            let total = 0;
+            budgetCategories.wants.forEach(category => {
+                total += parseCurrency(document.getElementById(category.id)?.value || 0);
+            });
+            return total;
+        }
 
         // ===== WAR MODE FUNCTIONS (FIXED - Only affects WANTS) =====
         function toggleWarMode() {
@@ -2048,7 +2402,7 @@
             const priority = calculateDebtPriority(rate);
             const row = input.closest('tr');
             if (row) {
-                const priorityCell = row.querySelector('td:nth-child(6)');
+                const priorityCell = row.querySelector('td:nth-child(5)'); // Updated column index
                 if (priorityCell) {
                     priorityCell.innerHTML = getPriorityBadge(priority);
                 }
@@ -2058,7 +2412,21 @@
         function updateDebtType(select) {
             const type = debtTypes.find(t => t.value === select.value);
             if (type) {
-                // You could add icon display here if needed
+                // Update the icon in the row
+                const row = select.closest('tr');
+                if (row) {
+                    const iconContainer = row.querySelector('.debt-type-icon');
+                    if (iconContainer) {
+                        // Update background and icon
+                        iconContainer.style.background = `${type.color}20`;
+                        iconContainer.style.border = `1px solid ${type.color}40`;
+                        const icon = iconContainer.querySelector('i');
+                        if (icon) {
+                            icon.className = `fas ${type.icon} text-sm`;
+                            icon.style.color = type.color;
+                        }
+                    }
+                }
             }
         }
 
@@ -2068,11 +2436,12 @@
             
             document.querySelectorAll('#debt-body tr').forEach(row => {
                 const typeSelect = row.querySelector('.debt-type-select');
-                const paymentInput = row.querySelector('td:nth-child(4) .debt-input');
+                const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
                 
                 if (typeSelect) {
                     // Remove old listener if any, add new one
                     typeSelect.onchange = function() {
+                        updateDebtType(this);
                         autoPopulateHousingFromMortgage();
                         autoPopulateDebtMinimums();
                         debouncedCalculateAll();
@@ -2104,6 +2473,7 @@
             debouncedCalculateAll();
         }
 
+        // ===== UPDATED: ADD DEBT ROW WITH ICON-BASED DESIGN =====
         function addDebtRowWithData(debtData, index) {
             const debtBody = document.getElementById('debt-body');
             const mobileDebtBody = document.getElementById('debt-body-mobile');
@@ -2112,25 +2482,29 @@
             const rowCount = debtBody.querySelectorAll('tr').length;
             const rowId = `debt-${Date.now()}-${rowCount}`;
             
+            // Get default type (first one)
+            const defaultType = debtTypes[0];
+            const defaultColor = defaultType.color;
+            const defaultIcon = defaultType.icon;
+            
             // Create desktop row with FIXED dark dropdown
             const row = document.createElement('tr');
             row.id = rowId;
             row.className = "debt-row border-b border-white/5";
+            
             row.innerHTML = `
                 <td class="py-3 px-2">
-                    <select class="debt-type-select" onchange="updateDebtType(this); autoPopulateHousingFromMortgage();">
-                        <option value="">Select Type</option>
-                        ${debtTypes.map(type => 
-                            `<option value="${type.value}">${type.label}</option>`
-                        ).join('')}
-                    </select>
-                </td>
-                <td class="py-3 px-2">
-                    <input type="text" 
-                           placeholder="Chase Sapphire" 
-                           class="debt-input text-xs uppercase" 
-                           oninput="debouncedCalculateAll()"
-                           aria-label="Debt name">
+                    <div class="flex items-center gap-2">
+                        <div class="debt-type-icon p-2 rounded" style="background: ${defaultColor}20; border: 1px solid ${defaultColor}40">
+                            <i class="fas ${defaultIcon} text-sm" style="color: ${defaultColor}"></i>
+                        </div>
+                        <select class="debt-type-select" onchange="updateDebtType(this); autoPopulateHousingFromMortgage(); autoPopulateDebtMinimums();">
+                            <option value="">Select Type</option>
+                            ${debtTypes.map(type => 
+                                `<option value="${type.value}">${type.label}</option>`
+                            ).join('')}
+                        </select>
+                    </div>
                 </td>
                 <td class="py-3 px-2">
                     <div class="currency-input-container">
@@ -2175,17 +2549,122 @@
             
             // Fill with data
             const typeSelect = row.querySelector('.debt-type-select');
-            const inputs = row.querySelectorAll('.debt-input');
+            const balanceInput = row.querySelector('td:nth-child(2) .debt-input');
+            const paymentInput = row.querySelector('td:nth-child(3) .debt-input');
+            const rateInput = row.querySelector('td:nth-child(4) .debt-input');
             
-            if (typeSelect && inputs.length >= 4) {
-                typeSelect.value = debtData.type || '';
-                inputs[0].value = debtData.name || '';
-                inputs[1].value = debtData.balance || '';
-                inputs[2].value = debtData.payment || '';
-                inputs[3].value = debtData.rate || '';
+            if (debtData.type) {
+                typeSelect.value = debtData.type;
+                // Update the icon based on the type
+                const type = debtTypes.find(t => t.value === debtData.type);
+                if (type) {
+                    updateDebtType(typeSelect);
+                }
+            }
+            
+            if (debtData.balance) {
+                balanceInput.value = debtData.balance;
+                formatCurrency(balanceInput);
+            }
+            
+            if (debtData.payment) {
+                paymentInput.value = debtData.payment;
+                formatCurrency(paymentInput);
+            }
+            
+            if (debtData.rate) {
+                rateInput.value = debtData.rate;
+                updateDebtPriority(rateInput);
+            }
+            
+            // Also create mobile version
+            createMobileDebtCard(rowId, debtData);
+        }
+
+        // ===== NEW: CREATE MOBILE DEBT CARD =====
+        function createMobileDebtCard(rowId, debtData) {
+            const mobileDebtBody = document.getElementById('debt-body-mobile');
+            if (!mobileDebtBody) return;
+            
+            const defaultType = debtTypes[0];
+            const type = debtTypes.find(t => t.value === debtData.type) || defaultType;
+            
+            const mobileCard = document.createElement('div');
+            mobileCard.id = `${rowId}-mobile`;
+            mobileCard.className = 'debt-card-mobile';
+            mobileCard.innerHTML = `
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="debt-type-icon p-3 rounded-lg" style="background: ${type.color}20; border: 1px solid ${type.color}40">
+                            <i class="fas ${type.icon} text-xl" style="color: ${type.color}"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold">${type.label}</div>
+                            <div class="text-xs text-gray-400">
+                                <span class="priority-badge">N/A</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="removeDebtRow('${rowId}')" class="hover:text-crimson transition text-xl">×</button>
+                </div>
                 
-                // Update priority
-                updateDebtPriority(inputs[3]);
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <div class="text-xs text-gray-400 mb-1">Balance</div>
+                        <input type="text" 
+                               class="debt-input w-full p-2 bg-white/5 border border-white/10 rounded" 
+                               oninput="formatCurrency(this); debouncedCalculateAll()" 
+                               placeholder="0"
+                               value="${debtData.balance || ''}">
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-400 mb-1">Payment</div>
+                        <input type="text" 
+                               class="debt-input w-full p-2 bg-white/5 border border-white/10 rounded" 
+                               oninput="formatCurrency(this); autoPopulateHousingFromMortgage(); autoPopulateDebtMinimums(); debouncedCalculateAll()" 
+                               placeholder="0"
+                               value="${debtData.payment || ''}">
+                    </div>
+                    <div class="col-span-2">
+                        <div class="text-xs text-gray-400 mb-1">Interest Rate</div>
+                        <div class="flex items-center gap-2">
+                            <input type="number" 
+                                   step="0.1" 
+                                   class="debt-input flex-1 p-2 bg-white/5 border border-white/10 rounded" 
+                                   oninput="updateMobileDebtPriority('${rowId}', this.value); debouncedCalculateAll()" 
+                                   placeholder="0"
+                                   value="${debtData.rate || ''}">
+                            <span class="text-xs">%</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            mobileDebtBody.appendChild(mobileCard);
+            
+            // Update priority if rate exists
+            if (debtData.rate) {
+                updateMobileDebtPriority(rowId, debtData.rate);
+            }
+        }
+
+        function updateMobileDebtPriority(rowId, rate) {
+            const priority = calculateDebtPriority(parseFloat(rate) || 0);
+            const mobileCard = document.getElementById(`${rowId}-mobile`);
+            if (mobileCard) {
+                const priorityBadge = mobileCard.querySelector('.priority-badge');
+                if (priorityBadge) {
+                    priorityBadge.outerHTML = getPriorityBadge(priority);
+                }
+            }
+            
+            // Also update desktop version
+            const desktopRow = document.getElementById(rowId);
+            if (desktopRow) {
+                const priorityCell = desktopRow.querySelector('td:nth-child(5)');
+                if (priorityCell) {
+                    priorityCell.innerHTML = getPriorityBadge(priority);
+                }
             }
         }
 
@@ -2199,7 +2678,7 @@
             
             debtRows.forEach(row => {
                 const typeSelect = row.querySelector('.debt-type-select');
-                const paymentInput = row.querySelector('td:nth-child(4) .debt-input');
+                const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
                 
                 // Skip mortgage payments (they're already in housing budget)
                 if (paymentInput && typeSelect && typeSelect.value !== 'mortgage') {
@@ -2215,7 +2694,7 @@
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const balanceInput = row.querySelector('td:nth-child(3) .debt-input');
+                const balanceInput = row.querySelector('td:nth-child(2) .debt-input'); // Updated column index
                 if (balanceInput) {
                     total += parseCurrency(balanceInput.value);
                 }
@@ -2229,7 +2708,7 @@
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const rateInput = row.querySelector('td:nth-child(5) .debt-input');
+                const rateInput = row.querySelector('td:nth-child(4) .debt-input'); // Updated column index
                 if (rateInput) {
                     const rate = parseFloat(rateInput.value) || 0;
                     if (rate > 10) {
@@ -2246,8 +2725,8 @@
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const rateInput = row.querySelector('td:nth-child(5) .debt-input');
-                const balanceInput = row.querySelector('td:nth-child(3) .debt-input');
+                const rateInput = row.querySelector('td:nth-child(4) .debt-input'); // Updated column index
+                const balanceInput = row.querySelector('td:nth-child(2) .debt-input'); // Updated column index
                 if (rateInput && balanceInput) {
                     const rate = parseFloat(rateInput.value) || 0;
                     if (rate > 10) {
@@ -2264,7 +2743,7 @@
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const rateInput = row.querySelector('td:nth-child(5) .debt-input');
+                const rateInput = row.querySelector('td:nth-child(4) .debt-input'); // Updated column index
                 if (rateInput) {
                     const rate = parseFloat(rateInput.value) || 0;
                     if (rate > highest) highest = rate;
@@ -2295,7 +2774,7 @@
                 // Check if this is a mortgage debt
                 const typeSelect = row.querySelector('.debt-type-select');
                 if (typeSelect && typeSelect.value === 'mortgage') {
-                    const paymentInput = row.querySelector('td:nth-child(4) .debt-input');
+                    const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
                     if (paymentInput) {
                         const payment = parseCurrency(paymentInput.value);
                         totalMortgagePayment += payment;
@@ -2452,21 +2931,6 @@
                 // Track manual changes
                 input.dataset.lastManualValue = input.value;
             }
-        }
-
-        function updateDebtEventHandlers() {
-            // Add event listeners to all debt payment inputs
-            document.querySelectorAll('#debt-body tr').forEach(row => {
-                const typeSelect = row.querySelector('.debt-type-select');
-                
-                if (typeSelect) {
-                    typeSelect.addEventListener('change', function() {
-                        // If changing to/from mortgage, update housing
-                        autoPopulateHousingFromMortgage();
-                        autoPopulateDebtMinimums();
-                    });
-                }
-            });
         }
 
         // ===== NEW IMPROVEMENT FUNCTIONS =====
@@ -2651,7 +3115,7 @@
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const paymentInput = row.querySelector('td:nth-child(4) .debt-input');
+                const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
                 if (paymentInput) {
                     totalDebtPayments += parseCurrency(paymentInput.value);
                 }
@@ -3261,91 +3725,102 @@
             }
         }
 
-        // ===== UPDATED PIE CHART FUNCTION =====
+        // ===== UPDATED PIE CHART FUNCTION WITH 5 GROUP SEPARATORS =====
         function updateChart(income, expenses, debtPayments, savings, surplus) {
             if (!myChart) return;
             
-            // Collect all categories with their values
-            const categories = [];
+            // Calculate totals for each group
+            let needsTotal = 0;
+            budgetCategories.needs.forEach(category => {
+                // Exclude debt_minimums from regular needs
+                if (category.id !== 'debt_minimums') {
+                    needsTotal += parseCurrency(document.getElementById(category.id)?.value || 0);
+                }
+            });
             
-            // Get the value from debt_minimums input
+            // Get debt minimums separately
             const debtMinsValue = parseCurrency(document.getElementById('debt_minimums')?.value || 0);
             
-            // Add all budget categories (INCLUDING debt_minimums now)
-            budgetCategories.needs.forEach(category => {
-                const value = parseCurrency(document.getElementById(category.id)?.value || 0);
-                if (value > 0) {
-                    // DEBT MINIMUMS = RED (urgent, important)
-                    // OTHER NEEDS = PURPLE (standard needs)
-                    const color = (category.id === 'debt_minimums') ? '#EF4444' : '#9333EA';
-                    categories.push({ 
-                        label: category.label, 
-                        value: value, 
-                        color: color
-                    });
-                }
-            });
-            
+            // Calculate wants total
+            let wantsTotal = 0;
             budgetCategories.wants.forEach(category => {
-                const value = parseCurrency(document.getElementById(category.id)?.value || 0);
-                if (value > 0) categories.push({ label: category.label, value: value, color: '#F59E0B' });
+                wantsTotal += parseCurrency(document.getElementById(category.id)?.value || 0);
             });
             
-            // IMPORTANT FIX: Only add debt payments from debt table IF they're DIFFERENT from debt_minimums
-            // This prevents double-counting when debt_minimums is auto-populated
-            if (debtPayments > 0 && Math.abs(debtPayments - debtMinsValue) > 0.01) {
-                categories.push({ label: 'Additional Debt', value: debtPayments, color: '#DC2626' });
-            }
-            
-            // Add savings
+            // Get savings total
             const savingsTotal = getTotalMonthlySavings();
-            if (savingsTotal > 0) categories.push({ label: 'Savings', value: savingsTotal, color: '#059669' });
             
-            // NEW: Sort categories by value (largest first) for better visual distribution
-            categories.sort((a, b) => b.value - a.value);
-            
-            // Inner ring - Show categories up to INCOME limit
-            const innerData = [];
-            const innerLabels = [];
-            const innerColors = [];
-            let runningTotal = 0;
-            
-            for (const cat of categories) {
-                if (runningTotal + cat.value <= income) {
-                    // Entire category fits within income
-                    innerData.push(cat.value);
-                    innerLabels.push(cat.label);
-                    innerColors.push(cat.color);
-                    runningTotal += cat.value;
-                } else if (runningTotal < income) {
-                    // Partial category fits
-                    const remaining = income - runningTotal;
-                    innerData.push(remaining);
-                    innerLabels.push(cat.label);
-                    innerColors.push(cat.color);
-                    runningTotal = income;
-                    break;
-                } else {
-                    break;
+            // Get additional debt payments from debt table (excluding what's already in debt_minimums)
+            let additionalDebt = 0;
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            debtRows.forEach(row => {
+                const typeSelect = row.querySelector('.debt-type-select');
+                const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
+                
+                // Skip mortgage payments (they're in housing budget)
+                if (paymentInput && typeSelect && typeSelect.value !== 'mortgage') {
+                    additionalDebt += parseCurrency(paymentInput.value);
                 }
+            });
+            
+            // Adjust debt minimums if we have additional debt payments
+            let debtTotal = debtMinsValue;
+            if (Math.abs(additionalDebt - debtMinsValue) > 0.01) {
+                // Use the larger of the two values
+                debtTotal = Math.max(debtMinsValue, additionalDebt);
             }
             
-            // Add remaining if under budget
+            // Check if we're over budget
             const isOverBudget = surplus < 0;
             const overBudgetAmount = isOverBudget ? Math.abs(surplus) : 0;
             
+            // Prepare data for the 5 groups you want
+            const groups = [
+                {
+                    label: 'Needs',
+                    value: needsTotal,
+                    color: '#9333EA', // Purple
+                    borderColor: '#FFFFFF',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Debt Minimums',
+                    value: debtTotal,
+                    color: '#EF4444', // Red
+                    borderColor: '#FFFFFF',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Wants',
+                    value: wantsTotal,
+                    color: '#F59E0B', // Orange/Yellow
+                    borderColor: '#FFFFFF',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Savings',
+                    value: savingsTotal,
+                    color: '#10B981', // Green
+                    borderColor: '#FFFFFF',
+                    borderWidth: 1
+                }
+            ];
+            
+            // Add surplus or deficit
             if (!isOverBudget && surplus > 0) {
-                innerData.push(surplus);
-                innerLabels.push('Remaining');
-                innerColors.push('#22C55E');
+                groups.push({
+                    label: 'Surplus',
+                    value: surplus,
+                    color: '#22C55E', // Bright green
+                    borderColor: '#FFFFFF',
+                    borderWidth: 1
+                });
             }
             
-            if (innerData.length === 0) {
-                innerData.push(1);
-                innerLabels.push('No Data');
-                innerColors.push('#6B7280');
-            }
+            // Filter out groups with zero value
+            const nonZeroGroups = groups.filter(group => group.value > 0);
             
+            // If we're over budget, we need special handling
             let datasets = [];
             
             if (isOverBudget && overBudgetAmount > 0) {
@@ -3356,40 +3831,53 @@
                         label: 'Over Budget',
                         data: [overBudgetAmount, income - overBudgetAmount],
                         backgroundColor: ['#F97316', 'transparent'],
-                        borderWidth: [3, 0],
-                        borderColor: ['#0A1A2F', 'transparent'],
+                        borderWidth: [.75, 0],
+                        borderColor: ['#FFFFFF', 'transparent'],
                         weight: 0.35
                     },
-                    // Inner ring - Spending up to income
+                    // Inner ring - The 5 groups
                     {
-                        label: 'Spending',
-                        data: innerData,
-                        backgroundColor: innerColors,
-                        borderWidth: 2,
-                        borderColor: '#0A1A2F',
+                        label: 'Budget Groups',
+                        data: nonZeroGroups.map(g => g.value),
+                        backgroundColor: nonZeroGroups.map(g => g.color),
+                        borderWidth: nonZeroGroups.map(g => g.borderWidth),
+                        borderColor: nonZeroGroups.map(g => g.borderColor),
                         weight: .75
                     }
                 ];
                 
                 myChart.options.cutout = '75%';
-                myChart.data.labels = ['Over Budget', '', ...innerLabels];
+                myChart.data.labels = ['Over Budget', '', ...nonZeroGroups.map(g => g.label)];
             } else {
-                // No outer ring when under budget
+                // Standard chart with just the 5 groups
                 datasets = [
                     {
-                        label: 'Spending',
-                        data: innerData,
-                        backgroundColor: innerColors,
-                        borderWidth: 2,
-                        borderColor: '#0A1A2F'
+                        label: 'Budget Groups',
+                        data: nonZeroGroups.map(g => g.value),
+                        backgroundColor: nonZeroGroups.map(g => g.color),
+                        borderWidth: nonZeroGroups.map(g => g.borderWidth),
+                        borderColor: nonZeroGroups.map(g => g.borderColor)
                     }
                 ];
                 
                 myChart.options.cutout = '75%';
-                myChart.data.labels = innerLabels;
+                myChart.data.labels = nonZeroGroups.map(g => g.label);
             }
             
-            myChart.data.datasets = datasets;
+            // If all groups are zero, show placeholder
+            if (nonZeroGroups.length === 0) {
+                myChart.data.datasets = [{
+                    label: 'No Data',
+                    data: [1],
+                    backgroundColor: ['#6B7280'],
+                    borderWidth: 0
+                }];
+                myChart.data.labels = ['No Data'];
+            } else {
+                myChart.data.datasets = datasets;
+            }
+            
+            // Update the chart
             myChart.update();
         }
 
@@ -3464,10 +3952,24 @@
                                          'text-red-400';
             }
             
-            // 10. Update surplus display
+            // 10. Update surplus display and pie chart label
             const surplusVal = document.getElementById('surplus-val');
             const centerRemaining = document.getElementById('center-remaining');
+            const centerLabel = document.getElementById('center-label');
             const surplusMessage = document.getElementById('surplus-message');
+            
+            // NEW: Change label to "Monthly Deficit" when in deficit
+            if (centerLabel) {
+                if (surplus < 0) {
+                    centerLabel.textContent = 'MONTHLY DEFICIT';
+                    centerLabel.classList.add('text-red-400');
+                    centerLabel.classList.remove('text-gray-400');
+                } else {
+                    centerLabel.textContent = 'Monthly Surplus';
+                    centerLabel.classList.remove('text-red-400');
+                    centerLabel.classList.add('text-gray-400');
+                }
+            }
             
             if (surplusVal) {
                 surplusVal.textContent = `$${Math.round(surplus).toLocaleString()}`;
@@ -3497,7 +3999,7 @@
             // 13. Update next financial action
             displayNextFinancialAction();
             
-            // 14. Update chart - NEW VERSION
+            // 14. Update chart - NEW VERSION with 5 group separators
             updateChart(income, needsTotal + wantsTotal, debtPayments, savingsTotal, surplus);
             
             // NEW: Update monthly view summary
@@ -3505,6 +4007,9 @@
             
             // NEW: Update category percentages
             updateCategoryPercentages();
+            
+            // NEW: Update 50/30/20 budget rule display
+            update503020Rule();
         }
 
         function debouncedCalculateAll() {
@@ -3537,7 +4042,7 @@
             saveBtn.disabled = true;
             
             const data = {
-                version: 'raf_lab_v8_simplified',
+                version: 'raf_lab_v8_simplified_icon',
                 timestamp: new Date().toISOString(),
                 warMode: isWarModeActive,
                 paycheck: document.getElementById('paycheck').value,
@@ -3573,17 +4078,19 @@
                 data.originalValues = originalCategoryValues;
             }
             
-            // Save debts
+            // Save debts (UPDATED: No longer saving names)
             document.querySelectorAll('#debt-body tr').forEach(row => {
                 const typeSelect = row.querySelector('.debt-type-select');
-                const inputs = row.querySelectorAll('.debt-input');
-                if (inputs.length >= 4) {
+                const balanceInput = row.querySelector('td:nth-child(2) .debt-input'); // Updated column index
+                const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
+                const rateInput = row.querySelector('td:nth-child(4) .debt-input'); // Updated column index
+                
+                if (typeSelect) {
                     data.debts.push({
-                        type: typeSelect?.value || '',
-                        name: inputs[0].value,
-                        balance: inputs[1].value,
-                        payment: inputs[2].value,
-                        rate: inputs[3].value
+                        type: typeSelect.value || '',
+                        balance: balanceInput?.value || '',
+                        payment: paymentInput?.value || '',
+                        rate: rateInput?.value || ''
                     });
                 }
             });
@@ -3789,7 +4296,7 @@
 
         function exportData() {
             const data = {
-                version: 'raf_lab_v8_simplified',
+                version: 'raf_lab_v8_simplified_icon',
                 timestamp: new Date().toISOString(),
                 warMode: isWarModeActive,
                 income: {
@@ -3838,17 +4345,19 @@
                 data.originalValues = originalCategoryValues;
             }
             
-            // Add debt data
+            // Add debt data (UPDATED: No longer including names)
             document.querySelectorAll('#debt-body tr').forEach(row => {
                 const typeSelect = row.querySelector('.debt-type-select');
-                const inputs = row.querySelectorAll('.debt-input');
-                if (inputs.length >= 4) {
-                    const rate = parseFloat(inputs[3].value) || 0;
+                const balanceInput = row.querySelector('td:nth-child(2) .debt-input'); // Updated column index
+                const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
+                const rateInput = row.querySelector('td:nth-child(4) .debt-input'); // Updated column index
+                
+                if (typeSelect) {
+                    const rate = parseFloat(rateInput?.value) || 0;
                     data.debts.push({
-                        type: typeSelect?.value || '',
-                        name: inputs[0].value,
-                        balance: parseCurrency(inputs[1].value),
-                        payment: parseCurrency(inputs[2].value),
+                        type: typeSelect.value || '',
+                        balance: parseCurrency(balanceInput?.value || 0),
+                        payment: parseCurrency(paymentInput?.value || 0),
                         rate: rate,
                         priority: calculateDebtPriority(rate)
                     });
@@ -3974,9 +4483,9 @@
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing simplified financial dashboard...');
+            console.log('DOM loaded, initializing icon-based financial dashboard...');
             
-            // Initialize chart
+            // Initialize chart with proper border settings
             const canvas = document.getElementById('budgetChart');
             if (canvas) {
                 const ctx = canvas.getContext('2d');
@@ -3987,16 +4496,34 @@
                         datasets: [{
                             data: [1],
                             backgroundColor: ['#6B7280'],
-                            borderWidth: 0,
+                            borderWidth: 1,
+                            borderColor: '#FFFFFF',
                             hoverOffset: 10
                         }]
                     },
                     options: {
-                        cutout: '98%',
+                        cutout: '75%',
                         plugins: {
-                            legend: { display: false },
+                            legend: { 
+                                display: false 
+                            },
                             tooltip: {
-                                enabled: false // We'll enable it in updateChart with custom settings
+                                enabled: true,
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += new Intl.NumberFormat('en-US', { 
+                                                style: 'currency', 
+                                                currency: 'USD' 
+                                            }).format(context.parsed);
+                                        }
+                                        return label;
+                                    }
+                                }
                             }
                         },
                         responsive: true,
@@ -4016,7 +4543,7 @@
                 loadFromLocalStorage();
             }, 100);
             
-            console.log('Simplified financial dashboard initialization complete');
+            console.log('Icon-based financial dashboard initialization complete');
         });
 
         // Close modal when clicking outside
@@ -4056,6 +4583,9 @@
         window.clearCategory = clearCategory;
         window.updateMonthlyViewSummary = updateMonthlyViewSummary;
         window.updateCategoryPercentages = updateCategoryPercentages;
+        window.update503020Rule = update503020Rule;
+        window.calculateMonthlyWants = calculateMonthlyWants;
+        window.updateMobileDebtPriority = updateMobileDebtPriority;
     </script>
 </body>
 </html>
