@@ -491,7 +491,7 @@
             appearance: none !important;
             -webkit-appearance: none !important;
             -moz-appearance: none !important;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") !important;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") !important;
             background-repeat: no-repeat !important;
             background-position: right 8px center !important;
             background-size: 12px !important;
@@ -568,7 +568,7 @@
             transition: width 0.5s ease;
         }
         
-        .progress-bar.needs { background: #EF4444; }
+        .progress-bar.needs { background: #9333EA; }
         .progress-bar.wants { background: #F59E0B; }
         .progress-bar.savings { background: #10B981; }
         .progress-bar.debt { background: #8B5CF6; }
@@ -989,6 +989,21 @@
         .clear-category-btn:hover {
             color: #B22234;
             background: rgba(178, 34, 52, 0.1);
+        }
+        
+        /* Special styling for Debt Minimums card */
+        .budget-category-card.debt-minimums-special {
+            border-left: 4px solid #EF4444 !important;  /* Red border to match chart */
+            background: rgba(239, 68, 68, 0.1) !important;  /* Light red background */
+            border-style: solid !important;
+        }
+        
+        /* Optional: Add a small info icon */
+        .debt-minimums-special .category-label::after {
+            content: " (auto)";
+            color: #9ca3af;
+            font-size: 0.7rem;
+            font-style: italic;
         }
     </style>
 </head>
@@ -1768,11 +1783,11 @@
             }
         ];
 
-        // SIMPLIFIED BUDGET CATEGORIES (14 total - no toggle needed)
+        // SIMPLIFIED BUDGET CATEGORIES (14 total - no toggle needed) - UPDATED: debt_minimums moved above mortgage_rent
         const budgetCategories = {
             needs: [
-                { id: 'mortgage_rent', label: 'Mortgage/Rent', default: 0 },
                 { id: 'debt_minimums', label: 'Debt Minimum Payments (Info Only)', default: 0 },
+                { id: 'mortgage_rent', label: 'Mortgage/Rent', default: 0 },
                 { id: 'utilities', label: 'Utilities', default: 0 },
                 { id: 'phone_bill', label: 'Phone Bill', default: 0 },
                 { id: 'car_gas', label: 'Car Gas', default: 0 },
@@ -1932,7 +1947,21 @@
         // ===== BASIC HELPER FUNCTIONS =====
         function parseCurrency(value) {
             if (!value || value === '') return 0;
-            const cleanValue = String(value).replace(/[^0-9.]/g, '');
+            
+            // Make sure it's a string
+            if (typeof value !== 'string') {
+                value = String(value);
+            }
+            
+            // Remove all non-numeric characters except decimal point
+            let cleanValue = value.replace(/[^0-9.]/g, '');
+            
+            // Handle multiple decimal points - keep only the first one
+            const parts = cleanValue.split('.');
+            if (parts.length > 2) {
+                cleanValue = parts[0] + '.' + parts.slice(1).join('');
+            }
+            
             const parsed = parseFloat(cleanValue);
             return isNaN(parsed) ? 0 : parsed;
         }
@@ -2027,6 +2056,35 @@
             if (type) {
                 // You could add icon display here if needed
             }
+        }
+
+        function updateDebtEventHandlers() {
+            // This function sets up event listeners for debt inputs
+            // It's called after loading data to make sure everything works
+            
+            document.querySelectorAll('#debt-body tr').forEach(row => {
+                const typeSelect = row.querySelector('.debt-type-select');
+                const paymentInput = row.querySelector('td:nth-child(4) .debt-input');
+                
+                if (typeSelect) {
+                    // Remove old listener if any, add new one
+                    typeSelect.onchange = function() {
+                        autoPopulateHousingFromMortgage();
+                        autoPopulateDebtMinimums();
+                        debouncedCalculateAll();
+                    };
+                }
+                
+                if (paymentInput) {
+                    // Remove old listener if any, add new one
+                    paymentInput.oninput = function() {
+                        formatCurrency(this);
+                        autoPopulateHousingFromMortgage();
+                        autoPopulateDebtMinimums();
+                        debouncedCalculateAll();
+                    };
+                }
+            });
         }
 
         function removeDebtRow(rowId) {
@@ -2582,8 +2640,20 @@
 
         function calculateDebtToIncomeRatio() {
             const income = getMonthlyIncome();
-            const debtPayments = getTotalDebtPayments();
-            return income > 0 ? (debtPayments / income) * 100 : 0;
+            if (income <= 0) return 0;
+            
+            // Count ALL debt payments (including mortgages)
+            let totalDebtPayments = 0;
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            
+            debtRows.forEach(row => {
+                const paymentInput = row.querySelector('td:nth-child(4) .debt-input');
+                if (paymentInput) {
+                    totalDebtPayments += parseCurrency(paymentInput.value);
+                }
+            });
+            
+            return (totalDebtPayments / income) * 100;
         }
 
         // ===== ENHANCED FINANCIAL PROGRESS FUNCTIONS =====
@@ -3093,10 +3163,15 @@
             // Create needs categories with clear buttons
             budgetCategories.needs.forEach(category => {
                 const div = document.createElement('div');
-                div.className = `flex justify-between items-center budget-category-card`;
+                
+                // Add special class for debt minimums
+                const isDebtMinimums = (category.id === 'debt_minimums');
+                const specialClass = isDebtMinimums ? ' debt-minimums-special' : '';
+                div.className = `flex justify-between items-center budget-category-card${specialClass}`;
+                
                 div.innerHTML = `
                     <div class="flex items-center">
-                        <span class="text-xs text-gray-300">${category.label}</span>
+                        <span class="text-xs text-gray-300 category-label">${category.label}</span>
                     </div>
                     <div class="flex items-center">
                         <div class="currency-input-container w-32 relative mr-2">
@@ -3182,121 +3257,135 @@
             }
         }
 
-        // ===== IMPROVED PIE CHART FUNCTION WITH BUCKET COLORS =====
+        // ===== UPDATED PIE CHART FUNCTION =====
         function updateChart(income, expenses, debtPayments, savings, surplus) {
             if (!myChart) return;
             
-            // ===== Calculate category totals for bucket coloring =====
-            const needsWithoutDebt = calculateMonthlyEssentials() - parseCurrency(document.getElementById('debt_minimums')?.value || 0);
-            let wantsTotal = 0;
-            budgetCategories.wants.forEach(category => {
-                wantsTotal += parseCurrency(document.getElementById(category.id)?.value || 0);
+            // Collect all categories with their values
+            const categories = [];
+            
+            // Get the value from debt_minimums input
+            const debtMinsValue = parseCurrency(document.getElementById('debt_minimums')?.value || 0);
+            
+            // Add all budget categories (INCLUDING debt_minimums now)
+            budgetCategories.needs.forEach(category => {
+                const value = parseCurrency(document.getElementById(category.id)?.value || 0);
+                if (value > 0) {
+                    // DEBT MINIMUMS = RED (urgent, important)
+                    // OTHER NEEDS = PURPLE (standard needs)
+                    const color = (category.id === 'debt_minimums') ? '#EF4444' : '#9333EA';
+                    categories.push({ 
+                        label: category.label, 
+                        value: value, 
+                        color: color
+                    });
+                }
             });
             
-            const debtMinimumsTotal = parseCurrency(document.getElementById('debt_minimums')?.value || 0);
+            budgetCategories.wants.forEach(category => {
+                const value = parseCurrency(document.getElementById(category.id)?.value || 0);
+                if (value > 0) categories.push({ label: category.label, value: value, color: '#F59E0B' });
+            });
+            
+            // IMPORTANT FIX: Only add debt payments from debt table IF they're DIFFERENT from debt_minimums
+            // This prevents double-counting when debt_minimums is auto-populated
+            if (debtPayments > 0 && Math.abs(debtPayments - debtMinsValue) > 0.01) {
+                categories.push({ label: 'Additional Debt', value: debtPayments, color: '#DC2626' });
+            }
+            
+            // Add savings
             const savingsTotal = getTotalMonthlySavings();
+            if (savingsTotal > 0) categories.push({ label: 'Savings', value: savingsTotal, color: '#059669' });
             
-            // ===== BUCKET COLOR SCHEME WITH CLEAN DATA =====
-            const data = [];
-            const colors = [];
-            const categoryNames = [];
-            const categoryPercentages = [];
+            // NEW: Sort categories by value (largest first) for better visual distribution
+            categories.sort((a, b) => b.value - a.value);
             
-            // Helper function to add bucket
-            const addBucket = (value, name, color) => {
-                if (value > 0) {
-                    data.push(value);
-                    colors.push(color);
-                    categoryNames.push(name);
-                    
-                    // Calculate percentage of total budget (not income)
-                    const totalBudget = debtMinimumsTotal + needsWithoutDebt + wantsTotal + savingsTotal;
-                    const percentage = totalBudget > 0 ? ((value / totalBudget) * 100).toFixed(1) : 0;
-                    categoryPercentages.push(percentage);
+            // Inner ring - Show categories up to INCOME limit
+            const innerData = [];
+            const innerLabels = [];
+            const innerColors = [];
+            let runningTotal = 0;
+            
+            for (const cat of categories) {
+                if (runningTotal + cat.value <= income) {
+                    // Entire category fits within income
+                    innerData.push(cat.value);
+                    innerLabels.push(cat.label);
+                    innerColors.push(cat.color);
+                    runningTotal += cat.value;
+                } else if (runningTotal < income) {
+                    // Partial category fits
+                    const remaining = income - runningTotal;
+                    innerData.push(remaining);
+                    innerLabels.push(cat.label);
+                    innerColors.push(cat.color);
+                    runningTotal = income;
+                    break;
+                } else {
+                    break;
                 }
-            };
-            
-            // Add buckets in priority order
-            addBucket(debtMinimumsTotal, 'Debt Minimums', '#B22234');       // Crimson
-            addBucket(needsWithoutDebt, 'Essential Needs', '#1E40AF');      // Royal Blue
-            addBucket(wantsTotal, 'Wants & Lifestyle', '#F59E0B');          // Amber
-            addBucket(savingsTotal, 'Savings & Investments', '#059669');    // Emerald Green
-            
-            // Handle surplus/deficit separately
-            if (surplus > 0) {
-                addBucket(surplus, 'Monthly Surplus', '#22C55E');           // Bright Green
-            } else if (surplus < 0) {
-                const deficit = Math.abs(surplus);
-                addBucket(deficit, 'Monthly Deficit', '#DC2626');           // Bright Red
             }
             
-            // ===== Fallback for empty state =====
-            if (data.length === 0) {
-                data.push(1);
-                colors.push('#6B7280');
-                categoryNames.push('No Data');
-                categoryPercentages.push(100);
+            // Add remaining if under budget
+            const isOverBudget = surplus < 0;
+            const overBudgetAmount = isOverBudget ? Math.abs(surplus) : 0;
+            
+            if (!isOverBudget && surplus > 0) {
+                innerData.push(surplus);
+                innerLabels.push('Remaining');
+                innerColors.push('#22C55E');
             }
             
-            // ===== Update chart data =====
-            myChart.data.datasets[0].data = data;
-            myChart.data.datasets[0].backgroundColor = colors;
+            if (innerData.length === 0) {
+                innerData.push(1);
+                innerLabels.push('No Data');
+                innerColors.push('#6B7280');
+            }
             
-            // Clear any existing labels (we'll use tooltips instead)
-            myChart.data.labels = categoryNames;
+            let datasets = [];
             
-            // ===== ENHANCED TOOLTIPS =====
-            myChart.options.plugins.tooltip = {
-                enabled: true,
-                backgroundColor: 'rgba(10, 26, 47, 0.95)',
-                titleColor: '#FFFFFF',
-                bodyColor: '#FFFFFF',
-                borderColor: '#B22234',
-                borderWidth: 1,
-                cornerRadius: 6,
-                padding: 12,
-                displayColors: true,
-                callbacks: {
-                    // Main label - shows amount AND percentage
-                    label: function(context) {
-                        const value = context.parsed;
-                        const index = context.dataIndex;
-                        
-                        // Format currency nicely
-                        const formattedValue = new Intl.NumberFormat('en-US', {
-                            style: 'currency',
-                            currency: 'USD',
-                            minimumFractionDigits: 0,
-                            maximumFractionDigits: 0
-                        }).format(value);
-                        
-                        // Show percentage of total budget
-                        const percentage = categoryPercentages[index];
-                        
-                        // Show percentage of income for surplus/deficit
-                        if (categoryNames[index] === 'Monthly Surplus' || categoryNames[index] === 'Monthly Deficit') {
-                            const incomePercentage = income > 0 ? ((value / income) * 100).toFixed(1) : 0;
-                            return `${formattedValue} (${incomePercentage}% of income)`;
-                        }
-                        
-                        return `${formattedValue} (${percentage}% of budget)`;
+            if (isOverBudget && overBudgetAmount > 0) {
+                // Outer ring shows ONLY the overage as partial arc
+                datasets = [
+                    // Outer ring - Partial arc for overage
+                    {
+                        label: 'Over Budget',
+                        data: [overBudgetAmount, income - overBudgetAmount],
+                        backgroundColor: ['#F97316', 'transparent'],
+                        borderWidth: [3, 0],
+                        borderColor: ['#0A1A2F', 'transparent'],
+                        weight: 0.35
                     },
-                    // Remove the default label (we're handling it above)
-                    afterLabel: function() {
-                        return null;
+                    // Inner ring - Spending up to income
+                    {
+                        label: 'Spending',
+                        data: innerData,
+                        backgroundColor: innerColors,
+                        borderWidth: 2,
+                        borderColor: '#0A1A2F',
+                        weight: .75
                     }
-                }
-            };
+                ];
+                
+                myChart.options.cutout = '75%';
+                myChart.data.labels = ['Over Budget', '', ...innerLabels];
+            } else {
+                // No outer ring when under budget
+                datasets = [
+                    {
+                        label: 'Spending',
+                        data: innerData,
+                        backgroundColor: innerColors,
+                        borderWidth: 2,
+                        borderColor: '#0A1A2F'
+                    }
+                ];
+                
+                myChart.options.cutout = '75%';
+                myChart.data.labels = innerLabels;
+            }
             
-            // ===== Add visual hover effects =====
-            myChart.options.hover = {
-                onHover: function(event, elements) {
-                    event.native.target.style.cursor = elements.length ? 'pointer' : 'default';
-                },
-                animationDuration: 150
-            };
-            
-            // ===== Update the chart =====
+            myChart.data.datasets = datasets;
             myChart.update();
         }
 
@@ -3404,7 +3493,7 @@
             // 13. Update next financial action
             displayNextFinancialAction();
             
-            // 14. Update chart - FIXED with bucket coloring
+            // 14. Update chart - NEW VERSION
             updateChart(income, needsTotal + wantsTotal, debtPayments, savingsTotal, surplus);
             
             // NEW: Update monthly view summary
@@ -3566,7 +3655,7 @@
                 // Reinitialize categories with loaded values
                 initializeBudgetCategories();
                 
-                // Set War Mode if saved
+                // Load War Mode if saved
                 if (data.warMode) {
                     isWarModeActive = true;
                     const warModeToggle = document.getElementById('warModeToggle');
@@ -3584,12 +3673,20 @@
                         if (warModeLabel) {
                             warModeLabel.classList.add('active');
                         }
+                        
+                        // FIX: Call toggleWarMode to actually zero out wants
+                        zeroOutWantsOnly();
                     }
                 }
                 
                 // Recalculate
                 setTimeout(() => {
                     calculateAll();
+                    
+                    // FIX: Trigger auto-population after loading
+                    autoPopulateHousingFromMortgage();
+                    autoPopulateDebtMinimums();
+                    
                     showToast('Data loaded successfully!');
                     
                     // Set up event handlers after loading
@@ -3891,7 +3988,7 @@
                         }]
                     },
                     options: {
-                        cutout: '85%',
+                        cutout: '98%',
                         plugins: {
                             legend: { display: false },
                             tooltip: {
