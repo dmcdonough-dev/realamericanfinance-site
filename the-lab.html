@@ -865,6 +865,46 @@
             opacity: 1;
         }
         
+        /* NEW: Years to Payoff column styles */
+        .years-to-payoff {
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-align: center;
+            min-width: 70px;
+        }
+        
+        .years-to-payoff.critical {
+            background: rgba(220, 38, 38, 0.2);
+            color: #FCA5A5;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            animation: pulse-warning 2s infinite;
+        }
+        
+        .years-to-payoff.high {
+            background: rgba(245, 158, 11, 0.2);
+            color: #FCD34D;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .years-to-payoff.medium {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93C5FD;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .years-to-payoff.low {
+            background: rgba(34, 197, 94, 0.2);
+            color: #86EFAC;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        @keyframes pulse-warning {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
         /* Mobile Optimizations */
         @media (max-width: 768px) {
             .mobile-stack {
@@ -958,6 +998,11 @@
                 font-size: 14px !important;
                 min-height: 40px !important;
                 padding: 8px 12px !important;
+            }
+            
+            /* Hide years column on mobile */
+            .years-column {
+                display: none !important;
             }
         }
         
@@ -1152,6 +1197,108 @@
             font-size: 0.7rem;
             font-style: italic;
         }
+
+        /* NEW: Debt type info tooltip */
+        .debt-type-info {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #0A1A2F;
+            border: 1px solid #B22234;
+            border-radius: 6px;
+            padding: 8px;
+            font-size: 0.7rem;
+            width: 200px;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        
+        .debt-type-info.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .debt-type-info .info-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        
+        .debt-type-info .info-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+        
+        .debt-type-info .info-title {
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+        
+        .debt-type-info .info-details {
+            color: #9ca3af;
+            font-size: 0.65rem;
+            line-height: 1.4;
+        }
+        
+        .debt-type-info .info-emergency {
+            color: #EF4444;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+        
+        /* NEW: Category tag styling */
+        .debt-category-tag {
+            display: inline-block;
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-size: 0.6rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .category-high-interest {
+            background: rgba(239, 68, 68, 0.2);
+            color: #FCA5A5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        
+        .category-secured {
+            background: rgba(139, 92, 246, 0.2);
+            color: #C4B5FD;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .category-education {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93C5FD;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .category-medical {
+            background: rgba(245, 158, 11, 0.2);
+            color: #FCD34D;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .category-collections {
+            background: rgba(107, 114, 128, 0.2);
+            color: #D1D5DB;
+            border: 1px solid rgba(107, 114, 128, 0.3);
+        }
+        
+        /* NEW: Interest rate warning */
+        .rate-warning {
+            animation: pulse-warning 2s infinite;
+        }
     </style>
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson flex flex-col min-h-screen">
@@ -1278,6 +1425,9 @@
                             <button onclick="addDebtRow()" class="text-xs bg-green-900/30 hover:bg-green-800/50 px-3 py-2 rounded transition">
                                 <i class="fas fa-plus mr-1"></i> Add Debt
                             </button>
+                            <button onclick="showDebtQuickTips()" class="text-xs bg-blue-900/30 hover:bg-blue-800/50 px-3 py-2 rounded transition" title="Debt Tips">
+                                <i class="fas fa-lightbulb mr-1"></i> Tips
+                            </button>
                         </div>
                     </div>
                     
@@ -1301,16 +1451,21 @@
                         </div>
                     </div>
                     
+                    <!-- NEW: Debt Type Quick Stats -->
+                    <div id="debt-type-stats" class="mb-4 hidden">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                    
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs uppercase font-bold text-gray-500 tracking-widest">
                             <thead>
                                 <tr class="border-b border-white/10">
-                                    <!-- UPDATED: Removed "Liability" column, now just "Debt Type" with icon -->
                                     <th class="pb-3 px-2">Debt Type</th>
                                     <th class="pb-3 px-2">Balance</th>
                                     <th class="pb-3 px-2">Min. Payment</th>
                                     <th class="pb-3 px-2">Interest Rate</th>
                                     <th class="pb-3 px-2">Priority</th>
+                                    <th class="pb-3 px-2 years-column">Years to Payoff*</th>
                                     <th class="pb-3 px-2"></th>
                                 </tr>
                             </thead>
@@ -1318,6 +1473,11 @@
                                 <!-- Debt rows will be added here by JavaScript -->
                             </tbody>
                         </table>
+                    </div>
+                    
+                    <!-- Years to Payoff Explanation -->
+                    <div class="mt-2 text-xs text-gray-500 italic">
+                        *Years to Payoff calculated at minimum payment. Premium shows accelerated payoff strategies.
                     </div>
                     
                     <div class="mobile-visible hidden">
@@ -1330,6 +1490,7 @@
                         <i class="fas fa-plus mr-2"></i>Add Another Liability
                     </button>
                     
+                    <!-- ENHANCED: Debt Summary with More Info -->
                     <div class="mt-6 p-4 bg-navy-900/50 rounded border border-white/5">
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div>
@@ -1349,11 +1510,74 @@
                                 <div id="debt-to-income" class="text-sm md:text-base font-bold">0%</div>
                             </div>
                         </div>
+                        
+                        <!-- NEW: Total Years to Payoff -->
+                        <div class="mt-4 p-3 bg-gradient-to-r from-red-900/20 to-orange-900/20 rounded border border-red-500/30">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Total Years to Payoff</div>
+                                    <div id="total-years-to-payoff" class="text-xl font-bold text-white">0 years</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xs text-gray-300">At minimum payments</div>
+                                    <button onclick="showPricingModal()" class="mt-1 text-xs text-crimson hover:text-red-400">
+                                        <i class="fas fa-bolt mr-1"></i>Accelerate with Premium
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- NEW: Additional Debt Metrics -->
+                        <div id="additional-debt-metrics" class="mt-4 pt-4 border-t border-white/10 hidden">
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Avg. Interest Rate</div>
+                                    <div id="avg-interest-rate" class="text-sm font-bold">0%</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Annual Interest Cost</div>
+                                    <div id="annual-interest-cost" class="text-sm font-bold">$0</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Highest APR</div>
+                                    <div id="highest-apr" class="text-sm font-bold text-crimson">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button onclick="toggleAdditionalMetrics()" class="w-full mt-4 text-xs text-gray-400 hover:text-white transition">
+                            <i class="fas fa-chevron-down mr-1"></i>
+                            <span id="metrics-toggle-text">Show More Metrics</span>
+                        </button>
+                    </div>
+                    
+                    <!-- NEW: Debt Strategy Tips -->
+                    <div id="debt-strategy-tips" class="mt-4 p-3 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded border border-blue-500/30 hidden">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-lightbulb text-blue-400 mt-1"></i>
+                            <div class="flex-1">
+                                <div class="text-xs font-bold mb-1">Debt Strategy Tip</div>
+                                <div id="strategy-tip-content" class="text-xs text-gray-300">
+                                    Enter your debt details to see personalized strategy tips
+                                </div>
+                            </div>
+                            <button onclick="refreshStrategyTip()" class="text-xs text-blue-400 hover:text-blue-300">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="mt-4 p-3 bg-crimson/10 rounded border border-crimson/20">
                         <div class="text-xs">
-                            <span class="font-bold">Tip:</span> Focus on debts over 10% APR first for maximum interest savings.
+                            <span class="font-bold">Reality Check:</span> Seeing high "Years to Payoff"? 
+                            <button onclick="showPricingModal()" class="text-crimson hover:text-red-400 ml-1">
+                                Upgrade to Premium
+                            </button>
+                            for AI-powered debt optimization that can cut your payoff time in half.
+                            <span class="block mt-1 text-gray-400 text-[10px]">
+                                <i class="fas fa-exclamation-triangle mr-1"></i>
+                                Any debt taking 10+ years to payoff at minimum payments is a financial emergency
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -1825,6 +2049,7 @@
                         <li><i class="fas fa-check"></i> Progress indicators</li>
                         <li><i class="fas fa-check"></i> Data export/import</li>
                         <li><i class="fas fa-check"></i> Mobile optimization</li>
+                        <li><i class="fas fa-check"></i> Years to Payoff calculator</li>
                         <li class="locked"><i class="fas fa-times"></i> Scenario planning</li>
                         <li class="locked"><i class="fas fa-times"></i> Advanced debt tools</li>
                         <li class="locked"><i class="fas fa-times"></i> Investment tracking</li>
@@ -1848,6 +2073,7 @@
                         <li><i class="fas fa-check"></i> Drag & drop categories</li>
                         <li><i class="fas fa-check"></i> Priority alerts & insights</li>
                         <li><i class="fas fa-check"></i> Real-time collaboration</li>
+                        <li><i class="fas fa-check"></i> AI-powered debt optimization</li>
                     </ul>
                     <button onclick="alert('Payment integration coming soon!')" class="w-full upgrade-btn mt-4">
                         Start Premium Trial
@@ -1941,53 +2167,91 @@
         let isWarModeActive = false;
         let originalCategoryValues = {}; // Store original values when War Mode is activated
         
-        // ===== UPDATED DEBT TYPES ARRAY WITH ICONS & COLORS =====
+        // ===== TIER 1 DEBT TYPES (8 Core Categories) =====
         const debtTypes = [
             { 
                 value: 'credit_card', 
                 label: 'Credit Card', 
                 icon: 'fa-credit-card',
-                color: '#EF4444' // Red
+                color: '#EF4444',
+                category: 'high-interest',
+                typicalAPR: '15-29%',
+                description: 'Revolving credit with variable rates',
+                strategy: 'Highest priority when APR > 15%'
             },
             { 
                 value: 'student_loan', 
                 label: 'Student Loan', 
                 icon: 'fa-graduation-cap',
-                color: '#3B82F6' // Blue
+                color: '#3B82F6',
+                category: 'education',
+                typicalAPR: '3-8%',
+                description: 'Federal or private education loans',
+                strategy: 'Explore income-driven repayment plans'
             },
             { 
                 value: 'auto_loan', 
                 label: 'Auto Loan', 
                 icon: 'fa-car',
-                color: '#10B981' // Green
+                color: '#10B981',
+                category: 'secured',
+                typicalAPR: '3-10%',
+                description: 'Vehicle financing (car, truck, motorcycle)',
+                strategy: 'Consider refinancing if rate > 6%'
             },
             { 
                 value: 'mortgage', 
                 label: 'Mortgage', 
                 icon: 'fa-home',
-                color: '#8B5CF6' // Purple
-            },
-            { 
-                value: 'medical', 
-                label: 'Medical', 
-                icon: 'fa-file-medical',
-                color: '#F59E0B' // Orange
+                color: '#8B5CF6',
+                category: 'secured',
+                typicalAPR: '3-8%',
+                description: 'Primary residence home loan',
+                strategy: 'Low priority unless rate > 6%'
             },
             { 
                 value: 'personal_loan', 
                 label: 'Personal Loan', 
                 icon: 'fa-hand-holding-usd',
-                color: '#EC4899' // Pink
+                color: '#EC4899',
+                category: 'high-interest',
+                typicalAPR: '6-36%',
+                description: 'Unsecured installment loan',
+                strategy: 'Prioritize if APR > 10%'
             },
             { 
-                value: 'klarna', 
-                label: 'Klarna/Buy Now Pay Later', 
-                icon: 'fa-shopping-bag',
-                color: '#06B6D4' // Cyan
+                value: 'medical', 
+                label: 'Medical Bill', 
+                icon: 'fa-file-medical',
+                color: '#F59E0B',
+                category: 'medical',
+                typicalAPR: '0-10%',
+                description: 'Healthcare expenses or financing',
+                strategy: 'Negotiate payment plans, often 0% interest'
+            },
+            { 
+                value: 'collections', 
+                label: 'Collections', 
+                icon: 'fa-phone-volume',
+                color: '#6B7280',
+                category: 'collections',
+                typicalAPR: '0%',
+                description: 'Charged-off or collection accounts',
+                strategy: 'Negotiate settlement for less than full amount'
+            },
+            { 
+                value: 'other', 
+                label: 'Other Debt', 
+                icon: 'fa-question-circle',
+                color: '#9ca3af',
+                category: 'other',
+                typicalAPR: 'varies',
+                description: 'Any debt not in above categories',
+                strategy: 'Assess interest rate for priority'
             }
         ];
 
-        // ENHANCED SAVINGS CATEGORIES WITH DUAL INPUTS
+        // ENHANCED SAVINGS CATEGORIES
         const savingsCategories = [
             {
                 id: 'emergency_fund',
@@ -2012,7 +2276,7 @@
             }
         ];
 
-        // SIMPLIFIED BUDGET CATEGORIES (14 total - no toggle needed)
+        // SIMPLIFIED BUDGET CATEGORIES
         const budgetCategories = {
             needs: [
                 { id: 'debt_minimums', label: 'Debt Minimum Payments (Info Only)', default: 0 },
@@ -2050,271 +2314,454 @@
         let categoryValues = {};
         let savingsValues = {};
 
-        // ===== NEW: 50/30/20 BUDGET RULE FUNCTIONS =====
-        function update503020Rule() {
-            const income = getMonthlyIncome();
-            if (income <= 0) return;
+        // ===== NEW: YEARS TO PAYOFF FUNCTIONS =====
+        
+        // Calculate years to payoff for a single debt
+        function calculateYearsToPayoff(balance, monthlyPayment, interestRate) {
+            if (monthlyPayment <= 0 || balance <= 0) return 0;
             
-            // Calculate totals
-            const needsTotal = calculateMonthlyEssentials();
-            const wantsTotal = calculateMonthlyWants();
-            const savingsTotal = getTotalMonthlySavings();
+            // Convert annual interest rate to monthly
+            const monthlyRate = (interestRate / 100) / 12;
             
-            // Calculate percentages
-            const needsPercentage = (needsTotal / income) * 100;
-            const wantsPercentage = (wantsTotal / income) * 100;
-            const savingsPercentage = (savingsTotal / income) * 100;
+            // Check if payment is too low to even cover interest
+            const monthlyInterest = balance * monthlyRate;
+            if (monthlyPayment <= monthlyInterest) {
+                // Payment doesn't even cover interest - debt will never be paid off
+                return Infinity;
+            }
             
-            // Update progress bars (capped at 100% for display)
-            const needsFill = document.getElementById('needs-rule-fill');
-            const wantsFill = document.getElementById('wants-rule-fill');
-            const savingsFill = document.getElementById('savings-rule-fill');
+            // Use the loan amortization formula to calculate months
+            // n = -log(1 - (r * P) / A) / log(1 + r)
+            // Where: n = number of months, r = monthly interest rate, P = principal, A = monthly payment
             
-            if (needsFill) needsFill.style.width = `${Math.min(needsPercentage, 100)}%`;
-            if (wantsFill) wantsFill.style.width = `${Math.min(wantsPercentage, 100)}%`;
-            if (savingsFill) savingsFill.style.width = `${Math.min(savingsPercentage, 100)}%`;
-            
-            // Update percentages display
-            const needsPercentageEl = document.getElementById('needs-rule-percentage');
-            const wantsPercentageEl = document.getElementById('wants-rule-percentage');
-            const savingsPercentageEl = document.getElementById('savings-rule-percentage');
-            
-            if (needsPercentageEl) {
-                needsPercentageEl.textContent = `${needsPercentage.toFixed(1)}%`;
-                // Emergency if > 50%
-                if (needsPercentage > 50) {
-                    needsPercentageEl.className = 'budget-rule-percentage emergency';
-                    needsFill.className = 'budget-rule-fill emergency';
-                } else if (needsPercentage > 40) {
-                    needsPercentageEl.className = 'budget-rule-percentage warning';
-                    needsFill.className = 'budget-rule-fill needs';
+            let months;
+            try {
+                if (monthlyRate > 0) {
+                    // Check if payment is sufficient
+                    const paymentToInterestRatio = (monthlyRate * balance) / monthlyPayment;
+                    
+                    if (paymentToInterestRatio >= 1) {
+                        // Payment doesn't cover interest - infinite payoff time
+                        return Infinity;
+                    }
+                    
+                    months = -Math.log(1 - paymentToInterestRatio) / Math.log(1 + monthlyRate);
                 } else {
-                    needsPercentageEl.className = 'budget-rule-percentage good';
-                    needsFill.className = 'budget-rule-fill needs';
+                    // 0% interest - simple division
+                    months = balance / monthlyPayment;
                 }
-            }
-            
-            if (wantsPercentageEl) {
-                wantsPercentageEl.textContent = `${wantsPercentage.toFixed(1)}%`;
-                // Emergency if > 30%
-                if (wantsPercentage > 30) {
-                    wantsPercentageEl.className = 'budget-rule-percentage emergency';
-                    wantsFill.className = 'budget-rule-fill emergency';
-                } else if (wantsPercentage > 25) {
-                    wantsPercentageEl.className = 'budget-rule-percentage warning';
-                    wantsFill.className = 'budget-rule-fill wants';
-                } else {
-                    wantsPercentageEl.className = 'budget-rule-percentage good';
-                    wantsFill.className = 'budget-rule-fill wants';
-                }
-            }
-            
-            if (savingsPercentageEl) {
-                savingsPercentageEl.textContent = `${savingsPercentage.toFixed(1)}%`;
-                // Emergency if < 20% (but only if spending is > 80%)
-                if (savingsPercentage < 20 && (needsPercentage + wantsPercentage) > 80) {
-                    savingsPercentageEl.className = 'budget-rule-percentage emergency';
-                    savingsFill.className = 'budget-rule-fill emergency';
-                } else if (savingsPercentage < 15) {
-                    savingsPercentageEl.className = 'budget-rule-percentage warning';
-                    savingsFill.className = 'budget-rule-fill savings';
-                } else {
-                    savingsPercentageEl.className = 'budget-rule-percentage good';
-                    savingsFill.className = 'budget-rule-fill savings';
-                }
-            }
-            
-            // Update labels with emergency highlighting
-            const needsLabel = document.getElementById('needs-rule-label');
-            const wantsLabel = document.getElementById('wants-rule-label');
-            const savingsLabel = document.getElementById('savings-rule-label');
-            
-            if (needsLabel) {
-                needsLabel.className = needsPercentage > 50 ? 
-                    'budget-rule-label emergency' : 
-                    'budget-rule-label needs active';
-            }
-            
-            if (wantsLabel) {
-                wantsLabel.className = wantsPercentage > 30 ? 
-                    'budget-rule-label emergency' : 
-                    'budget-rule-label wants active';
-            }
-            
-            if (savingsLabel) {
-                savingsLabel.className = (savingsPercentage < 20 && (needsPercentage + wantsPercentage) > 80) ? 
-                    'budget-rule-label emergency' : 
-                    'budget-rule-label savings active';
-            }
-            
-            // Show toast if any category is in emergency
-            if (needsPercentage > 50 || wantsPercentage > 30 || (savingsPercentage < 20 && (needsPercentage + wantsPercentage) > 80)) {
-                showBudgetRuleEmergencyToast(needsPercentage, wantsPercentage, savingsPercentage);
+                
+                // Convert months to years (with one decimal place)
+                const years = months / 12;
+                
+                // Cap at 100 years for display purposes
+                return Math.min(years, 100);
+            } catch (error) {
+                console.error('Error calculating payoff time:', error);
+                return Infinity;
             }
         }
         
-        function showBudgetRuleEmergencyToast(needsPct, wantsPct, savingsPct) {
-            const emergencies = [];
-            
-            if (needsPct > 50) {
-                emergencies.push(`Needs (${needsPct.toFixed(1)}% > 50% target)`);
-            }
-            if (wantsPct > 30) {
-                emergencies.push(`Wants (${wantsPct.toFixed(1)}% > 30% target)`);
-            }
-            if (savingsPct < 20 && (needsPct + wantsPct) > 80) {
-                emergencies.push(`Savings (${savingsPct.toFixed(1)}% < 20% target)`);
-            }
-            
-            if (emergencies.length > 0) {
-                showToast(`50/30/20 EMERGENCY: ${emergencies.join(', ')}`);
+        // Get CSS class for years to payoff display
+        function getYearsToPayoffClass(years) {
+            if (years >= 100 || years === Infinity) return 'critical';
+            if (years >= 20) return 'critical';
+            if (years >= 10) return 'high';
+            if (years >= 5) return 'medium';
+            return 'low';
+        }
+        
+        // Format years for display
+        function formatYearsForDisplay(years) {
+            if (years === Infinity || years >= 100) {
+                return '∞';
+            } else if (years > 0) {
+                return `${years.toFixed(1)} yrs`;
+            } else {
+                return '--';
             }
         }
         
-        function calculateMonthlyWants() {
-            let total = 0;
-            budgetCategories.wants.forEach(category => {
-                total += parseCurrency(document.getElementById(category.id)?.value || 0);
+        // Calculate total years to payoff for all debts
+        function calculateTotalYearsToPayoff() {
+            let totalYears = 0;
+            let highestIndividualYears = 0;
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            
+            debtRows.forEach(row => {
+                const balanceInput = row.querySelector('td:nth-child(2) .debt-input');
+                const paymentInput = row.querySelector('td:nth-child(3) .debt-input');
+                const rateInput = row.querySelector('td:nth-child(4) .debt-input');
+                
+                if (balanceInput && paymentInput && rateInput) {
+                    const balance = parseCurrency(balanceInput.value);
+                    const payment = parseCurrency(paymentInput.value);
+                    const rate = parseFloat(rateInput.value) || 0;
+                    
+                    if (balance > 0 && payment > 0) {
+                        const years = calculateYearsToPayoff(balance, payment, rate);
+                        if (years > highestIndividualYears) {
+                            highestIndividualYears = years;
+                        }
+                    }
+                }
             });
-            return total;
+            
+            return highestIndividualYears; // Return the longest individual debt payoff time
+        }
+        
+        // Update years to payoff for a specific row
+        function updateYearsToPayoff(row) {
+            const balanceInput = row.querySelector('td:nth-child(2) .debt-input');
+            const paymentInput = row.querySelector('td:nth-child(3) .debt-input');
+            const rateInput = row.querySelector('td:nth-child(4) .debt-input');
+            const yearsCell = row.querySelector('td:nth-child(6)');
+            
+            if (!balanceInput || !paymentInput || !rateInput || !yearsCell) return;
+            
+            const balance = parseCurrency(balanceInput.value);
+            const payment = parseCurrency(paymentInput.value);
+            const rate = parseFloat(rateInput.value) || 0;
+            
+            let yearsText = '';
+            let cssClass = '';
+            
+            if (balance > 0 && payment > 0) {
+                const years = calculateYearsToPayoff(balance, payment, rate);
+                yearsText = formatYearsForDisplay(years);
+                cssClass = getYearsToPayoffClass(years);
+                
+                // Add a tooltip explaining the calculation
+                const monthlyInterest = balance * (rate / 100) / 12;
+                if (payment <= monthlyInterest) {
+                    yearsCell.title = `Payment ($${payment}) doesn't cover monthly interest ($${monthlyInterest.toFixed(2)}) - debt will never be paid off`;
+                } else {
+                    yearsCell.title = `Based on minimum payment of $${payment}/month at ${rate}% APR`;
+                }
+            } else {
+                yearsText = '--';
+            }
+            
+            // Update the cell
+            yearsCell.innerHTML = `<div class="years-to-payoff ${cssClass}" title="${yearsCell.title || ''}">${yearsText}</div>`;
+        }
+        
+        // Update all years to payoff displays
+        function updateAllYearsToPayoff() {
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            debtRows.forEach(row => updateYearsToPayoff(row));
+            
+            // Update total years to payoff
+            const totalYearsElement = document.getElementById('total-years-to-payoff');
+            if (totalYearsElement) {
+                const totalYears = calculateTotalYearsToPayoff();
+                if (totalYears > 0) {
+                    if (totalYears >= 100 || totalYears === Infinity) {
+                        totalYearsElement.textContent = '∞ years';
+                        totalYearsElement.title = 'Debt will never be paid off at current minimum payments';
+                        totalYearsElement.classList.add('text-red-500');
+                        totalYearsElement.classList.remove('text-yellow-500', 'text-green-500');
+                    } else {
+                        totalYearsElement.textContent = `${totalYears.toFixed(1)} years`;
+                        totalYearsElement.title = `Longest individual debt payoff time: ${totalYears.toFixed(1)} years`;
+                        
+                        // Color code the total
+                        if (totalYears >= 20) {
+                            totalYearsElement.classList.add('text-red-500');
+                            totalYearsElement.classList.remove('text-yellow-500', 'text-green-500');
+                        } else if (totalYears >= 10) {
+                            totalYearsElement.classList.add('text-yellow-500');
+                            totalYearsElement.classList.remove('text-red-500', 'text-green-500');
+                        } else {
+                            totalYearsElement.classList.add('text-green-500');
+                            totalYearsElement.classList.remove('text-red-500', 'text-yellow-500');
+                        }
+                    }
+                } else {
+                    totalYearsElement.textContent = '0 years';
+                    totalYearsElement.title = 'No active debt or no minimum payments specified';
+                    totalYearsElement.classList.remove('text-red-500', 'text-yellow-500', 'text-green-500');
+                    totalYearsElement.classList.add('text-gray-400');
+                }
+            }
         }
 
-        // ===== WAR MODE FUNCTIONS (FIXED - Only affects WANTS) =====
-        function toggleWarMode() {
-            const toggle = document.getElementById('warModeToggle');
-            const budgetSection = document.getElementById('budget-section');
-            const warModeContainer = document.getElementById('war-mode-container');
+        // ===== NEW: DEBT TYPE FUNCTIONS =====
+        
+        // Get category tag for debt type
+        function getCategoryTag(type) {
+            const category = type.category;
+            const tags = {
+                'high-interest': '<span class="debt-category-tag category-high-interest">High Interest</span>',
+                'secured': '<span class="debt-category-tag category-secured">Secured</span>',
+                'education': '<span class="debt-category-tag category-education">Education</span>',
+                'medical': '<span class="debt-category-tag category-medical">Medical</span>',
+                'collections': '<span class="debt-category-tag category-collections">Collections</span>',
+                'other': '<span class="debt-category-tag">Other</span>'
+            };
+            return tags[category] || '';
+        }
+
+        // Show debt type info tooltip
+        function showDebtTypeInfo(element, typeValue) {
+            const type = debtTypes.find(t => t.value === typeValue);
+            if (!type) return;
             
-            isWarModeActive = toggle.checked;
+            // Remove any existing tooltip
+            const existingTooltip = document.querySelector('.debt-type-info.visible');
+            if (existingTooltip) existingTooltip.remove();
             
-            if (isWarModeActive) {
-                // Activate War Mode
-                budgetSection.classList.add('war-mode-active');
-                showToast('WAR MODE ACTIVATED: All WANTS set to zero');
+            // Create new tooltip
+            const tooltip = document.createElement('div');
+            tooltip.className = 'debt-type-info';
+            tooltip.innerHTML = `
+                <div class="info-header">
+                    <div class="info-icon" style="background: ${type.color}20; border: 1px solid ${type.color}40">
+                        <i class="fas ${type.icon}" style="color: ${type.color}"></i>
+                    </div>
+                    <div class="info-title">${type.label}</div>
+                </div>
+                <div class="info-details">
+                    <div>${type.description}</div>
+                    <div class="mt-1">Typical APR: ${type.typicalAPR}</div>
+                    ${getCategoryTag(type)}
+                    ${type.category === 'high-interest' ? 
+                        '<div class="info-emergency">⚠️ Prioritize if APR > 15%</div>' : 
+                        ''}
+                </div>
+            `;
+            
+            // Position and show tooltip
+            const rect = element.getBoundingClientRect();
+            tooltip.style.position = 'fixed';
+            tooltip.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+            tooltip.style.left = (rect.left + window.scrollX) + 'px';
+            
+            document.body.appendChild(tooltip);
+            
+            // Show with animation
+            setTimeout(() => tooltip.classList.add('visible'), 10);
+            
+            // Hide on click anywhere
+            const hideTooltip = (e) => {
+                if (!tooltip.contains(e.target) && !element.contains(e.target)) {
+                    tooltip.classList.remove('visible');
+                    setTimeout(() => tooltip.remove(), 200);
+                    document.removeEventListener('click', hideTooltip);
+                }
+            };
+            
+            setTimeout(() => document.addEventListener('click', hideTooltip), 100);
+        }
+
+        // Get default interest rate based on debt type
+        function getDefaultInterestRate(typeValue) {
+            const type = debtTypes.find(t => t.value === typeValue);
+            if (!type || !type.typicalAPR) return 0;
+            
+            // Parse typical APR range (e.g., "15-29%")
+            const aprRange = type.typicalAPR.replace('%', '').split('-');
+            const minRate = parseFloat(aprRange[0]) || 0;
+            
+            // Return the lower end as default (conservative estimate)
+            return minRate;
+        }
+
+        // Update debt type with smart defaults
+        function updateDebtType(select) {
+            const row = select.closest('tr');
+            const type = debtTypes.find(t => t.value === select.value);
+            
+            if (type) {
+                // Update icon
+                const iconContainer = row.querySelector('.debt-type-icon');
+                if (iconContainer) {
+                    iconContainer.style.background = `${type.color}20`;
+                    iconContainer.style.border = `1px solid ${type.color}40`;
+                    const icon = iconContainer.querySelector('i');
+                    if (icon) {
+                        icon.className = `fas ${type.icon} text-sm`;
+                        icon.style.color = type.color;
+                    }
+                }
                 
-                // Save original values
-                saveOriginalCategoryValues();
+                // Set default interest rate if empty
+                const rateInput = row.querySelector('td:nth-child(4) .debt-input');
+                if (rateInput && (!rateInput.value || rateInput.value === '0' || rateInput.value === '')) {
+                    const defaultRate = getDefaultInterestRate(type.value);
+                    if (defaultRate > 0) {
+                        rateInput.value = defaultRate;
+                        updateDebtPriority(rateInput);
+                    }
+                }
                 
-                // Set only WANTS categories to zero (NEEDS remain editable)
-                zeroOutWantsOnly();
-                
-                // FIX: Ensure War Mode toggle is ALWAYS visible when active
-                warModeContainer.classList.remove('hidden');
-            } else {
-                // Deactivate War Mode
-                budgetSection.classList.remove('war-mode-active');
-                showToast('War Mode deactivated');
-                
-                // Restore original values
-                restoreOriginalCategoryValues();
+                // Update category display
+                const categoryDisplay = row.querySelector('.debt-category');
+                if (categoryDisplay) {
+                    categoryDisplay.innerHTML = getCategoryTag(type);
+                }
             }
             
-            // Update War Mode label
-            const warModeLabel = document.querySelector('.war-mode-label');
-            if (warModeLabel) {
-                warModeLabel.classList.toggle('active', isWarModeActive);
-            }
+            // Update years to payoff
+            updateYearsToPayoff(row);
             
-            // Recalculate
+            // Trigger calculations
+            autoPopulateHousingFromMortgage();
+            autoPopulateDebtMinimums();
             debouncedCalculateAll();
+            updateDebtStrategyTip();
         }
 
-        function saveOriginalCategoryValues() {
-            originalCategoryValues = {};
+        // Toggle additional debt metrics
+        function toggleAdditionalMetrics() {
+            const metricsContainer = document.getElementById('additional-debt-metrics');
+            const toggleText = document.getElementById('metrics-toggle-text');
             
-            // Save WANTS only (NEEDS remain editable during War Mode)
-            budgetCategories.wants.forEach(category => {
-                const input = document.getElementById(category.id);
-                if (input) {
-                    originalCategoryValues[category.id] = input.value;
-                }
-            });
-        }
-
-        function restoreOriginalCategoryValues() {
-            // Restore WANTS only
-            budgetCategories.wants.forEach(category => {
-                const input = document.getElementById(category.id);
-                if (input && originalCategoryValues[category.id] !== undefined) {
-                    input.value = originalCategoryValues[category.id];
-                    // Remove war-mode-disabled class from wants
-                    input.classList.remove('war-mode-disabled');
-                    input.readOnly = false;
-                    input.disabled = false;
-                    // Trigger format to update display
-                    formatCurrency(input);
-                }
-            });
-            
-            // Remove war-mode-disabled class from any inputs that might have it
-            document.querySelectorAll('.war-mode-disabled').forEach(input => {
-                input.classList.remove('war-mode-disabled');
-                input.readOnly = false;
-                input.disabled = false;
-            });
-        }
-
-        function zeroOutWantsOnly() {
-            // ONLY zero out WANTS categories and disable them
-            budgetCategories.wants.forEach(category => {
-                const input = document.getElementById(category.id);
-                if (input) {
-                    input.value = '0';
-                    // Add war-mode-disabled class to wants inputs
-                    input.classList.add('war-mode-disabled');
-                    // Make them non-editable
-                    input.readOnly = true;
-                    input.disabled = true; // Actually disable the input
-                    // Trigger format to update display
-                    formatCurrency(input);
-                }
-            });
-            
-            // NEEDS categories remain untouched and editable
-            budgetCategories.needs.forEach(category => {
-                const input = document.getElementById(category.id);
-                if (input) {
-                    // Remove any war-mode styling from needs
-                    input.classList.remove('war-mode-disabled');
-                    input.readOnly = false;
-                    input.disabled = false;
-                }
-            });
-        }
-
-        function checkAndShowWarModeToggle() {
-            const surplus = calculateSurplus();
-            const warModeContainer = document.getElementById('war-mode-container');
-            
-            // FIX: ALWAYS show War Mode toggle when War Mode is ACTIVE
-            if (isWarModeActive) {
-                warModeContainer.classList.remove('hidden');
-                return; // Don't hide it when War Mode is active
-            }
-            
-            // Only show/hide based on surplus when War Mode is NOT active
-            if (surplus < 0) {
-                // Show War Mode toggle when in deficit and War Mode is not active
-                warModeContainer.classList.remove('hidden');
+            if (metricsContainer.classList.contains('hidden')) {
+                metricsContainer.classList.remove('hidden');
+                toggleText.textContent = 'Show Fewer Metrics';
+                calculateAdditionalMetrics();
             } else {
-                // Hide War Mode toggle when surplus is positive and War Mode is not active
-                warModeContainer.classList.add('hidden');
+                metricsContainer.classList.add('hidden');
+                toggleText.textContent = 'Show More Metrics';
             }
+        }
+
+        // Calculate additional debt metrics
+        function calculateAdditionalMetrics() {
+            const avgRateElement = document.getElementById('avg-interest-rate');
+            const annualInterestElement = document.getElementById('annual-interest-cost');
+            const highestAprElement = document.getElementById('highest-apr');
+            
+            if (!avgRateElement || !annualInterestElement || !highestAprElement) return;
+            
+            let totalBalance = 0;
+            let totalWeightedRate = 0;
+            let highestRate = 0;
+            let totalAnnualInterest = 0;
+            let debtCount = 0;
+            
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            
+            debtRows.forEach(row => {
+                const balanceInput = row.querySelector('td:nth-child(2) .debt-input');
+                const rateInput = row.querySelector('td:nth-child(4) .debt-input');
+                
+                if (balanceInput && rateInput) {
+                    const balance = parseCurrency(balanceInput.value);
+                    const rate = parseFloat(rateInput.value) || 0;
+                    
+                    if (balance > 0) {
+                        totalBalance += balance;
+                        totalWeightedRate += balance * rate;
+                        totalAnnualInterest += balance * (rate / 100);
+                        debtCount++;
+                        
+                        if (rate > highestRate) {
+                            highestRate = rate;
+                        }
+                    }
+                }
+            });
+            
+            // Calculate weighted average rate
+            const avgRate = totalBalance > 0 ? (totalWeightedRate / totalBalance) : 0;
+            
+            // Update displays
+            avgRateElement.textContent = `${avgRate.toFixed(1)}%`;
+            avgRateElement.className = `text-sm font-bold ${
+                avgRate > 15 ? 'text-red-500 rate-warning' : 
+                avgRate > 10 ? 'text-yellow-500' : 
+                'text-green-500'
+            }`;
+            
+            annualInterestElement.textContent = `$${Math.round(totalAnnualInterest).toLocaleString()}`;
+            highestAprElement.textContent = `${highestRate.toFixed(1)}%`;
+            highestAprElement.className = `text-sm font-bold ${
+                highestRate > 15 ? 'text-red-500 rate-warning' : 
+                highestRate > 10 ? 'text-yellow-500' : 
+                'text-green-500'
+            }`;
+        }
+
+        // Check if payment covers interest
+        function doesPaymentCoverInterest(balance, monthlyPayment, interestRate) {
+            if (balance <= 0 || monthlyPayment <= 0 || interestRate <= 0) return true;
+            
+            const monthlyInterest = balance * (interestRate / 100) / 12;
+            return monthlyPayment > monthlyInterest;
+        }
+
+        // Update debt strategy tip
+        function updateDebtStrategyTip() {
+            const tipContainer = document.getElementById('debt-strategy-tips');
+            const tipContent = document.getElementById('strategy-tip-content');
+            
+            if (!tipContainer || !tipContent) return;
+            
+            const highestRate = getHighestInterestRate();
+            const totalBalance = getTotalDebtBalance();
+            const highInterestCount = getHighInterestDebtCount();
+            const dti = calculateDebtToIncomeRatio();
+            const totalYears = calculateTotalYearsToPayoff();
+            
+            let tip = '';
+            
+            if (totalBalance === 0) {
+                tip = 'Enter your debt details to see personalized strategy tips.';
+            } else if (totalYears === Infinity) {
+                tip = '🚨 DEBT TRAP: Some payments don\'t even cover interest! These debts will NEVER be paid off at current minimums.';
+            } else if (totalYears >= 20) {
+                tip = `🚨 FINANCIAL EMERGENCY: Your debt will take ${totalYears.toFixed(1)} years to payoff at minimum payments. This is unsustainable.`;
+            } else if (highestRate > 15) {
+                tip = `🚨 EMERGENCY: You have debt at ${highestRate}% APR. This is a financial emergency - focus all extra payments here first.`;
+            } else if (highInterestCount > 0) {
+                tip = `🎯 Priority: Focus on your ${highInterestCount} high-interest debt(s) (APR > 10%) first using the Avalanche method.`;
+            } else if (dti > 36) {
+                tip = `⚖️ Warning: Your debt-to-income ratio is ${dti.toFixed(1)}% (max recommended: 36%). Consider debt consolidation or increasing income.`;
+            } else if (totalYears >= 10) {
+                tip = `📅 Long-term Burden: Your debt will take ${totalYears.toFixed(1)} years to payoff. Consider aggressive repayment strategies.`;
+            } else if (totalBalance < getMonthlyIncome() * 6) {
+                tip = `📈 Good progress! Your total debt is less than 6 months of income. Keep focusing payments on highest interest debt.`;
+            } else {
+                tip = `📊 Strategy: Use the Avalanche method (highest interest first) to minimize total interest paid.`;
+            }
+            
+            tipContent.textContent = tip;
+            tipContainer.classList.remove('hidden');
+        }
+
+        function refreshStrategyTip() {
+            updateDebtStrategyTip();
+            showToast('Strategy tip refreshed');
+        }
+
+        function showDebtQuickTips() {
+            const tips = [
+                "🚨 Any debt taking 10+ years to payoff is a financial emergency",
+                "🎯 Avalanche Method: Pay highest interest debts first (saves most money)",
+                "📅 Snowball Method: Pay smallest balances first (psychological wins)",
+                "⚡ Any debt above 15% APR is a financial emergency",
+                "💳 Credit cards over 20% APR should be top priority",
+                "🏠 Mortgage under 6% APR is low priority",
+                "📞 Collections: Negotiate settlements for 30-50% of balance",
+                "🔄 Consider balance transfers for credit card debt",
+                "📊 Debt-to-Income should stay under 36%"
+            ];
+            
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            showToast(`Debt Tip: ${randomTip}`);
         }
 
         // ===== BASIC HELPER FUNCTIONS =====
         function parseCurrency(value) {
             if (!value || value === '') return 0;
             
-            // Make sure it's a string
             if (typeof value !== 'string') {
                 value = String(value);
             }
             
-            // Remove all non-numeric characters except decimal point
             let cleanValue = value.replace(/[^0-9.]/g, '');
-            
-            // Handle multiple decimal points - keep only the first one
             const parts = cleanValue.split('.');
             if (parts.length > 2) {
                 cleanValue = parts[0] + '.' + parts.slice(1).join('');
@@ -2350,6 +2797,12 @@
                 savingsValues[input.id] = input.value;
             } else {
                 categoryValues[input.id] = input.value;
+            }
+            
+            // Update years to payoff for this row if it's a debt input
+            const row = input.closest('tr');
+            if (row) {
+                updateYearsToPayoff(row);
             }
             
             debouncedCalculateAll();
@@ -2397,37 +2850,31 @@
             return badges[priority] || '<span class="priority-badge">N/A</span>';
         }
 
+        // Update debt priority function (add warning for high rates)
         function updateDebtPriority(input) {
             const rate = parseFloat(input.value) || 0;
             const priority = calculateDebtPriority(rate);
             const row = input.closest('tr');
+            
+            // Add warning class for high rates
+            if (rate > 15) {
+                input.classList.add('rate-warning');
+            } else {
+                input.classList.remove('rate-warning');
+            }
+            
             if (row) {
-                const priorityCell = row.querySelector('td:nth-child(5)'); // Updated column index
+                const priorityCell = row.querySelector('td:nth-child(5)');
                 if (priorityCell) {
                     priorityCell.innerHTML = getPriorityBadge(priority);
                 }
+                
+                // Also update years to payoff
+                updateYearsToPayoff(row);
             }
-        }
-
-        function updateDebtType(select) {
-            const type = debtTypes.find(t => t.value === select.value);
-            if (type) {
-                // Update the icon in the row
-                const row = select.closest('tr');
-                if (row) {
-                    const iconContainer = row.querySelector('.debt-type-icon');
-                    if (iconContainer) {
-                        // Update background and icon
-                        iconContainer.style.background = `${type.color}20`;
-                        iconContainer.style.border = `1px solid ${type.color}40`;
-                        const icon = iconContainer.querySelector('i');
-                        if (icon) {
-                            icon.className = `fas ${type.icon} text-sm`;
-                            icon.style.color = type.color;
-                        }
-                    }
-                }
-            }
+            
+            // Update strategy tip
+            updateDebtStrategyTip();
         }
 
         function updateDebtEventHandlers() {
@@ -2436,7 +2883,7 @@
             
             document.querySelectorAll('#debt-body tr').forEach(row => {
                 const typeSelect = row.querySelector('.debt-type-select');
-                const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
+                const paymentInput = row.querySelector('td:nth-child(3) .debt-input');
                 
                 if (typeSelect) {
                     // Remove old listener if any, add new one
@@ -2455,6 +2902,12 @@
                         autoPopulateHousingFromMortgage();
                         autoPopulateDebtMinimums();
                         debouncedCalculateAll();
+                        
+                        // Update years to payoff for this row
+                        const row = this.closest('tr');
+                        if (row) {
+                            updateYearsToPayoff(row);
+                        }
                     };
                 }
             });
@@ -2473,7 +2926,7 @@
             debouncedCalculateAll();
         }
 
-        // ===== UPDATED: ADD DEBT ROW WITH ICON-BASED DESIGN =====
+        // ===== ENHANCED ADD DEBT ROW FUNCTION =====
         function addDebtRowWithData(debtData, index) {
             const debtBody = document.getElementById('debt-body');
             const mobileDebtBody = document.getElementById('debt-body-mobile');
@@ -2482,12 +2935,10 @@
             const rowCount = debtBody.querySelectorAll('tr').length;
             const rowId = `debt-${Date.now()}-${rowCount}`;
             
-            // Get default type (first one)
+            // Get default type (credit card)
             const defaultType = debtTypes[0];
-            const defaultColor = defaultType.color;
-            const defaultIcon = defaultType.icon;
             
-            // Create desktop row with FIXED dark dropdown
+            // Create desktop row
             const row = document.createElement('tr');
             row.id = rowId;
             row.className = "debt-row border-b border-white/5";
@@ -2495,15 +2946,19 @@
             row.innerHTML = `
                 <td class="py-3 px-2">
                     <div class="flex items-center gap-2">
-                        <div class="debt-type-icon p-2 rounded" style="background: ${defaultColor}20; border: 1px solid ${defaultColor}40">
-                            <i class="fas ${defaultIcon} text-sm" style="color: ${defaultColor}"></i>
+                        <div class="debt-type-icon p-2 rounded cursor-help" 
+                             style="background: ${defaultType.color}20; border: 1px solid ${defaultType.color}40"
+                             onmouseenter="showDebtTypeInfo(this, '${defaultType.value}')">
+                            <i class="fas ${defaultType.icon} text-sm" style="color: ${defaultType.color}"></i>
                         </div>
-                        <select class="debt-type-select" onchange="updateDebtType(this); autoPopulateHousingFromMortgage(); autoPopulateDebtMinimums();">
-                            <option value="">Select Type</option>
-                            ${debtTypes.map(type => 
-                                `<option value="${type.value}">${type.label}</option>`
-                            ).join('')}
-                        </select>
+                        <div class="flex-1">
+                            <select class="debt-type-select" onchange="updateDebtType(this);">
+                                ${debtTypes.map(type => 
+                                    `<option value="${type.value}">${type.label}</option>`
+                                ).join('')}
+                            </select>
+                            <div class="debt-category mt-1"></div>
+                        </div>
                     </div>
                 </td>
                 <td class="py-3 px-2">
@@ -2538,6 +2993,9 @@
                 <td class="py-3 px-2" id="priority-${rowId}">
                     <span class="priority-badge">N/A</span>
                 </td>
+                <td class="py-3 px-2 years-column" id="years-${rowId}">
+                    <div class="years-to-payoff">--</div>
+                </td>
                 <td class="text-right">
                     <button onclick="removeDebtRow('${rowId}')" class="hover:text-crimson transition text-lg touch-target" aria-label="Remove debt">
                         ×
@@ -2547,19 +3005,18 @@
             
             debtBody.appendChild(row);
             
+            // Initialize category display
+            updateDebtType(row.querySelector('.debt-type-select'));
+            
             // Fill with data
-            const typeSelect = row.querySelector('.debt-type-select');
             const balanceInput = row.querySelector('td:nth-child(2) .debt-input');
             const paymentInput = row.querySelector('td:nth-child(3) .debt-input');
             const rateInput = row.querySelector('td:nth-child(4) .debt-input');
+            const typeSelect = row.querySelector('.debt-type-select');
             
             if (debtData.type) {
                 typeSelect.value = debtData.type;
-                // Update the icon based on the type
-                const type = debtTypes.find(t => t.value === debtData.type);
-                if (type) {
-                    updateDebtType(typeSelect);
-                }
+                updateDebtType(typeSelect);
             }
             
             if (debtData.balance) {
@@ -2576,6 +3033,9 @@
                 rateInput.value = debtData.rate;
                 updateDebtPriority(rateInput);
             }
+            
+            // Update years to payoff
+            updateYearsToPayoff(row);
             
             // Also create mobile version
             createMobileDebtCard(rowId, debtData);
@@ -2637,6 +3097,10 @@
                             <span class="text-xs">%</span>
                         </div>
                     </div>
+                    <div class="col-span-2">
+                        <div class="text-xs text-gray-400 mb-1">Years to Payoff*</div>
+                        <div class="years-to-payoff">--</div>
+                    </div>
                 </div>
             `;
             
@@ -2678,7 +3142,7 @@
             
             debtRows.forEach(row => {
                 const typeSelect = row.querySelector('.debt-type-select');
-                const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
+                const paymentInput = row.querySelector('td:nth-child(3) .debt-input');
                 
                 // Skip mortgage payments (they're already in housing budget)
                 if (paymentInput && typeSelect && typeSelect.value !== 'mortgage') {
@@ -2694,7 +3158,7 @@
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const balanceInput = row.querySelector('td:nth-child(2) .debt-input'); // Updated column index
+                const balanceInput = row.querySelector('td:nth-child(2) .debt-input');
                 if (balanceInput) {
                     total += parseCurrency(balanceInput.value);
                 }
@@ -2708,7 +3172,7 @@
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const rateInput = row.querySelector('td:nth-child(4) .debt-input'); // Updated column index
+                const rateInput = row.querySelector('td:nth-child(4) .debt-input');
                 if (rateInput) {
                     const rate = parseFloat(rateInput.value) || 0;
                     if (rate > 10) {
@@ -2725,8 +3189,8 @@
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const rateInput = row.querySelector('td:nth-child(4) .debt-input'); // Updated column index
-                const balanceInput = row.querySelector('td:nth-child(2) .debt-input'); // Updated column index
+                const rateInput = row.querySelector('td:nth-child(4) .debt-input');
+                const balanceInput = row.querySelector('td:nth-child(2) .debt-input');
                 if (rateInput && balanceInput) {
                     const rate = parseFloat(rateInput.value) || 0;
                     if (rate > 10) {
@@ -2743,7 +3207,7 @@
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const rateInput = row.querySelector('td:nth-child(4) .debt-input'); // Updated column index
+                const rateInput = row.querySelector('td:nth-child(4) .debt-input');
                 if (rateInput) {
                     const rate = parseFloat(rateInput.value) || 0;
                     if (rate > highest) highest = rate;
@@ -2774,7 +3238,7 @@
                 // Check if this is a mortgage debt
                 const typeSelect = row.querySelector('.debt-type-select');
                 if (typeSelect && typeSelect.value === 'mortgage') {
-                    const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
+                    const paymentInput = row.querySelector('td:nth-child(3) .debt-input');
                     if (paymentInput) {
                         const payment = parseCurrency(paymentInput.value);
                         totalMortgagePayment += payment;
@@ -3115,7 +3579,7 @@
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
+                const paymentInput = row.querySelector('td:nth-child(3) .debt-input');
                 if (paymentInput) {
                     totalDebtPayments += parseCurrency(paymentInput.value);
                 }
@@ -3158,6 +3622,7 @@
             const highInterestDebt = calculateTotalHighInterestDebt();
             const highestRate = getHighestInterestRate();
             const totalDebt = getTotalDebtBalance();
+            const totalYears = calculateTotalYearsToPayoff();
             
             let html = '';
             
@@ -3201,6 +3666,22 @@
                             <div class="progress-bar retirement" style="width: ${Math.min(progressPercent, 100)}%"></div>
                         </div>
                         <div class="text-xs text-gray-400 mt-1">${statusText} • Target: ${targetMultiplier}× annual income</div>
+                    </div>
+                `;
+            }
+            
+            // Debt Payoff Timeline
+            if (totalYears > 0) {
+                const statusClass = totalYears >= 20 ? 'critical' : totalYears >= 10 ? 'warning' : 'good';
+                const statusText = totalYears >= 20 ? 'Emergency' : totalYears >= 10 ? 'Long-term' : 'Manageable';
+                
+                html += `
+                    <div class="mb-4">
+                        <div class="progress-display">
+                            <div class="progress-label">Debt Payoff Timeline</div>
+                            <div class="progress-value ${statusClass}">${totalYears.toFixed(1)} years</div>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-1">${statusText} • At minimum payments</div>
                     </div>
                 `;
             }
@@ -3280,6 +3761,7 @@
             const highInterestDebt = calculateTotalHighInterestDebt();
             const highestRate = getHighestInterestRate();
             const totalDebt = getTotalDebtBalance();
+            const totalYears = calculateTotalYearsToPayoff();
             
             // ===== TIER 1: FINANCIAL FIREFIGHTING (UPDATED ORDER) =====
             
@@ -3345,7 +3827,22 @@
                 };
             }
             
-            // 3. High-Interest Debt Emergency (>15% APR)
+            // 3. Debt Payoff Timeline Crisis
+            if (totalYears >= 20) {
+                return {
+                    tier: 1,
+                    type: 'debt-timeline-crisis',
+                    icon: 'fa-hourglass-end',
+                    title: 'EMERGENCY: Debt Payoff Timeline',
+                    message: `Your debt will take ${totalYears.toFixed(1)} years to payoff at minimum payments`,
+                    action: 'Upgrade to Premium for AI-powered debt optimization strategies',
+                    why: 'Debt payoff taking 20+ years is financially unsustainable',
+                    priority: 'Critical',
+                    color: 'red'
+                };
+            }
+            
+            // 4. High-Interest Debt Emergency (>15% APR)
             if (highInterestDebt > 0 && highestRate > 15) {
                 return {
                     tier: 1,
@@ -3383,7 +3880,7 @@
                 }
             }
             
-            // 4. Build Emergency Fund to 3-6 months
+            // 5. Build Emergency Fund to 3-6 months
             if (monthsCovered < 3) {
                 const targetAmount = Math.round(monthlyEssentials * 3);
                 return {
@@ -3755,7 +4252,7 @@
             const debtRows = document.querySelectorAll('#debt-body tr');
             debtRows.forEach(row => {
                 const typeSelect = row.querySelector('.debt-type-select');
-                const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
+                const paymentInput = row.querySelector('td:nth-child(3) .debt-input');
                 
                 // Skip mortgage payments (they're in housing budget)
                 if (paymentInput && typeSelect && typeSelect.value !== 'mortgage') {
@@ -3933,7 +4430,10 @@
             if (totalDebtPaymentsEl) totalDebtPaymentsEl.textContent = `$${debtPayments.toLocaleString()}`;
             if (highInterestCountEl) highInterestCountEl.textContent = getHighInterestDebtCount();
             
-            // 9. Update sidebar displays
+            // 9. Update years to payoff
+            updateAllYearsToPayoff();
+            
+            // 10. Update sidebar displays
             const totalIncomeDisplay = document.getElementById('total-income-display');
             const totalExpensesEl = document.getElementById('total-expenses');
             const sidebarDebtPayments = document.getElementById('sidebar-debt-payments');
@@ -3952,7 +4452,7 @@
                                          'text-red-400';
             }
             
-            // 10. Update surplus display and pie chart label
+            // 11. Update surplus display and pie chart label
             const surplusVal = document.getElementById('surplus-val');
             const centerRemaining = document.getElementById('center-remaining');
             const centerLabel = document.getElementById('center-label');
@@ -3989,17 +4489,17 @@
                     'Reduce expenses or increase income';
             }
             
-            // 11. Check and show War Mode toggle (FIXED LOGIC)
+            // 12. Check and show War Mode toggle
             checkAndShowWarModeToggle();
             
-            // 12. Update progress indicators
+            // 13. Update progress indicators
             updateProgressIndicators();
             displayFinancialProgress();
             
-            // 13. Update next financial action
+            // 14. Update next financial action
             displayNextFinancialAction();
             
-            // 14. Update chart - NEW VERSION with 5 group separators
+            // 15. Update chart - NEW VERSION with 5 group separators
             updateChart(income, needsTotal + wantsTotal, debtPayments, savingsTotal, surplus);
             
             // NEW: Update monthly view summary
@@ -4008,8 +4508,14 @@
             // NEW: Update category percentages
             updateCategoryPercentages();
             
-            // NEW: Update 50/30/20 budget rule display
-            update503020Rule();
+            // NEW: Calculate additional metrics if visible
+            const metricsContainer = document.getElementById('additional-debt-metrics');
+            if (metricsContainer && !metricsContainer.classList.contains('hidden')) {
+                calculateAdditionalMetrics();
+            }
+            
+            // NEW: Update strategy tip
+            updateDebtStrategyTip();
         }
 
         function debouncedCalculateAll() {
@@ -4032,6 +4538,129 @@
             showToast('Action recommendation refreshed');
         }
 
+        // ===== WAR MODE FUNCTIONS =====
+        function toggleWarMode() {
+            const toggle = document.getElementById('warModeToggle');
+            const budgetSection = document.getElementById('budget-section');
+            const warModeContainer = document.getElementById('war-mode-container');
+            
+            isWarModeActive = toggle.checked;
+            
+            if (isWarModeActive) {
+                // Activate War Mode
+                budgetSection.classList.add('war-mode-active');
+                showToast('WAR MODE ACTIVATED: All WANTS set to zero');
+                
+                // Save original values
+                saveOriginalCategoryValues();
+                
+                // Set only WANTS categories to zero (NEEDS remain editable)
+                zeroOutWantsOnly();
+                
+                // Ensure War Mode toggle is ALWAYS visible when active
+                warModeContainer.classList.remove('hidden');
+            } else {
+                // Deactivate War Mode
+                budgetSection.classList.remove('war-mode-active');
+                showToast('War Mode deactivated');
+                
+                // Restore original values
+                restoreOriginalCategoryValues();
+            }
+            
+            // Update War Mode label
+            const warModeLabel = document.querySelector('.war-mode-label');
+            if (warModeLabel) {
+                warModeLabel.classList.toggle('active', isWarModeActive);
+            }
+            
+            // Recalculate
+            debouncedCalculateAll();
+        }
+
+        function saveOriginalCategoryValues() {
+            originalCategoryValues = {};
+            
+            // Save WANTS only (NEEDS remain editable during War Mode)
+            budgetCategories.wants.forEach(category => {
+                const input = document.getElementById(category.id);
+                if (input) {
+                    originalCategoryValues[category.id] = input.value;
+                }
+            });
+        }
+
+        function restoreOriginalCategoryValues() {
+            // Restore WANTS only
+            budgetCategories.wants.forEach(category => {
+                const input = document.getElementById(category.id);
+                if (input && originalCategoryValues[category.id] !== undefined) {
+                    input.value = originalCategoryValues[category.id];
+                    // Remove war-mode-disabled class from wants
+                    input.classList.remove('war-mode-disabled');
+                    input.readOnly = false;
+                    input.disabled = false;
+                    // Trigger format to update display
+                    formatCurrency(input);
+                }
+            });
+            
+            // Remove war-mode-disabled class from any inputs that might have it
+            document.querySelectorAll('.war-mode-disabled').forEach(input => {
+                input.classList.remove('war-mode-disabled');
+                input.readOnly = false;
+                input.disabled = false;
+            });
+        }
+
+        function zeroOutWantsOnly() {
+            // ONLY zero out WANTS categories and disable them
+            budgetCategories.wants.forEach(category => {
+                const input = document.getElementById(category.id);
+                if (input) {
+                    input.value = '0';
+                    // Add war-mode-disabled class to wants inputs
+                    input.classList.add('war-mode-disabled');
+                    // Make them non-editable
+                    input.readOnly = true;
+                    input.disabled = true; // Actually disable the input
+                    // Trigger format to update display
+                    formatCurrency(input);
+                }
+            });
+            
+            // NEEDS categories remain untouched and editable
+            budgetCategories.needs.forEach(category => {
+                const input = document.getElementById(category.id);
+                if (input) {
+                    // Remove any war-mode styling from needs
+                    input.classList.remove('war-mode-disabled');
+                    input.readOnly = false;
+                    input.disabled = false;
+                }
+            });
+        }
+
+        function checkAndShowWarModeToggle() {
+            const surplus = calculateSurplus();
+            const warModeContainer = document.getElementById('war-mode-container');
+            
+            // ALWAYS show War Mode toggle when War Mode is ACTIVE
+            if (isWarModeActive) {
+                warModeContainer.classList.remove('hidden');
+                return; // Don't hide it when War Mode is active
+            }
+            
+            // Only show/hide based on surplus when War Mode is NOT active
+            if (surplus < 0) {
+                // Show War Mode toggle when in deficit and War Mode is not active
+                warModeContainer.classList.remove('hidden');
+            } else {
+                // Hide War Mode toggle when surplus is positive and War Mode is not active
+                warModeContainer.classList.add('hidden');
+            }
+        }
+
         // ===== DATA PERSISTENCE =====
         function saveToLocalStorage() {
             const saveBtn = document.querySelector('button[onclick="saveToLocalStorage()"]');
@@ -4042,7 +4671,7 @@
             saveBtn.disabled = true;
             
             const data = {
-                version: 'raf_lab_v8_simplified_icon',
+                version: 'raf_lab_v9_years_to_payoff',
                 timestamp: new Date().toISOString(),
                 warMode: isWarModeActive,
                 paycheck: document.getElementById('paycheck').value,
@@ -4078,12 +4707,12 @@
                 data.originalValues = originalCategoryValues;
             }
             
-            // Save debts (UPDATED: No longer saving names)
+            // Save debts
             document.querySelectorAll('#debt-body tr').forEach(row => {
                 const typeSelect = row.querySelector('.debt-type-select');
-                const balanceInput = row.querySelector('td:nth-child(2) .debt-input'); // Updated column index
-                const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
-                const rateInput = row.querySelector('td:nth-child(4) .debt-input'); // Updated column index
+                const balanceInput = row.querySelector('td:nth-child(2) .debt-input');
+                const paymentInput = row.querySelector('td:nth-child(3) .debt-input');
+                const rateInput = row.querySelector('td:nth-child(4) .debt-input');
                 
                 if (typeSelect) {
                     data.debts.push({
@@ -4185,7 +4814,7 @@
                             warModeLabel.classList.add('active');
                         }
                         
-                        // FIX: Call toggleWarMode to actually zero out wants
+                        // Call toggleWarMode to actually zero out wants
                         zeroOutWantsOnly();
                     }
                 }
@@ -4194,7 +4823,7 @@
                 setTimeout(() => {
                     calculateAll();
                     
-                    // FIX: Trigger auto-population after loading
+                    // Trigger auto-population after loading
                     autoPopulateHousingFromMortgage();
                     autoPopulateDebtMinimums();
                     
@@ -4296,7 +4925,7 @@
 
         function exportData() {
             const data = {
-                version: 'raf_lab_v8_simplified_icon',
+                version: 'raf_lab_v9_years_to_payoff',
                 timestamp: new Date().toISOString(),
                 warMode: isWarModeActive,
                 income: {
@@ -4317,7 +4946,8 @@
                     monthlyPayments: getTotalDebtPayments(),
                     monthlySurplus: calculateSurplus(),
                     savingsRate: (getTotalMonthlySavings() / getMonthlyIncome()) * 100,
-                    debtToIncome: calculateDebtToIncomeRatio()
+                    debtToIncome: calculateDebtToIncomeRatio(),
+                    yearsToPayoff: calculateTotalYearsToPayoff()
                 }
             };
             
@@ -4345,21 +4975,26 @@
                 data.originalValues = originalCategoryValues;
             }
             
-            // Add debt data (UPDATED: No longer including names)
+            // Add debt data
             document.querySelectorAll('#debt-body tr').forEach(row => {
                 const typeSelect = row.querySelector('.debt-type-select');
-                const balanceInput = row.querySelector('td:nth-child(2) .debt-input'); // Updated column index
-                const paymentInput = row.querySelector('td:nth-child(3) .debt-input'); // Updated column index
-                const rateInput = row.querySelector('td:nth-child(4) .debt-input'); // Updated column index
+                const balanceInput = row.querySelector('td:nth-child(2) .debt-input');
+                const paymentInput = row.querySelector('td:nth-child(3) .debt-input');
+                const rateInput = row.querySelector('td:nth-child(4) .debt-input');
                 
                 if (typeSelect) {
                     const rate = parseFloat(rateInput?.value) || 0;
+                    const balance = parseCurrency(balanceInput?.value || 0);
+                    const payment = parseCurrency(paymentInput?.value || 0);
+                    const yearsToPayoff = calculateYearsToPayoff(balance, payment, rate);
+                    
                     data.debts.push({
                         type: typeSelect.value || '',
-                        balance: parseCurrency(balanceInput?.value || 0),
-                        payment: parseCurrency(paymentInput?.value || 0),
+                        balance: balance,
+                        payment: payment,
                         rate: rate,
-                        priority: calculateDebtPriority(rate)
+                        priority: calculateDebtPriority(rate),
+                        yearsToPayoff: yearsToPayoff
                     });
                 }
             });
@@ -4410,11 +5045,12 @@
                 savingsRate: (getTotalMonthlySavings() / getMonthlyIncome()) * 100,
                 nextAction: calculateNextFinancialAction(),
                 warMode: isWarModeActive,
+                yearsToPayoff: calculateTotalYearsToPayoff(),
                 timestamp: new Date().toISOString()
             };
             
             // Copy to clipboard
-            const shareText = `My Financial Snapshot:\n- Monthly Income: $${data.income.toLocaleString()}\n- Debt-to-Income: ${data.debtRatio.toFixed(1)}%\n- Savings Rate: ${data.savingsRate.toFixed(1)}%\n- Next Action: ${data.nextAction.title}\n- War Mode: ${data.warMode ? 'ACTIVE' : 'Inactive'}\n\nGenerated with Real American Finance`;
+            const shareText = `My Financial Snapshot:\n- Monthly Income: $${data.income.toLocaleString()}\n- Debt-to-Income: ${data.debtRatio.toFixed(1)}%\n- Savings Rate: ${data.savingsRate.toFixed(1)}%\n- Years to Payoff: ${data.yearsToPayoff.toFixed(1)} years\n- Next Action: ${data.nextAction.title}\n- War Mode: ${data.warMode ? 'ACTIVE' : 'Inactive'}\n\nGenerated with Real American Finance`;
             
             navigator.clipboard.writeText(shareText)
                 .then(() => showToast('Financial snapshot copied to clipboard!'))
@@ -4483,7 +5119,7 @@
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing icon-based financial dashboard...');
+            console.log('DOM loaded, initializing Tier 1 financial dashboard...');
             
             // Initialize chart with proper border settings
             const canvas = document.getElementById('budgetChart');
@@ -4543,7 +5179,7 @@
                 loadFromLocalStorage();
             }, 100);
             
-            console.log('Icon-based financial dashboard initialization complete');
+            console.log('Tier 1 financial dashboard initialization complete');
         });
 
         // Close modal when clicking outside
@@ -4583,9 +5219,13 @@
         window.clearCategory = clearCategory;
         window.updateMonthlyViewSummary = updateMonthlyViewSummary;
         window.updateCategoryPercentages = updateCategoryPercentages;
-        window.update503020Rule = update503020Rule;
-        window.calculateMonthlyWants = calculateMonthlyWants;
         window.updateMobileDebtPriority = updateMobileDebtPriority;
+        window.showDebtTypeInfo = showDebtTypeInfo;
+        window.toggleAdditionalMetrics = toggleAdditionalMetrics;
+        window.refreshStrategyTip = refreshStrategyTip;
+        window.showDebtQuickTips = showDebtQuickTips;
+        window.doesPaymentCoverInterest = doesPaymentCoverInterest;
+        window.formatYearsForDisplay = formatYearsForDisplay;
     </script>
 </body>
 </html>
