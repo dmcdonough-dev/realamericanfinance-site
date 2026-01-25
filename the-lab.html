@@ -800,16 +800,6 @@
             padding-top: 12px;
         }
         
-        .priority-tag {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 0.65rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
         /* Age Input Styling */
         .age-input-container {
             background: rgba(10, 26, 47, 0.5);
@@ -1656,6 +1646,140 @@
             font-size: 0.6rem;
             color: #9ca3af;
         }
+        
+        /* ===== NEW CSS ADDITIONS FOR REQUESTED FEATURES ===== */
+        
+        /* Goal Tracking Styles */
+        .goal-item {
+            padding: 8px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            margin-bottom: 8px;
+        }
+
+        /* Daily Tip Styles */
+        .tip-container {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Mobile Bottom Navigation (for future enhancement) */
+        @media (max-width: 768px) {
+            .mobile-bottom-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: #0A1A2F;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                display: flex;
+                justify-content: space-around;
+                padding: 12px;
+                z-index: 1000;
+                backdrop-filter: blur(10px);
+            }
+        }
+
+        /* Tax Optimization Premium Lock */
+        .tax-optimization-locked {
+            position: relative;
+            pointer-events: none;
+        }
+        
+        /* ===== NEW: RAF SOVEREIGN SCORE STYLES ===== */
+        .sovereign-score-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #0A1A2F, #11243F);
+            border: 2px solid;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .sovereign-score-tm {
+            font-size: 0.6rem;
+            vertical-align: super;
+            margin-left: 2px;
+        }
+        
+        .score-rank {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-top: 4px;
+        }
+        
+        .score-rank-sovereign {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+            color: #10B981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .score-rank-strong {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(29, 78, 216, 0.2));
+            color: #3B82F6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .score-rank-stable {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2));
+            color: #F59E0B;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .score-rank-vulnerable {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
+            color: #EF4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        
+        .score-rank-crisis {
+            background: linear-gradient(135deg, rgba(127, 29, 29, 0.3), rgba(185, 28, 28, 0.3));
+            color: #DC2626;
+            border: 1px solid rgba(220, 38, 38, 0.5);
+            animation: pulse-warning 2s infinite;
+        }
+        
+        .sovereign-score-breakdown {
+            background: rgba(10, 26, 47, 0.7);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .score-component-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 4px 0 8px 0;
+            overflow: hidden;
+        }
+        
+        .score-component-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        
+        .score-component-fill.emergency { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+        .score-component-fill.debt { background: linear-gradient(90deg, #EF4444, #F87171); }
+        .score-component-fill.savings { background: linear-gradient(90deg, #10B981, #34D399); }
+        .score-component-fill.budget { background: linear-gradient(90deg, #F59E0B, #FBBF24); }
+        .score-component-fill.retirement { background: linear-gradient(90deg, #8B5CF6, #A78BFA); }
     </style>
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson flex flex-col min-h-screen">
@@ -1690,11 +1814,26 @@
                 Your Financial Battle Station
             </p>
 
-            <button onclick="scrollToSection('income')" class="bg-crimson px-8 py-3 font-heading font-bold uppercase tracking-widest hover:bg-red-700 transition text-lg shadow-xl touch-target">
-                START FREE CALCULATOR
-            </button>
         </div>
     </section>
+
+    <!-- NEW: DAILY FINANCIAL TIP CAROUSEL -->
+    <div class="container mx-auto px-4 md:px-6 py-4">
+        <div class="bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-xl p-4 border border-blue-500/30 tip-container">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-bold uppercase tracking-wider">
+                    <i class="fas fa-lightbulb mr-2"></i>Daily Financial Tip
+                </h3>
+                <button onclick="nextTip()" class="text-xs text-blue-400 hover:text-blue-300 touch-target">
+                    <i class="fas fa-forward"></i>
+                </button>
+            </div>
+            <div id="financial-tip" class="text-sm">
+                Pay yourself first! Automate at least 10% of your income to savings before paying any bills.
+            </div>
+            <div class="text-xs text-gray-400 mt-2" id="tip-source">– The Automatic Millionaire</div>
+        </div>
+    </div>
 
     <!-- MAIN CONTENT -->
     <main class="container mx-auto px-4 md:px-6 py-6 md:py-12 flex-1">
@@ -1930,40 +2069,174 @@
                     </div>
                 </div>
 
-                <!-- 05. Scenario Planning (PREMIUM - LOCKED) -->
-                <div class="dashboard-card p-4 md:p-6 lg:p-8 shadow-2xl premium-locked">
-                    <div class="flex justify-between items-center mb-4 md:mb-6">
-                        <h3 class="text-lg md:text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-3 md:pl-4">
-                            05. Scenario Planning
-                            <span class="tier-badge tier-premium ml-3">Premium</span>
-                        </h3>
-                    </div>
-                    
-                    <div class="lock-badge">
-                        <i class="fas fa-lock lock-icon"></i>
-                        <h4 class="text-xl font-bold mb-2">Premium Feature</h4>
-                        <p class="text-sm text-gray-300 mb-4 max-w-md mx-auto">
-                            Run "what-if" scenarios: job loss, emergency expenses, income changes, and mortgage acceleration strategies.
-                        </p>
-                        <button onclick="showPricingModal()" class="upgrade-btn">
-                            <i class="fas fa-unlock mr-2"></i>Unlock for $19.99/mo
-                        </button>
-                    </div>
-                    
-                    <!-- Blurred preview content -->
-                    <div style="filter: blur(8px); opacity: 0.3;">
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
-                            <div class="bg-white/5 p-4 rounded">
-                                <div class="text-xs text-gray-400">Income Change</div>
-                                <div class="text-lg font-bold">+10%</div>
-                            </div>
-                            <div class="bg-white/5 p-4 rounded">
-                                <div class="text-xs text-gray-400">Emergency</div>
-                                <div class="text-lg font-bold">$5,000</div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- 04. Cash Flow Projection (PREMIUM) - SAME HEIGHT AS MASTERY -->
+<div class="dashboard-card p-4 md:p-6 lg:p-8 shadow-2xl premium-locked">
+    <div class="flex justify-between items-center mb-4 md:mb-6">
+        <h3 class="text-lg md:text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-3 md:pl-4">
+            04. Cash Flow Projection
+            <span class="tier-badge tier-premium ml-3">Premium</span>
+        </h3>
+    </div>
+    
+    <div class="lock-badge">
+        <i class="fas fa-chart-line lock-icon" style="color: #10B981;"></i>
+        <h4 class="text-xl font-bold mb-2">6-Month Cash Flow Forecast</h4>
+        <p class="text-sm text-gray-300 mb-4 max-w-md mx-auto">
+            See your financial future based on current income and expenses. Project emergency fund growth and debt payoff timelines.
+        </p>
+        <button onclick="showPricingModal()" class="upgrade-btn" style="background: linear-gradient(135deg, #10B981, #059669);">
+            <i class="fas fa-unlock mr-2"></i>Unlock for $19.99/mo
+        </button>
+    </div>
+    
+    <!-- Enhanced to match Mastery height -->
+    <div style="filter: blur(8px); opacity: 0.3;">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <div class="space-y-3">
+                <div class="bg-white/5 p-3 rounded">
+                    <div class="text-xs text-gray-400">Income Stability Score</div>
+                    <div class="text-lg font-bold">85/100</div>
                 </div>
+                <div class="bg-white/5 p-3 rounded">
+                    <div class="text-xs text-gray-400">Emergency Fund Growth</div>
+                    <div class="text-lg font-bold">+42% in 6mo</div>
+                </div>
+                <div class="bg-white/5 p-3 rounded">
+                    <div class="text-xs text-gray-400">Debt Payoff Acceleration</div>
+                    <div class="text-sm">-8 months timeline</div>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-white/5 p-3 rounded">
+                    <div class="text-xs text-gray-400">Cash Flow Risk</div>
+                    <div class="text-lg font-bold">Low</div>
+                </div>
+                <div class="bg-white/5 p-3 rounded">
+                    <div class="text-xs text-gray-400">Savings Rate Projection</div>
+                    <div class="text-lg font-bold">18% → 22%</div>
+                </div>
+                <div class="bg-white/5 p-3 rounded">
+                    <div class="text-xs text-gray-400">Breakeven Analysis</div>
+                    <div class="text-sm">Month 4 positive</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 05. Scenario Planning (PREMIUM - LOCKED) - SAME HEIGHT AS MASTERY -->
+<div class="dashboard-card p-4 md:p-6 lg:p-8 shadow-2xl premium-locked">
+    <div class="flex justify-between items-center mb-4 md:mb-6">
+        <h3 class="text-lg md:text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-3 md:pl-4">
+            05. Scenario Planning
+            <span class="tier-badge tier-premium ml-3">Premium</span>
+        </h3>
+    </div>
+    
+    <div class="lock-badge">
+        <i class="fas fa-lock lock-icon"></i>
+        <h4 class="text-xl font-bold mb-2">Premium Feature</h4>
+        <p class="text-sm text-gray-300 mb-4 max-w-md mx-auto">
+            Run "what-if" scenarios: job loss, emergency expenses, income changes, and mortgage acceleration strategies.
+        </p>
+        <button onclick="showPricingModal()" class="upgrade-btn">
+            <i class="fas fa-unlock mr-2"></i>Unlock for $19.99/mo
+        </button>
+    </div>
+    
+    <!-- Enhanced to match Mastery height -->
+    <div style="filter: blur(8px); opacity: 0.3;">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <div class="space-y-3">
+                <div class="bg-white/5 p-4 rounded">
+                    <div class="text-xs text-gray-400">Income Change</div>
+                    <div class="text-lg font-bold">+10%</div>
+                    <div class="text-xs text-gray-500 mt-1">Impact: +$3,600/yr</div>
+                </div>
+                <div class="bg-white/5 p-4 rounded">
+                    <div class="text-xs text-gray-400">Emergency Expense</div>
+                    <div class="text-lg font-bold">$5,000</div>
+                    <div class="text-xs text-gray-500 mt-1">Recovery: 4 months</div>
+                </div>
+                <div class="bg-white/5 p-4 rounded">
+                    <div class="text-xs text-gray-400">Job Loss Scenario</div>
+                    <div class="text-sm">6-month runway</div>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-white/5 p-4 rounded">
+                    <div class="text-xs text-gray-400">Mortgage Acceleration</div>
+                    <div class="text-lg font-bold">-7 years</div>
+                    <div class="text-xs text-gray-500 mt-1">Save: $28,400</div>
+                </div>
+                <div class="bg-white/5 p-4 rounded">
+                    <div class="text-xs text-gray-400">Debt Snowball</div>
+                    <div class="text-lg font-bold">-18 months</div>
+                    <div class="text-xs text-gray-500 mt-1">Total payoff</div>
+                </div>
+                <div class="bg-white/5 p-4 rounded">
+                    <div class="text-xs text-gray-400">Investment Return</div>
+                    <div class="text-sm">7% annual growth</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 07. Tax Optimization (PREMIUM - LOCKED) - SAME HEIGHT AS MASTERY -->
+<div class="dashboard-card p-4 md:p-6 lg:p-8 shadow-2xl premium-locked">
+    <div class="flex justify-between items-center mb-4 md:mb-6">
+        <h3 class="text-lg md:text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-3 md:pl-4">
+            07. Tax Optimization
+            <span class="tier-badge tier-premium ml-3">Premium</span>
+        </h3>
+    </div>
+    
+    <div class="lock-badge">
+        <i class="fas fa-chart-pie lock-icon" style="color: #3B82F6;"></i>
+        <h4 class="text-xl font-bold mb-2">Tax Savings Analysis</h4>
+        <p class="text-sm text-gray-300 mb-4 max-w-md mx-auto">
+            See how retirement contributions, HSAs, and deductions reduce your tax bill. Get personalized tax savings recommendations.
+        </p>
+        <button onclick="showPricingModal()" class="upgrade-btn" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8);">
+            <i class="fas fa-unlock mr-2"></i>Unlock for $19.99/mo
+        </button>
+    </div>
+    
+    <!-- Enhanced to match Mastery height -->
+    <div style="filter: blur(8px); opacity: 0.3;">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <div class="space-y-3">
+                <div class="bg-white/5 p-3 rounded">
+                    <div class="text-xs text-gray-400">Estimated Tax Rate</div>
+                    <div class="text-lg font-bold">22%</div>
+                </div>
+                <div class="bg-white/5 p-3 rounded">
+                    <div class="text-xs text-gray-400">401(k) Optimization</div>
+                    <div class="text-sm">Save $2,400/year</div>
+                </div>
+                <div class="bg-white/5 p-3 rounded">
+                    <div class="text-xs text-gray-400">HSA Contribution</div>
+                    <div class="text-sm">$3,850 max benefit</div>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-white/5 p-3 rounded">
+                    <div class="text-xs text-gray-400">Annual Tax Savings</div>
+                    <div class="text-lg font-bold">$2,400</div>
+                </div>
+                <div class="bg-white/5 p-3 rounded">
+                    <div class="text-xs text-gray-400">Deduction Strategy</div>
+                    <div class="text-sm">Standard vs. itemized</div>
+                </div>
+                <div class="bg-white/5 p-3 rounded">
+                    <div class="text-xs text-gray-400">Tax Bracket</div>
+                    <div class="text-sm">22% → 20% possible</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
                 <!-- 06. Mastery Suite (MASTERY - LOCKED) -->
                 <div class="dashboard-card p-4 md:p-6 lg:p-8 shadow-2xl premium-locked">
@@ -2215,7 +2488,7 @@
                     </div>
                 </div>
 
-                <!-- ===== ENHANCED PRIORITY ACTION SECTION ===== -->
+                <!-- ===== ENHANCED PRIORITY ACTION SECTION WITH RAF SOVEREIGN SCORE ===== -->
                 <div class="dashboard-card p-4 md:p-6 mb-6 shadow-2xl" id="action-section">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-heading font-bold uppercase border-l-2 border-crimson pl-3 md:pl-4">
@@ -2227,16 +2500,21 @@
                         </button>
                     </div>
                     
-                    <!-- Financial Health Score -->
-                    <div id="health-score-container" class="mb-4 p-4 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-lg border border-blue-500/30">
+                    <!-- RAF Sovereign Score Display -->
+                    <div id="sovereign-score-container" class="mb-4 p-4 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-lg border border-blue-500/30">
                         <div class="text-center">
-                            <div class="text-xs uppercase tracking-widest text-gray-400 mb-1">Financial Health Score</div>
-                            <div id="financial-health-score" class="financial-health-score text-green-400">--</div>
-                            <div class="text-xs text-gray-400 mb-3">Based on 5 key financial metrics</div>
+                            <div class="text-xs uppercase tracking-widest text-gray-400 mb-1">RAF Sovereign Score™</div>
+                            <div id="sovereign-score" class="financial-health-score text-green-400">--</div>
+                            <div id="sovereign-score-rank" class="score-rank score-rank-sovereign mt-2">Calculating...</div>
                             
-                            <div class="score-breakdown" id="score-breakdown">
+                            <!-- Score breakdown will be populated by JavaScript -->
+                            <div id="sovereign-score-breakdown" class="sovereign-score-breakdown mt-3 hidden">
                                 <!-- Score components will be populated by JavaScript -->
                             </div>
+                            
+                            <button onclick="toggleScoreBreakdown()" class="text-xs text-blue-400 hover:text-blue-300 mt-2 touch-target">
+                                <i class="fas fa-chart-bar mr-1"></i>Show Details
+                            </button>
                         </div>
                     </div>
                     
@@ -2255,6 +2533,50 @@
                             <!-- Timeline steps will be populated by JavaScript -->
                         </div>
                     </div>
+                </div>
+
+                <!-- NEW: FINANCIAL GOAL TRACKING (FREE) -->
+                <div class="dashboard-card p-4 md:p-6 mb-6 shadow-2xl">
+                    <h3 class="text-lg font-heading font-bold uppercase border-l-2 border-crimson pl-3 md:pl-4 mb-4">
+                        Financial Goals
+                        <span class="tier-badge tier-free ml-3">Free</span>
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        <div class="goal-item">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-sm">Emergency Fund (3 months)</span>
+                                <span class="text-xs text-gray-400" id="emergency-fund-progress">0%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div id="emergency-fund-bar" class="progress-bar emergency" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="goal-item">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-sm">Debt-Free Date</span>
+                                <span class="text-xs" id="debt-free-date">--</span>
+                            </div>
+                            <div class="progress-container">
+                                <div id="debt-free-progress" class="progress-bar debt" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="goal-item">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-sm">Retirement Savings</span>
+                                <span class="text-xs text-gray-400" id="retirement-progress">0%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div id="retirement-bar" class="progress-bar retirement" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="setNewGoal()" class="w-full mt-4 text-xs bg-white/5 hover:bg-white/10 border border-white/10 py-2 rounded transition touch-target">
+                        <i class="fas fa-plus mr-2"></i>Set New Goal
+                    </button>
                 </div>
 
                 <!-- SIMPLIFIED Feature Comparison -->
@@ -2665,7 +2987,7 @@
             }
         ];
 
-        // SIMPLIFIED BUDGET CATEGORIES
+        // UPDATED: SIMPLIFIED BUDGET CATEGORIES WITH TAXES
         const budgetCategories = {
             needs: [
                 { id: 'debt_minimums', label: 'Debt Minimum Payments (Info Only)', default: 0 },
@@ -2677,7 +2999,8 @@
                 { id: 'groceries', label: 'Groceries', default: 0 },
                 { id: 'household_essentials', label: 'Household Essentials', default: 0 },
                 { id: 'pet_care', label: 'Pet Care', default: 0 },
-                { id: 'health_insurance', label: 'Health Insurance/Medical', default: 0 }
+                { id: 'health_insurance', label: 'Health Insurance/Medical', default: 0 },
+                { id: 'taxes', label: 'Taxes (Monthly)', default: 0 } // NEW
             ],
             wants: [
                 { id: 'gym_membership', label: 'Gym Membership', default: 0 },
@@ -2698,6 +3021,32 @@
             60: 8,  // 8× annual income by age 60
             65: 10  // 10× annual income by age 65
         };
+
+        // ===== NEW: FINANCIAL TIPS DATABASE =====
+        const financialTips = [
+            {
+                tip: "Pay yourself first! Automate at least 10% of your income to savings before paying any bills.",
+                source: "The Automatic Millionaire",
+                category: "savings"
+            },
+            {
+                tip: "Attack debt with the highest interest rate first (Avalanche Method) to minimize total interest paid.",
+                source: "Financial Experts",
+                category: "debt"
+            },
+            {
+                tip: "Aim for 3-6 months of essential expenses in your emergency fund before aggressive investing.",
+                source: "Financial Planning 101",
+                category: "emergency"
+            },
+            {
+                tip: "Maximize employer 401(k) match—it's free money with an immediate 100% return.",
+                source: "Investment Advisors",
+                category: "retirement"
+            }
+        ];
+
+        let currentTipIndex = 0;
 
         // Category values storage
         let categoryValues = {};
@@ -2783,6 +3132,83 @@
                     ${feature.text}
                 </li>
             `).join('');
+        }
+
+        // ===== NEW: FINANCIAL TIP FUNCTIONS =====
+        function nextTip() {
+            currentTipIndex = (currentTipIndex + 1) % financialTips.length;
+            const tip = financialTips[currentTipIndex];
+            document.getElementById('financial-tip').textContent = tip.tip;
+            document.getElementById('tip-source').textContent = `– ${tip.source}`;
+        }
+
+        // ===== NEW: GOAL TRACKING FUNCTIONS =====
+        function updateGoalProgress() {
+            // Emergency Fund Goal
+            const emergencyFundTotal = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
+            const monthlyEssentials = calculateMonthlyEssentials();
+            const targetEmergencyFund = monthlyEssentials * 3;
+            const emergencyProgress = targetEmergencyFund > 0 ? Math.min(100, (emergencyFundTotal / targetEmergencyFund) * 100) : 0;
+            
+            document.getElementById('emergency-fund-progress').textContent = `${Math.round(emergencyProgress)}%`;
+            document.getElementById('emergency-fund-bar').style.width = `${emergencyProgress}%`;
+            
+            // Debt-Free Date
+            const totalYears = calculateTotalYearsToPayoff();
+            if (totalYears > 0 && totalYears < 100) {
+                const payoffDate = new Date();
+                payoffDate.setMonth(payoffDate.getMonth() + (totalYears * 12));
+                document.getElementById('debt-free-date').textContent = payoffDate.toLocaleDateString('default', { month: 'short', year: 'numeric' });
+                
+                // Progress based on debt reduction
+                const totalDebt = getTotalDebtBalance();
+                const initialDebt = parseFloat(localStorage.getItem('raf_initial_debt')) || totalDebt;
+                const debtProgress = initialDebt > 0 ? Math.min(100, ((initialDebt - totalDebt) / initialDebt) * 100) : 0;
+                document.getElementById('debt-free-progress').style.width = `${debtProgress}%`;
+                
+                if (totalDebt < initialDebt && !localStorage.getItem('raf_initial_debt_set')) {
+                    localStorage.setItem('raf_initial_debt', totalDebt);
+                    localStorage.setItem('raf_initial_debt_set', 'true');
+                }
+            } else {
+                document.getElementById('debt-free-date').textContent = '--';
+                document.getElementById('debt-free-progress').style.width = '0%';
+            }
+            
+            // Retirement Progress
+            const age = parseInt(document.getElementById('age-input')?.value) || 0;
+            const income = getMonthlyIncome();
+            if (age > 0 && income > 0) {
+                const annualIncome = income * 12;
+                const targetMultiplier = getRetirementTargetForAge(age);
+                const targetAmount = annualIncome * targetMultiplier;
+                const retirementTotal = parseCurrency(document.getElementById('retirement_total')?.value || 0);
+                const retirementProgress = targetAmount > 0 ? Math.min(100, (retirementTotal / targetAmount) * 100) : 0;
+                
+                document.getElementById('retirement-progress').textContent = `${Math.round(retirementProgress)}%`;
+                document.getElementById('retirement-bar').style.width = `${retirementProgress}%`;
+            }
+        }
+
+        function setNewGoal() {
+            const goalType = prompt('What type of goal?\n1. Emergency Fund\n2. Debt Payoff\n3. Savings Goal\n4. Investment Goal');
+            if (goalType) {
+                const amount = prompt('Target amount:');
+                const timeframe = prompt('Timeframe (months):');
+                
+                if (amount && timeframe) {
+                    showToast(`New goal set: $${amount} in ${timeframe} months`);
+                    // Store goal in localStorage
+                    const goals = JSON.parse(localStorage.getItem('raf_goals') || '[]');
+                    goals.push({
+                        type: goalType,
+                        target: parseFloat(amount),
+                        timeframe: parseInt(timeframe),
+                        createdAt: new Date().toISOString()
+                    });
+                    localStorage.setItem('raf_goals', JSON.stringify(goals));
+                }
+            }
         }
 
         // ===== INITIALIZATION FUNCTIONS =====
@@ -3372,8 +3798,11 @@
             // Update strategy tip
             updateDebtStrategyTip();
             
-            // Update financial health score
-            updateFinancialHealthDisplay();
+            // UPDATE: Use new RAF Sovereign Score instead of old health score
+            updateSovereignScoreDisplay();
+            
+            // NEW: Update goal progress
+            updateGoalProgress();
         }
 
         function updateFinancialHealthSummary(income, totalExpenses, budgetUsage, savingsTotal, savingsRate, surplus) {
@@ -3441,130 +3870,248 @@
             }
         }
 
-        // ===== ENHANCED FINANCIAL HEALTH SCORING SYSTEM =====
+        // ===== NEW: RAF SOVEREIGN SCORE™ ALGORITHM =====
         
-        function calculateFinancialHealthScore() {
+        function calculateSovereignScore() {
             const income = getMonthlyIncome();
-            if (income <= 0) return { score: 0, breakdown: [] };
+            const age = parseInt(document.getElementById('age-input')?.value) || 0;
+            
+            if (income <= 0) {
+                return {
+                    total: 0,
+                    components: [],
+                    rank: 'N/A',
+                    rankClass: 'score-rank-sovereign'
+                };
+            }
             
             const components = [];
             let totalScore = 0;
             
-            // 1. Emergency Fund Score (0-25 points)
+            // 1. Emergency Fund Coverage (0-30 points)
             const emergencyFundTotal = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
             const monthlyEssentials = calculateMonthlyEssentials();
             const monthsCovered = monthlyEssentials > 0 ? emergencyFundTotal / monthlyEssentials : 0;
-            const emergencyScore = Math.min(25, (monthsCovered / 6) * 25);
+            
+            let emergencyScore = 0;
+            if (monthsCovered >= 6) emergencyScore = 30;
+            else if (monthsCovered >= 3) emergencyScore = 20;
+            else if (monthsCovered >= 1) emergencyScore = 10;
+            else if (monthsCovered >= 0.5) emergencyScore = 5;
+            
             components.push({
                 name: 'Emergency Fund',
                 score: emergencyScore,
-                max: 25,
-                status: monthsCovered >= 6 ? 'excellent' : monthsCovered >= 3 ? 'good' : monthsCovered >= 1 ? 'fair' : 'poor',
-                details: `${monthsCovered.toFixed(1)} months covered`
+                max: 30,
+                details: `${monthsCovered.toFixed(1)} months covered`,
+                fillPercentage: (emergencyScore / 30) * 100
             });
             totalScore += emergencyScore;
             
-            // 2. Debt Management Score (0-25 points)
+            // 2. Debt Aggressiveness Score (0-25 points)
+            let debtScore = 25; // Start with perfect score
+            
+            const highestRate = getHighestInterestRate();
             const dti = calculateDebtToIncomeRatio();
             const totalYears = calculateTotalYearsToPayoff();
             const highInterestDebt = calculateTotalHighInterestDebt();
+            const totalDebt = getTotalDebtBalance();
             
-            let debtScore = 25;
-            if (dti > 36) debtScore -= 15;
-            else if (dti > 25) debtScore -= 10;
-            else if (dti > 15) debtScore -= 5;
+            // Penalties
+            if (highestRate > 25) debtScore -= 10;
+            if (dti > 36) debtScore -= 10;
+            if (totalYears > 10) debtScore -= 5;
             
-            if (totalYears >= 20) debtScore -= 10;
-            else if (totalYears >= 10) debtScore -= 5;
+            // Bonuses
+            if (totalDebt === 0) debtScore = 25; // Debt-free gets perfect score
+            else if (highestRate <= 10) debtScore += 15;
             
-            if (highInterestDebt > income * 3) debtScore -= 10;
-            else if (highInterestDebt > income) debtScore -= 5;
+            debtScore = Math.max(0, Math.min(25, debtScore));
             
-            debtScore = Math.max(0, debtScore);
             components.push({
                 name: 'Debt Management',
                 score: debtScore,
                 max: 25,
-                status: debtScore >= 20 ? 'excellent' : debtScore >= 15 ? 'good' : debtScore >= 10 ? 'fair' : 'poor',
-                details: `${dti.toFixed(1)}% DTI ratio`
+                details: `${dti.toFixed(1)}% DTI, ${highestRate}% max rate`,
+                fillPercentage: (debtScore / 25) * 100
             });
             totalScore += debtScore;
             
-            // 3. Savings Rate Score (0-20 points)
+            // 3. Savings Discipline (0-20 points)
             const savingsTotal = getTotalMonthlySavings();
             const savingsRate = income > 0 ? (savingsTotal / income) * 100 : 0;
-            const savingsScore = Math.min(20, (savingsRate / 20) * 20);
+            
+            let savingsScore = 0;
+            if (savingsRate > 20) savingsScore = 20;
+            else if (savingsRate >= 15) savingsScore = 15;
+            else if (savingsRate >= 10) savingsScore = 10;
+            else if (savingsRate >= 5) savingsScore = 5;
+            
             components.push({
                 name: 'Savings Rate',
                 score: savingsScore,
                 max: 20,
-                status: savingsRate >= 20 ? 'excellent' : savingsRate >= 15 ? 'good' : savingsRate >= 10 ? 'fair' : 'poor',
-                details: `${savingsRate.toFixed(1)}% of income`
+                details: `${savingsRate.toFixed(1)}% of income`,
+                fillPercentage: (savingsScore / 20) * 100
             });
             totalScore += savingsScore;
             
-            // 4. Budget Control Score (0-20 points)
+            // 4. Budget Control (0-15 points)
+            let budgetScore = 15; // Start with perfect score
+            
             const needsTotal = calculateMonthlyEssentials();
             const needsPercentage = income > 0 ? (needsTotal / income) * 100 : 100;
-            const surplus = calculateSurplus();
             
-            let budgetScore = 20;
-            if (needsPercentage > 55) budgetScore -= 10;
-            else if (needsPercentage > 50) budgetScore -= 5;
+            let wantsTotal = 0;
+            budgetCategories.wants.forEach(category => {
+                wantsTotal += parseCurrency(document.getElementById(category.id)?.value || 0);
+            });
+            const wantsPercentage = income > 0 ? (wantsTotal / income) * 100 : 0;
             
-            if (surplus < 0) budgetScore -= 10;
-            else if (surplus < income * 0.05) budgetScore -= 5;
+            // Penalties
+            if (needsPercentage > 50) budgetScore -= 3;
+            if (wantsPercentage > 30) budgetScore -= 3;
+            if (needsPercentage > 55) budgetScore -= 3;
+            if (wantsPercentage > 35) budgetScore -= 3;
             
             budgetScore = Math.max(0, budgetScore);
+            
             components.push({
                 name: 'Budget Control',
                 score: budgetScore,
-                max: 20,
-                status: needsPercentage <= 50 && surplus >= 0 ? 'excellent' : 'fair',
-                details: `${needsPercentage.toFixed(1)}% needs, $${Math.round(surplus)} surplus`
+                max: 15,
+                details: `${needsPercentage.toFixed(1)}% needs, ${wantsPercentage.toFixed(1)}% wants`,
+                fillPercentage: (budgetScore / 15) * 100
             });
             totalScore += budgetScore;
             
-            // 5. Retirement Progress Score (0-10 points)
-            const age = parseInt(document.getElementById('age-input')?.value) || 0;
+            // 5. Age-Based Progress Bonus (0-10 points)
             let retirementScore = 0;
-            if (age > 0) {
+            if (age > 0 && income > 0) {
                 const annualIncome = income * 12;
                 const targetMultiplier = getRetirementTargetForAge(age);
                 const targetAmount = annualIncome * targetMultiplier;
                 const retirementTotal = parseCurrency(document.getElementById('retirement_total')?.value || 0);
                 const progressPercent = retirementTotal > 0 ? (retirementTotal / targetAmount) * 100 : 0;
-                retirementScore = Math.min(10, (progressPercent / 100) * 10);
+                
+                if (progressPercent >= 100) retirementScore = 10;
+                else if (progressPercent >= 75) retirementScore = 8;
+                else if (progressPercent >= 50) retirementScore = 6;
+                else if (progressPercent >= 25) retirementScore = 4;
+                else if (progressPercent > 0) retirementScore = 2;
                 
                 components.push({
-                    name: 'Retirement',
+                    name: 'Retirement Progress',
                     score: retirementScore,
                     max: 10,
-                    status: progressPercent >= 100 ? 'excellent' : progressPercent >= 75 ? 'good' : progressPercent >= 50 ? 'fair' : 'poor',
-                    details: `${progressPercent.toFixed(0)}% of target`
+                    details: `${progressPercent.toFixed(0)}% of age ${age} target`,
+                    fillPercentage: (retirementScore / 10) * 100
                 });
                 totalScore += retirementScore;
+            } else {
+                components.push({
+                    name: 'Retirement Progress',
+                    score: 0,
+                    max: 10,
+                    details: 'Age not specified',
+                    fillPercentage: 0
+                });
+            }
+            
+            // Determine rank
+            let rank = '';
+            let rankClass = '';
+            
+            if (totalScore >= 90) {
+                rank = 'SOVEREIGN';
+                rankClass = 'score-rank-sovereign';
+            } else if (totalScore >= 75) {
+                rank = 'STRONG';
+                rankClass = 'score-rank-strong';
+            } else if (totalScore >= 60) {
+                rank = 'STABLE';
+                rankClass = 'score-rank-stable';
+            } else if (totalScore >= 40) {
+                rank = 'VULNERABLE';
+                rankClass = 'score-rank-vulnerable';
+            } else {
+                rank = 'CRISIS';
+                rankClass = 'score-rank-crisis';
             }
             
             return {
-                score: Math.round(totalScore),
-                breakdown: components
+                total: Math.round(totalScore),
+                components: components,
+                rank: rank,
+                rankClass: rankClass,
+                monthsCovered: monthsCovered,
+                dti: dti,
+                savingsRate: savingsRate,
+                needsPercentage: needsPercentage,
+                wantsPercentage: wantsPercentage
             };
         }
         
-        function getRetirementTargetForAge(age) {
-            // Find the closest age target
-            const ages = Object.keys(retirementTargets).map(Number).sort((a, b) => a - b);
-            let target = retirementTargets[65]; // Default to age 65
+        function updateSovereignScoreDisplay() {
+            const scoreData = calculateSovereignScore();
+            const scoreElement = document.getElementById('sovereign-score');
+            const rankElement = document.getElementById('sovereign-score-rank');
+            const breakdownElement = document.getElementById('sovereign-score-breakdown');
             
-            for (const targetAge of ages) {
-                if (age <= targetAge) {
-                    target = retirementTargets[targetAge];
-                    break;
+            if (scoreElement) {
+                scoreElement.textContent = scoreData.total;
+                
+                // Color code based on score
+                if (scoreData.total >= 90) {
+                    scoreElement.className = 'financial-health-score text-green-400';
+                } else if (scoreData.total >= 75) {
+                    scoreElement.className = 'financial-health-score text-blue-400';
+                } else if (scoreData.total >= 60) {
+                    scoreElement.className = 'financial-health-score text-yellow-400';
+                } else if (scoreData.total >= 40) {
+                    scoreElement.className = 'financial-health-score text-orange-400';
+                } else {
+                    scoreElement.className = 'financial-health-score text-red-400';
                 }
             }
             
-            return target;
+            if (rankElement) {
+                rankElement.textContent = scoreData.rank;
+                rankElement.className = `score-rank ${scoreData.rankClass}`;
+            }
+            
+            if (breakdownElement) {
+                breakdownElement.innerHTML = scoreData.components.map(component => `
+                    <div class="mb-3">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-xs font-medium">${component.name}</span>
+                            <span class="text-xs font-bold">${component.score}/${component.max}</span>
+                        </div>
+                        <div class="score-component-bar">
+                            <div class="score-component-fill ${component.name.toLowerCase().replace(' ', '-')}" 
+                                 style="width: ${component.fillPercentage}%"></div>
+                        </div>
+                        <div class="text-xs text-gray-400">${component.details}</div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function toggleScoreBreakdown() {
+            const breakdown = document.getElementById('sovereign-score-breakdown');
+            const button = document.querySelector('[onclick="toggleScoreBreakdown()"]');
+            
+            if (breakdown.classList.contains('hidden')) {
+                breakdown.classList.remove('hidden');
+                if (button) {
+                    button.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>Hide Details';
+                }
+            } else {
+                breakdown.classList.add('hidden');
+                if (button) {
+                    button.innerHTML = '<i class="fas fa-chart-bar mr-1"></i>Show Details';
+                }
+            }
         }
 
         // ===== ENHANCED PRIORITY ACTION LOGIC =====
@@ -3956,36 +4503,6 @@
         }
         
         // ===== DISPLAY FUNCTIONS =====
-        
-        function updateFinancialHealthDisplay() {
-            const healthData = calculateFinancialHealthScore();
-            const scoreElement = document.getElementById('financial-health-score');
-            const breakdownElement = document.getElementById('score-breakdown');
-            
-            if (scoreElement) {
-                scoreElement.textContent = healthData.score;
-                
-                // Color code based on score
-                if (healthData.score >= 80) {
-                    scoreElement.className = 'financial-health-score text-green-400';
-                } else if (healthData.score >= 60) {
-                    scoreElement.className = 'financial-health-score text-yellow-400';
-                } else if (healthData.score >= 40) {
-                    scoreElement.className = 'financial-health-score text-orange-400';
-                } else {
-                    scoreElement.className = 'financial-health-score text-red-400';
-                }
-            }
-            
-            if (breakdownElement) {
-                breakdownElement.innerHTML = healthData.breakdown.map(component => `
-                    <div class="score-component">
-                        <div class="score-component-value">${Math.round(component.score)}</div>
-                        <div class="score-component-label">${component.name}</div>
-                    </div>
-                `).join('');
-            }
-        }
         
         function updateNextActionEnhanced() {
             const action = calculateNextActionEnhanced();
@@ -4658,7 +5175,7 @@
                 
                 div.innerHTML = `
                     <div class="flex items-center">
-                        <span class="text-xs text-gray-300 category-label">${category.label}</span>
+                        <span class="text-xs text-gray-300 category-label">${category.label}${category.id === 'taxes' ? ' <span class="text-gray-500 text-[10px]">(Monthly tax withholding or estimated payments)</span>' : ''}</span>
                     </div>
                     <div class="flex items-center">
                         <div class="currency-input-container w-32 relative mr-2">
@@ -4738,7 +5255,7 @@
 
         function refreshNextAction() {
             updateNextActionEnhanced();
-            updateFinancialHealthDisplay();
+            updateSovereignScoreDisplay();
             showToast('Action recommendation refreshed');
         }
 
@@ -4761,7 +5278,7 @@
         
         function saveToLocalStorage() {
             const data = {
-                version: 'raf_lab_v11_enhanced',
+                version: 'raf_lab_v13_sovereign_score', // UPDATED VERSION
                 timestamp: new Date().toISOString(),
                 warMode: isWarModeActive,
                 paycheck: document.getElementById('paycheck').value,
@@ -4955,7 +5472,7 @@
 
         function exportData() {
             const data = {
-                version: 'raf_lab_v11_enhanced',
+                version: 'raf_lab_v13_sovereign_score', // UPDATED VERSION
                 timestamp: new Date().toISOString(),
                 warMode: isWarModeActive,
                 income: {
@@ -4970,6 +5487,7 @@
                     wants: {}
                 },
                 savings: {},
+                sovereignScore: calculateSovereignScore(),
                 nextAction: calculateNextActionEnhanced(),
                 summary: {
                     totalDebt: getTotalDebtBalance(),
@@ -4977,8 +5495,7 @@
                     monthlySurplus: calculateSurplus(),
                     savingsRate: (getTotalMonthlySavings() / getMonthlyIncome()) * 100,
                     debtToIncome: calculateDebtToIncomeRatio(),
-                    yearsToPayoff: calculateTotalYearsToPayoff(),
-                    financialHealthScore: calculateFinancialHealthScore().score
+                    yearsToPayoff: calculateTotalYearsToPayoff()
                 }
             };
             
@@ -5064,21 +5581,22 @@
         }
 
         function shareDashboard() {
-            const healthScore = calculateFinancialHealthScore();
+            const sovereignScore = calculateSovereignScore();
             const nextAction = calculateNextActionEnhanced();
             
             const data = {
                 income: getMonthlyIncome(),
                 debtRatio: calculateDebtToIncomeRatio(),
                 savingsRate: (getTotalMonthlySavings() / getMonthlyIncome()) * 100,
-                financialHealthScore: healthScore.score,
+                sovereignScore: sovereignScore.total,
+                sovereignRank: sovereignScore.rank,
                 nextAction: nextAction.title,
                 warMode: isWarModeActive,
                 yearsToPayoff: calculateTotalYearsToPayoff(),
                 timestamp: new Date().toISOString()
             };
             
-            const shareText = `My Financial Snapshot:\n- Monthly Income: $${data.income.toLocaleString()}\n- Financial Health Score: ${data.financialHealthScore}/100\n- Debt-to-Income: ${data.debtRatio.toFixed(1)}%\n- Savings Rate: ${data.savingsRate.toFixed(1)}%\n- Years to Payoff: ${data.yearsToPayoff.toFixed(1)} years\n- Priority Action: ${data.nextAction}\n- War Mode: ${data.warMode ? 'ACTIVE' : 'Inactive'}\n\nGenerated with Real American Finance`;
+            const shareText = `My Financial Snapshot:\n- Monthly Income: $${data.income.toLocaleString()}\n- RAF Sovereign Score™: ${data.sovereignScore}/100 (${data.sovereignRank})\n- Debt-to-Income: ${data.debtRatio.toFixed(1)}%\n- Savings Rate: ${data.savingsRate.toFixed(1)}%\n- Years to Payoff: ${data.yearsToPayoff.toFixed(1)} years\n- Priority Action: ${data.nextAction}\n- War Mode: ${data.warMode ? 'ACTIVE' : 'Inactive'}\n\nGenerated with Real American Finance`;
             
             navigator.clipboard.writeText(shareText)
                 .then(() => showToast('Financial snapshot copied to clipboard!'))
@@ -5147,7 +5665,7 @@
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing enhanced financial dashboard...');
+            console.log('DOM loaded, initializing enhanced financial dashboard with RAF Sovereign Score™...');
             
             // Initialize chart
             const canvas = document.getElementById('budgetChart');
@@ -5206,7 +5724,7 @@
                 loadFromLocalStorage();
             }, 100);
             
-            console.log('Enhanced financial dashboard initialization complete');
+            console.log('Enhanced financial dashboard v13 with RAF Sovereign Score™ initialization complete');
         });
 
         // Close modal when clicking outside
@@ -5246,10 +5764,16 @@
         window.showDebtTypeInfo = showDebtTypeInfo;
         window.refreshStrategyTip = refreshStrategyTip;
         window.toggleDataMenu = toggleDataMenu;
-        window.calculateFinancialHealthScore = calculateFinancialHealthScore;
+        window.calculateSovereignScore = calculateSovereignScore;
+        window.updateSovereignScoreDisplay = updateSovereignScoreDisplay;
+        window.toggleScoreBreakdown = toggleScoreBreakdown;
         window.calculateNextActionEnhanced = calculateNextActionEnhanced;
         window.updateNextActionEnhanced = updateNextActionEnhanced;
-        window.updateFinancialHealthDisplay = updateFinancialHealthDisplay;
+
+        // NEW: Add new functions to global scope
+        window.nextTip = nextTip;
+        window.updateGoalProgress = updateGoalProgress;
+        window.setNewGoal = setNewGoal;
     </script>
 </body>
 </html>
