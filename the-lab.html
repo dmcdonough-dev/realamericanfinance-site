@@ -3244,47 +3244,85 @@ function getRetirementTargetForAge(age) {
         }
 
         // ===== YEARS TO PAYOFF FUNCTIONS =====
+function calculateYearsToPayoff(balance, monthlyPayment, interestRate) {
+    if (monthlyPayment <= 0 || balance <= 0) return 0;
+    
+    const monthlyRate = (interestRate / 100) / 12;
+    
+    // Check if payment covers at least the interest
+    const monthlyInterest = balance * monthlyRate;
+    if (monthlyPayment <= monthlyInterest) {
+        return Infinity; // Never paid off
+    }
+    
+    // CRITICAL FIX: For high-interest debt (credit cards), assume payments decrease
+    // Credit card minimums are usually 1-3% of balance with a floor (~$35)
+    // This makes payoff take MUCH longer than fixed payment calculations
+    if (interestRate > 15) {
+        // High-interest debt: simulate decreasing payments
+        return calculateRevolvingDebtPayoff(balance, monthlyPayment, monthlyRate);
+    } else {
+        // Low-interest debt: assume fixed payments (mortgage, auto loan, student loan)
+        return calculateFixedPaymentPayoff(balance, monthlyPayment, monthlyRate);
+    }
+}
+
+// ADD THIS NEW FUNCTION RIGHT AFTER calculateYearsToPayoff:
+function calculateRevolvingDebtPayoff(balance, monthlyPayment, monthlyRate) {
+    // Simulate credit card: payment = max(percentage of balance, $35 floor)
+    let remaining = balance;
+    let months = 0;
+    const initialPaymentRate = monthlyPayment / balance; // e.g., 50/1381.58 = 0.036 (3.6%)
+    const minPaymentFloor = 35; // Typical credit card minimum
+    
+    while (remaining > 0.01 && months < 600) { // 50-year limit
+        const interest = remaining * monthlyRate;
         
-        function calculateYearsToPayoff(balance, monthlyPayment, interestRate) {
-            if (monthlyPayment <= 0 || balance <= 0) return 0;
-            
-            const monthlyRate = (interestRate / 100) / 12;
-            const monthlyInterest = balance * monthlyRate;
-            
-            if (monthlyPayment <= monthlyInterest) {
-                return Infinity;
-            }
-            
-            let months;
-            try {
-                if (monthlyRate > 0) {
-                    const paymentToInterestRatio = (monthlyRate * balance) / monthlyPayment;
-                    
-                    if (paymentToInterestRatio >= 1) {
-                        return Infinity;
-                    }
-                    
-                    months = -Math.log(1 - paymentToInterestRatio) / Math.log(1 + monthlyRate);
-                } else {
-                    months = balance / monthlyPayment;
-                }
-                
-                const years = months / 12;
-                return Math.min(years, 100);
-            } catch (error) {
-                console.error('Error calculating payoff time:', error);
-                return Infinity;
-            }
+        // Credit card minimum: decreases as balance decreases
+        const payment = Math.max(
+            remaining * initialPaymentRate,
+            minPaymentFloor
+        );
+        
+        if (payment <= interest) {
+            return Infinity; // Debt grows
         }
         
-        function getYearsToPayoffClass(years) {
-            if (years >= 100 || years === Infinity) return 'critical';
-            if (years >= 20) return 'critical';
-            if (years >= 10) return 'high';
-            if (years >= 5) return 'medium';
-            return 'low';
-        }
+        remaining = remaining + interest - payment;
+        months++;
         
+        // Safety check
+        if (months > 100 && remaining > balance * 0.9) {
+            return Infinity; // Not making progress
+        }
+    }
+    
+    return months / 12;
+}
+
+// ADD THIS FUNCTION TOO (or update if you already have it):
+function calculateFixedPaymentPayoff(balance, monthlyPayment, monthlyRate) {
+    // Fixed payment loans (mortgage, auto, student loans)
+    if (monthlyRate === 0) {
+        return (balance / monthlyPayment) / 12;
+    }
+    
+    try {
+        const months = -Math.log(1 - (monthlyRate * balance) / monthlyPayment) / Math.log(1 + monthlyRate);
+        return months / 12;
+    } catch (error) {
+        return (balance / monthlyPayment) / 12;
+    }
+}        
+
+function getYearsToPayoffClass(years) {
+    if (years >= 100 || years === Infinity) return 'critical';
+    if (years > 1.5) return 'critical';      // > 18 months = RED
+    if (years > 0.5) return 'high';          // 6-18 months = YELLOW
+    if (years > 0.2) return 'medium';        // 2-6 months = BLUE
+    return 'low';                            // < 2 months = GREEN
+}
+    
         function formatYearsForDisplay(years) {
             if (years === Infinity || years >= 100) {
                 return '∞';
