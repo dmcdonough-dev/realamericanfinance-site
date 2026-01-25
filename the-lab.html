@@ -3022,6 +3022,18 @@
             65: 10  // 10× annual income by age 65
         };
 
+// ===== RETIREMENT TARGET HELPER FUNCTION =====
+
+function getRetirementTargetForAge(age) {
+    const ages = [30, 35, 40, 45, 50, 55, 60, 65];
+    for (let i = 0; i < ages.length; i++) {
+        if (age <= ages[i]) {
+            return retirementTargets[ages[i]];
+        }
+    }
+    return retirementTargets[65];
+}
+
         // ===== NEW: FINANCIAL TIPS DATABASE =====
         const financialTips = [
             {
