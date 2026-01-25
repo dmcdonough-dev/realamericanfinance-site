@@ -1498,6 +1498,164 @@
             margin-bottom: 12px;
             border-left: 4px solid;
         }
+        
+        /* ===== ENHANCED ACTION CARD STYLES ===== */
+        .action-card-enhanced {
+            background: rgba(10, 26, 47, 0.7);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-card-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start, #EF4444), var(--gradient-end, #B91C1C));
+        }
+        
+        .action-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .action-icon-container {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .action-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+        
+        .action-progress-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 8px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        
+        .action-progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .action-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .action-metric {
+            text-align: center;
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .action-metric-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        
+        .action-metric-label {
+            font-size: 0.7rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .action-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            border-left: 3px solid;
+        }
+        
+        .action-step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .action-step-content {
+            flex: 1;
+        }
+        
+        .action-timeline {
+            font-size: 0.7rem;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+        
+        .financial-health-score {
+            font-size: 2.5rem;
+            font-weight: bold;
+            line-height: 1;
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .score-component {
+            text-align: center;
+            padding: 6px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .score-component-value {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        
+        .score-component-label {
+            font-size: 0.6rem;
+            color: #9ca3af;
+        }
     </style>
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson flex flex-col min-h-screen">
@@ -2057,11 +2215,11 @@
                     </div>
                 </div>
 
-                <!-- UNIFIED NEXT FINANCIAL ACTION -->
+                <!-- ===== ENHANCED PRIORITY ACTION SECTION ===== -->
                 <div class="dashboard-card p-4 md:p-6 mb-6 shadow-2xl" id="action-section">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-heading font-bold uppercase border-l-2 border-crimson pl-3 md:pl-4">
-                            Priority Action
+                            Priority Action Engine
                             <span class="tier-badge tier-free ml-3">Free</span>
                         </h3>
                         <button onclick="refreshNextAction()" class="text-xs bg-blue-900/30 hover:bg-blue-800/50 px-3 py-2 rounded transition touch-target">
@@ -2069,10 +2227,32 @@
                         </button>
                     </div>
                     
-                    <div id="action-container">
+                    <!-- Financial Health Score -->
+                    <div id="health-score-container" class="mb-4 p-4 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-lg border border-blue-500/30">
+                        <div class="text-center">
+                            <div class="text-xs uppercase tracking-widest text-gray-400 mb-1">Financial Health Score</div>
+                            <div id="financial-health-score" class="financial-health-score text-green-400">--</div>
+                            <div class="text-xs text-gray-400 mb-3">Based on 5 key financial metrics</div>
+                            
+                            <div class="score-breakdown" id="score-breakdown">
+                                <!-- Score components will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Priority Action Display -->
+                    <div id="action-container-enhanced">
                         <div class="text-center py-8 text-gray-500">
                             <i class="fas fa-bullseye text-3xl mb-3"></i>
                             <p>Enter your financial data above to see your priority action</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Timeline -->
+                    <div id="action-timeline-container" class="mt-4 p-3 bg-navy-900/50 rounded border border-white/10 hidden">
+                        <div class="text-xs uppercase font-bold mb-2">Next 90-Day Action Plan</div>
+                        <div id="action-timeline">
+                            <!-- Timeline steps will be populated by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -3184,13 +3364,16 @@
             updateChart(income, needsTotal, wantsTotal, savingsTotal, debtPayments, surplus);
             
             // Update next action
-            updateNextAction();
+            updateNextActionEnhanced();
             
             // Update progress indicators (now in sidebar)
             updateProgressIndicators(income, needsTotal, debtPayments);
             
             // Update strategy tip
             updateDebtStrategyTip();
+            
+            // Update financial health score
+            updateFinancialHealthDisplay();
         }
 
         function updateFinancialHealthSummary(income, totalExpenses, budgetUsage, savingsTotal, savingsRate, surplus) {
@@ -3258,9 +3441,135 @@
             }
         }
 
-        // ===== NEXT ACTION CALCULATION =====
+        // ===== ENHANCED FINANCIAL HEALTH SCORING SYSTEM =====
         
-        function calculateNextAction() {
+        function calculateFinancialHealthScore() {
+            const income = getMonthlyIncome();
+            if (income <= 0) return { score: 0, breakdown: [] };
+            
+            const components = [];
+            let totalScore = 0;
+            
+            // 1. Emergency Fund Score (0-25 points)
+            const emergencyFundTotal = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
+            const monthlyEssentials = calculateMonthlyEssentials();
+            const monthsCovered = monthlyEssentials > 0 ? emergencyFundTotal / monthlyEssentials : 0;
+            const emergencyScore = Math.min(25, (monthsCovered / 6) * 25);
+            components.push({
+                name: 'Emergency Fund',
+                score: emergencyScore,
+                max: 25,
+                status: monthsCovered >= 6 ? 'excellent' : monthsCovered >= 3 ? 'good' : monthsCovered >= 1 ? 'fair' : 'poor',
+                details: `${monthsCovered.toFixed(1)} months covered`
+            });
+            totalScore += emergencyScore;
+            
+            // 2. Debt Management Score (0-25 points)
+            const dti = calculateDebtToIncomeRatio();
+            const totalYears = calculateTotalYearsToPayoff();
+            const highInterestDebt = calculateTotalHighInterestDebt();
+            
+            let debtScore = 25;
+            if (dti > 36) debtScore -= 15;
+            else if (dti > 25) debtScore -= 10;
+            else if (dti > 15) debtScore -= 5;
+            
+            if (totalYears >= 20) debtScore -= 10;
+            else if (totalYears >= 10) debtScore -= 5;
+            
+            if (highInterestDebt > income * 3) debtScore -= 10;
+            else if (highInterestDebt > income) debtScore -= 5;
+            
+            debtScore = Math.max(0, debtScore);
+            components.push({
+                name: 'Debt Management',
+                score: debtScore,
+                max: 25,
+                status: debtScore >= 20 ? 'excellent' : debtScore >= 15 ? 'good' : debtScore >= 10 ? 'fair' : 'poor',
+                details: `${dti.toFixed(1)}% DTI ratio`
+            });
+            totalScore += debtScore;
+            
+            // 3. Savings Rate Score (0-20 points)
+            const savingsTotal = getTotalMonthlySavings();
+            const savingsRate = income > 0 ? (savingsTotal / income) * 100 : 0;
+            const savingsScore = Math.min(20, (savingsRate / 20) * 20);
+            components.push({
+                name: 'Savings Rate',
+                score: savingsScore,
+                max: 20,
+                status: savingsRate >= 20 ? 'excellent' : savingsRate >= 15 ? 'good' : savingsRate >= 10 ? 'fair' : 'poor',
+                details: `${savingsRate.toFixed(1)}% of income`
+            });
+            totalScore += savingsScore;
+            
+            // 4. Budget Control Score (0-20 points)
+            const needsTotal = calculateMonthlyEssentials();
+            const needsPercentage = income > 0 ? (needsTotal / income) * 100 : 100;
+            const surplus = calculateSurplus();
+            
+            let budgetScore = 20;
+            if (needsPercentage > 55) budgetScore -= 10;
+            else if (needsPercentage > 50) budgetScore -= 5;
+            
+            if (surplus < 0) budgetScore -= 10;
+            else if (surplus < income * 0.05) budgetScore -= 5;
+            
+            budgetScore = Math.max(0, budgetScore);
+            components.push({
+                name: 'Budget Control',
+                score: budgetScore,
+                max: 20,
+                status: needsPercentage <= 50 && surplus >= 0 ? 'excellent' : 'fair',
+                details: `${needsPercentage.toFixed(1)}% needs, $${Math.round(surplus)} surplus`
+            });
+            totalScore += budgetScore;
+            
+            // 5. Retirement Progress Score (0-10 points)
+            const age = parseInt(document.getElementById('age-input')?.value) || 0;
+            let retirementScore = 0;
+            if (age > 0) {
+                const annualIncome = income * 12;
+                const targetMultiplier = getRetirementTargetForAge(age);
+                const targetAmount = annualIncome * targetMultiplier;
+                const retirementTotal = parseCurrency(document.getElementById('retirement_total')?.value || 0);
+                const progressPercent = retirementTotal > 0 ? (retirementTotal / targetAmount) * 100 : 0;
+                retirementScore = Math.min(10, (progressPercent / 100) * 10);
+                
+                components.push({
+                    name: 'Retirement',
+                    score: retirementScore,
+                    max: 10,
+                    status: progressPercent >= 100 ? 'excellent' : progressPercent >= 75 ? 'good' : progressPercent >= 50 ? 'fair' : 'poor',
+                    details: `${progressPercent.toFixed(0)}% of target`
+                });
+                totalScore += retirementScore;
+            }
+            
+            return {
+                score: Math.round(totalScore),
+                breakdown: components
+            };
+        }
+        
+        function getRetirementTargetForAge(age) {
+            // Find the closest age target
+            const ages = Object.keys(retirementTargets).map(Number).sort((a, b) => a - b);
+            let target = retirementTargets[65]; // Default to age 65
+            
+            for (const targetAge of ages) {
+                if (age <= targetAge) {
+                    target = retirementTargets[targetAge];
+                    break;
+                }
+            }
+            
+            return target;
+        }
+
+        // ===== ENHANCED PRIORITY ACTION LOGIC =====
+        
+        function calculateNextActionEnhanced() {
             const income = getMonthlyIncome();
             const age = parseInt(document.getElementById('age-input')?.value) || 0;
             const emergencyFundTotal = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
@@ -3270,75 +3579,229 @@
             const highInterestDebt = calculateTotalHighInterestDebt();
             const highestRate = getHighestInterestRate();
             const totalYears = calculateTotalYearsToPayoff();
+            const dti = calculateDebtToIncomeRatio();
+            const savingsRate = income > 0 ? (getTotalMonthlySavings() / income) * 100 : 0;
             
-            // Tier 1: Critical actions
+            // Financial Crisis Detection (Tier 1: Survival)
             if (isWarModeActive && surplus < 0) {
                 return {
                     tier: 'critical',
                     type: 'war-mode-deficit',
-                    title: 'CRITICAL: Increase Income',
-                    message: `Even with all WANTS eliminated, you're still $${Math.abs(surplus).toLocaleString()}/month short`,
-                    action: `Increase income by $${Math.abs(surplus).toLocaleString()}/month`,
-                    why: 'Essential expenses and debt payments exceed your current income'
+                    title: '🚨 FINANCIAL CRISIS: Income Insufficiency',
+                    message: `Even with all discretionary spending eliminated, you're still $${Math.abs(surplus).toLocaleString()}/month short on essentials.`,
+                    immediateAction: `Increase income by $${Math.abs(surplus).toLocaleString()}/month or reduce essential expenses`,
+                    timeline: 'IMMEDIATE',
+                    steps: [
+                        'Cut any non-essential services (cable, subscriptions, memberships)',
+                        'Contact lenders about hardship programs or payment plans',
+                        'Explore side income: gig work, part-time job, freelancing',
+                        'Review essential expenses for potential reductions',
+                        'Consider temporary housing/living arrangement changes'
+                    ],
+                    impact: 'Critical financial stability',
+                    progressMetrics: {
+                        current: `$${Math.abs(surplus)} deficit`,
+                        target: 'Break even point',
+                        timeline: '30 days'
+                    }
                 };
             }
             
-            if (isWarModeActive) {
-                return {
-                    tier: 'critical',
-                    type: 'war-mode-active',
-                    title: 'CRITICAL: War Mode Active',
-                    message: `All WANTS & Lifestyle expenses temporarily set to zero`,
-                    action: 'Focus on income generation and debt elimination',
-                    why: 'Temporary austerity to achieve financial stability'
-                };
-            }
-            
-            if (surplus < 0) {
+            if (surplus < 0 && !isWarModeActive) {
                 return {
                     tier: 'critical',
                     type: 'monthly-deficit',
-                    title: 'CRITICAL: Fix Monthly Deficit',
-                    message: `You're overspending by $${Math.abs(surplus).toLocaleString()}/month`,
-                    action: `Activate War Mode or increase income by $${Math.abs(surplus)}`,
-                    why: 'Sustained deficits lead to debt accumulation'
+                    title: '⚠️ MONTHLY CASH FLOW NEGATIVE',
+                    message: `You're overspending by $${Math.abs(surplus).toLocaleString()}/month. This leads to debt accumulation of $${Math.abs(surplus * 12).toLocaleString()}/year.`,
+                    immediateAction: 'Activate War Mode to identify and eliminate discretionary overspending',
+                    timeline: 'IMMEDIATE',
+                    steps: [
+                        'Activate War Mode above',
+                        'Review all wants/lifestyle expenses',
+                        'Cancel unnecessary subscriptions',
+                        'Reduce dining out and entertainment',
+                        'Pause non-essential shopping'
+                    ],
+                    impact: 'Stop debt accumulation',
+                    progressMetrics: {
+                        current: `$${Math.abs(surplus)} monthly deficit`,
+                        target: 'Break even',
+                        timeline: 'Next paycheck cycle'
+                    }
                 };
             }
             
-            if (emergencyFundTotal === 0 || monthsCovered < 1) {
+            if (monthsCovered < 0.5) {
                 return {
                     tier: 'critical',
                     type: 'emergency-fund-crisis',
-                    title: 'CRITICAL: Build 1-Month Emergency Fund',
-                    message: `You have ${monthsCovered.toFixed(1)} months covered (Need: 1 month)`,
-                    action: `Save $${Math.round(monthlyEssentials * 1).toLocaleString()} for basic expenses`,
-                    why: 'Protects you from unexpected expenses without going into debt'
+                    title: '🚨 NO FINANCIAL BUFFER',
+                    message: `You have less than 2 weeks of essential expenses saved (${monthsCovered.toFixed(1)} months). One unexpected expense could force high-interest debt.`,
+                    immediateAction: `Save $${Math.round(monthlyEssentials * 1).toLocaleString()} immediately for a 1-month emergency fund`,
+                    timeline: '30 DAYS',
+                    steps: [
+                        'Pause all non-essential spending immediately',
+                        'Sell unused items online (Facebook Marketplace, eBay)',
+                        'Use any tax refund or bonus for this fund',
+                        'Reduce grocery bill by 20% through meal planning',
+                        'Temporarily pause retirement contributions (except employer match)'
+                    ],
+                    impact: 'Basic financial security',
+                    progressMetrics: {
+                        current: `${monthsCovered.toFixed(1)} months covered`,
+                        target: '1 month essentials',
+                        timeline: '30 days'
+                    }
                 };
             }
             
-            if (totalYears >= 20) {
+            // High-Interest Debt Emergency (Tier 2: Stability)
+            if (highestRate > 25) {
                 return {
                     tier: 'critical',
-                    type: 'debt-timeline-crisis',
-                    title: 'CRITICAL: Debt Payoff Timeline',
-                    message: `Your debt will take ${totalYears.toFixed(1)} years to payoff at minimum payments`,
-                    action: 'Upgrade to Premium for AI-powered debt optimization strategies',
-                    why: 'Debt payoff taking 20+ years is financially unsustainable'
+                    type: 'predatory-debt',
+                    title: '🚨 PREDATORY DEBT DETECTED',
+                    message: `Debt at ${highestRate}% APR is costing you ${(highestRate/12).toFixed(1)}% monthly interest. This is financial erosion.`,
+                    immediateAction: 'Explore debt consolidation or balance transfer options immediately',
+                    timeline: '60 DAYS',
+                    steps: [
+                        'Apply for 0% APR balance transfer credit cards',
+                        'Check eligibility for personal loan consolidation',
+                        'Contact credit counseling service (NFCC.org)',
+                        'Negotiate with creditors for lower rates',
+                        'Allocate all surplus to this debt until eliminated'
+                    ],
+                    impact: 'Reduce interest cost by 50-100%',
+                    progressMetrics: {
+                        current: `${highestRate}% APR`,
+                        target: 'Under 10% APR',
+                        timeline: '60 days'
+                    }
                 };
             }
             
-            if (highInterestDebt > 0 && highestRate > 15) {
+            if (totalYears === Infinity) {
                 return {
                     tier: 'critical',
-                    type: 'high-interest-emergency',
-                    title: 'CRITICAL: Attack High-Interest Debt',
-                    message: `$${highInterestDebt.toLocaleString()} at ${highestRate}%+ APR`,
-                    action: 'Avalanche method: Focus on highest rate debt first',
-                    why: `Debt at ${highestRate}% is costing you ${(highestRate/12).toFixed(1)}% monthly interest`
+                    type: 'debt-trap',
+                    title: '🚨 DEBT TRAP: Payments Don\'t Cover Interest',
+                    message: 'Some minimum payments are less than the monthly interest charges. This debt will NEVER be paid off at current rates.',
+                    immediateAction: 'Increase minimum payments or negotiate settlement',
+                    timeline: '90 DAYS',
+                    steps: [
+                        'Identify which debts have this issue',
+                        'Increase payments to at least cover interest + principal',
+                        'Contact creditors about hardship programs',
+                        'Explore debt settlement options',
+                        'Consider credit counseling'
+                    ],
+                    impact: 'Make debt actually reducible',
+                    progressMetrics: {
+                        current: 'Infinite payoff timeline',
+                        target: 'Finite payoff timeline',
+                        timeline: '90 days'
+                    }
                 };
             }
             
-            // Tier 2: Important actions
+            if (monthsCovered < 1) {
+                return {
+                    tier: 'important',
+                    type: 'emergency-fund-1-month',
+                    title: '📋 BUILD 1-MONTH EMERGENCY FUND',
+                    message: `You're ${(1 - monthsCovered).toFixed(1)} months away from basic financial security. Target: $${Math.round(monthlyEssentials * 1).toLocaleString()}.`,
+                    immediateAction: `Save $${Math.round(monthlyEssentials * 1 - emergencyFundTotal).toLocaleString()} for a full month of essentials`,
+                    timeline: '60 DAYS',
+                    steps: [
+                        'Automate $' + Math.round((monthlyEssentials * 1 - emergencyFundTotal) / 8) + '/week savings',
+                        'Use any windfall (bonus, tax refund, gift) for this',
+                        'Reduce one discretionary expense by 50%',
+                        'Meal prep to reduce food costs',
+                        'Review insurance for potential savings'
+                    ],
+                    impact: 'Basic job loss protection',
+                    progressMetrics: {
+                        current: `${monthsCovered.toFixed(1)} months`,
+                        target: '1 month',
+                        timeline: '60 days'
+                    }
+                };
+            }
+            
+            // Moderate Priority Actions (Tier 3: Growth Foundation)
+            if (dti > 36) {
+                return {
+                    tier: 'important',
+                    type: 'high-dti',
+                    title: '⚖️ HIGH DEBT-TO-INCOME RATIO',
+                    message: `Your debt payments are ${dti.toFixed(1)}% of income (max recommended: 36%). This limits mortgage/car loan eligibility.`,
+                    immediateAction: 'Reduce DTI to under 36% within 6 months',
+                    timeline: '180 DAYS',
+                    steps: [
+                        'Focus on paying down smallest balances first (snowball method)',
+                        'Request lower minimum payments on student loans',
+                        'Avoid new debt of any kind',
+                        'Use 50% of surplus for extra debt payments',
+                        'Consider refinancing high-rate debts'
+                    ],
+                    impact: 'Improve creditworthiness and borrowing options',
+                    progressMetrics: {
+                        current: `${dti.toFixed(1)}% DTI`,
+                        target: '36% DTI',
+                        timeline: '6 months'
+                    }
+                };
+            }
+            
+            if (monthsCovered < 3) {
+                return {
+                    tier: 'important',
+                    type: 'emergency-fund-3-month',
+                    title: '🛡️ BUILD 3-MONTH EMERGENCY FUND',
+                    message: `A 3-month fund ($${Math.round(monthlyEssentials * 3).toLocaleString()}) provides real job loss protection. You're ${(3 - monthsCovered).toFixed(1)} months away.`,
+                    immediateAction: `Save $${Math.round(monthlyEssentials * 3 - emergencyFundTotal).toLocaleString()} total`,
+                    timeline: '120 DAYS',
+                    steps: [
+                        'Automate monthly savings of $' + Math.round((monthlyEssentials * 3 - emergencyFundTotal) / 4),
+                        'Redirect any debt payments from paid-off debts',
+                        'Take on a short-term side project',
+                        'Reduce one fixed expense (phone plan, insurance)',
+                        'Sell items you no longer use'
+                    ],
+                    impact: 'True job loss security',
+                    progressMetrics: {
+                        current: `${monthsCovered.toFixed(1)} months`,
+                        target: '3 months',
+                        timeline: '4 months'
+                    }
+                };
+            }
+            
+            if (savingsRate < 10) {
+                return {
+                    tier: 'important',
+                    type: 'low-savings-rate',
+                    title: '💰 INCREASE SAVINGS RATE',
+                    message: `Current rate: ${savingsRate.toFixed(1)}% (target: 15-20%). This limits wealth accumulation and retirement progress.`,
+                    immediateAction: `Increase savings by $${Math.round(income * 0.15 - getTotalMonthlySavings()).toLocaleString()}/month`,
+                    timeline: '90 DAYS',
+                    steps: [
+                        'Increase 401(k) contribution by 1% each paycheck',
+                        'Automate transfers to savings on payday',
+                        'Apply 50% of any raises to savings',
+                        'Reduce one discretionary expense by $100/month',
+                        'Track spending for 30 days to identify leaks'
+                    ],
+                    impact: 'Accelerate wealth building',
+                    progressMetrics: {
+                        current: `${savingsRate.toFixed(1)}% savings rate`,
+                        target: '15% savings rate',
+                        timeline: '3 months'
+                    }
+                };
+            }
+            
+            // Strategic Actions (Tier 4: Wealth Building)
             if (age > 0 && income > 0) {
                 const annualIncome = income * 12;
                 const targetMultiplier = getRetirementTargetForAge(age);
@@ -3346,127 +3809,334 @@
                 const retirementTotal = parseCurrency(document.getElementById('retirement_total')?.value || 0);
                 const progressPercent = retirementTotal > 0 ? (retirementTotal / targetAmount) * 100 : 0;
                 
-                if (progressPercent < 50) {
+                if (progressPercent < 75) {
                     return {
-                        tier: 'important',
-                        type: 'retirement-behind',
-                        title: 'IMPORTANT: Boost Retirement Savings',
-                        message: `You're ${(100 - progressPercent).toFixed(0)}% behind age ${age} target`,
-                        action: `Need $${(targetAmount - retirementTotal).toLocaleString()} more (${targetMultiplier}× annual income)`,
-                        why: 'Compound growth requires consistent, early contributions'
+                        tier: 'strategic',
+                        type: 'retirement-catchup',
+                        title: '🎯 RETIREMENT CATCH-UP NEEDED',
+                        message: `You're ${(100 - progressPercent).toFixed(0)}% behind age ${age} target (${targetMultiplier}× annual income).`,
+                        immediateAction: `Increase retirement contributions by $${Math.round((targetAmount * 0.01) / 12).toLocaleString()}/month`,
+                        timeline: 'CONTINUOUS',
+                        steps: [
+                            'Maximize employer 401(k) match if available',
+                            'Open IRA and contribute monthly',
+                            'Increase contribution by 1% every 6 months',
+                            'Consider Roth conversion if in low tax bracket',
+                            'Review investment allocation (target date fund)'
+                        ],
+                        impact: 'Secure retirement timeline',
+                        progressMetrics: {
+                            current: `${progressPercent.toFixed(0)}% of target`,
+                            target: '100% of age-based target',
+                            timeline: 'Ongoing'
+                        }
                     };
                 }
             }
             
-            if (monthsCovered < 3) {
+            if (highInterestDebt > 0 && highestRate > 10) {
                 return {
-                    tier: 'important',
-                    type: 'emergency-fund-build',
-                    title: 'IMPORTANT: Build 3-Month Emergency Fund',
-                    message: `You have ${monthsCovered.toFixed(1)} months covered (Goal: 3-6 months)`,
-                    action: `Save $${Math.round(monthlyEssentials * 3).toLocaleString()} total for emergencies`,
-                    why: 'Full emergency fund provides complete financial security'
-                };
-            }
-            
-            const savingsRate = income > 0 ? (getTotalMonthlySavings() / income) * 100 : 0;
-            if (savingsRate < 10) {
-                return {
-                    tier: 'important',
-                    type: 'low-savings-rate',
-                    title: 'IMPORTANT: Increase Savings Rate',
-                    message: `Current rate: ${savingsRate.toFixed(1)}% (Target: 10-20%)`,
-                    action: `Increase savings by $${Math.round(income * 0.10 - getTotalMonthlySavings()).toLocaleString()}/month`,
-                    why: 'Building wealth requires consistent savings habits'
-                };
-            }
-            
-            // Tier 3: Optional actions
-            const dti = calculateDebtToIncomeRatio();
-            if (dti > 25) {
-                return {
-                    tier: 'optional',
-                    type: 'moderate-debt',
-                    title: 'OPTIONAL: Reduce Debt Payments',
-                    message: `Debt payments are ${dti.toFixed(1)}% of income (Max: 25%)`,
-                    action: 'Consider debt consolidation or extra payments',
-                    why: 'High DTI limits borrowing ability for homes/cars'
-                };
-            }
-            
-            if (getTotalDebtBalance() > 0 && surplus > 0) {
-                return {
-                    tier: 'optional',
-                    type: 'wealth-debt-payoff',
-                    title: 'OPTIONAL: Accelerate Debt Payoff',
-                    message: `Put $${surplus.toLocaleString()}/month toward remaining debt`,
-                    action: 'Apply surplus to highest interest debt first',
-                    why: 'Every extra payment reduces total interest cost'
+                    tier: 'strategic',
+                    type: 'high-interest-debt',
+                    title: '🎯 ATTACK HIGH-INTEREST DEBT',
+                    message: `You have $${highInterestDebt.toLocaleString()} at ${highestRate}%+ APR. Every dollar paid saves ${(highestRate/12).toFixed(2)}% monthly.`,
+                    immediateAction: 'Avalanche method: All extra payments to highest rate debt',
+                    timeline: 'VARIABLE',
+                    steps: [
+                        'List all debts by interest rate (highest first)',
+                        'Pay minimums on all, extra to highest rate',
+                        'Consider balance transfer for rates > 15%',
+                        'Use windfalls (tax refund, bonus) for this debt',
+                        'Track payoff progress monthly'
+                    ],
+                    impact: 'Reduce total interest paid by 30-50%',
+                    progressMetrics: {
+                        current: `${highestRate}% APR debt`,
+                        target: 'Eliminate >10% APR debt',
+                        timeline: 'Until eliminated'
+                    }
                 };
             }
             
             if (monthsCovered < 6) {
                 return {
-                    tier: 'optional',
-                    type: 'wealth-emergency-fund',
-                    title: 'OPTIONAL: Build 6-Month Emergency Fund',
-                    message: `Add $${surplus.toLocaleString()}/month to emergency savings`,
-                    action: `Target: $${Math.round(monthlyEssentials * 6).toLocaleString()} (6 months of essentials)`,
-                    why: 'Full emergency fund provides complete financial security'
+                    tier: 'strategic',
+                    type: 'full-emergency-fund',
+                    title: '🏦 BUILD 6-MONTH EMERGENCY FUND',
+                    message: `A 6-month fund ($${Math.round(monthlyEssentials * 6).toLocaleString()}) provides complete financial security for most scenarios.`,
+                    immediateAction: `Add $${Math.round(monthlyEssentials * 6 - emergencyFundTotal).toLocaleString()} to emergency savings`,
+                    timeline: '12 MONTHS',
+                    steps: [
+                        'Automate monthly transfer of 5% of income',
+                        'Place fund in high-yield savings account',
+                        'Use 25% of any surplus for this goal',
+                        'Review annually and adjust for lifestyle changes',
+                        'Keep separate from checking account'
+                    ],
+                    impact: 'Complete financial independence',
+                    progressMetrics: {
+                        current: `${monthsCovered.toFixed(1)} months`,
+                        target: '6 months',
+                        timeline: '12 months'
+                    }
                 };
             }
             
-            if (surplus > 0) {
+            // Advanced Wealth Building (Tier 5: Optimization)
+            if (surplus > 0 && getTotalDebtBalance() > 0) {
                 return {
-                    tier: 'optional',
-                    type: 'wealth-investing',
-                    title: 'OPTIONAL: Invest for Growth',
-                    message: `Invest $${surplus.toLocaleString()}/month in taxable account`,
-                    action: 'Consider index funds or other investments',
-                    why: 'Wealth accumulation and financial independence phase'
+                    tier: 'advanced',
+                    type: 'accelerate-debt-payoff',
+                    title: '⚡ ACCELERATE DEBT PAYOFF',
+                    message: `Put your $${surplus.toLocaleString()}/month surplus toward debt to save on interest and build equity faster.`,
+                    immediateAction: 'Apply surplus to highest interest debt',
+                    timeline: 'VARIABLE',
+                    steps: [
+                        'Calculate new payoff timeline with extra payments',
+                        'Set up automatic extra payment each month',
+                        'Celebrate each debt milestone',
+                        'Once debt-free, redirect to investments',
+                        'Consider refinancing if rates drop'
+                    ],
+                    impact: 'Years of interest savings',
+                    progressMetrics: {
+                        current: calculateTotalYearsToPayoff().toFixed(1) + ' years',
+                        target: 'Reduce by 50%',
+                        timeline: 'Ongoing'
+                    }
                 };
             }
             
+            if (surplus > income * 0.1) {
+                return {
+                    tier: 'advanced',
+                    type: 'wealth-accumulation',
+                    title: '📈 MAXIMIZE WEALTH ACCUMULATION',
+                    message: `You have $${surplus.toLocaleString()}/month surplus (${((surplus/income)*100).toFixed(1)}% of income). Time to optimize investments.`,
+                    immediateAction: 'Maximize tax-advantaged accounts, then taxable brokerage',
+                    timeline: 'CONTINUOUS',
+                    steps: [
+                        'Max out 401(k) ($22,500/year if under 50)',
+                        'Max out IRA ($6,500/year)',
+                        'Consider HSA if eligible ($3,850 individual)',
+                        'Open taxable brokerage account',
+                        'Diversify: index funds, real estate, bonds'
+                    ],
+                    impact: 'Exponential wealth growth',
+                    progressMetrics: {
+                        current: `$${surplus}/month surplus`,
+                        target: '25%+ savings rate',
+                        timeline: 'Annual review'
+                    }
+                };
+            }
+            
+            // If everything is optimized
             return {
-                tier: 'optional',
-                type: 'on-track',
-                title: 'ON TRACK! All Financial Basics Covered',
-                message: 'Continue current strategy and consider long-term goals',
-                action: 'Review investment allocations and estate planning',
-                why: "You're following sound financial principles"
+                tier: 'excellent',
+                type: 'financial-mastery',
+                title: '🏆 FINANCIAL MASTERY ACHIEVED',
+                message: 'All financial fundamentals are solid. Focus on advanced strategies and lifestyle design.',
+                immediateAction: 'Consider advanced investment strategies and tax optimization',
+                timeline: 'ANNUAL REVIEW',
+                steps: [
+                    'Review asset allocation annually',
+                    'Consider real estate investment',
+                    'Explore tax-loss harvesting',
+                    'Review estate planning documents',
+                    'Consider charitable giving strategies'
+                ],
+                impact: 'Wealth preservation and legacy building',
+                progressMetrics: {
+                    current: 'All targets met',
+                    target: 'Net worth growth',
+                    timeline: 'Annual'
+                }
             };
         }
-
-        function updateNextAction() {
-            const container = document.getElementById('action-container');
+        
+        // ===== DISPLAY FUNCTIONS =====
+        
+        function updateFinancialHealthDisplay() {
+            const healthData = calculateFinancialHealthScore();
+            const scoreElement = document.getElementById('financial-health-score');
+            const breakdownElement = document.getElementById('score-breakdown');
+            
+            if (scoreElement) {
+                scoreElement.textContent = healthData.score;
+                
+                // Color code based on score
+                if (healthData.score >= 80) {
+                    scoreElement.className = 'financial-health-score text-green-400';
+                } else if (healthData.score >= 60) {
+                    scoreElement.className = 'financial-health-score text-yellow-400';
+                } else if (healthData.score >= 40) {
+                    scoreElement.className = 'financial-health-score text-orange-400';
+                } else {
+                    scoreElement.className = 'financial-health-score text-red-400';
+                }
+            }
+            
+            if (breakdownElement) {
+                breakdownElement.innerHTML = healthData.breakdown.map(component => `
+                    <div class="score-component">
+                        <div class="score-component-value">${Math.round(component.score)}</div>
+                        <div class="score-component-label">${component.name}</div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function updateNextActionEnhanced() {
+            const action = calculateNextActionEnhanced();
+            const container = document.getElementById('action-container-enhanced');
+            const timelineContainer = document.getElementById('action-timeline-container');
+            const timelineElement = document.getElementById('action-timeline');
+            
             if (!container) return;
             
-            const action = calculateNextAction();
-            const tier = actionTierDefinitions[action.tier];
+            // Define styling based on tier
+            const tierStyles = {
+                critical: {
+                    gradientStart: '#DC2626',
+                    gradientEnd: '#B91C1C',
+                    badgeColor: '#EF4444',
+                    badgeBg: 'rgba(239, 68, 68, 0.2)',
+                    iconBg: 'rgba(239, 68, 68, 0.3)',
+                    iconColor: '#EF4444',
+                    icon: 'fa-exclamation-triangle'
+                },
+                important: {
+                    gradientStart: '#F59E0B',
+                    gradientEnd: '#D97706',
+                    badgeColor: '#F59E0B',
+                    badgeBg: 'rgba(245, 158, 11, 0.2)',
+                    iconBg: 'rgba(245, 158, 11, 0.3)',
+                    iconColor: '#F59E0B',
+                    icon: 'fa-bullseye'
+                },
+                strategic: {
+                    gradientStart: '#3B82F6',
+                    gradientEnd: '#1D4ED8',
+                    badgeColor: '#3B82F6',
+                    badgeBg: 'rgba(59, 130, 246, 0.2)',
+                    iconBg: 'rgba(59, 130, 246, 0.3)',
+                    iconColor: '#3B82F6',
+                    icon: 'fa-chart-line'
+                },
+                advanced: {
+                    gradientStart: '#8B5CF6',
+                    gradientEnd: '#7C3AED',
+                    badgeColor: '#8B5CF6',
+                    badgeBg: 'rgba(139, 92, 246, 0.2)',
+                    iconBg: 'rgba(139, 92, 246, 0.3)',
+                    iconColor: '#8B5CF6',
+                    icon: 'fa-rocket'
+                },
+                excellent: {
+                    gradientStart: '#10B981',
+                    gradientEnd: '#059669',
+                    badgeColor: '#10B981',
+                    badgeBg: 'rgba(16, 185, 129, 0.2)',
+                    iconBg: 'rgba(16, 185, 129, 0.3)',
+                    iconColor: '#10B981',
+                    icon: 'fa-trophy'
+                }
+            };
+            
+            const style = tierStyles[action.tier] || tierStyles.critical;
+            
+            // Update CSS variables for the action card
+            document.documentElement.style.setProperty('--gradient-start', style.gradientStart);
+            document.documentElement.style.setProperty('--gradient-end', style.gradientEnd);
             
             container.innerHTML = `
-                <div class="unified-action-card" style="border-color: ${tier.color}; background: ${tier.bgColor}">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="action-icon p-3 rounded-full" style="background: ${tier.color}20; border: 1px solid ${tier.color}40">
-                            <i class="fas ${tier.icon} text-xl" style="color: ${tier.color}"></i>
+                <div class="action-card-enhanced">
+                    <div class="action-header">
+                        <div class="action-icon-container" style="background: ${style.iconBg}; border: 1px solid ${style.iconColor}40">
+                            <i class="fas ${style.icon} text-xl" style="color: ${style.iconColor}"></i>
                         </div>
                         <div class="flex-1">
-                            <div class="text-xs uppercase font-bold tracking-widest mb-1" style="color: ${tier.color}">${tier.label}</div>
-                            <h4 class="font-bold text-lg">${action.title}</h4>
-                            <div class="text-sm text-gray-300">${action.message}</div>
+                            <div class="action-badge" style="background: ${style.badgeBg}; color: ${style.badgeColor}">
+                                ${action.tier.toUpperCase()} PRIORITY
+                            </div>
+                            <h4 class="font-bold text-lg mb-1">${action.title}</h4>
+                            <p class="text-sm text-gray-300">${action.message}</p>
                         </div>
                     </div>
                     
-                    <div class="action-details">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs uppercase tracking-wider text-gray-400">Recommended Action:</span>
-                            ${getPriorityBadge(action.tier, 'action')}
+                    <div class="mb-3">
+                        <div class="text-xs uppercase tracking-wider text-gray-400 mb-2">IMMEDIATE ACTION:</div>
+                        <div class="text-sm font-medium p-3 rounded bg-gradient-to-r from-${action.tier}-900/20 to-${action.tier}-800/20 border border-${action.tier}-500/30">
+                            ${action.immediateAction}
                         </div>
-                        <div class="text-sm mb-2 font-medium">${action.action}</div>
-                        <div class="text-xs text-gray-400 italic">${action.why}</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="text-xs uppercase tracking-wider text-gray-400 mb-2">TIMELINE: ${action.timeline}</div>
+                        <div class="action-progress-container">
+                            <div class="action-progress-bar" style="width: ${getProgressPercentage(action)}%; background: linear-gradient(90deg, ${style.gradientStart}, ${style.gradientEnd})"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-metrics">
+                        <div class="action-metric">
+                            <div class="action-metric-value">${action.progressMetrics.current}</div>
+                            <div class="action-metric-label">Current Status</div>
+                        </div>
+                        <div class="action-metric">
+                            <div class="action-metric-value">${action.progressMetrics.target}</div>
+                            <div class="action-metric-label">Target</div>
+                        </div>
+                        <div class="action-metric">
+                            <div class="action-metric-value">${action.progressMetrics.timeline}</div>
+                            <div class="action-metric-label">Timeline</div>
+                        </div>
                     </div>
                 </div>
             `;
+            
+            // Update timeline
+            if (timelineContainer && timelineElement) {
+                timelineContainer.classList.remove('hidden');
+                timelineElement.innerHTML = action.steps.map((step, index) => `
+                    <div class="action-step" style="border-left-color: ${style.iconColor}">
+                        <div class="action-step-number" style="background: ${style.iconBg}; color: ${style.iconColor}">
+                            ${index + 1}
+                        </div>
+                        <div class="action-step-content">
+                            <div class="text-sm">${step}</div>
+                            <div class="action-timeline">Week ${index + 1}-${index + 2}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function getProgressPercentage(action) {
+            // Simple progress calculation based on action type
+            const income = getMonthlyIncome();
+            const emergencyFundTotal = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
+            const monthlyEssentials = calculateMonthlyEssentials();
+            const monthsCovered = monthlyEssentials > 0 ? emergencyFundTotal / monthlyEssentials : 0;
+            
+            switch (action.type) {
+                case 'emergency-fund-crisis':
+                case 'emergency-fund-1-month':
+                    return Math.min(100, (monthsCovered / 1) * 100);
+                case 'emergency-fund-3-month':
+                    return Math.min(100, (monthsCovered / 3) * 100);
+                case 'emergency-fund-6-month':
+                    return Math.min(100, (monthsCovered / 6) * 100);
+                case 'high-dti':
+                    const dti = calculateDebtToIncomeRatio();
+                    return Math.max(0, Math.min(100, ((36 - dti) / 36) * 100));
+                case 'low-savings-rate':
+                    const savingsRate = income > 0 ? (getTotalMonthlySavings() / income) * 100 : 0;
+                    return Math.min(100, (savingsRate / 15) * 100);
+                default:
+                    return 25; // Default progress
+            }
         }
 
         // ===== CHART FUNCTIONS =====
@@ -4067,7 +4737,8 @@
         }
 
         function refreshNextAction() {
-            updateNextAction();
+            updateNextActionEnhanced();
+            updateFinancialHealthDisplay();
             showToast('Action recommendation refreshed');
         }
 
@@ -4090,7 +4761,7 @@
         
         function saveToLocalStorage() {
             const data = {
-                version: 'raf_lab_v10_unified',
+                version: 'raf_lab_v11_enhanced',
                 timestamp: new Date().toISOString(),
                 warMode: isWarModeActive,
                 paycheck: document.getElementById('paycheck').value,
@@ -4284,7 +4955,7 @@
 
         function exportData() {
             const data = {
-                version: 'raf_lab_v10_unified',
+                version: 'raf_lab_v11_enhanced',
                 timestamp: new Date().toISOString(),
                 warMode: isWarModeActive,
                 income: {
@@ -4299,14 +4970,15 @@
                     wants: {}
                 },
                 savings: {},
-                nextAction: calculateNextAction(),
+                nextAction: calculateNextActionEnhanced(),
                 summary: {
                     totalDebt: getTotalDebtBalance(),
                     monthlyPayments: getTotalDebtPayments(),
                     monthlySurplus: calculateSurplus(),
                     savingsRate: (getTotalMonthlySavings() / getMonthlyIncome()) * 100,
                     debtToIncome: calculateDebtToIncomeRatio(),
-                    yearsToPayoff: calculateTotalYearsToPayoff()
+                    yearsToPayoff: calculateTotalYearsToPayoff(),
+                    financialHealthScore: calculateFinancialHealthScore().score
                 }
             };
             
@@ -4392,17 +5064,21 @@
         }
 
         function shareDashboard() {
+            const healthScore = calculateFinancialHealthScore();
+            const nextAction = calculateNextActionEnhanced();
+            
             const data = {
                 income: getMonthlyIncome(),
                 debtRatio: calculateDebtToIncomeRatio(),
                 savingsRate: (getTotalMonthlySavings() / getMonthlyIncome()) * 100,
-                nextAction: calculateNextAction(),
+                financialHealthScore: healthScore.score,
+                nextAction: nextAction.title,
                 warMode: isWarModeActive,
                 yearsToPayoff: calculateTotalYearsToPayoff(),
                 timestamp: new Date().toISOString()
             };
             
-            const shareText = `My Financial Snapshot:\n- Monthly Income: $${data.income.toLocaleString()}\n- Debt-to-Income: ${data.debtRatio.toFixed(1)}%\n- Savings Rate: ${data.savingsRate.toFixed(1)}%\n- Years to Payoff: ${data.yearsToPayoff.toFixed(1)} years\n- Next Action: ${data.nextAction.title}\n- War Mode: ${data.warMode ? 'ACTIVE' : 'Inactive'}\n\nGenerated with Real American Finance`;
+            const shareText = `My Financial Snapshot:\n- Monthly Income: $${data.income.toLocaleString()}\n- Financial Health Score: ${data.financialHealthScore}/100\n- Debt-to-Income: ${data.debtRatio.toFixed(1)}%\n- Savings Rate: ${data.savingsRate.toFixed(1)}%\n- Years to Payoff: ${data.yearsToPayoff.toFixed(1)} years\n- Priority Action: ${data.nextAction}\n- War Mode: ${data.warMode ? 'ACTIVE' : 'Inactive'}\n\nGenerated with Real American Finance`;
             
             navigator.clipboard.writeText(shareText)
                 .then(() => showToast('Financial snapshot copied to clipboard!'))
@@ -4471,7 +5147,7 @@
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing unified financial dashboard...');
+            console.log('DOM loaded, initializing enhanced financial dashboard...');
             
             // Initialize chart
             const canvas = document.getElementById('budgetChart');
@@ -4530,7 +5206,7 @@
                 loadFromLocalStorage();
             }, 100);
             
-            console.log('Unified financial dashboard initialization complete');
+            console.log('Enhanced financial dashboard initialization complete');
         });
 
         // Close modal when clicking outside
@@ -4570,6 +5246,10 @@
         window.showDebtTypeInfo = showDebtTypeInfo;
         window.refreshStrategyTip = refreshStrategyTip;
         window.toggleDataMenu = toggleDataMenu;
+        window.calculateFinancialHealthScore = calculateFinancialHealthScore;
+        window.calculateNextActionEnhanced = calculateNextActionEnhanced;
+        window.updateNextActionEnhanced = updateNextActionEnhanced;
+        window.updateFinancialHealthDisplay = updateFinancialHealthDisplay;
     </script>
 </body>
 </html>
