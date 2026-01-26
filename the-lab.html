@@ -2986,6 +2986,63 @@
                 totalDefault: 0
             }
         ];
+		
+function updateCategoryPercentage(categoryId) {
+    const categoryValue = parseCurrency(document.getElementById(categoryId)?.value || 0);
+    const monthlyIncome = getMonthlyIncome();
+    
+    if (monthlyIncome > 0 && categoryValue > 0) {
+        const percentage = (categoryValue / monthlyIncome) * 100;
+        const percentageElement = document.getElementById(`${categoryId}_percentage`);
+        if (percentageElement) {
+            percentageElement.textContent = `${percentage.toFixed(1)}%`;
+            
+            // Color coding based on category type and percentage
+            const isNeed = budgetCategories.needs.some(c => c.id === categoryId);
+            const isWant = budgetCategories.wants.some(c => c.id === categoryId);
+            
+            percentageElement.classList.remove('text-red-500', 'text-yellow-500', 'text-green-500', 'text-blue-400');
+            
+            if (isNeed) {
+                // For needs: red if > 15%, yellow if > 10%, green otherwise
+                if (percentage > 15) {
+                    percentageElement.classList.add('text-red-500');
+                } else if (percentage > 10) {
+                    percentageElement.classList.add('text-yellow-500');
+                } else {
+                    percentageElement.classList.add('text-green-500');
+                }
+            } else if (isWant) {
+                // For wants: red if > 10%, yellow if > 5%, green otherwise
+                if (percentage > 10) {
+                    percentageElement.classList.add('text-red-500');
+                } else if (percentage > 5) {
+                    percentageElement.classList.add('text-yellow-500');
+                } else {
+                    percentageElement.classList.add('text-green-500');
+                }
+            }
+        }
+    } else {
+        const percentageElement = document.getElementById(`${categoryId}_percentage`);
+        if (percentageElement) {
+            percentageElement.textContent = '0%';
+            percentageElement.className = 'category-percentage';
+        }
+    }
+}
+
+function updateAllCategoryPercentages() {
+    // Update all needs categories
+    budgetCategories.needs.forEach(category => {
+        updateCategoryPercentage(category.id);
+    });
+    
+    // Update all wants categories
+    budgetCategories.wants.forEach(category => {
+        updateCategoryPercentage(category.id);
+    });
+}		
 
         // UPDATED: SIMPLIFIED BUDGET CATEGORIES WITH TAXES
         const budgetCategories = {
@@ -3753,6 +3810,10 @@ function getYearsToPayoffClass(years) {
             const savingsRate = income > 0 ? (savingsTotal / income) * 100 : 0;
             const budgetUsage = income > 0 ? (totalExpenses / income) * 100 : 0;
             
+			    // UPDATE: Add this line to update all category percentages
+    updateAllCategoryPercentages();
+			
+			
             // Update 50/30/20 budget rule percentages
             if (income > 0) {
                 const needsPercentage = (needsTotal / income) * 100;
@@ -5223,25 +5284,29 @@ function getYearsToPayoffClass(years) {
                 const specialClass = isDebtMinimums ? ' debt-minimums-special' : '';
                 div.className = `flex justify-between items-center budget-category-card${specialClass}`;
                 
-                div.innerHTML = `
-                    <div class="flex items-center">
-                        <span class="text-xs text-gray-300 category-label">${category.label}${category.id === 'taxes' ? ' <span class="text-gray-500 text-[10px]">(Monthly tax withholding or estimated payments)</span>' : ''}</span>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="currency-input-container w-32 relative mr-2">
-                            <input type="text" 
-                                   id="${category.id}" 
-                                   oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) debouncedCalculateAll()" 
-                                   class="input-underlined text-right touch-target" 
-                                   value="${getCategoryValue(category.id)}"
-                                   placeholder="0"
-                                   aria-label="${category.label} expense">
-                        </div>
-                        <button onclick="clearCategory(this.previousElementSibling.querySelector('input'))" class="clear-category-btn touch-target" aria-label="Clear ${category.label}">
-                            ×
-                        </button>
-                    </div>
-                `;
+          div.innerHTML = `
+    <div class="flex items-center">
+        <span class="text-xs text-gray-300 category-label">${category.label}${category.id === 'taxes' ? ' <span class="text-gray-500 text-[10px]">(Monthly tax withholding or estimated payments)</span>' : ''}</span>
+        <span id="${category.id}_percentage" class="category-percentage">0%</span>
+    </div>
+    <div class="flex items-center">
+        <div class="currency-input-container w-32 relative mr-2">
+            <input type="text" 
+                   id="${category.id}" 
+                   oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) { debouncedCalculateAll(); updateCategoryPercentage('${category.id}') }" 
+                   class="input-underlined text-right touch-target" 
+                   value="${getCategoryValue(category.id)}"
+                   placeholder="0"
+                   aria-label="${category.label} expense">
+        </div>
+        <button onclick="clearCategory(this.previousElementSibling.querySelector('input'))" class="clear-category-btn touch-target" aria-label="Clear ${category.label}">
+            ×
+        </button>
+    </div>
+`;
+				
+				
+				
                 if (needsContainer) needsContainer.appendChild(div);
             });
             
@@ -5249,24 +5314,25 @@ function getYearsToPayoffClass(years) {
                 const div = document.createElement('div');
                 div.className = `flex justify-between items-center budget-category-card`;
                 div.innerHTML = `
-                    <div class="flex items-center">
-                        <span class="text-xs text-gray-300">${category.label}</span>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="currency-input-container w-32 relative mr-2">
-                            <input type="text" 
-                                   id="${category.id}" 
-                                   oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) debouncedCalculateAll()" 
-                                   class="input-underlined text-right touch-target" 
-                                   value="${getCategoryValue(category.id)}"
-                                   placeholder="0"
-                                   aria-label="${category.label} expense">
-                        </div>
-                        <button onclick="clearCategory(this.previousElementSibling.querySelector('input'))" class="clear-category-btn touch-target" aria-label="Clear ${category.label}">
-                            ×
-                        </button>
-                    </div>
-                `;
+    <div class="flex items-center">
+        <span class="text-xs text-gray-300">${category.label}</span>
+        <span id="${category.id}_percentage" class="category-percentage">0%</span>
+    </div>
+    <div class="flex items-center">
+        <div class="currency-input-container w-32 relative mr-2">
+            <input type="text" 
+                   id="${category.id}" 
+                   oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) { debouncedCalculateAll(); updateCategoryPercentage('${category.id}') }" 
+                   class="input-underlined text-right touch-target" 
+                   value="${getCategoryValue(category.id)}"
+                   placeholder="0"
+                   aria-label="${category.label} expense">
+        </div>
+        <button onclick="clearCategory(this.previousElementSibling.querySelector('input'))" class="clear-category-btn touch-target" aria-label="Clear ${category.label}">
+            ×
+        </button>
+    </div>
+`;
                 if (wantsContainer) wantsContainer.appendChild(div);
             });
             
