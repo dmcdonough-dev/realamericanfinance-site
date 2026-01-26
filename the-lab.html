@@ -2016,6 +2016,27 @@
                             </button>
                         </div>
                     </div>
+					<!-- 🔥 ADD THIS RIGHT AFTER THE DEBT STRATEGY TIPS DIV -->
+<div id="debt-pain-calculator" class="mt-4 hidden">
+    <div class="bg-gradient-to-r from-red-900/30 to-red-800/20 p-4 rounded-lg border border-red-500/40">
+        <div class="flex items-center gap-3 mb-2">
+            <i class="fas fa-fire text-red-400 text-xl"></i>
+            <h4 class="font-bold text-lg">🔥 This Debt is Costing You Real Money</h4>
+        </div>
+        <div class="text-sm">
+            <p class="mb-2">At minimum payments, you'll pay <span id="total-interest-cost" class="font-bold text-red-300">$0</span> in interest alone.</p>
+            <div class="flex items-center gap-2 text-xs text-gray-300">
+                <i class="fas fa-lightbulb"></i>
+                <span>Premium shows exactly how to save <span id="premium-savings" class="font-bold text-green-300">$0</span> on interest</span>
+            </div>
+        </div>
+        <button onclick="showPricingModal()" class="w-full mt-3 bg-gradient-to-r from-red-700 to-red-800 hover:from-red-600 hover:to-red-700 text-white py-2 rounded font-bold transition">
+            <i class="fas fa-bolt mr-2"></i>Show Me How to Save Money
+        </button>
+    </div>
+</div>
+					
+					
                 </div>
 
                 <!-- 03. Enhanced Budget (WITHOUT PROGRESS INDICATORS - MOVED TO SIDEBAR) -->
@@ -2580,16 +2601,57 @@
                     </button>
                 </div>
 
-                <!-- SIMPLIFIED Feature Comparison -->
-                <div class="dashboard-card p-6 mb-6 shadow-2xl">
-                    <h4 class="text-sm font-bold mb-3 uppercase tracking-wider">What's Included</h4>
-                    <ul class="simple-feature-list" id="feature-comparison-list">
-                        <!-- Features will be populated by JavaScript -->
-                    </ul>
-                    <button onclick="showPricingModal()" class="w-full mt-4 text-xs bg-white/5 hover:bg-white/10 border border-white/10 py-2 rounded transition touch-target">
-                        See All Features
-                    </button>
-                </div>
+     <!-- 🔥 WHAT PREMIUM USERS SEE -->
+<div class="dashboard-card p-6 mb-6 shadow-2xl bg-gradient-to-br from-gray-900 to-navy-900 border border-yellow-500/20">
+    <div class="flex items-center gap-2 mb-3">
+        <i class="fas fa-crown text-yellow-400"></i>
+        <h4 class="text-sm font-bold uppercase tracking-wider">What Premium Users See</h4>
+        <span class="text-xs bg-yellow-900/30 text-yellow-300 px-2 py-1 rounded ml-auto">Live Now</span>
+    </div>
+    
+    <div class="space-y-3 text-sm mb-4">
+        <div id="premium-benefit-1" class="flex items-center gap-3 p-2 bg-white/5 rounded">
+            <div class="w-8 h-8 rounded-full bg-green-900/30 flex items-center justify-center">
+                <i class="fas fa-bolt text-green-400"></i>
+            </div>
+            <div>
+                <div class="font-medium">Debt Payoff Accelerated</div>
+                <div class="text-xs text-gray-400">Saving <span class="premium-savings-amount text-green-300 font-bold">$8,400</span> in interest</div>
+            </div>
+        </div>
+        
+        <div id="premium-benefit-2" class="flex items-center gap-3 p-2 bg-white/5 rounded">
+            <div class="w-8 h-8 rounded-full bg-blue-900/30 flex items-center justify-center">
+                <i class="fas fa-chart-line text-blue-400"></i>
+            </div>
+            <div>
+                <div class="font-medium">6-Month Cash Forecast</div>
+                <div class="text-xs text-gray-400">Emergency fund hits <span class="forecast-amount text-blue-300">$15K</span> by <span class="forecast-date text-blue-300">October</span></div>
+            </div>
+        </div>
+        
+        <div id="premium-benefit-3" class="flex items-center gap-3 p-2 bg-white/5 rounded">
+            <div class="w-8 h-8 rounded-full bg-purple-900/30 flex items-center justify-center">
+                <i class="fas fa-robot text-purple-400"></i>
+            </div>
+            <div>
+                <div class="font-medium">AI Strategy Engine</div>
+                <div class="text-xs text-gray-400">Personalized debt payoff sequence</div>
+            </div>
+        </div>
+    </div>
+    
+    <button onclick="showPricingModal()" class="w-full bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-500 hover:to-yellow-600 text-white py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl touch-target">
+        <i class="fas fa-rocket mr-2"></i>Unlock Premium Results
+    </button>
+    
+    <div class="text-center mt-3">
+        <div class="text-xs text-gray-500 flex items-center justify-center gap-1">
+            <i class="fas fa-sync-alt"></i>
+            <span>Updates live as you enter data</span>
+        </div>
+    </div>
+</div>
 
                 <!-- Contextual Quick Tips Tooltips -->
                 <div class="dashboard-card p-6 shadow-2xl">
@@ -3888,6 +3950,22 @@ function getYearsToPayoffClass(years) {
             
             // Update years to payoff
             updateAllYearsToPayoff();
+			
+			    // Update years to payoff
+    updateAllYearsToPayoff();
+    
+    // 🔥 ADD THIS LINE
+    calculateDebtPain(); // NEW: Show how much debt is costing them
+	
+	    // Update years to payoff
+    updateAllYearsToPayoff();
+    
+    // Show how much debt is costing them
+    calculateDebtPain();
+    
+    // 🔥 ADD THIS LINE
+    updatePremiumTeaser(); // NEW: Update premium benefits preview
+	
             
             // Update sidebar
             document.getElementById('total-income-display').textContent = `$${income.toLocaleString()}`;
@@ -5097,7 +5175,73 @@ function toggleScoreBreakdown() {
         }
 
         // ===== DEBT STRATEGY TIPS =====
+        // ===== DEBT PAIN CALCULATOR =====
+function calculateDebtPain() {
+    const painElement = document.getElementById('debt-pain-calculator');
+    let totalInterest = 0;
+    
+    // Calculate interest for each debt
+    document.querySelectorAll('#debt-body tr').forEach(row => {
+        const balanceInput = row.querySelector('td:nth-child(2) input');
+        const rateInput = row.querySelector('td:nth-child(4) input');
+        const yearsElement = row.querySelector('.years-to-payoff');
         
+        if (balanceInput && rateInput && yearsElement) {
+            const balance = parseCurrency(balanceInput.value);
+            const rate = parseFloat(rateInput.value) || 0;
+            const yearsText = yearsElement.textContent;
+            
+            if (balance > 0 && rate > 0 && yearsText !== '--' && yearsText !== '∞') {
+                // Simple interest formula
+                const years = parseFloat(yearsText) || 0;
+                if (years > 0) {
+                    const interest = balance * (rate/100) * years;
+                    totalInterest += interest;
+                }
+            }
+        }
+    });
+    
+    // Update display
+    if (totalInterest > 0) {
+        document.getElementById('total-interest-cost').textContent = `$${Math.round(totalInterest).toLocaleString()}`;
+        
+        // Claim 30% savings with premium
+        const premiumSavings = Math.round(totalInterest * 0.3);
+        document.getElementById('premium-savings').textContent = `$${premiumSavings.toLocaleString()}`;
+        
+        // Show the pain calculator
+        painElement.classList.remove('hidden');
+    } else {
+        painElement.classList.add('hidden');
+    }
+}
+
+// ===== UPDATE PREMIUM TEASER WITH USER'S DATA =====
+function updatePremiumTeaser() {
+    const totalDebt = getTotalDebtBalance();
+    const emergencyFund = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
+    const monthlySavings = getTotalMonthlySavings();
+    
+    // Update debt savings (claim 25% savings with premium)
+    if (totalDebt > 0) {
+        const debtSavings = Math.round(totalDebt * 0.25);
+        document.querySelector('.premium-savings-amount').textContent = `$${debtSavings.toLocaleString()}`;
+    }
+    
+    // Update emergency fund forecast
+    if (monthlySavings > 0) {
+        const projected = emergencyFund + (monthlySavings * 6);
+        document.querySelector('.forecast-amount').textContent = `$${Math.round(projected).toLocaleString()}`;
+        
+        // Calculate 6 months from now
+        const forecastDate = new Date();
+        forecastDate.setMonth(forecastDate.getMonth() + 6);
+        const monthName = forecastDate.toLocaleDateString('default', { month: 'long' });
+        document.querySelector('.forecast-date').textContent = monthName;
+    }
+}
+
         function updateDebtStrategyTip() {
             const tipContainer = document.getElementById('debt-strategy-tips');
             const tipContent = document.getElementById('strategy-tip-content');
