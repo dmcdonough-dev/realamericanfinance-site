@@ -1775,11 +1775,12 @@
             transition: width 0.5s ease;
         }
         
-        .score-component-fill.emergency { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
-        .score-component-fill.debt { background: linear-gradient(90deg, #EF4444, #F87171); }
-        .score-component-fill.savings { background: linear-gradient(90deg, #10B981, #34D399); }
-        .score-component-fill.budget { background: linear-gradient(90deg, #F59E0B, #FBBF24); }
-        .score-component-fill.retirement { background: linear-gradient(90deg, #8B5CF6, #A78BFA); }
+   /* Add this to your CSS - REPLACE the existing score-component-fill styles */
+.score-component-fill.emergency-fund { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+.score-component-fill.debt-management { background: linear-gradient(90deg, #EF4444, #F87171); }
+.score-component-fill.savings-rate { background: linear-gradient(90deg, #10B981, #34D399); }
+.score-component-fill.budget-control { background: linear-gradient(90deg, #F59E0B, #FBBF24); }
+.score-component-fill.retirement-progress { background: linear-gradient(90deg, #8B5CF6, #A78BFA); }
     </style>
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson flex flex-col min-h-screen">
@@ -4199,7 +4200,7 @@ function getYearsToPayoffClass(years) {
                             <span class="text-xs font-bold">${component.score}/${component.max}</span>
                         </div>
                         <div class="score-component-bar">
-                            <div class="score-component-fill ${component.name.toLowerCase().replace(' ', '-')}" 
+                            <div class="score-component-fill ${component.name.toLowerCase().replace(/ /g, '-')}" 
                                  style="width: ${component.fillPercentage}%"></div>
                         </div>
                         <div class="text-xs text-gray-400">${component.details}</div>
@@ -4208,22 +4209,24 @@ function getYearsToPayoffClass(years) {
             }
         }
         
-        function toggleScoreBreakdown() {
-            const breakdown = document.getElementById('sovereign-score-breakdown');
-            const button = document.querySelector('[onclick="toggleScoreBreakdown()"]');
-            
-            if (breakdown.classList.contains('hidden')) {
-                breakdown.classList.remove('hidden');
-                if (button) {
-                    button.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>Hide Details';
-                }
-            } else {
-                breakdown.classList.add('hidden');
-                if (button) {
-                    button.innerHTML = '<i class="fas fa-chart-bar mr-1"></i>Show Details';
-                }
-            }
+function toggleScoreBreakdown() {
+    const breakdown = document.getElementById('sovereign-score-breakdown');
+    const button = document.querySelector('[onclick="toggleScoreBreakdown()"]');
+    
+    if (breakdown.classList.contains('hidden')) {
+        breakdown.classList.remove('hidden');
+        breakdown.classList.add('show-details'); // Add this
+        if (button) {
+            button.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>Hide Details';
         }
+    } else {
+        breakdown.classList.add('hidden');
+        breakdown.classList.remove('show-details'); // Add this
+        if (button) {
+            button.innerHTML = '<i class="fas fa-chart-bar mr-1"></i>Show Details';
+        }
+    }
+}
 
         // ===== ENHANCED PRIORITY ACTION LOGIC =====
         
