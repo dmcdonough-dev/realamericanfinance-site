@@ -473,6 +473,194 @@
             opacity: 0.6 !important;
         }
         
+        /* Debt Entry Flow Styles */
+        .debt-entry-flow {
+            padding: 32px;
+            background: rgba(10, 26, 47, 0.5);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+        
+        .debt-entry-flow h4 {
+            background: linear-gradient(135deg, #fff 0%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .debt-yes-no-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .debt-yes-btn, .debt-no-btn {
+            padding: 16px 40px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid;
+            position: relative;
+            overflow: hidden;
+            min-width: 180px;
+        }
+        
+        .debt-yes-btn::before, .debt-no-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .debt-yes-btn:hover::before, .debt-no-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .debt-yes-btn {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #EF4444;
+            color: #FCA5A5;
+        }
+        
+        .debt-yes-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #FCA5A5;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+        }
+        
+        .debt-no-btn {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: #10B981;
+            color: #86EFAC;
+        }
+        
+        .debt-no-btn:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #86EFAC;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        .debt-form-simple {
+            text-align: left;
+            margin-top: 24px;
+            animation: slideDown 0.5s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Debt-Free Celebration */
+        .debt-free-celebration {
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+            border-radius: 12px;
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            text-align: center;
+            animation: celebrationPulse 2s ease infinite;
+        }
+        
+        @keyframes celebrationPulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(16, 185, 129, 0.4);
+            }
+        }
+        
+        .celebration-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 1s ease infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .celebration-title {
+            font-size: 1.75rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #10B981, #34D399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .celebration-message {
+            color: #9ca3af;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .oops-button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #9ca3af;
+            padding: 10px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+        
+        .oops-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        
+        /* Progress indicator for form */
+        .form-progress {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .form-progress i {
+            color: #3B82F6;
+        }
+        
+        .form-progress-text {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+        
         /* Budget Categories */
         .budget-category-card {
             background: rgba(10, 26, 47, 0.5);
@@ -1897,7 +2085,7 @@
                     </div>
                 </div>
 
-                <!-- 02. Debt Reconnaissance (ENHANCED) - UNIFIED RESPONSIVE TABLE -->
+                <!-- 02. Debt Reconnaissance (ENHANCED) - WITH IMPROVED ENTRY FLOW -->
                 <div class="dashboard-card p-4 md:p-6 lg:p-8 shadow-2xl" id="debt-section">
                     <div class="flex justify-between items-center mb-4 md:mb-6">
                         <h3 class="text-lg md:text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-3 md:pl-4">
@@ -1908,94 +2096,196 @@
                             <div class="text-xs text-gray-400">
                                 <i class="fas fa-keyboard mr-1"></i> Press '2'
                             </div>
-                            <button onclick="addDebtRow()" class="text-xs bg-green-900/30 hover:bg-green-800/50 px-3 py-2 rounded transition touch-target">
-                                <i class="fas fa-plus mr-1"></i> Add Debt
+                        </div>
+                    </div>
+                    
+                    <!-- NEW: Debt Entry Flow -->
+                    <div id="debt-entry-flow" class="debt-entry-flow">
+                        <h4 class="text-xl font-bold mb-4">Let's Talk About Debt</h4>
+                        <p class="text-gray-300 mb-6">Understanding your debt is the first step to financial freedom.<br>Do you currently have any debt?</p>
+                        
+                        <div class="debt-yes-no-buttons">
+                            <button onclick="showDebtForm()" class="debt-yes-btn">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>Yes, I Have Debt
+                            </button>
+                            <button onclick="skipDebtEntry()" class="debt-no-btn">
+                                <i class="fas fa-check-circle mr-2"></i>No, I'm Debt-Free
+                            </button>
+                        </div>
+                        
+                        <div class="mt-6 text-xs text-gray-500 italic">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            Include credit cards, student loans, car loans, mortgages, personal loans, etc.
+                        </div>
+                    </div>
+                    
+                    <!-- NEW: Debt-Free Celebration -->
+                    <div id="debt-free-celebration" class="debt-free-celebration hidden">
+                        <div class="celebration-icon">🎉</div>
+                        <h4 class="celebration-title">Congratulations! You're Debt-Free!</h4>
+                        <p class="celebration-message">
+                            Being debt-free is a huge accomplishment. You're in a fantastic position to build wealth.<br>
+                            <strong>Focus on:</strong> Building your emergency fund, investing for retirement, and growing your assets.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-3 justify-center mt-6">
+                            <button onclick="continueWithoutDebt()" class="upgrade-btn">
+                                <i class="fas fa-arrow-right mr-2"></i>Continue Building Wealth
+                            </button>
+                            <button onclick="returnToDebtChoice()" class="oops-button">
+                                <i class="fas fa-undo mr-2"></i>Wait, I Actually Have Debt
                             </button>
                         </div>
                     </div>
                     
-                    <!-- Debt Priority Legend -->
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
-                        <div class="flex items-center gap-2 text-xs">
-                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                            <span>Emergency (>25%)</span>
+                    <!-- Simple Debt Form (Initially Hidden) -->
+                    <div id="debt-form-simple" class="debt-form-simple hidden">
+                        <div class="form-progress">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span class="form-progress-text">Adding your first debt - we'll calculate payoff strategies automatically</span>
                         </div>
-                        <div class="flex items-center gap-2 text-xs">
-                            <div class="w-3 h-3 rounded-full bg-orange-500"></div>
-                            <span>High (15-25%)</span>
-                        </div>
-                        <div class="flex items-center gap-2 text-xs">
-                            <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-                            <span>Medium (7-15%)</span>
-                        </div>
-                        <div class="flex items-center gap-2 text-xs">
-                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                            <span>Low (<7%)</span>
-                        </div>
-                    </div>
-                    
-                    <!-- UNIFIED RESPONSIVE DEBT TABLE -->
-                    <div class="debt-table-container">
-                        <table class="debt-table">
-                            <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Balance</th>
-                                    <th>Payment</th>
-                                    <th>Rate</th>
-                                    <th>Priority</th>
-                                    <th class="years-column">Years to Payoff</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="debt-body">
-                                <!-- Debt rows will be added here by JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <!-- Years to Payoff Explanation -->
-                    <div class="mt-2 text-xs text-gray-500 italic">
-                        *Years to Payoff calculated at minimum payment. Premium shows accelerated payoff strategies.
-                    </div>
-                    
-                    <button onclick="addDebtRow()" class="w-full mt-4 bg-white/5 border border-white/10 px-4 py-3 text-xs uppercase tracking-widest hover:border-green-500 hover:text-green-300 transition touch-target">
-                        <i class="fas fa-plus mr-2"></i>Add Another Liability
-                    </button>
-                    
-                    <!-- ENHANCED: Debt Summary with More Info -->
-                    <div class="mt-6 p-4 bg-navy-900/50 rounded border border-white/5">
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <div>
-                                <div class="text-xs text-gray-400 mb-1">Total Balance</div>
-                                <div id="total-debt-balance" class="text-sm md:text-base font-bold">$0</div>
+                                <label class="block text-sm mb-2 font-semibold">
+                                    <i class="fas fa-tag mr-1 text-gray-400"></i>Debt Type
+                                </label>
+                                <select id="simple-debt-type" class="input-underlined p-3 w-full bg-navy-900">
+                                    <option value="credit_card">💳 Credit Card</option>
+                                    <option value="student_loan">🎓 Student Loan</option>
+                                    <option value="auto_loan">🚗 Car Loan</option>
+                                    <option value="mortgage">🏠 Mortgage</option>
+                                    <option value="personal_loan">💰 Personal Loan</option>
+                                    <option value="medical">🏥 Medical Bill</option>
+                                </select>
                             </div>
+                            
                             <div>
-                                <div class="text-xs text-gray-400 mb-1">Monthly Minimums</div>
-                                <div id="total-debt-payments" class="text-sm md:text-base font-bold">$0</div>
-                            </div>
-                            <div>
-                                <div class="text-xs text-gray-400 mb-1">High-Interest Count</div>
-                                <div id="high-interest-count" class="text-sm md:text-base font-bold text-crimson">0</div>
-                            </div>
-                            <div>
-                                <div class="text-xs text-gray-400 mb-1">Debt-to-Income</div>
-                                <div id="debt-to-income" class="text-sm md:text-base font-bold">0%</div>
+                                <label class="block text-sm mb-2 font-semibold">
+                                    <i class="fas fa-percentage mr-1 text-gray-400"></i>Interest Rate (%)
+                                </label>
+                                <input type="number" step="0.1" id="simple-debt-rate" class="input-underlined p-3 w-full" placeholder="15.5">
+                                <div class="text-xs text-gray-500 mt-1">Find this on your statement</div>
                             </div>
                         </div>
                         
-                        <!-- NEW: Total Years to Payoff -->
-                        <div class="mt-4 p-3 bg-gradient-to-r from-red-900/20 to-orange-900/20 rounded border border-red-500/30">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <div class="text-xs text-gray-400 mb-1">Total Years to Payoff</div>
-                                    <div id="total-years-to-payoff" class="text-xl font-bold text-white">0 years</div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <label class="block text-sm mb-2 font-semibold">
+                                    <i class="fas fa-dollar-sign mr-1 text-gray-400"></i>Current Balance
+                                </label>
+                                <div class="currency-input-container">
+                                    <input type="text" id="simple-debt-balance" oninput="formatCurrencyInput(this)" class="input-underlined p-3 w-full" placeholder="5,000">
                                 </div>
-                                <div class="text-right">
-                                    <div class="text-xs text-gray-300">At minimum payments</div>
-                                    <button onclick="showPricingModal()" class="mt-1 text-xs text-crimson hover:text-red-400">
-                                        <i class="fas fa-bolt mr-1"></i>Accelerate with Premium
-                                    </button>
+                                <div class="text-xs text-gray-500 mt-1">Total amount you owe</div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm mb-2 font-semibold">
+                                    <i class="fas fa-calendar-alt mr-1 text-gray-400"></i>Monthly Payment
+                                </label>
+                                <div class="currency-input-container">
+                                    <input type="text" id="simple-debt-payment" oninput="formatCurrencyInput(this)" class="input-underlined p-3 w-full" placeholder="150">
+                                </div>
+                                <div class="text-xs text-gray-500 mt-1">Your minimum payment</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center flex-wrap gap-3">
+                            <button onclick="addSimpleDebt()" class="upgrade-btn">
+                                <i class="fas fa-plus mr-2"></i>Add This Debt
+                            </button>
+                            <button onclick="cancelDebtEntry()" class="text-gray-400 hover:text-white transition">
+                                <i class="fas fa-times mr-2"></i>Cancel
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- UNIFIED RESPONSIVE DEBT TABLE (Initially Hidden) -->
+                    <div id="debt-table-container" class="hidden">
+                        <!-- Debt Priority Legend -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+                            <div class="flex items-center gap-2 text-xs">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <span>Emergency (>25%)</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs">
+                                <div class="w-3 h-3 rounded-full bg-orange-500"></div>
+                                <span>High (15-25%)</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs">
+                                <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+                                <span>Medium (7-15%)</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs">
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                <span>Low (<7%)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- UNIFIED RESPONSIVE DEBT TABLE -->
+                        <div class="debt-table-container">
+                            <table class="debt-table">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Balance</th>
+                                        <th>Payment</th>
+                                        <th>Rate</th>
+                                        <th>Priority</th>
+                                        <th class="years-column">Years to Payoff</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="debt-body">
+                                    <!-- Debt rows will be added here by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Years to Payoff Explanation -->
+                        <div class="mt-2 text-xs text-gray-500 italic">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            Years to Payoff calculated at minimum payment. Premium shows accelerated payoff strategies.
+                        </div>
+                        
+                        <button onclick="addDebtRow()" class="w-full mt-4 bg-white/5 border border-white/10 px-4 py-3 text-xs uppercase tracking-widest hover:border-green-500 hover:text-green-300 transition touch-target">
+                            <i class="fas fa-plus mr-2"></i>Add Another Liability
+                        </button>
+                        
+                        <!-- ENHANCED: Debt Summary with More Info -->
+                        <div class="mt-6 p-4 bg-navy-900/50 rounded border border-white/5">
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Total Balance</div>
+                                    <div id="total-debt-balance" class="text-sm md:text-base font-bold">$0</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Monthly Minimums</div>
+                                    <div id="total-debt-payments" class="text-sm md:text-base font-bold">$0</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">High-Interest Count</div>
+                                    <div id="high-interest-count" class="text-sm md:text-base font-bold text-crimson">0</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Debt-to-Income</div>
+                                    <div id="debt-to-income" class="text-sm md:text-base font-bold">0%</div>
+                                </div>
+                            </div>
+                            
+                            <!-- NEW: Total Years to Payoff -->
+                            <div class="mt-4 p-3 bg-gradient-to-r from-red-900/20 to-orange-900/20 rounded border border-red-500/30">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <div class="text-xs text-gray-400 mb-1">Total Years to Payoff</div>
+                                        <div id="total-years-to-payoff" class="text-xl font-bold text-white">0 years</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-xs text-gray-300">At minimum payments</div>
+                                        <button onclick="showPricingModal()" class="mt-1 text-xs text-crimson hover:text-red-400">
+                                            <i class="fas fa-bolt mr-1"></i>Accelerate with Premium
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2016,27 +2306,26 @@
                             </button>
                         </div>
                     </div>
-					<!-- 🔥 ADD THIS RIGHT AFTER THE DEBT STRATEGY TIPS DIV -->
-<div id="debt-pain-calculator" class="mt-4 hidden">
-    <div class="bg-gradient-to-r from-red-900/30 to-red-800/20 p-4 rounded-lg border border-red-500/40">
-        <div class="flex items-center gap-3 mb-2">
-            <i class="fas fa-fire text-red-400 text-xl"></i>
-            <h4 class="font-bold text-lg">🔥 This Debt is Costing You Real Money</h4>
-        </div>
-        <div class="text-sm">
-            <p class="mb-2">At minimum payments, you'll pay <span id="total-interest-cost" class="font-bold text-red-300">$0</span> in interest alone.</p>
-            <div class="flex items-center gap-2 text-xs text-gray-300">
-                <i class="fas fa-lightbulb"></i>
-                <span>Premium shows exactly how to save <span id="premium-savings" class="font-bold text-green-300">$0</span> on interest</span>
-            </div>
-        </div>
-        <button onclick="showPricingModal()" class="w-full mt-3 bg-gradient-to-r from-red-700 to-red-800 hover:from-red-600 hover:to-red-700 text-white py-2 rounded font-bold transition">
-            <i class="fas fa-bolt mr-2"></i>Show Me How to Save Money
-        </button>
-    </div>
-</div>
 					
-					
+					<!-- Debt Pain Calculator -->
+					<div id="debt-pain-calculator" class="mt-4 hidden">
+						<div class="bg-gradient-to-r from-red-900/30 to-red-800/20 p-4 rounded-lg border border-red-500/40">
+							<div class="flex items-center gap-3 mb-2">
+								<i class="fas fa-fire text-red-400 text-xl"></i>
+								<h4 class="font-bold text-lg">🔥 This Debt is Costing You Real Money</h4>
+							</div>
+							<div class="text-sm">
+								<p class="mb-2">At minimum payments, you'll pay <span id="total-interest-cost" class="font-bold text-red-300">$0</span> in interest alone.</p>
+								<div class="flex items-center gap-2 text-xs text-gray-300">
+									<i class="fas fa-lightbulb"></i>
+									<span>Premium shows exactly how to save <span id="premium-savings" class="font-bold text-green-300">$0</span> on interest</span>
+								</div>
+							</div>
+							<button onclick="showPricingModal()" class="w-full mt-3 bg-gradient-to-r from-red-700 to-red-800 hover:from-red-600 hover:to-red-700 text-white py-2 rounded font-bold transition">
+								<i class="fas fa-bolt mr-2"></i>Show Me How to Save Money
+							</button>
+						</div>
+					</div>
                 </div>
 
                 <!-- 03. Enhanced Budget (WITHOUT PROGRESS INDICATORS - MOVED TO SIDEBAR) -->
@@ -3579,6 +3868,141 @@ function getYearsToPayoffClass(years) {
             }
             
             updateDebtStrategyTip();
+        }
+
+        // ===== ENHANCED DEBT ENTRY FLOW FUNCTIONS =====
+        function showDebtForm() {
+            // Hide the initial choice
+            document.getElementById('debt-entry-flow').style.display = 'none';
+            document.getElementById('debt-free-celebration').classList.add('hidden');
+            
+            // Show the form and table
+            document.getElementById('debt-form-simple').classList.remove('hidden');
+            document.getElementById('debt-table-container').classList.remove('hidden');
+            
+            // Add a subtle animation
+            setTimeout(() => {
+                document.getElementById('debt-form-simple').style.opacity = '1';
+            }, 50);
+        }
+        
+        function skipDebtEntry() {
+            // Hide the initial choice
+            document.getElementById('debt-entry-flow').style.display = 'none';
+            
+            // Show celebration
+            const celebration = document.getElementById('debt-free-celebration');
+            celebration.classList.remove('hidden');
+            
+            // Trigger confetti-like effect with toast
+            showToast('🎉 Congratulations on being debt-free!');
+            
+            // Store debt-free status
+            localStorage.setItem('raf_debt_free', 'true');
+        }
+        
+        function continueWithoutDebt() {
+            // Hide celebration and show a congratulatory message
+            document.getElementById('debt-free-celebration').classList.add('hidden');
+            showToast('Keep up the great work! Focus on building wealth 💪');
+            
+            // Optionally scroll to next section
+            const budgetSection = document.getElementById('budget-section');
+            if (budgetSection) {
+                budgetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        function returnToDebtChoice() {
+            // Hide celebration
+            document.getElementById('debt-free-celebration').classList.add('hidden');
+            
+            // Show the form directly (skip the yes/no choice since they already said they have debt)
+            document.getElementById('debt-form-simple').classList.remove('hidden');
+            document.getElementById('debt-table-container').classList.remove('hidden');
+            
+            showToast('No problem! Let\'s add your debt information');
+            
+            // Remove debt-free status
+            localStorage.removeItem('raf_debt_free');
+        }
+        
+        function cancelDebtEntry() {
+            // Hide form and table
+            document.getElementById('debt-form-simple').classList.add('hidden');
+            
+            // Check if they have any debt already entered
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            
+            if (debtRows.length === 0) {
+                // No debt entered, return to initial choice
+                document.getElementById('debt-entry-flow').style.display = 'block';
+                document.getElementById('debt-table-container').classList.add('hidden');
+            } else {
+                // They have debt, just hide the form but keep table visible
+                showToast('Form cancelled');
+            }
+        }
+        
+        function addSimpleDebt() {
+            const type = document.getElementById('simple-debt-type').value;
+            const balance = parseCurrency(document.getElementById('simple-debt-balance').value);
+            const payment = parseCurrency(document.getElementById('simple-debt-payment').value);
+            const rate = parseFloat(document.getElementById('simple-debt-rate').value) || 0;
+            
+            // Validation
+            if (balance <= 0) {
+                showToast('⚠️ Please enter a valid debt balance');
+                document.getElementById('simple-debt-balance').focus();
+                return;
+            }
+            
+            if (payment <= 0) {
+                showToast('⚠️ Please enter a valid monthly payment');
+                document.getElementById('simple-debt-payment').focus();
+                return;
+            }
+            
+            if (rate < 0 || rate > 100) {
+                showToast('⚠️ Please enter a valid interest rate (0-100%)');
+                document.getElementById('simple-debt-rate').focus();
+                return;
+            }
+            
+            // Add debt using existing function
+            addDebtRowWithData({
+                type: type,
+                balance: balance,
+                payment: payment,
+                rate: rate
+            });
+            
+            // Clear form
+            document.getElementById('simple-debt-balance').value = '';
+            document.getElementById('simple-debt-payment').value = '';
+            document.getElementById('simple-debt-rate').value = '';
+            
+            // Reset type to credit card (most common)
+            document.getElementById('simple-debt-type').value = 'credit_card';
+            
+            // Show success message with encouragement
+            showToast('✅ Debt added! Great job tracking your finances');
+            
+            // Store initial debt if not already stored
+            if (!localStorage.getItem('raf_initial_debt')) {
+                localStorage.setItem('raf_initial_debt', balance);
+            }
+            
+            // Remove debt-free status if it was set
+            localStorage.removeItem('raf_debt_free');
+            
+            // Scroll to the debt table so they can see what they added
+            setTimeout(() => {
+                const debtTable = document.querySelector('.debt-table-container');
+                if (debtTable) {
+                    debtTable.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }, 300);
         }
 
         function addDebtRowWithData(debtData, index) {
@@ -5979,8 +6403,8 @@ function updatePremiumTeaser() {
             // Initialize budget categories
             initializeBudgetCategories();
             
-            // Add initial debt row
-            addDebtRow();
+            // Don't add initial debt row - let the entry flow handle it
+            // addDebtRow(); // Removed - now using debt entry flow
             
             // Load saved data
             setTimeout(() => {
