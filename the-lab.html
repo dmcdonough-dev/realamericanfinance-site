@@ -2449,14 +2449,18 @@
                             </div>
                         </div>
                         
-                        <div class="flex justify-between items-center flex-wrap gap-3">
-                            <button onclick="addSimpleDebt()" class="upgrade-btn" aria-label="Add this debt">
-                                <i class="fas fa-plus mr-2"></i>Add This Debt
-                            </button>
-                            <button onclick="cancelDebtEntry()" class="text-gray-400 hover:text-white transition" aria-label="Cancel debt entry">
-                                <i class="fas fa-times mr-2"></i>Cancel
-                            </button>
-                        </div>
+<div class="mt-8 flex flex-col items-center">
+    
+    <button onclick="addSimpleDebt()" class="upgrade-btn w-full max-w-[300px] py-4 text-lg shadow-xl shadow-crimson/20">
+        <i class="fas fa-plus mr-2"></i>ADD THIS DEBT
+    </button>
+
+    <button onclick="cancelDebtEntry()" class="mt-4 text-xs text-gray-500 hover:text-white transition uppercase tracking-widest">
+        <i class="fas fa-arrow-left mr-1"></i> Go Back to Choice
+    </button>
+
+    <div class="w-full h-px bg-white/10 mt-8 mb-4"></div>
+</div>
                     </div>
                     
                     <!-- UNIFIED RESPONSIVE DEBT TABLE (Initially Hidden) -->
@@ -4227,20 +4231,23 @@
         }
 
         // ===== ENHANCED DEBT ENTRY FLOW FUNCTIONS =====
-        function showDebtForm() {
-            // Hide the initial choice
-            document.getElementById('debt-entry-flow').style.display = 'none';
-            document.getElementById('debt-free-celebration').classList.add('hidden');
-            
-            // Show the form and table
-            document.getElementById('debt-form-simple').classList.remove('hidden');
-            document.getElementById('debt-table-container').classList.remove('hidden');
-            
-            // Add a subtle animation
-            setTimeout(() => {
-                document.getElementById('debt-form-simple').style.opacity = '1';
-            }, 50);
-        }
+function showDebtForm() {
+    // Hide the initial choice
+    document.getElementById('debt-entry-flow').style.display = 'none';
+    document.getElementById('debt-free-celebration').classList.add('hidden');
+    
+    // Show the form and table
+    document.getElementById('debt-form-simple').classList.remove('hidden');
+    document.getElementById('debt-table-container').classList.remove('hidden');
+
+    // ADD THIS LINE: It clears any auto-generated rows
+    document.getElementById('debt-body').innerHTML = ''; 
+    
+    // Add a subtle animation
+    setTimeout(() => {
+        document.getElementById('debt-form-simple').style.opacity = '1';
+    }, 50);
+}
         
         function skipDebtEntry() {
             // Hide the initial choice
@@ -4319,8 +4326,8 @@
                 return;
             }
             
-            if (rate < 0 || rate > 100) {
-                showToast('⚠️ Please enter a valid interest rate (0-100%)');
+            if (rate < 0 || rate > 300) {
+                showToast('⚠️ Please enter a valid interest rate (0-300%)');
                 document.getElementById('simple-debt-rate').focus();
                 return;
             }
@@ -4434,9 +4441,10 @@
                     <div class="years-to-payoff">--</div>
                 </td>
                 <td class="text-right">
-                    <button onclick="removeDebtRow('${rowId}')" class="hover:text-crimson transition text-lg touch-target" aria-label="Remove debt">
-                        ×
-                    </button>
+               <button onclick="removeDebtRow('${rowId}')" class="text-gray-500 hover:text-red-500 transition-colors text-lg touch-target" aria-label="Remove debt">
+    <i class="fas fa-trash-can"></i>
+</button>
+				 
                 </td>
             `;
             
