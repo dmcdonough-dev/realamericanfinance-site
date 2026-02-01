@@ -6,8 +6,6 @@
     <title>The Lab | Real American Finance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Add SortableJS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -475,7 +473,9 @@
             opacity: 0.6 !important;
         }
         
-        /* Debt Entry Flow Styles */
+        /* ===== S-TIER DEBT SECTION STYLES ===== */
+        
+        /* Debt Entry Flow */
         .debt-entry-flow {
             padding: 32px;
             background: rgba(10, 26, 47, 0.5);
@@ -554,6 +554,249 @@
             border-color: #86EFAC;
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        /* Quick Add Presets */
+        .quick-add-presets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .preset-card {
+            background: rgba(10, 26, 47, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+        
+        .preset-card:hover {
+            border-color: #3B82F6;
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+        }
+        
+        .preset-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .preset-title {
+            font-weight: bold;
+            font-size: 0.875rem;
+            margin-bottom: 4px;
+        }
+        
+        .preset-details {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+        
+        /* Real-time Interest Tracker */
+        .interest-tracker {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05));
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            animation: pulse-border 2s infinite;
+        }
+        
+        @keyframes pulse-border {
+            0%, 100% {
+                border-color: rgba(239, 68, 68, 0.3);
+            }
+            50% {
+                border-color: rgba(239, 68, 68, 0.6);
+            }
+        }
+        
+        .interest-amount {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #EF4444;
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+        }
+        
+        .interest-comparison {
+            font-size: 0.875rem;
+            color: #9ca3af;
+            margin-top: 8px;
+        }
+        
+        /* Debt Progress Bar */
+        .debt-progress-container {
+            background: rgba(10, 26, 47, 0.5);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .progress-bar-wrapper {
+            position: relative;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #EF4444, #F59E0B, #10B981);
+            border-radius: 15px;
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .progress-milestone {
+            position: absolute;
+            top: -25px;
+            transform: translateX(-50%);
+            font-size: 1.25rem;
+            animation: bounce-milestone 1s ease infinite;
+        }
+        
+        @keyframes bounce-milestone {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+        
+        /* Strategy Preview Cards */
+        .strategy-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .strategy-card {
+            background: rgba(10, 26, 47, 0.5);
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .strategy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+        }
+        
+        .strategy-card:hover {
+            border-color: #3B82F6;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+        
+        .strategy-savings {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: #10B981;
+            margin: 8px 0;
+        }
+        
+        .strategy-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: bold;
+            color: #3B82F6;
+        }
+        
+        .premium-blur {
+            filter: blur(4px);
+            pointer-events: none;
+        }
+        
+        .unlock-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(2px);
+        }
+        
+        /* Comparison Badge */
+        .comparison-badge {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2));
+            border: 2px solid rgba(59, 130, 246, 0.4);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            margin-top: 16px;
+        }
+        
+        .comparison-stat {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Smart Warning Styles */
+        .debt-warning {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(185, 28, 28, 0.1));
+            border: 2px solid #EF4444;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 12px;
+            animation: warning-pulse 2s infinite;
+        }
+        
+        @keyframes warning-pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+        }
+        
+        .debt-warning-icon {
+            font-size: 1.5rem;
+            color: #EF4444;
+            animation: shake 0.5s infinite;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
         
         .debt-form-simple {
@@ -642,7 +885,7 @@
             transform: translateY(-2px);
         }
         
-        /* Progress indicator for form */
+        /* Form progress */
         .form-progress {
             display: flex;
             align-items: center;
@@ -1971,207 +2214,6 @@
 .score-component-fill.savings-rate { background: linear-gradient(90deg, #10B981, #34D399); }
 .score-component-fill.budget-control { background: linear-gradient(90deg, #F59E0B, #FBBF24); }
 .score-component-fill.retirement-progress { background: linear-gradient(90deg, #8B5CF6, #A78BFA); }
-
-        /* ===== NEW: DEBT TABLE DRAG AND DROP STYLES ===== */
-        .debt-table tbody tr.drag-over {
-            background: rgba(178, 34, 52, 0.1) !important;
-            border: 2px dashed #B22234;
-        }
-        
-        .debt-table tbody tr.sortable-ghost {
-            opacity: 0.4;
-            background: rgba(178, 34, 52, 0.05);
-        }
-        
-        .debt-table tbody tr.sortable-chosen {
-            background: rgba(178, 34, 52, 0.1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        
-        .debt-drag-handle {
-            cursor: move;
-            color: #9ca3af;
-            padding: 0 8px;
-            font-size: 0.875rem;
-        }
-        
-        .debt-drag-handle:hover {
-            color: #B22234;
-        }
-        
-        /* ===== NEW: BADGES SECTION STYLES ===== */
-        .badge-container {
-            background: rgba(10, 26, 47, 0.7);
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .badge-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px;
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            margin-bottom: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .badge-item.earned {
-            background: rgba(16, 185, 129, 0.1);
-            border-left: 3px solid #10B981;
-        }
-        
-        .badge-item.locked {
-            opacity: 0.6;
-            filter: grayscale(0.7);
-        }
-        
-        .badge-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.875rem;
-            flex-shrink: 0;
-        }
-        
-        .badge-details {
-            flex: 1;
-        }
-        
-        .badge-title {
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-        
-        .badge-description {
-            font-size: 0.65rem;
-            color: #9ca3af;
-        }
-        
-        /* ===== NEW: ONBOARDING MODAL STYLES ===== */
-        .onboarding-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 10002;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .onboarding-modal.active {
-            display: flex;
-            opacity: 1;
-        }
-        
-        .onboarding-content {
-            background: linear-gradient(135deg, #0A1A2F, #11243F);
-            border: 2px solid #B22234;
-            border-radius: 16px;
-            max-width: 800px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 2rem;
-            position: relative;
-        }
-        
-        .onboarding-step {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 16px;
-            margin-bottom: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            border-left: 4px solid #B22234;
-        }
-        
-        .onboarding-step-number {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #B22234;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.125rem;
-            flex-shrink: 0;
-        }
-        
-        /* ===== NEW: BASIC SCENARIO TEASER STYLES ===== */
-        .basic-scenario-teaser {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 8px;
-            padding: 16px;
-            margin-top: 16px;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .last-saved-time {
-            font-size: 0.7rem;
-            color: #9ca3af;
-            text-align: center;
-            margin-top: 8px;
-        }
-        
-        /* ===== NEW: RECOVERY TOAST STYLES ===== */
-        .recovery-toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #0A1A2F;
-            border: 2px solid #B22234;
-            border-radius: 8px;
-            padding: 16px;
-            z-index: 9999;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            opacity: 0;
-            transform: translate(-50%, 20px);
-            transition: all 0.3s ease;
-        }
-        
-        .recovery-toast.show {
-            opacity: 1;
-            transform: translate(-50%, 0);
-        }
-        
-        .recovery-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-        }
-        
-        .undo-debt-button {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            color: #93C5FD;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .undo-debt-button:hover {
-            background: rgba(59, 130, 246, 0.2);
-            border-color: #3B82F6;
-        }
     </style>
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson flex flex-col min-h-screen">
@@ -2187,69 +2229,13 @@
                 <span class="tier-badge tier-free">
                     <i class="fas fa-user mr-1"></i> Free Tier
                 </span>
-                <button onclick="showPricingModal()" class="upgrade-btn" aria-label="Upgrade to Premium">
+                <button onclick="showPricingModal()" class="upgrade-btn">
                     <i class="fas fa-crown mr-2"></i>Upgrade
                 </button>
                 <a href="index.html" class="font-heading text-xs tracking-[0.2em] uppercase font-bold text-gray-400 hover:text-white transition">Back to Main</a>
             </div>
         </nav>
     </header>
-
-    <!-- ONBOARDING MODAL -->
-    <div id="onboarding-modal" class="onboarding-modal">
-        <div class="onboarding-content">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-3xl font-heading font-bold uppercase">Welcome to The Lab</h2>
-                <button onclick="closeOnboardingModal()" class="text-3xl hover:text-crimson transition" aria-label="Close welcome modal">&times;</button>
-            </div>
-            
-            <p class="text-gray-300 mb-8">Your Financial Battle Station is ready. Follow these 3 steps to declare your financial sovereignty:</p>
-            
-            <div class="space-y-4 mb-8">
-                <div class="onboarding-step">
-                    <div class="onboarding-step-number">1</div>
-                    <div>
-                        <h4 class="font-bold text-lg mb-1">Enter Your Monthly Income</h4>
-                        <p class="text-gray-300 text-sm">Press '1' or scroll to the income section. This is your ammunition for the fight.</p>
-                    </div>
-                </div>
-                
-                <div class="onboarding-step">
-                    <div class="onboarding-step-number">2</div>
-                    <div>
-                        <h4 class="font-bold text-lg mb-1">Reconnaissance Debts</h4>
-                        <p class="text-gray-300 text-sm">Press '2' to map your liabilities. Know what you owe to plan your attack.</p>
-                    </div>
-                </div>
-                
-                <div class="onboarding-step">
-                    <div class="onboarding-step-number">3</div>
-                    <div>
-                        <h4 class="font-bold text-lg mb-1">Build Your Battle Budget</h4>
-                        <p class="text-gray-300 text-sm">Press '3' to allocate resources. Needs first, wants controlled, savings automated.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mb-8 p-4 bg-navy-900/50 rounded border border-white/10">
-                <h4 class="font-bold mb-2">Quick Video Tutorial</h4>
-                <div class="aspect-video bg-black/50 rounded flex items-center justify-center">
-                    <div class="text-center">
-                        <i class="fas fa-play-circle text-4xl text-crimson mb-2"></i>
-                        <p class="text-sm text-gray-400">Video tutorial coming soon</p>
-                        <a href="#" class="text-xs text-blue-400 hover:text-blue-300">View on YouTube →</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="flex justify-between items-center">
-                <a href="#" onclick="closeOnboardingModal()" class="text-gray-400 hover:text-white transition">Skip this message</a>
-                <button onclick="closeOnboardingModal()" class="upgrade-btn">
-                    <i class="fas fa-flag mr-2"></i>Got It - Let's Begin
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- SIMPLIFIED HERO SECTION -->
     <section class="hero-bg pt-24 pb-8 text-center px-6">
@@ -2272,7 +2258,7 @@
                 <h3 class="text-sm font-bold uppercase tracking-wider">
                     <i class="fas fa-lightbulb mr-2"></i>Daily Financial Tip
                 </h3>
-                <button onclick="nextTip()" class="text-xs text-blue-400 hover:text-blue-300 touch-target" aria-label="Next tip">
+                <button onclick="nextTip()" class="text-xs text-blue-400 hover:text-blue-300 touch-target">
                     <i class="fas fa-forward"></i>
                 </button>
             </div>
@@ -2291,7 +2277,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
                     <i class="fas fa-info-circle text-blue-400"></i>
-                    <span>You're using the Free Tier. <button onclick="showPricingModal()" class="text-blue-300 hover:text-blue-200 ml-1" aria-label="Upgrade to Premium">Upgrade</button> for advanced features.</span>
+                    <span>You're using the Free Tier. <button onclick="showPricingModal()" class="text-blue-300 hover:text-blue-200 ml-1">Upgrade</button> for advanced features.</span>
                 </div>
             </div>
         </div>
@@ -2344,7 +2330,7 @@
                     </div>
                 </div>
 
-                <!-- 02. Debt Reconnaissance (ENHANCED) - WITH IMPROVED ENTRY FLOW -->
+                <!-- 02. Debt Reconnaissance (S-TIER COMPLETE) -->
                 <div class="dashboard-card p-4 md:p-6 lg:p-8 shadow-2xl" id="debt-section">
                     <div class="flex justify-between items-center mb-4 md:mb-6">
                         <h3 class="text-lg md:text-xl font-heading font-bold uppercase border-l-2 border-crimson pl-3 md:pl-4">
@@ -2358,16 +2344,16 @@
                         </div>
                     </div>
                     
-                    <!-- NEW: Debt Entry Flow -->
+                    <!-- DEBT ENTRY FLOW -->
                     <div id="debt-entry-flow" class="debt-entry-flow">
-                        <h4 class="text-xl font-bold mb-4">Declare Your Independence from Debt</h4>
-                        <p class="text-gray-300 mb-6">Every great American story starts with paying off what's owed and claiming what's yours. Map your debts, prioritize the fight, and push toward real freedom.<br></p>
+                        <h4 class="text-xl font-bold mb-4">Let's Talk About Debt</h4>
+                        <p class="text-gray-300 mb-6">Understanding your debt is the first step to financial freedom.<br>Do you currently have any debt?</p>
                         
                         <div class="debt-yes-no-buttons">
-                            <button onclick="showDebtForm()" class="debt-yes-btn" aria-label="Yes, I have debt">
+                            <button onclick="showDebtForm()" class="debt-yes-btn">
                                 <i class="fas fa-exclamation-triangle mr-2"></i>Yes, I Have Debt
                             </button>
-                            <button onclick="skipDebtEntry()" class="debt-no-btn" aria-label="No, I'm debt-free">
+                            <button onclick="skipDebtEntry()" class="debt-no-btn">
                                 <i class="fas fa-check-circle mr-2"></i>No, I'm Debt-Free
                             </button>
                         </div>
@@ -2378,29 +2364,65 @@
                         </div>
                     </div>
                     
-                    <!-- NEW: Debt-Free Celebration -->
+                    <!-- DEBT-FREE CELEBRATION -->
                     <div id="debt-free-celebration" class="debt-free-celebration hidden">
                         <div class="celebration-icon">🎉</div>
                         <h4 class="celebration-title">Congratulations! You're Debt-Free!</h4>
                         <p class="celebration-message">
-                            Paid in full. Freedom earned.<br>
-                            Stack your emergency fund, invest hard for retirement, grow your assets.<br> Forge the American Dream one disciplined strike at a time.
+                            Being debt-free is a huge accomplishment. You're in a fantastic position to build wealth.<br>
+                            <strong>Focus on:</strong> Building your emergency fund, investing for retirement, and growing your assets.
                         </p>
+                        
+                        <!-- Comparison Badge -->
+                        <div class="comparison-badge">
+                            <div class="text-xs uppercase tracking-wider mb-2">You're Better Than</div>
+                            <div class="comparison-stat">64%</div>
+                            <div class="text-sm text-gray-400">of Americans (who average $38,000 in debt)</div>
+                        </div>
+                        
                         <div class="flex flex-col sm:flex-row gap-3 justify-center mt-6">
-                            <button onclick="continueWithoutDebt()" class="upgrade-btn" aria-label="Continue building wealth">
+                            <button onclick="continueWithoutDebt()" class="upgrade-btn">
                                 <i class="fas fa-arrow-right mr-2"></i>Continue Building Wealth
                             </button>
-                            <button onclick="returnToDebtChoice()" class="oops-button" aria-label="Wait, I actually have debt">
+                            <button onclick="returnToDebtChoice()" class="oops-button">
                                 <i class="fas fa-undo mr-2"></i>Wait, I Actually Have Debt
                             </button>
                         </div>
                     </div>
                     
-                    <!-- Simple Debt Form (Initially Hidden) -->
+                    <!-- QUICK ADD PRESETS -->
+                    <div id="quick-add-presets" class="quick-add-presets hidden">
+                        <div class="preset-card" onclick="usePreset('credit_card', 5000, 150, 19.99)">
+                            <div class="preset-icon">💳</div>
+                            <div class="preset-title">Credit Card</div>
+                            <div class="preset-details">$5,000 @ 19.99% APR</div>
+                        </div>
+                        <div class="preset-card" onclick="usePreset('student_loan', 35000, 400, 6.8)">
+                            <div class="preset-icon">🎓</div>
+                            <div class="preset-title">Student Loan</div>
+                            <div class="preset-details">$35,000 @ 6.8% APR</div>
+                        </div>
+                        <div class="preset-card" onclick="usePreset('auto_loan', 25000, 450, 5.5)">
+                            <div class="preset-icon">🚗</div>
+                            <div class="preset-title">Car Loan</div>
+                            <div class="preset-details">$25,000 @ 5.5% APR</div>
+                        </div>
+                        <div class="preset-card" onclick="usePreset('personal_loan', 10000, 300, 12.5)">
+                            <div class="preset-icon">💰</div>
+                            <div class="preset-title">Personal Loan</div>
+                            <div class="preset-details">$10,000 @ 12.5% APR</div>
+                        </div>
+                    </div>
+                    
+                    <!-- SIMPLE DEBT FORM -->
                     <div id="debt-form-simple" class="debt-form-simple hidden">
                         <div class="form-progress">
                             <i class="fas fa-clipboard-list"></i>
-                            <span class="form-progress-text">Adding your first debt - we'll calculate payoff strategies automatically</span>
+                            <span class="form-progress-text">Adding your debt - we'll calculate payoff strategies automatically</span>
+                        </div>
+                        
+                        <div class="text-sm text-gray-400 mb-4">
+                            <strong>💡 Quick Tip:</strong> Try a preset below or enter manually
                         </div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -2408,7 +2430,7 @@
                                 <label class="block text-sm mb-2 font-semibold">
                                     <i class="fas fa-tag mr-1 text-gray-400"></i>Debt Type
                                 </label>
-                                <select id="simple-debt-type" class="input-underlined p-3 w-full bg-navy-900" aria-label="Select debt type">
+                                <select id="simple-debt-type" class="input-underlined p-3 w-full bg-navy-900">
                                     <option value="credit_card">💳 Credit Card</option>
                                     <option value="student_loan">🎓 Student Loan</option>
                                     <option value="auto_loan">🚗 Car Loan</option>
@@ -2422,7 +2444,7 @@
                                 <label class="block text-sm mb-2 font-semibold">
                                     <i class="fas fa-percentage mr-1 text-gray-400"></i>Interest Rate (%)
                                 </label>
-                                <input type="number" step="0.1" id="simple-debt-rate" class="input-underlined p-3 w-full" placeholder="15.5" aria-label="Interest rate percentage">
+                                <input type="number" step="0.1" id="simple-debt-rate" oninput="updateLiveInterest()" class="input-underlined p-3 w-full" placeholder="15.5">
                                 <div class="text-xs text-gray-500 mt-1">Find this on your statement</div>
                             </div>
                         </div>
@@ -2433,7 +2455,7 @@
                                     <i class="fas fa-dollar-sign mr-1 text-gray-400"></i>Current Balance
                                 </label>
                                 <div class="currency-input-container">
-                                    <input type="text" id="simple-debt-balance" oninput="formatCurrencyInput(this)" class="input-underlined p-3 w-full" placeholder="5,000" aria-label="Current debt balance">
+                                    <input type="text" id="simple-debt-balance" oninput="formatCurrencyInput(this); updateLiveInterest()" class="input-underlined p-3 w-full" placeholder="5,000">
                                 </div>
                                 <div class="text-xs text-gray-500 mt-1">Total amount you owe</div>
                             </div>
@@ -2443,27 +2465,39 @@
                                     <i class="fas fa-calendar-alt mr-1 text-gray-400"></i>Monthly Payment
                                 </label>
                                 <div class="currency-input-container">
-                                    <input type="text" id="simple-debt-payment" oninput="formatCurrencyInput(this)" class="input-underlined p-3 w-full" placeholder="150" aria-label="Monthly minimum payment">
+                                    <input type="text" id="simple-debt-payment" oninput="formatCurrencyInput(this)" class="input-underlined p-3 w-full" placeholder="150">
                                 </div>
                                 <div class="text-xs text-gray-500 mt-1">Your minimum payment</div>
                             </div>
                         </div>
                         
-<div class="mt-8 flex flex-col items-center">
-    
-    <button onclick="addSimpleDebt()" class="upgrade-btn w-full max-w-[300px] py-4 text-lg shadow-xl shadow-crimson/20">
-        <i class="fas fa-plus mr-2"></i>ADD THIS DEBT
-    </button>
-
-    <button onclick="cancelDebtEntry()" class="mt-4 text-xs text-gray-500 hover:text-white transition uppercase tracking-widest">
-        <i class="fas fa-arrow-left mr-1"></i> Go Back to Choice
-    </button>
-
-    <div class="w-full h-px bg-white/10 mt-8 mb-4"></div>
-</div>
+                        <!-- REAL-TIME INTEREST TRACKER -->
+                        <div id="live-interest-tracker" class="interest-tracker hidden">
+                            <div class="flex items-center justify-between flex-wrap gap-4">
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">This Debt Costs You:</div>
+                                    <div class="interest-amount" id="daily-interest-cost">$0.00</div>
+                                    <div class="text-xs text-gray-400">per day</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="interest-comparison" id="interest-comparison">
+                                        That's like giving away...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center flex-wrap gap-3 mt-4">
+                            <button onclick="addSimpleDebt()" class="upgrade-btn">
+                                <i class="fas fa-plus mr-2"></i>Add This Debt
+                            </button>
+                            <button onclick="cancelDebtEntry()" class="text-gray-400 hover:text-white transition">
+                                <i class="fas fa-times mr-2"></i>Cancel
+                            </button>
+                        </div>
                     </div>
                     
-                    <!-- UNIFIED RESPONSIVE DEBT TABLE (Initially Hidden) -->
+                    <!-- DEBT TABLE CONTAINER -->
                     <div id="debt-table-container" class="hidden">
                         <!-- Debt Priority Legend -->
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
@@ -2485,12 +2519,11 @@
                             </div>
                         </div>
                         
-                        <!-- UNIFIED RESPONSIVE DEBT TABLE -->
+                        <!-- DEBT TABLE -->
                         <div class="debt-table-container">
-                            <table class="debt-table" aria-label="Debt details table">
+                            <table class="debt-table">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Type</th>
                                         <th>Balance</th>
                                         <th>Payment</th>
@@ -2506,22 +2539,73 @@
                             </table>
                         </div>
                         
-                        <!-- Years to Payoff Explanation -->
                         <div class="mt-2 text-xs text-gray-500 italic">
                             <i class="fas fa-info-circle mr-1"></i>
                             Years to Payoff calculated at minimum payment. Premium shows accelerated payoff strategies.
                         </div>
                         
-                        <div class="flex gap-3 mt-4">
-                            <button onclick="addDebtRow()" class="flex-1 bg-white/5 border border-white/10 px-4 py-3 text-xs uppercase tracking-widest hover:border-green-500 hover:text-green-300 transition touch-target" aria-label="Add another liability">
-                                <i class="fas fa-plus mr-2"></i>Add Another Liability
-                            </button>
-                            <button onclick="undoLastDebtAction()" id="undo-debt-button" class="bg-white/5 border border-white/10 px-4 py-3 text-xs uppercase tracking-widest hover:border-blue-500 hover:text-blue-300 transition touch-target hidden" aria-label="Undo last debt action">
-                                <i class="fas fa-undo mr-2"></i>Undo
-                            </button>
+                        <button onclick="addDebtRow()" class="w-full mt-4 bg-white/5 border border-white/10 px-4 py-3 text-xs uppercase tracking-widest hover:border-green-500 hover:text-green-300 transition touch-target">
+                            <i class="fas fa-plus mr-2"></i>Add Another Liability
+                        </button>
+                        
+                        <!-- DEBT PROGRESS BAR -->
+                        <div class="debt-progress-container">
+                            <div class="flex justify-between items-center mb-2">
+                                <div class="text-sm font-bold">Your Debt-Free Journey</div>
+                                <div class="text-xs text-gray-400">
+                                    <span id="progress-percentage">0%</span> Complete
+                                </div>
+                            </div>
+                            <div class="progress-bar-wrapper">
+                                <div id="debt-progress-fill" class="progress-bar-fill" style="width: 0%">
+                                    <div id="progress-milestone" class="progress-milestone" style="left: 100%">🎯</div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between text-xs text-gray-400 mt-2">
+                                <span>Started: <span id="debt-start-date">Today</span></span>
+                                <span>Target: <span id="debt-free-target">Calculate...</span></span>
+                            </div>
                         </div>
                         
-                        <!-- ENHANCED: Debt Summary with More Info -->
+                        <!-- STRATEGY PREVIEW -->
+                        <div class="mt-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="text-sm font-bold uppercase tracking-wider">Payoff Strategies Preview</h4>
+                                <span class="tier-badge tier-premium">Premium Feature</span>
+                            </div>
+                            
+                            <div class="strategy-preview">
+                                <div class="strategy-card">
+                                    <div class="premium-blur">
+                                        <div class="strategy-label">❄️ Avalanche Method</div>
+                                        <div class="strategy-savings" id="avalanche-savings">Save $4,287</div>
+                                        <div class="text-xs text-gray-400">Pay highest interest first</div>
+                                        <div class="mt-2 text-xs">Debt-free in: <strong id="avalanche-time">3.2 years</strong></div>
+                                    </div>
+                                    <div class="unlock-overlay">
+                                        <button onclick="showPricingModal()" class="upgrade-btn">
+                                            <i class="fas fa-unlock mr-2"></i>Unlock
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="strategy-card">
+                                    <div class="premium-blur">
+                                        <div class="strategy-label">⚡ Snowball Method</div>
+                                        <div class="strategy-savings" id="snowball-wins">3 Quick Wins</div>
+                                        <div class="text-xs text-gray-400">Pay smallest balance first</div>
+                                        <div class="mt-2 text-xs">Debt-free in: <strong id="snowball-time">3.7 years</strong></div>
+                                    </div>
+                                    <div class="unlock-overlay">
+                                        <button onclick="showPricingModal()" class="upgrade-btn">
+                                            <i class="fas fa-unlock mr-2"></i>Unlock
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- DEBT SUMMARY -->
                         <div class="mt-6 p-4 bg-navy-900/50 rounded border border-white/5">
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <div>
@@ -2542,7 +2626,6 @@
                                 </div>
                             </div>
                             
-                            <!-- NEW: Total Years to Payoff -->
                             <div class="mt-4 p-3 bg-gradient-to-r from-red-900/20 to-orange-900/20 rounded border border-red-500/30">
                                 <div class="flex justify-between items-center">
                                     <div>
@@ -2551,16 +2634,26 @@
                                     </div>
                                     <div class="text-right">
                                         <div class="text-xs text-gray-300">At minimum payments</div>
-                                        <button onclick="showPricingModal()" class="mt-1 text-xs text-crimson hover:text-red-400" aria-label="Accelerate payoff with Premium">
+                                        <button onclick="showPricingModal()" class="mt-1 text-xs text-crimson hover:text-red-400">
                                             <i class="fas fa-bolt mr-1"></i>Accelerate with Premium
                                         </button>
                                     </div>
                                 </div>
                             </div>
+                            
+                            <!-- COMPARISON BADGE -->
+                            <div class="comparison-badge mt-4">
+                                <div class="text-xs uppercase tracking-wider mb-2">Your Debt vs Average</div>
+                                <div class="comparison-stat" id="comparison-percentage">...</div>
+                                <div class="text-sm text-gray-400" id="comparison-message">Add debt to see where you stand</div>
+                            </div>
                         </div>
+                        
+                        <!-- SMART WARNINGS -->
+                        <div id="debt-warnings-container"></div>
                     </div>
                     
-                    <!-- NEW: Debt Strategy Tips -->
+                    <!-- DEBT STRATEGY TIPS -->
                     <div id="debt-strategy-tips" class="mt-4 p-3 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded border border-blue-500/30 hidden">
                         <div class="flex items-start gap-3">
                             <i class="fas fa-lightbulb text-blue-400 mt-1"></i>
@@ -2570,33 +2663,12 @@
                                     Enter your debt details to see personalized strategy tips
                                 </div>
                             </div>
-                            <button onclick="refreshStrategyTip()" class="text-xs text-blue-400 hover:text-blue-300 touch-target" aria-label="Refresh strategy tip">
+                            <button onclick="refreshStrategyTip()" class="text-xs text-blue-400 hover:text-blue-300">
                                 <i class="fas fa-sync-alt"></i>
                             </button>
                         </div>
                     </div>
-                    
-                    <!-- Debt Pain Calculator -->
-                    <div id="debt-pain-calculator" class="mt-4 hidden">
-                        <div class="bg-gradient-to-r from-red-900/30 to-red-800/20 p-4 rounded-lg border border-red-500/40">
-                            <div class="flex items-center gap-3 mb-2">
-                                <i class="fas fa-fire text-red-400 text-xl"></i>
-                                <h4 class="font-bold text-lg">🔥 This Debt is Costing You Real Money</h4>
-                            </div>
-                            <div class="text-sm">
-                                <p class="mb-2">At minimum payments, you'll pay <span id="total-interest-cost" class="font-bold text-red-300">$0</span> in interest alone.</p>
-                                <div class="flex items-center gap-2 text-xs text-gray-300">
-                                    <i class="fas fa-lightbulb"></i>
-                                    <span>Premium shows exactly how to save <span id="premium-savings" class="font-bold text-green-300">$0</span> on interest</span>
-                                </div>
-                            </div>
-                            <button onclick="showPricingModal()" class="w-full mt-3 bg-gradient-to-r from-red-700 to-red-800 hover:from-red-600 hover:to-red-700 text-white py-2 rounded font-bold transition" aria-label="Show me how to save money">
-                                <i class="fas fa-bolt mr-2"></i>Show Me How to Save Money
-                            </button>
-                        </div>
-                    </div>
                 </div>
-
                 <!-- 03. Enhanced Budget (WITHOUT PROGRESS INDICATORS - MOVED TO SIDEBAR) -->
                 <div class="dashboard-card p-4 md:p-6 lg:p-8 shadow-2xl" id="budget-section">
                     <div class="flex justify-between items-center mb-4 md:mb-6">
@@ -2616,7 +2688,7 @@
                             <span class="war-mode-label">WAR MODE</span>
                         </div>
                         <label class="war-mode-toggle-switch">
-                            <input type="checkbox" id="warModeToggle" onchange="toggleWarMode()" aria-label="Toggle War Mode">
+                            <input type="checkbox" id="warModeToggle" onchange="toggleWarMode()">
                             <span class="war-mode-toggle-slider"></span>
                         </label>
                         <div class="text-xs text-gray-400 flex-1 text-right">
@@ -2664,8 +2736,8 @@
         <p class="text-sm text-gray-300 mb-4 max-w-md mx-auto">
             See your financial future based on current income and expenses. Project emergency fund growth and debt payoff timelines.
         </p>
-        <button onclick="showPricingModal()" class="upgrade-btn" style="background: linear-gradient(135deg, #10B981, #059669);" aria-label="Unlock Cash Flow Projection">
-            <i class="fas fa-unlock mr-2"></i>Unlock for $9.99/mo
+        <button onclick="showPricingModal()" class="upgrade-btn" style="background: linear-gradient(135deg, #10B981, #059669);">
+            <i class="fas fa-unlock mr-2"></i>Unlock for $19.99/mo
         </button>
     </div>
     
@@ -2719,8 +2791,8 @@
         <p class="text-sm text-gray-300 mb-4 max-w-md mx-auto">
             Run "what-if" scenarios: job loss, emergency expenses, income changes, and mortgage acceleration strategies.
         </p>
-        <button onclick="showPricingModal()" class="upgrade-btn" aria-label="Unlock Scenario Planning">
-            <i class="fas fa-unlock mr-2"></i>Unlock for $9.99/mo
+        <button onclick="showPricingModal()" class="upgrade-btn">
+            <i class="fas fa-unlock mr-2"></i>Unlock for $19.99/mo
         </button>
     </div>
     
@@ -2778,8 +2850,8 @@
         <p class="text-sm text-gray-300 mb-4 max-w-md mx-auto">
             See how retirement contributions, HSAs, and deductions reduce your tax bill. Get personalized tax savings recommendations.
         </p>
-        <button onclick="showPricingModal()" class="upgrade-btn" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8);" aria-label="Unlock Tax Optimization">
-            <i class="fas fa-unlock mr-2"></i>Unlock for $9.99/mo
+        <button onclick="showPricingModal()" class="upgrade-btn" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8);">
+            <i class="fas fa-unlock mr-2"></i>Unlock for $19.99/mo
         </button>
     </div>
     
@@ -2833,8 +2905,8 @@
                         <p class="text-sm text-gray-300 mb-4 max-w-md mx-auto">
                             AI-powered debt optimization, investment portfolio tracking, real estate analysis, tax optimization, and advanced financial reporting.
                         </p>
-                        <button onclick="showPricingModal()" class="upgrade-btn" style="background: linear-gradient(135deg, #9333ea, #6b21a8);" aria-label="Unlock Mastery Suite">
-                            <i class="fas fa-crown mr-2"></i>Unlock for $29.99/mo
+                        <button onclick="showPricingModal()" class="upgrade-btn" style="background: linear-gradient(135deg, #9333ea, #6b21a8);">
+                            <i class="fas fa-crown mr-2"></i>Unlock for $49.99/mo
                         </button>
                     </div>
                     
@@ -2897,7 +2969,7 @@
                 <!-- Chart Container -->
                 <div class="dashboard-card p-4 md:p-6 mb-6 shadow-2xl border-white/10">
                     <div class="relative w-full mb-4 md:mb-6">
-                        <canvas id="budgetChart" width="400" height="400" aria-label="Budget allocation chart"></canvas>
+                        <canvas id="budgetChart" width="400" height="400"></canvas>
                         <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
                             <!-- CHANGED: Now shows "Monthly Deficit" when in deficit -->
                             <span id="center-label" class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mb-1 md:mb-2">Monthly Surplus</span>
@@ -2924,47 +2996,10 @@
                         </div>
                     </div>
                     
-                    <!-- NEW: YOUR BADGES SECTION -->
-                    <div class="badge-container mt-6">
-                        <h4 class="text-sm font-bold uppercase tracking-wider mb-3">
-                            <i class="fas fa-medal mr-2 text-yellow-400"></i>Your Badges
-                        </h4>
-                        
-                        <div id="badge-debt-slayer" class="badge-item locked">
-                            <div class="badge-icon bg-red-900/30 text-red-400">
-                                <i class="fas fa-skull-crossbones"></i>
-                            </div>
-                            <div class="badge-details">
-                                <div class="badge-title">Debt Slayer</div>
-                                <div class="badge-description">No debt with interest rate > 10%</div>
-                            </div>
-                        </div>
-                        
-                        <div id="badge-emergency-builder" class="badge-item locked">
-                            <div class="badge-icon bg-blue-900/30 text-blue-400">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <div class="badge-details">
-                                <div class="badge-title">Emergency Builder</div>
-                                <div class="badge-description">Emergency fund ≥ 3 months essentials</div>
-                            </div>
-                        </div>
-                        
-                        <div id="badge-sovereign-starter" class="badge-item locked">
-                            <div class="badge-icon bg-green-900/30 text-green-400">
-                                <i class="fas fa-crown"></i>
-                            </div>
-                            <div class="badge-details">
-                                <div class="badge-title">Sovereign Starter</div>
-                                <div class="badge-description">RAF Sovereign Score ≥ 60</div>
-                            </div>
-                        </div>
-                    </div>
-                    
                     <!-- UNIFIED DATA MANAGEMENT -->
                     <div class="mt-6">
                         <div class="data-management-dropdown">
-                            <button onclick="toggleDataMenu()" class="w-full bg-crimson hover:bg-red-700 border border-crimson py-3 text-sm uppercase font-bold tracking-wide transition touch-target flex items-center justify-center gap-2" aria-label="Data management options">
+                            <button onclick="toggleDataMenu()" class="w-full bg-crimson hover:bg-red-700 border border-crimson py-3 text-sm uppercase font-bold tracking-wide transition touch-target flex items-center justify-center gap-2">
                                 <i class="fas fa-database"></i>
                                 Data Management
                                 <i class="fas fa-chevron-down ml-auto text-xs"></i>
@@ -2987,7 +3022,7 @@
                                 <label class="data-management-item cursor-pointer">
                                     <i class="fas fa-file-import"></i>
                                     Import Data
-                                    <input type="file" id="import-file" accept=".json" class="hidden" onchange="handleFileImport(this)" aria-label="Import data from file">
+                                    <input type="file" id="import-file" accept=".json" class="hidden" onchange="handleFileImport(this)">
                                 </label>
                                 <div class="data-management-divider"></div>
                                 <div class="data-management-item" onclick="clearAllData()" style="color: #EF4444;">
@@ -2997,16 +3032,12 @@
                             </div>
                         </div>
                         
-                        <div class="last-saved-time" id="last-saved-time">
-                            Last saved: Never
-                        </div>
-                        
                         <div class="mt-3 grid grid-cols-2 gap-2">
-                            <button onclick="shareDashboard()" class="bg-white/5 border border-white/10 py-2 text-xs uppercase hover:border-blue-500 hover:text-blue-300 transition touch-target flex items-center justify-center gap-2" aria-label="Share dashboard">
+                            <button onclick="shareDashboard()" class="bg-white/5 border border-white/10 py-2 text-xs uppercase hover:border-blue-500 hover:text-blue-300 transition touch-target flex items-center justify-center gap-2">
                                 <i class="fas fa-share-alt"></i>
                                 Share
                             </button>
-                            <button onclick="showPricingModal()" class="bg-white/5 border border-white/10 py-2 text-xs uppercase hover:border-yellow-500 hover:text-yellow-300 transition touch-target flex items-center justify-center gap-2" aria-label="Upgrade to Premium">
+                            <button onclick="showPricingModal()" class="bg-white/5 border border-white/10 py-2 text-xs uppercase hover:border-yellow-500 hover:text-yellow-300 transition touch-target flex items-center justify-center gap-2">
                                 <i class="fas fa-crown"></i>
                                 Upgrade
                             </button>
@@ -3116,7 +3147,7 @@
                             Priority Action Engine
                             <span class="tier-badge tier-free ml-3">Free</span>
                         </h3>
-                        <button onclick="refreshNextAction()" class="text-xs bg-blue-900/30 hover:bg-blue-800/50 px-3 py-2 rounded transition touch-target" aria-label="Refresh next action">
+                        <button onclick="refreshNextAction()" class="text-xs bg-blue-900/30 hover:bg-blue-800/50 px-3 py-2 rounded transition touch-target">
                             <i class="fas fa-sync-alt mr-1"></i> Refresh
                         </button>
                     </div>
@@ -3133,7 +3164,7 @@
                                 <!-- Score components will be populated by JavaScript -->
                             </div>
                             
-                            <button onclick="toggleScoreBreakdown()" class="text-xs text-blue-400 hover:text-blue-300 mt-2 touch-target" aria-label="Show score details">
+                            <button onclick="toggleScoreBreakdown()" class="text-xs text-blue-400 hover:text-blue-300 mt-2 touch-target">
                                 <i class="fas fa-chart-bar mr-1"></i>Show Details
                             </button>
                         </div>
@@ -3195,7 +3226,7 @@
                         </div>
                     </div>
                     
-                    <button onclick="setNewGoal()" class="w-full mt-4 text-xs bg-white/5 hover:bg-white/10 border border-white/10 py-2 rounded transition touch-target" aria-label="Set new financial goal">
+                    <button onclick="setNewGoal()" class="w-full mt-4 text-xs bg-white/5 hover:bg-white/10 border border-white/10 py-2 rounded transition touch-target">
                         <i class="fas fa-plus mr-2"></i>Set New Goal
                     </button>
                 </div>
@@ -3240,7 +3271,7 @@
         </div>
     </div>
     
-    <button onclick="showPricingModal()" class="w-full bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-500 hover:to-yellow-600 text-white py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl touch-target" aria-label="Unlock Premium results">
+    <button onclick="showPricingModal()" class="w-full bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-500 hover:to-yellow-600 text-white py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl touch-target">
         <i class="fas fa-rocket mr-2"></i>Unlock Premium Results
     </button>
     
@@ -3288,7 +3319,7 @@
         <div class="pricing-content">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-3xl font-heading font-bold uppercase">Choose Your Plan</h2>
-                <button onclick="closePricingModal()" class="text-3xl hover:text-crimson transition" aria-label="Close pricing modal">&times;</button>
+                <button onclick="closePricingModal()" class="text-3xl hover:text-crimson transition">&times;</button>
             </div>
             
             <p class="text-gray-300 mb-8">Unlock the full power of The Lab and accelerate your path to financial sovereignty.</p>
@@ -3310,31 +3341,12 @@
                 <div class="pricing-card featured">
                     <div class="tier-badge tier-premium mb-4">Most Popular</div>
                     <h3 class="text-2xl font-bold">Premium</h3>
-                    <div class="price">$9.99<span class="price-period">/mo</span></div>
+                    <div class="price">$19.99<span class="price-period">/mo</span></div>
                     <p class="text-sm text-gray-400 mb-4">For serious wealth builders</p>
-                    
-                    <!-- NEW: Unlock basic scenarios form -->
-                    <div class="mb-4 p-4 bg-blue-900/20 rounded border border-blue-500/30">
-                        <h4 class="text-sm font-bold mb-2">Unlock Basic Scenarios Free</h4>
-                        <form onsubmit="unlockBasicScenario(event)" class="space-y-3">
-                            <input type="email" 
-                                   placeholder="Your email address" 
-                                   class="w-full p-2 rounded bg-navy-900 border border-white/10 text-sm"
-                                   required
-                                   aria-label="Email address to unlock basic scenarios">
-                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded text-sm font-bold transition">
-                                Unlock Basic Scenario
-                            </button>
-                        </form>
-                        <div class="text-xs text-gray-400 mt-2">
-                            <a href="#" class="text-blue-400 hover:text-blue-300">Already Premium? Login →</a>
-                        </div>
-                    </div>
-                    
                     <ul class="feature-list" id="premium-features">
                         <!-- Features populated by JavaScript -->
                     </ul>
-                    <button onclick="alert('Payment integration coming soon!')" class="w-full upgrade-btn mt-4" aria-label="Start Premium trial">
+                    <button onclick="alert('Payment integration coming soon!')" class="w-full upgrade-btn mt-4">
                         Start Premium Trial
                     </button>
                 </div>
@@ -3343,26 +3355,14 @@
                 <div class="pricing-card">
                     <div class="tier-badge tier-mastery mb-4">Elite</div>
                     <h3 class="text-2xl font-bold">Mastery</h3>
-                    <div class="price">$29.99<span class="price-period">/mo</span></div>
+                    <div class="price">$49.99<span class="price-period">/mo</span></div>
                     <p class="text-sm text-gray-400 mb-4">Complete financial sovereignty</p>
                     <ul class="feature-list" id="mastery-features">
                         <!-- Features populated by JavaScript -->
                     </ul>
-                    <button onclick="alert('Payment integration coming soon!')" class="w-full upgrade-btn mt-4" style="background: linear-gradient(135deg, #9333ea, #6b21a8);" aria-label="Start Mastery trial">
+                    <button onclick="alert('Payment integration coming soon!')" class="w-full upgrade-btn mt-4" style="background: linear-gradient(135deg, #9333ea, #6b21a8);">
                         <i class="fas fa-crown mr-2"></i>Start Mastery Trial
                     </button>
-                </div>
-            </div>
-            
-            <!-- NEW: Basic Scenario Teaser (hidden by default) -->
-            <div id="basic-scenario-teaser" class="basic-scenario-teaser hidden">
-                <div class="flex items-start gap-3">
-                    <i class="fas fa-chart-line text-green-400 mt-1"></i>
-                    <div>
-                        <h4 class="font-bold mb-1">Scenario Preview: +10% Income</h4>
-                        <p class="text-sm text-gray-300 mb-2">With a 10% income increase, you could save an additional <span class="font-bold text-green-300">$3,600/year</span> toward debt payoff or investments.</p>
-                        <p class="text-xs text-gray-400">Premium includes full scenario planning with job loss simulations, emergency expense modeling, and mortgage acceleration.</p>
-                    </div>
                 </div>
             </div>
 
@@ -3387,10 +3387,10 @@
                     © 2026 Real American Finance. Own Your Outcomes. Stay Sovereign.
                 </p>
                 <div class="flex gap-4">
-                    <button onclick="exportData()" class="text-xs text-gray-500 hover:text-white transition" aria-label="Export data">
+                    <button onclick="exportData()" class="text-xs text-gray-500 hover:text-white transition">
                         <i class="fas fa-download mr-1"></i>Export Data
                     </button>
-                    <button onclick="shareDashboard()" class="text-xs text-gray-500 hover:text-white transition" aria-label="Share dashboard">
+                    <button onclick="shareDashboard()" class="text-xs text-gray-500 hover:text-white transition">
                         <i class="fas fa-share-alt mr-1"></i>Share
                     </button>
                 </div>
@@ -3430,15 +3430,6 @@
         // War Mode state
         let isWarModeActive = false;
         let originalCategoryValues = {}; // Store original values when War Mode is activated
-        
-        // NEW: Auto-save state
-        let autoSaveTimeout;
-        let lastSaveTime = null;
-        let autoSaveEnabled = true;
-        
-        // NEW: Debt undo stack
-        let debtUndoStack = [];
-        const MAX_UNDO_STEPS = 10;
         
         // ===== UNIFIED DATA SOURCES =====
         
@@ -3497,7 +3488,7 @@
                 label: "Premium",
                 badgeClass: "tier-premium",
                 color: "#FFD700",
-                price: "$9.99",
+                price: "$19.99",
                 period: "/mo",
                 description: "For serious wealth builders",
                 featured: true
@@ -3506,7 +3497,7 @@
                 label: "Mastery",
                 badgeClass: "tier-mastery",
                 color: "#A78BFA",
-                price: "$29.99",
+                price: "$49.99",
                 period: "/mo",
                 description: "Complete financial sovereignty"
             }
@@ -3688,74 +3679,63 @@
                 totalDefault: 0
             }
         ];
-        
-        // ===== NEW: YEARS TO PAYOFF IMPROVED CALCULATION =====
-        function calculateYearsToPayoff(balance, monthlyPayment, interestRate, debtType = 'other') {
-            if (monthlyPayment <= 0 || balance <= 0) return 0;
+		
+function updateCategoryPercentage(categoryId) {
+    const categoryValue = parseCurrency(document.getElementById(categoryId)?.value || 0);
+    const monthlyIncome = getMonthlyIncome();
+    
+    if (monthlyIncome > 0 && categoryValue > 0) {
+        const percentage = (categoryValue / monthlyIncome) * 100;
+        const percentageElement = document.getElementById(`${categoryId}_percentage`);
+        if (percentageElement) {
+            percentageElement.textContent = `${percentage.toFixed(1)}%`;
             
-            const monthlyRate = (interestRate / 100) / 12;
+            // Color coding based on category type and percentage
+            const isNeed = budgetCategories.needs.some(c => c.id === categoryId);
+            const isWant = budgetCategories.wants.some(c => c.id === categoryId);
             
-            // Check if payment covers at least the interest
-            const monthlyInterest = balance * monthlyRate;
-            if (monthlyPayment <= monthlyInterest) {
-                return Infinity; // Never paid off
-            }
+            percentageElement.classList.remove('text-red-500', 'text-yellow-500', 'text-green-500', 'text-blue-400');
             
-            // IMPROVED: Different calculation for revolving vs installment debt
-            if (debtType === 'credit_card' || interestRate > 15) {
-                // Revolving debt (credit cards): simulate decreasing payments
-                return calculateRevolvingDebtPayoff(balance, monthlyPayment, monthlyRate);
-            } else {
-                // Installment debt (mortgage, auto, student loans): fixed payment formula
-                return calculateFixedPaymentPayoff(balance, monthlyPayment, monthlyRate);
-            }
-        }
-        
-        function calculateRevolvingDebtPayoff(balance, monthlyPayment, monthlyRate) {
-            // Credit card minimums are typically 1-3% of balance with a floor (~$25-35)
-            // This creates a decreasing payment schedule as balance decreases
-            let remaining = balance;
-            let months = 0;
-            const minPaymentPercentage = monthlyPayment / balance; // Calculate initial percentage
-            const minPaymentFloor = 25; // Typical credit card minimum floor
-            
-            while (remaining > 0.01 && months < 600) { // Cap at 50 years
-                const interest = remaining * monthlyRate;
-                
-                // Credit card minimum decreases as balance decreases
-                const calculatedPayment = remaining * minPaymentPercentage;
-                const payment = Math.max(calculatedPayment, minPaymentFloor);
-                
-                if (payment <= interest) {
-                    return Infinity; // Debt grows
+            if (isNeed) {
+                // For needs: red if > 15%, yellow if > 10%, green otherwise
+                if (percentage > 15) {
+                    percentageElement.classList.add('text-red-500');
+                } else if (percentage > 10) {
+                    percentageElement.classList.add('text-yellow-500');
+                } else {
+                    percentageElement.classList.add('text-green-500');
                 }
-                
-                remaining = remaining + interest - payment;
-                months++;
-                
-                // Safety check
-                if (months > 120 && remaining > balance * 0.5) {
-                    return Infinity; // Not making significant progress
+            } else if (isWant) {
+                // For wants: red if > 10%, yellow if > 5%, green otherwise
+                if (percentage > 10) {
+                    percentageElement.classList.add('text-red-500');
+                } else if (percentage > 5) {
+                    percentageElement.classList.add('text-yellow-500');
+                } else {
+                    percentageElement.classList.add('text-green-500');
                 }
             }
-            
-            return months / 12;
         }
-        
-        function calculateFixedPaymentPayoff(balance, monthlyPayment, monthlyRate) {
-            // Fixed payment loans (mortgage, auto, student loans)
-            if (monthlyRate === 0) {
-                return (balance / monthlyPayment) / 12;
-            }
-            
-            try {
-                const months = -Math.log(1 - (monthlyRate * balance) / monthlyPayment) / Math.log(1 + monthlyRate);
-                return months / 12;
-            } catch (error) {
-                // Fallback calculation
-                return (balance / monthlyPayment) / 12;
-            }
+    } else {
+        const percentageElement = document.getElementById(`${categoryId}_percentage`);
+        if (percentageElement) {
+            percentageElement.textContent = '0%';
+            percentageElement.className = 'category-percentage';
         }
+    }
+}
+
+function updateAllCategoryPercentages() {
+    // Update all needs categories
+    budgetCategories.needs.forEach(category => {
+        updateCategoryPercentage(category.id);
+    });
+    
+    // Update all wants categories
+    budgetCategories.wants.forEach(category => {
+        updateCategoryPercentage(category.id);
+    });
+}		
 
         // UPDATED: SIMPLIFIED BUDGET CATEGORIES WITH TAXES
         const budgetCategories = {
@@ -3770,7 +3750,7 @@
                 { id: 'household_essentials', label: 'Household Essentials', default: 0 },
                 { id: 'pet_care', label: 'Pet Care', default: 0 },
                 { id: 'health_insurance', label: 'Health Insurance/Medical', default: 0 },
-                { id: 'taxes', label: 'Taxes (Monthly)', default: 0 }
+                { id: 'taxes', label: 'Taxes (Monthly)', default: 0 } // NEW
             ],
             wants: [
                 { id: 'gym_membership', label: 'Gym Membership', default: 0 },
@@ -3791,6 +3771,18 @@
             60: 8,  // 8× annual income by age 60
             65: 10  // 10× annual income by age 65
         };
+
+// ===== RETIREMENT TARGET HELPER FUNCTION =====
+
+function getRetirementTargetForAge(age) {
+    const ages = [30, 35, 40, 45, 50, 55, 60, 65];
+    for (let i = 0; i < ages.length; i++) {
+        if (age <= ages[i]) {
+            return retirementTargets[ages[i]];
+        }
+    }
+    return retirementTargets[65];
+}
 
         // ===== NEW: FINANCIAL TIPS DATABASE =====
         const financialTips = [
@@ -3989,34 +3981,98 @@
             document.getElementById('premium-features').innerHTML = generateFeatureList(featureDefinitions.premium);
             document.getElementById('mastery-features').innerHTML = generateFeatureList(featureDefinitions.mastery);
             
-            // Update pricing display
-            document.querySelectorAll('.price').forEach(priceEl => {
-                if (priceEl.textContent.includes('$19.99')) {
-                    priceEl.innerHTML = '$9.99<span class="price-period">/mo</span>';
-                } else if (priceEl.textContent.includes('$49.99')) {
-                    priceEl.innerHTML = '$29.99<span class="price-period">/mo</span>';
-                }
-            });
-            
-            // Update unlock button texts
-            document.querySelectorAll('.upgrade-btn').forEach(btn => {
-                if (btn.textContent.includes('$19.99/mo')) {
-                    btn.textContent = btn.textContent.replace('$19.99/mo', '$9.99/mo');
-                } else if (btn.textContent.includes('$49.99/mo')) {
-                    btn.textContent = btn.textContent.replace('$49.99/mo', '$29.99/mo');
-                }
-            });
+            // Populate sidebar feature comparison
+            const comparisonList = document.getElementById('feature-comparison-list');
+            if (comparisonList) {
+                comparisonList.innerHTML = featureDefinitions.free.map(feature => `
+                    <li>
+                        <span>${feature.text}</span>
+                        <i class="fas ${feature.icon} ${feature.locked ? 'text-gray-500' : 'text-green-400'}"></i>
+                    </li>
+                `).join('');
+            }
         }
 
         // ===== YEARS TO PAYOFF FUNCTIONS =====
-        function getYearsToPayoffClass(years) {
-            if (years >= 100 || years === Infinity) return 'critical';
-            if (years > 1.5) return 'critical';      // > 18 months = RED
-            if (years > 0.5) return 'high';          // 6-18 months = YELLOW
-            if (years > 0.2) return 'medium';        // 2-6 months = BLUE
-            return 'low';                            // < 2 months = GREEN
+function calculateYearsToPayoff(balance, monthlyPayment, interestRate) {
+    if (monthlyPayment <= 0 || balance <= 0) return 0;
+    
+    const monthlyRate = (interestRate / 100) / 12;
+    
+    // Check if payment covers at least the interest
+    const monthlyInterest = balance * monthlyRate;
+    if (monthlyPayment <= monthlyInterest) {
+        return Infinity; // Never paid off
+    }
+    
+    // CRITICAL FIX: For high-interest debt (credit cards), assume payments decrease
+    // Credit card minimums are usually 1-3% of balance with a floor (~$35)
+    // This makes payoff take MUCH longer than fixed payment calculations
+    if (interestRate > 15) {
+        // High-interest debt: simulate decreasing payments
+        return calculateRevolvingDebtPayoff(balance, monthlyPayment, monthlyRate);
+    } else {
+        // Low-interest debt: assume fixed payments (mortgage, auto loan, student loan)
+        return calculateFixedPaymentPayoff(balance, monthlyPayment, monthlyRate);
+    }
+}
+
+// ADD THIS NEW FUNCTION RIGHT AFTER calculateYearsToPayoff:
+function calculateRevolvingDebtPayoff(balance, monthlyPayment, monthlyRate) {
+    // Simulate credit card: payment = max(percentage of balance, $35 floor)
+    let remaining = balance;
+    let months = 0;
+    const initialPaymentRate = monthlyPayment / balance; // e.g., 50/1381.58 = 0.036 (3.6%)
+    const minPaymentFloor = 35; // Typical credit card minimum
+    
+    while (remaining > 0.01 && months < 600) { // 50-year limit
+        const interest = remaining * monthlyRate;
+        
+        // Credit card minimum: decreases as balance decreases
+        const payment = Math.max(
+            remaining * initialPaymentRate,
+            minPaymentFloor
+        );
+        
+        if (payment <= interest) {
+            return Infinity; // Debt grows
         }
         
+        remaining = remaining + interest - payment;
+        months++;
+        
+        // Safety check
+        if (months > 100 && remaining > balance * 0.9) {
+            return Infinity; // Not making progress
+        }
+    }
+    
+    return months / 12;
+}
+
+// ADD THIS FUNCTION TOO (or update if you already have it):
+function calculateFixedPaymentPayoff(balance, monthlyPayment, monthlyRate) {
+    // Fixed payment loans (mortgage, auto, student loans)
+    if (monthlyRate === 0) {
+        return (balance / monthlyPayment) / 12;
+    }
+    
+    try {
+        const months = -Math.log(1 - (monthlyRate * balance) / monthlyPayment) / Math.log(1 + monthlyRate);
+        return months / 12;
+    } catch (error) {
+        return (balance / monthlyPayment) / 12;
+    }
+}        
+
+function getYearsToPayoffClass(years) {
+    if (years >= 100 || years === Infinity) return 'critical';
+    if (years > 1.5) return 'critical';      // > 18 months = RED
+    if (years > 0.5) return 'high';          // 6-18 months = YELLOW
+    if (years > 0.2) return 'medium';        // 2-6 months = BLUE
+    return 'low';                            // < 2 months = GREEN
+}
+    
         function formatYearsForDisplay(years) {
             if (years === Infinity || years >= 100) {
                 return '∞';
@@ -4032,19 +4088,17 @@
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const balanceInput = row.querySelector('td:nth-child(3) input');
-                const paymentInput = row.querySelector('td:nth-child(4) input');
-                const rateInput = row.querySelector('td:nth-child(5) input');
-                const typeSelect = row.querySelector('.debt-type-select');
+                const balanceInput = row.querySelector('td:nth-child(2) input');
+                const paymentInput = row.querySelector('td:nth-child(3) input');
+                const rateInput = row.querySelector('td:nth-child(4) input');
                 
-                if (balanceInput && paymentInput && rateInput && typeSelect) {
+                if (balanceInput && paymentInput && rateInput) {
                     const balance = parseCurrency(balanceInput.value);
                     const payment = parseCurrency(paymentInput.value);
                     const rate = parseFloat(rateInput.value) || 0;
-                    const debtType = typeSelect.value;
                     
                     if (balance > 0 && payment > 0) {
-                        const years = calculateYearsToPayoff(balance, payment, rate, debtType);
+                        const years = calculateYearsToPayoff(balance, payment, rate);
                         if (years > highestIndividualYears) {
                             highestIndividualYears = years;
                         }
@@ -4056,24 +4110,22 @@
         }
         
         function updateYearsToPayoff(row) {
-            const balanceInput = row.querySelector('td:nth-child(3) input');
-            const paymentInput = row.querySelector('td:nth-child(4) input');
-            const rateInput = row.querySelector('td:nth-child(5) input');
-            const typeSelect = row.querySelector('.debt-type-select');
-            const yearsCell = row.querySelector('td:nth-child(7)');
+            const balanceInput = row.querySelector('td:nth-child(2) input');
+            const paymentInput = row.querySelector('td:nth-child(3) input');
+            const rateInput = row.querySelector('td:nth-child(4) input');
+            const yearsCell = row.querySelector('td:nth-child(6)');
             
-            if (!balanceInput || !paymentInput || !rateInput || !yearsCell || !typeSelect) return;
+            if (!balanceInput || !paymentInput || !rateInput || !yearsCell) return;
             
             const balance = parseCurrency(balanceInput.value);
             const payment = parseCurrency(paymentInput.value);
             const rate = parseFloat(rateInput.value) || 0;
-            const debtType = typeSelect.value;
             
             let yearsText = '';
             let cssClass = '';
             
             if (balance > 0 && payment > 0) {
-                const years = calculateYearsToPayoff(balance, payment, rate, debtType);
+                const years = calculateYearsToPayoff(balance, payment, rate);
                 yearsText = formatYearsForDisplay(years);
                 cssClass = getYearsToPayoffClass(years);
                 
@@ -4149,7 +4201,7 @@
             }
             
             if (row) {
-                const priorityCell = row.querySelector('td:nth-child(6)');
+                const priorityCell = row.querySelector('td:nth-child(5)');
                 if (priorityCell) {
                     priorityCell.innerHTML = getPriorityBadge(priority, 'debt');
                 }
@@ -4159,95 +4211,23 @@
             updateDebtStrategyTip();
         }
 
-        // ===== NEW: DEBT UNDO SYSTEM =====
-        function saveDebtState() {
-            const debtBody = document.getElementById('debt-body');
-            if (!debtBody) return;
-            
-            const state = [];
-            debtBody.querySelectorAll('tr').forEach(row => {
-                const typeSelect = row.querySelector('.debt-type-select');
-                const balanceInput = row.querySelector('td:nth-child(3) input');
-                const paymentInput = row.querySelector('td:nth-child(4) input');
-                const rateInput = row.querySelector('td:nth-child(5) input');
-                
-                if (typeSelect) {
-                    state.push({
-                        type: typeSelect.value,
-                        balance: balanceInput?.value || '',
-                        payment: paymentInput?.value || '',
-                        rate: rateInput?.value || ''
-                    });
-                }
-            });
-            
-            debtUndoStack.push(state);
-            
-            // Limit stack size
-            if (debtUndoStack.length > MAX_UNDO_STEPS) {
-                debtUndoStack.shift();
-            }
-            
-            // Show/hide undo button
-            const undoButton = document.getElementById('undo-debt-button');
-            if (undoButton) {
-                if (debtUndoStack.length > 1) {
-                    undoButton.classList.remove('hidden');
-                } else {
-                    undoButton.classList.add('hidden');
-                }
-            }
-        }
+        // ===== S-TIER DEBT ENTRY FLOW FUNCTIONS =====
         
-        function undoLastDebtAction() {
-            if (debtUndoStack.length < 2) return; // Need at least current + previous state
+        function showDebtForm() {
+            // Hide the initial choice
+            document.getElementById('debt-entry-flow').style.display = 'none';
+            document.getElementById('debt-free-celebration').classList.add('hidden');
             
-            // Remove current state
-            debtUndoStack.pop();
+            // Show the form, table, and presets
+            document.getElementById('debt-form-simple').classList.remove('hidden');
+            document.getElementById('debt-table-container').classList.remove('hidden');
+            document.getElementById('quick-add-presets').classList.remove('hidden');
             
-            // Get previous state
-            const previousState = debtUndoStack[debtUndoStack.length - 1];
-            
-            // Clear current debt table
-            const debtBody = document.getElementById('debt-body');
-            if (debtBody) debtBody.innerHTML = '';
-            
-            // Restore previous state
-            if (previousState && previousState.length > 0) {
-                previousState.forEach((debt, index) => {
-                    addDebtRowWithData(debt, index, false); // Don't save state (to avoid infinite loop)
-                });
-            } else {
-                // If no debts, add one empty row
-                addDebtRowWithData({}, 0, false);
-            }
-            
-            // Recalculate
-            autoPopulateHousingFromMortgage();
-            autoPopulateDebtMinimums();
-            debouncedCalculateAll();
-            
-            showToast('Last debt action undone');
+            // Add animation
+            setTimeout(() => {
+                document.getElementById('debt-form-simple').style.opacity = '1';
+            }, 50);
         }
-
-        // ===== ENHANCED DEBT ENTRY FLOW FUNCTIONS =====
-function showDebtForm() {
-    // Hide the initial choice
-    document.getElementById('debt-entry-flow').style.display = 'none';
-    document.getElementById('debt-free-celebration').classList.add('hidden');
-    
-    // Show the form and table
-    document.getElementById('debt-form-simple').classList.remove('hidden');
-    document.getElementById('debt-table-container').classList.remove('hidden');
-
-    // ADD THIS LINE: It clears any auto-generated rows
-    document.getElementById('debt-body').innerHTML = ''; 
-    
-    // Add a subtle animation
-    setTimeout(() => {
-        document.getElementById('debt-form-simple').style.opacity = '1';
-    }, 50);
-}
         
         function skipDebtEntry() {
             // Hide the initial choice
@@ -4265,11 +4245,11 @@ function showDebtForm() {
         }
         
         function continueWithoutDebt() {
-            // Hide celebration and show a congratulatory message
+            // Hide celebration
             document.getElementById('debt-free-celebration').classList.add('hidden');
             showToast('Keep up the great work! Focus on building wealth 💪');
             
-            // Optionally scroll to next section
+            // Scroll to next section
             const budgetSection = document.getElementById('budget-section');
             if (budgetSection) {
                 budgetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -4280,9 +4260,10 @@ function showDebtForm() {
             // Hide celebration
             document.getElementById('debt-free-celebration').classList.add('hidden');
             
-            // Show the form directly (skip the yes/no choice since they already said they have debt)
+            // Show the form directly
             document.getElementById('debt-form-simple').classList.remove('hidden');
             document.getElementById('debt-table-container').classList.remove('hidden');
+            document.getElementById('quick-add-presets').classList.remove('hidden');
             
             showToast('No problem! Let\'s add your debt information');
             
@@ -4291,8 +4272,9 @@ function showDebtForm() {
         }
         
         function cancelDebtEntry() {
-            // Hide form and table
+            // Hide form and presets
             document.getElementById('debt-form-simple').classList.add('hidden');
+            document.getElementById('quick-add-presets').classList.add('hidden');
             
             // Check if they have any debt already entered
             const debtRows = document.querySelectorAll('#debt-body tr');
@@ -4304,6 +4286,62 @@ function showDebtForm() {
             } else {
                 // They have debt, just hide the form but keep table visible
                 showToast('Form cancelled');
+            }
+        }
+        
+        // S-TIER: Quick Add Presets
+        function usePreset(type, balance, payment, rate) {
+            document.getElementById('simple-debt-type').value = type;
+            document.getElementById('simple-debt-balance').value = balance.toLocaleString();
+            document.getElementById('simple-debt-payment').value = payment.toLocaleString();
+            document.getElementById('simple-debt-rate').value = rate;
+            
+            showToast('✨ Preset loaded! Adjust numbers if needed');
+            
+            // Trigger live interest calculation
+            updateLiveInterest();
+            
+            // Scroll to form
+            setTimeout(() => {
+                document.getElementById('simple-debt-rate').focus();
+            }, 300);
+        }
+        
+        // S-TIER: Real-Time Interest Calculator
+        function updateLiveInterest() {
+            const balanceInput = document.getElementById('simple-debt-balance');
+            const rateInput = document.getElementById('simple-debt-rate');
+            const tracker = document.getElementById('live-interest-tracker');
+            const costEl = document.getElementById('daily-interest-cost');
+            const comparisonEl = document.getElementById('interest-comparison');
+            
+            // Safety check
+            if (!balanceInput || !rateInput || !tracker || !costEl || !comparisonEl) return;
+            
+            const balance = parseCurrency(balanceInput.value);
+            const rate = parseFloat(rateInput.value) || 0;
+            
+            if (balance > 0 && rate > 0) {
+                const dailyInterest = (balance * (rate / 100)) / 365;
+                
+                costEl.textContent = '$' + dailyInterest.toFixed(2);
+                
+                // Fun comparison
+                let comparison = '';
+                if (dailyInterest < 10) {
+                    comparison = "That's a coffee you're giving away daily ☕";
+                } else if (dailyInterest < 20) {
+                    comparison = "That's lunch money going to interest 🍔";
+                } else if (dailyInterest < 50) {
+                    comparison = "That's a nice dinner per day 🍝";
+                } else {
+                    comparison = "That's serious money! 🚨";
+                }
+                
+                comparisonEl.textContent = comparison;
+                tracker.classList.remove('hidden');
+            } else {
+                tracker.classList.add('hidden');
             }
         }
         
@@ -4326,14 +4364,11 @@ function showDebtForm() {
                 return;
             }
             
-            if (rate < 0 || rate > 300) {
-                showToast('⚠️ Please enter a valid interest rate (0-300%)');
+            if (rate < 0 || rate > 100) {
+                showToast('⚠️ Please enter a valid interest rate (0-100%)');
                 document.getElementById('simple-debt-rate').focus();
                 return;
             }
-            
-            // Save current state for undo
-            saveDebtState();
             
             // Add debt using existing function
             addDebtRowWithData({
@@ -4348,21 +4383,33 @@ function showDebtForm() {
             document.getElementById('simple-debt-payment').value = '';
             document.getElementById('simple-debt-rate').value = '';
             
-            // Reset type to credit card (most common)
+            // Reset type to credit card
             document.getElementById('simple-debt-type').value = 'credit_card';
             
-            // Show success message with encouragement
+            // Hide live interest tracker
+            document.getElementById('live-interest-tracker').classList.add('hidden');
+            
+            // Show success message
             showToast('✅ Debt added! Great job tracking your finances');
             
             // Store initial debt if not already stored
-            if (!localStorage.getItem('raf_initial_debt')) {
-                localStorage.setItem('raf_initial_debt', balance);
+            const currentInitial = localStorage.getItem('raf_initial_debt');
+            if (!currentInitial) {
+                const totalDebt = getTotalDebtBalance();
+                localStorage.setItem('raf_initial_debt', totalDebt);
+                localStorage.setItem('raf_debt_start_date', new Date().toLocaleDateString());
             }
             
-            // Remove debt-free status if it was set
+            // Remove debt-free status
             localStorage.removeItem('raf_debt_free');
             
-            // Scroll to the debt table so they can see what they added
+            // Update all S-TIER features
+            updateDebtProgress();
+            updateComparisonBadge();
+            showSmartWarnings();
+            updateStrategyPreviews();
+            
+            // Scroll to table
             setTimeout(() => {
                 const debtTable = document.querySelector('.debt-table-container');
                 if (debtTable) {
@@ -4370,8 +4417,203 @@ function showDebtForm() {
                 }
             }, 300);
         }
+        
+        // S-TIER: Debt Progress Bar
+        function updateDebtProgress() {
+            const initialDebt = parseFloat(localStorage.getItem('raf_initial_debt')) || 0;
+            const currentDebt = getTotalDebtBalance();
+            
+            // Safety check - only run if elements exist (debt table is shown)
+            const progressFill = document.getElementById('debt-progress-fill');
+            if (!progressFill) return;
+            
+            if (initialDebt > 0) {
+                const progress = ((initialDebt - currentDebt) / initialDebt) * 100;
+                const progressClamped = Math.max(0, Math.min(100, progress));
+                
+                progressFill.style.width = progressClamped + '%';
+                
+                const progressPercentage = document.getElementById('progress-percentage');
+                if (progressPercentage) {
+                    progressPercentage.textContent = progressClamped.toFixed(0);
+                }
+                
+                const progressMilestone = document.getElementById('progress-milestone');
+                if (progressMilestone) {
+                    progressMilestone.style.left = progressClamped + '%';
+                }
+                
+                // Set start date
+                const startDate = localStorage.getItem('raf_debt_start_date') || new Date().toLocaleDateString();
+                const startDateEl = document.getElementById('debt-start-date');
+                if (startDateEl) {
+                    startDateEl.textContent = startDate;
+                }
+                
+                // Calculate debt-free target
+                const years = calculateTotalYearsToPayoff();
+                const targetEl = document.getElementById('debt-free-target');
+                if (targetEl) {
+                    if (years > 0 && years < 100) {
+                        const targetDate = new Date();
+                        targetDate.setMonth(targetDate.getMonth() + (years * 12));
+                        targetEl.textContent = targetDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+                    } else {
+                        targetEl.textContent = 'Calculate...';
+                    }
+                }
+            } else {
+                // First time - set initial
+                if (currentDebt > 0) {
+                    localStorage.setItem('raf_initial_debt', currentDebt);
+                    localStorage.setItem('raf_debt_start_date', new Date().toLocaleDateString());
+                    updateDebtProgress(); // Recursive call to set values
+                }
+            }
+        }
+        
+        // S-TIER: Comparison to Average
+        function updateComparisonBadge() {
+            const totalDebt = getTotalDebtBalance();
+            const averageDebt = 38000; // National average
+            
+            const percentageEl = document.getElementById('comparison-percentage');
+            const messageEl = document.getElementById('comparison-message');
+            
+            // Safety check
+            if (!percentageEl || !messageEl) return;
+            
+            if (totalDebt > 0) {
+                const percentBetter = ((averageDebt - totalDebt) / averageDebt) * 100;
+                
+                if (totalDebt < averageDebt) {
+                    percentageEl.textContent = Math.max(0, percentBetter).toFixed(0) + '%';
+                    messageEl.textContent = `Better than average! (Avg American: $${averageDebt.toLocaleString()})`;
+                } else {
+                    const percentWorse = ((totalDebt - averageDebt) / averageDebt) * 100;
+                    percentageEl.textContent = '+' + percentWorse.toFixed(0) + '%';
+                    messageEl.textContent = `Above average (Avg: $${averageDebt.toLocaleString()}) - but you're tackling it!`;
+                }
+            } else {
+                percentageEl.textContent = '...';
+                messageEl.textContent = 'Add debt to see where you stand';
+            }
+        }
+        
+        // S-TIER: Smart Warnings System
+        function showSmartWarnings() {
+            const container = document.getElementById('debt-warnings-container');
+            
+            // Safety check
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            const income = getMonthlyIncome();
+            const totalDebt = getTotalDebtBalance();
+            
+            debtRows.forEach(row => {
+                const rateInput = row.querySelector('td:nth-child(4) input');
+                const balanceInput = row.querySelector('td:nth-child(2) input');
+                const paymentInput = row.querySelector('td:nth-child(3) input');
+                
+                if (!rateInput || !balanceInput || !paymentInput) return;
+                
+                const rate = parseFloat(rateInput.value) || 0;
+                const balance = parseCurrency(balanceInput.value);
+                const payment = parseCurrency(paymentInput.value);
+                const monthlyInterest = (balance * (rate / 100)) / 12;
+                
+                // Predatory rate warning
+                if (rate > 25) {
+                    const warning = document.createElement('div');
+                    warning.className = 'debt-warning mt-3';
+                    warning.innerHTML = `
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-exclamation-triangle debt-warning-icon"></i>
+                            <div>
+                                <div class="font-bold text-sm mb-1">🚨 EMERGENCY: Predatory Interest Rate</div>
+                                <div class="text-xs text-gray-300">
+                                    This ${rate.toFixed(1)}% rate is extremely high. Call your lender immediately to negotiate 
+                                    or consider balance transfer options. This debt should be your #1 priority.
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(warning);
+                }
+                
+                // Payment too low warning
+                if (payment > 0 && payment < monthlyInterest) {
+                    const warning = document.createElement('div');
+                    warning.className = 'debt-warning mt-3';
+                    warning.innerHTML = `
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-exclamation-circle debt-warning-icon"></i>
+                            <div>
+                                <div class="font-bold text-sm mb-1">⚠️ WARNING: Negative Amortization</div>
+                                <div class="text-xs text-gray-300">
+                                    Your payment ($${payment.toFixed(2)}) is less than monthly interest ($${monthlyInterest.toFixed(2)}). 
+                                    Your balance is growing each month. Increase your payment ASAP.
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(warning);
+                }
+            });
+            
+            // Debt-to-income warning
+            if (income > 0 && totalDebt > 0) {
+                const dtiRatio = (totalDebt / (income * 12)) * 100;
+                if (dtiRatio > 50) {
+                    const warning = document.createElement('div');
+                    warning.className = 'debt-warning mt-3';
+                    warning.innerHTML = `
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-chart-line debt-warning-icon"></i>
+                            <div>
+                                <div class="font-bold text-sm mb-1">📊 High Debt-to-Income Ratio</div>
+                                <div class="text-xs text-gray-300">
+                                    Your debt is ${dtiRatio.toFixed(0)}% of your annual income. Lenders typically 
+                                    want to see this under 43%. Focus on paying down debt before taking on new loans.
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(warning);
+                }
+            }
+        }
+        
+        // S-TIER: Update Strategy Previews
+        function updateStrategyPreviews() {
+            const totalDebt = getTotalDebtBalance();
+            const years = calculateTotalYearsToPayoff();
+            
+            const avalancheSavings = document.getElementById('avalanche-savings');
+            const avalancheTime = document.getElementById('avalanche-time');
+            const snowballWins = document.getElementById('snowball-wins');
+            const snowballTime = document.getElementById('snowball-time');
+            
+            // Safety check
+            if (!avalancheSavings || !avalancheTime || !snowballWins || !snowballTime) return;
+            
+            if (totalDebt > 0 && years > 0) {
+                // Rough estimate - avalanche saves about 15% in interest
+                const estimatedSavings = totalDebt * 0.15;
+                avalancheSavings.textContent = `Save $${Math.round(estimatedSavings).toLocaleString()}`;
+                avalancheTime.textContent = `${(years * 0.85).toFixed(1)} years`;
+                
+                // Snowball - count how many debts
+                const debtCount = document.querySelectorAll('#debt-body tr').length;
+                snowballWins.textContent = `${debtCount} Quick Win${debtCount !== 1 ? 's' : ''}`;
+                snowballTime.textContent = `${(years * 0.95).toFixed(1)} years`;
+            }
+        }
 
-        function addDebtRowWithData(debtData, index, saveState = true) {
+        function addDebtRowWithData(debtData, index) {
             const debtBody = document.getElementById('debt-body');
             if (!debtBody) return;
             
@@ -4385,11 +4627,6 @@ function showDebtForm() {
             
             row.innerHTML = `
                 <td class="py-3 px-2">
-                    <div class="debt-drag-handle" title="Drag to reorder">
-                        <i class="fas fa-grip-vertical"></i>
-                    </div>
-                </td>
-                <td class="py-3 px-2">
                     <div class="flex items-center gap-2">
                         <div class="debt-type-icon p-2 rounded cursor-help" 
                              style="background: ${defaultType.color}20; border: 1px solid ${defaultType.color}40"
@@ -4397,7 +4634,7 @@ function showDebtForm() {
                             <i class="fas ${defaultType.icon} text-sm" style="color: ${defaultType.color}"></i>
                         </div>
                         <div class="flex-1">
-                            <select class="debt-type-select" onchange="updateDebtType(this);" aria-label="Debt type">
+                            <select class="debt-type-select" onchange="updateDebtType(this);">
                                 ${debtTypes.map(type => 
                                     `<option value="${type.value}">${type.label}</option>`
                                 ).join('')}
@@ -4441,10 +4678,9 @@ function showDebtForm() {
                     <div class="years-to-payoff">--</div>
                 </td>
                 <td class="text-right">
-               <button onclick="removeDebtRow('${rowId}')" class="text-gray-500 hover:text-red-500 transition-colors text-lg touch-target" aria-label="Remove debt">
-    <i class="fas fa-trash-can"></i>
-</button>
-				 
+                    <button onclick="removeDebtRow('${rowId}')" class="hover:text-crimson transition text-lg touch-target" aria-label="Remove debt">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
                 </td>
             `;
             
@@ -4454,9 +4690,9 @@ function showDebtForm() {
             updateDebtType(row.querySelector('.debt-type-select'));
             
             // Fill with data
-            const balanceInput = row.querySelector('td:nth-child(3) input');
-            const paymentInput = row.querySelector('td:nth-child(4) input');
-            const rateInput = row.querySelector('td:nth-child(5) input');
+            const balanceInput = row.querySelector('td:nth-child(2) input');
+            const paymentInput = row.querySelector('td:nth-child(3) input');
+            const rateInput = row.querySelector('td:nth-child(4) input');
             const typeSelect = row.querySelector('.debt-type-select');
             
             if (debtData.type) {
@@ -4480,50 +4716,19 @@ function showDebtForm() {
             }
             
             updateYearsToPayoff(row);
-            
-            // Save state if requested
-            if (saveState) {
-                saveDebtState();
-            }
         }
 
         function addDebtRow() {
-            saveDebtState();
             addDebtRowWithData({}, 0);
         }
 
         function removeDebtRow(rowId) {
             const row = document.getElementById(rowId);
-            if (row) {
-                // Save state before removal
-                saveDebtState();
-                row.remove();
-            }
+            if (row) row.remove();
             
             autoPopulateHousingFromMortgage();
             autoPopulateDebtMinimums();
             debouncedCalculateAll();
-        }
-
-        // ===== NEW: DEBT DRAG AND DROP =====
-        function initializeDebtDragAndDrop() {
-            const debtBody = document.getElementById('debt-body');
-            if (!debtBody) return;
-            
-            Sortable.create(debtBody, {
-                animation: 150,
-                ghostClass: 'sortable-ghost',
-                chosenClass: 'sortable-chosen',
-                dragClass: 'sortable-drag',
-                handle: '.debt-drag-handle',
-                onEnd: function(evt) {
-                    // Save state after reordering
-                    saveDebtState();
-                    // Trigger recalc
-                    debouncedCalculateAll();
-                    showToast('Debt order updated');
-                }
-            });
         }
 
         // ===== BUDGET AND CALCULATION FUNCTIONS =====
@@ -4548,7 +4753,7 @@ function showDebtForm() {
             
             debtRows.forEach(row => {
                 const typeSelect = row.querySelector('.debt-type-select');
-                const paymentInput = row.querySelector('td:nth-child(4) input');
+                const paymentInput = row.querySelector('td:nth-child(3) input');
                 
                 if (paymentInput && typeSelect && typeSelect.value !== 'mortgage') {
                     total += parseCurrency(paymentInput.value);
@@ -4563,7 +4768,7 @@ function showDebtForm() {
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const balanceInput = row.querySelector('td:nth-child(3) input');
+                const balanceInput = row.querySelector('td:nth-child(2) input');
                 if (balanceInput) {
                     total += parseCurrency(balanceInput.value);
                 }
@@ -4577,7 +4782,7 @@ function showDebtForm() {
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const rateInput = row.querySelector('td:nth-child(5) input');
+                const rateInput = row.querySelector('td:nth-child(4) input');
                 if (rateInput) {
                     const rate = parseFloat(rateInput.value) || 0;
                     if (rate > 10) {
@@ -4594,8 +4799,8 @@ function showDebtForm() {
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const rateInput = row.querySelector('td:nth-child(5) input');
-                const balanceInput = row.querySelector('td:nth-child(3) input');
+                const rateInput = row.querySelector('td:nth-child(4) input');
+                const balanceInput = row.querySelector('td:nth-child(2) input');
                 if (rateInput && balanceInput) {
                     const rate = parseFloat(rateInput.value) || 0;
                     if (rate > 10) {
@@ -4612,7 +4817,7 @@ function showDebtForm() {
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const rateInput = row.querySelector('td:nth-child(5) input');
+                const rateInput = row.querySelector('td:nth-child(4) input');
                 if (rateInput) {
                     const rate = parseFloat(rateInput.value) || 0;
                     if (rate > highest) highest = rate;
@@ -4670,7 +4875,7 @@ function showDebtForm() {
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             debtRows.forEach(row => {
-                const paymentInput = row.querySelector('td:nth-child(4) input');
+                const paymentInput = row.querySelector('td:nth-child(3) input');
                 if (paymentInput) {
                     totalDebtPayments += parseCurrency(paymentInput.value);
                 }
@@ -4679,63 +4884,8 @@ function showDebtForm() {
             return (totalDebtPayments / income) * 100;
         }
 
-        // ===== RETIREMENT TARGET HELPER FUNCTION =====
-        function getRetirementTargetForAge(age) {
-            const ages = [30, 35, 40, 45, 50, 55, 60, 65];
-            for (let i = 0; i < ages.length; i++) {
-                if (age <= ages[i]) {
-                    return retirementTargets[ages[i]];
-                }
-            }
-            return retirementTargets[65];
-        }
-
-        // ===== NEW: BADGES CALCULATION =====
-        function updateBadges() {
-            const highestRate = getHighestInterestRate();
-            const emergencyFundTotal = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
-            const monthlyEssentials = calculateMonthlyEssentials();
-            const monthsCovered = monthlyEssentials > 0 ? emergencyFundTotal / monthlyEssentials : 0;
-            const sovereignScore = calculateSovereignScore();
-            
-            // Debt Slayer badge
-            const debtSlayerBadge = document.getElementById('badge-debt-slayer');
-            if (debtSlayerBadge) {
-                if (highestRate <= 10 || highestRate === 0) {
-                    debtSlayerBadge.classList.remove('locked');
-                    debtSlayerBadge.classList.add('earned');
-                } else {
-                    debtSlayerBadge.classList.remove('earned');
-                    debtSlayerBadge.classList.add('locked');
-                }
-            }
-            
-            // Emergency Builder badge
-            const emergencyBuilderBadge = document.getElementById('badge-emergency-builder');
-            if (emergencyBuilderBadge) {
-                if (monthsCovered >= 3) {
-                    emergencyBuilderBadge.classList.remove('locked');
-                    emergencyBuilderBadge.classList.add('earned');
-                } else {
-                    emergencyBuilderBadge.classList.remove('earned');
-                    emergencyBuilderBadge.classList.add('locked');
-                }
-            }
-            
-            // Sovereign Starter badge
-            const sovereignStarterBadge = document.getElementById('badge-sovereign-starter');
-            if (sovereignStarterBadge) {
-                if (sovereignScore.total >= 60) {
-                    sovereignStarterBadge.classList.remove('locked');
-                    sovereignStarterBadge.classList.add('earned');
-                } else {
-                    sovereignStarterBadge.classList.remove('earned');
-                    sovereignStarterBadge.classList.add('locked');
-                }
-            }
-        }
-
-        // ===== UPDATED CALCULATION FUNCTION =====
+        // ===== UPDATED CALCULATION FUNCTION WITH 50/30/20 RULE =====
+        
         function calculateAll() {
             autoPopulateHousingFromMortgage();
             autoPopulateDebtMinimums();
@@ -4755,6 +4905,10 @@ function showDebtForm() {
             const savingsRate = income > 0 ? (savingsTotal / income) * 100 : 0;
             const budgetUsage = income > 0 ? (totalExpenses / income) * 100 : 0;
             
+			    // UPDATE: Add this line to update all category percentages
+    updateAllCategoryPercentages();
+			
+			
             // Update 50/30/20 budget rule percentages
             if (income > 0) {
                 const needsPercentage = (needsTotal / income) * 100;
@@ -4776,8 +4930,13 @@ function showDebtForm() {
                 const savingsLabel = document.getElementById('savings-rule-label');
                 
                 needsLabel.classList.toggle('active', needsPercentage <= 50);
+                needsLabel.classList.toggle('needs', true);
+                
                 wantsLabel.classList.toggle('active', wantsPercentage <= 30);
+                wantsLabel.classList.toggle('wants', true);
+                
                 savingsLabel.classList.toggle('active', savingsPercentage >= 20);
+                savingsLabel.classList.toggle('savings', true);
                 
                 // Update percentage colors
                 const needsPercent = document.getElementById('needs-rule-percentage');
@@ -4822,13 +4981,7 @@ function showDebtForm() {
             document.getElementById('high-interest-count').textContent = getHighInterestDebtCount();
             
             // Update years to payoff
-            updateAllYearsToPayoff();
-            
-            // Show how much debt is costing them
-            calculateDebtPain();
-            
-            // Update premium benefits preview
-            updatePremiumTeaser();
+	
             
             // Update sidebar
             document.getElementById('total-income-display').textContent = `$${income.toLocaleString()}`;
@@ -4851,17 +5004,17 @@ function showDebtForm() {
             // Update strategy tip
             updateDebtStrategyTip();
             
-            // Update RAF Sovereign Score
+            // UPDATE: Use new RAF Sovereign Score instead of old health score
             updateSovereignScoreDisplay();
             
-            // Update goal progress
+            // NEW: Update goal progress
             updateGoalProgress();
             
-            // NEW: Update badges
-            updateBadges();
-            
-            // NEW: Auto-save after calculation
-            scheduleAutoSave();
+            // S-TIER: Update all debt features
+            updateDebtProgress();
+            updateComparisonBadge();
+            showSmartWarnings();
+            updateStrategyPreviews();
         }
 
         function updateFinancialHealthSummary(income, totalExpenses, budgetUsage, savingsTotal, savingsRate, surplus) {
@@ -4929,7 +5082,8 @@ function showDebtForm() {
             }
         }
 
-        // ===== RAF SOVEREIGN SCORE™ ALGORITHM =====
+        // ===== NEW: RAF SOVEREIGN SCORE™ ALGORITHM =====
+        
         function calculateSovereignScore() {
             const income = getMonthlyIncome();
             const age = parseInt(document.getElementById('age-input')?.value) || 0;
@@ -5155,24 +5309,27 @@ function showDebtForm() {
             }
         }
         
-        function toggleScoreBreakdown() {
-            const breakdown = document.getElementById('sovereign-score-breakdown');
-            const button = document.querySelector('[onclick="toggleScoreBreakdown()"]');
-            
-            if (breakdown.classList.contains('hidden')) {
-                breakdown.classList.remove('hidden');
-                if (button) {
-                    button.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>Hide Details';
-                }
-            } else {
-                breakdown.classList.add('hidden');
-                if (button) {
-                    button.innerHTML = '<i class="fas fa-chart-bar mr-1"></i>Show Details';
-                }
-            }
+function toggleScoreBreakdown() {
+    const breakdown = document.getElementById('sovereign-score-breakdown');
+    const button = document.querySelector('[onclick="toggleScoreBreakdown()"]');
+    
+    if (breakdown.classList.contains('hidden')) {
+        breakdown.classList.remove('hidden');
+        breakdown.classList.add('show-details'); // Add this
+        if (button) {
+            button.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>Hide Details';
         }
+    } else {
+        breakdown.classList.add('hidden');
+        breakdown.classList.remove('show-details'); // Add this
+        if (button) {
+            button.innerHTML = '<i class="fas fa-chart-bar mr-1"></i>Show Details';
+        }
+    }
+}
 
         // ===== ENHANCED PRIORITY ACTION LOGIC =====
+        
         function calculateNextActionEnhanced() {
             const income = getMonthlyIncome();
             const age = parseInt(document.getElementById('age-input')?.value) || 0;
@@ -5845,7 +6002,7 @@ function showDebtForm() {
                     }
                 }
                 
-                const rateInput = row.querySelector('td:nth-child(5) input');
+                const rateInput = row.querySelector('td:nth-child(4) input');
                 if (rateInput && (!rateInput.value || rateInput.value === '0' || rateInput.value === '')) {
                     const aprRange = type.typicalAPR.replace('%', '').split('-');
                     const minRate = parseFloat(aprRange[0]) || 0;
@@ -5927,7 +6084,7 @@ function showDebtForm() {
             debtRows.forEach(row => {
                 const typeSelect = row.querySelector('.debt-type-select');
                 if (typeSelect && typeSelect.value === 'mortgage') {
-                    const paymentInput = row.querySelector('td:nth-child(4) input');
+                    const paymentInput = row.querySelector('td:nth-child(3) input');
                     if (paymentInput) {
                         totalMortgagePayment += parseCurrency(paymentInput.value);
                     }
@@ -6039,76 +6196,74 @@ function showDebtForm() {
             }
         }
 
-        // ===== DEBT PAIN CALCULATOR =====
-        function calculateDebtPain() {
-            const painElement = document.getElementById('debt-pain-calculator');
-            let totalInterest = 0;
-            
-            // Calculate interest for each debt
-            document.querySelectorAll('#debt-body tr').forEach(row => {
-                const balanceInput = row.querySelector('td:nth-child(3) input');
-                const rateInput = row.querySelector('td:nth-child(5) input');
-                const yearsElement = row.querySelector('.years-to-payoff');
-                const typeSelect = row.querySelector('.debt-type-select');
-                
-                if (balanceInput && rateInput && yearsElement && typeSelect) {
-                    const balance = parseCurrency(balanceInput.value);
-                    const rate = parseFloat(rateInput.value) || 0;
-                    const debtType = typeSelect.value;
-                    const yearsText = yearsElement.textContent;
-                    
-                    if (balance > 0 && rate > 0 && yearsText !== '--' && yearsText !== '∞') {
-                        // Use improved calculation
-                        const years = calculateYearsToPayoff(balance, parseCurrency(row.querySelector('td:nth-child(4) input')?.value || 0), rate, debtType);
-                        if (years > 0 && years !== Infinity) {
-                            const interest = balance * (rate/100) * years;
-                            totalInterest += interest;
-                        }
-                    }
-                }
-            });
-            
-            // Update display
-            if (totalInterest > 0) {
-                document.getElementById('total-interest-cost').textContent = `$${Math.round(totalInterest).toLocaleString()}`;
-                
-                // Claim 30% savings with premium
-                const premiumSavings = Math.round(totalInterest * 0.3);
-                document.getElementById('premium-savings').textContent = `$${premiumSavings.toLocaleString()}`;
-                
-                // Show the pain calculator
-                painElement.classList.remove('hidden');
-            } else {
-                painElement.classList.add('hidden');
-            }
-        }
-
-        // ===== UPDATE PREMIUM TEASER WITH USER'S DATA =====
-        function updatePremiumTeaser() {
-            const totalDebt = getTotalDebtBalance();
-            const emergencyFund = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
-            const monthlySavings = getTotalMonthlySavings();
-            
-            // Update debt savings (claim 25% savings with premium)
-            if (totalDebt > 0) {
-                const debtSavings = Math.round(totalDebt * 0.25);
-                document.querySelector('.premium-savings-amount').textContent = `$${debtSavings.toLocaleString()}`;
-            }
-            
-            // Update emergency fund forecast
-            if (monthlySavings > 0) {
-                const projected = emergencyFund + (monthlySavings * 6);
-                document.querySelector('.forecast-amount').textContent = `$${Math.round(projected).toLocaleString()}`;
-                
-                // Calculate 6 months from now
-                const forecastDate = new Date();
-                forecastDate.setMonth(forecastDate.getMonth() + 6);
-                const monthName = forecastDate.toLocaleDateString('default', { month: 'long' });
-                document.querySelector('.forecast-date').textContent = monthName;
-            }
-        }
-
         // ===== DEBT STRATEGY TIPS =====
+        // ===== DEBT PAIN CALCULATOR =====
+function calculateDebtPain() {
+    const painElement = document.getElementById('debt-pain-calculator');
+    let totalInterest = 0;
+    
+    // Calculate interest for each debt
+    document.querySelectorAll('#debt-body tr').forEach(row => {
+        const balanceInput = row.querySelector('td:nth-child(2) input');
+        const rateInput = row.querySelector('td:nth-child(4) input');
+        const yearsElement = row.querySelector('.years-to-payoff');
+        
+        if (balanceInput && rateInput && yearsElement) {
+            const balance = parseCurrency(balanceInput.value);
+            const rate = parseFloat(rateInput.value) || 0;
+            const yearsText = yearsElement.textContent;
+            
+            if (balance > 0 && rate > 0 && yearsText !== '--' && yearsText !== '∞') {
+                // Simple interest formula
+                const years = parseFloat(yearsText) || 0;
+                if (years > 0) {
+                    const interest = balance * (rate/100) * years;
+                    totalInterest += interest;
+                }
+            }
+        }
+    });
+    
+    // Update display
+    if (totalInterest > 0) {
+        document.getElementById('total-interest-cost').textContent = `$${Math.round(totalInterest).toLocaleString()}`;
+        
+        // Claim 30% savings with premium
+        const premiumSavings = Math.round(totalInterest * 0.3);
+        document.getElementById('premium-savings').textContent = `$${premiumSavings.toLocaleString()}`;
+        
+        // Show the pain calculator
+        painElement.classList.remove('hidden');
+    } else {
+        painElement.classList.add('hidden');
+    }
+}
+
+// ===== UPDATE PREMIUM TEASER WITH USER'S DATA =====
+function updatePremiumTeaser() {
+    const totalDebt = getTotalDebtBalance();
+    const emergencyFund = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
+    const monthlySavings = getTotalMonthlySavings();
+    
+    // Update debt savings (claim 25% savings with premium)
+    if (totalDebt > 0) {
+        const debtSavings = Math.round(totalDebt * 0.25);
+        document.querySelector('.premium-savings-amount').textContent = `$${debtSavings.toLocaleString()}`;
+    }
+    
+    // Update emergency fund forecast
+    if (monthlySavings > 0) {
+        const projected = emergencyFund + (monthlySavings * 6);
+        document.querySelector('.forecast-amount').textContent = `$${Math.round(projected).toLocaleString()}`;
+        
+        // Calculate 6 months from now
+        const forecastDate = new Date();
+        forecastDate.setMonth(forecastDate.getMonth() + 6);
+        const monthName = forecastDate.toLocaleDateString('default', { month: 'long' });
+        document.querySelector('.forecast-date').textContent = monthName;
+    }
+}
+
         function updateDebtStrategyTip() {
             const tipContainer = document.getElementById('debt-strategy-tips');
             const tipContent = document.getElementById('strategy-tip-content');
@@ -6298,26 +6453,29 @@ function showDebtForm() {
                 const specialClass = isDebtMinimums ? ' debt-minimums-special' : '';
                 div.className = `flex justify-between items-center budget-category-card${specialClass}`;
                 
-                div.innerHTML = `
-                    <div class="flex items-center">
-                        <span class="text-xs text-gray-300 category-label">${category.label}${category.id === 'taxes' ? ' <span class="text-gray-500 text-[10px]">(Monthly tax withholding or estimated payments)</span>' : ''}</span>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="currency-input-container w-32 relative mr-2">
-                            <input type="text" 
-                                   id="${category.id}" 
-                                   oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) debouncedCalculateAll()" 
-                                   class="input-underlined text-right touch-target" 
-                                   value="${getCategoryValue(category.id)}"
-                                   placeholder="0"
-                                   aria-label="${category.label} expense">
-                        </div>
-                        <button onclick="clearCategory(this.previousElementSibling.querySelector('input'))" class="clear-category-btn touch-target" aria-label="Clear ${category.label}">
-                            ×
-                        </button>
-                    </div>
-                `;
-                
+          div.innerHTML = `
+    <div class="flex items-center">
+        <span class="text-xs text-gray-300 category-label">${category.label}${category.id === 'taxes' ? ' <span class="text-gray-500 text-[10px]">(Monthly tax withholding or estimated payments)</span>' : ''}</span>
+        <span id="${category.id}_percentage" class="category-percentage">0%</span>
+    </div>
+    <div class="flex items-center">
+        <div class="currency-input-container w-32 relative mr-2">
+            <input type="text" 
+                   id="${category.id}" 
+                   oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) { debouncedCalculateAll(); updateCategoryPercentage('${category.id}') }" 
+                   class="input-underlined text-right touch-target" 
+                   value="${getCategoryValue(category.id)}"
+                   placeholder="0"
+                   aria-label="${category.label} expense">
+        </div>
+        <button onclick="clearCategory(this.previousElementSibling.querySelector('input'))" class="clear-category-btn touch-target" aria-label="Clear ${category.label}">
+            ×
+        </button>
+    </div>
+`;
+				
+				
+				
                 if (needsContainer) needsContainer.appendChild(div);
             });
             
@@ -6325,24 +6483,25 @@ function showDebtForm() {
                 const div = document.createElement('div');
                 div.className = `flex justify-between items-center budget-category-card`;
                 div.innerHTML = `
-                    <div class="flex items-center">
-                        <span class="text-xs text-gray-300">${category.label}</span>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="currency-input-container w-32 relative mr-2">
-                            <input type="text" 
-                                   id="${category.id}" 
-                                   oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) debouncedCalculateAll()" 
-                                   class="input-underlined text-right touch-target" 
-                                   value="${getCategoryValue(category.id)}"
-                                   placeholder="0"
-                                   aria-label="${category.label} expense">
-                        </div>
-                        <button onclick="clearCategory(this.previousElementSibling.querySelector('input'))" class="clear-category-btn touch-target" aria-label="Clear ${category.label}">
-                            ×
-                        </button>
-                    </div>
-                `;
+    <div class="flex items-center">
+        <span class="text-xs text-gray-300">${category.label}</span>
+        <span id="${category.id}_percentage" class="category-percentage">0%</span>
+    </div>
+    <div class="flex items-center">
+        <div class="currency-input-container w-32 relative mr-2">
+            <input type="text" 
+                   id="${category.id}" 
+                   oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) { debouncedCalculateAll(); updateCategoryPercentage('${category.id}') }" 
+                   class="input-underlined text-right touch-target" 
+                   value="${getCategoryValue(category.id)}"
+                   placeholder="0"
+                   aria-label="${category.label} expense">
+        </div>
+        <button onclick="clearCategory(this.previousElementSibling.querySelector('input'))" class="clear-category-btn touch-target" aria-label="Clear ${category.label}">
+            ×
+        </button>
+    </div>
+`;
                 if (wantsContainer) wantsContainer.appendChild(div);
             });
             
@@ -6400,149 +6559,11 @@ function showDebtForm() {
             setTimeout(() => document.addEventListener('click', closeMenu), 10);
         }
 
-        // ===== NEW: AUTO-SAVE FUNCTIONS =====
-        function scheduleAutoSave() {
-            if (!autoSaveEnabled) return;
-            
-            clearTimeout(autoSaveTimeout);
-            autoSaveTimeout = setTimeout(() => {
-                saveToLocalStorage();
-            }, 30000); // 30 seconds
-        }
-        
-        function updateLastSavedTime() {
-            const lastSavedElement = document.getElementById('last-saved-time');
-            if (!lastSavedElement) return;
-            
-            if (lastSaveTime) {
-                const now = new Date();
-                const diffMs = now - lastSaveTime;
-                const diffMins = Math.floor(diffMs / 60000);
-                
-                if (diffMins === 0) {
-                    lastSavedElement.textContent = 'Last saved: Just now';
-                } else if (diffMins === 1) {
-                    lastSavedElement.textContent = 'Last saved: 1 minute ago';
-                } else {
-                    lastSavedElement.textContent = `Last saved: ${diffMins} minutes ago`;
-                }
-            } else {
-                lastSavedElement.textContent = 'Last saved: Never';
-            }
-        }
-        
-        function checkRecoverSession() {
-            const savedData = localStorage.getItem('raf_lab_data');
-            if (!savedData) return;
-            
-            try {
-                const data = JSON.parse(savedData);
-                if (!data.timestamp) return;
-                
-                const lastSave = new Date(data.timestamp);
-                const now = new Date();
-                const diffMs = now - lastSave;
-                const diffMins = Math.floor(diffMs / 60000);
-                
-                // Only show recovery if last save was less than 5 minutes ago
-                if (diffMins < 5) {
-                    setTimeout(() => {
-                        showRecoveryToast(diffMins);
-                    }, 1000);
-                }
-            } catch (e) {
-                console.error('Error checking recovery:', e);
-            }
-        }
-        
-        function showRecoveryToast(minutesAgo) {
-            const existingToast = document.querySelector('.recovery-toast');
-            if (existingToast) existingToast.remove();
-            
-            const toast = document.createElement('div');
-            toast.className = 'recovery-toast';
-            toast.innerHTML = `
-                <div class="text-sm">
-                    <div class="font-bold mb-1">Recover Last Session?</div>
-                    <p class="text-gray-300">Your data was saved ${minutesAgo === 0 ? 'just now' : `${minutesAgo} minute${minutesAgo === 1 ? '' : 's'} ago`}. Would you like to restore it?</p>
-                    <div class="recovery-buttons">
-                        <button onclick="loadFromLocalStorage(); this.closest('.recovery-toast').classList.remove('show'); setTimeout(() => this.closest('.recovery-toast').remove(), 300)" class="flex-1 bg-green-600 hover:bg-green-700 py-2 rounded text-sm font-bold transition">
-                            Yes, Restore
-                        </button>
-                        <button onclick="this.closest('.recovery-toast').classList.remove('show'); setTimeout(() => this.closest('.recovery-toast').remove(), 300)" class="flex-1 bg-white/10 hover:bg-white/20 py-2 rounded text-sm font-bold transition">
-                            No, Start Fresh
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(toast);
-            
-            setTimeout(() => toast.classList.add('show'), 100);
-        }
-
-        // ===== NEW: ONBOARDING MODAL FUNCTIONS =====
-        function showOnboardingModal() {
-            // Check if user has already been onboarded
-            if (localStorage.getItem('raf_onboarded') === 'true') return;
-            
-            const modal = document.getElementById('onboarding-modal');
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-        
-        function closeOnboardingModal() {
-            const modal = document.getElementById('onboarding-modal');
-            if (modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-                
-                // Mark as onboarded
-                localStorage.setItem('raf_onboarded', 'true');
-            }
-        }
-
-        // ===== NEW: PREMIUM GATING FUNCTIONS =====
-        function unlockBasicScenario(event) {
-            event.preventDefault();
-            
-            // Get email from form
-            const emailInput = event.target.querySelector('input[type="email"]');
-            const email = emailInput.value.trim();
-            
-            if (!email || !email.includes('@')) {
-                showToast('Please enter a valid email address');
-                return;
-            }
-            
-            // Show teaser
-            const teaser = document.getElementById('basic-scenario-teaser');
-            if (teaser) {
-                teaser.classList.remove('hidden');
-                
-                // Scroll to teaser
-                setTimeout(() => {
-                    teaser.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 100);
-            }
-            
-            // Store email (in a real app, this would be sent to a server)
-            localStorage.setItem('raf_scenario_email', email);
-            
-            // Show success message
-            showToast('Basic scenario unlocked! Check your email for more premium features.');
-            
-            // Clear input
-            emailInput.value = '';
-        }
-
         // ===== DATA PERSISTENCE =====
         
         function saveToLocalStorage() {
             const data = {
-                version: 'raf_lab_v14_enhanced',
+                version: 'raf_lab_v13_sovereign_score', // UPDATED VERSION
                 timestamp: new Date().toISOString(),
                 warMode: isWarModeActive,
                 paycheck: document.getElementById('paycheck').value,
@@ -6576,9 +6597,9 @@ function showDebtForm() {
             
             document.querySelectorAll('#debt-body tr').forEach(row => {
                 const typeSelect = row.querySelector('.debt-type-select');
-                const balanceInput = row.querySelector('td:nth-child(3) input');
-                const paymentInput = row.querySelector('td:nth-child(4) input');
-                const rateInput = row.querySelector('td:nth-child(5) input');
+                const balanceInput = row.querySelector('td:nth-child(2) input');
+                const paymentInput = row.querySelector('td:nth-child(3) input');
+                const rateInput = row.querySelector('td:nth-child(4) input');
                 
                 if (typeSelect) {
                     data.debts.push({
@@ -6591,12 +6612,7 @@ function showDebtForm() {
             });
             
             localStorage.setItem('raf_lab_data', JSON.stringify(data));
-            
-            // Update last save time
-            lastSaveTime = new Date();
-            updateLastSavedTime();
-            
-            showToast('Progress saved automatically');
+            showToast('Progress saved successfully!');
         }
 
         function loadFromLocalStorage() {
@@ -6640,11 +6656,10 @@ function showDebtForm() {
                 
                 if (data.debts && data.debts.length > 0) {
                     data.debts.forEach((debt, index) => {
-                        addDebtRowWithData(debt, index, false);
+                        addDebtRowWithData(debt, index);
                     });
-                } else {
-                    addDebtRowWithData({}, 0, false);
                 }
+                // Don't add blank row if no debts - S-TIER entry flow handles this
                 
                 initializeBudgetCategories();
                 
@@ -6667,9 +6682,6 @@ function showDebtForm() {
                         zeroOutWantsOnly();
                     }
                 }
-                
-                // Initialize undo stack with loaded state
-                saveDebtState();
                 
                 setTimeout(() => {
                     calculateAll();
@@ -6724,7 +6736,6 @@ function showDebtForm() {
                 categoryValues = {};
                 savingsValues = {};
                 originalCategoryValues = {};
-                debtUndoStack = [];
                 
                 isWarModeActive = false;
                 document.getElementById('budget-section').classList.remove('war-mode-active');
@@ -6735,13 +6746,9 @@ function showDebtForm() {
                 const warModeLabel = document.querySelector('.war-mode-label');
                 if (warModeLabel) warModeLabel.classList.remove('active');
                 
-                addDebtRowWithData({}, 0, false);
+                // Don't add blank row - S-TIER entry flow will show instead
                 initializeBudgetCategories();
                 calculateAll();
-                
-                // Hide undo button
-                const undoButton = document.getElementById('undo-debt-button');
-                if (undoButton) undoButton.classList.add('hidden');
                 
                 showToast('All data cleared successfully');
             }
@@ -6749,7 +6756,7 @@ function showDebtForm() {
 
         function exportData() {
             const data = {
-                version: 'raf_lab_v14_enhanced',
+                version: 'raf_lab_v13_sovereign_score', // UPDATED VERSION
                 timestamp: new Date().toISOString(),
                 warMode: isWarModeActive,
                 income: {
@@ -6799,16 +6806,15 @@ function showDebtForm() {
             
             document.querySelectorAll('#debt-body tr').forEach(row => {
                 const typeSelect = row.querySelector('.debt-type-select');
-                const balanceInput = row.querySelector('td:nth-child(3) input');
-                const paymentInput = row.querySelector('td:nth-child(4) input');
-                const rateInput = row.querySelector('td:nth-child(5) input');
+                const balanceInput = row.querySelector('td:nth-child(2) input');
+                const paymentInput = row.querySelector('td:nth-child(3) input');
+                const rateInput = row.querySelector('td:nth-child(4) input');
                 
                 if (typeSelect) {
                     const rate = parseFloat(rateInput?.value) || 0;
                     const balance = parseCurrency(balanceInput?.value || 0);
                     const payment = parseCurrency(paymentInput?.value || 0);
-                    const debtType = typeSelect.value;
-                    const yearsToPayoff = calculateYearsToPayoff(balance, payment, rate, debtType);
+                    const yearsToPayoff = calculateYearsToPayoff(balance, payment, rate);
                     
                     data.debts.push({
                         type: typeSelect.value || '',
@@ -6943,7 +6949,7 @@ function showDebtForm() {
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing enhanced financial dashboard with all new features...');
+            console.log('DOM loaded, initializing enhanced financial dashboard with RAF Sovereign Score™...');
             
             // Initialize chart
             const canvas = document.getElementById('budgetChart');
@@ -6994,43 +7000,22 @@ function showDebtForm() {
             // Initialize budget categories
             initializeBudgetCategories();
             
-            // Add initial debt row (empty)
-            addDebtRowWithData({}, 0, false);
-            
-            // Initialize debt drag and drop
-            setTimeout(() => {
-                initializeDebtDragAndDrop();
-            }, 500);
+            // Don't add initial debt row - S-TIER entry flow handles it
+            // addDebtRow(); // Commented out for S-TIER debt entry flow
             
             // Load saved data
             setTimeout(() => {
                 loadFromLocalStorage();
-                
-                // Check for session recovery
-                checkRecoverSession();
-                
-                // Update last saved time display
-                updateLastSavedTime();
             }, 100);
             
-            // Show onboarding modal on first visit
-            setTimeout(() => {
-                showOnboardingModal();
-            }, 1500);
-            
-            console.log('Enhanced financial dashboard v14 initialization complete');
+            console.log('Enhanced financial dashboard v13 with RAF Sovereign Score™ initialization complete');
         });
 
-        // Close modals when clicking outside
+        // Close modal when clicking outside
         document.addEventListener('click', function(e) {
             const modal = document.getElementById('pricing-modal');
             if (e.target === modal) {
                 closePricingModal();
-            }
-            
-            const onboardingModal = document.getElementById('onboarding-modal');
-            if (e.target === onboardingModal) {
-                closeOnboardingModal();
             }
         });
 
@@ -7068,12 +7053,11 @@ function showDebtForm() {
         window.toggleScoreBreakdown = toggleScoreBreakdown;
         window.calculateNextActionEnhanced = calculateNextActionEnhanced;
         window.updateNextActionEnhanced = updateNextActionEnhanced;
+
+        // NEW: Add new functions to global scope
         window.nextTip = nextTip;
         window.updateGoalProgress = updateGoalProgress;
         window.setNewGoal = setNewGoal;
-        window.undoLastDebtAction = undoLastDebtAction;
-        window.unlockBasicScenario = unlockBasicScenario;
-        window.closeOnboardingModal = closeOnboardingModal;
     </script>
 </body>
 </html>
