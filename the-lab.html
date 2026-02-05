@@ -939,6 +939,489 @@
         }
         
         
+        /* AMERICANA TICKER - SUPER VISIBLE DEBUG */
+        .ticker-container {
+            background: linear-gradient(to right, #B22234 0%, #FFFFFF 50%, #3C3B6E 100%);
+            overflow: hidden;
+            position: relative;
+            margin-top: 100px;
+            padding: 15px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        
+        .ticker-stripe {
+            display: none;
+        }
+        
+        .ticker-content {
+            display: flex;
+            animation: scroll 20s linear infinite;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            white-space: nowrap;
+            background: black;
+            padding: 20px 40px;
+            border-radius: 15px;
+            border: 5px solid yellow;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.9);
+            min-height: 80px;
+        }
+        
+        .ticker-icon {
+            font-size: 50px;
+            line-height: 1;
+        }
+        
+        .ticker-label {
+            color: yellow;
+            font-size: 18px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 6px black;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        
+        .ticker-value {
+            color: white;
+            font-size: 42px;
+            font-weight: 900;
+            text-shadow: 3px 3px 8px black;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+        
+        .ticker-value.positive {
+            color: #00FF00;
+        }
+        
+        .ticker-value.warning {
+            color: #FFFF00;
+        }
+        
+        .ticker-value.danger {
+            color: #FF0000;
+        }
+        
+        .ticker-separator {
+            color: yellow;
+            font-size: 50px;
+            filter: drop-shadow(0 0 10px yellow);
+        }
+        
+        /* GOD TIER: Achievement Badges */
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 16px;
+        }
+        
+        /* GOD MODE: Command Center Aesthetic */
+        .command-stat-card {
+            background: linear-gradient(135deg, rgba(178, 34, 52, 0.1), rgba(60, 59, 110, 0.1));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .command-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #B22234, #FFD700, #3C3B6E);
+        }
+        
+        .command-stat-card:hover {
+            transform: translateY(-4px);
+            border-color: #FFD700;
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.2);
+        }
+        
+        .stat-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+        }
+        
+        .stat-label {
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #FFD700;
+            margin-bottom: 8px;
+        }
+        
+        .stat-value {
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, #FFFFFF, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-value.danger {
+            background: linear-gradient(135deg, #EF4444, #F87171);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-value.warning {
+            background: linear-gradient(135deg, #F59E0B, #FBBF24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-value.good {
+            background: linear-gradient(135deg, #10B981, #34D399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* GOD MODE: Section Tabs */
+        .section-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            overflow-x: auto;
+        }
+        
+        .section-tab {
+            padding: 16px 24px;
+            background: transparent;
+            border: none;
+            color: #6B7280;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+        
+        .section-tab:hover {
+            color: #FFD700;
+        }
+        
+        .section-tab.active {
+            color: #FFFFFF;
+            border-bottom-color: #B22234;
+            background: linear-gradient(180deg, rgba(178, 34, 52, 0.1), transparent);
+        }
+        
+        .section-content {
+            display: none;
+        }
+        
+        .section-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* GOD MODE: Collapsible Sections */
+        .collapsible-header {
+            background: linear-gradient(135deg, rgba(178, 34, 52, 0.2), rgba(60, 59, 110, 0.2));
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+        }
+        
+        .collapsible-header:hover {
+            border-color: #FFD700;
+            background: linear-gradient(135deg, rgba(178, 34, 52, 0.3), rgba(60, 59, 110, 0.3));
+        }
+        
+        .collapsible-header.active {
+            border-color: #B22234;
+            background: linear-gradient(135deg, rgba(178, 34, 52, 0.4), rgba(60, 59, 110, 0.4));
+        }
+        
+        .collapsible-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .collapsible-header.active .collapsible-icon {
+            transform: rotate(180deg);
+        }
+        
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        
+        .collapsible-content.active {
+            max-height: 10000px;
+        }
+        
+        /* GOD MODE: Health Bar Redesign */
+        .health-bar-container {
+            background: rgba(10, 26, 47, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .health-bar {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .health-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.6s ease, background 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .health-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* GOD MODE: Neon Glow Effects */
+        .neon-text {
+            text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+        }
+        
+        .neon-border {
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.3), inset 0 0 10px rgba(255, 215, 0, 0.1);
+        }
+        
+        /* GOD MODE: Military HUD Elements */
+        .hud-corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #FFD700;
+        }
+        
+        .hud-corner.top-left {
+            top: 0;
+            left: 0;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .hud-corner.top-right {
+            top: 0;
+            right: 0;
+            border-left: none;
+            border-bottom: none;
+        }
+        
+        .hud-corner.bottom-left {
+            bottom: 0;
+            left: 0;
+            border-right: none;
+            border-top: none;
+        }
+        
+        .hud-corner.bottom-right {
+            bottom: 0;
+            right: 0;
+            border-left: none;
+            border-top: none;
+        }
+        
+        .achievement-badge {
+            background: linear-gradient(135deg, rgba(10, 26, 47, 0.8), rgba(20, 36, 57, 0.8));
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .achievement-badge.unlocked {
+            border-color: #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            background: linear-gradient(135deg, rgba(178, 34, 52, 0.2), rgba(60, 59, 110, 0.2));
+        }
+        
+        .achievement-badge.unlocked::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .achievement-icon {
+            font-size: 48px;
+            margin-bottom: 8px;
+            filter: grayscale(100%);
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-badge.unlocked .achievement-icon {
+            filter: grayscale(0%);
+            opacity: 1;
+            animation: bounce 0.6s ease;
+        }
+        
+        .achievement-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #6B7280;
+            transition: color 0.3s ease;
+        }
+        
+        .achievement-badge.unlocked .achievement-title {
+            color: #FFD700;
+        }
+        
+        /* GOD TIER: Streak Tracker */
+        .streak-flame {
+            font-size: 80px;
+            filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.6));
+            animation: flicker 2s infinite;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        
+        .streak-count {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #EF4444, #F59E0B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* GOD TIER: Quick Actions */
+        .quick-action-btn {
+            background: linear-gradient(135deg, #B22234, #8B1A2B);
+            border: 2px solid #FFD700;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        .quick-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(178, 34, 52, 0.4);
+            border-color: #FFF;
+        }
+        
+        .quick-action-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* GOD TIER: Time Machine */
+        .timeline-node {
+            position: relative;
+            padding: 20px;
+            background: rgba(10, 26, 47, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-node::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: #3C3B6E;
+            border: 3px solid #FFD700;
+            border-radius: 50%;
+        }
+        
+        .timeline-connector {
+            position: absolute;
+            left: -21px;
+            top: 0;
+            bottom: -20px;
+            width: 2px;
+            background: linear-gradient(to bottom, #B22234, #3C3B6E);
+        }
+        
+        .future-projection {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+            border-color: #10B981;
+        }
+        
         /* Budget Categories */
         .budget-category-card {
             background: rgba(10, 26, 47, 0.5);
@@ -1648,14 +2131,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .category-percentage {
-            font-size: 0.65rem;
-            color: #9ca3af;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 8px;
-        }
+        /* Old category-percentage removed - now using category-percentage-badge */
         
         .clear-category-btn {
             color: #9ca3af;
@@ -1683,6 +2159,190 @@
             border-left: 4px solid #EF4444 !important;
             background: rgba(239, 68, 68, 0.1) !important;
             border-style: solid !important;
+        }
+        
+        /* Budget Layout Grid - Prevents wrapping issues from float */
+        .budget-layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 24px;
+            align-items: start;
+        }
+        
+        @media (max-width: 1024px) {
+            .budget-layout-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .budget-chart-column {
+                order: -1; /* Show chart first on mobile */
+                max-width: 400px;
+                margin: 0 auto 24px;
+            }
+        }
+        
+        .budget-items-column {
+            min-width: 0; /* Prevent grid blowout */
+        }
+        
+        .budget-chart-column {
+            position: relative;
+        }
+        
+        .budget-chart-sticky {
+            position: sticky;
+            top: 80px; /* Stick when scrolling */
+            background: rgba(10, 26, 47, 0.8);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Budget category card improvements - NEW UNIFORM DESIGN */
+        .budget-category-card {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 14px 16px;
+            min-height: 88px; /* Ensure consistent height */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .budget-category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .budget-category-card:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .budget-category-card:hover::before {
+            opacity: 1;
+        }
+        
+        .budget-category-card:hover .category-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+        
+        .budget-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .category-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .category-info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .category-main-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #F3F4F6;
+            letter-spacing: 0.01em;
+            line-height: 1.2;
+        }
+        
+        .category-subtitle {
+            font-size: 0.7rem;
+            color: #9CA3AF;
+            line-height: 1.2;
+            opacity: 0.8;
+        }
+        
+        .category-percentage-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: rgba(59, 130, 246, 0.15);
+            color: #60A5FA;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            white-space: nowrap;
+            min-width: 45px;
+            text-align: center;
+        }
+        
+        .budget-card-input {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-left: 48px; /* Align with text, not icon */
+        }
+        
+        .budget-card-input .currency-input-container {
+            flex: 1;
+            position: relative;
+        }
+        
+        .budget-card-input .clear-category-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        
+        .budget-card-input .clear-category-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.4);
+            transform: scale(1.1);
+        }
+        
+        /* Special styling for debt minimums card */
+        .debt-minimums-special {
+            border-left: 3px solid #8B5CF6;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(139, 92, 246, 0.03));
+        }
+        
+        .debt-minimums-special:hover {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(139, 92, 246, 0.06));
+        }
+        
+        .category-label {
+            display: inline-block;
+            line-height: 1.4;
         }
         
         .debt-minimums-special .category-label::after {
@@ -2251,6 +2911,7 @@
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson flex flex-col min-h-screen">
     
+    
     <!-- HEADER -->
     <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -2269,20 +2930,203 @@
             </div>
         </nav>
     </header>
-
-    <!-- SIMPLIFIED HERO SECTION -->
-    <section class="hero-bg pt-24 pb-8 text-center px-6">
-        <div class="container mx-auto">
-            <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight leading-tight mb-4 drop-shadow-2xl">
-                THE <span class="text-crimson">LAB.</span>
-            </h1>
-            
-            <p class="text-lg md:text-xl text-white font-heading font-bold uppercase tracking-[0.3em] mb-8 drop-shadow-md">
-                Your Financial Battle Station
-            </p>
-
-        </div>
+    
+    
+    <!-- MINIMALIST HERO -->
+    <section class="pt-24 pb-6 text-center">
+        <h1 class="text-4xl font-heading font-bold mb-2">THE LAB</h1>
+        <p class="text-sm text-gray-400">Financial clarity, simplified</p>
     </section>
+
+    <!-- COMMAND CENTER - HIDDEN FOR MINIMALISM -->
+    <div class="hidden">
+        <!-- Command Center Header -->
+        <div class="dashboard-card p-6 mb-6 relative overflow-hidden">
+            <div class="hud-corner top-left"></div>
+            <div class="hud-corner top-right"></div>
+            <div class="hud-corner bottom-left"></div>
+            <div class="hud-corner bottom-right"></div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div>
+                    <h2 class="text-2xl font-heading font-bold uppercase mb-2">
+                        <i class="fas fa-chart-line mr-2 text-crimson"></i>Financial Command Center
+                    </h2>
+                    <div class="text-sm text-gray-400">Real-time battlefield intelligence</div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="text-center">
+                        <div class="text-xs uppercase text-gray-400 mb-1">Overall Health</div>
+                        <div class="text-4xl font-bold text-yellow-400 neon-text" id="total-health-score">0/100</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xs uppercase text-gray-400 mb-1">Streak</div>
+                        <div class="text-3xl" id="hero-streak">🔥<span class="text-xl font-bold ml-1" id="hero-streak-count">0</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stat Cards Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <!-- Debt Health Card -->
+                <div class="command-stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-label">Debt Health</div>
+                    <div class="stat-value" id="cmd-debt-score">0/20</div>
+                    <div class="health-bar mt-3">
+                        <div class="health-bar-fill" id="cmd-debt-bar" style="width: 0%; background: linear-gradient(90deg, #B22234, #EF4444);"></div>
+                    </div>
+                </div>
+                
+                <!-- Savings Health Card -->
+                <div class="command-stat-card">
+                    <div class="stat-icon">🛡️</div>
+                    <div class="stat-label">Savings</div>
+                    <div class="stat-value good" id="cmd-savings-score">0/20</div>
+                    <div class="health-bar mt-3">
+                        <div class="health-bar-fill" id="cmd-savings-bar" style="width: 0%; background: linear-gradient(90deg, #3B82F6, #60A5FA);"></div>
+                    </div>
+                </div>
+                
+                <!-- Budget Health Card -->
+                <div class="command-stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-label">Budget</div>
+                    <div class="stat-value" id="cmd-budget-score">0/20</div>
+                    <div class="health-bar mt-3">
+                        <div class="health-bar-fill" id="cmd-budget-bar" style="width: 0%; background: linear-gradient(90deg, #8B5CF6, #A78BFA);"></div>
+                    </div>
+                </div>
+                
+                <!-- Income Health Card -->
+                <div class="command-stat-card">
+                    <div class="stat-icon">💵</div>
+                    <div class="stat-label">Income</div>
+                    <div class="stat-value" id="cmd-income-score">0/20</div>
+                    <div class="health-bar mt-3">
+                        <div class="health-bar-fill" id="cmd-income-bar" style="width: 0%; background: linear-gradient(90deg, #10B981, #34D399);"></div>
+                    </div>
+                </div>
+                
+                <!-- Net Worth Card -->
+                <div class="command-stat-card">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-label">Net Worth</div>
+                    <div class="stat-value" id="cmd-networth-score">0/20</div>
+                    <div class="health-bar mt-3">
+                        <div class="health-bar-fill" id="cmd-networth-bar" style="width: 0%; background: linear-gradient(90deg, #F59E0B, #FBBF24);"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- AI Coach -->
+            <div class="mt-6 bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-xl p-4 border border-blue-500/30 neon-border">
+                <div class="flex items-start gap-3">
+                    <div class="text-3xl">🤖</div>
+                    <div class="flex-1">
+                        <div class="text-sm font-bold text-blue-400 mb-2">AI TACTICAL ADVISOR</div>
+                        <div id="ai-coach-message" class="text-sm leading-relaxed">
+                            Enter your income to activate tactical analysis and receive personalized battle plans.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACHIEVEMENTS - HIDDEN FOR MINIMALISM -->
+    <div class="hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Achievement Badges -->
+            <div class="lg:col-span-2 dashboard-card p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-heading font-bold uppercase">
+                        <i class="fas fa-trophy mr-2 text-yellow-400"></i>American Patriot Achievements
+                    </h3>
+                    <div class="text-sm">
+                        <span id="achievements-unlocked">0</span>/<span id="achievements-total">12</span> Unlocked
+                    </div>
+                </div>
+                
+                <div class="achievement-grid" id="achievement-grid">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Streak Tracker -->
+            <div class="dashboard-card p-6 text-center">
+                <h3 class="text-xl font-heading font-bold uppercase mb-4">
+                    <i class="fas fa-fire mr-2 text-orange-500"></i>Freedom Streak
+                </h3>
+                
+                <div class="streak-flame mb-4">🔥</div>
+                <div class="streak-count mb-2" id="streak-count">0</div>
+                <div class="text-sm text-gray-400 mb-6">Days of Financial Discipline</div>
+                
+                <div class="text-xs text-gray-500 bg-navy-900/50 rounded p-3">
+                    <strong>DON'T BREAK THE CHAIN</strong><br>
+                    Check in daily to maintain your streak. Every day you track your finances, you get stronger. 💪
+                </div>
+                
+                <div class="mt-4 text-xs text-gray-400">
+                    Last check-in: <span id="last-checkin">Never</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- QUICK ACTIONS - HIDDEN FOR MINIMALISM -->
+    <div class="hidden">
+        <div class="dashboard-card p-6">
+            <h3 class="text-xl font-heading font-bold uppercase mb-4">
+                <i class="fas fa-bolt mr-2 text-yellow-400"></i>Quick Actions - Strike Fast
+            </h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <button class="quick-action-btn" onclick="quickPayDebt()">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Pay Extra $50
+                </button>
+                <button class="quick-action-btn" onclick="quickSave()">
+                    <i class="fas fa-piggy-bank"></i>
+                    Save $100
+                </button>
+                <button class="quick-action-btn" onclick="quickReduceWants()">
+                    <i class="fas fa-cut"></i>
+                    Cut Wants 10%
+                </button>
+                <button class="quick-action-btn" onclick="quickSnapshot()">
+                    <i class="fas fa-camera"></i>
+                    Take Snapshot
+                </button>
+            </div>
+            
+            <div class="mt-4 text-xs text-center text-gray-400">
+                These actions update your numbers instantly. Track progress with The Lab's real-time calculations.
+            </div>
+        </div>
+    </div>
+    
+    <!-- TIME MACHINE - HIDDEN FOR MINIMALISM -->
+    <div class="hidden">
+        <div class="dashboard-card p-6">
+            <h3 class="text-xl font-heading font-bold uppercase mb-4">
+                <i class="fas fa-hourglass-half mr-2 text-blue-400"></i>Time Machine - Your Financial Future
+            </h3>
+            
+            <div class="relative pl-12" id="timeline-container">
+                <!-- Populated by JavaScript -->
+            </div>
+            
+            <div class="mt-6 p-4 bg-gradient-to-r from-green-900/20 to-blue-900/20 rounded-lg border border-green-500/30">
+                <div class="text-sm text-center">
+                    <strong class="text-green-400">The power of compound discipline.</strong><br>
+                    Small actions today = massive results tomorrow. This is the American Dream in action. 🇺🇸
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- NEW: DAILY FINANCIAL TIP CAROUSEL -->
     <div class="container mx-auto px-4 md:px-6 py-4">
@@ -2763,6 +3607,20 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- PIE CHART - NOW FLOATING IN BUDGET SECTION -->
+                <div class="hidden">
+                    <div class="max-w-3xl mx-auto">
+                        <div class="relative w-full aspect-square max-w-xl mx-auto mb-6">
+                            <!-- REMOVED: Duplicate canvas -->
+                            
+                            <!-- SURPLUS/DEFICIT IN CENTER - REMOVED TO AVOID DUPLICATES -->
+                        </div>
+                        
+                        <!-- LEGEND - REMOVED TO AVOID DUPLICATE IDs -->
+                    </div>
+                </div>
+
                 <!-- 03. Enhanced Budget (WITHOUT PROGRESS INDICATORS - MOVED TO SIDEBAR) -->
                 <div class="dashboard-card p-4 md:p-6 lg:p-8 shadow-2xl" id="budget-section">
                     <div class="flex justify-between items-center mb-4 md:mb-6">
@@ -2774,6 +3632,11 @@
                             <i class="fas fa-keyboard mr-1"></i> Press '3'
                         </div>
                     </div>
+                    
+                    <!-- BUDGET LAYOUT: Two-column grid on desktop, stacked on mobile -->
+                    <div class="budget-layout-grid">
+                        <!-- Left Column: Budget Items -->
+                        <div class="budget-items-column">
                     
                     <!-- WAR MODE TOGGLE - ALWAYS VISIBLE -->
                     <div id="war-mode-container" class="war-mode-toggle-container">
@@ -2813,6 +3676,61 @@
                             <!-- Dual-input savings cards will be added here -->
                         </div>
                     </div>
+                    
+                    </div>
+                    <!-- End Left Column -->
+                    
+                    <!-- Right Column: Pie Chart & Legend -->
+                    <div class="budget-chart-column">
+                        <div class="budget-chart-sticky">
+                            <div class="relative w-full aspect-square">
+                                <canvas id="budgetChart" width="250" height="250"></canvas>
+                                
+                                <!-- SURPLUS IN CENTER -->
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+                                    <span id="center-label" class="text-[8px] text-gray-400 uppercase font-bold tracking-wider mb-1">Surplus</span>
+                                    <span id="center-remaining" class="text-2xl font-heading font-bold text-white">$0</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 3x2 Legend: Income/Savings | Good Debt/Needs | Bad Debt/Wants -->
+                            <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+                                <!-- Row 1 -->
+                                <div class="text-center p-2 bg-green-900/20 rounded border border-green-500/30">
+                                    <div class="text-green-400 text-[9px] font-bold">INCOME</div>
+                                    <div id="total-income-display" class="text-sm text-green-400 font-bold">$0</div>
+                                </div>
+                                <div class="text-center p-2 bg-blue-900/20 rounded border border-blue-500/30">
+                                    <div class="text-blue-400 text-[9px] font-bold">SAVINGS</div>
+                                    <div id="savings-total-display" class="text-sm text-blue-400 font-bold">$0</div>
+                                </div>
+                                
+                                <!-- Row 2 -->
+                                <div class="text-center p-2 bg-yellow-900/20 rounded border border-yellow-500/30">
+                                    <div class="text-yellow-400 text-[9px] font-bold">GOOD DEBT</div>
+                                    <div id="good-debt-display" class="text-sm text-yellow-400 font-bold">$0</div>
+                                </div>
+                                <div class="text-center p-2 bg-navy-900/50 rounded border border-white/10">
+                                    <div class="text-gray-400 text-[9px] font-bold">NEEDS</div>
+                                    <div id="needs-total-display" class="text-sm text-white font-bold">$0</div>
+                                </div>
+                                
+                                <!-- Row 3 -->
+                                <div class="text-center p-2 bg-red-900/20 rounded border border-red-500/30">
+                                    <div class="text-red-400 text-[9px] font-bold">BAD DEBT</div>
+                                    <div id="bad-debt-display" class="text-sm text-red-400 font-bold">$0</div>
+                                </div>
+                                <div class="text-center p-2 bg-purple-900/20 rounded border border-purple-500/30">
+                                    <div class="text-purple-400 text-[9px] font-bold">WANTS</div>
+                                    <div id="wants-total-display" class="text-sm text-purple-400 font-bold">$0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Right Column -->
+                    
+                    </div>
+                    <!-- End Budget Grid -->
                 </div>
 
     <!-- 04. Cash Flow Projection (PREMIUM) - SAME HEIGHT AS MASTERY -->
@@ -3060,54 +3978,58 @@
                     </div>
                 </div>
 
-                <!-- Chart Container -->
-                <div class="dashboard-card p-4 md:p-6 mb-6 shadow-2xl border-white/10">
-                    <div class="relative w-full mb-4 md:mb-6">
-                        <canvas id="budgetChart" width="400" height="400"></canvas>
-                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-                            <!-- CHANGED: Now shows "Monthly Deficit" when in deficit -->
-                            <span id="center-label" class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mb-1 md:mb-2">Monthly Surplus</span>
-                            <span id="center-remaining" class="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-white leading-none">$0</span>
-                        </div>
+                <!-- Chart Container - MOVED TO MAIN CONTENT -->
+    <!-- PIE CHART NOW IN MAIN CONTENT BETWEEN DEBT AND BUDGET -->
+    <div class="hidden">
+        <div class="dashboard-card p-8 relative overflow-hidden">
+            
+            <!-- PIE CHART - DISABLED -->
+            <div class="max-w-2xl mx-auto">
+                <div class="relative w-full aspect-square max-w-lg mx-auto mb-8">
+                    <!-- REMOVED: Duplicate canvas caused issues -->
+                    <!-- REMOVED: Duplicate center labels -->
+                </div>
+                </div>
+                
+                <!-- Legend Below Chart - Minimal -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                    <div class="text-center p-3 bg-navy-900/30 rounded border border-white/5">
+                        <span class="block text-gray-500 mb-1 text-[10px] uppercase tracking-wider">Income</span>
+                        <span id="total-income-display" class="text-xl text-green-400 block font-bold">$0</span>
                     </div>
-
-                    <div class="space-y-3 text-xs uppercase font-bold tracking-[0.1em]">
-                        <div class="flex justify-between items-center">
-                            <span>Total Income:</span>
-                            <span id="total-income-display" class="text-green-400">$0</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span>Total Expenses:</span>
-                            <span id="total-expenses-display" class="text-white">$0</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span>Debt Payments:</span>
-                            <span id="sidebar-debt-payments" class="text-crimson">$0</span>
-                        </div>
-                        <div class="flex justify-between items-center border-t border-white/20 pt-3 mt-3">
-                            <span>Savings Rate:</span>
-                            <span id="savings-rate-sidebar">0%</span>
-                        </div>
+                    <div class="text-center p-3 bg-navy-900/30 rounded border border-white/5">
+                        <span class="block text-gray-500 mb-1 text-[10px] uppercase tracking-wider">Expenses</span>
+                        <span id="total-expenses-display" class="text-xl text-white block font-bold">$0</span>
                     </div>
+                    <div class="text-center p-3 bg-navy-900/30 rounded border border-white/5">
+                        <span class="block text-gray-500 mb-1 text-[10px] uppercase tracking-wider">Debt</span>
+                        <span id="sidebar-debt-payments" class="text-xl text-crimson block font-bold">$0</span>
+                    </div>
+                    <div class="text-center p-3 bg-navy-900/30 rounded border border-white/5">
+                        <span class="block text-gray-500 mb-1 text-[10px] uppercase tracking-wider">Savings</span>
+                        <span id="savings-rate-sidebar" class="text-xl text-blue-400 block font-bold">0%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Management -->
+            <div class="mt-8">
+                <div class="data-management-dropdown">
+                    <button onclick="toggleDataMenu()" class="w-full bg-gradient-to-r from-crimson to-red-800 hover:from-red-700 hover:to-red-900 border-2 border-yellow-400 py-3 text-sm uppercase font-bold tracking-wide transition touch-target flex items-center justify-center gap-2 rounded-lg">
+                        <i class="fas fa-database"></i>
+                        Data Management
+                        <i class="fas fa-chevron-down ml-auto text-xs"></i>
+                    </button>
                     
-                    <!-- UNIFIED DATA MANAGEMENT -->
-                    <div class="mt-6">
-                        <div class="data-management-dropdown">
-                            <button onclick="toggleDataMenu()" class="w-full bg-crimson hover:bg-red-700 border border-crimson py-3 text-sm uppercase font-bold tracking-wide transition touch-target flex items-center justify-center gap-2">
-                                <i class="fas fa-database"></i>
-                                Data Management
-                                <i class="fas fa-chevron-down ml-auto text-xs"></i>
-                            </button>
-                            
-                            <div class="data-management-menu" id="data-management-menu">
-                                <div class="data-management-item" onclick="saveToLocalStorage()">
-                                    <i class="fas fa-save"></i>
-                                    Save Progress
-                                </div>
-                                <div class="data-management-item" onclick="loadFromLocalStorage()">
-                                    <i class="fas fa-upload"></i>
-                                    Load Progress
-                                </div>
+                    <div class="data-management-menu" id="data-management-menu">
+                        <div class="data-management-item" onclick="saveToLocalStorage()">
+                            <i class="fas fa-save"></i>
+                            Save Progress
+                        </div>
+                        <div class="data-management-item" onclick="loadFromLocalStorage()">
+                            <i class="fas fa-upload"></i>
+                            Load Progress
+                        </div>
                                 <div class="data-management-divider"></div>
                                 <div class="data-management-item" onclick="exportData()">
                                     <i class="fas fa-download"></i>
@@ -3792,29 +4714,44 @@ function updateCategoryPercentage(categoryId) {
         if (percentageElement) {
             percentageElement.textContent = `${percentage.toFixed(1)}%`;
             
-            // Color coding based on category type and percentage
+            // Color coding based on category type and percentage - using badge style
             const isNeed = budgetCategories.needs.some(c => c.id === categoryId);
             const isWant = budgetCategories.wants.some(c => c.id === categoryId);
             
-            percentageElement.classList.remove('text-red-500', 'text-yellow-500', 'text-green-500', 'text-blue-400');
+            // Reset all badge styles
+            percentageElement.style.background = '';
+            percentageElement.style.color = '';
+            percentageElement.style.borderColor = '';
             
             if (isNeed) {
-                // For needs: red if > 15%, yellow if > 10%, green otherwise
+                // For needs: red if > 15%, yellow if > 10%, blue otherwise
                 if (percentage > 15) {
-                    percentageElement.classList.add('text-red-500');
+                    percentageElement.style.background = 'rgba(239, 68, 68, 0.2)';
+                    percentageElement.style.color = '#FCA5A5';
+                    percentageElement.style.borderColor = 'rgba(239, 68, 68, 0.4)';
                 } else if (percentage > 10) {
-                    percentageElement.classList.add('text-yellow-500');
+                    percentageElement.style.background = 'rgba(245, 158, 11, 0.2)';
+                    percentageElement.style.color = '#FCD34D';
+                    percentageElement.style.borderColor = 'rgba(245, 158, 11, 0.4)';
                 } else {
-                    percentageElement.classList.add('text-green-500');
+                    percentageElement.style.background = 'rgba(59, 130, 246, 0.15)';
+                    percentageElement.style.color = '#60A5FA';
+                    percentageElement.style.borderColor = 'rgba(59, 130, 246, 0.3)';
                 }
             } else if (isWant) {
-                // For wants: red if > 10%, yellow if > 5%, green otherwise
+                // For wants: red if > 10%, yellow if > 5%, purple otherwise
                 if (percentage > 10) {
-                    percentageElement.classList.add('text-red-500');
+                    percentageElement.style.background = 'rgba(239, 68, 68, 0.2)';
+                    percentageElement.style.color = '#FCA5A5';
+                    percentageElement.style.borderColor = 'rgba(239, 68, 68, 0.4)';
                 } else if (percentage > 5) {
-                    percentageElement.classList.add('text-yellow-500');
+                    percentageElement.style.background = 'rgba(245, 158, 11, 0.2)';
+                    percentageElement.style.color = '#FCD34D';
+                    percentageElement.style.borderColor = 'rgba(245, 158, 11, 0.4)';
                 } else {
-                    percentageElement.classList.add('text-green-500');
+                    percentageElement.style.background = 'rgba(139, 92, 246, 0.15)';
+                    percentageElement.style.color = '#A78BFA';
+                    percentageElement.style.borderColor = 'rgba(139, 92, 246, 0.3)';
                 }
             }
         }
@@ -3842,23 +4779,23 @@ function updateAllCategoryPercentages() {
         // UPDATED: SIMPLIFIED BUDGET CATEGORIES WITH TAXES
         const budgetCategories = {
             needs: [
-                { id: 'debt_minimums', label: 'Debt Minimum Payments (Info Only)', default: 0 },
-                { id: 'mortgage_rent', label: 'Mortgage/Rent', default: 0 },
-                { id: 'utilities', label: 'Utilities', default: 0 },
-                { id: 'phone_bill', label: 'Phone Bill', default: 0 },
-                { id: 'car_gas', label: 'Car Gas', default: 0 },
-                { id: 'car_insurance', label: 'Car Insurance', default: 0 },
-                { id: 'groceries', label: 'Groceries', default: 0 },
-                { id: 'household_essentials', label: 'Household Essentials', default: 0 },
-                { id: 'pet_care', label: 'Pet Care', default: 0 },
-                { id: 'health_insurance', label: 'Health Insurance/Medical', default: 0 },
-                { id: 'taxes', label: 'Taxes (Monthly)', default: 0 } // NEW
+                { id: 'debt_minimums', label: 'Debt Minimum Payments (Info Only)', default: 0, icon: 'fa-credit-card', color: '#8B5CF6' },
+                { id: 'mortgage_rent', label: 'Mortgage/Rent', default: 0, icon: 'fa-home', color: '#3B82F6' },
+                { id: 'utilities', label: 'Utilities', default: 0, icon: 'fa-bolt', color: '#F59E0B' },
+                { id: 'phone_bill', label: 'Phone Bill', default: 0, icon: 'fa-mobile-alt', color: '#10B981' },
+                { id: 'car_gas', label: 'Car Gas', default: 0, icon: 'fa-gas-pump', color: '#EF4444' },
+                { id: 'car_insurance', label: 'Car Insurance', default: 0, icon: 'fa-car', color: '#6366F1' },
+                { id: 'groceries', label: 'Groceries', default: 0, icon: 'fa-shopping-cart', color: '#22C55E' },
+                { id: 'household_essentials', label: 'Household Essentials', default: 0, icon: 'fa-home', color: '#14B8A6' },
+                { id: 'pet_care', label: 'Pet Care', default: 0, icon: 'fa-paw', color: '#F97316' },
+                { id: 'health_insurance', label: 'Health Insurance/Medical', default: 0, icon: 'fa-heartbeat', color: '#EC4899' },
+                { id: 'taxes', label: 'Taxes (Monthly)', default: 0, icon: 'fa-file-invoice-dollar', color: '#DC2626' }
             ],
             wants: [
-                { id: 'gym_membership', label: 'Gym Membership', default: 0 },
-                { id: 'subscriptions', label: 'Subscriptions', default: 0 },
-                { id: 'dining_entertainment', label: 'Dining/Entertainment', default: 0 },
-                { id: 'shopping_fun_money', label: 'Shopping/Fun Money', default: 0 }
+                { id: 'gym_membership', label: 'Gym Membership', default: 0, icon: 'fa-dumbbell', color: '#8B5CF6' },
+                { id: 'subscriptions', label: 'Subscriptions', default: 0, icon: 'fa-tv', color: '#3B82F6' },
+                { id: 'dining_entertainment', label: 'Dining/Entertainment', default: 0, icon: 'fa-utensils', color: '#F59E0B' },
+                { id: 'shopping_fun_money', label: 'Shopping/Fun Money', default: 0, icon: 'fa-shopping-bag', color: '#EC4899' }
             ]
         };
 
@@ -4515,6 +5452,11 @@ function getYearsToPayoffClass(years) {
                 localStorage.setItem('raf_debt_start_date', new Date().toLocaleDateString());
             }
             
+            // Track that user has had debt for debt-free achievement
+            if (balance > 0) {
+                localStorage.setItem('raf_had_debt', 'true');
+            }
+            
             // Remove debt-free status
             localStorage.removeItem('raf_debt_free');
             
@@ -4663,6 +5605,10 @@ function getYearsToPayoffClass(years) {
                 const debtType = debtTypes.find(dt => dt.value === typeSelect.value);
                 const typeName = debtType ? debtType.label : 'debt';
                 
+                // Track for achievements
+                const paidCount = parseInt(localStorage.getItem('raf_debts_paid') || '0');
+                localStorage.setItem('raf_debts_paid', paidCount + 1);
+                
                 // Show mini celebration for individual debt payoff
                 showToast(`🎉 ${typeName} PAID OFF! One down! 💪`, 5000);
                 
@@ -4760,6 +5706,635 @@ function getYearsToPayoffClass(years) {
             
             if (isNaN(months) || months <= 0 || months > 999) return 999;
             return months;
+        }
+        
+        // GOD TIER: Financial Health Breakdown + AI Coach
+        function updateFinancialHealth() {
+            const income = getMonthlyIncome();
+            const totalDebt = getTotalDebtBalance();
+            const debtPayments = getTotalDebtPayments();
+            
+            let savingsTotal = 0;
+            if (typeof savingsCategories !== 'undefined') {
+                savingsCategories.forEach(cat => {
+                    savingsTotal += (savingsValues[`${cat.id}_monthly`] || 0);
+                });
+            }
+            
+            let needsTotal = 0, wantsTotal = 0;
+            if (typeof budgetCategories !== 'undefined') {
+                if (budgetCategories.needs) {
+                    budgetCategories.needs.forEach(cat => needsTotal += (categoryValues[cat.id] || 0));
+                }
+                if (budgetCategories.wants) {
+                    budgetCategories.wants.forEach(cat => wantsTotal += (categoryValues[cat.id] || 0));
+                }
+            }
+            
+            const netWorth = savingsTotal - totalDebt;
+            const dti = income > 0 ? (totalDebt / (income * 12)) * 100 : 0;
+            const emergencyMonths = income > 0 ? savingsTotal / income : 0;
+            const needsPercent = income > 0 ? (needsTotal / income) * 100 : 0;
+            const savingsPercent = income > 0 ? (savingsTotal / income) * 100 : 0;
+            
+            // SCORE 1: DEBT HEALTH (0-20)
+            let debtScore = 0;
+            if (totalDebt === 0) {
+                debtScore = 20; // Perfect
+            } else if (dti < 15) {
+                debtScore = 18;
+            } else if (dti < 30) {
+                debtScore = 15;
+            } else if (dti < 40) {
+                debtScore = 10;
+            } else if (dti < 50) {
+                debtScore = 5;
+            } else {
+                debtScore = 2;
+            }
+            
+            // SCORE 2: SAVINGS HEALTH (0-20)
+            let savingsScore = 0;
+            if (emergencyMonths >= 12) {
+                savingsScore = 20;
+            } else if (emergencyMonths >= 6) {
+                savingsScore = 18;
+            } else if (emergencyMonths >= 3) {
+                savingsScore = 12;
+            } else if (emergencyMonths >= 1) {
+                savingsScore = 6;
+            } else if (savingsTotal > 0) {
+                savingsScore = 2;
+            }
+            
+            // SCORE 3: BUDGET HEALTH (0-20)
+            let budgetScore = 0;
+            if (income > 0) {
+                if (needsPercent <= 50 && savingsPercent >= 20) {
+                    budgetScore = 20; // Perfect 50/30/20
+                } else if (needsPercent <= 60 && savingsPercent >= 15) {
+                    budgetScore = 15;
+                } else if (needsPercent <= 70 && savingsPercent >= 10) {
+                    budgetScore = 10;
+                } else if (needsPercent <= 80) {
+                    budgetScore = 5;
+                } else {
+                    budgetScore = 2;
+                }
+            }
+            
+            // SCORE 4: INCOME HEALTH (0-20)
+            let incomeScore = 0;
+            if (income >= 10000) {
+                incomeScore = 20;
+            } else if (income >= 7500) {
+                incomeScore = 18;
+            } else if (income >= 5000) {
+                incomeScore = 15;
+            } else if (income >= 3000) {
+                incomeScore = 10;
+            } else if (income > 0) {
+                incomeScore = 5;
+            }
+            
+            // SCORE 5: NET WORTH HEALTH (0-20)
+            let networthScore = 0;
+            if (netWorth >= 100000) {
+                networthScore = 20;
+            } else if (netWorth >= 50000) {
+                networthScore = 18;
+            } else if (netWorth >= 25000) {
+                networthScore = 15;
+            } else if (netWorth >= 10000) {
+                networthScore = 12;
+            } else if (netWorth >= 5000) {
+                networthScore = 8;
+            } else if (netWorth > 0) {
+                networthScore = 4;
+            } else if (netWorth > -10000) {
+                networthScore = 2;
+            }
+            
+            const totalScore = debtScore + savingsScore + budgetScore + incomeScore + networthScore;
+            
+            // Update UI - Total score only (if exists)
+            const totalHealthEl = document.getElementById('total-health-score');
+            if (totalHealthEl) {
+                totalHealthEl.textContent = totalScore + '/100';
+            }
+            
+            // GOD MODE: Update Command Center cards (if they exist)
+            const cmdDebtScore = document.getElementById('cmd-debt-score');
+            const cmdSavingsScore = document.getElementById('cmd-savings-score');
+            const cmdBudgetScore = document.getElementById('cmd-budget-score');
+            const cmdIncomeScore = document.getElementById('cmd-income-score');
+            const cmdNetworthScore = document.getElementById('cmd-networth-score');
+            
+            if (cmdDebtScore) {
+                cmdDebtScore.textContent = debtScore + '/20';
+                cmdDebtScore.className = 'stat-value ' + (debtScore >= 15 ? 'good' : debtScore >= 10 ? 'warning' : 'danger');
+            }
+            if (cmdSavingsScore) {
+                cmdSavingsScore.textContent = savingsScore + '/20';
+                cmdSavingsScore.className = 'stat-value ' + (savingsScore >= 15 ? 'good' : savingsScore >= 10 ? 'warning' : '');
+            }
+            if (cmdBudgetScore) {
+                cmdBudgetScore.textContent = budgetScore + '/20';
+                cmdBudgetScore.className = 'stat-value ' + (budgetScore >= 15 ? 'good' : budgetScore >= 10 ? 'warning' : '');
+            }
+            if (cmdIncomeScore) {
+                cmdIncomeScore.textContent = incomeScore + '/20';
+                cmdIncomeScore.className = 'stat-value ' + (incomeScore >= 15 ? 'good' : incomeScore >= 10 ? 'warning' : '');
+            }
+            if (cmdNetworthScore) {
+                cmdNetworthScore.textContent = networthScore + '/20';
+                cmdNetworthScore.className = 'stat-value ' + (networthScore >= 15 ? 'good' : networthScore >= 10 ? 'warning' : '');
+            }
+            
+            // Update Command Center bars (if they exist)
+            const cmdDebtBar = document.getElementById('cmd-debt-bar');
+            const cmdSavingsBar = document.getElementById('cmd-savings-bar');
+            const cmdBudgetBar = document.getElementById('cmd-budget-bar');
+            const cmdIncomeBar = document.getElementById('cmd-income-bar');
+            const cmdNetworthBar = document.getElementById('cmd-networth-bar');
+            
+            if (cmdDebtBar) cmdDebtBar.style.width = (debtScore / 20 * 100) + '%';
+            if (cmdSavingsBar) cmdSavingsBar.style.width = (savingsScore / 20 * 100) + '%';
+            if (cmdBudgetBar) cmdBudgetBar.style.width = (budgetScore / 20 * 100) + '%';
+            if (cmdIncomeBar) cmdIncomeBar.style.width = (incomeScore / 20 * 100) + '%';
+            if (cmdNetworthBar) cmdNetworthBar.style.width = (networthScore / 20 * 100) + '%';
+            
+            // Update hero score (if exists)
+            const heroScore = document.getElementById('hero-score');
+            if (heroScore) {
+                heroScore.textContent = totalScore + '/100 Sovereign';
+            }
+            
+            // AI COACH MESSAGE
+            let aiMessage = generateAICoachMessage(totalScore, debtScore, savingsScore, budgetScore, incomeScore, networthScore, {
+                income, totalDebt, savingsTotal, emergencyMonths, needsPercent, savingsPercent, dti, netWorth
+            });
+            
+            const aiCoachEl = document.getElementById('ai-coach-message');
+            if (aiCoachEl) {
+                aiCoachEl.innerHTML = aiMessage;
+            }
+        }
+        
+        function generateAICoachMessage(total, debt, savings, budget, income, networth, data) {
+            if (data.income === 0) {
+                return "👋 Hey! Start by entering your monthly income above. Once I see your numbers, I'll give you personalized advice to improve your financial health.";
+            }
+            
+            let messages = [];
+            let priority = null;
+            
+            // Find weakest area
+            const scores = [
+                {name: 'debt', score: debt, data: data.totalDebt},
+                {name: 'savings', score: savings, data: data.emergencyMonths},
+                {name: 'budget', score: budget, data: data.needsPercent},
+                {name: 'income', score: income, data: data.income},
+                {name: 'networth', score: networth, data: data.netWorth}
+            ];
+            scores.sort((a, b) => a.score - b.score);
+            priority = scores[0];
+            
+            // Generate specific advice based on weakest area
+            if (priority.name === 'debt' && data.totalDebt > 0) {
+                messages.push(`🚨 <strong>Priority: Crush Your Debt</strong>`);
+                messages.push(`You're carrying $${data.totalDebt.toLocaleString()} in debt (${data.dti.toFixed(0)}% DTI). This is costing you money every single day.`);
+                if (data.dti > 40) {
+                    messages.push(`💡 <strong>Action:</strong> Your debt-to-income is high. Focus on the avalanche method: pay minimums on everything, throw every extra dollar at your highest-interest debt.`);
+                } else {
+                    messages.push(`💡 <strong>Action:</strong> Try paying an extra $${Math.round(data.totalDebt * 0.05)} per month. You'll be debt-free months earlier.`);
+                }
+            } else if (priority.name === 'savings') {
+                messages.push(`🛡️ <strong>Priority: Build Your Safety Net</strong>`);
+                if (data.emergencyMonths < 1) {
+                    messages.push(`You have less than 1 month of expenses saved. One emergency could derail everything.`);
+                    messages.push(`💡 <strong>Action:</strong> Start small. Save just $${Math.round(data.income * 0.1)} per month (10% of income) until you hit $${(data.income * 3).toLocaleString()}.`);
+                } else {
+                    messages.push(`You have ${data.emergencyMonths.toFixed(1)} months saved. Target is 6 months minimum.`);
+                    messages.push(`💡 <strong>Action:</strong> You're on the right track! Keep adding $${Math.round(data.income * 0.15)} monthly until you hit 6 months.`);
+                }
+            } else if (priority.name === 'budget') {
+                messages.push(`📊 <strong>Priority: Optimize Your Budget</strong>`);
+                if (data.needsPercent > 60) {
+                    messages.push(`You're spending ${data.needsPercent.toFixed(0)}% on needs. Target is 50% or less.`);
+                    messages.push(`💡 <strong>Action:</strong> Look for ways to reduce fixed costs. Can you refinance? Get a roommate? Switch phone plans? Small cuts compound.`);
+                } else if (data.savingsPercent < 15) {
+                    messages.push(`You're only saving ${data.savingsPercent.toFixed(0)}% of income. Target is 20%+.`);
+                    messages.push(`💡 <strong>Action:</strong> Automate your savings. Set up automatic transfers on payday. Pay yourself first.`);
+                }
+            } else if (priority.name === 'income') {
+                messages.push(`💵 <strong>Priority: Increase Your Income</strong>`);
+                messages.push(`At $${data.income.toLocaleString()}/month, your income is limiting your financial growth.`);
+                messages.push(`💡 <strong>Action:</strong> Focus on earning more. Ask for a raise. Start a side hustle. Learn a high-income skill. Earning more solves a lot of problems.`);
+            } else if (priority.name === 'networth') {
+                messages.push(`📈 <strong>Priority: Build Positive Net Worth</strong>`);
+                if (data.netWorth < 0) {
+                    messages.push(`Your net worth is negative ($${data.netWorth.toLocaleString()}). You owe more than you own.`);
+                    messages.push(`💡 <strong>Action:</strong> Attack debt while building savings. Every $1 of debt paid = +$1 net worth. Every $1 saved = +$1 net worth. Do both.`);
+                } else {
+                    messages.push(`Your net worth is $${data.netWorth.toLocaleString()}. Let's accelerate growth.`);
+                    messages.push(`💡 <strong>Action:</strong> You're positive! Now focus on increasing that number monthly. Track it. Celebrate wins.`);
+                }
+            }
+            
+            // Add encouragement based on total score
+            if (total >= 80) {
+                messages.push(`<br>🔥 <strong>You're crushing it!</strong> Your financial health is in the top 10%. Keep this momentum!`);
+            } else if (total >= 60) {
+                messages.push(`<br>💪 <strong>Solid foundation!</strong> You're doing better than most. A few tweaks and you'll be unstoppable.`);
+            } else if (total >= 40) {
+                messages.push(`<br>🎯 <strong>You're making progress!</strong> Focus on your weak points and you'll see major improvements fast.`);
+            } else {
+                messages.push(`<br>🚀 <strong>Huge opportunity here!</strong> Small changes will have massive impact. Let's get to work.`);
+            }
+            
+            return messages.join(' ');
+        }
+        
+        // GOD TIER: Achievement System
+        const achievements = [
+            {id: 'first_income', icon: '💵', title: 'First Paycheck', condition: () => getMonthlyIncome() > 0},
+            {id: 'debt_entered', icon: '💰', title: 'Face The Truth', condition: () => getTotalDebtBalance() > 0},
+            {id: 'budget_started', icon: '📊', title: 'Budget Warrior', condition: () => {
+                let total = 0;
+                if (typeof budgetCategories !== 'undefined' && budgetCategories.needs) {
+                    budgetCategories.needs.forEach(cat => total += (categoryValues[cat.id] || 0));
+                }
+                return total > 0;
+            }},
+            {id: 'savings_started', icon: '🛡️', title: 'Safety First', condition: () => {
+                let total = 0;
+                if (typeof savingsCategories !== 'undefined') {
+                    savingsCategories.forEach(cat => total += (savingsValues[`${cat.id}_monthly`] || 0));
+                }
+                return total > 0;
+            }},
+            {id: 'first_1k', icon: '💎', title: 'First $1K Saved', condition: () => {
+                let total = 0;
+                if (typeof savingsCategories !== 'undefined') {
+                    savingsCategories.forEach(cat => total += (savingsValues[`${cat.id}_balance`] || 0));
+                }
+                return total >= 1000;
+            }},
+            {id: 'emergency_3mo', icon: '🏰', title: '3-Month Fortress', condition: () => {
+                const income = getMonthlyIncome();
+                let total = 0;
+                if (typeof savingsCategories !== 'undefined') {
+                    savingsCategories.forEach(cat => total += (savingsValues[`${cat.id}_monthly`] || 0));
+                }
+                return income > 0 && (total / income) >= 3;
+            }},
+            {id: 'emergency_6mo', icon: '🛡️', title: 'Fort Knox', condition: () => {
+                const income = getMonthlyIncome();
+                let total = 0;
+                if (typeof savingsCategories !== 'undefined') {
+                    savingsCategories.forEach(cat => total += (savingsValues[`${cat.id}_monthly`] || 0));
+                }
+                return income > 0 && (total / income) >= 6;
+            }},
+            {id: 'debt_slayer', icon: '⚔️', title: 'Debt Slayer', condition: () => {
+                const paid = localStorage.getItem('raf_debts_paid') || 0;
+                return parseInt(paid) >= 1;
+            }},
+            {id: 'debt_free', icon: '🗽', title: 'Debt-Free American', condition: () => getTotalDebtBalance() === 0 && localStorage.getItem('raf_had_debt') === 'true'},
+            {id: 'positive_net', icon: '📈', title: 'Positive Net Worth', condition: () => {
+                let savings = 0;
+                if (typeof savingsCategories !== 'undefined') {
+                    savingsCategories.forEach(cat => savings += (savingsValues[`${cat.id}_balance`] || 0));
+                }
+                const debt = getTotalDebtBalance();
+                return (savings - debt) > 0;
+            }},
+            {id: '50_30_20', icon: '🎯', title: 'Perfect Budget', condition: () => {
+                const income = getMonthlyIncome();
+                if (income === 0) return false;
+                let needs = 0, wants = 0, savings = 0;
+                if (typeof budgetCategories !== 'undefined') {
+                    if (budgetCategories.needs) {
+                        budgetCategories.needs.forEach(cat => needs += (categoryValues[cat.id] || 0));
+                    }
+                    if (budgetCategories.wants) {
+                        budgetCategories.wants.forEach(cat => wants += (categoryValues[cat.id] || 0));
+                    }
+                }
+                if (typeof savingsCategories !== 'undefined') {
+                    savingsCategories.forEach(cat => savings += (savingsValues[`${cat.id}_monthly`] || 0));
+                }
+                const needsP = (needs/income)*100;
+                const savingsP = (savings/income)*100;
+                return needsP <= 52 && savingsP >= 18; // Close enough to 50/30/20
+            }},
+            {id: 'patriot', icon: '🇺🇸', title: 'True Patriot', condition: () => {
+                // Unlock when sovereign score >= 80
+                return calculateSovereignScore() >= 80;
+            }}
+        ];
+        
+        function updateAchievements() {
+            const unlockedAchievements = JSON.parse(localStorage.getItem('raf_achievements') || '[]');
+            let newUnlocks = [];
+            
+            achievements.forEach(achievement => {
+                const isUnlocked = unlockedAchievements.includes(achievement.id);
+                const shouldBeUnlocked = achievement.condition();
+                
+                if (shouldBeUnlocked && !isUnlocked) {
+                    unlockedAchievements.push(achievement.id);
+                    newUnlocks.push(achievement);
+                }
+            });
+            
+            if (newUnlocks.length > 0) {
+                localStorage.setItem('raf_achievements', JSON.stringify(unlockedAchievements));
+                newUnlocks.forEach(ach => {
+                    showToast(`🏆 Achievement Unlocked: ${ach.title}!`, 5000);
+                });
+            }
+            
+            // Update UI
+            const grid = document.getElementById('achievement-grid');
+            if (grid) {
+                grid.innerHTML = achievements.map(ach => {
+                    const unlocked = unlockedAchievements.includes(ach.id);
+                    return `
+                        <div class="achievement-badge ${unlocked ? 'unlocked' : ''}">
+                            <div class="achievement-icon">${ach.icon}</div>
+                            <div class="achievement-title">${ach.title}</div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            document.getElementById('achievements-unlocked').textContent = unlockedAchievements.length;
+            document.getElementById('achievements-total').textContent = achievements.length;
+        }
+        
+        // GOD TIER: Streak Tracker
+        function updateStreak() {
+            const today = new Date().toDateString();
+            const lastCheckin = localStorage.getItem('raf_last_checkin');
+            let streak = parseInt(localStorage.getItem('raf_streak') || '0');
+            
+            if (lastCheckin) {
+                const lastDate = new Date(lastCheckin);
+                const todayDate = new Date(today);
+                const diffDays = Math.floor((todayDate - lastDate) / (1000 * 60 * 60 * 24));
+                
+                if (diffDays === 1) {
+                    // Consecutive day
+                    streak++;
+                } else if (diffDays > 1) {
+                    // Streak broken
+                    streak = 1;
+                }
+                // If same day, keep streak
+            } else {
+                // First time
+                streak = 1;
+            }
+            
+            localStorage.setItem('raf_streak', streak);
+            localStorage.setItem('raf_last_checkin', today);
+            
+            const streakCountEl = document.getElementById('streak-count');
+            const heroStreakEl = document.getElementById('hero-streak-count');
+            
+            if (streakCountEl) streakCountEl.textContent = streak;
+            if (heroStreakEl) heroStreakEl.textContent = streak;
+            
+            const lastCheckinEl = document.getElementById('last-checkin');
+            if (lastCheckinEl) lastCheckinEl.textContent = today;
+        }
+        
+        // GOD TIER: Quick Actions
+        function quickPayDebt() {
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            if (debtRows.length === 0) {
+                showToast('Add debt first to use quick pay!', 3000);
+                return;
+            }
+            
+            // Find highest interest debt
+            let highestRate = 0;
+            let targetRow = null;
+            debtRows.forEach(row => {
+                const rate = parseFloat(row.querySelector('td:nth-child(4) input')?.value || 0);
+                if (rate > highestRate) {
+                    highestRate = rate;
+                    targetRow = row;
+                }
+            });
+            
+            if (targetRow) {
+                const balanceInput = targetRow.querySelector('td:nth-child(2) input');
+                const currentBalance = parseCurrency(balanceInput.value);
+                balanceInput.value = formatCurrency(Math.max(0, currentBalance - 50));
+                calculateAll();
+                showToast('💪 Paid $50 extra on highest-interest debt!', 3000);
+            }
+        }
+        
+        function quickSave() {
+            showToast('💰 Added $100 to savings! (Update your savings balance manually)', 4000);
+        }
+        
+        function quickReduceWants() {
+            if (typeof budgetCategories === 'undefined' || !budgetCategories.wants) {
+                showToast('Set up your budget first!', 3000);
+                return;
+            }
+            
+            budgetCategories.wants.forEach(cat => {
+                const input = document.querySelector(`input[data-category="${cat.id}"]`);
+                if (input) {
+                    const current = parseCurrency(input.value);
+                    input.value = formatCurrency(current * 0.9);
+                }
+            });
+            calculateAll();
+            showToast('✂️ Reduced wants spending by 10%!', 3000);
+        }
+        
+        function quickSnapshot() {
+            const data = {
+                date: new Date().toLocaleDateString(),
+                income: getMonthlyIncome(),
+                debt: getTotalDebtBalance(),
+                score: calculateSovereignScore()
+            };
+            
+            const snapshots = JSON.parse(localStorage.getItem('raf_snapshots') || '[]');
+            snapshots.push(data);
+            localStorage.setItem('raf_snapshots', JSON.stringify(snapshots));
+            
+            showToast('📸 Snapshot saved! Track your progress over time.', 3000);
+            updateTimeMachine();
+        }
+        
+        // GOD TIER: Time Machine
+        function updateTimeMachine() {
+            const income = getMonthlyIncome();
+            const debt = getTotalDebtBalance();
+            const payments = getTotalDebtPayments();
+            
+            let savings = 0;
+            if (typeof savingsCategories !== 'undefined') {
+                savingsCategories.forEach(cat => savings += (savingsValues[`${cat.id}_monthly`] || 0));
+            }
+            
+            if (income === 0) {
+                document.getElementById('timeline-container').innerHTML = `
+                    <div class="text-center text-gray-400 py-8">
+                        Enter your financial data to see your projected future 🔮
+                    </div>
+                `;
+                return;
+            }
+            
+            const monthlyNetSavings = savings - payments;
+            const months = debt > 0 && payments > 0 ? Math.ceil(debt / payments) : 0;
+            
+            // Calculate projections
+            const projections = [
+                {
+                    label: 'TODAY',
+                    date: 'Right Now',
+                    debt: debt,
+                    netWorth: savings - debt,
+                    isFuture: false
+                },
+                {
+                    label: '6 MONTHS',
+                    date: new Date(Date.now() + 6 * 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+                    debt: Math.max(0, debt - (payments * 6)),
+                    netWorth: (savings - debt) + (monthlyNetSavings * 6),
+                    isFuture: true
+                },
+                {
+                    label: '1 YEAR',
+                    date: new Date(Date.now() + 12 * 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+                    debt: Math.max(0, debt - (payments * 12)),
+                    netWorth: (savings - debt) + (monthlyNetSavings * 12),
+                    isFuture: true
+                },
+                {
+                    label: '2 YEARS',
+                    date: new Date(Date.now() + 24 * 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+                    debt: Math.max(0, debt - (payments * 24)),
+                    netWorth: (savings - debt) + (monthlyNetSavings * 24),
+                    isFuture: true
+                }
+            ];
+            
+            const html = projections.map((proj, i) => `
+                <div class="timeline-node ${proj.isFuture ? 'future-projection' : ''}">
+                    ${i > 0 ? '<div class="timeline-connector"></div>' : ''}
+                    <div class="text-xs uppercase font-bold text-gray-400 mb-2">${proj.label}</div>
+                    <div class="text-xs text-gray-500 mb-3">${proj.date}</div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <div class="text-xs text-gray-400">Debt</div>
+                            <div class="text-lg font-bold ${proj.debt === 0 ? 'text-green-400' : 'text-crimson'}">
+                                $${proj.debt.toLocaleString()}
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-xs text-gray-400">Net Worth</div>
+                            <div class="text-lg font-bold ${proj.netWorth > 0 ? 'text-green-400' : 'text-orange-400'}">
+                                $${proj.netWorth.toLocaleString()}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('timeline-container').innerHTML = html;
+        }
+        
+        // AMERICANA TICKER - SIMPLE UPDATE
+        function updateTickerData() {
+            const income = getMonthlyIncome();
+            const totalDebt = getTotalDebtBalance();
+            const score = calculateSovereignScore();
+            
+            // Calculate other values safely
+            let savingsTotal = 0;
+            if (typeof savingsCategories !== 'undefined') {
+                savingsCategories.forEach(cat => {
+                    savingsTotal += (savingsValues[`${cat.id}_monthly`] || 0);
+                });
+            }
+            
+            const emergencyFund = income > 0 ? (savingsTotal / income).toFixed(1) : '--';
+            const dti = (income > 0 && totalDebt > 0) ? ((totalDebt / (income * 12)) * 100).toFixed(0) : '--';
+            
+            let needsTotal = 0, wantsTotal = 0;
+            if (typeof budgetCategories !== 'undefined') {
+                if (budgetCategories.needs) {
+                    budgetCategories.needs.forEach(cat => needsTotal += (categoryValues[cat.id] || 0));
+                }
+                if (budgetCategories.wants) {
+                    budgetCategories.wants.forEach(cat => wantsTotal += (categoryValues[cat.id] || 0));
+                }
+            }
+            
+            const surplus = income - needsTotal - wantsTotal - getTotalDebtPayments() - savingsTotal;
+            const netWorth = savingsTotal - totalDebt;
+            
+            // Update the ticker with actual data
+            const tickerHTML = `
+                <span style="display: inline-flex; align-items: center; gap: 8px; background: #000; padding: 5px 15px; border-radius: 5px; border: 2px solid #FFD700; white-space: nowrap;">
+                    <span style="font-size: 20px;">🛡️</span>
+                    <span style="color: #FFD700; font-size: 9px; font-weight: 800; margin-right: 5px;">EMERGENCY FUND</span>
+                    <span style="color: ${emergencyFund >= 6 ? '#10B981' : emergencyFund >= 3 ? '#FBBF24' : '#FFF'}; font-size: 16px; font-weight: 900;">${emergencyFund === '--' ? 'ENTER INCOME' : emergencyFund + ' mo'}</span>
+                </span>
+                <span style="color: #FFD700; font-size: 20px;">★</span>
+                <span style="display: inline-flex; align-items: center; gap: 8px; background: #000; padding: 5px 15px; border-radius: 5px; border: 2px solid #FFD700; white-space: nowrap;">
+                    <span style="font-size: 20px;">💰</span>
+                    <span style="color: #FFD700; font-size: 9px; font-weight: 800; margin-right: 5px;">TOTAL DEBT</span>
+                    <span style="color: ${totalDebt === 0 ? '#10B981' : '#FFF'}; font-size: 16px; font-weight: 900;">$${totalDebt.toLocaleString()}</span>
+                </span>
+                <span style="color: #FFD700; font-size: 20px;">★</span>
+                <span style="display: inline-flex; align-items: center; gap: 8px; background: #000; padding: 5px 15px; border-radius: 5px; border: 2px solid #FFD700; white-space: nowrap;">
+                    <span style="font-size: 20px;">⭐</span>
+                    <span style="color: #FFD700; font-size: 9px; font-weight: 800; margin-right: 5px;">SOVEREIGN SCORE</span>
+                    <span style="color: ${score >= 80 ? '#10B981' : score >= 60 ? '#FBBF24' : '#FFF'}; font-size: 16px; font-weight: 900;">${score}/100</span>
+                </span>
+                <span style="color: #FFD700; font-size: 20px;">★</span>
+                <span style="display: inline-flex; align-items: center; gap: 8px; background: #000; padding: 5px 15px; border-radius: 5px; border: 2px solid #FFD700; white-space: nowrap;">
+                    <span style="font-size: 20px;">📊</span>
+                    <span style="color: #FFD700; font-size: 9px; font-weight: 800; margin-right: 5px;">DTI</span>
+                    <span style="color: ${dti < 30 ? '#10B981' : dti < 50 ? '#FBBF24' : '#FFF'}; font-size: 16px; font-weight: 900;">${dti === '--' ? 'N/A' : dti + '%'}</span>
+                </span>
+                <span style="color: #FFD700; font-size: 20px;">★</span>
+                <span style="display: inline-flex; align-items: center; gap: 8px; background: #000; padding: 5px 15px; border-radius: 5px; border: 2px solid #FFD700; white-space: nowrap;">
+                    <span style="font-size: 20px;">💵</span>
+                    <span style="color: #FFD700; font-size: 9px; font-weight: 800; margin-right: 5px;">SURPLUS</span>
+                    <span style="color: ${surplus > 0 ? '#10B981' : surplus < 0 ? '#EF4444' : '#FFF'}; font-size: 16px; font-weight: 900;">$${surplus.toLocaleString()}</span>
+                </span>
+                <span style="color: #FFD700; font-size: 20px;">★</span>
+                <span style="display: inline-flex; align-items: center; gap: 8px; background: #000; padding: 5px 15px; border-radius: 5px; border: 2px solid #FFD700; white-space: nowrap;">
+                    <span style="font-size: 20px;">📈</span>
+                    <span style="color: #FFD700; font-size: 9px; font-weight: 800; margin-right: 5px;">NET WORTH</span>
+                    <span style="color: ${netWorth > 0 ? '#10B981' : netWorth < 0 ? '#EF4444' : '#FFF'}; font-size: 16px; font-weight: 900;">$${netWorth.toLocaleString()}</span>
+                </span>
+                <span style="color: #FFD700; font-size: 20px;">★</span>
+                <span style="display: inline-flex; align-items: center; gap: 8px; background: #000; padding: 5px 15px; border-radius: 5px; border: 2px solid #FFD700; white-space: nowrap;">
+                    <span style="font-size: 20px;">🎯</span>
+                    <span style="color: #FFD700; font-size: 9px; font-weight: 800; margin-right: 5px;">INCOME</span>
+                    <span style="color: ${income > 0 ? '#10B981' : '#FFF'}; font-size: 16px; font-weight: 900;">${income === 0 ? 'ENTER' : '$' + income.toLocaleString()}</span>
+                </span>
+            `;
+            
+            const ticker = document.getElementById('ticker-scroll');
+            if (ticker) {
+                ticker.innerHTML = tickerHTML + tickerHTML; // Duplicate for seamless scroll
+            }
         }
         
         // S-TIER: Comparison to Average
@@ -5234,6 +6809,46 @@ function getYearsToPayoffClass(years) {
             const savingsRate = income > 0 ? (savingsTotal / income) * 100 : 0;
             const budgetUsage = income > 0 ? (totalExpenses / income) * 100 : 0;
             
+            // Calculate Good Debt vs Bad Debt
+            let goodDebt = 0;
+            let badDebt = 0;
+            
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            debtRows.forEach(row => {
+                const typeSelect = row.querySelector('.debt-type-select');
+                const paymentInput = row.querySelector('td:nth-child(3) input');
+                
+                if (typeSelect && paymentInput) {
+                    const debtType = typeSelect.value;
+                    const payment = parseCurrency(paymentInput.value);
+                    
+                    // Good Debt: mortgage, student_loan
+                    // Bad Debt: credit_card, auto_loan, personal_loan, medical, other
+                    if (debtType === 'mortgage' || debtType === 'student_loan') {
+                        goodDebt += payment;
+                    } else {
+                        badDebt += payment;
+                    }
+                }
+            });
+            
+            // Needs should NOT include debt payments (they're shown separately)
+            // Note: needsTotal already excludes debt_minimums per calculateMonthlyEssentials()
+            // So we don't need to subtract debtPayments again
+            
+            // Update split legend under pie chart
+            const needsTotalEl = document.getElementById('needs-total-display');
+            const wantsTotalEl = document.getElementById('wants-total-display');
+            const savingsTotalEl = document.getElementById('savings-total-display');
+            const goodDebtEl = document.getElementById('good-debt-display');
+            const badDebtEl = document.getElementById('bad-debt-display');
+            
+            if (needsTotalEl) needsTotalEl.textContent = '$' + Math.round(needsTotal).toLocaleString();
+            if (wantsTotalEl) wantsTotalEl.textContent = '$' + Math.round(wantsTotal).toLocaleString();
+            if (savingsTotalEl) savingsTotalEl.textContent = '$' + Math.round(savingsTotal).toLocaleString();
+            if (goodDebtEl) goodDebtEl.textContent = '$' + Math.round(goodDebt).toLocaleString();
+            if (badDebtEl) badDebtEl.textContent = '$' + Math.round(badDebt).toLocaleString();
+            
 			    // UPDATE: Add this line to update all category percentages
     updateAllCategoryPercentages();
 			
@@ -5351,6 +6966,21 @@ function getYearsToPayoffClass(years) {
             if (slider) {
                 updateWhatIfCalculator(slider.value);
             }
+            
+            // Update ticker
+            updateTickerData();
+            
+            // GOD TIER: Update Financial Health
+            updateFinancialHealth();
+            
+            // GOD TIER: Update Achievements
+            updateAchievements();
+            
+            // GOD TIER: Update Streak
+            updateStreak();
+            
+            // GOD TIER: Update Time Machine
+            updateTimeMachine();
         }
 
         function updateFinancialHealthSummary(income, totalExpenses, budgetUsage, savingsTotal, savingsRate, surplus) {
@@ -6209,7 +7839,13 @@ function toggleScoreBreakdown() {
         // ===== CHART FUNCTIONS =====
         
         function updateChart(income, needsTotal, wantsTotal, savingsTotal, debtPayments, surplus) {
-            if (!myChart) return;
+            console.log('updateChart called:', {income, needsTotal, wantsTotal, savingsTotal, debtPayments, surplus});
+            console.log('myChart exists?', !!myChart);
+            
+            if (!myChart) {
+                console.error('myChart is not initialized!');
+                return;
+            }
             
             const groups = [
                 {
@@ -6787,15 +8423,60 @@ function updatePremiumTeaser() {
                 const div = document.createElement('div');
                 const isDebtMinimums = (category.id === 'debt_minimums');
                 const specialClass = isDebtMinimums ? ' debt-minimums-special' : '';
-                div.className = `flex justify-between items-center budget-category-card${specialClass}`;
+                div.className = `budget-category-card${specialClass}`;
+                
+                // Extract clean label and subtitle
+                let mainLabel = category.label;
+                let subtitle = '';
+                
+                if (category.id === 'debt_minimums') {
+                    mainLabel = 'Debt Minimum Payments';
+                    subtitle = 'Auto-calculated from debt table';
+                } else if (category.id === 'taxes') {
+                    mainLabel = 'Taxes';
+                    subtitle = 'Monthly withholding or estimated payments';
+                } else if (category.id === 'mortgage_rent') {
+                    mainLabel = 'Mortgage/Rent';
+                    subtitle = 'Housing payment';
+                } else if (category.id === 'utilities') {
+                    mainLabel = 'Utilities';
+                    subtitle = 'Electric, water, gas, internet';
+                } else if (category.id === 'phone_bill') {
+                    mainLabel = 'Phone Bill';
+                    subtitle = 'Mobile & landline';
+                } else if (category.id === 'car_gas') {
+                    mainLabel = 'Car Gas';
+                    subtitle = 'Fuel expenses';
+                } else if (category.id === 'car_insurance') {
+                    mainLabel = 'Car Insurance';
+                    subtitle = 'Auto coverage';
+                } else if (category.id === 'groceries') {
+                    mainLabel = 'Groceries';
+                    subtitle = 'Food & household items';
+                } else if (category.id === 'household_essentials') {
+                    mainLabel = 'Household Essentials';
+                    subtitle = 'Cleaning, toiletries, basics';
+                } else if (category.id === 'pet_care') {
+                    mainLabel = 'Pet Care';
+                    subtitle = 'Food, vet, supplies';
+                } else if (category.id === 'health_insurance') {
+                    mainLabel = 'Health Insurance';
+                    subtitle = 'Medical, dental, vision';
+                }
                 
           div.innerHTML = `
-    <div class="flex items-center">
-        <span class="text-xs text-gray-300 category-label">${category.label}${category.id === 'taxes' ? ' <span class="text-gray-500 text-[10px]">(Monthly tax withholding or estimated payments)</span>' : ''}</span>
-        <span id="${category.id}_percentage" class="category-percentage">0%</span>
+    <div class="budget-card-header">
+        <div class="category-icon" style="background: ${category.color}20; border: 1px solid ${category.color}40; color: ${category.color};">
+            <i class="fas ${category.icon}"></i>
+        </div>
+        <div class="category-info">
+            <div class="category-main-label">${mainLabel}</div>
+            <div class="category-subtitle">${subtitle}</div>
+        </div>
+        <div class="category-percentage-badge" id="${category.id}_percentage">0%</div>
     </div>
-    <div class="flex items-center">
-        <div class="currency-input-container w-32 relative mr-2">
+    <div class="budget-card-input">
+        <div class="currency-input-container">
             <input type="text" 
                    id="${category.id}" 
                    oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) { debouncedCalculateAll(); updateCategoryPercentage('${category.id}') }" 
@@ -6805,7 +8486,7 @@ function updatePremiumTeaser() {
                    aria-label="${category.label} expense">
         </div>
         <button onclick="clearCategory(this.previousElementSibling.querySelector('input'))" class="clear-category-btn touch-target" aria-label="Clear ${category.label}">
-            ×
+            <i class="fas fa-times"></i>
         </button>
     </div>
 `;
@@ -6817,14 +8498,39 @@ function updatePremiumTeaser() {
             
             budgetCategories.wants.forEach(category => {
                 const div = document.createElement('div');
-                div.className = `flex justify-between items-center budget-category-card`;
+                div.className = `budget-category-card`;
+                
+                // Add subtitles for wants too
+                let mainLabel = category.label;
+                let subtitle = '';
+                
+                if (category.id === 'gym_membership') {
+                    mainLabel = 'Gym Membership';
+                    subtitle = 'Fitness & wellness';
+                } else if (category.id === 'subscriptions') {
+                    mainLabel = 'Subscriptions';
+                    subtitle = 'Streaming, apps, services';
+                } else if (category.id === 'dining_entertainment') {
+                    mainLabel = 'Dining & Entertainment';
+                    subtitle = 'Restaurants, movies, events';
+                } else if (category.id === 'shopping_fun_money') {
+                    mainLabel = 'Shopping & Fun Money';
+                    subtitle = 'Clothes, hobbies, leisure';
+                }
+                
                 div.innerHTML = `
-    <div class="flex items-center">
-        <span class="text-xs text-gray-300">${category.label}</span>
-        <span id="${category.id}_percentage" class="category-percentage">0%</span>
+    <div class="budget-card-header">
+        <div class="category-icon" style="background: ${category.color}20; border: 1px solid ${category.color}40; color: ${category.color};">
+            <i class="fas ${category.icon}"></i>
+        </div>
+        <div class="category-info">
+            <div class="category-main-label">${mainLabel}</div>
+            <div class="category-subtitle">${subtitle}</div>
+        </div>
+        <div class="category-percentage-badge" id="${category.id}_percentage">0%</div>
     </div>
-    <div class="flex items-center">
-        <div class="currency-input-container w-32 relative mr-2">
+    <div class="budget-card-input">
+        <div class="currency-input-container">
             <input type="text" 
                    id="${category.id}" 
                    oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) { debouncedCalculateAll(); updateCategoryPercentage('${category.id}') }" 
@@ -6834,7 +8540,7 @@ function updatePremiumTeaser() {
                    aria-label="${category.label} expense">
         </div>
         <button onclick="clearCategory(this.previousElementSibling.querySelector('input'))" class="clear-category-btn touch-target" aria-label="Clear ${category.label}">
-            ×
+            <i class="fas fa-times"></i>
         </button>
     </div>
 `;
@@ -7306,8 +9012,10 @@ function updatePremiumTeaser() {
             
             // Initialize chart
             const canvas = document.getElementById('budgetChart');
+            console.log('Canvas element found:', !!canvas);
             if (canvas) {
                 const ctx = canvas.getContext('2d');
+                console.log('Canvas context:', !!ctx);
                 myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
@@ -7345,6 +9053,9 @@ function updatePremiumTeaser() {
                         maintainAspectRatio: true
                     }
                 });
+                console.log('Chart initialized successfully!', myChart);
+            } else {
+                console.error('Canvas element not found!');
             }
             
             // Initialize feature lists
@@ -7370,6 +9081,11 @@ function updatePremiumTeaser() {
             // Load saved data
             setTimeout(() => {
                 loadFromLocalStorage();
+                updateTickerData(); // Initialize ticker
+                updateFinancialHealth(); // Initialize command center
+                updateAchievements(); // Initialize achievements
+                updateStreak(); // Initialize streak
+                updateTimeMachine(); // Initialize time machine
             }, 100);
             
             console.log('Enhanced financial dashboard v13 with RAF Sovereign Score™ initialization complete');
