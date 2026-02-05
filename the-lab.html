@@ -2200,6 +2200,77 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
+        /* ===== STICKY FINANCIAL SUMMARY BAR ===== */
+        .financial-summary-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: linear-gradient(135deg, rgba(10, 26, 47, 0.98), rgba(17, 36, 63, 0.98));
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(178, 34, 52, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            padding: 12px 0;
+            margin-bottom: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .financial-summary-sticky {
+                padding: 8px 0;
+            }
+        }
+        
+        .summary-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        @media (max-width: 640px) {
+            .summary-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .summary-metric {
+            text-align: center;
+            padding: 6px 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s;
+        }
+        
+        .summary-metric:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .summary-metric-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            color: #9ca3af;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+            margin-bottom: 2px;
+        }
+        
+        .summary-metric-value {
+            font-size: 1rem;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+        
+        @media (max-width: 640px) {
+            .summary-metric-label {
+                font-size: 0.55rem;
+            }
+            .summary-metric-value {
+                font-size: 0.9rem;
+            }
+        }
+        
         /* Budget category card improvements - NEW UNIFORM DESIGN */
         .budget-category-card {
             display: flex;
@@ -3148,6 +3219,36 @@
 
     <!-- MAIN CONTENT -->
     <main class="container mx-auto px-4 md:px-6 py-6 md:py-12 flex-1">
+        
+        <!-- STICKY FINANCIAL SUMMARY - Always visible while scrolling -->
+        <div class="financial-summary-sticky">
+            <div class="summary-metrics">
+                <div class="summary-metric">
+                    <div class="summary-metric-label">Income</div>
+                    <div class="summary-metric-value text-green-400" id="sticky-income">$0</div>
+                </div>
+                <div class="summary-metric">
+                    <div class="summary-metric-label">Surplus</div>
+                    <div class="summary-metric-value" id="sticky-surplus">$0</div>
+                </div>
+                <div class="summary-metric">
+                    <div class="summary-metric-label">Score</div>
+                    <div class="summary-metric-value text-yellow-400" id="sticky-score">--</div>
+                </div>
+                <div class="summary-metric">
+                    <div class="summary-metric-label">Debt</div>
+                    <div class="summary-metric-value text-red-400" id="sticky-debt">$0</div>
+                </div>
+                <div class="summary-metric">
+                    <div class="summary-metric-label">Savings Rate</div>
+                    <div class="summary-metric-value text-blue-400" id="sticky-savings-rate">0%</div>
+                </div>
+                <div class="summary-metric">
+                    <div class="summary-metric-label">Years Left</div>
+                    <div class="summary-metric-value" id="sticky-years">--</div>
+                </div>
+            </div>
+        </div>
         
         <!-- SIMPLIFIED FREE TIER NOTICE -->
         <div class="free-tier-notice">
@@ -6933,6 +7034,15 @@ function getYearsToPayoffClass(years) {
             document.getElementById('sidebar-debt-payments').textContent = `$${debtPayments.toLocaleString()}`;
             document.getElementById('savings-rate-sidebar').textContent = `${savingsRate.toFixed(1)}%`;
             
+            // Update sticky summary bar
+            document.getElementById('sticky-income').textContent = `$${income.toLocaleString()}`;
+            document.getElementById('sticky-surplus').textContent = `$${Math.round(surplus).toLocaleString()}`;
+            document.getElementById('sticky-surplus').style.color = surplus >= 0 ? '#10B981' : '#EF4444';
+            document.getElementById('sticky-debt').textContent = `$${getTotalDebtBalance().toLocaleString()}`;
+            document.getElementById('sticky-savings-rate').textContent = `${savingsRate.toFixed(1)}%`;
+            const totalYearsSticky = calculateTotalYearsToPayoff();
+            document.getElementById('sticky-years').textContent = totalYearsSticky > 0 ? `${totalYearsSticky.toFixed(1)} yrs` : '--';
+            
             // Update unified financial health summary
             updateFinancialHealthSummary(income, totalExpenses, budgetUsage, savingsTotal, savingsRate, surplus);
             
@@ -7235,6 +7345,24 @@ function getYearsToPayoffClass(years) {
             const scoreElement = document.getElementById('sovereign-score');
             const rankElement = document.getElementById('sovereign-score-rank');
             const breakdownElement = document.getElementById('sovereign-score-breakdown');
+            
+            // Update sticky summary score
+            const stickyScore = document.getElementById('sticky-score');
+            if (stickyScore) {
+                stickyScore.textContent = scoreData.total;
+                // Color code based on score
+                if (scoreData.total >= 90) {
+                    stickyScore.style.color = '#10B981';
+                } else if (scoreData.total >= 75) {
+                    stickyScore.style.color = '#3B82F6';
+                } else if (scoreData.total >= 60) {
+                    stickyScore.style.color = '#F59E0B';
+                } else if (scoreData.total >= 40) {
+                    stickyScore.style.color = '#FB923C';
+                } else {
+                    stickyScore.style.color = '#EF4444';
+                }
+            }
             
             if (scoreElement) {
                 scoreElement.textContent = scoreData.total;
