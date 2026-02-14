@@ -1803,6 +1803,30 @@
             background: rgba(178, 34, 52, 0.1);
         }
         
+        /* Budget Progress Bar */
+        .budget-progress-bar-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 2px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+        
+        .budget-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #4b5563;
+            border-radius: 2px;
+            transition: width 0.4s ease, background 0.4s ease;
+        }
+        
+        .category-percentage-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
         .category-group {
             margin-bottom: 20px;
         }
@@ -4938,6 +4962,118 @@ function updateAllCategoryPercentages() {
 }		
 
         // UPDATED: SIMPLIFIED BUDGET CATEGORIES WITH TAXES
+        // ===== BUDGET THRESHOLD SYSTEM =====
+        // Progressive color coding based on % of income
+        const BUDGET_THRESHOLDS = {
+            // NEEDS
+            mortgage_rent: { ideal: 28, warning: 33, type: 'needs' },
+            utilities: { ideal: 5, warning: 8, type: 'needs' },
+            phone_bill: { ideal: 3, warning: 5, type: 'needs' },
+            car_gas: { ideal: 5, warning: 8, type: 'needs' },
+            car_insurance: { ideal: 5, warning: 8, type: 'needs' },
+            groceries: { ideal: 10, warning: 15, type: 'needs' },
+            household_essentials: { ideal: 3, warning: 5, type: 'needs' },
+            pet_care: { ideal: 2, warning: 4, type: 'needs' },
+            health_insurance: { ideal: 10, warning: 15, type: 'needs' },
+            taxes: { ideal: 15, warning: 20, type: 'needs' },
+            debt_minimums: { ideal: 10, warning: 20, type: 'needs' },
+            
+            // WANTS
+            gym_membership: { ideal: 3, warning: 5, type: 'wants' },
+            subscriptions: { ideal: 3, warning: 5, type: 'wants' },
+            dining_entertainment: { ideal: 8, warning: 12, type: 'wants' },
+            shopping_fun_money: { ideal: 5, warning: 10, type: 'wants' }
+        };
+
+        function getBudgetStatus(categoryId, amount, income) {
+            if (!income || income === 0) return null;
+            
+            const threshold = BUDGET_THRESHOLDS[categoryId];
+            if (!threshold) return null;
+            
+            const percentage = (amount / income) * 100;
+            
+            if (percentage <= threshold.ideal) {
+                return {
+                    status: 'excellent',
+                    color: '#10b981',
+                    percentage: percentage,
+                    fill: Math.min((percentage / threshold.ideal) * 100, 100),
+                    message: '✓'
+                };
+            } else if (percentage <= threshold.warning) {
+                return {
+                    status: 'caution',
+                    color: '#f59e0b',
+                    percentage: percentage,
+                    fill: 100,
+                    message: '⚠'
+                };
+            } else {
+                return {
+                    status: 'critical',
+                    color: '#ef4444',
+                    percentage: percentage,
+                    fill: 100,
+                    message: '✗'
+                };
+            }
+        }
+
+        function updateCategoryPercentage(categoryId) {
+            const input = document.getElementById(categoryId);
+            const badge = document.getElementById(`${categoryId}_percentage`);
+            const progressBar = document.getElementById(`${categoryId}_progress`);
+            
+            if (!input || !badge) return;
+            
+            const income = getMonthlyIncome();
+            const amount = parseCurrency(input.value);
+            
+            if (!income || income === 0) {
+                badge.textContent = '0%';
+                badge.style.color = '#9ca3af';
+                if (progressBar) {
+                    progressBar.style.width = '0%';
+                    progressBar.style.background = '#4b5563';
+                }
+                return;
+            }
+            
+            const status = getBudgetStatus(categoryId, amount, income);
+            
+            if (status) {
+                badge.textContent = `${status.percentage.toFixed(1)}% ${status.message}`;
+                badge.style.color = status.color;
+                
+                if (progressBar) {
+                    progressBar.style.width = `${status.fill}%`;
+                    progressBar.style.background = status.color;
+                }
+            } else {
+                const percentage = ((amount / income) * 100).toFixed(1);
+                badge.textContent = `${percentage}%`;
+                badge.style.color = '#9ca3af';
+                
+                if (progressBar) {
+                    progressBar.style.width = `${Math.min(percentage, 100)}%`;
+                    progressBar.style.background = '#4b5563';
+                }
+            }
+        }
+
+        function updateAllCategoryPercentages() {
+            // Update all needs categories
+            budgetCategories.needs.forEach(category => {
+                updateCategoryPercentage(category.id);
+            });
+            
+            // Update all wants categories
+            budgetCategories.wants.forEach(category => {
+                updateCategoryPercentage(category.id);
+            });
+        }
+
         const budgetCategories = {
             needs: [
                 { id: 'debt_minimums', label: 'Debt Minimum Payments (Info Only)', default: 0, icon: 'fa-credit-card', color: '#8B5CF6' },
@@ -8997,6 +9133,9 @@ function updatePremiumTeaser() {
         </div>
         <div class="category-percentage-badge" id="${category.id}_percentage">0%</div>
     </div>
+    <div class="budget-progress-bar-container">
+        <div class="budget-progress-bar" id="${category.id}_progress"></div>
+    </div>
     <div class="budget-card-input">
         <div class="currency-input-container">
             <input type="text" 
@@ -9047,6 +9186,9 @@ function updatePremiumTeaser() {
         </div>
         <div class="category-info">
             <div class="category-main-label">${mainLabel}</div>
+    </div>
+    <div class="budget-progress-bar-container">
+        <div class="budget-progress-bar" id="${category.id}_progress"></div>
             <div class="category-subtitle">${subtitle}</div>
         </div>
         <div class="category-percentage-badge" id="${category.id}_percentage">0%</div>
@@ -9169,6 +9311,296 @@ function updatePremiumTeaser() {
             });
         });
 
+        // ===== FINTECH-GRADE ADAPTIVE FINANCIAL DECISION ENGINE =====
+        
+        const FINANCIAL_STATES = {
+            EMERGENCY: 0,
+            STABILIZATION: 1,
+            MOMENTUM: 2,
+            WEALTH_ACCELERATION: 3,
+            FREEDOM_ENGINE: 4
+        };
+
+        function determineFinancialState(userData) {
+            const {surplus, collections, highestAPR, emergencyFund, oneMonthNeeds, 
+                   threeMonthNeeds, investRate, toxicDebt, netWorth} = userData;
+            
+            if (surplus < 0 || collections || highestAPR > 25 || emergencyFund < 500) {
+                return {state: FINANCIAL_STATES.EMERGENCY, name: "EMERGENCY", description: "Survival - stop damage"};
+            }
+            if (surplus > 0 && emergencyFund < oneMonthNeeds) {
+                return {state: FINANCIAL_STATES.STABILIZATION, name: "STABILIZATION", description: "Building foundation"};
+            }
+            if (emergencyFund >= oneMonthNeeds && emergencyFund < threeMonthNeeds) {
+                return {state: FINANCIAL_STATES.MOMENTUM, name: "MOMENTUM", description: "Building velocity"};
+            }
+            if (emergencyFund >= threeMonthNeeds && investRate >= 15 && toxicDebt < 1000) {
+                return {state: FINANCIAL_STATES.WEALTH_ACCELERATION, name: "WEALTH ACCELERATION", description: "Growing capital"};
+            }
+            if (netWorth > 500000) {
+                return {state: FINANCIAL_STATES.FREEDOM_ENGINE, name: "FREEDOM ENGINE", description: "Sustained wealth"};
+            }
+            return {state: FINANCIAL_STATES.STABILIZATION, name: "STABILIZATION", description: "Building foundation"};
+        }
+
+        function calculateImpactScore(action) {
+            const interestSaved = action.interestSaved || 0;
+            const cashflowImprovement = action.cashflowGain || 0;
+            const riskReduction = action.riskScore || 0;
+            const behaviorEase = action.easeScore || 0;
+            
+            return Math.round((interestSaved * 0.35) + (cashflowImprovement * 0.25) + (riskReduction * 0.20) + (behaviorEase * 0.20));
+        }
+
+        function calculateMomentumScore(userData) {
+            let score = 0;
+            const {surplus, debtDecreasing, savingsMonthly, emergencyFund, highestAPR} = userData;
+            
+            if (surplus > 0) score += 15;
+            if (surplus > 500) score += 10;
+            if (debtDecreasing) score += 15;
+            if (debtDecreasing && surplus > 300) score += 10;
+            if (savingsMonthly > 0) score += 15;
+            if (savingsMonthly > 200) score += 10;
+            if (emergencyFund > 0) score += 10;
+            if (highestAPR < 15) score += 15;
+            
+            return Math.min(100, score);
+        }
+
+        function generateAllPossibleActions(userData, stateInfo) {
+            const actions = [];
+            const {surplus, debts, overBudget, emergencyFund, oneMonthNeeds} = userData;
+            
+            // SURVIVAL - Cut overspending
+            if (surplus < 0 && overBudget.length > 0) {
+                const top3 = overBudget.slice(0, 3);
+                const totalSavings = top3.reduce((sum, cat) => sum + cat.overage, 0);
+                
+                actions.push({
+                    type: 'SURVIVAL',
+                    title: 'Stop the bleeding',
+                    action: `Cut ${top3.length} overspending categories`,
+                    details: top3.map(c => `• ${c.name}: $${Math.round(c.current)} → $${Math.round(c.target)} (save $${Math.round(c.overage)})`).join('\n'),
+                    outcome: `Turns deficit into $${Math.round(totalSavings + Math.abs(surplus))} surplus`,
+                    timeline: 'THIS WEEK',
+                    difficulty: 'EASY ⭐',
+                    impactScore: 0,
+                    cashflowGain: totalSavings,
+                    riskScore: 90,
+                    easeScore: 85,
+                    checklist: top3.map(c => `Cut ${c.name}`)
+                });
+            }
+            
+            // PROGRESS - Attack debt
+            if (debts && debts.length > 0) {
+                const highestDebt = debts[0];
+                const extraPayment = Math.max(100, surplus * 0.7);
+                const totalPayment = highestDebt.payment + extraPayment;
+                const months = calculateMonthsToPayoff(highestDebt.balance, totalPayment, highestDebt.rate);
+                const interestSaved = Math.max(0, (highestDebt.balance * (highestDebt.rate/100) * (months/12)) - 
+                                    calculateTotalInterest(highestDebt.balance, totalPayment, highestDebt.rate, months));
+                
+                actions.push({
+                    type: 'PROGRESS',
+                    title: `Eliminate ${highestDebt.type}`,
+                    action: `Pay $${Math.round(totalPayment)}/month`,
+                    outcome: `Debt-free in ${Math.ceil(months)} months • Save $${Math.round(interestSaved)} interest`,
+                    timeline: `${Math.ceil(months)} MONTHS`,
+                    difficulty: 'MODERATE',
+                    impactScore: 0,
+                    interestSaved: interestSaved,
+                    cashflowGain: highestDebt.payment,
+                    riskScore: 70,
+                    easeScore: 60,
+                    costOfInaction: `If unchanged: ${Math.ceil(months * 1.5)} months, $${Math.round(interestSaved * 1.8)} extra interest`
+                });
+            }
+            
+            // FUTURE - Emergency fund
+            if (emergencyFund < oneMonthNeeds) {
+                const gap = oneMonthNeeds - emergencyFund;
+                const monthlySave = Math.max(100, surplus * 0.3);
+                const months = Math.ceil(gap / monthlySave);
+                
+                actions.push({
+                    type: 'FUTURE',
+                    title: 'Build safety net',
+                    action: `Save $${Math.round(monthlySave)}/month automatically`,
+                    outcome: `$${Math.round(oneMonthNeeds)} buffer in ${months} months`,
+                    timeline: `${months} MONTHS`,
+                    difficulty: 'EASY',
+                    impactScore: 0,
+                    riskScore: 80,
+                    easeScore: 75
+                });
+            }
+            
+            actions.forEach(action => { action.impactScore = calculateImpactScore(action); });
+            return actions;
+        }
+
+        function selectTop3Actions(actions) {
+            const survival = actions.filter(a => a.type === 'SURVIVAL').sort((a,b) => b.impactScore - a.impactScore)[0];
+            const progress = actions.filter(a => a.type === 'PROGRESS').sort((a,b) => b.impactScore - a.impactScore)[0];
+            const future = actions.filter(a => a.type === 'FUTURE').sort((a,b) => b.impactScore - a.impactScore)[0];
+            
+            return [survival, progress, future].filter(a => a);
+        }
+
+        function generateMondayChecklist(actions) {
+            const tasks = [];
+            actions.forEach(action => {
+                if (action.checklist) {
+                    tasks.push(...action.checklist);
+                } else {
+                    tasks.push(action.action);
+                }
+            });
+            return tasks.slice(0, 3);
+        }
+
+        // ===== ENHANCED DECLARATION HELPER FUNCTIONS =====
+        
+        function getDebtsByPriority() {
+            const debts = [];
+            const rows = document.querySelectorAll('#debt-body tr');
+            
+            rows.forEach(row => {
+                const typeSelect = row.querySelector('.debt-type-select');
+                const balanceInput = row.querySelector('td:nth-child(2) input');
+                const paymentInput = row.querySelector('td:nth-child(3) input');
+                const rateInput = row.querySelector('td:nth-child(4) input');
+                
+                if (typeSelect && balanceInput && paymentInput && rateInput) {
+                    const balance = parseCurrency(balanceInput.value);
+                    const payment = parseCurrency(paymentInput.value);
+                    const rate = parseFloat(rateInput.value) || 0;
+                    
+                    if (balance > 0) {
+                        debts.push({
+                            type: typeSelect.options[typeSelect.selectedIndex].text,
+                            balance: balance,
+                            payment: payment,
+                            rate: rate
+                        });
+                    }
+                }
+            });
+            
+            return debts.sort((a, b) => b.rate - a.rate);
+        }
+
+        function calculateDebtPayoffPlan(debts, extraCash) {
+            if (debts.length === 0 || extraCash <= 0) return null;
+            
+            let timeline = [];
+            let availableCash = extraCash;
+            let currentMonth = 0;
+            
+            debts.forEach((debt, index) => {
+                const monthlyPayment = debt.payment + availableCash;
+                const months = calculateMonthsToPayoff(debt.balance, monthlyPayment, debt.rate);
+                const totalInterest = calculateTotalInterest(debt.balance, monthlyPayment, debt.rate, months);
+                const interestSaved = (debt.balance * (debt.rate/100) * (months/12)) - totalInterest;
+                
+                timeline.push({
+                    debt: debt.type,
+                    balance: debt.balance,
+                    rate: debt.rate,
+                    payment: monthlyPayment,
+                    months: Math.ceil(months),
+                    startMonth: currentMonth,
+                    endMonth: currentMonth + Math.ceil(months),
+                    interestSaved: Math.max(0, interestSaved)
+                });
+                
+                currentMonth += Math.ceil(months);
+                availableCash += debt.payment;
+            });
+            
+            return {
+                steps: timeline,
+                totalMonths: currentMonth,
+                totalInterestSaved: timeline.reduce((sum, step) => sum + step.interestSaved, 0)
+            };
+        }
+
+        function calculateMonthsToPayoff(balance, payment, annualRate) {
+            if (payment <= 0 || balance <= 0) return 0;
+            const monthlyRate = annualRate / 100 / 12;
+            if (monthlyRate === 0) return Math.ceil(balance / payment);
+            if (payment <= balance * monthlyRate) return 999;
+            return Math.log(payment / (payment - balance * monthlyRate)) / Math.log(1 + monthlyRate);
+        }
+
+        function calculateTotalInterest(balance, payment, annualRate, months) {
+            return (payment * months) - balance;
+        }
+
+        function getOverBudgetCategories() {
+            const income = getMonthlyIncome();
+            if (!income || income === 0) return [];
+            
+            const overBudget = [];
+            
+            Object.keys(BUDGET_THRESHOLDS).forEach(categoryId => {
+                const threshold = BUDGET_THRESHOLDS[categoryId];
+                const input = document.getElementById(categoryId);
+                if (input) {
+                    const amount = parseCurrency(input.value);
+                    const percentage = (amount / income) * 100;
+                    
+                    if (percentage > threshold.warning) {
+                        const targetAmount = (threshold.ideal / 100) * income;
+                        const overage = amount - targetAmount;
+                        
+                        overBudget.push({
+                            id: categoryId,
+                            name: budgetCategories.needs.find(c => c.id === categoryId)?.label || 
+                                  budgetCategories.wants.find(c => c.id === categoryId)?.label || categoryId,
+                            current: amount,
+                            target: targetAmount,
+                            overage: overage,
+                            percentage: percentage
+                        });
+                    }
+                }
+            });
+            
+            return overBudget.sort((a, b) => b.overage - a.overage);
+        }
+
+        function calculateEmergencyFundPlan(target, current, monthlySavings) {
+            const gap = Math.max(0, target - current);
+            if (monthlySavings <= 0 || gap === 0) return null;
+            
+            const months = Math.ceil(gap / monthlySavings);
+            const milestones = [];
+            
+            let saved = current;
+            for (let m = 1; m <= months; m++) {
+                saved += monthlySavings;
+                if (m % 3 === 0 || m === months) {
+                    milestones.push({
+                        month: m,
+                        saved: Math.min(saved, target),
+                        percentage: Math.round((Math.min(saved, target) / target) * 100)
+                    });
+                }
+            }
+            
+            return {
+                target: target,
+                current: current,
+                gap: gap,
+                monthlySavings: monthlySavings,
+                months: months,
+                milestones: milestones
+            };
+        }
+
         function populate90DayDeclaration() {
             const content = document.getElementById('bill-of-rights-content');
             if (!content) return;
@@ -9256,10 +9688,27 @@ function updatePremiumTeaser() {
                 
                 // Article I: Stop the Bleeding
                 if (surplus < 0) {
+                    const deficit = Math.abs(surplus);
+                    const overBudget = getOverBudgetCategories();
+                    let cutSuggestions = '';
+                    
+                    if (overBudget.length > 0) {
+                        const top3 = overBudget.slice(0, 3);
+                        const totalPotentialSavings = top3.reduce((sum, cat) => sum + cat.overage, 0);
+                        
+                        cutSuggestions = `\n\nCUT THESE IMMEDIATELY:\n${top3.map((cat, i) => 
+                            `${i+1}. ${cat.name}: $${Math.round(cat.current).toLocaleString()} → $${Math.round(cat.target).toLocaleString()} (save $${Math.round(cat.overage).toLocaleString()})`
+                        ).join('\n')}`;
+                        
+                        if (totalPotentialSavings >= deficit) {
+                            cutSuggestions += `\n\nTotal savings: $${Math.round(totalPotentialSavings).toLocaleString()} → Turns deficit into +$${Math.round(totalPotentialSavings - deficit).toLocaleString()} surplus`;
+                        }
+                    }
+                    
                     step1 = {
                         number: "I",
                         title: "Claim Your Ground — Stop the Bleeding",
-                        action: `You're spending $${Math.abs(Math.round(surplus)).toLocaleString()} more than you earn each month. This path leads to collections and bankruptcy. Cut immediately: cancel subscriptions, pause wants entirely, reduce needs where possible. Target: Get to $0 surplus this month, then build from there. This is survival mode — act like it.`,
+                        action: `You're spending $${Math.round(deficit).toLocaleString()} more than you earn each month. This path leads to collections and bankruptcy.${cutSuggestions}\n\nTarget: Get to $0 surplus THIS WEEK. This is survival mode — act like it.`,
                         deadline: "THIS WEEK"
                     };
                 } else {
@@ -9323,13 +9772,27 @@ function updatePremiumTeaser() {
                 // Article I: Build 1-Month Needs Buffer
                 const bufferGap = Math.round(oneMonthBuffer - emergencySavings);
                 if (emergencySavings < oneMonthBuffer) {
+                    const savingsPlan = surplus > 0 ? calculateEmergencyFundPlan(oneMonthBuffer, emergencySavings, surplus) : null;
+                    
+                    let actionText = emergencySavings > 0
+                        ? `You have $${Math.round(emergencySavings).toLocaleString()} saved. Target: $${Math.round(oneMonthBuffer).toLocaleString()} (1 month needs).\nGap: $${bufferGap.toLocaleString()}\n\n`
+                        : `You have NO cushion. Target: $${Math.round(oneMonthBuffer).toLocaleString()} (1 month needs).\n\n`;
+                    
+                    if (savingsPlan) {
+                        actionText += `PLAN:\n`;
+                        savingsPlan.milestones.forEach((m, i) => {
+                            actionText += `${i === savingsPlan.milestones.length - 1 ? '└' : '├'}─ Month ${m.month}: $${Math.round(m.saved).toLocaleString()} → ${m.percentage}% complete\n`;
+                        });
+                        actionText += `\nTIMELINE: ${savingsPlan.months} month${savingsPlan.months>1?'s':''} to safety`;
+                    } else {
+                        actionText += `Build surplus first. Cut non-essentials. This prevents one setback from becoming a crisis.`;
+                    }
+                    
                     step1 = {
                         number: "I",
                         title: "Build the Stockpile — 1-Month Needs Buffer",
-                        action: emergencySavings > 0
-                            ? `You have $${Math.round(emergencySavings).toLocaleString()} saved. Target is $${Math.round(oneMonthBuffer).toLocaleString()} (1 month of essential needs: rent, utilities, food, transport, insurance). You need $${bufferGap.toLocaleString()} more to weather one bad month. Automate savings from every paycheck. Use windfalls (tax refund, bonus) for this. This buffer prevents one setback from becoming a crisis.`
-                            : `You have no cushion. You need $${Math.round(oneMonthBuffer).toLocaleString()} (1 month of essential needs) before tackling debt. Sell something, cut non-essentials, work extra shifts. Get this done fast — without it, one car repair sends you back to crisis mode.`,
-                        deadline: emergencySavings > 0 ? "60 DAYS" : "30 DAYS"
+                        action: actionText,
+                        deadline: savingsPlan ? `${savingsPlan.months} MONTHS` : "BUILD SURPLUS"
                     };
                 } else {
                     step1 = {
@@ -9341,14 +9804,41 @@ function updatePremiumTeaser() {
                 }
         
                 // Article II: Clear Debt >7%
-                // TODO: This needs actual logic to separate high-interest from low-interest debt
-                const debtAbove7Pct = totalDebt;  // Placeholder - need real filtering
-                if (debtAbove7Pct > 0 && highestRate > 7) {
+                const debts = getDebtsByPriority();
+                const highInterestDebts = debts.filter(d => d.rate > 7);
+                
+                if (highInterestDebts.length > 0) {
+                    const payoffPlan = calculateDebtPayoffPlan(highInterestDebts, Math.max(0, surplus));
+                    let actionText = `You have ${highInterestDebts.length} debt(s) above 7% APR. Attack with avalanche method:\n\n`;
+                    
+                    if (payoffPlan && payoffPlan.steps.length > 0) {
+                        payoffPlan.steps.forEach((step, i) => {
+                            actionText += `${i+1}. ${step.debt} @ ${step.rate.toFixed(1)}% APR\n`;
+                            actionText += `   Balance: $${Math.round(step.balance).toLocaleString()}\n`;
+                            actionText += `   Attack Payment: $${Math.round(step.payment).toLocaleString()}/month\n`;
+                            actionText += `   Timeline: ${step.months} months (${Math.round(step.months/12 * 10)/10} years)\n`;
+                            if (step.interestSaved > 0) {
+                                actionText += `   Interest Saved: $${Math.round(step.interestSaved).toLocaleString()}\n`;
+                            }
+                            actionText += '\n';
+                        });
+                        
+                        const years = Math.floor(payoffPlan.totalMonths / 12);
+                        const months = payoffPlan.totalMonths % 12;
+                        actionText += `TOTAL TIMELINE: ${years > 0 ? years + ' year' + (years>1?'s':'') + ', ' : ''}${months} month${months>1?'s':''}\n`;
+                        actionText += `TOTAL INTEREST SAVED: $${Math.round(payoffPlan.totalInterestSaved).toLocaleString()}`;
+                    } else {
+                        actionText += highInterestDebts.map((d, i) => 
+                            `${i+1}. ${d.type}: $${Math.round(d.balance).toLocaleString()} @ ${d.rate.toFixed(1)}% APR`
+                        ).join('\n');
+                        actionText += `\n\nIncrease your surplus to accelerate payoff timeline.`;
+                    }
+                    
                     step2 = {
                         number: "II",
                         title: "Clear the Land — Eliminate Debt >7%",
-                        action: `You have $${Math.round(debtAbove7Pct).toLocaleString()} in consumer debt above 7% APR (highest: ${highestRate.toFixed(1)}%). Strategy: Minimum payments on all debts, throw all surplus at highest rate debt first (avalanche method). When one is paid off, roll that payment to the next. Ignore mortgage for now — we handle that after consumer debt is gone. ${monthsToDebtFree > 0 ? `Timeline: ~${monthsToDebtFree} months at current pace.` : 'Increase surplus to accelerate.'}`,
-                        deadline: monthsToDebtFree > 0 ? `${monthsToDebtFree} MONTHS` : "BUILD SURPLUS"
+                        action: actionText,
+                        deadline: payoffPlan ? `${payoffPlan.totalMonths} MONTHS` : "BUILD SURPLUS"
                     };
                 } else {
                     step2 = {
@@ -9508,13 +9998,13 @@ function updatePremiumTeaser() {
             // ── Render all 3 articles ──────────────────────────────────────────────
             content.innerHTML = [step1, step2, step3].map((article, idx) => `
                 <div style="
-                    padding-bottom: ${idx < 2 ? '0.75rem' : '0'};
-                    margin-bottom:  ${idx < 2 ? '0.75rem' : '0'};
+                    padding-bottom: ${idx < 2 ? '1rem' : '0'};
+                    margin-bottom:  ${idx < 2 ? '1rem' : '0'};
                     ${idx < 2 ? 'border-bottom: 1px solid rgba(139,105,20,0.3);' : ''}
                 ">
-                    <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.4rem;">
+                    <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.6rem;">
                         <div style="
-                            flex-shrink:0; width:2.5rem; height:2.5rem; border-radius:50%;
+                            flex-shrink:0; width:3rem; height:3rem; border-radius:50%;
                             background: radial-gradient(circle at 38% 32%, #d4a017, #7a4e0a);
                             border:2px solid #3e2723;
                             box-shadow:0 2px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,215,0,0.2);
@@ -9522,35 +10012,35 @@ function updatePremiumTeaser() {
                         ">
                             <span style="
                                 font-family:'Times New Roman',Georgia,serif;
-                                font-size:1rem; font-weight:900; color:#fefce8;
+                                font-size:1.25rem; font-weight:900; color:#fefce8;
                                 text-shadow:0 1px 3px rgba(0,0,0,0.6); line-height:1;
                             ">${article.number}</span>
                         </div>
                         <div style="flex:1;">
                             <div style="
-                                font-family:'Georgia',serif; font-size:0.5rem;
+                                font-family:'Georgia',serif; font-size:0.65rem;
                                 font-weight:700; letter-spacing:0.15em;
-                                text-transform:uppercase; color:#8b6914; margin-bottom:0.1rem;
+                                text-transform:uppercase; color:#8b6914; margin-bottom:0.15rem;
                             ">Article ${article.number}</div>
                             <div style="
-                                font-family:'Georgia',serif; font-size:0.85rem;
+                                font-family:'Georgia',serif; font-size:1rem;
                                 font-weight:700; color:#2c1810; line-height:1.1;
                             ">${article.title}</div>
                         </div>
                     </div>
-                    <div style="height:1px; background:linear-gradient(to right,rgba(139,105,20,0.5),rgba(139,105,20,0.1)); margin-bottom:0.4rem;"></div>
+                    <div style="height:1px; background:linear-gradient(to right,rgba(139,105,20,0.5),rgba(139,105,20,0.1)); margin-bottom:0.6rem;"></div>
                     <p style="
-                        font-family:'Georgia',serif; font-size:0.7rem; font-weight:600;
-                        color:#2c1810; line-height:1.5; margin:0 0 0.5rem 0;
-                        padding-left:0.5rem; border-left:2px solid #8b6914;
+                        font-family:'Georgia',serif; font-size:0.875rem; font-weight:600;
+                        color:#2c1810; line-height:1.6; margin:0 0 0.75rem 0;
+                        padding-left:0.75rem; border-left:2px solid #8b6914;
                     ">${article.action}</p>
                     <div style="display:flex; align-items:center; gap:0.5rem;">
                         <div style="flex:1; height:1px; background:linear-gradient(to right,rgba(139,105,20,0.2),transparent);"></div>
                         <span style="
-                            font-family:'Georgia',serif; font-size:0.55rem; font-weight:700;
+                            font-family:'Georgia',serif; font-size:0.7rem; font-weight:700;
                             letter-spacing:0.15em; text-transform:uppercase;
                             color:#fef9c3; background:#3e2723;
-                            padding:0.25rem 0.75rem; border-radius:2px;
+                            padding:0.35rem 0.85rem; border-radius:2px;
                             box-shadow:0 1px 4px rgba(0,0,0,0.25);
                         ">${article.deadline}</span>
                     </div>
@@ -10136,30 +10626,30 @@ function updatePremiumTeaser() {
             
             <div class="relative z-10">
                 <!-- Header -->
-                <div style="text-align:center; margin-bottom:2rem;">
-                    <div style="font-size:2.5rem; color:rgba(139,105,20,0.55); margin-bottom:0.5rem;">❦</div>
-                    <h2 style="font-family:'Brush Script MT','Lucida Handwriting',cursive; font-size:3rem; color:#2c1810; line-height:1.2; text-shadow:2px 3px 4px rgba(0,0,0,0.15); margin-bottom:1rem;">Declaration of Financial Independence</h2>
-                    <div style="display:flex; align-items:center; gap:1rem; margin:1rem auto; max-width:24rem;">
+                <div style="text-align:center; margin-bottom:2.5rem;">
+                    <div style="font-size:3rem; color:rgba(139,105,20,0.55); margin-bottom:0.75rem;">❦</div>
+                    <h2 style="font-family:'Brush Script MT','Lucida Handwriting',cursive; font-size:3.5rem; color:#2c1810; line-height:1.2; text-shadow:2px 3px 4px rgba(0,0,0,0.15); margin-bottom:1.25rem;">Declaration of Financial Independence</h2>
+                    <div style="display:flex; align-items:center; gap:1rem; margin:1.5rem auto; max-width:28rem;">
                         <div style="flex:1; height:2px; background:linear-gradient(to right,transparent,#8b6914);"></div>
-                        <span style="color:#8b6914; font-size:1.5rem;">✦</span>
+                        <span style="color:#8b6914; font-size:1.75rem;">✦</span>
                         <div style="flex:1; height:2px; background:linear-gradient(to left,transparent,#8b6914);"></div>
                     </div>
-                    <p style="font-family:'Georgia',serif; font-size:1.25rem; font-style:italic; color:#5d4037;">Three Sovereign Moves. 90 Days.</p>
+                    <p style="font-family:'Georgia',serif; font-size:1.5rem; font-style:italic; color:#5d4037;">Three Sovereign Moves. 90 Days.</p>
                 </div>
                 
                 <!-- Articles -->
-                <div id="bill-of-rights-content-fullscreen" style="font-size: 1.1rem;"></div>
+                <div id="bill-of-rights-content-fullscreen" style="font-size: 1.25rem; line-height: 1.7;"></div>
                 
                 <!-- Signature -->
-                <div style="margin-top:2rem; padding-top:1.5rem; border-top:2px solid rgba(139,105,20,0.3); text-align:right;">
-                    <p style="font-family:'Georgia',serif; font-size:1rem; font-style:italic; color:#5d4037; margin-bottom:0.5rem;">Signed this day,</p>
-                    <p id="declaration-date-fullscreen" style="font-family:'Georgia',serif; font-size:1.125rem; font-weight:600; color:#3e2723; margin-bottom:1rem;"></p>
-                    <div style="font-family:'Brush Script MT',cursive; font-size:2rem; color:#1a237e; line-height:1; margin-bottom:0.5rem;">Your Name Here</div>
+                <div style="margin-top:2.5rem; padding-top:1.75rem; border-top:2px solid rgba(139,105,20,0.3); text-align:right;">
+                    <p style="font-family:'Georgia',serif; font-size:1.125rem; font-style:italic; color:#5d4037; margin-bottom:0.75rem;">Signed this day,</p>
+                    <p id="declaration-date-fullscreen" style="font-family:'Georgia',serif; font-size:1.25rem; font-weight:600; color:#3e2723; margin-bottom:1.25rem;"></p>
+                    <div style="font-family:'Brush Script MT',cursive; font-size:2.25rem; color:#1a237e; line-height:1; margin-bottom:0.75rem;">Your Name Here</div>
                     <div style="height:2px; background:rgba(139,105,20,0.5);"></div>
                 </div>
                 
-                <div style="text-align:center; margin-top:1.5rem;">
-                    <span style="font-size:2rem; color:rgba(139,105,20,0.4);">❦</span>
+                <div style="text-align:center; margin-top:2rem;">
+                    <span style="font-size:2.5rem; color:rgba(139,105,20,0.4);">❦</span>
                 </div>
             </div>
         </div>
