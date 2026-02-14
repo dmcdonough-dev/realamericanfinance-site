@@ -1809,8 +1809,9 @@
             height: 4px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 2px;
-            margin: 8px 0;
+            margin: 10px 0 12px 0;
             overflow: hidden;
+            clear: both;
         }
         
         .budget-progress-bar {
@@ -1825,6 +1826,12 @@
             font-size: 0.75rem;
             font-weight: 600;
             transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .budget-card-input {
+            margin-top: 4px;
+            clear: both;
         }
         
         .category-group {
@@ -2275,6 +2282,13 @@
         .debt-table {
             width: 100%;
             text-align: left;
+        }
+        
+        /* Debt sorting button active state */
+        .sort-btn-active {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(37, 99, 235, 0.2)) !important;
+            border-color: rgba(59, 130, 246, 0.6) !important;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
         }
         
         .debt-table th, .debt-table td {
@@ -3437,6 +3451,361 @@
 .score-component-fill.savings-rate { background: linear-gradient(90deg, #10B981, #34D399); }
 .score-component-fill.budget-control { background: linear-gradient(90deg, #F59E0B, #FBBF24); }
 .score-component-fill.retirement-progress { background: linear-gradient(90deg, #8B5CF6, #A78BFA); }
+        /* ===== DECLARATION: PATH TO SOVEREIGNTY ===== */
+        
+        .declaration-container {
+            font-family: Georgia, serif;
+            color: #2c1810;
+            line-height: 1.6;
+        }
+        
+        /* Timeline */
+        .sovereignty-timeline {
+            margin: 2rem 0 3rem 0;
+            text-align: center;
+        }
+        
+        .timeline-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #5d4037;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .timeline-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .timeline-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 2;
+        }
+        
+        .point-marker {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #d4a017;
+            border: 3px solid #8b6914;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .timeline-point.locked .point-marker {
+            background: #9ca3af;
+            border-color: #6b7280;
+        }
+        
+        .timeline-point.complete .point-marker {
+            background: #10b981;
+            border-color: #059669;
+        }
+        
+        .point-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #5d4037;
+        }
+        
+        .timeline-segment {
+            flex: 1;
+            height: 4px;
+            background: linear-gradient(to right, #d4a017, #8b6914);
+            margin: 0 -2px;
+            position: relative;
+            top: -12px;
+        }
+        
+        .timeline-segment.complete {
+            background: linear-gradient(to right, #10b981, #059669);
+        }
+        
+        /* Phase Cards */
+        .phase-card {
+            background: linear-gradient(160deg, #f8edd8 0%, #f0dfc0 40%, #e8d4ae 100%);
+            border: 2px solid #8b6914;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .phase-card.phase-locked {
+            opacity: 0.6;
+            background: linear-gradient(160deg, #e0e0e0 0%, #d0d0d0 40%, #c0c0c0 100%);
+        }
+        
+        .phase-card.phase-complete {
+            border-color: #10b981;
+            background: linear-gradient(160deg, #d1fae5 0%, #a7f3d0 40%, #6ee7b7 100%);
+        }
+        
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(139, 105, 20, 0.3);
+        }
+        
+        .phase-header h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c1810;
+            margin: 0;
+            letter-spacing: 0.05em;
+        }
+        
+        .phase-meta {
+            font-size: 0.85rem;
+            color: #5d4037;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .phase-status {
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            background: rgba(139, 105, 20, 0.2);
+            border-radius: 6px;
+            border: 1px solid #8b6914;
+        }
+        
+        .unlock-condition {
+            font-size: 0.8rem;
+            color: #dc2626;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        
+        .phase-content {
+            font-size: 0.95rem;
+        }
+        
+        .phase-locked-content {
+            filter: blur(2px);
+            pointer-events: none;
+        }
+        
+        .phase-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .phase-section h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #8b6914;
+            margin-bottom: 0.75rem;
+        }
+        
+        .phase-section p {
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .phase-section ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .phase-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Progress Bar */
+        .phase-progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(139, 105, 20, 0.2);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .phase-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4a017, #8b6914);
+            transition: width 0.5s ease;
+        }
+        
+        .phase-progress-text {
+            font-size: 0.85rem;
+            color: #5d4037;
+            font-weight: 600;
+        }
+        
+        /* Tactical Steps */
+        .tactical-steps {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tactical-steps li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(139, 105, 20, 0.2);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .tactical-steps li.step-complete {
+            text-decoration: line-through;
+            opacity: 0.6;
+            color: #059669;
+        }
+        
+        .phase-victory {
+            background: rgba(139, 105, 20, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #d4a017;
+        }
+        
+        /* Signature Section */
+        .declaration-signature {
+            background: linear-gradient(160deg, #f8edd8 0%, #f0dfc0 100%);
+            border: 3px solid #8b6914;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .signature-divider {
+            width: 100px;
+            height: 3px;
+            background: #8b6914;
+            margin: 0 auto 1.5rem auto;
+        }
+        
+        .declaration-signature h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c1810;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+        }
+        
+        .declaration-oath {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .signature-input {
+            border: none;
+            border-bottom: 2px solid #8b6914;
+            background: transparent;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1.2rem;
+            color: #2c1810;
+            padding: 0.25rem 0.5rem;
+            min-width: 200px;
+            text-align: center;
+        }
+        
+        .signature-input:focus {
+            outline: none;
+            border-bottom-color: #d4a017;
+        }
+        
+        .declaration-commitment {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .declaration-promises ul {
+            text-align: left;
+            max-width: 600px;
+            margin: 1rem auto;
+        }
+        
+        .declaration-vows {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            font-style: italic;
+            margin: 1.5rem 0;
+            color: #5d4037;
+        }
+        
+        .declaration-closing {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .signature-line {
+            display: flex;
+            justify-content: space-around;
+            max-width: 600px;
+            margin: 2rem auto;
+            font-size: 0.95rem;
+        }
+        
+        .signature-display {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1.2rem;
+        }
+        
+        .btn-print-declaration {
+            background: linear-gradient(135deg, #8b6914, #6d5310);
+            color: #f8edd8;
+            border: 2px solid #5d4037;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+        
+        .btn-print-declaration:hover {
+            background: linear-gradient(135deg, #6d5310, #8b6914);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .phase-skipped {
+            background: linear-gradient(160deg, #f3f4f6 0%, #e5e7eb 100%);
+            border-color: #9ca3af;
+            opacity: 0.7;
+        }
+        
+        .phase-skip-message {
+            text-align: center;
+            color: #6b7280;
+            font-style: italic;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body { background: white !important; }
+            .btn-print-declaration { display: none !important; }
+            .phase-card { page-break-inside: avoid; }
+            .signature-input { border-bottom: 1px solid #000; }
+            nav, header, footer, .sidebar { display: none !important; }
+        }
+
     </style>
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson flex flex-col min-h-screen">
@@ -3961,6 +4330,18 @@
                             </div>
                         </div>
                         
+                        <!-- DEBT SORTING BUTTONS -->
+                        <div class="flex gap-3 mb-4">
+                            <button id="sort-snowball" onclick="sortDebtTable('snowball')" 
+                                    class="flex-1 px-4 py-2 bg-blue-900/30 border border-blue-500/30 text-blue-300 rounded-lg text-sm font-semibold uppercase tracking-wide hover:bg-blue-900/50 hover:border-blue-500/50 transition">
+                                <i class="fas fa-snowflake mr-2"></i>Snowball (Smallest First)
+                            </button>
+                            <button id="sort-avalanche" onclick="sortDebtTable('avalanche')" 
+                                    class="flex-1 px-4 py-2 bg-red-900/30 border border-red-500/30 text-red-300 rounded-lg text-sm font-semibold uppercase tracking-wide hover:bg-red-900/50 hover:border-red-500/50 transition">
+                                <i class="fas fa-fire mr-2"></i>Avalanche (Highest Rate)
+                            </button>
+                        </div>
+                        
                         <!-- DEBT TABLE -->
                         <div class="debt-table-container">
                             <table class="debt-table">
@@ -3991,7 +4372,7 @@
                             <h4 class="text-sm font-bold uppercase tracking-wider mb-4 text-red-400">
                                 <i class="fas fa-calculator mr-2"></i>Debt Summary
                             </h4>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                                 <div>
                                     <div class="text-xs text-gray-400 mb-1">Total Balance</div>
                                     <div id="total-debt-balance" class="text-xl font-bold text-red-400">$0</div>
@@ -4007,6 +4388,22 @@
                                 <div>
                                     <div class="text-xs text-gray-400 mb-1">Debt-to-Income</div>
                                     <div id="debt-to-income" class="text-xl font-bold text-yellow-400">0%</div>
+                                </div>
+                            </div>
+                            
+                            <!-- NEW: Interest & Payoff Metrics -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-red-500/20">
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Monthly Interest</div>
+                                    <div id="monthly-interest-charges" class="text-lg font-bold text-orange-400">$0</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Yearly Interest</div>
+                                    <div id="yearly-interest-charges" class="text-lg font-bold text-orange-500">$0</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Debt Freedom In</div>
+                                    <div id="debt-payoff-time" class="text-lg font-bold text-green-400">—</div>
                                 </div>
                             </div>
                         </div>
@@ -7065,7 +7462,7 @@ function getYearsToPayoffClass(years) {
                 if (timelineContainer) {
                     timelineContainer.classList.remove('hidden');
                     // Populate the declaration timeline
-                    populate90DayDeclaration();
+                    renderPathToSovereignty();
                     // Set declaration date
                     const dateEl = document.getElementById('declaration-date');
                     if (dateEl) {
@@ -7167,6 +7564,180 @@ function getYearsToPayoffClass(years) {
             });
             
             return count;
+        }
+
+        function calculateTotalHighInterestDebt() {
+            let total = 0;
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            
+            debtRows.forEach(row => {
+                const rateInput = row.querySelector('td:nth-child(4) input');
+                const balanceInput = row.querySelector('td:nth-child(2) input');
+                if (rateInput && balanceInput) {
+                    const rate = parseFloat(rateInput.value) || 0;
+                    if (rate > 10) {
+                        total += parseCurrency(balanceInput.value);
+                    }
+                }
+            });
+
+            return total;
+        }
+
+        // ===== NEW: ENHANCED DEBT CALCULATIONS =====
+        
+        /**
+         * Calculate total monthly interest charges across all debts
+         * Formula: Sum of (Balance * (Annual Rate / 100 / 12)) for each debt
+         */
+        function calculateMonthlyInterest() {
+            let monthlyInterest = 0;
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            
+            debtRows.forEach(row => {
+                const balanceInput = row.querySelector('td:nth-child(2) input');
+                const rateInput = row.querySelector('td:nth-child(4) input');
+                
+                if (balanceInput && rateInput) {
+                    const balance = parseCurrency(balanceInput.value);
+                    const annualRate = parseFloat(rateInput.value) || 0;
+                    const monthlyRate = annualRate / 100 / 12;
+                    monthlyInterest += balance * monthlyRate;
+                }
+            });
+            
+            return monthlyInterest;
+        }
+
+        /**
+         * Calculate total debt payoff time assuming minimum payments
+         * Uses standard amortization formula for each debt, then sums
+         * Formula: months = -log(1 - (balance * monthlyRate / payment)) / log(1 + monthlyRate)
+         * Returns: {years, months, totalMonths}
+         */
+        function calculateDebtPayoffTime() {
+            let maxMonths = 0;
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            
+            debtRows.forEach(row => {
+                const balanceInput = row.querySelector('td:nth-child(2) input');
+                const paymentInput = row.querySelector('td:nth-child(3) input');
+                const rateInput = row.querySelector('td:nth-child(4) input');
+                
+                if (balanceInput && paymentInput && rateInput) {
+                    const balance = parseCurrency(balanceInput.value);
+                    const payment = parseCurrency(paymentInput.value);
+                    const annualRate = parseFloat(rateInput.value) || 0;
+                    
+                    if (balance > 0 && payment > 0) {
+                        const monthlyRate = annualRate / 100 / 12;
+                        
+                        if (monthlyRate === 0) {
+                            // No interest - simple division
+                            const months = Math.ceil(balance / payment);
+                            maxMonths = Math.max(maxMonths, months);
+                        } else if (payment > balance * monthlyRate) {
+                            // Standard amortization formula
+                            const months = Math.ceil(
+                                -Math.log(1 - (balance * monthlyRate / payment)) / Math.log(1 + monthlyRate)
+                            );
+                            maxMonths = Math.max(maxMonths, months);
+                        } else {
+                            // Payment doesn't cover interest - will never pay off
+                            maxMonths = 999; // Flag as essentially unpayable
+                        }
+                    }
+                }
+            });
+            
+            if (maxMonths === 0) {
+                return { years: 0, months: 0, totalMonths: 0 };
+            }
+            
+            const years = Math.floor(maxMonths / 12);
+            const months = maxMonths % 12;
+            
+            return { years, months, totalMonths: maxMonths };
+        }
+
+        /**
+         * Update debt summary with all metrics including new calculations
+         */
+        function updateDebtSummary() {
+            const totalBalance = getTotalDebtBalance();
+            const totalPayments = getTotalDebtPayments();
+            const highInterestCount = getHighInterestDebtCount();
+            const income = getMonthlyIncome();
+            const dti = income > 0 ? ((totalPayments / income) * 100).toFixed(1) : 0;
+            
+            // Update existing metrics
+            document.getElementById('total-debt-balance').textContent = '$' + Math.round(totalBalance).toLocaleString();
+            document.getElementById('total-debt-payments').textContent = '$' + Math.round(totalPayments).toLocaleString();
+            document.getElementById('high-interest-count').textContent = highInterestCount;
+            document.getElementById('debt-to-income').textContent = dti + '%';
+            
+            // Update NEW metrics
+            const monthlyInterest = calculateMonthlyInterest();
+            const yearlyInterest = monthlyInterest * 12;
+            const payoffTime = calculateDebtPayoffTime();
+            
+            document.getElementById('monthly-interest-charges').textContent = '$' + Math.round(monthlyInterest).toLocaleString();
+            document.getElementById('yearly-interest-charges').textContent = '$' + Math.round(yearlyInterest).toLocaleString();
+            
+            const payoffEl = document.getElementById('debt-payoff-time');
+            if (payoffTime.totalMonths === 0) {
+                payoffEl.textContent = 'No debt';
+                payoffEl.className = 'text-lg font-bold text-green-400';
+            } else if (payoffTime.totalMonths >= 999) {
+                payoffEl.textContent = 'Increase payments';
+                payoffEl.className = 'text-lg font-bold text-red-400';
+            } else {
+                const yearText = payoffTime.years > 0 ? `${payoffTime.years} yr${payoffTime.years > 1 ? 's' : ''}` : '';
+                const monthText = payoffTime.months > 0 ? `${payoffTime.months} mo${payoffTime.months > 1 ? 's' : ''}` : '';
+                const separator = yearText && monthText ? ', ' : '';
+                payoffEl.textContent = (yearText + separator + monthText) || '< 1 mo';
+                payoffEl.className = 'text-lg font-bold text-green-400';
+            }
+        }
+
+        /**
+         * Sort debt table rows by balance (Snowball method - smallest first)
+         * or by interest rate (Avalanche method - highest first)
+         */
+        function sortDebtTable(method) {
+            const tbody = document.getElementById('debt-body');
+            if (!tbody) return;
+            
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            rows.sort((a, b) => {
+                if (method === 'snowball') {
+                    // Sort by balance: smallest to largest
+                    const balanceA = parseCurrency(a.querySelector('td:nth-child(2) input')?.value || 0);
+                    const balanceB = parseCurrency(b.querySelector('td:nth-child(2) input')?.value || 0);
+                    return balanceA - balanceB;
+                } else {
+                    // Sort by rate: highest to lowest (Avalanche)
+                    const rateA = parseFloat(a.querySelector('td:nth-child(4) input')?.value || 0);
+                    const rateB = parseFloat(b.querySelector('td:nth-child(4) input')?.value || 0);
+                    return rateB - rateA;
+                }
+            });
+            
+            // Re-append rows in sorted order
+            rows.forEach(row => tbody.appendChild(row));
+            
+            // Update button states
+            const snowballBtn = document.getElementById('sort-snowball');
+            const avalancheBtn = document.getElementById('sort-avalanche');
+            
+            if (method === 'snowball') {
+                snowballBtn.classList.add('sort-btn-active');
+                avalancheBtn.classList.remove('sort-btn-active');
+            } else {
+                avalancheBtn.classList.add('sort-btn-active');
+                snowballBtn.classList.remove('sort-btn-active');
+            }
         }
 
         function calculateTotalHighInterestDebt() {
@@ -7498,6 +8069,9 @@ function getYearsToPayoffClass(years) {
             
             // Update ticker
             updateTickerData();
+            
+            // Update Debt Summary with enhanced metrics
+            updateDebtSummary();
             
             // GOD TIER: Update Financial Health
             updateFinancialHealth();
@@ -9599,6 +10173,318 @@ function updatePremiumTeaser() {
                 months: months,
                 milestones: milestones
             };
+        }
+
+        // ===== PHASE GENERATION FUNCTIONS =====
+        
+        function generatePhase1(currentBalance, target, monthlySavings, months, isComplete) {
+            const progress = target > 0 ? Math.min((currentBalance / target) * 100, 100) : 0;
+            const weeklyAmount = monthlySavings / 4;
+            
+            return {
+                number: 1,
+                title: "GROUND YOUR POSITION",
+                status: isComplete ? 'complete' : 'active',
+                timeline: `Months 1-${Math.max(1, months)}`,
+                mission: `Build $${Math.round(target).toLocaleString()} emergency buffer (1 month of needs)`,
+                why: "Without this buffer, one car repair sends you back to debt. This is your defensive position. Everything builds from here.",
+                plan: [
+                    `Save $${Math.round(monthlySavings).toLocaleString()}/month for ${months} months`,
+                    `Or $${Math.round(weeklyAmount).toLocaleString()}/week automatically`
+                ],
+                progress: progress,
+                progressText: `${progress.toFixed(0)}% complete ($${Math.round(currentBalance).toLocaleString()} saved)`,
+                steps: [
+                    {text: `Week 1: Auto-transfer $${Math.round(weeklyAmount).toLocaleString()} to savings`, complete: currentBalance >= weeklyAmount},
+                    {text: `Week 4: First month saved ($${Math.round(monthlySavings).toLocaleString()})`, complete: currentBalance >= monthlySavings},
+                    {text: `Week 8: Halfway there ($${Math.round(target/2).toLocaleString()})`, complete: currentBalance >= target/2},
+                    {text: `Week 12: BUFFER COMPLETE → Phase 2 Unlocks`, complete: isComplete}
+                ],
+                victory: `$${Math.round(target).toLocaleString()} in emergency fund`
+            };
+        }
+        
+        function generatePhase2(debt, extraPayment, months, isUnlocked, isComplete, startMonth) {
+            if (!debt) {
+                return {
+                    number: 2,
+                    title: "BREAK THE CHAINS",
+                    status: 'skipped',
+                    message: "No high-interest debt detected - Phase skipped ✓"
+                };
+            }
+            
+            const monthlyPayment = debt.payment + extraPayment;
+            const monthlyInterest = debt.balance * (debt.rate / 100 / 12);
+            
+            return {
+                number: 2,
+                title: "BREAK THE CHAINS",
+                status: isUnlocked ? (isComplete ? 'complete' : 'active') : 'locked',
+                timeline: `Months ${startMonth + 1}-${startMonth + Math.ceil(months)}`,
+                unlockCondition: !isUnlocked ? "Emergency buffer complete" : null,
+                mission: `Eliminate ${debt.type} debt ($${Math.round(debt.balance).toLocaleString()} @ ${debt.rate.toFixed(1)}% APR)`,
+                why: `This debt costs you $${Math.round(monthlyInterest).toLocaleString()}/month doing NOTHING. Kill it. Take back that $${Math.round(monthlyPayment).toLocaleString()}/month.`,
+                plan: [
+                    `Attack with $${Math.round(monthlyPayment).toLocaleString()}/month`,
+                    `Debt destroyed in ${Math.ceil(months)} months`,
+                    `Interest saved: $${Math.round(monthlyInterest * months * 0.5).toLocaleString()}`
+                ],
+                progress: 0,
+                progressText: isUnlocked ? "Ready to attack" : "Locked - Complete Phase 1 First",
+                steps: isUnlocked ? [
+                    {text: `Month ${startMonth + 2}: Balance drops to $${Math.round(debt.balance * 0.8).toLocaleString()} (20% destroyed)`, complete: false},
+                    {text: `Month ${startMonth + 4}: Halfway point → Balance $${Math.round(debt.balance * 0.5).toLocaleString()}`, complete: false},
+                    {text: `Month ${startMonth + months}: DEBT DESTROYED → Phase 3 Unlocks`, complete: false}
+                ] : [],
+                victory: `$0 ${debt.type} balance, $${Math.round(monthlyPayment).toLocaleString()}/mo freed`
+            };
+        }
+        
+        function generatePhase3(income, current, isUnlocked, isComplete, startMonth) {
+            const targetRate = 15;
+            const target = income * 0.15;
+            const gap = target - current;
+            
+            return {
+                number: 3,
+                title: "BUILD THE ARSENAL",
+                status: isUnlocked ? (isComplete ? 'complete' : 'active') : 'locked',
+                timeline: `Months ${startMonth + 1}-${startMonth + 12}`,
+                unlockCondition: !isUnlocked ? "High-interest debt eliminated" : null,
+                mission: `Reach ${targetRate}% investing rate ($${Math.round(target).toLocaleString()}/month)`,
+                why: `Compound interest becomes YOUR weapon. $${Math.round(target).toLocaleString()}/mo for 30 years = $${Math.round(target * 12 * 30 * 2.5 / 1000)}M at 8% return.`,
+                plan: [
+                    `Route freed debt payments to investments`,
+                    `Current: $${Math.round(current).toLocaleString()}/mo (${(current/income*100).toFixed(1)}%)`,
+                    `Add: $${Math.round(gap).toLocaleString()}/mo more to hit target`
+                ],
+                progress: target > 0 ? (current / target) * 100 : 0,
+                progressText: isUnlocked ? `${((current/income)*100).toFixed(1)}% investing rate` : "Locked - Complete Phase 2 First",
+                steps: isUnlocked ? [
+                    {text: `Month ${startMonth + 1}: Open Roth IRA → Contribute $500/mo`, complete: false},
+                    {text: `Month ${startMonth + 4}: Increase 401k to 10%`, complete: false},
+                    {text: `Month ${startMonth + 8}: Max Roth IRA → $6,500/year ✓`, complete: false},
+                    {text: `Month ${startMonth + 12}: TARGET ACHIEVED → Financial Independence`, complete: false}
+                ] : [],
+                victory: `$${Math.round(target).toLocaleString()}/month invested (15% of income)`
+            };
+        }
+        
+        function renderPhase(phase, number) {
+            if (phase.status === 'skipped') {
+                return `
+                    <div class="phase-card phase-skipped">
+                        <div class="phase-header">
+                            <div><h3>PHASE ${number}: ${phase.title}</h3></div>
+                            <div class="phase-status">⊘ SKIPPED</div>
+                        </div>
+                        <p class="phase-skip-message">${phase.message}</p>
+                    </div>
+                `;
+            }
+            
+            const statusIcon = phase.status === 'complete' ? '✓' :
+                              phase.status === 'active' ? '🔓' : '🔒';
+            const statusText = phase.status === 'complete' ? 'COMPLETE' :
+                              phase.status === 'active' ? 'ACTIVE' : 'LOCKED';
+            
+            return `
+                <div class="phase-card phase-${phase.status}">
+                    <div class="phase-header">
+                        <div>
+                            <h3>PHASE ${number}: ${phase.title}</h3>
+                            <div class="phase-meta">
+                                Status: ${statusIcon} ${statusText} | Timeline: ${phase.timeline}
+                            </div>
+                            ${phase.unlockCondition ? `<div class="unlock-condition">Unlocks when: ${phase.unlockCondition}</div>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="phase-content ${phase.status === 'locked' ? 'phase-locked-content' : ''}">
+                        <div class="phase-section">
+                            <h4>MISSION</h4>
+                            <p>${phase.mission}</p>
+                        </div>
+                        
+                        <div class="phase-section">
+                            <h4>WHY THIS MATTERS</h4>
+                            <p>${phase.why}</p>
+                        </div>
+                        
+                        <div class="phase-section">
+                            <h4>THE PLAN</h4>
+                            <ul>
+                                ${phase.plan.map(p => `<li>${p}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="phase-section">
+                            <h4>YOUR PROGRESS</h4>
+                            <div class="phase-progress-bar">
+                                <div class="phase-progress-fill" style="width: ${phase.progress}%"></div>
+                            </div>
+                            <div class="phase-progress-text">${phase.progressText}</div>
+                        </div>
+                        
+                        ${phase.steps && phase.steps.length > 0 ? `
+                            <div class="phase-section">
+                                <h4>TACTICAL STEPS</h4>
+                                <ul class="tactical-steps">
+                                    ${phase.steps.map(step => `
+                                        <li class="${step.complete ? 'step-complete' : ''}">
+                                            ${step.complete ? '☑' : '☐'} ${step.text}
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="phase-section phase-victory">
+                            <h4>VICTORY CONDITION</h4>
+                            <p>${phase.victory}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function printDeclaration() {
+            window.print();
+        }
+        
+        // ===== NEW DECLARATION: PATH TO FINANCIAL SOVEREIGNTY =====
+        
+        function renderPathToSovereignty() {
+            const content = document.getElementById('bill-of-rights-content');
+            const fullscreenContent = document.getElementById('bill-of-rights-content-fullscreen');
+            if (!content) return;
+            
+            // Collect data
+            const income = getMonthlyIncome();
+            const emergencyBalance = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
+            let monthlyNeeds = 0;
+            
+            if (typeof budgetCategories !== 'undefined' && budgetCategories.needs) {
+                budgetCategories.needs.forEach(cat => {
+                    monthlyNeeds += parseCurrency(document.getElementById(cat.id)?.value || 0);
+                });
+            }
+            
+            const oneMonthBuffer = monthlyNeeds || income * 0.5;
+            const surplus = calculateSurplus();
+            const debts = getDebtsByPriority();
+            const highInterestDebt = debts.filter(d => d.rate > 7)[0];
+            const retirementMonthly = parseCurrency(document.getElementById('retirement_monthly')?.value || 0);
+            const investMonthly = parseCurrency(document.getElementById('investments_monthly')?.value || 0);
+            const currentInvesting = retirementMonthly + investMonthly;
+            const investRate = income > 0 ? (currentInvesting / income) * 100 : 0;
+            
+            // Phase unlock logic
+            const phase1Complete = emergencyBalance >= oneMonthBuffer;
+            const phase2Complete = phase1Complete && (!highInterestDebt || highInterestDebt.balance === 0);
+            const phase3Complete = phase2Complete && investRate >= 15;
+            
+            // Calculate timelines
+            const phase1Months = surplus > 0 ? Math.ceil(Math.max(0, oneMonthBuffer - emergencyBalance) / surplus) : 3;
+            const phase2Months = highInterestDebt && surplus > 0 ? 
+                Math.ceil(calculateMonthsToPayoff(highInterestDebt.balance, highInterestDebt.payment + (surplus * 0.7), highInterestDebt.rate)) : 0;
+            const phase3Months = 12;
+            
+            // Generate phases
+            const phases = [
+                generatePhase1(emergencyBalance, oneMonthBuffer, surplus, phase1Months, phase1Complete),
+                generatePhase2(highInterestDebt, surplus * 0.7, phase2Months, phase1Complete, phase2Complete, phase1Months),
+                generatePhase3(income, currentInvesting, phase2Complete, phase3Complete, phase1Months + phase2Months)
+            ];
+            
+            // Render
+            const html = renderDeclarationHTML(phases, oneMonthBuffer, highInterestDebt, income, phase1Months, phase2Months, phase3Months);
+            
+            content.innerHTML = html;
+            if (fullscreenContent) fullscreenContent.innerHTML = html;
+            
+            // Update signature display when name is typed
+            const nameInput = document.getElementById('declaration-name');
+            if (nameInput) {
+                nameInput.addEventListener('input', function() {
+                    const displays = document.querySelectorAll('.signature-display');
+                    displays.forEach(display => {
+                        display.textContent = this.value || '_________________________';
+                    });
+                });
+            }
+        }
+        
+        function renderDeclarationHTML(phases, buffer, debt, income, p1Months, p2Months, p3Months) {
+            const totalMonths = p1Months + p2Months + p3Months;
+            const investTarget = income * 0.15;
+            
+            return `
+                <div class="declaration-container">
+                    <div class="sovereignty-timeline">
+                        <div class="timeline-label">Your Path to Sovereignty</div>
+                        <div class="timeline-bar">
+                            <div class="timeline-point ${phases[0].status === 'complete' ? 'complete' : 'active'}">
+                                <div class="point-marker"></div>
+                                <div class="point-label">TODAY</div>
+                            </div>
+                            <div class="timeline-segment ${phases[0].status === 'complete' ? 'complete' : ''}"></div>
+                            <div class="timeline-point ${phases[0].status === 'complete' ? (phases[1].status === 'complete' ? 'complete' : 'active') : 'locked'}">
+                                <div class="point-marker"></div>
+                                <div class="point-label">MO ${p1Months}</div>
+                            </div>
+                            <div class="timeline-segment ${phases[1].status === 'complete' ? 'complete' : ''}"></div>
+                            <div class="timeline-point ${phases[1].status === 'complete' ? (phases[2].status === 'complete' ? 'complete' : 'active') : 'locked'}">
+                                <div class="point-marker"></div>
+                                <div class="point-label">MO ${p1Months + p2Months}</div>
+                            </div>
+                            <div class="timeline-segment ${phases[2].status === 'complete' ? 'complete' : ''}"></div>
+                            <div class="timeline-point ${phases[2].status === 'complete' ? 'complete' : 'locked'}">
+                                <div class="point-marker"></div>
+                                <div class="point-label">FREEDOM</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    ${phases.map((phase, i) => renderPhase(phase, i + 1)).join('')}
+                    
+                    <div class="declaration-signature">
+                        <div class="signature-divider"></div>
+                        <h3>YOUR DECLARATION</h3>
+                        <p class="declaration-oath">
+                            I, <input type="text" id="declaration-name" placeholder="Your Name" class="signature-input">, 
+                            declare independence from financial chaos.
+                        </p>
+                        <p class="declaration-commitment">
+                            I commit to this ${totalMonths}-month path to sovereignty.
+                        </p>
+                        <div class="declaration-promises">
+                            <p><strong>I will:</strong></p>
+                            <ul>
+                                <li>Ground my position with a $${Math.round(buffer).toLocaleString()} buffer</li>
+                                ${debt ? `<li>Break my chains by eliminating $${Math.round(debt.balance).toLocaleString()} in toxic debt</li>` : ''}
+                                <li>Build my arsenal by investing $${Math.round(investTarget).toLocaleString()} monthly</li>
+                            </ul>
+                        </div>
+                        <p class="declaration-vows">
+                            I will not be defeated by one bad month.<br>
+                            I will not pay interest to enrich others.<br>
+                            I will not retire broke.
+                        </p>
+                        <p class="declaration-closing">This is my path. This is my declaration.</p>
+                        
+                        <div class="signature-line">
+                            <div>Signed: <span class="signature-display">_________________________</span></div>
+                            <div>Date: ${new Date().toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}</div>
+                        </div>
+                        
+                        <button onclick="printDeclaration()" class="btn-print-declaration">
+                            <i class="fas fa-print"></i> Print Declaration
+                        </button>
+                    </div>
+                </div>
+            `;
         }
 
         function populate90DayDeclaration() {
