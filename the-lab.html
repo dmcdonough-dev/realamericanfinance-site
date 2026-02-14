@@ -372,6 +372,89 @@
             to { opacity: 1; }
         }
 
+        /* Declaration Fullscreen Modal */
+        #declaration-fullscreen-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        #declaration-fullscreen-modal.active {
+            display: flex;
+        }
+
+        .declaration-scroll-container {
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: unrollPaper 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-origin: top center;
+        }
+
+        @keyframes unrollPaper {
+            0% {
+                transform: scaleY(0) rotateX(90deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: scaleY(1) rotateX(0deg);
+                opacity: 1;
+            }
+        }
+
+        .declaration-fullscreen-content {
+            background: linear-gradient(160deg,#f8edd8 0%,#f0dfc0 40%,#e8d4ae 100%);
+            border: 4px solid #8b6914;
+            border-radius: 12px;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.6), inset 0 0 80px rgba(139,105,20,0.08);
+            position: relative;
+            padding: 3rem;
+        }
+
+        .close-declaration-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, #8b6914, #6d5310);
+            border: 2px solid #5d4037;
+            border-radius: 50%;
+            color: #f8edd8;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .close-declaration-btn:hover {
+            background: linear-gradient(135deg, #6d5310, #8b6914);
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+        }
+
+        .hover-declaration:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(139,105,20,0.12) !important;
+        }
+
         .hero-bg { 
             background: linear-gradient(rgba(5,11,20,0.75), rgba(5,11,20,0.85)), url('./flag_distressed.jpg'); 
             background-size: cover; 
@@ -3643,18 +3726,16 @@
                 </section>
 
                 <!-- Debt Tracking Section -->
-                <section class="dashboard-card p-6 md:p-8" id="debt-section">
-                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-red-500/20">
+                <section class="dashboard-card" style="padding: 2.5rem;" id="debt-section">
+                    <div class="flex justify-between items-start mb-8 pb-6 border-b-2" style="border-color: rgba(239, 68, 68, 0.2);">
                         <div>
-                            <h2 class="text-xl md:text-2xl font-heading font-bold uppercase text-white mb-1">
-                                02. Debt Tracking
+                            <h2 style="font-size: 2.25rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 1rem;">
+                                <span style="display: inline-flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; background: linear-gradient(135deg, #ef4444, #dc2626); border-radius: 12px; font-size: 1.5rem; box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);">02</span>
+                                <span>DEBT TRACKING</span>
                             </h2>
-                            <p class="text-sm text-gray-400">Neutralize and eliminate</p>
+                            <p style="font-size: 0.9375rem; color: rgba(248, 250, 252, 0.6); margin-left: 4.5rem;">Neutralize and eliminate liabilities</p>
                         </div>
                         <div class="flex items-center gap-3">
-                            <div class="text-xs text-gray-500">
-                                <i class="fas fa-keyboard mr-1"></i>Press '2'
-                            </div>
                             <span class="tier-badge tier-free">Free</span>
                         </div>
                     </div>
@@ -3881,9 +3962,30 @@
                             Years to Payoff calculated at minimum payment. Premium shows accelerated payoff strategies.
                         </div>
                         
-                        <button onclick="addDebtRow()" class="w-full mt-4 bg-white/5 border border-white/10 px-4 py-3 text-xs uppercase tracking-widest hover:border-green-500 hover:text-green-300 transition touch-target">
-                            <i class="fas fa-plus mr-2"></i>Add Another Liability
-                        </button>
+                        <!-- DEBT SUMMARY - MOVED UP FOR PROMINENCE -->
+                        <div class="mt-6 p-5 bg-gradient-to-br from-red-900/30 to-red-950/20 rounded-lg border-2 border-red-500/30">
+                            <h4 class="text-sm font-bold uppercase tracking-wider mb-4 text-red-400">
+                                <i class="fas fa-calculator mr-2"></i>Debt Summary
+                            </h4>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Total Balance</div>
+                                    <div id="total-debt-balance" class="text-xl font-bold text-red-400">$0</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Monthly Minimums</div>
+                                    <div id="total-debt-payments" class="text-xl font-bold text-white">$0</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">High-Interest Count</div>
+                                    <div id="high-interest-count" class="text-xl font-bold text-crimson">0</div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Debt-to-Income</div>
+                                    <div id="debt-to-income" class="text-xl font-bold text-yellow-400">0%</div>
+                                </div>
+                            </div>
+                        </div>
                         
                         <!-- STRATEGY PREVIEW -->
                         <div class="mt-6">
@@ -3923,68 +4025,9 @@
                             </div>
                         </div>
                         
-                        <!-- DEBT SUMMARY -->
-                        <div class="mt-6 p-4 bg-navy-900/50 rounded border border-white/5">
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <div>
-                                    <div class="text-xs text-gray-400 mb-1">Total Balance</div>
-                                    <div id="total-debt-balance" class="text-sm md:text-base font-bold">$0</div>
-                                </div>
-                                <div>
-                                    <div class="text-xs text-gray-400 mb-1">Monthly Minimums</div>
-                                    <div id="total-debt-payments" class="text-sm md:text-base font-bold">$0</div>
-                                </div>
-                                <div>
-                                    <div class="text-xs text-gray-400 mb-1">High-Interest Count</div>
-                                    <div id="high-interest-count" class="text-sm md:text-base font-bold text-crimson">0</div>
-                                </div>
-                                <div>
-                                    <div class="text-xs text-gray-400 mb-1">Debt-to-Income</div>
-                                    <div id="debt-to-income" class="text-sm md:text-base font-bold">0%</div>
-                                </div>
-                            </div>
-                            
-                            <div class="mt-4 p-3 bg-gradient-to-r from-red-900/20 to-orange-900/20 rounded border border-red-500/30">
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <div class="text-xs text-gray-400 mb-1">Total Years to Payoff</div>
-                                        <div id="total-years-to-payoff" class="text-xl font-bold text-white">0 years</div>
-                                    </div>
-                                    <div class="text-right">
-                                        <div class="text-xs text-gray-300">At minimum payments</div>
-                                        <button onclick="showPricingModal()" class="mt-1 text-xs text-crimson hover:text-red-400">
-                                            <i class="fas fa-bolt mr-1"></i>Accelerate with Premium
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- COMPARISON BADGE -->
-                            <div class="comparison-badge mt-4">
-                                <div class="text-xs uppercase tracking-wider mb-2">Your Debt vs Average</div>
-                                <div class="comparison-stat" id="comparison-percentage">...</div>
-                                <div class="text-sm text-gray-400" id="comparison-message">Add debt to see where you stand</div>
-                            </div>
-                        </div>
                         
                         <!-- SMART WARNINGS -->
                         <div id="debt-warnings-container"></div>
-                    </div>
-                    
-                    <!-- DEBT STRATEGY TIPS -->
-                    <div id="debt-strategy-tips" class="mt-4 p-3 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded border border-blue-500/30 hidden">
-                        <div class="flex items-start gap-3">
-                            <i class="fas fa-lightbulb text-blue-400 mt-1"></i>
-                            <div class="flex-1">
-                                <div class="text-xs font-bold mb-1">Debt Strategy Tip</div>
-                                <div id="strategy-tip-content" class="text-xs text-gray-300">
-                                    Enter your debt details to see personalized strategy tips
-                                </div>
-                            </div>
-                            <button onclick="refreshStrategyTip()" class="text-xs text-blue-400 hover:text-blue-300">
-                                <i class="fas fa-sync-alt"></i>
-                            </button>
-                        </div>
                     </div>
 
                 <!-- PIE CHART - NOW FLOATING IN BUDGET SECTION -->
@@ -4001,18 +4044,16 @@
                 </section>
 
                 <!-- Budget Section -->
-                <section class="dashboard-card p-6 md:p-8" id="budget-section">
-                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-blue-500/20">
+                <section class="dashboard-card" style="padding: 2.5rem;" id="budget-section">
+                    <div class="flex justify-between items-start mb-8 pb-6 border-b-2" style="border-color: rgba(59, 130, 246, 0.2);">
                         <div>
-                            <h2 class="text-xl md:text-2xl font-heading font-bold uppercase text-white mb-1">
-                                03. Monthly Budget
+                            <h2 style="font-size: 2.25rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 1rem;">
+                                <span style="display: inline-flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; background: linear-gradient(135deg, #3b82f6, #2563eb); border-radius: 12px; font-size: 1.5rem; box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);">03</span>
+                                <span>MONTHLY BUDGET</span>
                             </h2>
-                            <p class="text-sm text-gray-400">Track and optimize spending</p>
+                            <p style="font-size: 0.9375rem; color: rgba(248, 250, 252, 0.6); margin-left: 4.5rem;">Track and optimize your spending</p>
                         </div>
                         <div class="flex items-center gap-3">
-                            <div class="text-xs text-gray-500">
-                                <i class="fas fa-keyboard mr-1"></i>Press '3'
-                            </div>
                             <span class="tier-badge tier-free">Free</span>
                         </div>
                     </div>
@@ -4157,9 +4198,18 @@
                     </div>
                 </div>
 
+                <!-- DEBT COMPARISON -->
+                <div class="dashboard-card p-4">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Your Debt vs Average</h3>
+                    <div class="text-center">
+                        <div class="comparison-stat text-4xl font-bold mb-2" id="comparison-percentage">...</div>
+                        <div class="text-sm text-gray-400" id="comparison-message">Add debt to see where you stand</div>
+                    </div>
+                </div>
+
                 <!-- DECLARATION OF FINANCIAL INDEPENDENCE (appears when budget locked) -->
-                <div id="action-timeline-container" class="hidden">
-                    <div class="relative rounded-xl overflow-hidden shadow-2xl" style="
+                <div id="action-timeline-container" class="hidden" onclick="openDeclarationFullscreen()" style="cursor: pointer; transition: transform 0.2s;">
+                    <div class="relative rounded-xl overflow-hidden shadow-2xl hover-declaration" style="
                         background: linear-gradient(160deg,#f8edd8 0%,#f0dfc0 40%,#e8d4ae 100%);
                         border: 3px solid #8b6914;
                         box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 0 60px rgba(139,105,20,0.08);
@@ -9069,6 +9119,56 @@ function updatePremiumTeaser() {
         // No gurus. No trends. Just financial sovereignty built the frontier way.
         // ═══════════════════════════════════════════════════════════════════════════
         
+        // Open Declaration in fullscreen modal
+        function openDeclarationFullscreen() {
+            const modal = document.getElementById('declaration-fullscreen-modal');
+            const sidebarContent = document.getElementById('bill-of-rights-content');
+            const fullscreenContent = document.getElementById('bill-of-rights-content-fullscreen');
+            const sidebarDate = document.getElementById('declaration-date');
+            const fullscreenDate = document.getElementById('declaration-date-fullscreen');
+            
+            // Copy content from sidebar to fullscreen
+            if (sidebarContent && fullscreenContent) {
+                fullscreenContent.innerHTML = sidebarContent.innerHTML;
+            }
+            if (sidebarDate && fullscreenDate) {
+                fullscreenDate.textContent = sidebarDate.textContent;
+            }
+            
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Close Declaration fullscreen modal
+        function closeDeclarationFullscreen(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            const modal = document.getElementById('declaration-fullscreen-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close on background click
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('declaration-fullscreen-modal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        closeDeclarationFullscreen();
+                    }
+                });
+            }
+            
+            // ESC key to close
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeDeclarationFullscreen();
+                }
+            });
+        });
+
         function populate90DayDeclaration() {
             const content = document.getElementById('bill-of-rights-content');
             if (!content) return;
@@ -10022,5 +10122,49 @@ function updatePremiumTeaser() {
         window.updateGoalProgress = updateGoalProgress;
         window.setNewGoal = setNewGoal;
     </script>
+<!-- DECLARATION FULLSCREEN MODAL -->
+<div id="declaration-fullscreen-modal">
+    <div class="declaration-scroll-container">
+        <div class="declaration-fullscreen-content">
+            <button class="close-declaration-btn" onclick="closeDeclarationFullscreen(event)" title="Close">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="absolute inset-0 pointer-events-none" style="opacity:0.5; background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3CfeColorMatrix type=%22saturate%22 values=%220%22/%3E%3C/filter%3E%3Crect width=%22300%22 height=%22300%22 filter=%22url(%23n)%22 opacity=%220.04%22/%3E%3C/svg%3E');"></div>
+            <div class="absolute inset-4 rounded-lg pointer-events-none" style="border:2px solid rgba(139,105,20,0.4);"></div>
+            <div class="absolute inset-8 rounded-lg pointer-events-none" style="border:1px solid rgba(139,105,20,0.2);"></div>
+            
+            <div class="relative z-10">
+                <!-- Header -->
+                <div style="text-align:center; margin-bottom:2rem;">
+                    <div style="font-size:2.5rem; color:rgba(139,105,20,0.55); margin-bottom:0.5rem;">❦</div>
+                    <h2 style="font-family:'Brush Script MT','Lucida Handwriting',cursive; font-size:3rem; color:#2c1810; line-height:1.2; text-shadow:2px 3px 4px rgba(0,0,0,0.15); margin-bottom:1rem;">Declaration of Financial Independence</h2>
+                    <div style="display:flex; align-items:center; gap:1rem; margin:1rem auto; max-width:24rem;">
+                        <div style="flex:1; height:2px; background:linear-gradient(to right,transparent,#8b6914);"></div>
+                        <span style="color:#8b6914; font-size:1.5rem;">✦</span>
+                        <div style="flex:1; height:2px; background:linear-gradient(to left,transparent,#8b6914);"></div>
+                    </div>
+                    <p style="font-family:'Georgia',serif; font-size:1.25rem; font-style:italic; color:#5d4037;">Three Sovereign Moves. 90 Days.</p>
+                </div>
+                
+                <!-- Articles -->
+                <div id="bill-of-rights-content-fullscreen" style="font-size: 1.1rem;"></div>
+                
+                <!-- Signature -->
+                <div style="margin-top:2rem; padding-top:1.5rem; border-top:2px solid rgba(139,105,20,0.3); text-align:right;">
+                    <p style="font-family:'Georgia',serif; font-size:1rem; font-style:italic; color:#5d4037; margin-bottom:0.5rem;">Signed this day,</p>
+                    <p id="declaration-date-fullscreen" style="font-family:'Georgia',serif; font-size:1.125rem; font-weight:600; color:#3e2723; margin-bottom:1rem;"></p>
+                    <div style="font-family:'Brush Script MT',cursive; font-size:2rem; color:#1a237e; line-height:1; margin-bottom:0.5rem;">Your Name Here</div>
+                    <div style="height:2px; background:rgba(139,105,20,0.5);"></div>
+                </div>
+                
+                <div style="text-align:center; margin-top:1.5rem;">
+                    <span style="font-size:2rem; color:rgba(139,105,20,0.4);">❦</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
