@@ -1305,7 +1305,6 @@
             border-color: #EF4444 !important;
         }
         
-        
         /* AMERICANA TICKER - SUPER VISIBLE DEBUG */
         .ticker-container {
             background: linear-gradient(to right, #B22234 0%, #FFFFFF 50%, #3C3B6E 100%);
@@ -3883,7 +3882,6 @@
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson flex flex-col min-h-screen">
     
-    <!-- NEXT OBJECTIVE BANNER - Will be dynamically moved to section headers -->
     <div id="next-action-banner" class="hidden" style="
         background: linear-gradient(135deg, rgba(220, 38, 38, 0.12), rgba(220, 38, 38, 0.06));
         border: 1px solid rgba(220, 38, 38, 0.3);
@@ -3906,10 +3904,9 @@
             <i class="fas fa-arrow-right text-[8px]"></i>
         </button>
     </div>
-    <!-- Hidden reason text for tooltip/reference -->
+    
     <div id="next-action-reason" class="hidden">This establishes your baseline for all calculations</div>
     
-    <!-- HEADER -->
     <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="flex flex-col group">
@@ -3928,8 +3925,6 @@
         </nav>
     </header>
     
-    
-    <!-- THE LAB HERO -->
     <section class="pt-32 pb-16 text-center relative overflow-hidden" style="
         min-height: 400px;
         background: linear-gradient(rgba(5,11,20,0.75), rgba(5,11,20,0.75)), url('https://realamericanfinance.com/flag_distressed.jpg');
@@ -3946,9 +3941,8 @@
         </div>
     </section>
 
-    <!-- COMMAND CENTER - HIDDEN FOR MINIMALISM -->
     <div class="hidden">
-        <!-- Command Center Header -->
+        
         <div class="dashboard-card p-6 mb-6 relative overflow-hidden">
             <div class="hud-corner top-left"></div>
             <div class="hud-corner top-right"></div>
@@ -3974,9 +3968,8 @@
                 </div>
             </div>
             
-            <!-- Stat Cards Grid -->
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                <!-- Debt Health Card -->
+                
                 <div class="command-stat-card">
                     <div class="stat-icon">💰</div>
                     <div class="stat-label">Debt Health</div>
@@ -3986,7 +3979,6 @@
                     </div>
                 </div>
                 
-                <!-- Savings Health Card -->
                 <div class="command-stat-card">
                     <div class="stat-icon">🛡️</div>
                     <div class="stat-label">Savings</div>
@@ -3996,7 +3988,6 @@
                     </div>
                 </div>
                 
-                <!-- Budget Health Card -->
                 <div class="command-stat-card">
                     <div class="stat-icon">📊</div>
                     <div class="stat-label">Budget</div>
@@ -4006,7 +3997,6 @@
                     </div>
                 </div>
                 
-                <!-- Income Health Card -->
                 <div class="command-stat-card">
                     <div class="stat-icon">💵</div>
                     <div class="stat-label">Income</div>
@@ -4016,7 +4006,6 @@
                     </div>
                 </div>
                 
-                <!-- Net Worth Card -->
                 <div class="command-stat-card">
                     <div class="stat-icon">📈</div>
                     <div class="stat-label">Net Worth</div>
@@ -4027,7 +4016,6 @@
                 </div>
             </div>
             
-            <!-- AI Coach -->
             <div class="mt-6 bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-xl p-4 border border-blue-500/30 neon-border">
                 <div class="flex items-start gap-3">
                     <div class="text-3xl">🤖</div>
@@ -4042,11 +4030,9 @@
         </div>
     </div>
 
-    <!-- ACHIEVEMENTS - HIDDEN FOR MINIMALISM -->
     <div class="hidden">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             
-            <!-- Achievement Badges -->
             <div class="lg:col-span-2 dashboard-card p-6">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-xl font-heading font-bold uppercase">
@@ -4058,11 +4044,10 @@
                 </div>
                 
                 <div class="achievement-grid" id="achievement-grid">
-                    <!-- Populated by JavaScript -->
+                    
                 </div>
             </div>
             
-            <!-- Streak Tracker -->
             <div class="dashboard-card p-6 text-center">
                 <h3 class="text-xl font-heading font-bold uppercase mb-4">
                     <i class="fas fa-fire mr-2 text-orange-500"></i>Freedom Streak
@@ -4084,7 +4069,6 @@
         </div>
     </div>
     
-    <!-- QUICK ACTIONS - HIDDEN FOR MINIMALISM -->
     <div class="hidden">
         <div class="dashboard-card p-6">
             <h3 class="text-xl font-heading font-bold uppercase mb-4">
@@ -4116,7 +4100,6 @@
         </div>
     </div>
     
-    <!-- TIME MACHINE - HIDDEN FOR MINIMALISM -->
     <div class="hidden">
         <div class="dashboard-card p-6">
             <h3 class="text-xl font-heading font-bold uppercase mb-4">
@@ -4124,7 +4107,7 @@
             </h3>
             
             <div class="relative pl-12" id="timeline-container">
-                <!-- Populated by JavaScript -->
+                
             </div>
             
             <div class="mt-6 p-4 bg-gradient-to-r from-green-900/20 to-blue-900/20 rounded-lg border border-green-500/30">
@@ -4138,10 +4121,8 @@
 
         </div>
 
-    <!-- MAIN CONTENT -->
     <main class="container mx-auto px-4 md:px-6 py-6 md:py-12 flex-1">
         
-        <!-- STICKY FINANCIAL SUMMARY - Simplified -->
         <div class="financial-summary-sticky">
             <div class="summary-metrics">
                 <div class="summary-metric">
@@ -4171,16 +4152,10 @@
             </div>
         </div>
         
-        <!-- NEXT ACTION BANNER -->
-        <!-- DECLARATION OF FINANCIAL INDEPENDENCE - moved to sidebar -->
-
-        <!-- TWO-COLUMN LAYOUT: Left = inputs (wide), Right = sticky sidebar (narrow) -->
         <div class="layout-grid">
 
-        <!-- ══ LEFT: All input sections ══ -->
         <div class="layout-left">
                 
-                <!-- Monthly Income Section -->
                 <section class="dashboard-card" style="padding: 2.5rem;" id="income-section">
                     <div class="flex justify-between items-start mb-8 pb-6 border-b-2" style="border-color: rgba(16, 185, 129, 0.2);">
                         <div>
@@ -4191,7 +4166,7 @@
                             <p style="font-size: 0.9375rem; color: rgba(248, 250, 252, 0.6); margin-left: 4.5rem;">Establish your financial baseline</p>
                         </div>
                         <div class="flex items-center gap-3">
-                            <!-- BANNER CONTAINER -->
+                            
                             <div id="banner-container-income" class="banner-container"></div>
                             <span class="tier-badge tier-free">Free</span>
                         </div>
@@ -4223,7 +4198,6 @@
                         </div>
                     </div>
                     
-                    <!-- PRE-TAX DEDUCTIONS -->
                     <div class="mt-6 p-4 bg-blue-900/10 rounded-lg border border-blue-500/20">
                         <div class="flex items-center gap-2 mb-3">
                             <i class="fas fa-shield-alt text-blue-400"></i>
@@ -4286,13 +4260,12 @@
                                 <div class="text-[10px] text-gray-600" id="income-status">Enter your paycheck to begin</div>
                             </div>
                             <div class="flex items-center gap-2">
-                                <!-- LOCK INCOME BUTTON - INLINE -->
+                                
                                 <button id="income-lock-container" onclick="confirmIncome()" class="upgrade-btn px-3 py-1.5 text-xs whitespace-nowrap">
                                     <i class="fas fa-lock mr-1 text-[10px]"></i>
                                     <span>Lock Income</span>
                                 </button>
                                 
-                                <!-- LOCKED STATUS - INLINE -->
                                 <div id="income-locked-banner" class="hidden flex items-center gap-2 text-xs">
                                     <i class="fas fa-check-circle text-green-400"></i>
                                     <span class="text-gray-400">Locked</span>
@@ -4306,7 +4279,6 @@
                     </div>
                 </section>
 
-                <!-- Debt Tracking Section -->
                 <section class="dashboard-card" style="padding: 2.5rem;" id="debt-section">
                     <div class="flex justify-between items-start mb-8 pb-6 border-b-2" style="border-color: rgba(239, 68, 68, 0.2);">
                         <div>
@@ -4317,13 +4289,12 @@
                             <p style="font-size: 0.9375rem; color: rgba(248, 250, 252, 0.6); margin-left: 4.5rem;">Neutralize and eliminate liabilities</p>
                         </div>
                         <div class="flex items-center gap-3">
-                            <!-- BANNER CONTAINER -->
+                            
                             <div id="banner-container-debt" class="banner-container"></div>
                             <span class="tier-badge tier-free">Free</span>
                         </div>
                     </div>
                     
-                    <!-- DEBT ENTRY FLOW -->
                     <div id="debt-entry-flow" class="debt-entry-flow">
                         <h4 class="text-xl font-bold mb-4">Let's Talk About Debt</h4>
                         <p class="text-gray-300 mb-6">Understanding your debt is the first step to financial freedom.<br>Do you currently have any debt?</p>
@@ -4343,7 +4314,6 @@
                         </div>
                     </div>
                     
-                    <!-- DEBT-FREE CELEBRATION -->
                     <div id="debt-free-celebration" class="debt-free-celebration hidden">
                         <div class="celebration-icon">🎉</div>
                         <h4 class="celebration-title">Congratulations! You're Debt-Free!</h4>
@@ -4352,7 +4322,6 @@
                             <strong>Focus on:</strong> Building your emergency fund, investing for retirement, and growing your assets.
                         </p>
                         
-                        <!-- Comparison Badge -->
                         <div class="comparison-badge">
                             <div class="text-xs uppercase tracking-wider mb-2">You're Better Than</div>
                             <div class="comparison-stat">64%</div>
@@ -4369,7 +4338,6 @@
                         </div>
                     </div>
                     
-                    <!-- QUICK ADD PRESETS -->
                     <div id="quick-add-presets" class="quick-add-presets hidden">
                         <div class="preset-card" onclick="usePreset('credit_card', 5000, 150, 19.99)">
                             <div class="preset-icon">💳</div>
@@ -4413,7 +4381,6 @@
                         </div>
                     </div>
                     
-                    <!-- SIMPLE DEBT FORM -->
                     <div id="debt-form-simple" class="debt-form-simple hidden">
                         <div class="form-progress">
                             <i class="fas fa-clipboard-list"></i>
@@ -4472,7 +4439,6 @@
                             </div>
                         </div>
                         
-                        <!-- REAL-TIME INTEREST TRACKER -->
                         <div id="live-interest-tracker" class="interest-tracker hidden">
                             <div class="flex items-center justify-between flex-wrap gap-4">
                                 <div>
@@ -4498,9 +4464,8 @@
                         </div>
                     </div>
                     
-                    <!-- DEBT TABLE CONTAINER -->
                     <div id="debt-table-container" class="hidden">
-                        <!-- Debt Priority Legend -->
+                        
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
                             <div class="flex items-center gap-2 text-xs">
                                 <div class="w-3 h-3 rounded-full bg-red-500"></div>
@@ -4520,7 +4485,6 @@
                             </div>
                         </div>
                         
-                        <!-- DEBT SORTING BUTTONS -->
                         <div class="flex gap-3 mb-4">
                             <button id="sort-snowball" onclick="sortDebtTable('snowball')" 
                                     class="flex-1 px-4 py-2 bg-blue-900/30 border border-blue-500/30 text-blue-300 rounded-lg text-sm font-semibold uppercase tracking-wide hover:bg-blue-900/50 hover:border-blue-500/50 transition">
@@ -4532,7 +4496,6 @@
                             </button>
                         </div>
                         
-                        <!-- DEBT TABLE -->
                         <div class="debt-table-container">
                             <table class="debt-table">
                                 <thead>
@@ -4547,7 +4510,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="debt-body">
-                                    <!-- Debt rows will be added here by JavaScript -->
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -4557,20 +4520,18 @@
                             Years to Payoff calculated at minimum payment. Premium shows accelerated payoff strategies.
                         </div>
                         
-                        <!-- DEBT SUMMARY - MOVED UP FOR PROMINENCE -->
                         <div class="mt-6 p-5 bg-gradient-to-br from-red-900/30 to-red-950/20 rounded-lg border-2 border-red-500/30">
                             <div class="flex items-center justify-between mb-4">
                                 <h4 class="text-sm font-bold uppercase tracking-wider text-red-400">
                                     <i class="fas fa-calculator mr-2"></i>Debt Summary
                                 </h4>
                                 <div class="flex items-center gap-2">
-                                    <!-- LOCK DEBT BUTTON - INLINE -->
+                                    
                                     <button id="debt-lock-container" onclick="confirmDebt()" class="upgrade-btn px-3 py-1.5 text-xs whitespace-nowrap">
                                         <i class="fas fa-lock mr-1 text-[10px]"></i>
                                         <span>Lock Debt</span>
                                     </button>
                                     
-                                    <!-- LOCKED STATUS - INLINE -->
                                     <div id="debt-locked-banner" class="hidden flex items-center gap-2 text-xs">
                                         <i class="fas fa-check-circle text-green-400"></i>
                                         <span class="text-gray-400">Locked</span>
@@ -4600,7 +4561,6 @@
                                 </div>
                             </div>
                             
-                            <!-- NEW: Interest & Payoff Metrics -->
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-red-500/20">
                                 <div>
                                     <div class="text-xs text-gray-400 mb-1">Monthly Interest</div>
@@ -4617,7 +4577,6 @@
                             </div>
                         </div>
                         
-                        <!-- STRATEGY PREVIEW -->
                         <div class="mt-6">
                             <div class="flex justify-between items-center mb-4">
                                 <h4 class="text-sm font-bold uppercase tracking-wider">Payoff Strategies Preview</h4>
@@ -4655,25 +4614,18 @@
                             </div>
                         </div>
                         
-                        
-                        <!-- SMART WARNINGS -->
                         <div id="debt-warnings-container"></div>
                     </div>
 
-                <!-- PIE CHART - NOW FLOATING IN BUDGET SECTION -->
                 <div class="hidden">
                     <div class="max-w-3xl mx-auto">
                         <div class="relative w-full aspect-square max-w-xl mx-auto mb-6">
-                            <!-- REMOVED: Duplicate canvas -->
                             
-                            <!-- SURPLUS/DEFICIT IN CENTER - REMOVED TO AVOID DUPLICATES -->
                         </div>
                         
-                        <!-- LEGEND - REMOVED TO AVOID DUPLICATE IDs -->
                     </div>
                 </section>
 
-                <!-- Budget Section -->
                 <section class="dashboard-card" style="padding: 2.5rem;" id="budget-section">
                     <div class="flex justify-between items-start mb-8 pb-6 border-b-2" style="border-color: rgba(59, 130, 246, 0.2);">
                         <div>
@@ -4684,18 +4636,17 @@
                             <p style="font-size: 0.9375rem; color: rgba(248, 250, 252, 0.6); margin-left: 4.5rem;">Track and optimize your spending</p>
                         </div>
                         <div class="flex items-center gap-3">
-                            <!-- RECOMMEND BUDGET BUTTON - SMALL -->
+                            
                             <button onclick="recommendBudget()" class="upgrade-btn px-3 py-1.5 text-xs whitespace-nowrap flex items-center gap-1">
-                                <i class="fas fa-magic text-[10px]"></i>
-                                <span>Auto-Fill</span>
+                                <i class="fas fa-bolt text-[10px]"></i>
+                                <span>Build Budget</span>
                             </button>
-                            <!-- BANNER CONTAINER -->
+                            
                             <div id="banner-container-budget" class="banner-container"></div>
                             <span class="tier-badge tier-free">Free</span>
                         </div>
                     </div>
                     
-                    <!-- BUDGET COMPLETION STATUS -->
                     <div id="budget-lock-banner" class="mb-6 p-4 bg-blue-900/20 rounded-lg border border-blue-500/30 hidden">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-3">
@@ -4711,7 +4662,6 @@
                         </div>
                     </div>
                     
-                    <!-- WAR MODE BANNER - Shows when user has debt -->
                     <div id="war-mode-banner" class="mb-6 p-4 bg-gradient-to-r from-red-900/20 to-orange-900/20 rounded-lg border-2 border-red-500/50 hidden">
                         <div class="flex items-center justify-between mb-3">
                             <div class="flex items-center gap-3">
@@ -4741,7 +4691,6 @@
                         </div>
                     </div>
                     
-                    <!-- BUDGET LOCK BUTTON (shown when not locked) -->
                     <div id="budget-lock-controls" class="mb-6 p-4 bg-gradient-to-r from-blue-900/10 to-green-900/10 rounded-lg border border-blue-500/20">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-3">
@@ -4757,12 +4706,10 @@
                         </div>
                     </div>
                     
-                    <!-- BUDGET LAYOUT: single column, chart moved to sidebar -->
                     <div>
-                        <!-- Left Column: Budget Items -->
+                        
                         <div>
                     
-                    <!-- WAR MODE TOGGLE - ALWAYS VISIBLE -->
                     <div id="war-mode-container" class="war-mode-toggle-container">
                         <div class="flex items-center gap-2">
                             <i class="fas fa-fire text-red-500"></i>
@@ -4777,31 +4724,27 @@
                         </div>
                     </div>
                     
-                    <!-- Needs Section -->
                     <div class="mb-6 mt-8">
                         <h4 class="text-sm uppercase font-bold text-white tracking-wide mb-3">Essential Expenses (Needs)</h4>
                         <div id="needs-categories" class="space-y-3">
-                            <!-- Dynamic categories will be added here -->
+                            
                         </div>
                     </div>
 
-                    <!-- Wants Section -->
                     <div class="mb-6">
                         <h4 class="text-sm uppercase font-bold text-white tracking-wide mb-3">Wants & Lifestyle</h4>
                         <div id="wants-categories" class="space-y-3">
-                            <!-- Dynamic categories will be added here -->
+                            
                         </div>
                     </div>
 
-                </section><!-- End Budget Section -->
+                </section>
 
-        </div><!-- end layout-left -->
+        </div>
 
-        <!-- ══ RIGHT SIDEBAR ══ -->
         <div class="layout-right">
             <div class="space-y-5">
 
-<!-- PIE CHART -->
                 <div class="dashboard-card p-4">
                     <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Budget Breakdown</h3>
                     <div class="relative w-full aspect-square max-w-[220px] mx-auto">
@@ -4839,15 +4782,13 @@
                     </div>
                 </div>
 
-                <!-- SAVINGS & INVESTMENTS -->
                 <div class="dashboard-card p-4">
                     <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Savings & Investments</h3>
                     <div id="savings-categories" class="space-y-3">
-                        <!-- Dual-input savings cards will be added here -->
+                        
                     </div>
                 </div>
 
-                <!-- DEBT COMPARISON -->
                 <div class="dashboard-card p-4">
                     <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Your Debt vs Average</h3>
                     <div class="text-center">
@@ -4856,7 +4797,6 @@
                     </div>
                 </div>
 
-                <!-- DECLARATION OF FINANCIAL INDEPENDENCE (appears when budget locked) -->
                 <div id="action-timeline-container" class="hidden" onclick="openDeclarationFullscreen()" style="cursor: pointer; transition: transform 0.2s;">
                     <div class="relative rounded-xl overflow-hidden shadow-2xl hover-declaration" style="
                         background: linear-gradient(160deg,#f8edd8 0%,#f0dfc0 40%,#e8d4ae 100%);
@@ -4867,7 +4807,7 @@
                         <div class="absolute inset-2 rounded-lg pointer-events-none" style="border:1px solid rgba(139,105,20,0.4);"></div>
                         <div class="absolute inset-4 rounded-lg pointer-events-none" style="border:1px solid rgba(139,105,20,0.2);"></div>
                         <div class="relative z-10 p-4">
-                            <!-- Header -->
+                            
                             <div style="text-align:center; margin-bottom:0.75rem;">
                                 <div style="font-size:1.2rem; color:rgba(139,105,20,0.55); margin-bottom:0.2rem;">❦</div>
                                 <h2 style="font-family:'Brush Script MT','Lucida Handwriting',cursive; font-size:1.4rem; color:#2c1810; line-height:1; text-shadow:1px 2px 3px rgba(0,0,0,0.15); margin-bottom:0.3rem;">Declaration of Financial Independence</h2>
@@ -4878,9 +4818,9 @@
                                 </div>
                                 <p style="font-family:'Georgia',serif; font-size:0.65rem; font-style:italic; color:#5d4037;">Three Sovereign Moves. 90 Days.</p>
                             </div>
-                            <!-- Articles -->
+                            
                             <div id="bill-of-rights-content"></div>
-                            <!-- Signature -->
+                            
                             <div style="margin-top:0.75rem; padding-top:0.5rem; border-top:1px solid rgba(139,105,20,0.3); text-align:right;">
                                 <p style="font-family:'Georgia',serif; font-size:0.6rem; font-style:italic; color:#5d4037; margin-bottom:0.1rem;">Signed this day,</p>
                                 <p id="declaration-date" style="font-family:'Georgia',serif; font-size:0.65rem; font-weight:600; color:#3e2723; margin-bottom:0.3rem;"></p>
@@ -4894,7 +4834,6 @@
                     </div>
                 </div>
 
-                <!-- AGE INPUT -->
                 <div class="dashboard-card p-4">
                     <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Your Age</h3>
                     <input type="number"
@@ -4906,24 +4845,21 @@
                            aria-label="Enter your age">
                 </div>
 
-                <!-- ACHIEVEMENTS -->
                 <div class="dashboard-card p-4">
                     <div class="flex justify-between items-center mb-3">
                         <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400">Achievements</h3>
                         <i class="fas fa-trophy text-yellow-400"></i>
                     </div>
                     <div id="achievements-container" class="grid grid-cols-2 gap-2">
-                        <!-- Populated by JavaScript -->
+                        
                     </div>
                 </div>
 
-            </div><!-- end sticky -->
-        </div><!-- end layout-right -->
+            </div>
+        </div>
 
-        </div><!-- end layout-grid -->
+        </div>
 
-
-<!-- PREMIUM FEATURES PREVIEW - RAF ACADEMY ALIGNED -->
 <section class="dashboard-card p-6 md:p-8">
     <div class="mb-6">
         <div class="flex items-center justify-between mb-2">
@@ -4936,7 +4872,7 @@
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <!-- Scenario Planning - Phase 01 -->
+        
         <div class="strategy-card hover:border-purple-500/50 transition-all duration-300">
             <div class="premium-blur">
                 <div class="flex items-start gap-3 mb-3">
@@ -4974,7 +4910,6 @@
             </div>
         </div>
 
-        <!-- Tax Optimization - Phase 02 -->
         <div class="strategy-card hover:border-blue-500/50 transition-all duration-300">
             <div class="premium-blur">
                 <div class="flex items-start gap-3 mb-3">
@@ -5012,7 +4947,6 @@
             </div>
         </div>
 
-        <!-- Cash Flow Projection - Phase 02 -->
         <div class="strategy-card hover:border-green-500/50 transition-all duration-300">
             <div class="premium-blur">
                 <div class="flex items-start gap-3 mb-3">
@@ -5051,7 +4985,6 @@
         </div>
     </div>
     
-    <!-- Value Proposition Footer - RAF Style -->
     <div class="p-5 bg-gradient-to-r from-crimson/20 via-navy-900/20 to-transparent rounded-lg border border-crimson/30">
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div class="flex-1">
@@ -5082,7 +5015,7 @@
                     <p class="text-sm text-gray-300 mb-6 pl-4 md:pl-5">Phase 03 sovereignty tools — direct ownership, business acquisition, antifragility protocols</p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <!-- AI Debt Optimization -->
+                        
                         <div class="p-4 bg-white/5 rounded-lg border border-purple-500/30 hover:border-purple-500/50 transition-all">
                             <div class="flex items-start gap-3 mb-3">
                                 <i class="fas fa-robot text-2xl text-purple-400"></i>
@@ -5093,7 +5026,6 @@
                             </div>
                         </div>
 
-                        <!-- Portfolio Analytics -->
                         <div class="p-4 bg-white/5 rounded-lg border border-purple-500/30 hover:border-purple-500/50 transition-all">
                             <div class="flex items-start gap-3 mb-3">
                                 <i class="fas fa-chart-pie text-2xl text-purple-400"></i>
@@ -5104,7 +5036,6 @@
                             </div>
                         </div>
 
-                        <!-- Real Estate Intel -->
                         <div class="p-4 bg-white/5 rounded-lg border border-purple-500/30 hover:border-purple-500/50 transition-all">
                             <div class="flex items-start gap-3 mb-3">
                                 <i class="fas fa-building text-2xl text-purple-400"></i>
@@ -5115,7 +5046,6 @@
                             </div>
                         </div>
 
-                        <!-- Advanced Reporting -->
                         <div class="p-4 bg-white/5 rounded-lg border border-purple-500/30 hover:border-purple-500/50 transition-all">
                             <div class="flex items-start gap-3 mb-3">
                                 <i class="fas fa-file-invoice text-2xl text-purple-400"></i>
@@ -5127,7 +5057,6 @@
                         </div>
                     </div>
                     
-                    <!-- Single CTA -->
                     <div class="text-center">
                         <button onclick="showPricingModal()" class="upgrade-btn text-base px-8 py-3 bg-gradient-to-r from-purple-600 to-violet-600">
                             <i class="fas fa-crown mr-2"></i>Unlock Mastery – $99/mo
@@ -5140,7 +5069,6 @@
         </div>
     </main>
 
-    <!-- PRICING MODAL -->
     <div id="pricing-modal" class="pricing-modal">
         <div class="pricing-content">
             <div class="flex justify-between items-center mb-6">
@@ -5151,40 +5079,38 @@
             <p class="text-gray-300 mb-8">Unlock the full power of The Lab and accelerate your path to financial sovereignty.</p>
             
             <div class="pricing-grid">
-                <!-- Free Tier -->
+                
                 <div class="pricing-card">
                     <div class="tier-badge tier-free mb-4">Current Plan</div>
                     <h3 class="text-2xl font-bold">Free</h3>
                     <div class="price">$0<span class="price-period">/mo</span></div>
                     <p class="text-sm text-gray-400 mb-4">Perfect for getting started</p>
                     <ul class="feature-list" id="free-features">
-                        <!-- Features populated by JavaScript -->
+                        
                     </ul>
                     <button class="w-full bg-white/10 py-3 rounded mt-4 cursor-default">Current Plan</button>
                 </div>
 
-                <!-- Premium Tier -->
                 <div class="pricing-card featured">
                     <div class="tier-badge tier-premium mb-4">Most Popular</div>
                     <h3 class="text-2xl font-bold">Premium</h3>
                     <div class="price">$19.99<span class="price-period">/mo</span></div>
                     <p class="text-sm text-gray-400 mb-4">For serious wealth builders</p>
                     <ul class="feature-list" id="premium-features">
-                        <!-- Features populated by JavaScript -->
+                        
                     </ul>
                     <button onclick="alert('Payment integration coming soon!')" class="w-full upgrade-btn mt-4">
                         Start Premium Trial
                     </button>
                 </div>
 
-                <!-- Mastery Tier -->
                 <div class="pricing-card">
                     <div class="tier-badge tier-mastery mb-4">Elite</div>
                     <h3 class="text-2xl font-bold">Mastery</h3>
                     <div class="price">$49.99<span class="price-period">/mo</span></div>
                     <p class="text-sm text-gray-400 mb-4">Complete financial sovereignty</p>
                     <ul class="feature-list" id="mastery-features">
-                        <!-- Features populated by JavaScript -->
+                        
                     </ul>
                     <button onclick="alert('Payment integration coming soon!')" class="w-full upgrade-btn mt-4" style="background: linear-gradient(135deg, #9333ea, #6b21a8);">
                         <i class="fas fa-crown mr-2"></i>Start Mastery Trial
@@ -5198,7 +5124,6 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="bg-navy-950 border-t-8 border-crimson pt-20 pb-8 mt-12">
         <div class="container mx-auto px-6">
             <div class="text-center mb-8">
@@ -5224,10 +5149,8 @@
         </div>
     </footer>
 
-    <!-- JAVASCRIPT -->
     <script>
         let isSyncing = false;
-        // Tailwind config
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -5248,18 +5171,13 @@
             }
         };
 
-        // Initialize chart
         let myChart;
         let calculationCache = new Map();
         let calculationTimeout;
         
-        // War Mode state
         let isWarModeActive = false;
         let originalCategoryValues = {}; // Store original values when War Mode is activated
         
-        // ===== UNIFIED DATA SOURCES =====
-        
-        // Feature definitions for all tiers (single source of truth)
         const featureDefinitions = {
             free: [
                 { text: "Enhanced budgeting tools", icon: "fa-check" },
@@ -5300,7 +5218,6 @@
             ]
         };
 
-        // Tier definitions
         const tierDefinitions = {
             free: {
                 label: "Free",
@@ -5329,7 +5246,6 @@
             }
         };
 
-        // Priority definitions (unified for debt and actions)
         const priorityDefinitions = {
             emergency: {
                 label: "Emergency",
@@ -5369,7 +5285,6 @@
             }
         };
 
-        // Action tier definitions
         const actionTierDefinitions = {
             critical: {
                 label: "CRITICAL",
@@ -5397,7 +5312,6 @@
             }
         };
 
-        // ===== TIER 1 DEBT TYPES (8 Core Categories) =====
         const debtTypes = [
             { 
                 value: 'credit_card', 
@@ -5489,7 +5403,6 @@
             }
         ];
 
-        // ENHANCED SAVINGS CATEGORIES
         const savingsCategories = [
             {
                 id: 'emergency_fund',
@@ -5524,17 +5437,14 @@ function updateCategoryPercentage(categoryId) {
         if (percentageElement) {
             percentageElement.textContent = `${percentage.toFixed(1)}%`;
             
-            // Color coding based on category type and percentage - using badge style
             const isNeed = budgetCategories.needs.some(c => c.id === categoryId);
             const isWant = budgetCategories.wants.some(c => c.id === categoryId);
             
-            // Reset all badge styles
             percentageElement.style.background = '';
             percentageElement.style.color = '';
             percentageElement.style.borderColor = '';
             
             if (isNeed) {
-                // For needs: red if > 15%, yellow if > 10%, blue otherwise
                 if (percentage > 15) {
                     percentageElement.style.background = 'rgba(239, 68, 68, 0.2)';
                     percentageElement.style.color = '#FCA5A5';
@@ -5549,7 +5459,6 @@ function updateCategoryPercentage(categoryId) {
                     percentageElement.style.borderColor = 'rgba(59, 130, 246, 0.3)';
                 }
             } else if (isWant) {
-                // For wants: red if > 10%, yellow if > 5%, purple otherwise
                 if (percentage > 10) {
                     percentageElement.style.background = 'rgba(239, 68, 68, 0.2)';
                     percentageElement.style.color = '#FCA5A5';
@@ -5575,22 +5484,16 @@ function updateCategoryPercentage(categoryId) {
 }
 
 function updateAllCategoryPercentages() {
-    // Update all needs categories
     budgetCategories.needs.forEach(category => {
         updateCategoryPercentage(category.id);
     });
     
-    // Update all wants categories
     budgetCategories.wants.forEach(category => {
         updateCategoryPercentage(category.id);
     });
 }		
 
-        // UPDATED: SIMPLIFIED BUDGET CATEGORIES WITH TAXES
-        // ===== BUDGET THRESHOLD SYSTEM =====
-        // Progressive color coding based on % of income
         const BUDGET_THRESHOLDS = {
-            // NEEDS
             mortgage_rent: { ideal: 28, warning: 33, type: 'needs' },
             utilities: { ideal: 5, warning: 8, type: 'needs' },
             phone_bill: { ideal: 3, warning: 5, type: 'needs' },
@@ -5603,7 +5506,6 @@ function updateAllCategoryPercentages() {
             taxes: { ideal: 15, warning: 20, type: 'needs' },
             debt_minimums: { ideal: 10, warning: 20, type: 'needs' },
             
-            // WANTS
             gym_membership: { ideal: 3, warning: 5, type: 'wants' },
             subscriptions: { ideal: 3, warning: 5, type: 'wants' },
             dining_entertainment: { ideal: 8, warning: 12, type: 'wants' },
@@ -5688,12 +5590,10 @@ function updateAllCategoryPercentages() {
         }
 
         function updateAllCategoryPercentages() {
-            // Update all needs categories
             budgetCategories.needs.forEach(category => {
                 updateCategoryPercentage(category.id);
             });
             
-            // Update all wants categories
             budgetCategories.wants.forEach(category => {
                 updateCategoryPercentage(category.id);
             });
@@ -5721,7 +5621,6 @@ function updateAllCategoryPercentages() {
             ]
         };
 
-        // Age-based retirement targets
         const retirementTargets = {
             30: 1,  // 1× annual income by age 30
             35: 2,  // 2× annual income by age 35
@@ -5733,8 +5632,6 @@ function updateAllCategoryPercentages() {
             65: 10  // 10× annual income by age 65
         };
 
-// ===== RETIREMENT TARGET HELPER FUNCTION =====
-
 function getRetirementTargetForAge(age) {
     const ages = [30, 35, 40, 45, 50, 55, 60, 65];
     for (let i = 0; i < ages.length; i++) {
@@ -5745,7 +5642,6 @@ function getRetirementTargetForAge(age) {
     return retirementTargets[65];
 }
 
-        // ===== NEW: FINANCIAL TIPS DATABASE =====
         const financialTips = [
             {
                 tip: "Pay yourself first! Automate at least 10% of your income to savings before paying any bills.",
@@ -5771,13 +5667,9 @@ function getRetirementTargetForAge(age) {
 
         let currentTipIndex = 0;
 
-        // Category values storage
         let categoryValues = {};
         let savingsValues = {};
 
-        // ===== UNIFIED HELPER FUNCTIONS =====
-        
-        // Unified currency formatting
         function formatCurrencyInput(input) {
             if (isSyncing) return;
             
@@ -5802,7 +5694,6 @@ function getRetirementTargetForAge(age) {
             debouncedCalculateAll();
         }
 
-        // Unified number parsing
         function parseCurrency(value) {
             if (!value || value === '') return 0;
             
@@ -5820,7 +5711,6 @@ function getRetirementTargetForAge(age) {
             return isNaN(parsed) ? 0 : parsed;
         }
 
-        // Unified priority badge generator
         function getPriorityBadge(priorityType, type = 'debt') {
             const definition = type === 'debt' ? priorityDefinitions[priorityType] : actionTierDefinitions[priorityType];
             if (!definition) return '';
@@ -5836,7 +5726,6 @@ function getRetirementTargetForAge(age) {
             }
         }
 
-        // Unified tier badge generator
         function getTierBadge(tier) {
             const definition = tierDefinitions[tier];
             if (!definition) return '';
@@ -5847,7 +5736,6 @@ function getRetirementTargetForAge(age) {
             </span>`;
         }
 
-        // Unified feature list generator
         function generateFeatureList(features) {
             return features.map(feature => `
                 <li class="${feature.locked ? 'locked' : ''}">
@@ -5857,7 +5745,6 @@ function getRetirementTargetForAge(age) {
             `).join('');
         }
 
-        // ===== NEW: FINANCIAL TIP FUNCTIONS =====
         function nextTip() {
             currentTipIndex = (currentTipIndex + 1) % financialTips.length;
             const tip = financialTips[currentTipIndex];
@@ -5865,9 +5752,7 @@ function getRetirementTargetForAge(age) {
             document.getElementById('tip-source').textContent = `– ${tip.source}`;
         }
 
-        // ===== NEW: GOAL TRACKING FUNCTIONS =====
         function updateGoalProgress() {
-            // Emergency Fund Goal (only if elements exist)
             const emergencyProgressEl = document.getElementById('emergency-fund-progress');
             const emergencyBarEl = document.getElementById('emergency-fund-bar');
             
@@ -5881,7 +5766,6 @@ function getRetirementTargetForAge(age) {
                 emergencyBarEl.style.width = `${emergencyProgress}%`;
             }
             
-            // Debt-Free Date (only if elements exist)
             const debtFreeDateEl = document.getElementById('debt-free-date');
             const debtFreeProgressEl = document.getElementById('debt-free-progress');
             
@@ -5892,7 +5776,6 @@ function getRetirementTargetForAge(age) {
                     payoffDate.setMonth(payoffDate.getMonth() + (totalYears * 12));
                     debtFreeDateEl.textContent = payoffDate.toLocaleDateString('default', { month: 'short', year: 'numeric' });
                     
-                    // Progress based on debt reduction
                     const totalDebt = getTotalDebtBalance();
                     const initialDebt = parseFloat(localStorage.getItem('raf_initial_debt')) || totalDebt;
                     const debtProgress = initialDebt > 0 ? Math.min(100, ((initialDebt - totalDebt) / initialDebt) * 100) : 0;
@@ -5908,7 +5791,6 @@ function getRetirementTargetForAge(age) {
                 }
             }
             
-            // Retirement Progress (only if elements exist)
             const retirementProgressEl = document.getElementById('retirement-progress');
             const retirementBarEl = document.getElementById('retirement-bar');
             
@@ -5936,7 +5818,6 @@ function getRetirementTargetForAge(age) {
                 
                 if (amount && timeframe) {
                     showToast(`New goal set: $${amount} in ${timeframe} months`);
-                    // Store goal in localStorage
                     const goals = JSON.parse(localStorage.getItem('raf_goals') || '[]');
                     goals.push({
                         type: goalType,
@@ -5949,15 +5830,11 @@ function getRetirementTargetForAge(age) {
             }
         }
 
-        // ===== INITIALIZATION FUNCTIONS =====
-        
         function initializeFeatureLists() {
-            // Populate pricing modal
             document.getElementById('free-features').innerHTML = generateFeatureList(featureDefinitions.free);
             document.getElementById('premium-features').innerHTML = generateFeatureList(featureDefinitions.premium);
             document.getElementById('mastery-features').innerHTML = generateFeatureList(featureDefinitions.mastery);
             
-            // Populate sidebar feature comparison
             const comparisonList = document.getElementById('feature-comparison-list');
             if (comparisonList) {
                 comparisonList.innerHTML = featureDefinitions.free.map(feature => `
@@ -5969,33 +5846,24 @@ function getRetirementTargetForAge(age) {
             }
         }
 
-        // ===== YEARS TO PAYOFF FUNCTIONS =====
 function calculateYearsToPayoff(balance, monthlyPayment, interestRate) {
     if (monthlyPayment <= 0 || balance <= 0) return 0;
     
     const monthlyRate = (interestRate / 100) / 12;
     
-    // Check if payment covers at least the interest
     const monthlyInterest = balance * monthlyRate;
     if (monthlyPayment <= monthlyInterest) {
         return Infinity; // Never paid off
     }
     
-    // CRITICAL FIX: For high-interest debt (credit cards), assume payments decrease
-    // Credit card minimums are usually 1-3% of balance with a floor (~$35)
-    // This makes payoff take MUCH longer than fixed payment calculations
     if (interestRate > 15) {
-        // High-interest debt: simulate decreasing payments
         return calculateRevolvingDebtPayoff(balance, monthlyPayment, monthlyRate);
     } else {
-        // Low-interest debt: assume fixed payments (mortgage, auto loan, student loan)
         return calculateFixedPaymentPayoff(balance, monthlyPayment, monthlyRate);
     }
 }
 
-// ADD THIS NEW FUNCTION RIGHT AFTER calculateYearsToPayoff:
 function calculateRevolvingDebtPayoff(balance, monthlyPayment, monthlyRate) {
-    // Simulate credit card: payment = max(percentage of balance, $35 floor)
     let remaining = balance;
     let months = 0;
     const initialPaymentRate = monthlyPayment / balance; // e.g., 50/1381.58 = 0.036 (3.6%)
@@ -6004,7 +5872,6 @@ function calculateRevolvingDebtPayoff(balance, monthlyPayment, monthlyRate) {
     while (remaining > 0.01 && months < 600) { // 50-year limit
         const interest = remaining * monthlyRate;
         
-        // Credit card minimum: decreases as balance decreases
         const payment = Math.max(
             remaining * initialPaymentRate,
             minPaymentFloor
@@ -6017,7 +5884,6 @@ function calculateRevolvingDebtPayoff(balance, monthlyPayment, monthlyRate) {
         remaining = remaining + interest - payment;
         months++;
         
-        // Safety check
         if (months > 100 && remaining > balance * 0.9) {
             return Infinity; // Not making progress
         }
@@ -6026,9 +5892,7 @@ function calculateRevolvingDebtPayoff(balance, monthlyPayment, monthlyRate) {
     return months / 12;
 }
 
-// ADD THIS FUNCTION TOO (or update if you already have it):
 function calculateFixedPaymentPayoff(balance, monthlyPayment, monthlyRate) {
-    // Fixed payment loans (mortgage, auto, student loans)
     if (monthlyRate === 0) {
         return (balance / monthlyPayment) / 12;
     }
@@ -6122,7 +5986,6 @@ function getYearsToPayoffClass(years) {
             const debtRows = document.querySelectorAll('#debt-body tr');
             debtRows.forEach(row => updateYearsToPayoff(row));
             
-            // Update total years to payoff
             const totalYearsElement = document.getElementById('total-years-to-payoff');
             if (totalYearsElement) {
                 const totalYears = calculateTotalYearsToPayoff();
@@ -6156,8 +6019,6 @@ function getYearsToPayoffClass(years) {
             }
         }
 
-        // ===== DEBT MANAGEMENT FUNCTIONS =====
-        
         function calculateDebtPriority(interestRate) {
             if (interestRate > priorityDefinitions.emergency.threshold) return 'emergency';
             if (interestRate > priorityDefinitions.high.threshold) return 'high';
@@ -6187,19 +6048,14 @@ function getYearsToPayoffClass(years) {
             updateDebtStrategyTip();
         }
 
-        // ===== S-TIER DEBT ENTRY FLOW FUNCTIONS =====
-        
         function showDebtForm() {
-            // Hide the initial choice
             document.getElementById('debt-entry-flow').style.display = 'none';
             document.getElementById('debt-free-celebration').classList.add('hidden');
             
-            // Show the form, table, and presets
             document.getElementById('debt-form-simple').classList.remove('hidden');
             document.getElementById('debt-table-container').classList.remove('hidden');
             document.getElementById('quick-add-presets').classList.remove('hidden');
             
-            // Add animation
             setTimeout(() => {
                 document.getElementById('debt-form-simple').style.opacity = '1';
             }, 50);
@@ -6216,42 +6072,33 @@ function getYearsToPayoffClass(years) {
                 return;
             }
             
-            // Mark income as confirmed
             localStorage.setItem('raf_income_confirmed', 'true');
             console.log('Income confirmed in localStorage');
             
-            // Update UI elements
             const incomeStatus = document.getElementById('income-status');
             const editBtn = document.getElementById('edit-income-btn');
             if (incomeStatus) incomeStatus.textContent = '✓ Income confirmed and locked';
             if (editBtn) editBtn.classList.remove('hidden');
             
-            // Update banner and UI
             updateNextActionBanner();
             
-            // Show success message
             showToast('✓ Income confirmed! Now let\'s look at debt.');
             
-            // Smooth scroll to debt section after a moment
             setTimeout(() => {
                 scrollToSection('debt-section');
             }, 600);
         }
         
         function editIncome() {
-            // Unlock income for editing
             localStorage.removeItem('raf_income_confirmed');
             
-            // Update UI
             const incomeStatus = document.getElementById('income-status');
             const editBtn = document.getElementById('edit-income-btn');
             if (incomeStatus) incomeStatus.textContent = 'Edit your income and lock when ready';
             if (editBtn) editBtn.classList.add('hidden');
             
-            // Update banner
             updateNextActionBanner();
             
-            // Focus on paycheck input
             const paycheckInput = document.getElementById('paycheck');
             if (paycheckInput) {
                 paycheckInput.focus();
@@ -6262,67 +6109,51 @@ function getYearsToPayoffClass(years) {
         }
         
         function confirmDebt() {
-            // Mark debt as confirmed
             localStorage.setItem('raf_debt_confirmed', 'true');
             
-            // Update banner and UI
             updateNextActionBanner();
             
-            // Show success message
             showToast('✓ Debt confirmed! Now let\'s set up your budget.');
             
-            // Smooth scroll to budget section after a moment
             setTimeout(() => {
                 scrollToSection('budget-section');
             }, 600);
         }
         
         function editDebt() {
-            // Unlock debt for editing
             localStorage.removeItem('raf_debt_confirmed');
             
-            // Update banner
             updateNextActionBanner();
             
             showToast('Debt unlocked for editing');
         }
         
         function skipDebtEntry() {
-            // Hide the initial choice
             document.getElementById('debt-entry-flow').style.display = 'none';
             
-            // Show celebration
             const celebration = document.getElementById('debt-free-celebration');
             celebration.classList.remove('hidden');
             
-            // Trigger confetti-like effect with toast
             showToast('🎉 Congratulations on being debt-free!');
             
-            // Store debt-free status (use same key as Next Action Banner checks)
             localStorage.setItem('raf_has_no_debt', 'true');
             localStorage.setItem('raf_debt_free', 'true');
             
-            // Update next action banner
             updateNextActionBanner();
         }
         
         function continueWithoutDebt() {
-            // Save debt-free status
             localStorage.setItem('raf_has_no_debt', 'true');
             localStorage.setItem('raf_debt_confirmed', 'true'); // Mark as confirmed
             
-            // Hide celebration
             document.getElementById('debt-free-celebration').classList.add('hidden');
             showToast('Keep up the great work! Focus on building wealth 💪');
             
-            // Update next action banner
             updateNextActionBanner();
             
-            // Scroll to budget section
             setTimeout(() => {
                 scrollToSection('budget-section');
             }, 600);
-            // Scroll to next section
             const budgetSection = document.getElementById('budget-section');
             if (budgetSection) {
                 budgetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -6330,46 +6161,36 @@ function getYearsToPayoffClass(years) {
         }
         
         function returnToDebtChoice() {
-            // Remove debt-free status
             localStorage.removeItem('raf_has_no_debt');
             localStorage.removeItem('raf_debt_free');
             
-            // Update next action banner
             updateNextActionBanner();
             
-            // Hide celebration
             document.getElementById('debt-free-celebration').classList.add('hidden');
             
-            // Show the form directly
             document.getElementById('debt-form-simple').classList.remove('hidden');
             document.getElementById('debt-table-container').classList.remove('hidden');
             document.getElementById('quick-add-presets').classList.remove('hidden');
             
             showToast('No problem! Let\'s add your debt information');
             
-            // Remove debt-free status
             localStorage.removeItem('raf_debt_free');
         }
         
         function cancelDebtEntry() {
-            // Hide form and presets
             document.getElementById('debt-form-simple').classList.add('hidden');
             document.getElementById('quick-add-presets').classList.add('hidden');
             
-            // Check if they have any debt already entered
             const debtRows = document.querySelectorAll('#debt-body tr');
             
             if (debtRows.length === 0) {
-                // No debt entered, return to initial choice
                 document.getElementById('debt-entry-flow').style.display = 'block';
                 document.getElementById('debt-table-container').classList.add('hidden');
             } else {
-                // They have debt, just hide the form but keep table visible
                 showToast('Form cancelled');
             }
         }
         
-        // S-TIER: Quick Add Presets
         function usePreset(type, balance, payment, rate) {
             document.getElementById('simple-debt-type').value = type;
             document.getElementById('simple-debt-balance').value = balance.toLocaleString();
@@ -6378,16 +6199,13 @@ function getYearsToPayoffClass(years) {
             
             showToast('✨ Preset loaded! Adjust numbers if needed');
             
-            // Trigger live interest calculation
             updateLiveInterest();
             
-            // Scroll to form
             setTimeout(() => {
                 document.getElementById('simple-debt-rate').focus();
             }, 300);
         }
         
-        // S-TIER: Real-Time Interest Calculator
         function updateLiveInterest() {
             const balanceInput = document.getElementById('simple-debt-balance');
             const rateInput = document.getElementById('simple-debt-rate');
@@ -6395,7 +6213,6 @@ function getYearsToPayoffClass(years) {
             const costEl = document.getElementById('daily-interest-cost');
             const comparisonEl = document.getElementById('interest-comparison');
             
-            // Safety check
             if (!balanceInput || !rateInput || !tracker || !costEl || !comparisonEl) return;
             
             const balance = parseCurrency(balanceInput.value);
@@ -6406,7 +6223,6 @@ function getYearsToPayoffClass(years) {
                 
                 costEl.textContent = '$' + dailyInterest.toFixed(2);
                 
-                // Fun comparison
                 let comparison = '';
                 if (dailyInterest < 10) {
                     comparison = "That's a coffee you're giving away daily ☕";
@@ -6431,20 +6247,17 @@ function getYearsToPayoffClass(years) {
             const payment = parseCurrency(document.getElementById('simple-debt-payment').value);
             const rate = parseFloat(document.getElementById('simple-debt-rate').value) || 0;
             
-            // Helper function to shake an input on error
             const shakeInput = (inputId) => {
                 const input = document.getElementById(inputId);
                 const container = input.closest('.currency-input-container') || input.parentElement;
                 container.classList.add('shake-error');
                 input.focus();
                 
-                // Remove shake class after animation
                 setTimeout(() => {
                     container.classList.remove('shake-error');
                 }, 500);
             };
             
-            // Validation
             if (balance <= 0) {
                 showToast('⚠️ Please enter a valid debt balance');
                 shakeInput('simple-debt-balance');
@@ -6463,7 +6276,6 @@ function getYearsToPayoffClass(years) {
                 return;
             }
             
-            // Add debt using existing function
             addDebtRowWithData({
                 type: type,
                 balance: balance,
@@ -6471,21 +6283,16 @@ function getYearsToPayoffClass(years) {
                 rate: rate
             });
             
-            // Clear form
             document.getElementById('simple-debt-balance').value = '';
             document.getElementById('simple-debt-payment').value = '';
             document.getElementById('simple-debt-rate').value = '';
             
-            // Reset type to credit card
             document.getElementById('simple-debt-type').value = 'credit_card';
             
-            // Hide live interest tracker
             document.getElementById('live-interest-tracker').classList.add('hidden');
             
-            // Show success message
             showToast('✅ Debt added! Great job tracking your finances');
             
-            // Store initial debt if not already stored
             const currentInitial = localStorage.getItem('raf_initial_debt');
             if (!currentInitial) {
                 const totalDebt = getTotalDebtBalance();
@@ -6493,21 +6300,17 @@ function getYearsToPayoffClass(years) {
                 localStorage.setItem('raf_debt_start_date', new Date().toLocaleDateString());
             }
             
-            // Track that user has had debt for debt-free achievement
             if (balance > 0) {
                 localStorage.setItem('raf_had_debt', 'true');
             }
             
-            // Remove debt-free status
             localStorage.removeItem('raf_debt_free');
             
-            // Update all S-TIER features
             updateDebtProgress();
             updateComparisonBadge();
             showSmartWarnings();
             updateStrategyPreviews();
             
-            // Scroll to table
             setTimeout(() => {
                 const debtTable = document.querySelector('.debt-table-container');
                 if (debtTable) {
@@ -6516,25 +6319,20 @@ function getYearsToPayoffClass(years) {
             }, 300);
         }
         
-        // S-TIER: Debt Progress Bar
         function updateDebtProgress() {
             const currentDebt = getTotalDebtBalance();
             
-            // Safety check - only run if elements exist (debt table is shown)
             const progressFill = document.getElementById('debt-progress-fill');
             if (!progressFill) return;
             
-            // Get or set initial debt (the starting point)
             let initialDebt = parseFloat(localStorage.getItem('raf_initial_debt')) || 0;
             
-            // If no initial debt is stored but we have current debt, set it now
             if (initialDebt === 0 && currentDebt > 0) {
                 initialDebt = currentDebt;
                 localStorage.setItem('raf_initial_debt', currentDebt);
                 localStorage.setItem('raf_debt_start_date', new Date().toLocaleDateString());
             }
             
-            // Calculate progress
             if (initialDebt > 0) {
                 const paidOff = initialDebt - currentDebt;
                 const progress = (paidOff / initialDebt) * 100;
@@ -6552,14 +6350,12 @@ function getYearsToPayoffClass(years) {
                     progressMilestone.style.left = progressClamped + '%';
                 }
                 
-                // Set start date
                 const startDate = localStorage.getItem('raf_debt_start_date') || new Date().toLocaleDateString();
                 const startDateEl = document.getElementById('debt-start-date');
                 if (startDateEl) {
                     startDateEl.textContent = startDate;
                 }
                 
-                // Calculate debt-free target
                 const years = calculateTotalYearsToPayoff();
                 const targetEl = document.getElementById('debt-free-target');
                 if (targetEl) {
@@ -6574,7 +6370,6 @@ function getYearsToPayoffClass(years) {
                     }
                 }
             } else {
-                // No debt at all - show empty/reset state
                 progressFill.style.width = '0%';
                 const progressPercentage = document.getElementById('progress-percentage');
                 if (progressPercentage) {
@@ -6600,7 +6395,6 @@ function getYearsToPayoffClass(years) {
             }
         }
         
-        // S-TIER: Milestone Celebrations
         function checkMilestones() {
             const initialDebt = parseFloat(localStorage.getItem('raf_initial_debt')) || 0;
             const currentDebt = getTotalDebtBalance();
@@ -6610,7 +6404,6 @@ function getYearsToPayoffClass(years) {
             const progress = ((initialDebt - currentDebt) / initialDebt) * 100;
             const lastMilestone = parseFloat(localStorage.getItem('raf_last_milestone')) || 0;
             
-            // Check for milestone achievements
             const milestones = [
                 { percent: 25, icon: '🎯', title: 'Quarter Way There!', message: 'You\'ve paid off 25% of your debt!' },
                 { percent: 50, icon: '🔥', title: 'HALFWAY POINT!', message: 'You\'re 50% debt-free! Keep crushing it!' },
@@ -6621,7 +6414,6 @@ function getYearsToPayoffClass(years) {
             
             milestones.forEach(milestone => {
                 if (progress >= milestone.percent && lastMilestone < milestone.percent) {
-                    // New milestone achieved!
                     showMilestoneCelebration(milestone);
                     localStorage.setItem('raf_last_milestone', milestone.percent);
                 }
@@ -6629,11 +6421,9 @@ function getYearsToPayoffClass(years) {
         }
         
         function showMilestoneCelebration(milestone) {
-            // Just show a toast notification instead of full-screen celebration
             showToast(`${milestone.icon} ${milestone.title} - ${milestone.message}`, 5000);
         }
         
-        // Call when debt is paid off completely
         function checkDebtPaidOff(rowId) {
             const row = document.getElementById(rowId);
             if (!row) return;
@@ -6646,14 +6436,11 @@ function getYearsToPayoffClass(years) {
                 const debtType = debtTypes.find(dt => dt.value === typeSelect.value);
                 const typeName = debtType ? debtType.label : 'debt';
                 
-                // Track for achievements
                 const paidCount = parseInt(localStorage.getItem('raf_debts_paid') || '0');
                 localStorage.setItem('raf_debts_paid', paidCount + 1);
                 
-                // Show mini celebration for individual debt payoff
                 showToast(`🎉 ${typeName} PAID OFF! One down! 💪`, 5000);
                 
-                // Add visual effect to the row
                 row.style.background = 'linear-gradient(90deg, rgba(16, 185, 129, 0.2), transparent)';
                 setTimeout(() => {
                     row.style.background = '';
@@ -6661,7 +6448,6 @@ function getYearsToPayoffClass(years) {
             }
         }
         
-        // STARTUP MODE: What If Calculator
         function updateWhatIfCalculator(extraPayment) {
             extraPayment = parseFloat(extraPayment) || 0;
             document.getElementById('extra-payment-amount').textContent = '$' + extraPayment;
@@ -6692,22 +6478,18 @@ function getYearsToPayoffClass(years) {
             
             const avgRate = weightedRate / totalDebt / 100 / 12; // Monthly rate
             
-            // Calculate months to payoff with current payment
             const currentMonths = calculateMonthsToPayoff(totalDebt, totalMinPayment, avgRate);
             
-            // Calculate months with extra payment
             const newPayment = totalMinPayment + extraPayment;
             const newMonths = calculateMonthsToPayoff(totalDebt, newPayment, avgRate);
             
             const monthsSaved = currentMonths - newMonths;
             const yearsSaved = monthsSaved / 12;
             
-            // Calculate interest saved
             const currentInterest = (totalMinPayment * currentMonths) - totalDebt;
             const newInterest = (newPayment * newMonths) - totalDebt;
             const interestSaved = Math.max(0, currentInterest - newInterest);
             
-            // Update display
             if (monthsSaved > 0) {
                 if (yearsSaved >= 1) {
                     document.getElementById('what-if-time-saved').textContent = 
@@ -6742,14 +6524,12 @@ function getYearsToPayoffClass(years) {
             if (payment <= 0 || balance <= 0) return 999;
             if (monthlyRate <= 0) return Math.ceil(balance / payment);
             
-            // Using amortization formula
             const months = -Math.log(1 - (balance * monthlyRate) / payment) / Math.log(1 + monthlyRate);
             
             if (isNaN(months) || months <= 0 || months > 999) return 999;
             return months;
         }
         
-        // GOD TIER: Financial Health Breakdown + AI Coach
         function updateFinancialHealth() {
             const income = getMonthlyIncome();
             const totalDebt = getTotalDebtBalance();
@@ -6778,7 +6558,6 @@ function getYearsToPayoffClass(years) {
             const needsPercent = income > 0 ? (needsTotal / income) * 100 : 0;
             const savingsPercent = income > 0 ? (savingsTotal / income) * 100 : 0;
             
-            // SCORE 1: DEBT HEALTH (0-20)
             let debtScore = 0;
             if (totalDebt === 0) {
                 debtScore = 20; // Perfect
@@ -6794,7 +6573,6 @@ function getYearsToPayoffClass(years) {
                 debtScore = 2;
             }
             
-            // SCORE 2: SAVINGS HEALTH (0-20)
             let savingsScore = 0;
             if (emergencyMonths >= 12) {
                 savingsScore = 20;
@@ -6808,7 +6586,6 @@ function getYearsToPayoffClass(years) {
                 savingsScore = 2;
             }
             
-            // SCORE 3: BUDGET HEALTH (0-20)
             let budgetScore = 0;
             if (income > 0) {
                 if (needsPercent <= 50 && savingsPercent >= 20) {
@@ -6824,7 +6601,6 @@ function getYearsToPayoffClass(years) {
                 }
             }
             
-            // SCORE 4: INCOME HEALTH (0-20)
             let incomeScore = 0;
             if (income >= 10000) {
                 incomeScore = 20;
@@ -6838,7 +6614,6 @@ function getYearsToPayoffClass(years) {
                 incomeScore = 5;
             }
             
-            // SCORE 5: NET WORTH HEALTH (0-20)
             let networthScore = 0;
             if (netWorth >= 100000) {
                 networthScore = 20;
@@ -6858,13 +6633,11 @@ function getYearsToPayoffClass(years) {
             
             const totalScore = debtScore + savingsScore + budgetScore + incomeScore + networthScore;
             
-            // Update UI - Total score only (if exists)
             const totalHealthEl = document.getElementById('total-health-score');
             if (totalHealthEl) {
                 totalHealthEl.textContent = totalScore + '/100';
             }
             
-            // GOD MODE: Update Command Center cards (if they exist)
             const cmdDebtScore = document.getElementById('cmd-debt-score');
             const cmdSavingsScore = document.getElementById('cmd-savings-score');
             const cmdBudgetScore = document.getElementById('cmd-budget-score');
@@ -6892,7 +6665,6 @@ function getYearsToPayoffClass(years) {
                 cmdNetworthScore.className = 'stat-value ' + (networthScore >= 15 ? 'good' : networthScore >= 10 ? 'warning' : '');
             }
             
-            // Update Command Center bars (if they exist)
             const cmdDebtBar = document.getElementById('cmd-debt-bar');
             const cmdSavingsBar = document.getElementById('cmd-savings-bar');
             const cmdBudgetBar = document.getElementById('cmd-budget-bar');
@@ -6905,13 +6677,11 @@ function getYearsToPayoffClass(years) {
             if (cmdIncomeBar) cmdIncomeBar.style.width = (incomeScore / 20 * 100) + '%';
             if (cmdNetworthBar) cmdNetworthBar.style.width = (networthScore / 20 * 100) + '%';
             
-            // Update hero score (if exists)
             const heroScore = document.getElementById('hero-score');
             if (heroScore) {
                 heroScore.textContent = totalScore + '/100 Sovereign';
             }
             
-            // AI COACH MESSAGE
             let aiMessage = generateAICoachMessage(totalScore, debtScore, savingsScore, budgetScore, incomeScore, networthScore, {
                 income, totalDebt, savingsTotal, emergencyMonths, needsPercent, savingsPercent, dti, netWorth
             });
@@ -6930,7 +6700,6 @@ function getYearsToPayoffClass(years) {
             let messages = [];
             let priority = null;
             
-            // Find weakest area
             const scores = [
                 {name: 'debt', score: debt, data: data.totalDebt},
                 {name: 'savings', score: savings, data: data.emergencyMonths},
@@ -6941,7 +6710,6 @@ function getYearsToPayoffClass(years) {
             scores.sort((a, b) => a.score - b.score);
             priority = scores[0];
             
-            // Generate specific advice based on weakest area
             if (priority.name === 'debt' && data.totalDebt > 0) {
                 messages.push(`🚨 <strong>Priority: Crush Your Debt</strong>`);
                 messages.push(`You're carrying $${data.totalDebt.toLocaleString()} in debt (${data.dti.toFixed(0)}% DTI). This is costing you money every single day.`);
@@ -6983,7 +6751,6 @@ function getYearsToPayoffClass(years) {
                 }
             }
             
-            // Add encouragement based on total score
             if (total >= 80) {
                 messages.push(`<br>🔥 <strong>You're crushing it!</strong> Your financial health is in the top 10%. Keep this momentum!`);
             } else if (total >= 60) {
@@ -6997,7 +6764,6 @@ function getYearsToPayoffClass(years) {
             return messages.join(' ');
         }
         
-        // GOD TIER: Achievement System
         const achievements = [
             {id: 'first_income', icon: '💵', title: 'First Paycheck', condition: () => getMonthlyIncome() > 0},
             {id: 'debt_entered', icon: '💰', title: 'Face The Truth', condition: () => getTotalDebtBalance() > 0},
@@ -7071,7 +6837,6 @@ function getYearsToPayoffClass(years) {
                 return needsP <= 52 && savingsP >= 18; // Close enough to 50/30/20
             }},
             {id: 'patriot', icon: '🇺🇸', title: 'True Patriot', condition: () => {
-                // Unlock when sovereign score >= 80
                 return calculateSovereignScore() >= 80;
             }}
         ];
@@ -7097,7 +6862,6 @@ function getYearsToPayoffClass(years) {
                 });
             }
             
-            // Update UI
             const grid = document.getElementById('achievement-grid');
             if (grid) {
                 grid.innerHTML = achievements.map(ach => {
@@ -7115,7 +6879,6 @@ function getYearsToPayoffClass(years) {
             document.getElementById('achievements-total').textContent = achievements.length;
         }
         
-        // GOD TIER: Streak Tracker
         function updateStreak() {
             const today = new Date().toDateString();
             const lastCheckin = localStorage.getItem('raf_last_checkin');
@@ -7127,15 +6890,11 @@ function getYearsToPayoffClass(years) {
                 const diffDays = Math.floor((todayDate - lastDate) / (1000 * 60 * 60 * 24));
                 
                 if (diffDays === 1) {
-                    // Consecutive day
                     streak++;
                 } else if (diffDays > 1) {
-                    // Streak broken
                     streak = 1;
                 }
-                // If same day, keep streak
             } else {
-                // First time
                 streak = 1;
             }
             
@@ -7152,12 +6911,10 @@ function getYearsToPayoffClass(years) {
             if (lastCheckinEl) lastCheckinEl.textContent = today;
         }
         
-        // Helper function to get current streak value
         function getCurrentStreak() {
             return parseInt(localStorage.getItem('raf_streak') || '0');
         }
         
-        // GOD TIER: Quick Actions
         function quickPayDebt() {
             const debtRows = document.querySelectorAll('#debt-body tr');
             if (debtRows.length === 0) {
@@ -7165,7 +6922,6 @@ function getYearsToPayoffClass(years) {
                 return;
             }
             
-            // Find highest interest debt
             let highestRate = 0;
             let targetRow = null;
             debtRows.forEach(row => {
@@ -7222,7 +6978,6 @@ function getYearsToPayoffClass(years) {
             updateTimeMachine();
         }
         
-        // GOD TIER: Time Machine
         function updateTimeMachine() {
             const income = getMonthlyIncome();
             const debt = getTotalDebtBalance();
@@ -7245,7 +7000,6 @@ function getYearsToPayoffClass(years) {
             const monthlyNetSavings = savings - payments;
             const months = debt > 0 && payments > 0 ? Math.ceil(debt / payments) : 0;
             
-            // Calculate projections
             const projections = [
                 {
                     label: 'TODAY',
@@ -7302,13 +7056,11 @@ function getYearsToPayoffClass(years) {
             document.getElementById('timeline-container').innerHTML = html;
         }
         
-        // AMERICANA TICKER - SIMPLE UPDATE
         function updateTickerData() {
             const income = getMonthlyIncome();
             const totalDebt = getTotalDebtBalance();
             const score = calculateSovereignScore();
             
-            // Calculate other values safely
             let savingsTotal = 0;
             if (typeof savingsCategories !== 'undefined') {
                 savingsCategories.forEach(cat => {
@@ -7332,7 +7084,6 @@ function getYearsToPayoffClass(years) {
             const surplus = income - needsTotal - wantsTotal - getTotalDebtPayments() - savingsTotal;
             const netWorth = savingsTotal - totalDebt;
             
-            // Update the ticker with actual data
             const tickerHTML = `
                 <span style="display: inline-flex; align-items: center; gap: 8px; background: #000; padding: 5px 15px; border-radius: 5px; border: 2px solid #FFD700; white-space: nowrap;">
                     <span style="font-size: 20px;">🛡️</span>
@@ -7383,7 +7134,6 @@ function getYearsToPayoffClass(years) {
             }
         }
         
-        // S-TIER: Comparison to Average
         function updateComparisonBadge() {
             const debtRows = document.querySelectorAll('#debt-body tr');
             let badDebt = 0;
@@ -7415,11 +7165,9 @@ function getYearsToPayoffClass(years) {
             const percentageEl = document.getElementById('comparison-percentage');
             const messageEl = document.getElementById('comparison-message');
             
-            // Safety check
             if (!percentageEl || !messageEl) return;
             
             if (totalDebt > 0) {
-                // Compare bad debt only (fair comparison)
                 const percentBetter = ((averageBadDebt - badDebt) / averageBadDebt) * 100;
                 
                 if (badDebt < averageBadDebt) {
@@ -7441,11 +7189,9 @@ function getYearsToPayoffClass(years) {
             }
         }
         
-        // S-TIER: Smart Warnings System
         function showSmartWarnings() {
             const container = document.getElementById('debt-warnings-container');
             
-            // Safety check
             if (!container) return;
             
             container.innerHTML = '';
@@ -7466,7 +7212,6 @@ function getYearsToPayoffClass(years) {
                 const payment = parseCurrency(paymentInput.value);
                 const monthlyInterest = (balance * (rate / 100)) / 12;
                 
-                // Predatory rate warning
                 if (rate > 25) {
                     const warning = document.createElement('div');
                     warning.className = 'debt-warning mt-3';
@@ -7485,7 +7230,6 @@ function getYearsToPayoffClass(years) {
                     container.appendChild(warning);
                 }
                 
-                // Payment too low warning
                 if (payment > 0 && payment < monthlyInterest) {
                     const warning = document.createElement('div');
                     warning.className = 'debt-warning mt-3';
@@ -7505,7 +7249,6 @@ function getYearsToPayoffClass(years) {
                 }
             });
             
-            // Debt-to-income warning
             if (income > 0 && totalDebt > 0) {
                 const dtiRatio = (totalDebt / (income * 12)) * 100;
                 if (dtiRatio > 50) {
@@ -7528,7 +7271,6 @@ function getYearsToPayoffClass(years) {
             }
         }
         
-        // S-TIER: Update Strategy Previews
         function updateStrategyPreviews() {
             const totalDebt = getTotalDebtBalance();
             const years = calculateTotalYearsToPayoff();
@@ -7538,16 +7280,13 @@ function getYearsToPayoffClass(years) {
             const snowballWins = document.getElementById('snowball-wins');
             const snowballTime = document.getElementById('snowball-time');
             
-            // Safety check
             if (!avalancheSavings || !avalancheTime || !snowballWins || !snowballTime) return;
             
             if (totalDebt > 0 && years > 0) {
-                // Rough estimate - avalanche saves about 15% in interest
                 const estimatedSavings = totalDebt * 0.15;
                 avalancheSavings.textContent = `Save $${Math.round(estimatedSavings).toLocaleString()}`;
                 avalancheTime.textContent = `${(years * 0.85).toFixed(1)} years`;
                 
-                // Snowball - count how many debts
                 const debtCount = document.querySelectorAll('#debt-body tr').length;
                 snowballWins.textContent = `${debtCount} Quick Win${debtCount !== 1 ? 's' : ''}`;
                 snowballTime.textContent = `${(years * 0.95).toFixed(1)} years`;
@@ -7627,19 +7366,15 @@ function getYearsToPayoffClass(years) {
             
             debtBody.appendChild(row);
             
-            // Add pulse animation for newly added rows (not loaded from storage)
             if (debtData && (debtData.balance || debtData.payment || debtData.rate)) {
                 row.classList.add('new-debt-row');
-                // Remove the class after animation completes
                 setTimeout(() => {
                     row.classList.remove('new-debt-row');
                 }, 2000);
             }
             
-            // Initialize
             updateDebtType(row.querySelector('.debt-type-select'));
             
-            // Fill with data
             const balanceInput = row.querySelector('td:nth-child(2) input');
             const paymentInput = row.querySelector('td:nth-child(3) input');
             const rateInput = row.querySelector('td:nth-child(4) input');
@@ -7681,8 +7416,6 @@ function getYearsToPayoffClass(years) {
             debouncedCalculateAll();
         }
 
-        // ===== BUDGET AND CALCULATION FUNCTIONS =====
-        
         function getMonthlyIncome() {
             const paycheckVal = parseCurrency(document.getElementById('paycheck').value);
             const freqVal = parseFloat(document.getElementById('freq').value) || 2;
@@ -7697,7 +7430,6 @@ function getYearsToPayoffClass(years) {
             return monthlyIncome;
         }
         
-        // ===== NEXT ACTION BANNER LOGIC =====
         function updateNextActionBanner() {
             console.log('🔔 updateNextActionBanner called');
             try {
@@ -7713,25 +7445,20 @@ function getYearsToPayoffClass(years) {
                     return;
                 }
             
-            // Check if paycheck field has any value
             const paycheckInput = document.getElementById('paycheck');
             const hasIncome = paycheckInput && paycheckInput.value && parseCurrency(paycheckInput.value) > 0;
             
             console.log('💰 Income check:', {hasIncome, value: paycheckInput?.value});
             
-            // Check if income has been confirmed
             const incomeConfirmed = localStorage.getItem('raf_income_confirmed') === 'true';
             
-            // Check if user selected "No debt"
             const hasNoDebt = localStorage.getItem('raf_has_no_debt') === 'true';
             
-            // Check if budget is locked
             const isBudgetLocked = localStorage.getItem('raf_budget_locked') === 'true';
             
             const totalDebt = getTotalDebtBalance();
             const debtRows = document.querySelectorAll('#debt-body tr').length;
             
-            // Show/hide income lock button and manage status
             const incomeLockContainer = document.getElementById('income-lock-container');
             const incomeLockedBanner = document.getElementById('income-locked-banner');
             const incomeStatus = document.getElementById('income-status');
@@ -7746,21 +7473,18 @@ function getYearsToPayoffClass(years) {
             
             if (incomeLockContainer && incomeLockedBanner) {
                 if (hasIncome && !incomeConfirmed) {
-                    // Show lock button
                     console.log('✅ Showing lock button - removing hidden class');
                     incomeLockContainer.classList.remove('hidden');
                     incomeLockedBanner.classList.add('hidden');
                     if (incomeStatus) incomeStatus.textContent = 'Review and lock when ready';
                     if (editIncomeBtn) editIncomeBtn.classList.add('hidden');
                 } else if (incomeConfirmed) {
-                    // Show locked banner
                     console.log('🔐 Income confirmed - showing locked banner');
                     incomeLockContainer.classList.add('hidden');
                     incomeLockedBanner.classList.remove('hidden');
                     if (incomeStatus) incomeStatus.textContent = '✓ Income confirmed and locked';
                     if (editIncomeBtn) editIncomeBtn.classList.remove('hidden');
                 } else {
-                    // Hide both
                     console.log('👻 No income - hiding lock button');
                     incomeLockContainer.classList.add('hidden');
                     incomeLockedBanner.classList.add('hidden');
@@ -7771,14 +7495,12 @@ function getYearsToPayoffClass(years) {
                 console.log('❌ Income lock container elements not found!');
             }
             
-            // Show/hide debt lock button
             const debtLockContainer = document.getElementById('debt-lock-container');
             const debtLockedBanner = document.getElementById('debt-locked-banner');
             const editDebtBtn = document.getElementById('edit-debt-btn');
             const debtConfirmed = localStorage.getItem('raf_debt_confirmed') === 'true';
             
             if (debtLockContainer && debtLockedBanner) {
-                // Show lock button only if they have debt rows OR selected no debt
                 if ((debtRows > 0 || hasNoDebt) && !debtConfirmed) {
                     console.log('🔓 Showing debt lock button');
                     debtLockContainer.classList.remove('hidden');
@@ -7797,7 +7519,6 @@ function getYearsToPayoffClass(years) {
                 }
             }
             
-            // Check budget categories
             let budgetFilledCount = 0;
             let totalBudgetCategories = 0;
             if (typeof budgetCategories !== 'undefined') {
@@ -7812,12 +7533,9 @@ function getYearsToPayoffClass(years) {
                 });
             }
             
-            // Determine target container and banner content
             let action, reason, btnText, targetSection, containerTarget;
-            // debtConfirmed already declared above
             
             if (!hasIncome) {
-                // Step 0: Initial state - show banner to encourage starting
                 action = "Start here: Add income";
                 reason = "Your financial baseline";
                 btnText = "Begin";
@@ -7825,7 +7543,6 @@ function getYearsToPayoffClass(years) {
                 containerTarget = "banner-container-income";
                 if (timelineContainer) timelineContainer.classList.add('hidden');
             } else if (hasIncome && !incomeConfirmed) {
-                // Step 1: Income entered but not locked - show banner prompting to lock
                 action = "Lock income to continue";
                 reason = "Confirm your baseline";
                 btnText = "Lock";
@@ -7833,7 +7550,6 @@ function getYearsToPayoffClass(years) {
                 containerTarget = "banner-container-income";
                 if (timelineContainer) timelineContainer.classList.add('hidden');
             } else if (incomeConfirmed && !debtConfirmed && !hasNoDebt) {
-                // Step 2: Income locked, show banner to move to debt
                 action = "Next: Handle debt";
                 reason = "Address your liabilities";
                 btnText = "Go";
@@ -7841,7 +7557,6 @@ function getYearsToPayoffClass(years) {
                 containerTarget = "banner-container-income"; // Keep in income section
                 if (timelineContainer) timelineContainer.classList.add('hidden');
             } else if (incomeConfirmed && debtRows === 0 && !hasNoDebt && !debtConfirmed) {
-                // At debt section, waiting for answer
                 action = "Answer debt question";
                 reason = "Do you have debt?";
                 btnText = "Go";
@@ -7849,7 +7564,6 @@ function getYearsToPayoffClass(years) {
                 containerTarget = "banner-container-debt";
                 if (timelineContainer) timelineContainer.classList.add('hidden');
             } else if ((debtRows > 0 || hasNoDebt) && !debtConfirmed) {
-                // Debt entered/selected but not locked
                 action = "Lock debt to continue";
                 reason = "Confirm your debt status";
                 btnText = "Lock";
@@ -7857,7 +7571,6 @@ function getYearsToPayoffClass(years) {
                 containerTarget = "banner-container-debt";
                 if (timelineContainer) timelineContainer.classList.add('hidden');
             } else if (debtConfirmed && budgetFilledCount < 3 && !isBudgetLocked) {
-                // Step 3: Debt locked, show banner to move to budget
                 action = "Next: Complete budget";
                 reason = "Final step activation";
                 btnText = "Go";
@@ -7865,7 +7578,6 @@ function getYearsToPayoffClass(years) {
                 containerTarget = "banner-container-debt"; // Keep in debt section
                 if (timelineContainer) timelineContainer.classList.add('hidden');
             } else if (isBudgetLocked || budgetFilledCount >= 3) {
-                // Step 4: Budget locked, all complete
                 action = "✓ Setup Complete";
                 reason = "Dashboard fully active";
                 btnText = "Review";
@@ -7882,18 +7594,15 @@ function getYearsToPayoffClass(years) {
                     }
                 }
             } else {
-                // Hide banner
                 banner.classList.add('hidden');
                 if (timelineContainer) timelineContainer.classList.add('hidden');
                 return;
             }
             
-            // Update banner content
             textEl.textContent = action;
             reasonEl.textContent = reason;
             btnTextEl.textContent = btnText;
             
-            // Set button action - if it says "Lock", trigger the lock function
             if (btnText === "Lock" && targetSection === "income-section") {
                 btnEl.onclick = () => confirmIncome();
             } else if (btnText === "Lock" && targetSection === "debt-section") {
@@ -7902,10 +7611,8 @@ function getYearsToPayoffClass(years) {
                 btnEl.onclick = () => scrollToSection(targetSection);
             }
             
-            // Move banner to target container with smooth animation
             const container = document.getElementById(containerTarget);
             if (container && banner.parentElement !== container) {
-                // Add exit animation if banner is currently visible
                 if (!banner.classList.contains('hidden')) {
                     banner.classList.add('banner-moving');
                     setTimeout(() => {
@@ -7913,11 +7620,9 @@ function getYearsToPayoffClass(years) {
                         banner.classList.remove('banner-moving');
                     }, 400);
                 } else {
-                    // First time showing - no exit animation needed
                     moveBannerToContainer(banner, container);
                 }
             } else if (container) {
-                // Already in correct container, just ensure it's visible
                 banner.classList.remove('hidden');
             }
         } catch (error) {
@@ -7926,7 +7631,6 @@ function getYearsToPayoffClass(years) {
         }
         
         function moveBannerToContainer(banner, container) {
-            // Clear all containers
             ['income', 'debt', 'budget'].forEach(section => {
                 const cont = document.getElementById(`banner-container-${section}`);
                 if (cont && cont !== container) {
@@ -7934,36 +7638,30 @@ function getYearsToPayoffClass(years) {
                 }
             });
             
-            // Move banner to target container
             container.appendChild(banner);
             banner.classList.remove('hidden');
             
-            // Trigger reflow for animation
             void banner.offsetWidth;
         }
         
         function scrollToSection(sectionId) {
-            // Handle both short names ('income', 'debt', 'budget') and full IDs ('income-section', etc.)
             const sections = {
                 'income': 'income-section',
                 'debt': 'debt-section',
                 'budget': 'budget-section'
             };
             
-            // If it's a short name, convert to full ID; otherwise use as-is
             const fullSectionId = sections[sectionId] || sectionId;
             const section = document.getElementById(fullSectionId);
             
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 
-                // Add a highlight effect
                 section.style.boxShadow = '0 0 0 3px rgba(178, 34, 52, 0.5)';
                 setTimeout(() => {
                     section.style.boxShadow = '';
                 }, 2000);
                 
-                // Focus on first input in the section after scroll
                 setTimeout(() => {
                     const firstInput = section.querySelector('input:not([disabled]):not([readonly])');
                     if (firstInput) {
@@ -8051,8 +7749,6 @@ function getYearsToPayoffClass(years) {
             return total;
         }
 
-        // ===== NEW: ENHANCED DEBT CALCULATIONS =====
-        
         /**
          * Calculate total monthly interest charges across all debts
          * Formula: Sum of (Balance * (Annual Rate / 100 / 12)) for each debt
@@ -8100,17 +7796,14 @@ function getYearsToPayoffClass(years) {
                         const monthlyRate = annualRate / 100 / 12;
                         
                         if (monthlyRate === 0) {
-                            // No interest - simple division
                             const months = Math.ceil(balance / payment);
                             maxMonths = Math.max(maxMonths, months);
                         } else if (payment > balance * monthlyRate) {
-                            // Standard amortization formula
                             const months = Math.ceil(
                                 -Math.log(1 - (balance * monthlyRate / payment)) / Math.log(1 + monthlyRate)
                             );
                             maxMonths = Math.max(maxMonths, months);
                         } else {
-                            // Payment doesn't cover interest - will never pay off
                             maxMonths = 999; // Flag as essentially unpayable
                         }
                     }
@@ -8137,13 +7830,11 @@ function getYearsToPayoffClass(years) {
             const income = getMonthlyIncome();
             const dti = income > 0 ? ((totalPayments / income) * 100).toFixed(1) : 0;
             
-            // Update existing metrics
             document.getElementById('total-debt-balance').textContent = '$' + Math.round(totalBalance).toLocaleString();
             document.getElementById('total-debt-payments').textContent = '$' + Math.round(totalPayments).toLocaleString();
             document.getElementById('high-interest-count').textContent = highInterestCount;
             document.getElementById('debt-to-income').textContent = dti + '%';
             
-            // Update NEW metrics
             const monthlyInterest = calculateMonthlyInterest();
             const yearlyInterest = monthlyInterest * 12;
             const payoffTime = calculateDebtPayoffTime();
@@ -8179,22 +7870,18 @@ function getYearsToPayoffClass(years) {
             
             rows.sort((a, b) => {
                 if (method === 'snowball') {
-                    // Sort by balance: smallest to largest
                     const balanceA = parseCurrency(a.querySelector('td:nth-child(2) input')?.value || 0);
                     const balanceB = parseCurrency(b.querySelector('td:nth-child(2) input')?.value || 0);
                     return balanceA - balanceB;
                 } else {
-                    // Sort by rate: highest to lowest (Avalanche)
                     const rateA = parseFloat(a.querySelector('td:nth-child(4) input')?.value || 0);
                     const rateB = parseFloat(b.querySelector('td:nth-child(4) input')?.value || 0);
                     return rateB - rateA;
                 }
             });
             
-            // Re-append rows in sorted order
             rows.forEach(row => tbody.appendChild(row));
             
-            // Update button states
             const snowballBtn = document.getElementById('sort-snowball');
             const avalancheBtn = document.getElementById('sort-avalanche');
             
@@ -8297,19 +7984,15 @@ function getYearsToPayoffClass(years) {
             return (totalDebtPayments / income) * 100;
         }
 
-        // ===== UPDATED CALCULATION FUNCTION WITH 50/30/20 RULE =====
-        
         function calculateAll() {
             autoPopulateHousingFromMortgage();
             autoPopulateDebtMinimums();
             
-            // Calculate pre-tax investments
             const pretax401k = parseCurrency(document.getElementById('pretax-401k')?.value || 0);
             const pretaxHSA = parseCurrency(document.getElementById('pretax-hsa')?.value || 0);
             const pretaxOther = parseCurrency(document.getElementById('pretax-other')?.value || 0);
             const totalPreTax = pretax401k + pretaxHSA + pretaxOther;
             
-            // Update pre-tax display
             const pretaxTotalEl = document.getElementById('pretax-total');
             if (pretaxTotalEl) pretaxTotalEl.textContent = `$${totalPreTax.toLocaleString()}`;
             
@@ -8326,12 +8009,10 @@ function getYearsToPayoffClass(years) {
             const totalExpenses = needsTotal + wantsTotal + savingsTotal + debtPayments;
             const surplus = income - totalExpenses;
             
-            // Calculate total savings rate (pre-tax + post-tax savings)
             const totalSavingsAndInvestments = savingsTotal + totalPreTax;
             const grossIncome = income + totalPreTax; // Approximate gross income
             const savingsRate = grossIncome > 0 ? (totalSavingsAndInvestments / grossIncome) * 100 : 0;
             
-            // Update savings rate display
             const savingsRateEl = document.getElementById('savings-rate');
             if (savingsRateEl) {
                 savingsRateEl.textContent = `${savingsRate.toFixed(1)}%`;
@@ -8347,7 +8028,6 @@ function getYearsToPayoffClass(years) {
             
             const budgetUsage = income > 0 ? (totalExpenses / income) * 100 : 0;
             
-            // Calculate Good Debt vs Bad Debt
             let goodDebt = 0;
             let badDebt = 0;
             
@@ -8360,8 +8040,6 @@ function getYearsToPayoffClass(years) {
                     const debtType = typeSelect.value;
                     const payment = parseCurrency(paymentInput.value);
                     
-                    // Good Debt: mortgage, student_loan
-                    // Bad Debt: credit_card, auto_loan, personal_loan, medical, other
                     if (debtType === 'mortgage' || debtType === 'student_loan') {
                         goodDebt += payment;
                     } else {
@@ -8370,11 +8048,6 @@ function getYearsToPayoffClass(years) {
                 }
             });
             
-            // Needs should NOT include debt payments (they're shown separately)
-            // Note: needsTotal already excludes debt_minimums per calculateMonthlyEssentials()
-            // So we don't need to subtract debtPayments again
-            
-            // Update split legend under pie chart
             const needsTotalEl = document.getElementById('needs-total-display');
             const wantsTotalEl = document.getElementById('wants-total-display');
             const savingsTotalEl = document.getElementById('savings-total-display');
@@ -8387,18 +8060,14 @@ function getYearsToPayoffClass(years) {
             if (goodDebtEl) goodDebtEl.textContent = '$' + Math.round(goodDebt).toLocaleString();
             if (badDebtEl) badDebtEl.textContent = '$' + Math.round(badDebt).toLocaleString();
             
-			    // UPDATE: Add this line to update all category percentages
     updateAllCategoryPercentages();
 			
-			
-            // Update 50/30/20 budget rule percentages (if elements exist)
             try {
                 if (income > 0) {
                     const needsPercentage = (needsTotal / income) * 100;
                     const wantsPercentage = (wantsTotal / income) * 100;
                     const savingsPercentage = (savingsTotal / income) * 100;
                     
-                    // Update 50/30/20 rule display (only if elements exist)
                     const needsRuleFill = document.getElementById('needs-rule-fill');
                     const wantsRuleFill = document.getElementById('wants-rule-fill');
                     const savingsRuleFill = document.getElementById('savings-rule-fill');
@@ -8415,7 +8084,6 @@ function getYearsToPayoffClass(years) {
                     if (wantsRulePercentage) wantsRulePercentage.textContent = `${wantsPercentage.toFixed(1)}%`;
                     if (savingsRulePercentage) savingsRulePercentage.textContent = `${savingsPercentage.toFixed(1)}%`;
                     
-                    // Update label colors based on targets
                     const needsLabel = document.getElementById('needs-rule-label');
                     const wantsLabel = document.getElementById('wants-rule-label');
                     const savingsLabel = document.getElementById('savings-rule-label');
@@ -8435,7 +8103,6 @@ function getYearsToPayoffClass(years) {
                         savingsLabel.classList.toggle('savings', true);
                     }
                     
-                    // Update percentage colors (only if elements exist)
                     const needsPercent = document.getElementById('needs-rule-percentage');
                     const wantsPercent = document.getElementById('wants-rule-percentage');
                     const savingsPercent = document.getElementById('savings-rule-percentage');
@@ -8480,11 +8147,9 @@ function getYearsToPayoffClass(years) {
                 console.log('50/30/20 rule elements not found, skipping:', error);
             }
             
-            // Update displays (with null checks)
             const incomeSummary = document.getElementById('income-summary');
             if (incomeSummary) incomeSummary.textContent = `Monthly income: $${income.toLocaleString()}`;
             
-            // Update debt summary
             const totalDebtBalance = document.getElementById('total-debt-balance');
             const totalDebtPayments = document.getElementById('total-debt-payments');
             const highInterestCount = document.getElementById('high-interest-count');
@@ -8493,10 +8158,6 @@ function getYearsToPayoffClass(years) {
             if (totalDebtPayments) totalDebtPayments.textContent = `$${debtPayments.toLocaleString()}`;
             if (highInterestCount) highInterestCount.textContent = getHighInterestDebtCount();
             
-            // Update years to payoff
-
-            
-            // Update sidebar displays
             const totalIncomeDisplay = document.getElementById('total-income-display');
             const totalExpensesDisplay = document.getElementById('total-expenses-display');
             const sidebarDebtPayments = document.getElementById('sidebar-debt-payments');
@@ -8507,18 +8168,15 @@ function getYearsToPayoffClass(years) {
             if (sidebarDebtPayments) sidebarDebtPayments.textContent = `$${debtPayments.toLocaleString()}`;
             if (savingsRateSidebar) savingsRateSidebar.textContent = `${savingsRate.toFixed(1)}%`;
             
-            // Update sticky summary bar (with null checks)
             const stickyIncome = document.getElementById('sticky-income');
             const stickySurplusInit = document.getElementById('sticky-surplus');
             
             if (stickyIncome) stickyIncome.textContent = `$${income.toLocaleString()}`;
             if (stickySurplusInit) stickySurplusInit.textContent = `$${Math.round(surplus).toLocaleString()}`;
 
-            // Update new sticky metrics
             const totalMinPayments = getTotalDebtPayments();
             const dti = income > 0 ? (totalMinPayments / income * 100) : 0;
             
-            // Update sticky bar elements (with null checks)
             const stickyDti = document.getElementById('sticky-dti');
             const stickySurplus = document.getElementById('sticky-surplus');
             const stickyDebt = document.getElementById('sticky-debt');
@@ -8533,59 +8191,43 @@ function getYearsToPayoffClass(years) {
             const totalYearsSticky = calculateTotalYearsToPayoff();
             if (stickyYears) stickyYears.textContent = totalYearsSticky > 0 ? `${totalYearsSticky.toFixed(1)} yrs` : '--';
             
-            // Update unified financial health summary
             updateFinancialHealthSummary(income, totalExpenses, budgetUsage, savingsTotal, savingsRate, surplus);
             
-            // Update chart
             updateChart(income, needsTotal, wantsTotal, savingsTotal, debtPayments, surplus);
             
-            // Update next action
             updateNextActionEnhanced();
             
-            // Update progress indicators (now in sidebar)
             updateProgressIndicators(income, needsTotal, debtPayments);
             
-            // Update strategy tip
             updateDebtStrategyTip();
             
-            // UPDATE: Use new RAF Sovereign Score instead of old health score
             updateSovereignScoreDisplay();
             
-            // NEW: Update goal progress
             updateGoalProgress();
             
-            // S-TIER: Update all debt features
             updateDebtProgress();
             updateComparisonBadge();
             showSmartWarnings();
             updateStrategyPreviews();
             checkMilestones(); // Check for milestone achievements
             
-            // STARTUP MODE: Update What If calculator
             const slider = document.getElementById('extra-payment-slider');
             if (slider) {
                 updateWhatIfCalculator(slider.value);
             }
             
-            // Update ticker
             updateTickerData();
             
-            // Update Debt Summary with enhanced metrics
             updateDebtSummary();
             
-            // GOD TIER: Update Financial Health
             updateFinancialHealth();
             
-            // GOD TIER: Update Achievements
             updateAchievements();
             
-            // GOD TIER: Update Streak
             updateStreak();
             
-            // GOD TIER: Update Time Machine
             updateTimeMachine();
             
-            // Update Next Action Banner
             updateNextActionBanner();
         }
 
@@ -8637,7 +8279,6 @@ function getYearsToPayoffClass(years) {
                 const needsPercentage = (needsTotal / income) * 100;
                 const debtPercentage = (debtPayments / income) * 100;
                 
-                // Update progress bars (only if elements exist)
                 const needsProgress = document.getElementById('needs-progress');
                 const needsPercentageEl = document.getElementById('needs-percentage');
                 const debtProgress = document.getElementById('debt-progress');
@@ -8648,7 +8289,6 @@ function getYearsToPayoffClass(years) {
                 if (debtProgress) debtProgress.style.width = `${Math.min(debtPercentage, 100)}%`;
                 if (debtPercentageEl) debtPercentageEl.textContent = `${debtPercentage.toFixed(1)}%`;
                 
-                // Update debt-to-income ratio
                 const dti = calculateDebtToIncomeRatio();
                 const dtiElement = document.getElementById('debt-to-income');
                 if (dtiElement) {
@@ -8662,8 +8302,6 @@ function getYearsToPayoffClass(years) {
             }
         }
 
-        // ===== NEW: RAF SOVEREIGN SCORE™ ALGORITHM =====
-        
         function calculateSovereignScore() {
             const income = getMonthlyIncome();
             const age = parseInt(document.getElementById('age-input')?.value) || 0;
@@ -8680,7 +8318,6 @@ function getYearsToPayoffClass(years) {
             const components = [];
             let totalScore = 0;
             
-            // 1. Emergency Fund Coverage (0-30 points)
             const emergencyFundTotal = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
             const monthlyEssentials = calculateMonthlyEssentials();
             const monthsCovered = monthlyEssentials > 0 ? emergencyFundTotal / monthlyEssentials : 0;
@@ -8700,7 +8337,6 @@ function getYearsToPayoffClass(years) {
             });
             totalScore += emergencyScore;
             
-            // 2. Debt Aggressiveness Score (0-25 points)
             let debtScore = 25; // Start with perfect score
             
             const highestRate = getHighestInterestRate();
@@ -8709,12 +8345,10 @@ function getYearsToPayoffClass(years) {
             const highInterestDebt = calculateTotalHighInterestDebt();
             const totalDebt = getTotalDebtBalance();
             
-            // Penalties
             if (highestRate > 25) debtScore -= 10;
             if (dti > 36) debtScore -= 10;
             if (totalYears > 10) debtScore -= 5;
             
-            // Bonuses
             if (totalDebt === 0) debtScore = 25; // Debt-free gets perfect score
             else if (highestRate <= 10) debtScore += 15;
             
@@ -8729,7 +8363,6 @@ function getYearsToPayoffClass(years) {
             });
             totalScore += debtScore;
             
-            // 3. Savings Discipline (0-20 points)
             const savingsTotal = getTotalMonthlySavings();
             const savingsRate = income > 0 ? (savingsTotal / income) * 100 : 0;
             
@@ -8748,7 +8381,6 @@ function getYearsToPayoffClass(years) {
             });
             totalScore += savingsScore;
             
-            // 4. Budget Control (0-15 points)
             let budgetScore = 15; // Start with perfect score
             
             const needsTotal = calculateMonthlyEssentials();
@@ -8760,7 +8392,6 @@ function getYearsToPayoffClass(years) {
             });
             const wantsPercentage = income > 0 ? (wantsTotal / income) * 100 : 0;
             
-            // Penalties
             if (needsPercentage > 50) budgetScore -= 3;
             if (wantsPercentage > 30) budgetScore -= 3;
             if (needsPercentage > 55) budgetScore -= 3;
@@ -8777,7 +8408,6 @@ function getYearsToPayoffClass(years) {
             });
             totalScore += budgetScore;
             
-            // 5. Age-Based Progress Bonus (0-10 points)
             let retirementScore = 0;
             if (age > 0 && income > 0) {
                 const annualIncome = income * 12;
@@ -8810,7 +8440,6 @@ function getYearsToPayoffClass(years) {
                 });
             }
             
-            // Determine rank
             let rank = '';
             let rankClass = '';
             
@@ -8850,11 +8479,9 @@ function getYearsToPayoffClass(years) {
             const rankElement = document.getElementById('sovereign-score-rank');
             const breakdownElement = document.getElementById('sovereign-score-breakdown');
             
-            // Update sticky summary score
             const stickyScore = document.getElementById('sticky-score');
             if (stickyScore) {
                 stickyScore.textContent = scoreData.total;
-                // Color code based on score
                 if (scoreData.total >= 90) {
                     stickyScore.style.color = '#10B981';
                 } else if (scoreData.total >= 75) {
@@ -8871,7 +8498,6 @@ function getYearsToPayoffClass(years) {
             if (scoreElement) {
                 scoreElement.textContent = scoreData.total;
                 
-                // Color code based on score
                 if (scoreData.total >= 90) {
                     scoreElement.className = 'financial-health-score text-green-400';
                 } else if (scoreData.total >= 75) {
@@ -8926,8 +8552,6 @@ function toggleScoreBreakdown() {
     }
 }
 
-        // ===== ENHANCED PRIORITY ACTION LOGIC =====
-        
         function calculateNextActionEnhanced() {
             const income = getMonthlyIncome();
             const age = parseInt(document.getElementById('age-input')?.value) || 0;
@@ -8941,7 +8565,6 @@ function toggleScoreBreakdown() {
             const dti = calculateDebtToIncomeRatio();
             const savingsRate = income > 0 ? (getTotalMonthlySavings() / income) * 100 : 0;
             
-            // Financial Crisis Detection (Tier 1: Survival)
             if (isWarModeActive && surplus < 0) {
                 return {
                     tier: 'critical',
@@ -9014,7 +8637,6 @@ function toggleScoreBreakdown() {
                 };
             }
             
-            // High-Interest Debt Emergency (Tier 2: Stability)
             if (highestRate > 25) {
                 return {
                     tier: 'critical',
@@ -9087,7 +8709,6 @@ function toggleScoreBreakdown() {
                 };
             }
             
-            // Moderate Priority Actions (Tier 3: Growth Foundation)
             if (dti > 36) {
                 return {
                     tier: 'important',
@@ -9160,7 +8781,6 @@ function toggleScoreBreakdown() {
                 };
             }
             
-            // Strategic Actions (Tier 4: Wealth Building)
             if (age > 0 && income > 0) {
                 const annualIncome = income * 12;
                 const targetMultiplier = getRetirementTargetForAge(age);
@@ -9241,7 +8861,6 @@ function toggleScoreBreakdown() {
                 };
             }
             
-            // Advanced Wealth Building (Tier 5: Optimization)
             if (surplus > 0 && getTotalDebtBalance() > 0) {
                 return {
                     tier: 'advanced',
@@ -9290,7 +8909,6 @@ function toggleScoreBreakdown() {
                 };
             }
             
-            // If everything is optimized
             return {
                 tier: 'excellent',
                 type: 'financial-mastery',
@@ -9314,8 +8932,6 @@ function toggleScoreBreakdown() {
             };
         }
         
-        // ===== DISPLAY FUNCTIONS =====
-        
         function updateNextActionEnhanced() {
             const action = calculateNextActionEnhanced();
             const container = document.getElementById('action-container-enhanced');
@@ -9324,7 +8940,6 @@ function toggleScoreBreakdown() {
             
             if (!container) return;
             
-            // Define styling based on tier
             const tierStyles = {
                 critical: {
                     gradientStart: '#DC2626',
@@ -9375,7 +8990,6 @@ function toggleScoreBreakdown() {
             
             const style = tierStyles[action.tier] || tierStyles.critical;
             
-            // Update CSS variables for the action card
             document.documentElement.style.setProperty('--gradient-start', style.gradientStart);
             document.documentElement.style.setProperty('--gradient-end', style.gradientEnd);
             
@@ -9425,12 +9039,9 @@ function toggleScoreBreakdown() {
                 </div>
             `;
             
-            // Don't touch action-timeline-container - that's the Declaration of Financial Independence
-            // Timeline is now handled by populate90DayDeclaration()
         }
         
         function getProgressPercentage(action) {
-            // Simple progress calculation based on action type
             const income = getMonthlyIncome();
             const emergencyFundTotal = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
             const monthlyEssentials = calculateMonthlyEssentials();
@@ -9455,8 +9066,6 @@ function toggleScoreBreakdown() {
             }
         }
 
-        // ===== CHART FUNCTIONS =====
-        
         function updateChart(income, needsTotal, wantsTotal, savingsTotal, debtPayments, surplus) {
             console.log('updateChart called:', {income, needsTotal, wantsTotal, savingsTotal, debtPayments, surplus});
             console.log('myChart exists?', !!myChart);
@@ -9551,7 +9160,6 @@ function toggleScoreBreakdown() {
                 myChart.data.labels = ['No Data'];
             }
             
-            // Update center label and value
             const centerLabel = document.getElementById('center-label');
             const centerRemaining = document.getElementById('center-remaining');
             
@@ -9575,8 +9183,6 @@ function toggleScoreBreakdown() {
             myChart.update();
         }
 
-        // ===== DEBT TYPE FUNCTIONS =====
-        
         function updateDebtType(select) {
             const row = select.closest('tr');
             const type = debtTypes.find(t => t.value === select.value);
@@ -9656,8 +9262,6 @@ function toggleScoreBreakdown() {
             setTimeout(() => document.addEventListener('click', hideTooltip), 100);
         }
 
-        // ===== MORTGAGE AND DEBT MINIMUMS AUTO-POPULATION =====
-        
         function autoPopulateHousingFromMortgage() {
             const housingInput = document.getElementById('mortgage_rent');
             if (!housingInput) return;
@@ -9787,13 +9391,10 @@ function toggleScoreBreakdown() {
             }
         }
 
-        // ===== DEBT STRATEGY TIPS =====
-        // ===== DEBT PAIN CALCULATOR =====
 function calculateDebtPain() {
     const painElement = document.getElementById('debt-pain-calculator');
     let totalInterest = 0;
     
-    // Calculate interest for each debt
     document.querySelectorAll('#debt-body tr').forEach(row => {
         const balanceInput = row.querySelector('td:nth-child(2) input');
         const rateInput = row.querySelector('td:nth-child(4) input');
@@ -9805,7 +9406,6 @@ function calculateDebtPain() {
             const yearsText = yearsElement.textContent;
             
             if (balance > 0 && rate > 0 && yearsText !== '--' && yearsText !== '∞') {
-                // Simple interest formula
                 const years = parseFloat(yearsText) || 0;
                 if (years > 0) {
                     const interest = balance * (rate/100) * years;
@@ -9815,39 +9415,32 @@ function calculateDebtPain() {
         }
     });
     
-    // Update display
     if (totalInterest > 0) {
         document.getElementById('total-interest-cost').textContent = `$${Math.round(totalInterest).toLocaleString()}`;
         
-        // Claim 30% savings with premium
         const premiumSavings = Math.round(totalInterest * 0.3);
         document.getElementById('premium-savings').textContent = `$${premiumSavings.toLocaleString()}`;
         
-        // Show the pain calculator
         painElement.classList.remove('hidden');
     } else {
         painElement.classList.add('hidden');
     }
 }
 
-// ===== UPDATE PREMIUM TEASER WITH USER'S DATA =====
 function updatePremiumTeaser() {
     const totalDebt = getTotalDebtBalance();
     const emergencyFund = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
     const monthlySavings = getTotalMonthlySavings();
     
-    // Update debt savings (claim 25% savings with premium)
     if (totalDebt > 0) {
         const debtSavings = Math.round(totalDebt * 0.25);
         document.querySelector('.premium-savings-amount').textContent = `$${debtSavings.toLocaleString()}`;
     }
     
-    // Update emergency fund forecast
     if (monthlySavings > 0) {
         const projected = emergencyFund + (monthlySavings * 6);
         document.querySelector('.forecast-amount').textContent = `$${Math.round(projected).toLocaleString()}`;
         
-        // Calculate 6 months from now
         const forecastDate = new Date();
         forecastDate.setMonth(forecastDate.getMonth() + 6);
         const monthName = forecastDate.toLocaleDateString('default', { month: 'long' });
@@ -9898,8 +9491,6 @@ function updatePremiumTeaser() {
             showToast('Strategy tip refreshed');
         }
 
-        // ===== WAR MODE FUNCTIONS =====
-        
         function toggleWarMode() {
             const toggle = document.getElementById('warModeToggle');
             const budgetSection = document.getElementById('budget-section');
@@ -9976,7 +9567,6 @@ function updatePremiumTeaser() {
             });
         }
 
-        // ===== BUDGET LOCK/UNLOCK FUNCTIONS =====
         function recommendBudget() {
             const income = getMonthlyIncome();
             
@@ -9986,12 +9576,10 @@ function updatePremiumTeaser() {
                 return;
             }
             
-            // Check if user has debt
             const totalDebt = getTotalDebtBalance();
             const debtPayments = getTotalDebtPayments();
             const hasDeb = totalDebt > 0;
             
-            // NEEDS (essential - always same)
             const recommendedNeeds = {
                 'mortgage_rent': income * 0.28,
                 'utilities': income * 0.05,
@@ -10011,7 +9599,6 @@ function updatePremiumTeaser() {
             let message = '';
             
             if (hasDeb) {
-                // WAR MODE: Cut wants to BARE MINIMUM, cut savings, attack debt
                 recommendedWants = {
                     'gym_membership': 0,                    // CUT - No gym until debt-free
                     'subscriptions': income * 0.01,         // MINIMAL - Keep essentials only
@@ -10025,17 +9612,14 @@ function updatePremiumTeaser() {
                     'investments_monthly': 0                 // CUT - No investing until debt-free
                 };
                 
-                // Calculate available surplus for debt attack
                 const needsTotal = Object.values(recommendedNeeds).reduce((a,b) => a+b, 0);
                 const wantsTotal = Object.values(recommendedWants).reduce((a,b) => a+b, 0);
                 const savingsTotal = Object.values(recommendedSavings).reduce((a,b) => a+b, 0);
                 const availableSurplus = income - needsTotal - wantsTotal - savingsTotal - debtPayments;
                 
-                // Estimate payoff time
                 const monthsToFreedom = totalDebt > 0 && availableSurplus > 0 ? 
                     Math.ceil(totalDebt / (debtPayments + availableSurplus)) : 999;
                 
-                // Update WAR MODE banner
                 const warBanner = document.getElementById('war-mode-banner');
                 if (warBanner) {
                     warBanner.classList.remove('hidden');
@@ -10051,12 +9635,11 @@ function updatePremiumTeaser() {
                 message = `⚔️ WAR MODE ACTIVATED! Surplus: $${Math.round(availableSurplus)}/mo attacking debt. Freedom in ${monthsToFreedom} months!`;
                 
             } else {
-                // PEACE MODE: Normal balanced budget
                 recommendedWants = {
-                    'gym_membership': income * 0.015,
-                    'subscriptions': income * 0.025,
-                    'dining_entertainment': income * 0.15,
-                    'shopping_fun_money': income * 0.11
+                    'gym_membership': income * 0.015,           // 1.5%
+                    'subscriptions': income * 0.025,            // 2.5%
+                    'dining_entertainment': income * 0.09,      // 9% (under 10% threshold)
+                    'shopping_fun_money': income * 0.07         // 7% (under 8% threshold)
                 };
                 
                 recommendedSavings = {
@@ -10065,14 +9648,12 @@ function updatePremiumTeaser() {
                     'investments_monthly': income * 0.02
                 };
                 
-                // Hide WAR MODE banner
                 const warBanner = document.getElementById('war-mode-banner');
                 if (warBanner) warBanner.classList.add('hidden');
                 
                 message = '✨ Balanced budget applied - build wealth and enjoy life!';
             }
             
-            // Apply recommendations
             Object.keys(recommendedNeeds).forEach(id => {
                 const el = document.getElementById(id);
                 if (el && id !== 'debt_minimums' && id !== 'taxes') {
@@ -10097,7 +9678,6 @@ function updatePremiumTeaser() {
                 }
             });
             
-            // Recalculate
             debouncedCalculateAll();
             
             showToast(message);
@@ -10192,7 +9772,6 @@ function updatePremiumTeaser() {
                 const input = document.getElementById(id);
                 if (input) {
                     if (id === 'lifestyle_monthly' && isWarMode) {
-                        // Keep disabled if war mode
                     } else {
                         input.disabled = false;
                         input.style.opacity = '1';
@@ -10215,8 +9794,6 @@ function updatePremiumTeaser() {
             }
         }
 
-        // ===== BUDGET CATEGORY MANAGEMENT =====
-        
         function getCategoryValue(categoryId) {
             return categoryValues[categoryId] || '';
         }
@@ -10283,7 +9860,6 @@ function updatePremiumTeaser() {
                 const specialClass = isDebtMinimums ? ' debt-minimums-special' : '';
                 div.className = `budget-category-card${specialClass}`;
                 
-                // Extract clean label and subtitle
                 let mainLabel = category.label;
                 let subtitle = '';
                 
@@ -10352,8 +9928,6 @@ function updatePremiumTeaser() {
     </div>
 `;
 				
-				
-				
                 if (needsContainer) needsContainer.appendChild(div);
             });
             
@@ -10361,7 +9935,6 @@ function updatePremiumTeaser() {
                 const div = document.createElement('div');
                 div.className = `budget-category-card`;
                 
-                // Add subtitles for wants too
                 let mainLabel = category.label;
                 let subtitle = '';
                 
@@ -10414,8 +9987,6 @@ function updatePremiumTeaser() {
             initializeSavingsCategories();
         }
 
-        // ===== UTILITY FUNCTIONS =====
-        
         function validateBudgetInput(input) {
             const value = parseCurrency(input.value);
             if (value < 0) {
@@ -10450,18 +10021,6 @@ function updatePremiumTeaser() {
             showToast('Action recommendation refreshed');
         }
         
-        // ===== 90-DAY BILL OF FINANCIAL RIGHTS =====
-        // Tier 1 — Ramsey:        Debt > 0 AND emergency fund < $1K  (survival mode)
-        // Tier 2 — Kiyosaki:      Foundation exists, building assets   (growth mode)
-        // Tier 3 — Booth/Saylor:  Debt-free, investing 15%+, surplus 20%+ (sovereign mode)
-        
-        // ═══════════════════════════════════════════════════════════════════════════
-        // REAL AMERICAN FINANCE - 5-TIER DECLARATION SYSTEM
-        // Homesteading → Frontier → Settlement → Prosperity → Legacy
-        // No gurus. No trends. Just financial sovereignty built the frontier way.
-        // ═══════════════════════════════════════════════════════════════════════════
-        
-        // Open Declaration in fullscreen modal
         function openDeclarationFullscreen() {
             const modal = document.getElementById('declaration-fullscreen-modal');
             const sidebarContent = document.getElementById('bill-of-rights-content');
@@ -10469,7 +10028,6 @@ function updatePremiumTeaser() {
             const sidebarDate = document.getElementById('declaration-date');
             const fullscreenDate = document.getElementById('declaration-date-fullscreen');
             
-            // Copy content from sidebar to fullscreen
             if (sidebarContent && fullscreenContent) {
                 fullscreenContent.innerHTML = sidebarContent.innerHTML;
             }
@@ -10477,12 +10035,10 @@ function updatePremiumTeaser() {
                 fullscreenDate.textContent = sidebarDate.textContent;
             }
             
-            // Show modal
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
         
-        // Close Declaration fullscreen modal
         function closeDeclarationFullscreen(event) {
             if (event) {
                 event.stopPropagation();
@@ -10492,7 +10048,6 @@ function updatePremiumTeaser() {
             document.body.style.overflow = '';
         }
         
-        // Close on background click
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('declaration-fullscreen-modal');
             if (modal) {
@@ -10503,7 +10058,6 @@ function updatePremiumTeaser() {
                 });
             }
             
-            // ESC key to close
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     closeDeclarationFullscreen();
@@ -10511,8 +10065,6 @@ function updatePremiumTeaser() {
             });
         });
 
-        // ===== FINTECH-GRADE ADAPTIVE FINANCIAL DECISION ENGINE =====
-        
         const FINANCIAL_STATES = {
             EMERGENCY: 0,
             STABILIZATION: 1,
@@ -10572,7 +10124,6 @@ function updatePremiumTeaser() {
             const actions = [];
             const {surplus, debts, overBudget, emergencyFund, oneMonthNeeds} = userData;
             
-            // SURVIVAL - Cut overspending
             if (surplus < 0 && overBudget.length > 0) {
                 const top3 = overBudget.slice(0, 3);
                 const totalSavings = top3.reduce((sum, cat) => sum + cat.overage, 0);
@@ -10593,7 +10144,6 @@ function updatePremiumTeaser() {
                 });
             }
             
-            // PROGRESS - Attack debt
             if (debts && debts.length > 0) {
                 const highestDebt = debts[0];
                 const extraPayment = Math.max(100, surplus * 0.7);
@@ -10618,7 +10168,6 @@ function updatePremiumTeaser() {
                 });
             }
             
-            // FUTURE - Emergency fund
             if (emergencyFund < oneMonthNeeds) {
                 const gap = oneMonthNeeds - emergencyFund;
                 const monthlySave = Math.max(100, surplus * 0.3);
@@ -10661,8 +10210,6 @@ function updatePremiumTeaser() {
             return tasks.slice(0, 3);
         }
 
-        // ===== ENHANCED DECLARATION HELPER FUNCTIONS =====
-        
         function getDebtsByPriority() {
             const debts = [];
             const rows = document.querySelectorAll('#debt-body tr');
@@ -10801,19 +10348,14 @@ function updatePremiumTeaser() {
             };
         }
 
-        // ===== PHASE GENERATION FUNCTIONS =====
-        
         function generatePhase0(surplus, overBudgetCategories, highestRate, hasCollections) {
-            // Phase 0: STOP THE BLEEDING - only if critical issues exist
             const needsPhase0 = surplus < 0 || overBudgetCategories.length > 0 || highestRate > 25 || hasCollections;
             
             if (!needsPhase0) return null;
             
-            // Determine primary issue
             let mission, why, plan, steps;
             
             if (surplus < 0) {
-                // BLEEDING MONEY - Overspending
                 const deficit = Math.abs(surplus);
                 const top3 = overBudgetCategories.slice(0, 3);
                 const totalSavings = top3.reduce((sum, cat) => sum + cat.overage, 0);
@@ -10833,7 +10375,6 @@ function updatePremiumTeaser() {
                     {text: `WEEK 2: Verify surplus achieved → Phase 1 Unlocks`, complete: false}
                 ];
             } else if (highestRate > 25 || hasCollections) {
-                // PREDATORY DEBT - Crisis interest rates
                 mission = `Handle ${hasCollections ? 'collections' : 'predatory debt at ' + highestRate.toFixed(1) + '% APR'}`;
                 why = `${hasCollections ? 'Debt in collections destroys credit and invites lawsuits' : 'Debt above 25% APR is mathematical destruction'}. This is a financial emergency that must be contained immediately.`;
                 
@@ -10851,7 +10392,6 @@ function updatePremiumTeaser() {
                     {text: `WEEK 4: Crisis contained → Phase 1 Unlocks`, complete: false}
                 ];
             } else {
-                // BUDGET WARNINGS - Over threshold but positive surplus
                 const top3 = overBudgetCategories.slice(0, 3);
                 const totalOverage = top3.reduce((sum, cat) => sum + cat.overage, 0);
                 
@@ -11065,14 +10605,11 @@ function updatePremiumTeaser() {
             window.print();
         }
         
-        // ===== NEW DECLARATION: PATH TO FINANCIAL SOVEREIGNTY =====
-        
         function renderPathToSovereignty() {
             const content = document.getElementById('bill-of-rights-content');
             const fullscreenContent = document.getElementById('bill-of-rights-content-fullscreen');
             if (!content) return;
             
-            // Collect data
             const income = getMonthlyIncome();
             const pretax401k = parseCurrency(document.getElementById('pretax-401k')?.value || 0);
             const pretaxHSA = parseCurrency(document.getElementById('pretax-hsa')?.value || 0);
@@ -11096,13 +10633,11 @@ function updatePremiumTeaser() {
             const debtPayments = getTotalDebtPayments();
             const highInterestDebt = debts.filter(d => d.rate > 7).length;
             
-            // Identify EMERGENCY DEBTS for Phase 1
             const emergencyDebts = debts.filter(d => {
                 const monthsToPayoff = d.payment > 0 ? d.balance / d.payment : 999;
                 return d.rate >= 15 || monthsToPayoff > 18 || d.balance > income * 3;
             });
             
-            // Build emergency debt table HTML
             let emergencyDebtTableHTML = '';
             if (emergencyDebts.length > 0) {
                 emergencyDebtTableHTML = `
@@ -11147,10 +10682,8 @@ function updatePremiumTeaser() {
                 `;
             }
             
-            // Identify OVER-BUDGET CATEGORIES for Phase 1
             const budgetIssues = [];
             
-            // Check each category against recommended thresholds
             const categoryThresholds = {
                 'mortgage_rent': { max: income * 0.30, name: 'Housing', tips: ['Negotiate rent', 'Get a roommate'] },
                 'groceries': { max: income * 0.10, name: 'Groceries', tips: ['Meal prep', 'Buy generic brands'] },
@@ -11181,7 +10714,6 @@ function updatePremiumTeaser() {
                 }
             });
             
-            // Build over-budget table HTML
             let overBudgetTableHTML = '';
             if (budgetIssues.length > 0) {
                 overBudgetTableHTML = `
@@ -11224,9 +10756,6 @@ function updatePremiumTeaser() {
             const grossIncome = income + totalPreTax;
             const savingsRate = grossIncome > 0 ? (totalInvesting / grossIncome) * 100 : 0;
             
-            // ====== 3 SOVEREIGN PHASES ======
-            
-            // PHASE 1: FOUNDATION & CONTROL (0-30 days)
             const phase1Checks = {
                 budget: localStorage.getItem('raf_budget_locked') === 'true' && Math.abs(surplus) <= 50, // Zero-based = every dollar allocated (±$50)
                 cashFlow: surplus >= 0, // Not overspending
@@ -11236,7 +10765,6 @@ function updatePremiumTeaser() {
             const phase1Complete = Object.values(phase1Checks).every(v => v);
             const phase1Progress = (Object.values(phase1Checks).filter(v => v).length / 4) * 100;
             
-            // PHASE 2: DEBT NEUTRALIZATION & PROTECTION (30-60 days)
             const phase2Checks = {
                 threeMonth: emergencyBalance >= threeMonthBuffer,
                 debtStrategy: totalDebt === 0 || debtPayments > 0, // Either no debt or actively paying
@@ -11246,7 +10774,6 @@ function updatePremiumTeaser() {
             const phase2Complete = phase1Complete && Object.values(phase2Checks).every(v => v);
             const phase2Progress = (Object.values(phase2Checks).filter(v => v).length / 4) * 100;
             
-            // PHASE 3: WEALTH BUILDING & SOVEREIGNTY (60-90 days)
             const phase3Checks = {
                 retirement: totalPreTax >= income * 0.10, // At least 10% to retirement
                 savingsRate: savingsRate >= 15, // 15%+ total savings rate
@@ -11256,11 +10783,9 @@ function updatePremiumTeaser() {
             const phase3Complete = phase2Complete && Object.values(phase3Checks).every(v => v);
             const phase3Progress = (Object.values(phase3Checks).filter(v => v).length / 4) * 100;
             
-            // Build HTML
             const html = `
                 <div class="declaration-container" style="font-family: Georgia, serif; color: #2c1810;">
                     
-                    <!-- PHASE 1: FOUNDATION & CONTROL -->
                     <div style="margin-bottom: 1.5rem; padding: 1rem; background: ${phase1Complete ? 'rgba(16, 185, 129, 0.1)' : 'rgba(139, 105, 20, 0.05)'}; border-left: 4px solid ${phase1Complete ? '#10b981' : '#8b6914'}; border-radius: 4px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
                             <div>
@@ -11300,7 +10825,6 @@ function updatePremiumTeaser() {
                         </div>
                     </div>
                     
-                    <!-- PHASE 2: DEBT NEUTRALIZATION & PROTECTION -->
                     <div style="margin-bottom: 1.5rem; padding: 1rem; background: ${phase2Complete ? 'rgba(16, 185, 129, 0.1)' : phase1Complete ? 'rgba(139, 105, 20, 0.05)' : 'rgba(107, 114, 128, 0.05)'}; border-left: 4px solid ${phase2Complete ? '#10b981' : phase1Complete ? '#ef4444' : '#6b7280'}; border-radius: 4px; opacity: ${phase1Complete ? 1 : 0.5};">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
                             <div>
@@ -11336,7 +10860,6 @@ function updatePremiumTeaser() {
                         </div>
                     </div>
                     
-                    <!-- PHASE 3: WEALTH BUILDING & SOVEREIGNTY -->
                     <div style="margin-bottom: 1.5rem; padding: 1rem; background: ${phase3Complete ? 'rgba(16, 185, 129, 0.1)' : phase2Complete ? 'rgba(139, 105, 20, 0.05)' : 'rgba(107, 114, 128, 0.05)'}; border-left: 4px solid ${phase3Complete ? '#10b981' : phase2Complete ? '#3b82f6' : '#6b7280'}; border-radius: 4px; opacity: ${phase2Complete ? 1 : 0.5};">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
                             <div>
@@ -11372,7 +10895,6 @@ function updatePremiumTeaser() {
                         </div>
                     </div>
                     
-                    <!-- DECLARATION SIGNATURE -->
                     <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #8b6914;">
                         <div style="font-size: 0.9rem; font-weight: 600; text-align: center; margin-bottom: 1rem; color: #2c1810;">
                             YOUR DECLARATION
@@ -11412,7 +10934,6 @@ function updatePremiumTeaser() {
             const investTarget = income * 0.15;
             const hasPhase0 = phase0 !== null;
             
-            // Adjust timeline labels based on Phase 0
             const timelinePoints = hasPhase0 ? [
                 { label: 'TODAY', active: !phase0 || phases[0].status !== 'complete' },
                 { label: 'WEEK 2', active: phase0 && phases[0].status === 'complete' && phases[1].status !== 'complete' },
@@ -11485,7 +11006,6 @@ function updatePremiumTeaser() {
             const content = document.getElementById('bill-of-rights-content');
             if (!content) return;
         
-            // ── Data Collection ─────────────────────────────────────────────────────
             const income            = getMonthlyIncome();
             const annualIncome      = income * 12;
             const totalDebt         = getTotalDebtBalance();
@@ -11494,7 +11014,6 @@ function updatePremiumTeaser() {
             const highestRate       = getHighestDebtInterestRate();
             const age               = parseInt(document.getElementById('age-input')?.value) || 0;
         
-            // Savings
             const emergencyBalance  = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
             const emergencyMonthly  = parseCurrency(document.getElementById('emergency_fund_monthly')?.value || 0);
             const retirementBalance = parseCurrency(document.getElementById('retirement_total')?.value || 0);
@@ -11503,7 +11022,6 @@ function updatePremiumTeaser() {
             const investMonthly     = parseCurrency(document.getElementById('investments_monthly')?.value || 0);
             const emergencySavings  = emergencyBalance > 0 ? emergencyBalance : emergencyMonthly > 0 ? emergencyMonthly * 3 : 0;
         
-            // Budget categories - calculate NEEDS only (excluding wants and savings)
             let monthlyNeeds = 0;
             let monthlyWants = 0;
             let monthlyExpenses = 0;
@@ -11526,7 +11044,6 @@ function updatePremiumTeaser() {
                 monthlyExpenses = income * 0.7;
             }
         
-            // Computed metrics
             const totalInvesting       = retirementMonthly + investMonthly;
             const investRate           = income > 0 ? (totalInvesting / income) * 100 : 0;
             const surplusRate          = income > 0 ? (surplus / income) * 100 : 0;
@@ -11536,23 +11053,16 @@ function updatePremiumTeaser() {
             const retirementTarget     = retirementMultiplier > 0 ? annualIncome * retirementMultiplier : 0;
             const retirementGap        = Math.max(0, retirementTarget - retirementBalance);
         
-            // Buffer targets
             const oneMonthBuffer = monthlyNeeds;  // NEW: 1 month of NEEDS only
             const threeMonthBuffer = monthlyExpenses * 3;
             const sixMonthBuffer = monthlyExpenses * 6;
         
-            // Debt categories
             const highInterestDebt = totalDebt;  // TODO: Need to filter for >7% only
             const mortgageDebt = 0;  // TODO: Need to separate mortgage from consumer debt
             const mortgageRate = 0;  // TODO: Need mortgage rate
         
-            // Check for collections (TODO: Need collections detection)
             const hasCollections = false;
         
-            // ══════════════════════════════════════════════════════════════════════
-            // TIER CLASSIFICATION - 5 Tiers
-            // ══════════════════════════════════════════════════════════════════════
-            
             const isHomesteading = surplus < 0 || hasCollections || highestRate > 25 || annualIncome < 30000;
             const isFrontier = !isHomesteading && (emergencySavings < oneMonthBuffer || highInterestDebt > 0);
             const isSettlement = !isHomesteading && !isFrontier && (emergencySavings < sixMonthBuffer || investRate < 15);
@@ -11561,12 +11071,8 @@ function updatePremiumTeaser() {
         
             let step1, step2, step3;
         
-            // ══════════════════════════════════════════════════════════════════════
-            // TIER 0: HOMESTEADING - Crisis Mode
-            // ══════════════════════════════════════════════════════════════════════
             if (isHomesteading) {
                 
-                // Article I: Stop the Bleeding
                 if (surplus < 0) {
                     const deficit = Math.abs(surplus);
                     const overBudget = getOverBudgetCategories();
@@ -11600,7 +11106,6 @@ function updatePremiumTeaser() {
                     };
                 }
         
-                // Article II: Handle Crisis Debt
                 if (hasCollections) {
                     step2 = {
                         number: "II",
@@ -11625,7 +11130,6 @@ function updatePremiumTeaser() {
                     };
                 }
         
-                // Article III: Income Emergency
                 if (annualIncome < 30000) {
                     const monthlyTarget = 2500;
                     const monthlyGap = monthlyTarget - income;
@@ -11644,12 +11148,8 @@ function updatePremiumTeaser() {
                     };
                 }
         
-            // ══════════════════════════════════════════════════════════════════════
-            // TIER 1: FRONTIER - Build the Foundation
-            // ══════════════════════════════════════════════════════════════════════
             } else if (isFrontier) {
         
-                // Article I: Build 1-Month Needs Buffer
                 const bufferGap = Math.round(oneMonthBuffer - emergencySavings);
                 if (emergencySavings < oneMonthBuffer) {
                     const savingsPlan = surplus > 0 ? calculateEmergencyFundPlan(oneMonthBuffer, emergencySavings, surplus) : null;
@@ -11683,7 +11183,6 @@ function updatePremiumTeaser() {
                     };
                 }
         
-                // Article II: Clear Debt >7%
                 const debts = getDebtsByPriority();
                 const highInterestDebts = debts.filter(d => d.rate > 7);
                 
@@ -11729,8 +11228,6 @@ function updatePremiumTeaser() {
                     };
                 }
         
-                // Article III: Fix Budget + Mortgage Strategy
-                // TODO: Need budget red flag detection logic
                 step3 = {
                     number: "III",
                     title: "Fortify the Homestead — Budget & Mortgage",
@@ -11738,12 +11235,8 @@ function updatePremiumTeaser() {
                     deadline: "90 DAYS"
                 };
         
-            // ══════════════════════════════════════════════════════════════════════
-            // TIER 2: SETTLEMENT - Stability & Growth
-            // ══════════════════════════════════════════════════════════════════════
             } else if (isSettlement) {
         
-                // Article I: 6-Month Fund or Handle Mortgage
                 if (mortgageRate > 5 && mortgageDebt > 0) {
                     step1 = {
                         number: "I",
@@ -11769,7 +11262,6 @@ function updatePremiumTeaser() {
                     };
                 }
         
-                // Article II: Reach 15% Investing
                 const investTarget = Math.round(income * 0.15);
                 const investGap = Math.max(0, investTarget - totalInvesting);
                 if (investRate < 15) {
@@ -11790,7 +11282,6 @@ function updatePremiumTeaser() {
                     };
                 }
         
-                // Article III: Tax Optimization
                 step3 = {
                     number: "III",
                     title: "Optimize the System — Tax Advantage",
@@ -11798,12 +11289,8 @@ function updatePremiumTeaser() {
                     deadline: "THIS YEAR"
                 };
         
-            // ══════════════════════════════════════════════════════════════════════
-            // TIER 3: PROSPERITY - Accelerate Wealth
-            // ══════════════════════════════════════════════════════════════════════
             } else if (isProsperity) {
         
-                // Article I: Push to 20% Investing
                 const investTarget20 = Math.round(income * 0.20);
                 const investGap20 = Math.max(0, investTarget20 - totalInvesting);
                 if (investRate < 20) {
@@ -11822,7 +11309,6 @@ function updatePremiumTeaser() {
                     };
                 }
         
-                // Article II: Multiple Income Streams
                 step2 = {
                     number: "II",
                     title: "Multiple Streams — Diversify Income",
@@ -11830,7 +11316,6 @@ function updatePremiumTeaser() {
                     deadline: "12 MONTHS"
                 };
         
-                // Article III: Equity Layer
                 const netWorthPct = totalNetWorth > 0 ? 0.15 : 0;  // Calculate % in equity
                 step3 = {
                     number: "III",
@@ -11839,12 +11324,8 @@ function updatePremiumTeaser() {
                     deadline: "18-24 MONTHS"
                 };
         
-            // ══════════════════════════════════════════════════════════════════════
-            // TIER 4: LEGACY - Sovereign Wealth
-            // ══════════════════════════════════════════════════════════════════════
             } else {
         
-                // Article I: Asset Quality
                 const cashDrag = Math.round(emergencySavings * 0.08);
                 const excessCash = Math.max(0, emergencySavings - sixMonthBuffer);
                 step1 = {
@@ -11854,7 +11335,6 @@ function updatePremiumTeaser() {
                     deadline: "ONGOING"
                 };
         
-                // Article II: Balance Sheet Optimization
                 const productiveAssetPct = 0;  // TODO: Calculate % in productive vs non-productive
                 step2 = {
                     number: "II",
@@ -11863,7 +11343,6 @@ function updatePremiumTeaser() {
                     deadline: "ANNUAL REVIEW"
                 };
         
-                // Article III: Asymmetric Positioning
                 const annualSurplus = surplus * 12;
                 const fivePct = Math.round(annualSurplus * 0.05);
                 const tenPct = Math.round(annualSurplus * 0.10);
@@ -11875,7 +11354,6 @@ function updatePremiumTeaser() {
                 };
             }
         
-            // ── Render all 3 articles ──────────────────────────────────────────────
             content.innerHTML = [step1, step2, step3].map((article, idx) => `
                 <div style="
                     padding-bottom: ${idx < 2 ? '1rem' : '0'};
@@ -11927,7 +11405,6 @@ function updatePremiumTeaser() {
                 </div>
             `).join('');
         
-            // Update declaration date
             const dateEl = document.getElementById('declaration-date');
             if (dateEl) {
                 dateEl.textContent = new Date().toLocaleDateString('en-US', {
@@ -11941,7 +11418,6 @@ function updatePremiumTeaser() {
             const menu = document.getElementById('data-management-menu');
             menu.classList.toggle('show');
             
-            // Close menu when clicking outside
             const closeMenu = (e) => {
                 if (!menu.contains(e.target) && !e.target.closest('.data-management-dropdown button')) {
                     menu.classList.remove('show');
@@ -11952,8 +11428,6 @@ function updatePremiumTeaser() {
             setTimeout(() => document.addEventListener('click', closeMenu), 10);
         }
 
-        // ===== DATA PERSISTENCE =====
-        
         function saveToLocalStorage() {
             const data = {
                 version: 'raf_lab_v13_sovereign_score', // UPDATED VERSION
@@ -12027,7 +11501,6 @@ function updatePremiumTeaser() {
                 if (data.freq) document.getElementById('freq').value = data.freq;
                 if (data.age) document.getElementById('age-input').value = data.age;
                 
-                // Load pre-tax investments
                 if (data.pretax) {
                     if (data.pretax.pretax401k) document.getElementById('pretax-401k').value = data.pretax.pretax401k;
                     if (data.pretax.pretaxHSA) document.getElementById('pretax-hsa').value = data.pretax.pretaxHSA;
@@ -12064,18 +11537,15 @@ function updatePremiumTeaser() {
                         addDebtRowWithData(debt, index);
                     });
                     
-                    // Show the table and hide the entry flow if we have saved debts
                     document.getElementById('debt-entry-flow').style.display = 'none';
                     document.getElementById('debt-table-container').classList.remove('hidden');
                 } else {
-                    // No saved debts - ensure entry flow is visible
                     document.getElementById('debt-entry-flow').style.display = 'block';
                     document.getElementById('debt-table-container').classList.add('hidden');
                     document.getElementById('debt-free-celebration').classList.add('hidden');
                     document.getElementById('debt-form-simple').classList.add('hidden');
                     document.getElementById('quick-add-presets').classList.add('hidden');
                 }
-                // Don't add blank row if no debts - S-TIER entry flow handles this
                 
                 initializeBudgetCategories();
                 
@@ -12162,7 +11632,6 @@ function updatePremiumTeaser() {
                 const warModeLabel = document.querySelector('.war-mode-label');
                 if (warModeLabel) warModeLabel.classList.remove('active');
                 
-                // Show entry flow and hide everything else
                 document.getElementById('debt-entry-flow').style.display = 'block';
                 document.getElementById('debt-table-container').classList.add('hidden');
                 document.getElementById('debt-free-celebration').classList.add('hidden');
@@ -12317,30 +11786,24 @@ function updatePremiumTeaser() {
                 });
         }
 
-        // ===== UI UTILITY FUNCTIONS =====
-        
         function scrollToSection(sectionId) {
-            // Handle both short names ('income', 'debt', 'budget') and full IDs ('income-section', etc.)
             const sections = {
                 'income': 'income-section',
                 'debt': 'debt-section',
                 'budget': 'budget-section'
             };
             
-            // If it's a short name, convert to full ID; otherwise use as-is
             const fullSectionId = sections[sectionId] || sectionId;
             const element = document.getElementById(fullSectionId);
             
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 
-                // Add a highlight effect
                 element.style.boxShadow = '0 0 0 3px rgba(178, 34, 52, 0.5)';
                 setTimeout(() => {
                     element.style.boxShadow = '';
                 }, 2000);
                 
-                // Focus on first input in the section after scroll
                 setTimeout(() => {
                     const firstInput = element.querySelector('input:not([disabled]):not([readonly])');
                     if (firstInput) {
@@ -12389,11 +11852,9 @@ function updatePremiumTeaser() {
             }, 3000);
         }
 
-        // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, initializing enhanced financial dashboard with RAF Sovereign Score™...');
             
-            // Initialize chart
             const canvas = document.getElementById('budgetChart');
             console.log('Canvas element found:', !!canvas);
             if (canvas) {
@@ -12441,16 +11902,12 @@ function updatePremiumTeaser() {
                 console.error('Canvas element not found!');
             }
             
-            // Initialize feature lists
             initializeFeatureLists();
             
-            // Initialize budget categories
             initializeBudgetCategories();
             
-            // FORCE: Ensure debt entry flow shows on initial load
             const debtBody = document.getElementById('debt-body');
             if (!debtBody || debtBody.children.length === 0) {
-                // No debt rows exist - show entry flow
                 document.getElementById('debt-entry-flow').style.display = 'block';
                 document.getElementById('debt-table-container').classList.add('hidden');
                 document.getElementById('debt-free-celebration').classList.add('hidden');
@@ -12458,10 +11915,6 @@ function updatePremiumTeaser() {
                 document.getElementById('quick-add-presets').classList.add('hidden');
             }
             
-            // Don't add initial debt row - S-TIER entry flow handles it
-            // addDebtRow(); // Commented out for S-TIER debt entry flow
-            
-            // Load saved data
             setTimeout(() => {
                 loadFromLocalStorage();
                 updateTickerData(); // Initialize ticker
@@ -12476,7 +11929,6 @@ function updatePremiumTeaser() {
             console.log('Enhanced financial dashboard v13 with RAF Sovereign Score™ initialization complete');
         });
 
-        // Close modal when clicking outside
         document.addEventListener('click', function(e) {
             const modal = document.getElementById('pricing-modal');
             if (e.target === modal) {
@@ -12484,7 +11936,6 @@ function updatePremiumTeaser() {
             }
         });
 
-        // ===== GLOBAL SCOPE ASSIGNMENTS =====
         window.addDebtRow = addDebtRow;
         window.removeDebtRow = removeDebtRow;
         window.formatCurrencyInput = formatCurrencyInput;
@@ -12519,12 +11970,11 @@ function updatePremiumTeaser() {
         window.calculateNextActionEnhanced = calculateNextActionEnhanced;
         window.updateNextActionEnhanced = updateNextActionEnhanced;
 
-        // NEW: Add new functions to global scope
         window.nextTip = nextTip;
         window.updateGoalProgress = updateGoalProgress;
         window.setNewGoal = setNewGoal;
     </script>
-<!-- DECLARATION FULLSCREEN MODAL -->
+
 <div id="declaration-fullscreen-modal">
     <div class="declaration-scroll-container">
         <div class="declaration-fullscreen-content">
@@ -12537,7 +11987,7 @@ function updatePremiumTeaser() {
             <div class="absolute inset-8 rounded-lg pointer-events-none" style="border:1px solid rgba(139,105,20,0.2);"></div>
             
             <div class="relative z-10">
-                <!-- Header -->
+                
                 <div style="text-align:center; margin-bottom:2.5rem;">
                     <div style="font-size:3rem; color:rgba(139,105,20,0.55); margin-bottom:0.75rem;">❦</div>
                     <h2 style="font-family:'Brush Script MT','Lucida Handwriting',cursive; font-size:3.5rem; color:#2c1810; line-height:1.2; text-shadow:2px 3px 4px rgba(0,0,0,0.15); margin-bottom:1.25rem;">Declaration of Financial Independence</h2>
@@ -12549,10 +11999,8 @@ function updatePremiumTeaser() {
                     <p style="font-family:'Georgia',serif; font-size:1.5rem; font-style:italic; color:#5d4037;">Three Sovereign Moves. 90 Days.</p>
                 </div>
                 
-                <!-- Articles -->
                 <div id="bill-of-rights-content-fullscreen" style="font-size: 1.25rem; line-height: 1.7;"></div>
                 
-                <!-- Signature -->
                 <div style="margin-top:2.5rem; padding-top:1.75rem; border-top:2px solid rgba(139,105,20,0.3); text-align:right;">
                     <p style="font-family:'Georgia',serif; font-size:1.125rem; font-style:italic; color:#5d4037; margin-bottom:0.75rem;">Signed this day,</p>
                     <p id="declaration-date-fullscreen" style="font-family:'Georgia',serif; font-size:1.25rem; font-weight:600; color:#3e2723; margin-bottom:1.25rem;"></p>
