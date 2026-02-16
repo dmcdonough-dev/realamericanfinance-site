@@ -3551,6 +3551,24 @@
             background: linear-gradient(160deg, #d1fae5 0%, #a7f3d0 40%, #6ee7b7 100%);
         }
         
+        /* Phase 0: URGENT styling */
+        .phase-card[data-phase="0"] {
+            border-color: #dc2626;
+            border-width: 3px;
+            background: linear-gradient(160deg, #fee2e2 0%, #fecaca 40%, #fca5a5 100%);
+            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2), 0 4px 16px rgba(0,0,0,0.3);
+        }
+        
+        .phase-card[data-phase="0"] .phase-header h3 {
+            color: #dc2626;
+        }
+        
+        .phase-card[data-phase="0"] .phase-status {
+            background: #dc2626;
+            color: white;
+            border-color: #991b1b;
+        }
+        
         .phase-header {
             display: flex;
             justify-content: space-between;
@@ -3797,6 +3815,50 @@
             font-style: italic;
         }
         
+        /* Banner Container & Transitions */
+        .banner-container {
+            min-height: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+        
+        .banner-container:empty {
+            min-height: 0;
+            width: 0;
+        }
+        
+        #next-action-banner {
+            animation: bannerSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: top;
+            white-space: nowrap;
+        }
+        
+        @keyframes bannerSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(20px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+        
+        .banner-moving {
+            animation: bannerSlideOut 0.4s cubic-bezier(0.4, 0, 1, 1);
+        }
+        
+        @keyframes bannerSlideOut {
+            0% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(15px) scale(0.98);
+            }
+        }
+        
         /* Print Styles */
         @media print {
             body { background: white !important; }
@@ -3804,12 +3866,38 @@
             .phase-card { page-break-inside: avoid; }
             .signature-input { border-bottom: 1px solid #000; }
             nav, header, footer, .sidebar { display: none !important; }
+            #next-action-banner { display: none !important; }
         }
 
     </style>
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson flex flex-col min-h-screen">
     
+    <!-- NEXT OBJECTIVE BANNER - Will be dynamically moved to section headers -->
+    <div id="next-action-banner" class="hidden" style="
+        background: linear-gradient(135deg, rgba(220, 38, 38, 0.12), rgba(220, 38, 38, 0.06));
+        border: 1px solid rgba(220, 38, 38, 0.3);
+        border-radius: 8px;
+        padding: 8px 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        max-width: 400px;
+    ">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-bullseye text-crimson text-xs"></i>
+            <div style="line-height: 1.3;">
+                <div class="text-[9px] uppercase tracking-wider font-bold text-gray-500">Next Step</div>
+                <div id="next-action-text" class="text-xs font-semibold text-white">Enter income</div>
+            </div>
+        </div>
+        <button id="next-action-btn" class="upgrade-btn px-2.5 py-1 text-[10px] flex items-center gap-1" style="min-height: 0;">
+            <span id="next-action-btn-text">Go</span>
+            <i class="fas fa-arrow-right text-[8px]"></i>
+        </button>
+    </div>
+    <!-- Hidden reason text for tooltip/reference -->
+    <div id="next-action-reason" class="hidden">This establishes your baseline for all calculations</div>
     
     <!-- HEADER -->
     <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
@@ -4082,6 +4170,8 @@
                             <p style="font-size: 0.9375rem; color: rgba(248, 250, 252, 0.6); margin-left: 4.5rem;">Establish your financial baseline</p>
                         </div>
                         <div class="flex items-center gap-3">
+                            <!-- BANNER CONTAINER -->
+                            <div id="banner-container-income" class="banner-container"></div>
                             <span class="tier-badge tier-free">Free</span>
                         </div>
                     </div>
@@ -4112,9 +4202,86 @@
                         </div>
                     </div>
                     
+                    <!-- PRE-TAX DEDUCTIONS -->
+                    <div class="mt-6 p-4 bg-blue-900/10 rounded-lg border border-blue-500/20">
+                        <div class="flex items-center gap-2 mb-3">
+                            <i class="fas fa-shield-alt text-blue-400"></i>
+                            <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400">Pre-Tax Wealth Building</h4>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-4">Track investments that come out BEFORE your paycheck hits your account</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-xs uppercase text-gray-400 mb-2">401(k) / 403(b)</label>
+                                <div class="currency-input-container">
+                                    <input type="text" 
+                                           id="pretax-401k" 
+                                           oninput="formatCurrencyInput(this); debouncedCalculateAll();" 
+                                           placeholder="0"
+                                           class="input-underlined p-2 text-sm font-bold w-full"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase text-gray-400 mb-2">HSA</label>
+                                <div class="currency-input-container">
+                                    <input type="text" 
+                                           id="pretax-hsa" 
+                                           oninput="formatCurrencyInput(this); debouncedCalculateAll();" 
+                                           placeholder="0"
+                                           class="input-underlined p-2 text-sm font-bold w-full"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase text-gray-400 mb-2">Other Pre-Tax</label>
+                                <div class="currency-input-container">
+                                    <input type="text" 
+                                           id="pretax-other" 
+                                           oninput="formatCurrencyInput(this); debouncedCalculateAll();" 
+                                           placeholder="0"
+                                           class="input-underlined p-2 text-sm font-bold w-full"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3 p-3 bg-white/5 rounded">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-400">Total Pre-Tax Investing:</span>
+                                <span id="pretax-total" class="text-sm font-bold text-blue-400">$0</span>
+                            </div>
+                            <div class="flex justify-between items-center mt-1">
+                                <span class="text-xs text-gray-400">Your Savings Rate:</span>
+                                <span id="savings-rate" class="text-sm font-bold text-green-400">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="mt-4 p-3 bg-navy-900/30 rounded border border-white/5">
-                        <div class="text-xs uppercase text-gray-400 mb-1" id="income-summary">Monthly income: $0</div>
-                        <div class="text-[10px] text-gray-600">Enter your paycheck to begin</div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-xs uppercase text-gray-400 mb-1" id="income-summary">Monthly income: $0</div>
+                                <div class="text-[10px] text-gray-600" id="income-status">Enter your paycheck to begin</div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <!-- LOCK INCOME BUTTON - INLINE -->
+                                <button id="income-lock-container" onclick="confirmIncome()" class="upgrade-btn px-3 py-1.5 text-xs whitespace-nowrap">
+                                    <i class="fas fa-lock mr-1 text-[10px]"></i>
+                                    <span>Lock Income</span>
+                                </button>
+                                
+                                <!-- LOCKED STATUS - INLINE -->
+                                <div id="income-locked-banner" class="hidden flex items-center gap-2 text-xs">
+                                    <i class="fas fa-check-circle text-green-400"></i>
+                                    <span class="text-gray-400">Locked</span>
+                                </div>
+                                
+                                <button id="edit-income-btn" onclick="editIncome()" class="hidden text-xs text-crimson hover:text-crimson/80 transition">
+                                    <i class="fas fa-edit mr-1"></i>Edit
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -4129,6 +4296,8 @@
                             <p style="font-size: 0.9375rem; color: rgba(248, 250, 252, 0.6); margin-left: 4.5rem;">Neutralize and eliminate liabilities</p>
                         </div>
                         <div class="flex items-center gap-3">
+                            <!-- BANNER CONTAINER -->
+                            <div id="banner-container-debt" class="banner-container"></div>
                             <span class="tier-badge tier-free">Free</span>
                         </div>
                     </div>
@@ -4369,9 +4538,28 @@
                         
                         <!-- DEBT SUMMARY - MOVED UP FOR PROMINENCE -->
                         <div class="mt-6 p-5 bg-gradient-to-br from-red-900/30 to-red-950/20 rounded-lg border-2 border-red-500/30">
-                            <h4 class="text-sm font-bold uppercase tracking-wider mb-4 text-red-400">
-                                <i class="fas fa-calculator mr-2"></i>Debt Summary
-                            </h4>
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="text-sm font-bold uppercase tracking-wider text-red-400">
+                                    <i class="fas fa-calculator mr-2"></i>Debt Summary
+                                </h4>
+                                <div class="flex items-center gap-2">
+                                    <!-- LOCK DEBT BUTTON - INLINE -->
+                                    <button id="debt-lock-container" onclick="confirmDebt()" class="upgrade-btn px-3 py-1.5 text-xs whitespace-nowrap">
+                                        <i class="fas fa-lock mr-1 text-[10px]"></i>
+                                        <span>Lock Debt</span>
+                                    </button>
+                                    
+                                    <!-- LOCKED STATUS - INLINE -->
+                                    <div id="debt-locked-banner" class="hidden flex items-center gap-2 text-xs">
+                                        <i class="fas fa-check-circle text-green-400"></i>
+                                        <span class="text-gray-400">Locked</span>
+                                    </div>
+                                    
+                                    <button id="edit-debt-btn" onclick="editDebt()" class="hidden text-xs text-crimson hover:text-crimson/80 transition">
+                                        <i class="fas fa-edit mr-1"></i>Edit
+                                    </button>
+                                </div>
+                            </div>
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                                 <div>
                                     <div class="text-xs text-gray-400 mb-1">Total Balance</div>
@@ -4475,6 +4663,8 @@
                             <p style="font-size: 0.9375rem; color: rgba(248, 250, 252, 0.6); margin-left: 4.5rem;">Track and optimize your spending</p>
                         </div>
                         <div class="flex items-center gap-3">
+                            <!-- BANNER CONTAINER -->
+                            <div id="banner-container-budget" class="banner-container"></div>
                             <span class="tier-badge tier-free">Free</span>
                         </div>
                     </div>
@@ -4554,24 +4744,6 @@
         <!-- ══ RIGHT SIDEBAR ══ -->
         <div class="layout-right">
             <div class="space-y-5">
-
-<!-- NEXT OBJECTIVE BANNER - Always visible in sidebar -->
-                <div id="next-action-banner" class="dashboard-card p-3 hidden">
-                    <div class="flex items-start gap-2 mb-2">
-                        <div class="w-8 h-8 rounded-full bg-crimson/20 flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-bullseye text-crimson text-sm"></i>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="text-[0.6rem] uppercase tracking-wider font-bold text-gray-500 mb-0.5">Next Objective</div>
-                            <div id="next-action-text" class="text-sm font-bold leading-tight mb-1">Enter your monthly income to begin</div>
-                            <div id="next-action-reason" class="text-xs text-gray-400 leading-tight">This establishes your baseline for all calculations</div>
-                        </div>
-                    </div>
-                    <button id="next-action-btn" class="upgrade-btn w-full px-3 py-2 text-xs">
-                        <span id="next-action-btn-text">Start Here</span>
-                        <i class="fas fa-arrow-right ml-1 text-xs"></i>
-                    </button>
-                </div>
 
 <!-- PIE CHART -->
                 <div class="dashboard-card p-4">
@@ -5977,6 +6149,88 @@ function getYearsToPayoffClass(years) {
             }, 50);
         }
         
+        function confirmIncome() {
+            console.log('confirmIncome called');
+            const paycheckVal = parseCurrency(document.getElementById('paycheck')?.value || 0);
+            
+            console.log('Paycheck value:', paycheckVal);
+            
+            if (paycheckVal <= 0) {
+                showToast('Please enter a valid income amount first');
+                return;
+            }
+            
+            // Mark income as confirmed
+            localStorage.setItem('raf_income_confirmed', 'true');
+            console.log('Income confirmed in localStorage');
+            
+            // Update UI elements
+            const incomeStatus = document.getElementById('income-status');
+            const editBtn = document.getElementById('edit-income-btn');
+            if (incomeStatus) incomeStatus.textContent = '✓ Income confirmed and locked';
+            if (editBtn) editBtn.classList.remove('hidden');
+            
+            // Update banner and UI
+            updateNextActionBanner();
+            
+            // Show success message
+            showToast('✓ Income confirmed! Now let\'s look at debt.');
+            
+            // Smooth scroll to debt section after a moment
+            setTimeout(() => {
+                scrollToSection('debt-section');
+            }, 600);
+        }
+        
+        function editIncome() {
+            // Unlock income for editing
+            localStorage.removeItem('raf_income_confirmed');
+            
+            // Update UI
+            const incomeStatus = document.getElementById('income-status');
+            const editBtn = document.getElementById('edit-income-btn');
+            if (incomeStatus) incomeStatus.textContent = 'Edit your income and lock when ready';
+            if (editBtn) editBtn.classList.add('hidden');
+            
+            // Update banner
+            updateNextActionBanner();
+            
+            // Focus on paycheck input
+            const paycheckInput = document.getElementById('paycheck');
+            if (paycheckInput) {
+                paycheckInput.focus();
+                paycheckInput.select();
+            }
+            
+            showToast('Income unlocked for editing');
+        }
+        
+        function confirmDebt() {
+            // Mark debt as confirmed
+            localStorage.setItem('raf_debt_confirmed', 'true');
+            
+            // Update banner and UI
+            updateNextActionBanner();
+            
+            // Show success message
+            showToast('✓ Debt confirmed! Now let\'s set up your budget.');
+            
+            // Smooth scroll to budget section after a moment
+            setTimeout(() => {
+                scrollToSection('budget-section');
+            }, 600);
+        }
+        
+        function editDebt() {
+            // Unlock debt for editing
+            localStorage.removeItem('raf_debt_confirmed');
+            
+            // Update banner
+            updateNextActionBanner();
+            
+            showToast('Debt unlocked for editing');
+        }
+        
         function skipDebtEntry() {
             // Hide the initial choice
             document.getElementById('debt-entry-flow').style.display = 'none';
@@ -5999,6 +6253,7 @@ function getYearsToPayoffClass(years) {
         function continueWithoutDebt() {
             // Save debt-free status
             localStorage.setItem('raf_has_no_debt', 'true');
+            localStorage.setItem('raf_debt_confirmed', 'true'); // Mark as confirmed
             
             // Hide celebration
             document.getElementById('debt-free-celebration').classList.add('hidden');
@@ -6007,6 +6262,10 @@ function getYearsToPayoffClass(years) {
             // Update next action banner
             updateNextActionBanner();
             
+            // Scroll to budget section
+            setTimeout(() => {
+                scrollToSection('budget-section');
+            }, 600);
             // Scroll to next section
             const budgetSection = document.getElementById('budget-section');
             if (budgetSection) {
@@ -7384,18 +7643,28 @@ function getYearsToPayoffClass(years) {
         
         // ===== NEXT ACTION BANNER LOGIC =====
         function updateNextActionBanner() {
-            const banner = document.getElementById('next-action-banner');
-            const textEl = document.getElementById('next-action-text');
-            const reasonEl = document.getElementById('next-action-reason');
-            const btnEl = document.getElementById('next-action-btn');
-            const btnTextEl = document.getElementById('next-action-btn-text');
-            const timelineContainer = document.getElementById('action-timeline-container');
-            
-            if (!banner || !textEl || !reasonEl || !btnEl || !btnTextEl) return;
+            console.log('🔔 updateNextActionBanner called');
+            try {
+                const banner = document.getElementById('next-action-banner');
+                const textEl = document.getElementById('next-action-text');
+                const reasonEl = document.getElementById('next-action-reason');
+                const btnEl = document.getElementById('next-action-btn');
+                const btnTextEl = document.getElementById('next-action-btn-text');
+                const timelineContainer = document.getElementById('action-timeline-container');
+                
+                if (!banner || !textEl || !reasonEl || !btnEl || !btnTextEl) {
+                    console.log('❌ Banner elements not found');
+                    return;
+                }
             
             // Check if paycheck field has any value
             const paycheckInput = document.getElementById('paycheck');
             const hasIncome = paycheckInput && paycheckInput.value && parseCurrency(paycheckInput.value) > 0;
+            
+            console.log('💰 Income check:', {hasIncome, value: paycheckInput?.value});
+            
+            // Check if income has been confirmed
+            const incomeConfirmed = localStorage.getItem('raf_income_confirmed') === 'true';
             
             // Check if user selected "No debt"
             const hasNoDebt = localStorage.getItem('raf_has_no_debt') === 'true';
@@ -7405,6 +7674,72 @@ function getYearsToPayoffClass(years) {
             
             const totalDebt = getTotalDebtBalance();
             const debtRows = document.querySelectorAll('#debt-body tr').length;
+            
+            // Show/hide income lock button and manage status
+            const incomeLockContainer = document.getElementById('income-lock-container');
+            const incomeLockedBanner = document.getElementById('income-locked-banner');
+            const incomeStatus = document.getElementById('income-status');
+            const editIncomeBtn = document.getElementById('edit-income-btn');
+            
+            console.log('🔒 Lock button elements:', {
+                incomeLockContainer: !!incomeLockContainer,
+                incomeLockedBanner: !!incomeLockedBanner,
+                hasIncome,
+                incomeConfirmed
+            });
+            
+            if (incomeLockContainer && incomeLockedBanner) {
+                if (hasIncome && !incomeConfirmed) {
+                    // Show lock button
+                    console.log('✅ Showing lock button - removing hidden class');
+                    incomeLockContainer.classList.remove('hidden');
+                    incomeLockedBanner.classList.add('hidden');
+                    if (incomeStatus) incomeStatus.textContent = 'Review and lock when ready';
+                    if (editIncomeBtn) editIncomeBtn.classList.add('hidden');
+                } else if (incomeConfirmed) {
+                    // Show locked banner
+                    console.log('🔐 Income confirmed - showing locked banner');
+                    incomeLockContainer.classList.add('hidden');
+                    incomeLockedBanner.classList.remove('hidden');
+                    if (incomeStatus) incomeStatus.textContent = '✓ Income confirmed and locked';
+                    if (editIncomeBtn) editIncomeBtn.classList.remove('hidden');
+                } else {
+                    // Hide both
+                    console.log('👻 No income - hiding lock button');
+                    incomeLockContainer.classList.add('hidden');
+                    incomeLockedBanner.classList.add('hidden');
+                    if (incomeStatus) incomeStatus.textContent = 'Enter your paycheck to begin';
+                    if (editIncomeBtn) editIncomeBtn.classList.add('hidden');
+                }
+            } else {
+                console.log('❌ Income lock container elements not found!');
+            }
+            
+            // Show/hide debt lock button
+            const debtLockContainer = document.getElementById('debt-lock-container');
+            const debtLockedBanner = document.getElementById('debt-locked-banner');
+            const editDebtBtn = document.getElementById('edit-debt-btn');
+            const debtConfirmed = localStorage.getItem('raf_debt_confirmed') === 'true';
+            
+            if (debtLockContainer && debtLockedBanner) {
+                // Show lock button only if they have debt rows OR selected no debt
+                if ((debtRows > 0 || hasNoDebt) && !debtConfirmed) {
+                    console.log('🔓 Showing debt lock button');
+                    debtLockContainer.classList.remove('hidden');
+                    debtLockedBanner.classList.add('hidden');
+                    if (editDebtBtn) editDebtBtn.classList.add('hidden');
+                } else if (debtConfirmed) {
+                    console.log('🔐 Debt confirmed - showing locked status');
+                    debtLockContainer.classList.add('hidden');
+                    debtLockedBanner.classList.remove('hidden');
+                    if (editDebtBtn) editDebtBtn.classList.remove('hidden');
+                } else {
+                    console.log('👻 No debt - hiding lock button');
+                    debtLockContainer.classList.add('hidden');
+                    debtLockedBanner.classList.add('hidden');
+                    if (editDebtBtn) editDebtBtn.classList.add('hidden');
+                }
+            }
             
             // Check budget categories
             let budgetFilledCount = 0;
@@ -7421,49 +7756,68 @@ function getYearsToPayoffClass(years) {
                 });
             }
             
-            // Determine next action based on progress
-            let action, reason, btnText, targetSection;
+            // Determine target container and banner content
+            let action, reason, btnText, targetSection, containerTarget;
+            // debtConfirmed already declared above
             
             if (!hasIncome) {
-                // Step 1: No income entered
-                action = "Enter your monthly income to begin";
-                reason = "This establishes your baseline for all calculations";
-                btnText = "Start Here";
+                // Step 0: Initial state - show banner to encourage starting
+                action = "Start here: Add income";
+                reason = "Your financial baseline";
+                btnText = "Begin";
                 targetSection = "income-section";
-                banner.classList.remove('hidden');
-                // Hide timeline - not ready yet
+                containerTarget = "banner-container-income";
                 if (timelineContainer) timelineContainer.classList.add('hidden');
-            } else if (debtRows === 0 && !hasNoDebt) {
-                // Step 2: Income entered, no debts AND user hasn't selected "No debt"
-                action = "Add your debt to see payoff timeline";
-                reason = "Understanding your debt is critical to neutralization strategy";
-                btnText = "Enter Debt";
+            } else if (hasIncome && !incomeConfirmed) {
+                // Step 1: Income entered but not locked - show banner prompting to lock
+                action = "Lock income to continue";
+                reason = "Confirm your baseline";
+                btnText = "Lock";
+                targetSection = "income-section";
+                containerTarget = "banner-container-income";
+                if (timelineContainer) timelineContainer.classList.add('hidden');
+            } else if (incomeConfirmed && !debtConfirmed && !hasNoDebt) {
+                // Step 2: Income locked, show banner to move to debt
+                action = "Next: Handle debt";
+                reason = "Address your liabilities";
+                btnText = "Go";
                 targetSection = "debt-section";
-                banner.classList.remove('hidden');
-                // Hide timeline - not ready yet
+                containerTarget = "banner-container-income"; // Keep in income section
                 if (timelineContainer) timelineContainer.classList.add('hidden');
-            } else if (budgetFilledCount < 3 && !isBudgetLocked) {
-                // Step 3: Income + (Debt or No Debt) entered, minimal budget AND budget not locked
-                action = "Complete your monthly budget";
-                reason = `${budgetFilledCount}/${totalBudgetCategories} categories filled — complete the picture`;
-                btnText = "Budget Setup";
+            } else if (incomeConfirmed && debtRows === 0 && !hasNoDebt && !debtConfirmed) {
+                // At debt section, waiting for answer
+                action = "Answer debt question";
+                reason = "Do you have debt?";
+                btnText = "Go";
+                targetSection = "debt-section";
+                containerTarget = "banner-container-debt";
+                if (timelineContainer) timelineContainer.classList.add('hidden');
+            } else if ((debtRows > 0 || hasNoDebt) && !debtConfirmed) {
+                // Debt entered/selected but not locked
+                action = "Lock debt to continue";
+                reason = "Confirm your debt status";
+                btnText = "Lock";
+                targetSection = "debt-section";
+                containerTarget = "banner-container-debt";
+                if (timelineContainer) timelineContainer.classList.add('hidden');
+            } else if (debtConfirmed && budgetFilledCount < 3 && !isBudgetLocked) {
+                // Step 3: Debt locked, show banner to move to budget
+                action = "Next: Complete budget";
+                reason = "Final step activation";
+                btnText = "Go";
                 targetSection = "budget-section";
-                banner.classList.remove('hidden');
-                // Hide timeline - not ready yet
+                containerTarget = "banner-container-debt"; // Keep in debt section
                 if (timelineContainer) timelineContainer.classList.add('hidden');
             } else if (isBudgetLocked || budgetFilledCount >= 3) {
-                // All core data complete - show completion message
-                action = "✓ Core Setup Complete";
-                reason = "All essential data entered. Your financial dashboard is active and tracking.";
-                btnText = "Review Score";
+                // Step 4: Budget locked, all complete
+                action = "✓ Setup Complete";
+                reason = "Dashboard fully active";
+                btnText = "Review";
                 targetSection = "action-section";
-                banner.classList.remove('hidden');
-                // Show timeline - budget is locked!
+                containerTarget = "banner-container-budget";
                 if (timelineContainer) {
                     timelineContainer.classList.remove('hidden');
-                    // Populate the declaration timeline
                     renderPathToSovereignty();
-                    // Set declaration date
                     const dateEl = document.getElementById('declaration-date');
                     if (dateEl) {
                         const now = new Date();
@@ -7472,7 +7826,7 @@ function getYearsToPayoffClass(years) {
                     }
                 }
             } else {
-                // Fallback - hide banner
+                // Hide banner
                 banner.classList.add('hidden');
                 if (timelineContainer) timelineContainer.classList.add('hidden');
                 return;
@@ -7482,11 +7836,68 @@ function getYearsToPayoffClass(years) {
             textEl.textContent = action;
             reasonEl.textContent = reason;
             btnTextEl.textContent = btnText;
-            btnEl.onclick = () => scrollToSection(targetSection);
+            
+            // Set button action - if it says "Lock", trigger the lock function
+            if (btnText === "Lock" && targetSection === "income-section") {
+                btnEl.onclick = () => confirmIncome();
+            } else if (btnText === "Lock" && targetSection === "debt-section") {
+                btnEl.onclick = () => confirmDebt();
+            } else {
+                btnEl.onclick = () => scrollToSection(targetSection);
+            }
+            
+            // Move banner to target container with smooth animation
+            const container = document.getElementById(containerTarget);
+            if (container && banner.parentElement !== container) {
+                // Add exit animation if banner is currently visible
+                if (!banner.classList.contains('hidden')) {
+                    banner.classList.add('banner-moving');
+                    setTimeout(() => {
+                        moveBannerToContainer(banner, container);
+                        banner.classList.remove('banner-moving');
+                    }, 400);
+                } else {
+                    // First time showing - no exit animation needed
+                    moveBannerToContainer(banner, container);
+                }
+            } else if (container) {
+                // Already in correct container, just ensure it's visible
+                banner.classList.remove('hidden');
+            }
+        } catch (error) {
+            console.error('Error in updateNextActionBanner:', error);
+        }
+        }
+        
+        function moveBannerToContainer(banner, container) {
+            // Clear all containers
+            ['income', 'debt', 'budget'].forEach(section => {
+                const cont = document.getElementById(`banner-container-${section}`);
+                if (cont && cont !== container) {
+                    cont.innerHTML = '';
+                }
+            });
+            
+            // Move banner to target container
+            container.appendChild(banner);
+            banner.classList.remove('hidden');
+            
+            // Trigger reflow for animation
+            void banner.offsetWidth;
         }
         
         function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
+            // Handle both short names ('income', 'debt', 'budget') and full IDs ('income-section', etc.)
+            const sections = {
+                'income': 'income-section',
+                'debt': 'debt-section',
+                'budget': 'budget-section'
+            };
+            
+            // If it's a short name, convert to full ID; otherwise use as-is
+            const fullSectionId = sections[sectionId] || sectionId;
+            const section = document.getElementById(fullSectionId);
+            
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 
@@ -7836,6 +8247,16 @@ function getYearsToPayoffClass(years) {
             autoPopulateHousingFromMortgage();
             autoPopulateDebtMinimums();
             
+            // Calculate pre-tax investments
+            const pretax401k = parseCurrency(document.getElementById('pretax-401k')?.value || 0);
+            const pretaxHSA = parseCurrency(document.getElementById('pretax-hsa')?.value || 0);
+            const pretaxOther = parseCurrency(document.getElementById('pretax-other')?.value || 0);
+            const totalPreTax = pretax401k + pretaxHSA + pretaxOther;
+            
+            // Update pre-tax display
+            const pretaxTotalEl = document.getElementById('pretax-total');
+            if (pretaxTotalEl) pretaxTotalEl.textContent = `$${totalPreTax.toLocaleString()}`;
+            
             const income = getMonthlyIncome();
             const needsTotal = calculateMonthlyEssentials();
             
@@ -7848,7 +8269,26 @@ function getYearsToPayoffClass(years) {
             const savingsTotal = getTotalMonthlySavings();
             const totalExpenses = needsTotal + wantsTotal + savingsTotal + debtPayments;
             const surplus = income - totalExpenses;
-            const savingsRate = income > 0 ? (savingsTotal / income) * 100 : 0;
+            
+            // Calculate total savings rate (pre-tax + post-tax savings)
+            const totalSavingsAndInvestments = savingsTotal + totalPreTax;
+            const grossIncome = income + totalPreTax; // Approximate gross income
+            const savingsRate = grossIncome > 0 ? (totalSavingsAndInvestments / grossIncome) * 100 : 0;
+            
+            // Update savings rate display
+            const savingsRateEl = document.getElementById('savings-rate');
+            if (savingsRateEl) {
+                savingsRateEl.textContent = `${savingsRate.toFixed(1)}%`;
+                savingsRateEl.className = 'text-sm font-bold';
+                if (savingsRate >= 20) {
+                    savingsRateEl.classList.add('text-green-400');
+                } else if (savingsRate >= 10) {
+                    savingsRateEl.classList.add('text-yellow-400');
+                } else {
+                    savingsRateEl.classList.add('text-red-400');
+                }
+            }
+            
             const budgetUsage = income > 0 ? (totalExpenses / income) * 100 : 0;
             
             // Calculate Good Debt vs Bad Debt
@@ -7896,88 +8336,92 @@ function getYearsToPayoffClass(years) {
 			
 			
             // Update 50/30/20 budget rule percentages (if elements exist)
-            if (income > 0) {
-                const needsPercentage = (needsTotal / income) * 100;
-                const wantsPercentage = (wantsTotal / income) * 100;
-                const savingsPercentage = (savingsTotal / income) * 100;
-                
-                // Update 50/30/20 rule display (only if elements exist)
-                const needsRuleFill = document.getElementById('needs-rule-fill');
-                const wantsRuleFill = document.getElementById('wants-rule-fill');
-                const savingsRuleFill = document.getElementById('savings-rule-fill');
-                
-                if (needsRuleFill) needsRuleFill.style.width = `${Math.min(needsPercentage, 100)}%`;
-                if (wantsRuleFill) wantsRuleFill.style.width = `${Math.min(wantsPercentage, 100)}%`;
-                if (savingsRuleFill) savingsRuleFill.style.width = `${Math.min(savingsPercentage, 100)}%`;
-                
-                const needsRulePercentage = document.getElementById('needs-rule-percentage');
-                const wantsRulePercentage = document.getElementById('wants-rule-percentage');
-                const savingsRulePercentage = document.getElementById('savings-rule-percentage');
-                
-                if (needsRulePercentage) needsRulePercentage.textContent = `${needsPercentage.toFixed(1)}%`;
-                if (wantsRulePercentage) wantsRulePercentage.textContent = `${wantsPercentage.toFixed(1)}%`;
-                if (savingsRulePercentage) savingsRulePercentage.textContent = `${savingsPercentage.toFixed(1)}%`;
-                
-                // Update label colors based on targets
-                const needsLabel = document.getElementById('needs-rule-label');
-                const wantsLabel = document.getElementById('wants-rule-label');
-                const savingsLabel = document.getElementById('savings-rule-label');
-                
-                if (needsLabel) {
-                    needsLabel.classList.toggle('active', needsPercentage <= 50);
-                    needsLabel.classList.toggle('needs', true);
-                }
-                
-                if (wantsLabel) {
-                    wantsLabel.classList.toggle('active', wantsPercentage <= 30);
-                    wantsLabel.classList.toggle('wants', true);
-                }
-                
-                if (savingsLabel) {
-                    savingsLabel.classList.toggle('active', savingsPercentage >= 20);
-                    savingsLabel.classList.toggle('savings', true);
-                }
-                
-                // Update percentage colors (only if elements exist)
-                const needsPercent = document.getElementById('needs-rule-percentage');
-                const wantsPercent = document.getElementById('wants-rule-percentage');
-                const savingsPercent = document.getElementById('savings-rule-percentage');
-                
-                if (needsPercent) {
-                    needsPercent.className = 'budget-rule-percentage';
+            try {
+                if (income > 0) {
+                    const needsPercentage = (needsTotal / income) * 100;
+                    const wantsPercentage = (wantsTotal / income) * 100;
+                    const savingsPercentage = (savingsTotal / income) * 100;
                     
-                    if (needsPercentage > 55) {
-                        needsPercent.classList.add('emergency');
-                    } else if (needsPercentage > 50) {
-                        needsPercent.classList.add('warning');
-                    } else {
-                        needsPercent.classList.add('good');
+                    // Update 50/30/20 rule display (only if elements exist)
+                    const needsRuleFill = document.getElementById('needs-rule-fill');
+                    const wantsRuleFill = document.getElementById('wants-rule-fill');
+                    const savingsRuleFill = document.getElementById('savings-rule-fill');
+                    
+                    if (needsRuleFill) needsRuleFill.style.width = `${Math.min(needsPercentage, 100)}%`;
+                    if (wantsRuleFill) wantsRuleFill.style.width = `${Math.min(wantsPercentage, 100)}%`;
+                    if (savingsRuleFill) savingsRuleFill.style.width = `${Math.min(savingsPercentage, 100)}%`;
+                    
+                    const needsRulePercentage = document.getElementById('needs-rule-percentage');
+                    const wantsRulePercentage = document.getElementById('wants-rule-percentage');
+                    const savingsRulePercentage = document.getElementById('savings-rule-percentage');
+                    
+                    if (needsRulePercentage) needsRulePercentage.textContent = `${needsPercentage.toFixed(1)}%`;
+                    if (wantsRulePercentage) wantsRulePercentage.textContent = `${wantsPercentage.toFixed(1)}%`;
+                    if (savingsRulePercentage) savingsRulePercentage.textContent = `${savingsPercentage.toFixed(1)}%`;
+                    
+                    // Update label colors based on targets
+                    const needsLabel = document.getElementById('needs-rule-label');
+                    const wantsLabel = document.getElementById('wants-rule-label');
+                    const savingsLabel = document.getElementById('savings-rule-label');
+                    
+                    if (needsLabel) {
+                        needsLabel.classList.toggle('active', needsPercentage <= 50);
+                        needsLabel.classList.toggle('needs', true);
+                    }
+                    
+                    if (wantsLabel) {
+                        wantsLabel.classList.toggle('active', wantsPercentage <= 30);
+                        wantsLabel.classList.toggle('wants', true);
+                    }
+                    
+                    if (savingsLabel) {
+                        savingsLabel.classList.toggle('active', savingsPercentage >= 20);
+                        savingsLabel.classList.toggle('savings', true);
+                    }
+                    
+                    // Update percentage colors (only if elements exist)
+                    const needsPercent = document.getElementById('needs-rule-percentage');
+                    const wantsPercent = document.getElementById('wants-rule-percentage');
+                    const savingsPercent = document.getElementById('savings-rule-percentage');
+                    
+                    if (needsPercent) {
+                        needsPercent.className = 'budget-rule-percentage';
+                        
+                        if (needsPercentage > 55) {
+                            needsPercent.classList.add('emergency');
+                        } else if (needsPercentage > 50) {
+                            needsPercent.classList.add('warning');
+                        } else {
+                            needsPercent.classList.add('good');
+                        }
+                    }
+                    
+                    if (wantsPercent) {
+                        wantsPercent.className = 'budget-rule-percentage';
+                        
+                        if (wantsPercentage > 35) {
+                            wantsPercent.classList.add('emergency');
+                        } else if (wantsPercentage > 30) {
+                            wantsPercent.classList.add('warning');
+                        } else {
+                            wantsPercent.classList.add('good');
+                        }
+                    }
+                    
+                    if (savingsPercent) {
+                        savingsPercent.className = 'budget-rule-percentage';
+                        
+                        if (savingsPercentage < 15) {
+                            savingsPercent.classList.add('emergency');
+                        } else if (savingsPercentage < 20) {
+                            savingsPercent.classList.add('warning');
+                        } else {
+                            savingsPercent.classList.add('good');
+                        }
                     }
                 }
-                
-                if (wantsPercent) {
-                    wantsPercent.className = 'budget-rule-percentage';
-                    
-                    if (wantsPercentage > 35) {
-                        wantsPercent.classList.add('emergency');
-                    } else if (wantsPercentage > 30) {
-                        wantsPercent.classList.add('warning');
-                    } else {
-                        wantsPercent.classList.add('good');
-                    }
-                }
-                
-                if (savingsPercent) {
-                    savingsPercent.className = 'budget-rule-percentage';
-                    
-                    if (savingsPercentage < 15) {
-                        savingsPercent.classList.add('emergency');
-                    } else if (savingsPercentage < 20) {
-                        savingsPercent.classList.add('warning');
-                    } else {
-                        savingsPercent.classList.add('good');
-                    }
-                }
+            } catch (error) {
+                console.log('50/30/20 rule elements not found, skipping:', error);
             }
             
             // Update displays (with null checks)
@@ -10177,15 +10621,98 @@ function updatePremiumTeaser() {
 
         // ===== PHASE GENERATION FUNCTIONS =====
         
-        function generatePhase1(currentBalance, target, monthlySavings, months, isComplete) {
+        function generatePhase0(surplus, overBudgetCategories, highestRate, hasCollections) {
+            // Phase 0: STOP THE BLEEDING - only if critical issues exist
+            const needsPhase0 = surplus < 0 || overBudgetCategories.length > 0 || highestRate > 25 || hasCollections;
+            
+            if (!needsPhase0) return null;
+            
+            // Determine primary issue
+            let mission, why, plan, steps;
+            
+            if (surplus < 0) {
+                // BLEEDING MONEY - Overspending
+                const deficit = Math.abs(surplus);
+                const top3 = overBudgetCategories.slice(0, 3);
+                const totalSavings = top3.reduce((sum, cat) => sum + cat.overage, 0);
+                
+                mission = `Cut $${Math.round(deficit).toLocaleString()} in overspending to achieve $0 surplus`;
+                why = `You're spending $${Math.round(deficit).toLocaleString()} MORE than you earn each month. This is the path to collections and bankruptcy. Nothing else matters until this is fixed.`;
+                
+                plan = [
+                    ...top3.map(cat => `Cut ${cat.name}: $${Math.round(cat.current).toLocaleString()} → $${Math.round(cat.target).toLocaleString()} (save $${Math.round(cat.overage).toLocaleString()})`),
+                    `TOTAL SAVINGS: $${Math.round(totalSavings).toLocaleString()} → ${totalSavings >= deficit ? `Turns deficit into $${Math.round(totalSavings - deficit).toLocaleString()} surplus` : `Reduces deficit to $${Math.round(deficit - totalSavings).toLocaleString()}`}`
+                ];
+                
+                steps = [
+                    {text: `TODAY: Identify and cancel unnecessary subscriptions`, complete: false},
+                    {text: `THIS WEEK: ${top3[0]?.name} - Cut to $${Math.round(top3[0]?.target).toLocaleString()}/month`, complete: false},
+                    {text: `THIS WEEK: ${top3[1]?.name} - Cut to $${Math.round(top3[1]?.target).toLocaleString()}/month`, complete: false},
+                    {text: `WEEK 2: Verify surplus achieved → Phase 1 Unlocks`, complete: false}
+                ];
+            } else if (highestRate > 25 || hasCollections) {
+                // PREDATORY DEBT - Crisis interest rates
+                mission = `Handle ${hasCollections ? 'collections' : 'predatory debt at ' + highestRate.toFixed(1) + '% APR'}`;
+                why = `${hasCollections ? 'Debt in collections destroys credit and invites lawsuits' : 'Debt above 25% APR is mathematical destruction'}. This is a financial emergency that must be contained immediately.`;
+                
+                plan = [
+                    hasCollections ? 'Contact each collector and verify debt is yours' : 'Seek 0% balance transfer or debt consolidation',
+                    hasCollections ? 'Negotiate payment plan you can afford' : 'Target rate under 10% APR',
+                    'Get everything in writing before paying',
+                    'Do NOT ignore - it only gets worse'
+                ];
+                
+                steps = [
+                    {text: `THIS WEEK: ${hasCollections ? 'Contact all collectors' : 'Research balance transfer cards'}`, complete: false},
+                    {text: `WEEK 2: ${hasCollections ? 'Negotiate payment plans' : 'Apply for consolidation'}`, complete: false},
+                    {text: `WEEK 3: Get written agreements`, complete: false},
+                    {text: `WEEK 4: Crisis contained → Phase 1 Unlocks`, complete: false}
+                ];
+            } else {
+                // BUDGET WARNINGS - Over threshold but positive surplus
+                const top3 = overBudgetCategories.slice(0, 3);
+                const totalOverage = top3.reduce((sum, cat) => sum + cat.overage, 0);
+                
+                mission = `Reduce ${top3.length} overspending categories by $${Math.round(totalOverage).toLocaleString()}/month`;
+                why = `You have surplus, but you're overspending in key categories. This reduces your financial flexibility and slows progress. Optimize now to accelerate Phase 1.`;
+                
+                plan = [
+                    ...top3.map(cat => `Optimize ${cat.name}: $${Math.round(cat.current).toLocaleString()} → $${Math.round(cat.target).toLocaleString()} (save $${Math.round(cat.overage).toLocaleString()})`),
+                    `FREED CAPITAL: $${Math.round(totalOverage).toLocaleString()}/month → Accelerates emergency fund`
+                ];
+                
+                steps = [
+                    {text: `THIS WEEK: ${top3[0]?.name} - Reduce to target`, complete: false},
+                    {text: `THIS WEEK: ${top3[1]?.name} - Reduce to target`, complete: false},
+                    {text: `WEEK 2: Verify reductions → Phase 1 Unlocks`, complete: false}
+                ];
+            }
+            
+            return {
+                number: 0,
+                title: "STOP THE BLEEDING",
+                status: 'active',
+                timeline: surplus < 0 ? "THIS WEEK" : "WEEKS 1-2",
+                mission: mission,
+                why: why,
+                plan: plan,
+                progress: 0,
+                progressText: "Not started - Urgent action required",
+                steps: steps,
+                victory: surplus < 0 ? "Monthly surplus ≥ $0" : "All categories within healthy thresholds"
+            };
+        }
+        
+        function generatePhase1(currentBalance, target, monthlySavings, months, isComplete, isLocked) {
             const progress = target > 0 ? Math.min((currentBalance / target) * 100, 100) : 0;
             const weeklyAmount = monthlySavings / 4;
             
             return {
                 number: 1,
                 title: "GROUND YOUR POSITION",
-                status: isComplete ? 'complete' : 'active',
+                status: isLocked ? 'locked' : (isComplete ? 'complete' : 'active'),
                 timeline: `Months 1-${Math.max(1, months)}`,
+                unlockCondition: isLocked ? "Stop the bleeding first (Phase 0)" : null,
                 mission: `Build $${Math.round(target).toLocaleString()} emergency buffer (1 month of needs)`,
                 why: "Without this buffer, one car repair sends you back to debt. This is your defensive position. Everything builds from here.",
                 plan: [
@@ -10290,7 +10817,7 @@ function updatePremiumTeaser() {
                               phase.status === 'active' ? 'ACTIVE' : 'LOCKED';
             
             return `
-                <div class="phase-card phase-${phase.status}">
+                <div class="phase-card phase-${phase.status}" data-phase="${number}">
                     <div class="phase-header">
                         <div>
                             <h3>PHASE ${number}: ${phase.title}</h3>
@@ -10299,6 +10826,7 @@ function updatePremiumTeaser() {
                             </div>
                             ${phase.unlockCondition ? `<div class="unlock-condition">Unlocks when: ${phase.unlockCondition}</div>` : ''}
                         </div>
+                        ${phase.status !== 'locked' ? `<div class="phase-status">${statusIcon} ${statusText}</div>` : ''}
                     </div>
                     
                     <div class="phase-content ${phase.status === 'locked' ? 'phase-locked-content' : ''}">
@@ -10319,15 +10847,17 @@ function updatePremiumTeaser() {
                             </ul>
                         </div>
                         
-                        <div class="phase-section">
-                            <h4>YOUR PROGRESS</h4>
-                            <div class="phase-progress-bar">
-                                <div class="phase-progress-fill" style="width: ${phase.progress}%"></div>
+                        ${phase.status !== 'locked' ? `
+                            <div class="phase-section">
+                                <h4>YOUR PROGRESS</h4>
+                                <div class="phase-progress-bar">
+                                    <div class="phase-progress-fill" style="width: ${phase.progress}%"></div>
+                                </div>
+                                <div class="phase-progress-text">${phase.progressText}</div>
                             </div>
-                            <div class="phase-progress-text">${phase.progressText}</div>
-                        </div>
+                        ` : ''}
                         
-                        ${phase.steps && phase.steps.length > 0 ? `
+                        ${phase.steps && phase.steps.length > 0 && phase.status !== 'locked' ? `
                             <div class="phase-section">
                                 <h4>TACTICAL STEPS</h4>
                                 <ul class="tactical-steps">
@@ -10362,6 +10892,11 @@ function updatePremiumTeaser() {
             
             // Collect data
             const income = getMonthlyIncome();
+            const pretax401k = parseCurrency(document.getElementById('pretax-401k')?.value || 0);
+            const pretaxHSA = parseCurrency(document.getElementById('pretax-hsa')?.value || 0);
+            const pretaxOther = parseCurrency(document.getElementById('pretax-other')?.value || 0);
+            const totalPreTax = pretax401k + pretaxHSA + pretaxOther;
+            
             const emergencyBalance = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
             let monthlyNeeds = 0;
             
@@ -10372,82 +10907,243 @@ function updatePremiumTeaser() {
             }
             
             const oneMonthBuffer = monthlyNeeds || income * 0.5;
+            const threeMonthBuffer = oneMonthBuffer * 3;
             const surplus = calculateSurplus();
             const debts = getDebtsByPriority();
-            const highInterestDebt = debts.filter(d => d.rate > 7)[0];
+            const totalDebt = getTotalDebtBalance();
+            const debtPayments = getTotalDebtPayments();
+            const highInterestDebt = debts.filter(d => d.rate > 7).length;
+            
             const retirementMonthly = parseCurrency(document.getElementById('retirement_monthly')?.value || 0);
             const investMonthly = parseCurrency(document.getElementById('investments_monthly')?.value || 0);
-            const currentInvesting = retirementMonthly + investMonthly;
-            const investRate = income > 0 ? (currentInvesting / income) * 100 : 0;
+            const totalInvesting = retirementMonthly + investMonthly + totalPreTax;
+            const grossIncome = income + totalPreTax;
+            const savingsRate = grossIncome > 0 ? (totalInvesting / grossIncome) * 100 : 0;
             
-            // Phase unlock logic
-            const phase1Complete = emergencyBalance >= oneMonthBuffer;
-            const phase2Complete = phase1Complete && (!highInterestDebt || highInterestDebt.balance === 0);
-            const phase3Complete = phase2Complete && investRate >= 15;
+            // ====== 3 SOVEREIGN PHASES ======
             
-            // Calculate timelines
-            const phase1Months = surplus > 0 ? Math.ceil(Math.max(0, oneMonthBuffer - emergencyBalance) / surplus) : 3;
-            const phase2Months = highInterestDebt && surplus > 0 ? 
-                Math.ceil(calculateMonthsToPayoff(highInterestDebt.balance, highInterestDebt.payment + (surplus * 0.7), highInterestDebt.rate)) : 0;
-            const phase3Months = 12;
+            // PHASE 1: FOUNDATION & CONTROL (0-30 days)
+            const phase1Checks = {
+                budget: localStorage.getItem('raf_budget_locked') === 'true',
+                cashFlow: surplus >= 0,
+                oneMonth: emergencyBalance >= oneMonthBuffer,
+                moneyLeaks: surplus > income * 0.05 // At least 5% surplus = leaks plugged
+            };
+            const phase1Complete = Object.values(phase1Checks).every(v => v);
+            const phase1Progress = (Object.values(phase1Checks).filter(v => v).length / 4) * 100;
             
-            // Generate phases
-            const phases = [
-                generatePhase1(emergencyBalance, oneMonthBuffer, surplus, phase1Months, phase1Complete),
-                generatePhase2(highInterestDebt, surplus * 0.7, phase2Months, phase1Complete, phase2Complete, phase1Months),
-                generatePhase3(income, currentInvesting, phase2Complete, phase3Complete, phase1Months + phase2Months)
-            ];
+            // PHASE 2: DEBT NEUTRALIZATION & PROTECTION (30-60 days)
+            const phase2Checks = {
+                threeMonth: emergencyBalance >= threeMonthBuffer,
+                debtStrategy: totalDebt === 0 || debtPayments > 0, // Either no debt or actively paying
+                noHighInterest: highInterestDebt === 0,
+                taxOptimized: totalPreTax > 0 || income < 50000 // Either contributing or low income
+            };
+            const phase2Complete = phase1Complete && Object.values(phase2Checks).every(v => v);
+            const phase2Progress = (Object.values(phase2Checks).filter(v => v).length / 4) * 100;
             
-            // Render
-            const html = renderDeclarationHTML(phases, oneMonthBuffer, highInterestDebt, income, phase1Months, phase2Months, phase3Months);
+            // PHASE 3: WEALTH BUILDING & SOVEREIGNTY (60-90 days)
+            const phase3Checks = {
+                retirement: totalPreTax >= income * 0.10, // At least 10% to retirement
+                savingsRate: savingsRate >= 15, // 15%+ total savings rate
+                investing: totalInvesting >= income * 0.15, // 15%+ total investing
+                netWorthTracking: true // Always true if they made it here
+            };
+            const phase3Complete = phase2Complete && Object.values(phase3Checks).every(v => v);
+            const phase3Progress = (Object.values(phase3Checks).filter(v => v).length / 4) * 100;
+            
+            // Build HTML
+            const html = `
+                <div class="declaration-container" style="font-family: Georgia, serif; color: #2c1810;">
+                    
+                    <!-- HEADER -->
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <div style="font-size: 1.8rem; font-weight: 700; letter-spacing: 0.05em; color: #8b6914;">
+                            DECLARATION OF FINANCIAL INDEPENDENCE
+                        </div>
+                        <div style="font-size: 0.9rem; font-style: italic; color: #5d4037; margin-top: 0.5rem;">
+                            Three Sovereign Phases • 90 Days to Freedom
+                        </div>
+                        <div style="height: 2px; width: 100px; background: #8b6914; margin: 1rem auto;"></div>
+                    </div>
+                    
+                    <!-- PHASE 1: FOUNDATION & CONTROL -->
+                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: ${phase1Complete ? 'rgba(16, 185, 129, 0.1)' : 'rgba(139, 105, 20, 0.05)'}; border-left: 4px solid ${phase1Complete ? '#10b981' : '#8b6914'}; border-radius: 4px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                            <div>
+                                <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b6914; font-weight: 600;">PHASE ONE • DAYS 0-30</div>
+                                <div style="font-size: 1.1rem; font-weight: 700; color: #2c1810; margin-top: 0.25rem;">FOUNDATION & CONTROL</div>
+                            </div>
+                            <div style="font-size: 1.5rem;">
+                                ${phase1Complete ? '✓' : '🎯'}
+                            </div>
+                        </div>
+                        <div style="font-size: 0.85rem; font-style: italic; color: #5d4037; margin-bottom: 1rem;">
+                            "Ground your position. Establish baseline control. Stop the chaos."
+                        </div>
+                        <div style="font-size: 0.8rem; line-height: 1.6;">
+                            <div style="margin-bottom: 0.5rem;">
+                                ${phase1Checks.budget ? '✅' : '⬜'} <strong>Zero-Based Budget Locked</strong> — Every dollar has orders
+                            </div>
+                            <div style="margin-bottom: 0.5rem;">
+                                ${phase1Checks.cashFlow ? '✅' : '⬜'} <strong>Positive Cash Flow</strong> — Making more than you spend (${surplus >= 0 ? `+$${surplus.toFixed(0)}` : `$${surplus.toFixed(0)}`})
+                            </div>
+                            <div style="margin-bottom: 0.5rem;">
+                                ${phase1Checks.oneMonth ? '✅' : '⬜'} <strong>1-Month Buffer Established</strong> — $${emergencyBalance.toFixed(0)} / $${oneMonthBuffer.toFixed(0)}
+                            </div>
+                            <div style="margin-bottom: 0.5rem;">
+                                ${phase1Checks.moneyLeaks ? '✅' : '⬜'} <strong>Money Leaks Identified</strong> — Wasteful spending eliminated
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem; height: 8px; background: rgba(139, 105, 20, 0.2); border-radius: 4px; overflow: hidden;">
+                            <div style="height: 100%; width: ${phase1Progress}%; background: linear-gradient(90deg, #8b6914, #d4af37); transition: width 0.3s;"></div>
+                        </div>
+                        <div style="font-size: 0.7rem; color: #5d4037; text-align: right; margin-top: 0.25rem;">
+                            ${phase1Progress.toFixed(0)}% Complete
+                        </div>
+                    </div>
+                    
+                    <!-- PHASE 2: DEBT NEUTRALIZATION & PROTECTION -->
+                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: ${phase2Complete ? 'rgba(16, 185, 129, 0.1)' : phase1Complete ? 'rgba(139, 105, 20, 0.05)' : 'rgba(107, 114, 128, 0.05)'}; border-left: 4px solid ${phase2Complete ? '#10b981' : phase1Complete ? '#ef4444' : '#6b7280'}; border-radius: 4px; opacity: ${phase1Complete ? 1 : 0.5};">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                            <div>
+                                <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b6914; font-weight: 600;">PHASE TWO • DAYS 30-60</div>
+                                <div style="font-size: 1.1rem; font-weight: 700; color: #2c1810; margin-top: 0.25rem;">DEBT NEUTRALIZATION & PROTECTION</div>
+                            </div>
+                            <div style="font-size: 1.5rem;">
+                                ${phase2Complete ? '✓' : phase1Complete ? '🎯' : '🔒'}
+                            </div>
+                        </div>
+                        <div style="font-size: 0.85rem; font-style: italic; color: #5d4037; margin-bottom: 1rem;">
+                            "Break your chains. Build your fortress. Eliminate vulnerability."
+                        </div>
+                        <div style="font-size: 0.8rem; line-height: 1.6;">
+                            <div style="margin-bottom: 0.5rem;">
+                                ${phase2Checks.threeMonth ? '✅' : '⬜'} <strong>3-6 Month Emergency Fund</strong> — $${emergencyBalance.toFixed(0)} / $${threeMonthBuffer.toFixed(0)}
+                            </div>
+                            <div style="margin-bottom: 0.5rem;">
+                                ${phase2Checks.debtStrategy ? '✅' : '⬜'} <strong>Debt Elimination Active</strong> — Strategy in motion ($${totalDebt.toFixed(0)} total)
+                            </div>
+                            <div style="margin-bottom: 0.5rem;">
+                                ${phase2Checks.noHighInterest ? '✅' : '⬜'} <strong>No High-Interest Debt</strong> — All debt under 7% APR (${highInterestDebt} remaining)
+                            </div>
+                            <div style="margin-bottom: 0.5rem;">
+                                ${phase2Checks.taxOptimized ? '✅' : '⬜'} <strong>Tax Strategy Active</strong> — Pre-tax contributions: $${totalPreTax.toFixed(0)}/mo
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem; height: 8px; background: rgba(139, 105, 20, 0.2); border-radius: 4px; overflow: hidden;">
+                            <div style="height: 100%; width: ${phase1Complete ? phase2Progress : 0}%; background: linear-gradient(90deg, #ef4444, #dc2626); transition: width 0.3s;"></div>
+                        </div>
+                        <div style="font-size: 0.7rem; color: #5d4037; text-align: right; margin-top: 0.25rem;">
+                            ${phase1Complete ? phase2Progress.toFixed(0) : 0}% Complete
+                        </div>
+                    </div>
+                    
+                    <!-- PHASE 3: WEALTH BUILDING & SOVEREIGNTY -->
+                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: ${phase3Complete ? 'rgba(16, 185, 129, 0.1)' : phase2Complete ? 'rgba(139, 105, 20, 0.05)' : 'rgba(107, 114, 128, 0.05)'}; border-left: 4px solid ${phase3Complete ? '#10b981' : phase2Complete ? '#3b82f6' : '#6b7280'}; border-radius: 4px; opacity: ${phase2Complete ? 1 : 0.5};">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                            <div>
+                                <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b6914; font-weight: 600;">PHASE THREE • DAYS 60-90</div>
+                                <div style="font-size: 1.1rem; font-weight: 700; color: #2c1810; margin-top: 0.25rem;">WEALTH BUILDING & SOVEREIGNTY</div>
+                            </div>
+                            <div style="font-size: 1.5rem;">
+                                ${phase3Complete ? '✓' : phase2Complete ? '🎯' : '🔒'}
+                            </div>
+                        </div>
+                        <div style="font-size: 0.85rem; font-style: italic; color: #5d4037; margin-bottom: 1rem;">
+                            "Build your arsenal. Compound your freedom. Achieve sovereignty."
+                        </div>
+                        <div style="font-size: 0.8rem; line-height: 1.6;">
+                            <div style="margin-bottom: 0.5rem;">
+                                ${phase3Checks.retirement ? '✅' : '⬜'} <strong>Retirement Maximized</strong> — ${(totalPreTax/grossIncome*100).toFixed(1)}% to 401(k)/HSA (target: 10%+)
+                            </div>
+                            <div style="margin-bottom: 0.5rem;">
+                                ${phase3Checks.savingsRate ? '✅' : '⬜'} <strong>15%+ Savings Rate</strong> — Current: ${savingsRate.toFixed(1)}% (includes all investing)
+                            </div>
+                            <div style="margin-bottom: 0.5rem;">
+                                ${phase3Checks.investing ? '✅' : '⬜'} <strong>Automated Wealth Building</strong> — $${totalInvesting.toFixed(0)}/mo invested
+                            </div>
+                            <div style="margin-bottom: 0.5rem;">
+                                ${phase3Checks.netWorthTracking ? '✅' : '⬜'} <strong>Net Worth Tracking Active</strong> — Quarterly reviews locked in
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem; height: 8px; background: rgba(139, 105, 20, 0.2); border-radius: 4px; overflow: hidden;">
+                            <div style="height: 100%; width: ${phase2Complete ? phase3Progress : 0}%; background: linear-gradient(90deg, #3b82f6, #2563eb); transition: width 0.3s;"></div>
+                        </div>
+                        <div style="font-size: 0.7rem; color: #5d4037; text-align: right; margin-top: 0.25rem;">
+                            ${phase2Complete ? phase3Progress.toFixed(0) : 0}% Complete
+                        </div>
+                    </div>
+                    
+                    <!-- DECLARATION SIGNATURE -->
+                    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #8b6914;">
+                        <div style="font-size: 0.9rem; font-weight: 600; text-align: center; margin-bottom: 1rem; color: #2c1810;">
+                            YOUR DECLARATION
+                        </div>
+                        <div style="font-size: 0.85rem; line-height: 1.8; text-align: center; color: #2c1810;">
+                            I, <input type="text" id="declaration-name" placeholder="Your Name" style="border: none; border-bottom: 1px solid #8b6914; background: transparent; text-align: center; font-family: 'Brush Script MT', cursive; font-size: 1rem; color: #1a237e; min-width: 200px;">, 
+                            declare my independence from financial chaos.
+                        </div>
+                        <div style="font-size: 0.8rem; font-style: italic; text-align: center; margin-top: 1rem; color: #5d4037;">
+                            I commit to this 90-day path to sovereignty.<br>
+                            I will not be defeated by one bad month.<br>
+                            I will not pay interest to enrich others.<br>
+                            I will not retire broke.
+                        </div>
+                        <div style="font-size: 0.75rem; text-align: right; margin-top: 1.5rem; color: #5d4037;">
+                            <div>Signed this day,</div>
+                            <div style="font-weight: 600; color: #3e2723; margin-top: 0.25rem;">
+                                ${new Date().toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-top: 1rem;">
+                            <button onclick="printDeclaration()" style="padding: 0.5rem 1.5rem; background: linear-gradient(135deg, #8b6914, #d4af37); color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">
+                                <i class="fas fa-print"></i> Print Declaration
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            `;
             
             content.innerHTML = html;
             if (fullscreenContent) fullscreenContent.innerHTML = html;
-            
-            // Update signature display when name is typed
-            const nameInput = document.getElementById('declaration-name');
-            if (nameInput) {
-                nameInput.addEventListener('input', function() {
-                    const displays = document.querySelectorAll('.signature-display');
-                    displays.forEach(display => {
-                        display.textContent = this.value || '_________________________';
-                    });
-                });
-            }
         }
         
-        function renderDeclarationHTML(phases, buffer, debt, income, p1Months, p2Months, p3Months) {
+        function renderDeclarationHTML(phases, buffer, debt, income, p1Months, p2Months, p3Months, phase0) {
             const totalMonths = p1Months + p2Months + p3Months;
             const investTarget = income * 0.15;
+            const hasPhase0 = phase0 !== null;
+            
+            // Adjust timeline labels based on Phase 0
+            const timelinePoints = hasPhase0 ? [
+                { label: 'TODAY', active: !phase0 || phases[0].status !== 'complete' },
+                { label: 'WEEK 2', active: phase0 && phases[0].status === 'complete' && phases[1].status !== 'complete' },
+                { label: `MO ${p1Months}`, active: phases[1].status === 'complete' && phases[2].status !== 'complete' },
+                { label: 'FREEDOM', active: phases[phases.length-1].status === 'complete' }
+            ] : [
+                { label: 'TODAY', active: phases[0].status !== 'complete' },
+                { label: `MO ${p1Months}`, active: phases[0].status === 'complete' && phases[1].status !== 'complete' },
+                { label: `MO ${p1Months + p2Months}`, active: phases[1].status === 'complete' && phases[2].status !== 'complete' },
+                { label: 'FREEDOM', active: phases[2].status === 'complete' }
+            ];
             
             return `
                 <div class="declaration-container">
                     <div class="sovereignty-timeline">
                         <div class="timeline-label">Your Path to Sovereignty</div>
                         <div class="timeline-bar">
-                            <div class="timeline-point ${phases[0].status === 'complete' ? 'complete' : 'active'}">
-                                <div class="point-marker"></div>
-                                <div class="point-label">TODAY</div>
-                            </div>
-                            <div class="timeline-segment ${phases[0].status === 'complete' ? 'complete' : ''}"></div>
-                            <div class="timeline-point ${phases[0].status === 'complete' ? (phases[1].status === 'complete' ? 'complete' : 'active') : 'locked'}">
-                                <div class="point-marker"></div>
-                                <div class="point-label">MO ${p1Months}</div>
-                            </div>
-                            <div class="timeline-segment ${phases[1].status === 'complete' ? 'complete' : ''}"></div>
-                            <div class="timeline-point ${phases[1].status === 'complete' ? (phases[2].status === 'complete' ? 'complete' : 'active') : 'locked'}">
-                                <div class="point-marker"></div>
-                                <div class="point-label">MO ${p1Months + p2Months}</div>
-                            </div>
-                            <div class="timeline-segment ${phases[2].status === 'complete' ? 'complete' : ''}"></div>
-                            <div class="timeline-point ${phases[2].status === 'complete' ? 'complete' : 'locked'}">
-                                <div class="point-marker"></div>
-                                <div class="point-label">FREEDOM</div>
-                            </div>
+                            ${timelinePoints.map((point, i) => `
+                                <div class="timeline-point ${point.active ? 'active' : (i === 0 ? 'complete' : 'locked')}">
+                                    <div class="point-marker"></div>
+                                    <div class="point-label">${point.label}</div>
+                                </div>
+                                ${i < timelinePoints.length - 1 ? '<div class="timeline-segment"></div>' : ''}
+                            `).join('')}
                         </div>
                     </div>
                     
-                    ${phases.map((phase, i) => renderPhase(phase, i + 1)).join('')}
+                    ${phases.map((phase, i) => renderPhase(phase, hasPhase0 ? i : i + 1)).join('')}
                     
                     <div class="declaration-signature">
                         <div class="signature-divider"></div>
@@ -10457,11 +11153,12 @@ function updatePremiumTeaser() {
                             declare independence from financial chaos.
                         </p>
                         <p class="declaration-commitment">
-                            I commit to this ${totalMonths}-month path to sovereignty.
+                            I commit to this ${hasPhase0 ? totalMonths + 1 : totalMonths}-month path to sovereignty.
                         </p>
                         <div class="declaration-promises">
                             <p><strong>I will:</strong></p>
                             <ul>
+                                ${hasPhase0 ? '<li>Stop the bleeding and achieve positive surplus</li>' : ''}
                                 <li>Ground my position with a $${Math.round(buffer).toLocaleString()} buffer</li>
                                 ${debt ? `<li>Break my chains by eliminating $${Math.round(debt.balance).toLocaleString()} in toxic debt</li>` : ''}
                                 <li>Build my arsenal by investing $${Math.round(investTarget).toLocaleString()} monthly</li>
@@ -10968,6 +11665,11 @@ function updatePremiumTeaser() {
                 paycheck: document.getElementById('paycheck').value,
                 freq: document.getElementById('freq').value,
                 age: document.getElementById('age-input').value,
+                pretax: {
+                    pretax401k: document.getElementById('pretax-401k')?.value || '',
+                    pretaxHSA: document.getElementById('pretax-hsa')?.value || '',
+                    pretaxOther: document.getElementById('pretax-other')?.value || ''
+                },
                 debts: [],
                 budget: {
                     needs: {},
@@ -11027,6 +11729,13 @@ function updatePremiumTeaser() {
                 if (data.paycheck) document.getElementById('paycheck').value = data.paycheck;
                 if (data.freq) document.getElementById('freq').value = data.freq;
                 if (data.age) document.getElementById('age-input').value = data.age;
+                
+                // Load pre-tax investments
+                if (data.pretax) {
+                    if (data.pretax.pretax401k) document.getElementById('pretax-401k').value = data.pretax.pretax401k;
+                    if (data.pretax.pretaxHSA) document.getElementById('pretax-hsa').value = data.pretax.pretaxHSA;
+                    if (data.pretax.pretaxOther) document.getElementById('pretax-other').value = data.pretax.pretaxOther;
+                }
                 
                 if (data.budget) {
                     categoryValues = {};
@@ -11314,14 +12023,34 @@ function updatePremiumTeaser() {
         // ===== UI UTILITY FUNCTIONS =====
         
         function scrollToSection(sectionId) {
+            // Handle both short names ('income', 'debt', 'budget') and full IDs ('income-section', etc.)
             const sections = {
                 'income': 'income-section',
                 'debt': 'debt-section',
                 'budget': 'budget-section'
             };
-            const element = document.getElementById(sections[sectionId]);
+            
+            // If it's a short name, convert to full ID; otherwise use as-is
+            const fullSectionId = sections[sectionId] || sectionId;
+            const element = document.getElementById(fullSectionId);
+            
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Add a highlight effect
+                element.style.boxShadow = '0 0 0 3px rgba(178, 34, 52, 0.5)';
+                setTimeout(() => {
+                    element.style.boxShadow = '';
+                }, 2000);
+                
+                // Focus on first input in the section after scroll
+                setTimeout(() => {
+                    const firstInput = element.querySelector('input:not([disabled]):not([readonly])');
+                    if (firstInput) {
+                        firstInput.focus();
+                        firstInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 800);
             }
         }
 
