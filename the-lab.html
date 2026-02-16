@@ -7779,9 +7779,13 @@ function getYearsToPayoffClass(years) {
          * Returns: {years, months, totalMonths}
          */
         function calculateDebtPayoffTime() {
-            let maxMonths = 0;
             const debtRows = document.querySelectorAll('#debt-body tr');
+            if (debtRows.length === 0) {
+                return { years: 0, months: 0, totalMonths: 0 };
+            }
             
+            // Collect all debts
+            const debts = [];
             debtRows.forEach(row => {
                 const balanceInput = row.querySelector('td:nth-child(2) input');
                 const paymentInput = row.querySelector('td:nth-child(3) input');
@@ -7793,31 +7797,52 @@ function getYearsToPayoffClass(years) {
                     const annualRate = parseFloat(rateInput.value) || 0;
                     
                     if (balance > 0 && payment > 0) {
-                        const monthlyRate = annualRate / 100 / 12;
-                        
-                        if (monthlyRate === 0) {
-                            const months = Math.ceil(balance / payment);
-                            maxMonths = Math.max(maxMonths, months);
-                        } else if (payment > balance * monthlyRate) {
-                            const months = Math.ceil(
-                                -Math.log(1 - (balance * monthlyRate / payment)) / Math.log(1 + monthlyRate)
-                            );
-                            maxMonths = Math.max(maxMonths, months);
-                        } else {
-                            maxMonths = 999; // Flag as essentially unpayable
-                        }
+                        debts.push({ balance, payment, rate: annualRate });
                     }
                 }
             });
             
-            if (maxMonths === 0) {
+            if (debts.length === 0) {
                 return { years: 0, months: 0, totalMonths: 0 };
             }
             
-            const years = Math.floor(maxMonths / 12);
-            const months = maxMonths % 12;
+            // Sort by interest rate (Avalanche - highest first)
+            debts.sort((a, b) => b.rate - a.rate);
             
-            return { years, months, totalMonths: maxMonths };
+            let totalMonths = 0;
+            let availablePayment = debts.reduce((sum, d) => sum + d.payment, 0);
+            
+            // Pay off debts one by one using avalanche method
+            for (let i = 0; i < debts.length; i++) {
+                const debt = debts[i];
+                const monthlyRate = debt.rate / 100 / 12;
+                
+                // Calculate months to pay off THIS debt with current available payment
+                let monthsForThisDebt = 0;
+                
+                if (monthlyRate === 0) {
+                    // No interest - simple division
+                    monthsForThisDebt = Math.ceil(debt.balance / availablePayment);
+                } else if (availablePayment > debt.balance * monthlyRate) {
+                    // Can pay it off (payment > minimum required)
+                    monthsForThisDebt = Math.ceil(
+                        -Math.log(1 - (debt.balance * monthlyRate / availablePayment)) / Math.log(1 + monthlyRate)
+                    );
+                } else {
+                    // Payment doesn't even cover interest - never pays off
+                    return { years: 99, months: 0, totalMonths: 999 };
+                }
+                
+                totalMonths += monthsForThisDebt;
+                
+                // After this debt is paid off, add its minimum to available payment for next debt
+                // (Snowball effect - but we're already doing avalanche by sorting)
+            }
+            
+            const years = Math.floor(totalMonths / 12);
+            const months = totalMonths % 12;
+            
+            return { years, months, totalMonths };
         }
 
         /**
@@ -10635,7 +10660,15 @@ function updatePremiumTeaser() {
             
             const emergencyDebts = debts.filter(d => {
                 const monthsToPayoff = d.payment > 0 ? d.balance / d.payment : 999;
-                return d.rate >= 15 || monthsToPayoff > 18 || d.balance > income * 3;
+                const paymentToIncomeRatio = income > 0 ? (d.payment / income) : 0;
+                
+                // Mortgages are NOT emergencies unless payment is >30% of income
+                if (d.type.toLowerCase().includes('mortgage')) {
+                    return paymentToIncomeRatio > 0.30;
+                }
+                
+                // For other debts: high APR OR (long payoff AND large balance)
+                return d.rate >= 15 || (monthsToPayoff > 24 && d.balance > income * 2);
             });
             
             let emergencyDebtTableHTML = '';
@@ -10658,17 +10691,24 @@ function updatePremiumTeaser() {
                             <tbody>
                                 ${emergencyDebts.map(d => {
                                     const monthsToPayoff = d.payment > 0 ? Math.ceil(d.balance / d.payment) : 999;
+                                    const paymentToIncomeRatio = income > 0 ? (d.payment / income) : 0;
                                     const reasons = [];
-                                    if (d.rate >= 15) reasons.push('High APR');
-                                    if (monthsToPayoff > 18) reasons.push('Long payoff');
-                                    if (d.balance > income * 3) reasons.push('Large balance');
+                                    
+                                    // Check why it's an emergency
+                                    if (d.type.toLowerCase().includes('mortgage')) {
+                                        if (paymentToIncomeRatio > 0.30) reasons.push('Payment >30% income');
+                                    } else {
+                                        if (d.rate >= 15) reasons.push('High APR');
+                                        if (monthsToPayoff > 24) reasons.push('Long payoff');
+                                        if (d.balance > income * 2) reasons.push('Large balance');
+                                    }
                                     
                                     return `
                                         <tr style="border-bottom: 1px solid rgba(139, 105, 20, 0.1);">
                                             <td style="padding: 0.25rem; color: #2c1810; font-weight: 600;">${d.type}</td>
                                             <td style="text-align: right; padding: 0.25rem; color: #dc2626; font-weight: 700;">$${d.balance.toFixed(0)}</td>
                                             <td style="text-align: right; padding: 0.25rem; color: ${d.rate >= 15 ? '#dc2626' : '#2c1810'};">${d.rate.toFixed(1)}%</td>
-                                            <td style="text-align: right; padding: 0.25rem; color: ${monthsToPayoff > 18 ? '#dc2626' : '#2c1810'};">${monthsToPayoff > 99 ? '99+' : monthsToPayoff}</td>
+                                            <td style="text-align: right; padding: 0.25rem; color: ${monthsToPayoff > 24 ? '#dc2626' : '#2c1810'};">${monthsToPayoff > 99 ? '99+' : monthsToPayoff}</td>
                                             <td style="padding: 0.25rem; color: #5d4037; font-size: 0.65rem;">${reasons.join(', ')}</td>
                                         </tr>
                                     `;
