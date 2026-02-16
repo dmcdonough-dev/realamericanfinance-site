@@ -239,7 +239,8 @@
 
         @media (max-width: 1023px) {
             .layout-right {
-                display: none;
+                display: flex; /* Show on mobile - will stack below */
+                order: 999; /* Move to bottom on mobile */
             }
         }
 
@@ -1895,6 +1896,15 @@
         @media (max-width: 768px) {
             .layout-right .sticky {
                 /* Mobile flows naturally */
+            }
+            
+            /* Make DoFI readable on mobile */
+            #action-timeline-container {
+                font-size: 0.85rem;
+            }
+            
+            #action-timeline-container h2 {
+                font-size: 1.1rem !important;
             }
         }
         
@@ -3919,10 +3929,21 @@
     </header>
     
     
-    <!-- MINIMALIST HERO -->
-    <section class="pt-24 pb-6 text-center">
-        <h1 class="text-4xl font-heading font-bold mb-2">THE LAB</h1>
-        <p class="text-sm text-gray-400">Financial clarity, simplified</p>
+    <!-- THE LAB HERO -->
+    <section class="pt-32 pb-16 text-center relative overflow-hidden" style="
+        min-height: 400px;
+        background: linear-gradient(rgba(5,11,20,0.75), rgba(5,11,20,0.75)), url('https://realamericanfinance.com/flag_distressed.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    ">
+        <div class="relative z-10">
+            <h1 class="text-7xl md:text-8xl font-heading font-bold mb-4 tracking-tight">
+                <span class="text-white">THE</span> 
+                <span class="text-crimson">LAB</span>
+            </h1>
+            <p class="text-lg text-gray-300 font-semibold tracking-wide">Financial clarity, simplified</p>
+        </div>
     </section>
 
     <!-- COMMAND CENTER - HIDDEN FOR MINIMALISM -->
@@ -4663,6 +4684,11 @@
                             <p style="font-size: 0.9375rem; color: rgba(248, 250, 252, 0.6); margin-left: 4.5rem;">Track and optimize your spending</p>
                         </div>
                         <div class="flex items-center gap-3">
+                            <!-- RECOMMEND BUDGET BUTTON - SMALL -->
+                            <button onclick="recommendBudget()" class="upgrade-btn px-3 py-1.5 text-xs whitespace-nowrap flex items-center gap-1">
+                                <i class="fas fa-magic text-[10px]"></i>
+                                <span>Auto-Fill</span>
+                            </button>
                             <!-- BANNER CONTAINER -->
                             <div id="banner-container-budget" class="banner-container"></div>
                             <span class="tier-badge tier-free">Free</span>
@@ -4682,6 +4708,36 @@
                             <button onclick="unlockBudget()" class="text-xs bg-white/10 hover:bg-white/20 px-4 py-2 rounded transition">
                                 <i class="fas fa-unlock mr-1"></i>Edit Budget
                             </button>
+                        </div>
+                    </div>
+                    
+                    <!-- WAR MODE BANNER - Shows when user has debt -->
+                    <div id="war-mode-banner" class="mb-6 p-4 bg-gradient-to-r from-red-900/20 to-orange-900/20 rounded-lg border-2 border-red-500/50 hidden">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-fire text-red-400 text-2xl"></i>
+                                <div>
+                                    <div class="text-lg font-bold text-red-400">⚔️ WAR MODE ACTIVE</div>
+                                    <div class="text-xs text-gray-400">Aggressive debt elimination protocol</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 mb-3">
+                            <div class="bg-black/30 p-3 rounded">
+                                <div class="text-xs text-gray-400 mb-1">Total Debt</div>
+                                <div id="war-total-debt" class="text-xl font-bold text-red-400">$0</div>
+                            </div>
+                            <div class="bg-black/30 p-3 rounded">
+                                <div class="text-xs text-gray-400 mb-1">Monthly Attack</div>
+                                <div id="war-monthly-attack" class="text-xl font-bold text-orange-400">$0</div>
+                            </div>
+                            <div class="bg-black/30 p-3 rounded">
+                                <div class="text-xs text-gray-400 mb-1">Debt Freedom Date</div>
+                                <div id="war-freedom-date" class="text-xl font-bold text-green-400">--</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-400">
+                            <strong class="text-red-400">Protocol:</strong> Wants cut to bare minimum. Retirement paused. All surplus attacking debt. No mercy.
                         </div>
                     </div>
                     
@@ -9921,6 +9977,132 @@ function updatePremiumTeaser() {
         }
 
         // ===== BUDGET LOCK/UNLOCK FUNCTIONS =====
+        function recommendBudget() {
+            const income = getMonthlyIncome();
+            
+            if (income <= 0) {
+                showToast('Please enter your income first');
+                scrollToSection('income-section');
+                return;
+            }
+            
+            // Check if user has debt
+            const totalDebt = getTotalDebtBalance();
+            const debtPayments = getTotalDebtPayments();
+            const hasDeb = totalDebt > 0;
+            
+            // NEEDS (essential - always same)
+            const recommendedNeeds = {
+                'mortgage_rent': income * 0.28,
+                'utilities': income * 0.05,
+                'phone_bill': income * 0.02,
+                'car_gas': income * 0.04,
+                'car_insurance': income * 0.03,
+                'groceries': income * 0.10,
+                'household_essentials': income * 0.02,
+                'pet_care': income * 0.01,
+                'health_insurance': income * 0.06,
+                'taxes': 0,
+                'debt_minimums': 0 // Auto-populated
+            };
+            
+            let recommendedWants = {};
+            let recommendedSavings = {};
+            let message = '';
+            
+            if (hasDeb) {
+                // WAR MODE: Cut wants to BARE MINIMUM, cut savings, attack debt
+                recommendedWants = {
+                    'gym_membership': 0,                    // CUT - No gym until debt-free
+                    'subscriptions': income * 0.01,         // MINIMAL - Keep essentials only
+                    'dining_entertainment': income * 0.05,  // BARE BONES - Rare treats only
+                    'shopping_fun_money': income * 0.02     // MINIMAL - Emergencies only
+                };
+                
+                recommendedSavings = {
+                    'emergency_fund_monthly': income * 0.05, // MINIMAL - $1k emergency fund only
+                    'retirement_monthly': 0,                 // CUT - No retirement until debt-free
+                    'investments_monthly': 0                 // CUT - No investing until debt-free
+                };
+                
+                // Calculate available surplus for debt attack
+                const needsTotal = Object.values(recommendedNeeds).reduce((a,b) => a+b, 0);
+                const wantsTotal = Object.values(recommendedWants).reduce((a,b) => a+b, 0);
+                const savingsTotal = Object.values(recommendedSavings).reduce((a,b) => a+b, 0);
+                const availableSurplus = income - needsTotal - wantsTotal - savingsTotal - debtPayments;
+                
+                // Estimate payoff time
+                const monthsToFreedom = totalDebt > 0 && availableSurplus > 0 ? 
+                    Math.ceil(totalDebt / (debtPayments + availableSurplus)) : 999;
+                
+                // Update WAR MODE banner
+                const warBanner = document.getElementById('war-mode-banner');
+                if (warBanner) {
+                    warBanner.classList.remove('hidden');
+                    document.getElementById('war-total-debt').textContent = `$${Math.round(totalDebt).toLocaleString()}`;
+                    document.getElementById('war-monthly-attack').textContent = `$${Math.round(debtPayments + availableSurplus).toLocaleString()}`;
+                    
+                    const freedomDate = new Date();
+                    freedomDate.setMonth(freedomDate.getMonth() + monthsToFreedom);
+                    document.getElementById('war-freedom-date').textContent = 
+                        monthsToFreedom < 999 ? freedomDate.toLocaleDateString('en-US', {month: 'short', year: 'numeric'}) : 'Unknown';
+                }
+                
+                message = `⚔️ WAR MODE ACTIVATED! Surplus: $${Math.round(availableSurplus)}/mo attacking debt. Freedom in ${monthsToFreedom} months!`;
+                
+            } else {
+                // PEACE MODE: Normal balanced budget
+                recommendedWants = {
+                    'gym_membership': income * 0.015,
+                    'subscriptions': income * 0.025,
+                    'dining_entertainment': income * 0.15,
+                    'shopping_fun_money': income * 0.11
+                };
+                
+                recommendedSavings = {
+                    'emergency_fund_monthly': income * 0.10,
+                    'retirement_monthly': income * 0.08,
+                    'investments_monthly': income * 0.02
+                };
+                
+                // Hide WAR MODE banner
+                const warBanner = document.getElementById('war-mode-banner');
+                if (warBanner) warBanner.classList.add('hidden');
+                
+                message = '✨ Balanced budget applied - build wealth and enjoy life!';
+            }
+            
+            // Apply recommendations
+            Object.keys(recommendedNeeds).forEach(id => {
+                const el = document.getElementById(id);
+                if (el && id !== 'debt_minimums' && id !== 'taxes') {
+                    el.value = Math.round(recommendedNeeds[id]).toLocaleString();
+                    formatCurrencyInput(el);
+                }
+            });
+            
+            Object.keys(recommendedWants).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.value = Math.round(recommendedWants[id]).toLocaleString();
+                    formatCurrencyInput(el);
+                }
+            });
+            
+            Object.keys(recommendedSavings).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.value = Math.round(recommendedSavings[id]).toLocaleString();
+                    formatCurrencyInput(el);
+                }
+            });
+            
+            // Recalculate
+            debouncedCalculateAll();
+            
+            showToast(message);
+        }
+        
         function lockBudget() {
             localStorage.setItem('raf_budget_locked', 'true');
             localStorage.setItem('raf_budget_locked_date', new Date().toISOString());
@@ -10914,6 +11096,128 @@ function updatePremiumTeaser() {
             const debtPayments = getTotalDebtPayments();
             const highInterestDebt = debts.filter(d => d.rate > 7).length;
             
+            // Identify EMERGENCY DEBTS for Phase 1
+            const emergencyDebts = debts.filter(d => {
+                const monthsToPayoff = d.payment > 0 ? d.balance / d.payment : 999;
+                return d.rate >= 15 || monthsToPayoff > 18 || d.balance > income * 3;
+            });
+            
+            // Build emergency debt table HTML
+            let emergencyDebtTableHTML = '';
+            if (emergencyDebts.length > 0) {
+                emergencyDebtTableHTML = `
+                    <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.3); border-radius: 4px;">
+                        <div style="font-size: 0.75rem; font-weight: 700; color: #dc2626; text-transform: uppercase; margin-bottom: 0.5rem;">
+                            ⚠️ EMERGENCY DEBTS REQUIRING IMMEDIATE ATTENTION
+                        </div>
+                        <table style="width: 100%; font-size: 0.7rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid rgba(139, 105, 20, 0.3);">
+                                    <th style="text-align: left; padding: 0.25rem; color: #5d4037;">Debt</th>
+                                    <th style="text-align: right; padding: 0.25rem; color: #5d4037;">Balance</th>
+                                    <th style="text-align: right; padding: 0.25rem; color: #5d4037;">APR</th>
+                                    <th style="text-align: right; padding: 0.25rem; color: #5d4037;">Months</th>
+                                    <th style="text-align: left; padding: 0.25rem; color: #5d4037;">Why Emergency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${emergencyDebts.map(d => {
+                                    const monthsToPayoff = d.payment > 0 ? Math.ceil(d.balance / d.payment) : 999;
+                                    const reasons = [];
+                                    if (d.rate >= 15) reasons.push('High APR');
+                                    if (monthsToPayoff > 18) reasons.push('Long payoff');
+                                    if (d.balance > income * 3) reasons.push('Large balance');
+                                    
+                                    return `
+                                        <tr style="border-bottom: 1px solid rgba(139, 105, 20, 0.1);">
+                                            <td style="padding: 0.25rem; color: #2c1810; font-weight: 600;">${d.type}</td>
+                                            <td style="text-align: right; padding: 0.25rem; color: #dc2626; font-weight: 700;">$${d.balance.toFixed(0)}</td>
+                                            <td style="text-align: right; padding: 0.25rem; color: ${d.rate >= 15 ? '#dc2626' : '#2c1810'};">${d.rate.toFixed(1)}%</td>
+                                            <td style="text-align: right; padding: 0.25rem; color: ${monthsToPayoff > 18 ? '#dc2626' : '#2c1810'};">${monthsToPayoff > 99 ? '99+' : monthsToPayoff}</td>
+                                            <td style="padding: 0.25rem; color: #5d4037; font-size: 0.65rem;">${reasons.join(', ')}</td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                        <div style="margin-top: 0.5rem; padding: 0.5rem; background: rgba(139, 105, 20, 0.1); border-radius: 4px; font-size: 0.7rem; color: #5d4037;">
+                            <strong>Action Required:</strong> Attack these debts aggressively in Phase 1. Pay minimums on others, throw all surplus at highest APR emergency debt.
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Identify OVER-BUDGET CATEGORIES for Phase 1
+            const budgetIssues = [];
+            
+            // Check each category against recommended thresholds
+            const categoryThresholds = {
+                'mortgage_rent': { max: income * 0.30, name: 'Housing', tips: ['Negotiate rent', 'Get a roommate'] },
+                'groceries': { max: income * 0.10, name: 'Groceries', tips: ['Meal prep', 'Buy generic brands'] },
+                'dining_out': { max: income * 0.10, name: 'Dining Out', tips: ['Cook at home', 'Pack lunch'] },
+                'transportation': { max: income * 0.05, name: 'Transportation', tips: ['Use public transit', 'Carpool'] },
+                'entertainment': { max: income * 0.06, name: 'Entertainment', tips: ['Free activities', 'Cancel unused subscriptions'] },
+                'shopping': { max: income * 0.08, name: 'Shopping', tips: ['30-day rule for purchases', 'Unsubscribe from marketing'] },
+                'subscriptions': { max: income * 0.04, name: 'Subscriptions', tips: ['Audit and cancel unused', 'Share family plans'] }
+            };
+            
+            Object.keys(categoryThresholds).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    const actual = parseCurrency(el.value || 0);
+                    const threshold = categoryThresholds[id];
+                    const percentOver = ((actual - threshold.max) / threshold.max) * 100;
+                    
+                    if (actual > threshold.max && percentOver > 20) { // Only flag if >20% over
+                        budgetIssues.push({
+                            category: threshold.name,
+                            actual: actual,
+                            recommended: threshold.max,
+                            overage: actual - threshold.max,
+                            percentOver: percentOver,
+                            tips: threshold.tips
+                        });
+                    }
+                }
+            });
+            
+            // Build over-budget table HTML
+            let overBudgetTableHTML = '';
+            if (budgetIssues.length > 0) {
+                overBudgetTableHTML = `
+                    <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(251, 146, 60, 0.1); border: 1px solid rgba(251, 146, 60, 0.3); border-radius: 4px;">
+                        <div style="font-size: 0.75rem; font-weight: 700; color: #ea580c; text-transform: uppercase; margin-bottom: 0.5rem;">
+                            💰 OVER-BUDGET CATEGORIES - CUT IMMEDIATELY
+                        </div>
+                        <table style="width: 100%; font-size: 0.7rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid rgba(139, 105, 20, 0.3);">
+                                    <th style="text-align: left; padding: 0.25rem; color: #5d4037;">Category</th>
+                                    <th style="text-align: right; padding: 0.25rem; color: #5d4037;">Spending</th>
+                                    <th style="text-align: right; padding: 0.25rem; color: #5d4037;">Target</th>
+                                    <th style="text-align: right; padding: 0.25rem; color: #5d4037;">Cut</th>
+                                    <th style="text-align: left; padding: 0.25rem; color: #5d4037;">Quick Wins</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${budgetIssues.map(issue => `
+                                    <tr style="border-bottom: 1px solid rgba(139, 105, 20, 0.1);">
+                                        <td style="padding: 0.25rem; color: #2c1810; font-weight: 600;">${issue.category}</td>
+                                        <td style="text-align: right; padding: 0.25rem; color: #ea580c; font-weight: 700;">$${issue.actual.toFixed(0)}</td>
+                                        <td style="text-align: right; padding: 0.25rem; color: #10b981;">$${issue.recommended.toFixed(0)}</td>
+                                        <td style="text-align: right; padding: 0.25rem; color: #dc2626; font-weight: 700;">-$${issue.overage.toFixed(0)}</td>
+                                        <td style="padding: 0.25rem; color: #5d4037; font-size: 0.65rem;">${issue.tips.join('; ')}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                        <div style="margin-top: 0.5rem; padding: 0.5rem; background: rgba(139, 105, 20, 0.1); border-radius: 4px; font-size: 0.7rem; color: #5d4037;">
+                            <strong>Action Required:</strong> Cut spending in these categories immediately. Total potential savings: <strong style="color: #10b981;">$${budgetIssues.reduce((sum, i) => sum + i.overage, 0).toFixed(0)}/month</strong>
+                        </div>
+                    </div>
+                `;
+            }
+            
             const retirementMonthly = parseCurrency(document.getElementById('retirement_monthly')?.value || 0);
             const investMonthly = parseCurrency(document.getElementById('investments_monthly')?.value || 0);
             const totalInvesting = retirementMonthly + investMonthly + totalPreTax;
@@ -10924,10 +11228,10 @@ function updatePremiumTeaser() {
             
             // PHASE 1: FOUNDATION & CONTROL (0-30 days)
             const phase1Checks = {
-                budget: localStorage.getItem('raf_budget_locked') === 'true',
-                cashFlow: surplus >= 0,
+                budget: localStorage.getItem('raf_budget_locked') === 'true' && Math.abs(surplus) <= 50, // Zero-based = every dollar allocated (±$50)
+                cashFlow: surplus >= 0, // Not overspending
                 oneMonth: emergencyBalance >= oneMonthBuffer,
-                moneyLeaks: surplus > income * 0.05 // At least 5% surplus = leaks plugged
+                moneyLeaks: budgetIssues.length === 0 // No categories over-budget = leaks plugged
             };
             const phase1Complete = Object.values(phase1Checks).every(v => v);
             const phase1Progress = (Object.values(phase1Checks).filter(v => v).length / 4) * 100;
@@ -10956,17 +11260,6 @@ function updatePremiumTeaser() {
             const html = `
                 <div class="declaration-container" style="font-family: Georgia, serif; color: #2c1810;">
                     
-                    <!-- HEADER -->
-                    <div style="text-align: center; margin-bottom: 1.5rem;">
-                        <div style="font-size: 1.8rem; font-weight: 700; letter-spacing: 0.05em; color: #8b6914;">
-                            DECLARATION OF FINANCIAL INDEPENDENCE
-                        </div>
-                        <div style="font-size: 0.9rem; font-style: italic; color: #5d4037; margin-top: 0.5rem;">
-                            Three Sovereign Phases • 90 Days to Freedom
-                        </div>
-                        <div style="height: 2px; width: 100px; background: #8b6914; margin: 1rem auto;"></div>
-                    </div>
-                    
                     <!-- PHASE 1: FOUNDATION & CONTROL -->
                     <div style="margin-bottom: 1.5rem; padding: 1rem; background: ${phase1Complete ? 'rgba(16, 185, 129, 0.1)' : 'rgba(139, 105, 20, 0.05)'}; border-left: 4px solid ${phase1Complete ? '#10b981' : '#8b6914'}; border-radius: 4px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
@@ -10983,18 +11276,22 @@ function updatePremiumTeaser() {
                         </div>
                         <div style="font-size: 0.8rem; line-height: 1.6;">
                             <div style="margin-bottom: 0.5rem;">
-                                ${phase1Checks.budget ? '✅' : '⬜'} <strong>Zero-Based Budget Locked</strong> — Every dollar has orders
+                                ${phase1Checks.budget ? '✅' : '⬜'} <strong>Zero-Based Budget Locked</strong> — Every dollar allocated (Surplus: $${surplus.toFixed(0)})
                             </div>
                             <div style="margin-bottom: 0.5rem;">
-                                ${phase1Checks.cashFlow ? '✅' : '⬜'} <strong>Positive Cash Flow</strong> — Making more than you spend (${surplus >= 0 ? `+$${surplus.toFixed(0)}` : `$${surplus.toFixed(0)}`})
+                                ${phase1Checks.cashFlow ? '✅' : '⬜'} <strong>Positive Cash Flow</strong> — Not overspending (${surplus >= 0 ? `+$${surplus.toFixed(0)}` : `$${surplus.toFixed(0)}`})
                             </div>
                             <div style="margin-bottom: 0.5rem;">
                                 ${phase1Checks.oneMonth ? '✅' : '⬜'} <strong>1-Month Buffer Established</strong> — $${emergencyBalance.toFixed(0)} / $${oneMonthBuffer.toFixed(0)}
                             </div>
                             <div style="margin-bottom: 0.5rem;">
-                                ${phase1Checks.moneyLeaks ? '✅' : '⬜'} <strong>Money Leaks Identified</strong> — Wasteful spending eliminated
+                                ${phase1Checks.moneyLeaks ? '✅' : '⬜'} <strong>No Budget Overages</strong> — All spending within recommended limits
                             </div>
                         </div>
+                        
+                        ${emergencyDebtTableHTML}
+                        ${overBudgetTableHTML}
+                        
                         <div style="margin-top: 1rem; height: 8px; background: rgba(139, 105, 20, 0.2); border-radius: 4px; overflow: hidden;">
                             <div style="height: 100%; width: ${phase1Progress}%; background: linear-gradient(90deg, #8b6914, #d4af37); transition: width 0.3s;"></div>
                         </div>
