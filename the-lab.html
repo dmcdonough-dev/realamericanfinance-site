@@ -1892,18 +1892,49 @@
             /* This makes it scroll alongside the main content */
         }
         
+        /* DoFI font sizes for SIDEBAR - keep smaller for space */
+        #action-timeline-container {
+            font-size: 0.75rem; /* Reduced from 0.85rem - sidebar needs to be compact */
+        }
+        
+        #action-timeline-container h2 {
+            font-size: 1.2rem !important; /* Reduced from 1.4rem */
+        }
+        
+        #action-timeline-container h3 {
+            font-size: 0.95rem !important; /* Reduced from 1.1rem */
+        }
+        
+        #action-timeline-container h4 {
+            font-size: 0.85rem !important; /* Reduced from 0.95rem */
+        }
+        
+        #action-timeline-container p,
+        #action-timeline-container li,
+        #action-timeline-container div {
+            font-size: 0.75rem; /* Reduced from 0.85rem */
+        }
+        
         @media (max-width: 768px) {
             .layout-right .sticky {
                 /* Mobile flows naturally */
             }
             
-            /* Make DoFI readable on mobile */
+            /* Make DoFI readable on mobile - BIGGER! */
             #action-timeline-container {
-                font-size: 0.85rem;
+                font-size: 1.15rem; /* Increased from 1.05rem */
             }
             
             #action-timeline-container h2 {
-                font-size: 1.1rem !important;
+                font-size: 1.8rem !important; /* Increased from 1.5rem - main title */
+            }
+            
+            #action-timeline-container h3 {
+                font-size: 1.5rem !important; /* Increased from 1.2rem - phase titles */
+            }
+            
+            #action-timeline-container h4 {
+                font-size: 1.25rem !important; /* Increased from 1.0rem - section headers */
             }
         }
         
@@ -2280,6 +2311,18 @@
             background: rgba(34, 197, 94, 0.2);
             color: #86EFAC;
             border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        /* Monthly Interest column styles */
+        .interest-column {
+            min-width: 100px;
+        }
+        
+        .monthly-interest {
+            font-size: 0.875rem;
+            font-weight: bold;
+            color: #FB923C;
+            text-align: right;
         }
         
         @keyframes pulse-warning {
@@ -3589,7 +3632,7 @@
         
         .phase-header h3 {
             font-family: 'Oswald', sans-serif;
-            font-size: 1.5rem;
+            font-size: 2rem; /* Increased from 1.5rem */
             font-weight: 700;
             color: #2c1810;
             margin: 0;
@@ -3597,14 +3640,14 @@
         }
         
         .phase-meta {
-            font-size: 0.85rem;
+            font-size: 1.1rem; /* Increased from 0.85rem */
             color: #5d4037;
             margin-top: 0.5rem;
             font-weight: 600;
         }
         
         .phase-status {
-            font-size: 0.9rem;
+            font-size: 1.15rem; /* Increased from 0.9rem */
             font-weight: 700;
             padding: 0.5rem 1rem;
             background: rgba(139, 105, 20, 0.2);
@@ -3635,7 +3678,7 @@
         
         .phase-section h4 {
             font-family: 'Oswald', sans-serif;
-            font-size: 0.9rem;
+            font-size: 1.3rem; /* Increased from 0.9rem */
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -3645,7 +3688,7 @@
         
         .phase-section p {
             margin: 0;
-            line-height: 1.6;
+            line-height: 1.7; /* Increased from 1.6 */
         }
         
         .phase-section ul {
@@ -3655,6 +3698,29 @@
         
         .phase-section li {
             margin-bottom: 0.5rem;
+        }
+        
+        /* Fullscreen DoFI - bigger fonts */
+        #bill-of-rights-content-fullscreen .phase-header h3 {
+            font-size: 2.2rem !important;
+        }
+        
+        #bill-of-rights-content-fullscreen .phase-meta {
+            font-size: 1.15rem !important;
+        }
+        
+        #bill-of-rights-content-fullscreen .phase-status {
+            font-size: 1.2rem !important;
+        }
+        
+        #bill-of-rights-content-fullscreen .phase-section h4 {
+            font-size: 1.4rem !important;
+        }
+        
+        #bill-of-rights-content-fullscreen .phase-section p,
+        #bill-of-rights-content-fullscreen .phase-section li {
+            font-size: 1.5rem !important;
+            line-height: 1.8;
         }
         
         /* Progress Bar */
@@ -4520,8 +4586,9 @@
                                         <th>Balance</th>
                                         <th>Payment</th>
                                         <th>Rate</th>
-                                        <th>Priority</th>
+                                        <th class="interest-column">Monthly Interest</th>
                                         <th class="years-column">Years to Payoff</th>
+                                        <th>Priority</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -4533,7 +4600,7 @@
                         
                         <div class="mt-2 text-xs text-gray-500 italic">
                             <i class="fas fa-info-circle mr-1"></i>
-                            Years to Payoff calculated at minimum payment. Premium shows accelerated payoff strategies.
+                            Interest estimates use daily calculation (30-day month) for most debt types. Mortgages use simple monthly. Actual amounts may vary based on your billing cycle.
                         </div>
                         
                         <div class="mt-6">
@@ -5630,6 +5697,7 @@ function updateAllCategoryPercentages() {
             needs: [
                 { id: 'debt_minimums', label: 'Debt Minimum Payments (Info Only)', default: 0, icon: 'fa-credit-card', color: '#8B5CF6' },
                 { id: 'mortgage_rent', label: 'Mortgage/Rent', default: 0, icon: 'fa-home', color: '#3B82F6' },
+                { id: 'taxes', label: 'Taxes/HOA', default: 0, icon: 'fa-file-invoice-dollar', color: '#DC2626' },
                 { id: 'utilities', label: 'Utilities', default: 0, icon: 'fa-bolt', color: '#F59E0B' },
                 { id: 'phone_bill', label: 'Phone Bill', default: 0, icon: 'fa-mobile-alt', color: '#10B981' },
                 { id: 'car_gas', label: 'Car Gas', default: 0, icon: 'fa-gas-pump', color: '#EF4444' },
@@ -5637,8 +5705,7 @@ function updateAllCategoryPercentages() {
                 { id: 'groceries', label: 'Groceries', default: 0, icon: 'fa-shopping-cart', color: '#22C55E' },
                 { id: 'household_essentials', label: 'Household Essentials', default: 0, icon: 'fa-home', color: '#14B8A6' },
                 { id: 'pet_care', label: 'Pet Care', default: 0, icon: 'fa-paw', color: '#F97316' },
-                { id: 'health_insurance', label: 'Health Insurance/Medical', default: 0, icon: 'fa-heartbeat', color: '#EC4899' },
-                { id: 'taxes', label: 'Taxes (Monthly)', default: 0, icon: 'fa-file-invoice-dollar', color: '#DC2626' }
+                { id: 'health_insurance', label: 'Health Insurance/Medical', default: 0, icon: 'fa-heartbeat', color: '#EC4899' }
             ],
             wants: [
                 { id: 'gym_membership', label: 'Gym Membership', default: 0, icon: 'fa-dumbbell', color: '#8B5CF6' },
@@ -5980,13 +6047,16 @@ function getYearsToPayoffClass(years) {
             const balanceInput = row.querySelector('td:nth-child(2) input');
             const paymentInput = row.querySelector('td:nth-child(3) input');
             const rateInput = row.querySelector('td:nth-child(4) input');
-            const yearsCell = row.querySelector('td:nth-child(6)');
+            const typeSelect = row.querySelector('.debt-type-select');
+            const interestCell = row.querySelector('td:nth-child(5) .monthly-interest'); // Column 5: Monthly Interest
+            const yearsCell = row.querySelector('td:nth-child(6)'); // Column 6: Years to Payoff
             
             if (!balanceInput || !paymentInput || !rateInput || !yearsCell) return;
             
             const balance = parseCurrency(balanceInput.value);
             const payment = parseCurrency(paymentInput.value);
             const rate = parseFloat(rateInput.value) || 0;
+            const debtType = typeSelect ? typeSelect.value : '';
             
             let yearsText = '';
             let cssClass = '';
@@ -5996,7 +6066,21 @@ function getYearsToPayoffClass(years) {
                 yearsText = formatYearsForDisplay(years);
                 cssClass = getYearsToPayoffClass(years);
                 
-                const monthlyInterest = balance * (rate / 100) / 12;
+                // Calculate monthly interest based on debt type
+                let monthlyInterest = 0;
+                if (debtType === 'mortgage') { // Fixed: lowercase 'mortgage'
+                    // Simple monthly for mortgages
+                    monthlyInterest = balance * (rate / 100) / 12;
+                } else {
+                    // Daily interest (30-day month) for all other debt types
+                    monthlyInterest = balance * (rate / 100) / 365 * 30;
+                }
+                
+                // Update monthly interest display
+                if (interestCell) {
+                    interestCell.textContent = '$' + Math.round(monthlyInterest).toLocaleString();
+                }
+                
                 if (payment <= monthlyInterest) {
                     yearsCell.title = `Payment ($${payment}) doesn't cover monthly interest ($${monthlyInterest.toFixed(2)}) - debt will never be paid off`;
                 } else {
@@ -6004,6 +6088,11 @@ function getYearsToPayoffClass(years) {
                 }
             } else {
                 yearsText = '--';
+                
+                // Clear or set default interest
+                if (interestCell) {
+                    interestCell.textContent = '$0';
+                }
             }
             
             yearsCell.innerHTML = `<div class="years-to-payoff ${cssClass}" title="${yearsCell.title || ''}">${yearsText}</div>`;
@@ -6065,7 +6154,7 @@ function getYearsToPayoffClass(years) {
             }
             
             if (row) {
-                const priorityCell = row.querySelector('td:nth-child(5)');
+                const priorityCell = row.querySelector('td:nth-child(7)'); // Priority is now 7th column
                 if (priorityCell) {
                     priorityCell.innerHTML = getPriorityBadge(priority, 'debt');
                 }
@@ -6247,7 +6336,7 @@ function getYearsToPayoffClass(years) {
             
             if (balance > 0 && rate > 0) {
                 const dailyInterest = (balance * (rate / 100)) / 365;
-                const monthlyInterest = (balance * (rate / 100)) / 12;
+                const monthlyInterest = dailyInterest * 30; // Use 30-day month for consistency
                 const yearlyInterest = balance * (rate / 100);
                 
                 costEl.textContent = '$' + dailyInterest.toFixed(2);
@@ -7282,13 +7371,22 @@ function getYearsToPayoffClass(years) {
                 const rateInput = row.querySelector('td:nth-child(4) input');
                 const balanceInput = row.querySelector('td:nth-child(2) input');
                 const paymentInput = row.querySelector('td:nth-child(3) input');
+                const typeSelect = row.querySelector('.debt-type-select');
                 
                 if (!rateInput || !balanceInput || !paymentInput) return;
                 
                 const rate = parseFloat(rateInput.value) || 0;
                 const balance = parseCurrency(balanceInput.value);
                 const payment = parseCurrency(paymentInput.value);
-                const monthlyInterest = (balance * (rate / 100)) / 12;
+                const debtType = typeSelect ? typeSelect.value : '';
+                
+                // Calculate monthly interest based on debt type
+                let monthlyInterest = 0;
+                if (debtType === 'mortgage') { // Fixed: lowercase 'mortgage'
+                    monthlyInterest = (balance * (rate / 100)) / 12;
+                } else {
+                    monthlyInterest = (balance * (rate / 100)) / 365 * 30;
+                }
                 
                 if (rate > 25) {
                     const warning = document.createElement('div');
@@ -7430,11 +7528,14 @@ function getYearsToPayoffClass(years) {
                         <span class="text-xs">%</span>
                     </div>
                 </td>
-                <td class="py-3 px-2">
-                    <span class="priority-badge">N/A</span>
+                <td class="py-3 px-2 interest-column">
+                    <div class="monthly-interest text-orange-400 font-bold text-sm">$0</div>
                 </td>
                 <td class="py-3 px-2 years-column">
                     <div class="years-to-payoff">--</div>
+                </td>
+                <td class="py-3 px-2">
+                    <span class="priority-badge">N/A</span>
                 </td>
                 <td class="text-right">
                     <button onclick="removeDebtRow('${rowId}')" class="text-gray-400 hover:text-crimson transition text-lg touch-target" aria-label="Remove debt">
@@ -7839,12 +7940,24 @@ function getYearsToPayoffClass(years) {
             debtRows.forEach(row => {
                 const balanceInput = row.querySelector('td:nth-child(2) input');
                 const rateInput = row.querySelector('td:nth-child(4) input');
+                const typeSelect = row.querySelector('.debt-type-select');
                 
                 if (balanceInput && rateInput) {
                     const balance = parseCurrency(balanceInput.value);
                     const annualRate = parseFloat(rateInput.value) || 0;
-                    const monthlyRate = annualRate / 100 / 12;
-                    monthlyInterest += balance * monthlyRate;
+                    const debtType = typeSelect ? typeSelect.value : '';
+                    
+                    // Use daily calculation for everything except mortgages
+                    let interest = 0;
+                    if (debtType === 'mortgage') { // Fixed: lowercase 'mortgage'
+                        // Simple monthly for mortgages
+                        interest = balance * (annualRate / 100) / 12;
+                    } else {
+                        // Daily interest for Credit Cards, Car Loans, Personal Loans, Student Loans, etc.
+                        // Assume 30-day month (365/12 = 30.4167 but 30 is standard)
+                        interest = balance * (annualRate / 100) / 365 * 30;
+                    }
+                    monthlyInterest += interest;
                 }
             });
             
@@ -10067,8 +10180,8 @@ function updatePremiumTeaser() {
                     mainLabel = 'Debt Minimum Payments';
                     subtitle = 'Auto-calculated from debt table';
                 } else if (category.id === 'taxes') {
-                    mainLabel = 'Taxes';
-                    subtitle = 'Monthly withholding or estimated payments';
+                    mainLabel = 'Taxes/HOA';
+                    subtitle = 'Property tax, HOA fees (monthly)';
                 } else if (category.id === 'mortgage_rent') {
                     mainLabel = 'Mortgage/Rent';
                     subtitle = 'Housing payment';
@@ -10849,24 +10962,37 @@ function updatePremiumTeaser() {
             let emergencyDebtTableHTML = '';
             if (emergencyDebts.length > 0) {
                 emergencyDebtTableHTML = `
-                    <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.3); border-radius: 4px;">
-                        <div style="font-size: 0.75rem; font-weight: 700; color: #dc2626; text-transform: uppercase; margin-bottom: 0.5rem;">
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.3); border-radius: 4px;">
+                        <div style="font-size: 1.2rem; font-weight: 700; color: #dc2626; text-transform: uppercase; margin-bottom: 0.75rem;">
                             ⚠️ EMERGENCY DEBTS REQUIRING IMMEDIATE ATTENTION
                         </div>
-                        <table style="width: 100%; font-size: 0.7rem; border-collapse: collapse;">
+                        <table style="width: 100%; font-size: 1.05rem; border-collapse: collapse;">
                             <thead>
                                 <tr style="border-bottom: 1px solid rgba(139, 105, 20, 0.3);">
-                                    <th style="text-align: left; padding: 0.25rem; color: #5d4037;">Debt</th>
-                                    <th style="text-align: right; padding: 0.25rem; color: #5d4037;">Balance</th>
-                                    <th style="text-align: right; padding: 0.25rem; color: #5d4037;">APR</th>
-                                    <th style="text-align: right; padding: 0.25rem; color: #5d4037;">Months</th>
-                                    <th style="text-align: left; padding: 0.25rem; color: #5d4037;">Why Emergency</th>
+                                    <th style="text-align: left; padding: 0.4rem; color: #5d4037; font-size: 1rem;">Debt</th>
+                                    <th style="text-align: right; padding: 0.4rem; color: #5d4037; font-size: 1rem;">Balance</th>
+                                    <th style="text-align: right; padding: 0.4rem; color: #5d4037; font-size: 1rem;">APR</th>
+                                    <th style="text-align: right; padding: 0.4rem; color: #5d4037; font-size: 1rem;">Months</th>
+                                    <th style="text-align: right; padding: 0.4rem; color: #5d4037; font-size: 1rem;">Yearly Interest</th>
+                                    <th style="text-align: left; padding: 0.4rem; color: #5d4037; font-size: 1rem;">Why Emergency</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 ${emergencyDebts.map(d => {
                                     const monthsToPayoff = d.payment > 0 ? Math.ceil(d.balance / d.payment) : 999;
                                     const paymentToIncomeRatio = income > 0 ? (d.payment / income) : 0;
+                                    
+                                    // Calculate yearly interest based on debt type
+                                    let yearlyInterest = 0;
+                                    if (d.type.toLowerCase().includes('mortgage')) {
+                                        yearlyInterest = d.balance * (d.rate / 100);
+                                    } else {
+                                        // Daily interest × 365
+                                        yearlyInterest = d.balance * (d.rate / 100) / 365 * 365;
+                                        // (This simplifies to just d.balance * (d.rate / 100), but keeping formula clear)
+                                        yearlyInterest = d.balance * (d.rate / 100);
+                                    }
+                                    
                                     const reasons = [];
                                     
                                     // Check why it's an emergency
@@ -10880,18 +11006,109 @@ function updatePremiumTeaser() {
                                     
                                     return `
                                         <tr style="border-bottom: 1px solid rgba(139, 105, 20, 0.1);">
-                                            <td style="padding: 0.25rem; color: #2c1810; font-weight: 600;">${d.type}</td>
-                                            <td style="text-align: right; padding: 0.25rem; color: #dc2626; font-weight: 700;">$${d.balance.toFixed(0)}</td>
-                                            <td style="text-align: right; padding: 0.25rem; color: ${d.rate >= 15 ? '#dc2626' : '#2c1810'};">${d.rate.toFixed(1)}%</td>
-                                            <td style="text-align: right; padding: 0.25rem; color: ${monthsToPayoff > 24 ? '#dc2626' : '#2c1810'};">${monthsToPayoff > 99 ? '99+' : monthsToPayoff}</td>
-                                            <td style="padding: 0.25rem; color: #5d4037; font-size: 0.65rem;">${reasons.join(', ')}</td>
+                                            <td style="padding: 0.5rem; color: #2c1810; font-weight: 600; font-size: 1.05rem;">${d.type}</td>
+                                            <td style="text-align: right; padding: 0.5rem; color: #dc2626; font-weight: 700; font-size: 1.1rem;">$${d.balance.toFixed(0).toLocaleString()}</td>
+                                            <td style="text-align: right; padding: 0.5rem; color: ${d.rate >= 15 ? '#dc2626' : '#2c1810'}; font-size: 1.05rem;">${d.rate.toFixed(1)}%</td>
+                                            <td style="text-align: right; padding: 0.5rem; color: ${monthsToPayoff > 24 ? '#dc2626' : '#2c1810'}; font-size: 1.05rem;">${monthsToPayoff > 99 ? '99+' : monthsToPayoff}</td>
+                                            <td style="text-align: right; padding: 0.5rem; color: #f97316; font-weight: 700; font-size: 1.1rem;">$${Math.round(yearlyInterest).toLocaleString()}</td>
+                                            <td style="padding: 0.5rem; color: #5d4037; font-size: 0.95rem;">${reasons.join(', ')}</td>
                                         </tr>
                                     `;
                                 }).join('')}
                             </tbody>
                         </table>
-                        <div style="margin-top: 0.5rem; padding: 0.5rem; background: rgba(139, 105, 20, 0.1); border-radius: 4px; font-size: 0.7rem; color: #5d4037;">
+                        <div style="margin-top: 0.75rem; padding: 0.75rem; background: rgba(139, 105, 20, 0.1); border-radius: 4px; font-size: 1.05rem; color: #5d4037; line-height: 1.6;">
                             <strong>Action Required:</strong> Attack these debts aggressively in Phase 1. Pay minimums on others, throw all surplus at highest APR emergency debt.
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // UNSUSTAINABLE DEBTS - Balance way too high for income
+            const yearlyIncome = income * 12;
+            const unsustainableDebts = debts.filter(d => {
+                const balanceToIncomeRatio = d.balance / yearlyIncome;
+                
+                // Car/Auto loans should NEVER exceed 50% of annual income
+                if (d.type.toLowerCase().includes('auto') || d.type.toLowerCase().includes('car')) {
+                    return balanceToIncomeRatio > 0.50;
+                }
+                
+                // Student loans > 1.5x annual income (can't realistically pay off)
+                if (d.type.toLowerCase().includes('student')) {
+                    return balanceToIncomeRatio > 1.5;
+                }
+                
+                // Personal loans > 75% annual income (unsustainable)
+                if (d.type.toLowerCase().includes('personal')) {
+                    return balanceToIncomeRatio > 0.75;
+                }
+                
+                // Credit cards > 50% annual income (debt spiral)
+                if (d.type.toLowerCase().includes('credit')) {
+                    return balanceToIncomeRatio > 0.50;
+                }
+                
+                // Any other debt > annual income
+                if (!d.type.toLowerCase().includes('mortgage')) {
+                    return balanceToIncomeRatio > 1.0;
+                }
+                
+                return false;
+            });
+            
+            let unsustainableDebtHTML = '';
+            if (unsustainableDebts.length > 0) {
+                unsustainableDebtHTML = `
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(220, 38, 38, 0.15); border: 2px solid rgba(220, 38, 38, 0.5); border-radius: 4px;">
+                        <div style="font-size: 1.3rem; font-weight: 700; color: #dc2626; text-transform: uppercase; margin-bottom: 0.75rem;">
+                            🚨 UNSUSTAINABLE DEBTS - DRASTIC ACTION REQUIRED
+                        </div>
+                        <table style="width: 100%; font-size: 1.05rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid rgba(139, 105, 20, 0.3);">
+                                    <th style="text-align: left; padding: 0.4rem; color: #5d4037; font-size: 1rem;">Debt</th>
+                                    <th style="text-align: right; padding: 0.4rem; color: #5d4037; font-size: 1rem;">Balance</th>
+                                    <th style="text-align: right; padding: 0.4rem; color: #5d4037; font-size: 1rem;">% of Annual Income</th>
+                                    <th style="text-align: left; padding: 0.4rem; color: #5d4037; font-size: 1rem;">Required Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${unsustainableDebts.map(d => {
+                                    const balanceToIncomeRatio = (d.balance / yearlyIncome) * 100;
+                                    let action = '';
+                                    let maxPercent = 0;
+                                    
+                                    if (d.type.toLowerCase().includes('auto') || d.type.toLowerCase().includes('car')) {
+                                        maxPercent = 50;
+                                        action = 'SELL THE CAR - Downgrade to cheaper vehicle';
+                                    } else if (d.type.toLowerCase().includes('student')) {
+                                        maxPercent = 150;
+                                        action = 'Income-driven repayment; Increase income urgently';
+                                    } else if (d.type.toLowerCase().includes('personal')) {
+                                        maxPercent = 75;
+                                        action = 'Consolidate or negotiate settlement';
+                                    } else if (d.type.toLowerCase().includes('credit')) {
+                                        maxPercent = 50;
+                                        action = 'Balance transfer; Debt consolidation; Stop using';
+                                    } else {
+                                        maxPercent = 100;
+                                        action = 'Reduce balance or increase income immediately';
+                                    }
+                                    
+                                    return `
+                                        <tr style="border-bottom: 1px solid rgba(139, 105, 20, 0.1);">
+                                            <td style="padding: 0.5rem; color: #2c1810; font-weight: 600; font-size: 1.05rem;">${d.type}</td>
+                                            <td style="text-align: right; padding: 0.5rem; color: #dc2626; font-weight: 700; font-size: 1.2rem;">$${d.balance.toFixed(0).toLocaleString()}</td>
+                                            <td style="text-align: right; padding: 0.5rem; color: #dc2626; font-weight: 700; font-size: 1.1rem;">${balanceToIncomeRatio.toFixed(0)}% <span style="font-size: 0.85rem; color: #5d4037;">(max ${maxPercent}%)</span></td>
+                                            <td style="padding: 0.5rem; color: #5d4037; font-size: 1rem; font-weight: 600;">${action}</td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                        <div style="margin-top: 0.75rem; padding: 0.75rem; background: rgba(139, 105, 20, 0.1); border-radius: 4px; font-size: 1.05rem; color: #5d4037; line-height: 1.6;">
+                            <strong>⚠️ CRITICAL:</strong> These debt balances are unsustainable for your income level. You cannot realistically pay these off without drastic action. Consider selling assets, increasing income, or negotiating settlements.
                         </div>
                     </div>
                 `;
@@ -10900,13 +11117,18 @@ function updatePremiumTeaser() {
             const budgetIssues = [];
             
             const categoryThresholds = {
-                'mortgage_rent': { max: income * 0.30, name: 'Housing', tips: ['Negotiate rent', 'Get a roommate'] },
-                'groceries': { max: income * 0.10, name: 'Groceries', tips: ['Meal prep', 'Buy generic brands'] },
-                'dining_out': { max: income * 0.10, name: 'Dining Out', tips: ['Cook at home', 'Pack lunch'] },
-                'transportation': { max: income * 0.05, name: 'Transportation', tips: ['Use public transit', 'Carpool'] },
-                'entertainment': { max: income * 0.06, name: 'Entertainment', tips: ['Free activities', 'Cancel unused subscriptions'] },
-                'shopping': { max: income * 0.08, name: 'Shopping', tips: ['30-day rule for purchases', 'Unsubscribe from marketing'] },
-                'subscriptions': { max: income * 0.04, name: 'Subscriptions', tips: ['Audit and cancel unused', 'Share family plans'] }
+                'mortgage_rent': { max: income * 0.30, name: 'Housing', tips: ['Negotiate rent', 'Get a roommate', 'Consider downsizing'] },
+                'phone_bill': { max: income * 0.05, name: 'Phone Bill', tips: ['Switch to cheaper plan', 'Use WiFi calling', 'Family plan'] },
+                'utilities': { max: income * 0.08, name: 'Utilities', tips: ['Lower thermostat', 'Unplug devices', 'LED bulbs'] },
+                'car_gas': { max: income * 0.05, name: 'Car Gas', tips: ['Carpool', 'Combine errands', 'Public transit'] },
+                'car_insurance': { max: income * 0.05, name: 'Car Insurance', tips: ['Shop rates annually', 'Increase deductible', 'Bundle policies'] },
+                'groceries': { max: income * 0.10, name: 'Groceries', tips: ['Meal prep', 'Buy generic brands', 'Use coupons'] },
+                'household_essentials': { max: income * 0.03, name: 'Household Essentials', tips: ['Buy in bulk', 'Generic brands'] },
+                'health_insurance': { max: income * 0.08, name: 'Health/Medical', tips: ['HSA if eligible', 'Shop plans annually'] },
+                'dining_entertainment': { max: income * 0.10, name: 'Dining/Entertainment', tips: ['Cook at home', 'Free activities', 'Set weekly limit'] },
+                'subscriptions': { max: income * 0.04, name: 'Subscriptions', tips: ['Cancel unused', 'Share family plans', 'Rotate services'] },
+                'shopping_fun_money': { max: income * 0.08, name: 'Shopping/Fun', tips: ['30-day rule', 'Unsubscribe from marketing', 'Cash only'] },
+                'gym_membership': { max: income * 0.02, name: 'Gym', tips: ['Free workouts', 'Cheaper gym', 'Cancel and run outside'] }
             };
             
             Object.keys(categoryThresholds).forEach(id => {
@@ -10915,6 +11137,7 @@ function updatePremiumTeaser() {
                     const actual = parseCurrency(el.value || 0);
                     const threshold = categoryThresholds[id];
                     const percentOver = ((actual - threshold.max) / threshold.max) * 100;
+                    const percentOfIncome = (actual / income) * 100;
                     
                     if (actual > threshold.max && percentOver > 20) { // Only flag if >20% over
                         budgetIssues.push({
@@ -10923,6 +11146,7 @@ function updatePremiumTeaser() {
                             recommended: threshold.max,
                             overage: actual - threshold.max,
                             percentOver: percentOver,
+                            percentOfIncome: percentOfIncome,
                             tips: threshold.tips
                         });
                     }
@@ -10932,33 +11156,33 @@ function updatePremiumTeaser() {
             let overBudgetTableHTML = '';
             if (budgetIssues.length > 0) {
                 overBudgetTableHTML = `
-                    <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(251, 146, 60, 0.1); border: 1px solid rgba(251, 146, 60, 0.3); border-radius: 4px;">
-                        <div style="font-size: 0.75rem; font-weight: 700; color: #ea580c; text-transform: uppercase; margin-bottom: 0.5rem;">
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(251, 146, 60, 0.1); border: 1px solid rgba(251, 146, 60, 0.3); border-radius: 4px;">
+                        <div style="font-size: 1.2rem; font-weight: 700; color: #ea580c; text-transform: uppercase; margin-bottom: 0.75rem;">
                             💰 OVER-BUDGET CATEGORIES - CUT IMMEDIATELY
                         </div>
-                        <table style="width: 100%; font-size: 0.7rem; border-collapse: collapse;">
+                        <table style="width: 100%; font-size: 1.05rem; border-collapse: collapse;">
                             <thead>
                                 <tr style="border-bottom: 1px solid rgba(139, 105, 20, 0.3);">
-                                    <th style="text-align: left; padding: 0.25rem; color: #5d4037;">Category</th>
-                                    <th style="text-align: right; padding: 0.25rem; color: #5d4037;">Spending</th>
-                                    <th style="text-align: right; padding: 0.25rem; color: #5d4037;">Target</th>
-                                    <th style="text-align: right; padding: 0.25rem; color: #5d4037;">Cut</th>
-                                    <th style="text-align: left; padding: 0.25rem; color: #5d4037;">Quick Wins</th>
+                                    <th style="text-align: left; padding: 0.4rem; color: #5d4037; font-size: 1rem;">Category</th>
+                                    <th style="text-align: right; padding: 0.4rem; color: #5d4037; font-size: 1rem;">Spending</th>
+                                    <th style="text-align: right; padding: 0.4rem; color: #5d4037; font-size: 1rem;">Target</th>
+                                    <th style="text-align: right; padding: 0.4rem; color: #5d4037; font-size: 1rem;">Cut</th>
+                                    <th style="text-align: left; padding: 0.4rem; color: #5d4037; font-size: 1rem;">Quick Wins</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 ${budgetIssues.map(issue => `
                                     <tr style="border-bottom: 1px solid rgba(139, 105, 20, 0.1);">
-                                        <td style="padding: 0.25rem; color: #2c1810; font-weight: 600;">${issue.category}</td>
-                                        <td style="text-align: right; padding: 0.25rem; color: #ea580c; font-weight: 700;">$${issue.actual.toFixed(0)}</td>
-                                        <td style="text-align: right; padding: 0.25rem; color: #10b981;">$${issue.recommended.toFixed(0)}</td>
-                                        <td style="text-align: right; padding: 0.25rem; color: #dc2626; font-weight: 700;">-$${issue.overage.toFixed(0)}</td>
-                                        <td style="padding: 0.25rem; color: #5d4037; font-size: 0.65rem;">${issue.tips.join('; ')}</td>
+                                        <td style="padding: 0.5rem; color: #2c1810; font-weight: 600; font-size: 1.05rem;">${issue.category} <span style="color: #ea580c; font-size: 0.9rem;">(${issue.percentOfIncome.toFixed(0)}% of income)</span></td>
+                                        <td style="text-align: right; padding: 0.5rem; color: #ea580c; font-weight: 700; font-size: 1.1rem;">$${issue.actual.toFixed(0)}</td>
+                                        <td style="text-align: right; padding: 0.5rem; color: #10b981; font-size: 1.05rem;">$${issue.recommended.toFixed(0)}</td>
+                                        <td style="text-align: right; padding: 0.5rem; color: #dc2626; font-weight: 700; font-size: 1.1rem;">-$${issue.overage.toFixed(0)}</td>
+                                        <td style="padding: 0.5rem; color: #5d4037; font-size: 0.95rem;">${issue.tips.join('; ')}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
                         </table>
-                        <div style="margin-top: 0.5rem; padding: 0.5rem; background: rgba(139, 105, 20, 0.1); border-radius: 4px; font-size: 0.7rem; color: #5d4037;">
+                        <div style="margin-top: 0.75rem; padding: 0.75rem; background: rgba(139, 105, 20, 0.1); border-radius: 4px; font-size: 1.05rem; color: #5d4037; line-height: 1.6;">
                             <strong>Action Required:</strong> Cut spending in these categories immediately. Total potential savings: <strong style="color: #10b981;">$${budgetIssues.reduce((sum, i) => sum + i.overage, 0).toFixed(0)}/month</strong>
                         </div>
                     </div>
@@ -11029,6 +11253,7 @@ function updatePremiumTeaser() {
                             </div>
                         </div>
                         
+                        ${unsustainableDebtHTML}
                         ${emergencyDebtTableHTML}
                         ${overBudgetTableHTML}
                         
@@ -12214,7 +12439,7 @@ function updatePremiumTeaser() {
                     <p style="font-family:'Georgia',serif; font-size:1.5rem; font-style:italic; color:#5d4037;">Three Sovereign Moves. 90 Days.</p>
                 </div>
                 
-                <div id="bill-of-rights-content-fullscreen" style="font-size: 1.25rem; line-height: 1.7;"></div>
+                <div id="bill-of-rights-content-fullscreen" style="font-size: 1.5rem; line-height: 1.8;"></div>
                 
                 <div style="margin-top:2.5rem; padding-top:1.75rem; border-top:2px solid rgba(139,105,20,0.3); text-align:right;">
                     <p style="font-family:'Georgia',serif; font-size:1.125rem; font-style:italic; color:#5d4037; margin-bottom:0.75rem;">Signed this day,</p>
