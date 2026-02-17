@@ -4891,39 +4891,79 @@
                     </div>
                 </div>
 
-                <div id="action-timeline-container" class="hidden" onclick="openDeclarationFullscreen()" style="cursor: pointer; transition: transform 0.2s;">
-                    <div class="relative rounded-xl overflow-hidden shadow-2xl hover-declaration" style="
+                <div id="action-timeline-container" class="hidden" onclick="openDeclarationFullscreen()" style="cursor: pointer; transition: all 0.3s; position: relative;">
+                    <div class="relative rounded-xl overflow-hidden shadow-2xl" style="
                         background: linear-gradient(160deg,#f8edd8 0%,#f0dfc0 40%,#e8d4ae 100%);
                         border: 3px solid #8b6914;
                         box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 0 60px rgba(139,105,20,0.08);
-                    ">
-                        <div class="absolute inset-0 pointer-events-none" style="opacity:0.5; background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3CfeColorMatrix type=%22saturate%22 values=%220%22/%3E%3C/filter%3E%3Crect width=%22300%22 height=%22300%22 filter=%22url(%23n)%22 opacity=%220.04%22/%3E%3C/svg%3E');"></div>
-                        <div class="absolute inset-2 rounded-lg pointer-events-none" style="border:1px solid rgba(139,105,20,0.4);"></div>
-                        <div class="absolute inset-4 rounded-lg pointer-events-none" style="border:1px solid rgba(139,105,20,0.2);"></div>
-                        <div class="relative z-10 p-4">
+                        min-height: 420px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 2.5rem 1.5rem;
+                    " onmouseenter="this.style.transform='scale(1.02)'; this.style.boxShadow='0 12px 48px rgba(0,0,0,0.5), inset 0 0 60px rgba(139,105,20,0.12)'" onmouseleave="this.style.transform='scale(1)'; this.style.boxShadow='0 8px 32px rgba(0,0,0,0.4), inset 0 0 60px rgba(139,105,20,0.08)'">
+                        
+                        <!-- American Flag Full Background - More Visible -->
+                        <div style="
+                            position: absolute;
+                            top: -20px;
+                            left: -20px;
+                            right: -20px;
+                            bottom: -20px;
+                            background-image: url('dofi.jpg');
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            opacity: 0.22;
+                            filter: sepia(0.15) brightness(1.1);
+                            pointer-events: none;
+                            z-index: 1;
+                        "></div>
+                        
+                        <!-- Parchment texture -->
+                        <div class="absolute inset-0 pointer-events-none" style="opacity:0.5; background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3CfeColorMatrix type=%22saturate%22 values=%220%22/%3E%3C/filter%3E%3Crect width=%22300%22 height=%22300%22 filter=%22url(%23n)%22 opacity=%220.04%22/%3E%3C/svg%3E'); z-index: 2;"></div>
+                        
+                        <!-- Border layers -->
+                        <div class="absolute inset-2 rounded-lg pointer-events-none" style="border:1px solid rgba(139,105,20,0.4); z-index: 2;"></div>
+                        <div class="absolute inset-4 rounded-lg pointer-events-none" style="border:1px solid rgba(139,105,20,0.2); z-index: 2;"></div>
+                        
+                        <!-- Content -->
+                        <div class="relative z-10 text-center" style="z-index: 10;">
                             
-                            <div style="text-align:center; margin-bottom:0.75rem;">
-                                <div style="font-size:1.2rem; color:rgba(139,105,20,0.55); margin-bottom:0.2rem;">❦</div>
-                                <h2 style="font-family:'Brush Script MT','Lucida Handwriting',cursive; font-size:1.4rem; color:#2c1810; line-height:1; text-shadow:1px 2px 3px rgba(0,0,0,0.15); margin-bottom:0.3rem;">Declaration of Financial Independence</h2>
-                                <div style="display:flex; align-items:center; gap:0.4rem; margin:0.4rem auto; max-width:12rem;">
-                                    <div style="flex:1; height:1px; background:linear-gradient(to right,transparent,#8b6914);"></div>
-                                    <span style="color:#8b6914; font-size:0.7rem;">✦</span>
-                                    <div style="flex:1; height:1px; background:linear-gradient(to left,transparent,#8b6914);"></div>
+                            <!-- Top ornament -->
+                            <div style="font-size: 3.5rem; color: rgba(139,105,20,0.7); margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">❦</div>
+                            
+                            <!-- Header text styled like Declaration -->
+                            <div style="margin-bottom: 1.25rem;">
+                                <div style="font-family: 'Trajan Pro', 'Cinzel', Georgia, serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.35em; color: #1a0f08; text-transform: uppercase; margin-bottom: 0.75rem; text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">
+                                    In Congress
                                 </div>
-                                <p style="font-family:'Georgia',serif; font-size:0.65rem; font-style:italic; color:#5d4037;">Three Sovereign Moves. 90 Days.</p>
+                                <h2 style="font-family: 'Brush Script MT', 'Lucida Handwriting', cursive; font-size: 2.2rem; font-weight: 700; color: #1a0f08; line-height: 1.2; text-shadow: 2px 3px 6px rgba(255,255,255,0.9), 1px 1px 2px rgba(0,0,0,0.3); margin-bottom: 0.75rem;">
+                                    Declaration of<br>Financial Independence
+                                </h2>
                             </div>
                             
-                            <div id="bill-of-rights-content"></div>
+                            <!-- Divider -->
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin: 1.5rem auto; max-width: 220px;">
+                                <div style="flex: 1; height: 2px; background: linear-gradient(to right, transparent, #6b5010);"></div>
+                                <span style="color: #6b5010; font-size: 1.4rem; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">✦</span>
+                                <div style="flex: 1; height: 2px; background: linear-gradient(to left, transparent, #6b5010);"></div>
+                            </div>
                             
-                            <div style="margin-top:0.75rem; padding-top:0.5rem; border-top:1px solid rgba(139,105,20,0.3); text-align:right;">
-                                <p style="font-family:'Georgia',serif; font-size:0.6rem; font-style:italic; color:#5d4037; margin-bottom:0.1rem;">Signed this day,</p>
-                                <p id="declaration-date" style="font-family:'Georgia',serif; font-size:0.65rem; font-weight:600; color:#3e2723; margin-bottom:0.3rem;"></p>
-                                <div style="font-family:'Brush Script MT',cursive; font-size:1.1rem; color:#1a237e; line-height:1; margin-bottom:0.1rem;">Your Name Here</div>
-                                <div style="height:1px; background:rgba(139,105,20,0.5);"></div>
+                            <!-- CTA -->
+                            <p style="font-family: Georgia, serif; font-size: 1.15rem; font-weight: 600; color: #2c1810; font-style: italic; margin-bottom: 1.5rem; line-height: 1.6; text-shadow: 1px 1px 3px rgba(255,255,255,0.9);">
+                                Your path to sovereignty<br>begins here
+                            </p>
+                            
+                            <!-- Click instruction -->
+                            <div style="display: inline-block; padding: 0.8rem 1.75rem; background: rgba(107,80,16,0.18); border: 2px solid rgba(107,80,16,0.5); border-radius: 6px; font-family: Georgia, serif; font-size: 1rem; color: #1a0f08; font-weight: 700; letter-spacing: 0.08em; text-shadow: 1px 1px 2px rgba(255,255,255,0.8); box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                                CLICK TO DECLARE →
                             </div>
-                            <div style="text-align:center; margin-top:0.5rem;">
-                                <span style="font-size:0.9rem; color:rgba(139,105,20,0.4);">❦</span>
-                            </div>
+                            
+                            <!-- Bottom ornament -->
+                            <div style="font-size: 2.5rem; color: rgba(139,105,20,0.6); margin-top: 1.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">❦</div>
+                            
                         </div>
                     </div>
                 </div>
@@ -7757,7 +7797,7 @@ function getYearsToPayoffClass(years) {
                 targetSection = "budget-section";
                 containerTarget = "banner-container-debt"; // Keep in debt section
                 if (timelineContainer) timelineContainer.classList.add('hidden');
-            } else if (isBudgetLocked || budgetFilledCount >= 3) {
+            } else if (hasIncome && (isBudgetLocked || budgetFilledCount >= 1)) { // Changed from 3 to 1
                 action = "✓ Setup Complete";
                 reason = "Dashboard fully active";
                 btnText = "Review";
@@ -7765,7 +7805,7 @@ function getYearsToPayoffClass(years) {
                 containerTarget = "banner-container-budget";
                 if (timelineContainer) {
                     timelineContainer.classList.remove('hidden');
-                    renderPathToSovereignty();
+                    // Sidebar is now just a graphic teaser - no content to render
                     const dateEl = document.getElementById('declaration-date');
                     if (dateEl) {
                         const now = new Date();
@@ -8542,6 +8582,11 @@ function getYearsToPayoffClass(years) {
             updateTimeMachine();
             
             updateNextActionBanner();
+            
+            // Update surplus allocator if budget is locked
+            if (localStorage.getItem('raf_budget_locked') === 'true') {
+                updateSurplusAllocator();
+            }
         }
 
         function updateFinancialHealthSummary(income, totalExpenses, budgetUsage, savingsTotal, savingsRate, surplus) {
@@ -10009,6 +10054,251 @@ function updatePremiumTeaser() {
             disableBudgetInputs();
             showToast('✓ Budget Locked - All expenses finalized');
             calculateAll();
+            
+            // Show surplus allocator after locking
+            setTimeout(() => updateSurplusAllocator(), 300);
+        }
+        
+        function updateSurplusAllocator() {
+            const allocator = document.getElementById('surplus-allocator');
+            const content = document.getElementById('surplus-allocator-content');
+            const surplusAmountEl = document.getElementById('surplus-amount');
+            if (!allocator || !content) return;
+            
+            const isBudgetLocked = localStorage.getItem('raf_budget_locked') === 'true';
+            if (!isBudgetLocked) { allocator.style.display = 'none'; return; }
+            
+            const surplus = calculateSurplus();
+            if (surplus <= 0) { allocator.style.display = 'none'; return; }
+            
+            // Show the card
+            allocator.style.display = 'block';
+            if (surplusAmountEl) surplusAmountEl.textContent = Math.round(surplus).toLocaleString();
+            
+            const income = getMonthlyIncome();
+            const yearlyIncome = income * 12;
+            const debts = getDebtsByPriority();
+            const emergencyBalance = parseCurrency(document.getElementById('emergency_fund')?.value || 0);
+            const oneMonthBuffer = income;
+            const threeMonthBuffer = income * 3;
+            
+            // Find debts we can COMPLETELY KILL with this surplus
+            // Sort by balance ascending to find killable ones
+            const killableDebts = debts
+                .filter(d => !d.type.toLowerCase().includes('mortgage') && d.balance > 0)
+                .sort((a, b) => a.balance - b.balance);
+            
+            let html = '';
+            let remainingSurplus = surplus;
+            const toKill = [];
+            let freedCashFlow = 0;
+            
+            // Find which debts we can fully eliminate
+            for (const debt of killableDebts) {
+                if (debt.balance <= remainingSurplus) {
+                    toKill.push(debt);
+                    remainingSurplus -= debt.balance;
+                    freedCashFlow += debt.payment;
+                }
+            }
+            
+            // What's the next target after kills (highest APR)
+            const remaining = debts.filter(d => !toKill.includes(d) && !d.type.toLowerCase().includes('mortgage') && d.balance > 0)
+                .sort((a, b) => b.rate - a.rate);
+            
+            if (toKill.length > 0) {
+                // CASE 1: Can kill one or more debts completely
+                const totalKilled = toKill.reduce((sum, d) => sum + d.balance, 0);
+                const newMonthlyAttack = freedCashFlow;
+                
+                html += `
+                    <div style="margin-bottom: 1rem;">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: #6ee7b7; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+                            🔥 DO THIS WITH YOUR $${Math.round(surplus).toLocaleString()}
+                        </div>
+                        
+                        ${toKill.map(d => {
+                            const yearlyInterest = d.balance * (d.rate / 100);
+                            return `
+                            <div style="padding: 0.875rem; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 8px; margin-bottom: 0.75rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                                    <div style="font-size: 1.05rem; font-weight: 700; color: white;">
+                                        💀 KILL: ${d.type}
+                                    </div>
+                                    <div style="font-size: 1.1rem; font-weight: 700; color: #f87171;">
+                                        $${Math.round(d.balance).toLocaleString()}
+                                    </div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.82rem; color: #6ee7b7;">
+                                    <div>Rate: <strong style="color: white;">${d.rate.toFixed(1)}% APR</strong></div>
+                                    <div>Frees up: <strong style="color: #34d399;">$${Math.round(d.payment)}/month</strong></div>
+                                    <div>Interest saved: <strong style="color: white;">$${Math.round(yearlyInterest)}/yr</strong></div>
+                                    <div>Min payment gone: <strong style="color: #34d399;">FOREVER</strong></div>
+                                </div>
+                            </div>`;
+                        }).join('')}
+                        
+                        ${remainingSurplus > 50 ? `
+                            <div style="padding: 0.75rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; margin-bottom: 0.75rem; font-size: 0.85rem; color: #6ee7b7;">
+                                Leftover <strong style="color: white;">$${Math.round(remainingSurplus).toLocaleString()}</strong> → 
+                                ${emergencyBalance < oneMonthBuffer 
+                                    ? `Emergency fund (need $${Math.round(oneMonthBuffer - emergencyBalance).toLocaleString()} more)`
+                                    : remaining.length > 0 
+                                        ? `Attack ${remaining[0].type} @ ${remaining[0].rate.toFixed(1)}%`
+                                        : 'Add to savings'}
+                            </div>
+                        ` : ''}
+                        
+                        ${newMonthlyAttack > 0 && remaining.length > 0 ? `
+                            <div style="padding: 0.875rem; background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.5); border-radius: 8px; margin-bottom: 0.75rem;">
+                                <div style="font-size: 0.8rem; font-weight: 700; color: #34d399; margin-bottom: 0.5rem;">⚡ THE DOMINO EFFECT</div>
+                                <div style="font-size: 0.9rem; color: white;">
+                                    Those freed payments (<strong style="color: #34d399;">$${Math.round(newMonthlyAttack)}/month</strong>) now 
+                                    roll into <strong>${remaining[0].type}</strong>
+                                </div>
+                                <div style="font-size: 0.82rem; color: #6ee7b7; margin-top: 0.4rem;">
+                                    New attack power: <strong style="color: white; font-size: 0.95rem;">
+                                        $${Math.round((remaining[0]?.payment || 0) + newMonthlyAttack).toLocaleString()}/month
+                                    </strong> vs old $${Math.round(remaining[0]?.payment || 0).toLocaleString()}/month
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            } else if (debts.filter(d => !d.type.toLowerCase().includes('mortgage') && d.balance > 0).length > 0) {
+                // CASE 2: Can't kill any debt fully - throw at highest APR
+                const target = debts
+                    .filter(d => !d.type.toLowerCase().includes('mortgage') && d.balance > 0)
+                    .sort((a, b) => b.rate - a.rate)[0];
+                    
+                if (target) {
+                    const extraPayment = surplus;
+                    const monthlyRate = target.rate / 100 / 12;
+                    const currentMonths = monthlyRate > 0 ? 
+                        -Math.log(1 - (target.balance * monthlyRate / target.payment)) / Math.log(1 + monthlyRate) : 
+                        target.balance / target.payment;
+                    const newMonths = monthlyRate > 0 ? 
+                        -Math.log(1 - (target.balance * monthlyRate / (target.payment + extraPayment))) / Math.log(1 + monthlyRate) : 
+                        target.balance / (target.payment + extraPayment);
+                    const monthsSaved = Math.max(0, Math.round(currentMonths - newMonths));
+                    const interestSaved = monthsSaved * target.balance * monthlyRate;
+                    
+                    html += `
+                        <div style="margin-bottom: 1rem;">
+                            <div style="font-size: 0.8rem; font-weight: 700; color: #6ee7b7; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+                                🎯 BEST USE OF YOUR $${Math.round(surplus).toLocaleString()}
+                            </div>
+                            <div style="padding: 0.875rem; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 8px; margin-bottom: 0.75rem;">
+                                <div style="font-size: 1.05rem; font-weight: 700; color: white; margin-bottom: 0.5rem;">
+                                    ⚔️ ATTACK: ${target.type}
+                                </div>
+                                <div style="font-size: 0.85rem; color: #6ee7b7; margin-bottom: 0.5rem;">
+                                    Throw entire <strong style="color: white;">$${Math.round(surplus).toLocaleString()}</strong> extra at this debt
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.82rem; color: #6ee7b7;">
+                                    <div>Balance: <strong style="color: #f87171;">$${Math.round(target.balance).toLocaleString()}</strong></div>
+                                    <div>Rate: <strong style="color: white;">${target.rate.toFixed(1)}% APR</strong></div>
+                                    <div>Payoff accelerated: <strong style="color: #34d399;">${monthsSaved} months sooner</strong></div>
+                                    <div>Interest saved: <strong style="color: #34d399;">~$${Math.round(interestSaved).toLocaleString()}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            } else {
+                // CASE 3: No debt - allocate to savings/emergency fund
+                const needsEmergency = emergencyBalance < threeMonthBuffer;
+                const emergencyNeeded = threeMonthBuffer - emergencyBalance;
+                const toEmergency = needsEmergency ? Math.min(surplus, emergencyNeeded) : 0;
+                const toInvest = surplus - toEmergency;
+                
+                html += `
+                    <div style="margin-bottom: 1rem;">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: #6ee7b7; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+                            🌱 BUILD WEALTH WITH YOUR $${Math.round(surplus).toLocaleString()}
+                        </div>
+                        ${toEmergency > 0 ? `
+                            <div style="padding: 0.875rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; margin-bottom: 0.75rem; font-size: 0.9rem; color: white;">
+                                → <strong style="color: #34d399;">$${Math.round(toEmergency).toLocaleString()}</strong> to Emergency Fund 
+                                <span style="color: #6ee7b7; font-size: 0.8rem;">(need $${Math.round(emergencyNeeded).toLocaleString()} more for 3-month buffer)</span>
+                            </div>
+                        ` : ''}
+                        ${toInvest > 0 ? `
+                            <div style="padding: 0.875rem; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; font-size: 0.9rem; color: white;">
+                                → <strong style="color: #60a5fa;">$${Math.round(toInvest).toLocaleString()}</strong> to Roth IRA / Index Funds
+                                <div style="font-size: 0.8rem; color: #93c5fd; margin-top: 0.25rem;">
+                                    At 7% avg return → ~$${Math.round(toInvest * 12 * 10.5).toLocaleString()} in 10 years
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+            
+            // Footer with copy button  
+            html += `
+                <button onclick="copySurplusPlan()" style="width: 100%; padding: 0.6rem; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 6px; font-size: 0.9rem; font-weight: 700; cursor: pointer; margin-top: 0.75rem;">
+                    📋 Copy This Plan
+                </button>
+                <div id="surplus-copy-success" style="display: none; text-align: center; font-size: 0.85rem; color: #10b981; margin-top: 0.4rem; font-weight: 600;">
+                    ✓ Copied! Do this TODAY.
+                </div>
+            `;
+            
+            content.innerHTML = html;
+        }
+        
+        function copySurplusPlan() {
+            const content = document.getElementById('surplus-allocator-content');
+            if (!content) return;
+            
+            // Build plain text version
+            const surplus = calculateSurplus();
+            const debts = getDebtsByPriority();
+            const income = getMonthlyIncome();
+            
+            let text = `MY SURPLUS PLAN - $${Math.round(surplus).toLocaleString()}/month\n`;
+            text += `Generated: ${new Date().toLocaleDateString()}\n`;
+            text += `═══════════════════════════════════\n\n`;
+            
+            let remainingSurplus = surplus;
+            const killable = debts
+                .filter(d => !d.type.toLowerCase().includes('mortgage') && d.balance > 0 && d.balance <= remainingSurplus)
+                .sort((a, b) => a.balance - b.balance);
+                
+            if (killable.length > 0) {
+                text += `DEBTS TO KILL THIS MONTH:\n\n`;
+                killable.forEach(d => {
+                    text += `[ ] PAY OFF ${d.type.toUpperCase()}\n`;
+                    text += `    Amount: $${Math.round(d.balance).toLocaleString()}\n`;
+                    text += `    Frees up: $${Math.round(d.payment)}/month FOREVER\n`;
+                    text += `    Interest rate eliminated: ${d.rate.toFixed(1)}% APR\n\n`;
+                    remainingSurplus -= d.balance;
+                });
+                
+                const freed = killable.reduce((sum, d) => sum + d.payment, 0);
+                const nextTargets = debts.filter(d => !killable.includes(d) && !d.type.toLowerCase().includes('mortgage') && d.balance > 0)
+                    .sort((a, b) => b.rate - a.rate);
+                    
+                if (nextTargets.length > 0) {
+                    text += `⚡ DOMINO EFFECT:\n`;
+                    text += `   Freed payments ($${Math.round(freed)}/mo) now attack ${nextTargets[0].type}\n`;
+                    text += `   New monthly attack: $${Math.round(nextTargets[0].payment + freed).toLocaleString()}/month\n\n`;
+                }
+            } else if (debts.filter(d => !d.type.toLowerCase().includes('mortgage') && d.balance > 0).length > 0) {
+                const target = debts.filter(d => !d.type.toLowerCase().includes('mortgage') && d.balance > 0).sort((a, b) => b.rate - a.rate)[0];
+                text += `ATTACK HIGHEST-RATE DEBT:\n\n`;
+                text += `[ ] Extra payment → ${target.type.toUpperCase()}\n`;
+                text += `    Extra: $${Math.round(surplus).toLocaleString()}\n`;
+                text += `    Rate: ${target.rate.toFixed(1)}% APR\n\n`;
+            }
+            
+            text += `Stop making excuses. Do this TODAY.\n`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const el = document.getElementById('surplus-copy-success');
+                if (el) { el.style.display = 'block'; setTimeout(() => el.style.display = 'none', 4000); }
+            }).catch(() => alert(text));
         }
         
         function unlockBudget() {
@@ -10334,19 +10624,467 @@ function updatePremiumTeaser() {
             showToast('Action recommendation refreshed');
         }
         
+        // ═══════════════════════════════════════════════════════════
+        // RAF DoFI ENGINE — One battle at a time
+        // ═══════════════════════════════════════════════════════════
+        
+        let rafSteps = [];
+        let rafCurrentStep = -1; // -1 = opener screen
+        let rafCompletedSteps = [];
+        let rafSkippedSteps = [];
+        
+        const FRANKLIN_QUOTES = {
+            budget:    { quote: "Beware of little expenses. A small leak will sink a great ship.", attr: "Franklin" },
+            debt:      { quote: "Think what you do when you run in debt; you give another power over your liberty.", attr: "Franklin" },
+            emergency: { quote: "By failing to prepare, you are preparing to fail.", attr: "Franklin" },
+            surplus:   { quote: "An investment in knowledge pays the best interest.", attr: "Franklin" },
+            car:       { quote: "A man in debt is so far a slave.", attr: "Franklin" },
+            credit:    { quote: "Rather go to bed supperless than rise in debt.", attr: "Franklin" },
+            default:   { quote: "The way to wealth is as plain as the way to market.", attr: "Franklin" }
+        };
+        
+        function buildRafSteps() {
+            const steps = [];
+            const income = getMonthlyIncome();
+            const yearlyIncome = income * 12;
+            const debts = getDebtsByPriority();
+            const emergencyBalance = parseCurrency(document.getElementById('emergency_fund')?.value || 0);
+            const surplus = calculateSurplus();
+            
+            // Budget overages — easiest wins first
+            const categoryThresholds = [
+                { id: 'phone_bill',           name: 'Phone Bill',        max: 0.05, phone: '1-800-837-4966', tip: 'Or switch to Mint Mobile ($15/mo) or Visible ($25/mo).' },
+                { id: 'subscriptions',        name: 'Subscriptions',     max: 0.04, phone: null,             tip: 'Go through your bank statement. Cancel anything you haven\'t used this week.' },
+                { id: 'dining_entertainment', name: 'Dining Out',        max: 0.10, phone: null,             tip: 'Cook at home. Pack lunch. You\'re financing restaurants, not yourself.' },
+                { id: 'gym_membership',       name: 'Gym Membership',    max: 0.02, phone: null,             tip: 'Run outside. Do pushups. The gym isn\'t making you fit — it\'s making you poor.' },
+                { id: 'shopping_fun_money',   name: 'Shopping / Fun',    max: 0.08, phone: null,             tip: 'Freeze the card. Literally put it in a bowl of water in the freezer.' },
+                { id: 'car_gas',              name: 'Car Gas',           max: 0.05, phone: null,             tip: 'Combine trips. Drive slower. Or face the fact that the car is the problem.' },
+                { id: 'utilities',            name: 'Utilities',         max: 0.08, phone: null,             tip: 'Lower the thermostat. Unplug what you\'re not using. Call and ask for a better rate.' },
+                { id: 'car_insurance',        name: 'Car Insurance',     max: 0.05, phone: '1-800-947-2886', tip: 'Get 3 quotes today. Geico, Progressive, State Farm. 20 minutes, potentially hundreds saved.' },
+            ];
+            
+            categoryThresholds.forEach(cat => {
+                const el = document.getElementById(cat.id);
+                if (!el) return;
+                const actual = parseCurrency(el.value || 0);
+                const recommended = income * cat.max;
+                const overage = actual - recommended;
+                if (actual > recommended && (overage / recommended) > 0.20) {
+                    const q = FRANKLIN_QUOTES.budget;
+                    steps.push({
+                        type: 'budget',
+                        title: cat.name,
+                        quote: q.quote,
+                        attr: q.attr,
+                        actual,
+                        recommended,
+                        overage,
+                        yearlyOverage: overage * 12,
+                        phone: cat.phone,
+                        tip: cat.tip,
+                        savingsLabel: `$${Math.round(overage).toLocaleString()}/month back in your pocket`,
+                        timeLabel: '10–15 minutes'
+                    });
+                }
+            });
+            
+            // Unsustainable debts
+            debts.filter(d => !d.type.toLowerCase().includes('mortgage') && d.balance > 0).forEach(d => {
+                const ratio = d.balance / yearlyIncome;
+                const isUnsustainable = 
+                    (d.type.toLowerCase().includes('credit') && ratio > 0.50) ||
+                    (d.type.toLowerCase().includes('auto') && ratio > 0.50) ||
+                    (d.type.toLowerCase().includes('personal') && ratio > 0.75) ||
+                    (d.type.toLowerCase().includes('student') && ratio > 1.5);
+                    
+                if (isUnsustainable) {
+                    const isAuto = d.type.toLowerCase().includes('auto') || d.type.toLowerCase().includes('car');
+                    const isCredit = d.type.toLowerCase().includes('credit');
+                    const q = isAuto ? FRANKLIN_QUOTES.car : FRANKLIN_QUOTES.credit;
+                    steps.push({
+                        type: 'unsustainable',
+                        title: d.type,
+                        quote: q.quote,
+                        attr: q.attr,
+                        balance: d.balance,
+                        rate: d.rate,
+                        payment: d.payment,
+                        ratioPercent: Math.round(ratio * 100),
+                        isAuto,
+                        isCredit,
+                        yearlyInterest: Math.round(d.balance * (d.rate / 100)),
+                        timeLabel: 'Today',
+                        savingsLabel: isAuto ? 'Free yourself from this anchor' : `$${Math.round(d.balance * (d.rate/100)).toLocaleString()}/year in interest stopped`
+                    });
+                }
+            });
+            
+            // Emergency debts (high APR)
+            debts.filter(d => d.rate >= 15 && !d.type.toLowerCase().includes('mortgage') && d.balance > 0)
+                .sort((a, b) => b.rate - a.rate)
+                .slice(0, 1)
+                .forEach(d => {
+                    // Don't duplicate if already in unsustainable
+                    if (!steps.find(s => s.title === d.type && s.type === 'unsustainable')) {
+                        steps.push({
+                            type: 'highrate',
+                            title: d.type,
+                            quote: FRANKLIN_QUOTES.debt.quote,
+                            attr: FRANKLIN_QUOTES.debt.attr,
+                            balance: d.balance,
+                            rate: d.rate,
+                            payment: d.payment,
+                            yearlyInterest: Math.round(d.balance * (d.rate / 100)),
+                            timeLabel: '15 minutes',
+                            savingsLabel: `$${Math.round(d.balance * (d.rate/100)).toLocaleString()}/year bleeding out`
+                        });
+                    }
+                });
+            
+            // Emergency fund
+            if (emergencyBalance < income) {
+                steps.push({
+                    type: 'emergency',
+                    quote: FRANKLIN_QUOTES.emergency.quote,
+                    attr: FRANKLIN_QUOTES.emergency.attr,
+                    current: emergencyBalance,
+                    goal: 1000,
+                    needed: Math.max(0, 1000 - emergencyBalance),
+                    timeLabel: 'This week',
+                    savingsLabel: 'One surprise won\'t wreck you anymore'
+                });
+            }
+            
+            // Surplus deployment
+            if (surplus > 50) {
+                const killable = debts
+                    .filter(d => !d.type.toLowerCase().includes('mortgage') && d.balance > 0 && d.balance <= surplus)
+                    .sort((a, b) => a.balance - b.balance);
+                    
+                steps.push({
+                    type: 'surplus',
+                    quote: FRANKLIN_QUOTES.surplus.quote,
+                    attr: FRANKLIN_QUOTES.surplus.attr,
+                    surplus,
+                    killable,
+                    topDebt: debts.filter(d => !d.type.toLowerCase().includes('mortgage') && d.balance > 0).sort((a, b) => b.rate - a.rate)[0],
+                    timeLabel: 'Today',
+                    savingsLabel: `$${Math.round(surplus).toLocaleString()} working FOR you instead of sitting there`
+                });
+            }
+            
+            return steps;
+        }
+        
+        function renderRafStep(stepIndex) {
+            const container = document.getElementById('dofi-step-container');
+            if (!container) return;
+            
+            // Opener screen
+            if (stepIndex === -1) {
+                const totalSteps = rafSteps.length;
+                container.innerHTML = `
+                    <div style="text-align: center; max-width: 560px; margin: 0 auto; padding: 2rem 1rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1.5rem;">❦</div>
+                        <h2 style="font-family: 'Brush Script MT', cursive; font-size: 3rem; color: #2c1810; margin-bottom: 1.5rem; line-height: 1.2;">
+                            Declaration of Financial Independence
+                        </h2>
+                        <div style="display:flex; align-items:center; gap:1rem; margin: 1.5rem auto; max-width: 28rem;">
+                            <div style="flex:1; height:2px; background:linear-gradient(to right,transparent,#8b6914);"></div>
+                            <span style="color:#8b6914; font-size:1.5rem;">✦</span>
+                            <div style="flex:1; height:2px; background:linear-gradient(to left,transparent,#8b6914);"></div>
+                        </div>
+                        <p style="font-family: Georgia, serif; font-size: 1.2rem; font-style: italic; color: #5d4037; margin-bottom: 2rem; line-height: 1.8;">
+                            "An investment in knowledge pays the best interest."<br>
+                            <span style="font-size: 0.95rem;">— Benjamin Franklin</span>
+                        </p>
+                        <p style="font-family: Georgia, serif; font-size: 1.15rem; color: #2c1810; margin-bottom: 1rem; line-height: 1.8;">
+                            You just made that investment.
+                        </p>
+                        <p style="font-family: Georgia, serif; font-size: 1.15rem; color: #2c1810; margin-bottom: 2.5rem; line-height: 1.8;">
+                            Your numbers are in. They're not pretty.<br>
+                            We've got <strong>${totalSteps} thing${totalSteps !== 1 ? 's' : ''}</strong> to fix.<br>
+                            One at a time. Let's get to work.
+                        </p>
+                        <button onclick="rafNextStep()" style="padding: 1rem 2.5rem; background: #2c1810; color: #f5e6c8; border: none; border-radius: 4px; font-family: Georgia, serif; font-size: 1.1rem; font-weight: 700; cursor: pointer; letter-spacing: 0.05em; transition: all 0.2s;" onmouseover="this.style.background='#8b6914'" onmouseout="this.style.background='#2c1810'">
+                            BEGIN →
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            // All done screen
+            if (stepIndex >= rafSteps.length) {
+                const completed = rafCompletedSteps.length;
+                const skipped = rafSkippedSteps.length;
+                const totalSaved = rafCompletedSteps.reduce((sum, i) => {
+                    const s = rafSteps[i];
+                    return sum + (s.overage || s.yearlyInterest / 12 || s.surplus || 0);
+                }, 0);
+                
+                container.innerHTML = `
+                    <div style="text-align: center; max-width: 560px; margin: 0 auto; padding: 2rem 1rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">✦</div>
+                        <h2 style="font-family: Georgia, serif; font-size: 1.8rem; font-weight: 700; color: #2c1810; margin-bottom: 1.5rem;">
+                            ${completed === 0 ? 'You know what needs to be done.' : 'Good work today.'}
+                        </h2>
+                        ${completed > 0 ? `
+                            <div style="background: rgba(139,105,20,0.08); border: 1px solid rgba(139,105,20,0.3); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; text-align: left;">
+                                <div style="font-family: Georgia, serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b6914; margin-bottom: 1rem;">Today's Victories</div>
+                                ${rafCompletedSteps.map(i => {
+                                    const s = rafSteps[i];
+                                    const saved = s.overage || (s.yearlyInterest ? s.yearlyInterest/12 : 0) || s.surplus || 0;
+                                    return `<div style="font-family: Georgia, serif; font-size: 1rem; color: #2c1810; padding: 0.5rem 0; border-bottom: 1px solid rgba(139,105,20,0.15);">
+                                        ✓ ${s.title || (s.type === 'emergency' ? 'Emergency Fund Started' : s.type === 'surplus' ? 'Surplus Deployed' : 'Step Complete')}
+                                        ${saved > 0 ? `<span style="color: #8b6914; font-weight: 600; float: right;">$${Math.round(saved).toLocaleString()}/mo</span>` : ''}
+                                    </div>`;
+                                }).join('')}
+                                ${totalSaved > 0 ? `
+                                    <div style="font-family: Georgia, serif; font-size: 1.1rem; font-weight: 700; color: #2c1810; padding-top: 0.75rem; text-align: right;">
+                                        Total: $${Math.round(totalSaved).toLocaleString()}/month reclaimed
+                                    </div>
+                                ` : ''}
+                            </div>
+                        ` : ''}
+                        ${skipped > 0 ? `
+                            <p style="font-family: Georgia, serif; font-size: 1rem; color: #5d4037; margin-bottom: 1.5rem; font-style: italic;">
+                                ${skipped} thing${skipped !== 1 ? 's' : ''} skipped. They'll be here tomorrow.
+                            </p>
+                        ` : ''}
+                        <p style="font-family: Georgia, serif; font-size: 1.1rem; color: #2c1810; margin-bottom: 2rem; line-height: 1.8; font-style: italic;">
+                            "The Constitution only gives people the right to pursue happiness. You have to catch it yourself."<br>
+                            <span style="font-size: 0.9rem;">— Franklin</span>
+                        </p>
+                        <button onclick="closeDeclarationFullscreen()" style="padding: 0.875rem 2rem; background: #2c1810; color: #f5e6c8; border: none; border-radius: 4px; font-family: Georgia, serif; font-size: 1rem; cursor: pointer;" onmouseover="this.style.background='#8b6914'" onmouseout="this.style.background='#2c1810'">
+                            Return to Dashboard
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            const step = rafSteps[stepIndex];
+            const progress = stepIndex + 1;
+            const total = rafSteps.length;
+            
+            let bodyHTML = '';
+            
+            if (step.type === 'budget') {
+                const isBig = step.actual > 500;
+                bodyHTML = `
+                    <p style="font-size: 1.2rem; color: #2c1810; font-weight: 700; margin-bottom: 0.5rem;">
+                        $${Math.round(step.actual).toLocaleString()}/month on ${step.title}?
+                    </p>
+                    <p style="font-size: 1.05rem; color: #5d4037; margin-bottom: 1.5rem; line-height: 1.7;">
+                        ${isBig ? `That's pretty fucking stupid, if you ask me. And Franklin would agree.` : `That's more than it should be. Franklin would have words.`}
+                        The going rate is <strong>$${Math.round(step.recommended).toLocaleString()}</strong>. 
+                        You're paying <strong style="color: #dc2626;">$${Math.round(step.overage).toLocaleString()} more</strong> than you should every month.
+                        That's <strong>$${Math.round(step.yearlyOverage).toLocaleString()} a year</strong> for the same result.
+                    </p>
+                    <div style="background: rgba(139,105,20,0.08); border-left: 3px solid #8b6914; padding: 1rem 1.25rem; border-radius: 0 6px 6px 0; margin-bottom: 1.5rem;">
+                        <div style="font-size: 0.85rem; font-weight: 700; color: #8b6914; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Fix it today</div>
+                        <p style="font-size: 1rem; color: #2c1810; margin: 0; line-height: 1.7;">${step.tip}</p>
+                        ${step.phone ? `<p style="font-size: 1.1rem; font-weight: 700; color: #2c1810; margin: 0.5rem 0 0 0;">📞 ${step.phone}</p>` : ''}
+                    </div>
+                `;
+            } else if (step.type === 'unsustainable') {
+                bodyHTML = `
+                    <p style="font-size: 1.2rem; color: #2c1810; font-weight: 700; margin-bottom: 0.5rem;">
+                        ${step.isAuto ? `You owe $${Math.round(step.balance).toLocaleString()} on a car.` : `$${Math.round(step.balance).toLocaleString()} in credit card debt.`}
+                    </p>
+                    <p style="font-size: 1.05rem; color: #5d4037; margin-bottom: 1.5rem; line-height: 1.7;">
+                        That's <strong>${step.ratioPercent}% of your annual income</strong> — 
+                        ${step.isAuto 
+                            ? `on a depreciating asset. The car owns you. You don't own the car.`
+                            : `at ${step.rate.toFixed(1)}% interest. They collect $${Math.round(step.yearlyInterest).toLocaleString()} from you every year and give you absolutely nothing in return.`}
+                        This ends now.
+                    </p>
+                    <div style="background: rgba(139,105,20,0.08); border-left: 3px solid #8b6914; padding: 1rem 1.25rem; border-radius: 0 6px 6px 0; margin-bottom: 1.5rem;">
+                        <div style="font-size: 0.85rem; font-weight: 700; color: #8b6914; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Your orders</div>
+                        ${step.isAuto 
+                            ? `<p style="font-size: 1rem; color: #2c1810; margin: 0; line-height: 1.7;">Get quotes from CarMax, Carvana, Facebook Marketplace. Today. 
+                               Sell it. Buy a $5,000 car with cash. Your payment goes from $${Math.round(step.payment).toLocaleString()}/month to $0.</p>`
+                            : `<p style="font-size: 1rem; color: #2c1810; margin: 0; line-height: 1.7;">Call them. Ask for a lower rate. Mention you're looking at balance transfer cards.
+                               Every extra dollar goes here first. Not vacations. Not restaurants. Here.</p>`}
+                    </div>
+                `;
+            } else if (step.type === 'highrate') {
+                bodyHTML = `
+                    <p style="font-size: 1.2rem; color: #2c1810; font-weight: 700; margin-bottom: 0.5rem;">
+                        ${step.rate.toFixed(1)}% interest on $${Math.round(step.balance).toLocaleString()}.
+                    </p>
+                    <p style="font-size: 1.05rem; color: #5d4037; margin-bottom: 1.5rem; line-height: 1.7;">
+                        That's <strong style="color: #dc2626;">$${Math.round(step.yearlyInterest).toLocaleString()} a year</strong> going straight to the bank.
+                        Not to your family. Not to your future. To them.
+                        Every month you pay minimums, you're tipping your lender for the privilege of being broke.
+                    </p>
+                    <div style="background: rgba(139,105,20,0.08); border-left: 3px solid #8b6914; padding: 1rem 1.25rem; border-radius: 0 6px 6px 0; margin-bottom: 1.5rem;">
+                        <div style="font-size: 0.85rem; font-weight: 700; color: #8b6914; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Your orders</div>
+                        <p style="font-size: 1rem; color: #2c1810; margin: 0; line-height: 1.7;">
+                            Call them. Demand a lower rate. Every extra dollar you have goes here — before dining out, before fun money, before anything.
+                            This is your highest-priority target.
+                        </p>
+                    </div>
+                `;
+            } else if (step.type === 'emergency') {
+                bodyHTML = `
+                    <p style="font-size: 1.2rem; color: #2c1810; font-weight: 700; margin-bottom: 0.5rem;">
+                        You have $${Math.round(step.current).toLocaleString()} set aside for emergencies.
+                    </p>
+                    <p style="font-size: 1.05rem; color: #5d4037; margin-bottom: 1.5rem; line-height: 1.7;">
+                        ${step.current < 100 
+                            ? `That's basically nothing. One flat tire and you're back on a credit card.`
+                            : `That's a start, but you need $1,000 minimum. One surprise shouldn't wreck you.`}
+                        You need <strong>$${Math.round(step.needed).toLocaleString()} more</strong> to hit your first milestone.
+                    </p>
+                    <div style="background: rgba(139,105,20,0.08); border-left: 3px solid #8b6914; padding: 1rem 1.25rem; border-radius: 0 6px 6px 0; margin-bottom: 1.5rem;">
+                        <div style="font-size: 0.85rem; font-weight: 700; color: #8b6914; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">How to get there fast</div>
+                        <p style="font-size: 1rem; color: #2c1810; margin: 0; line-height: 1.7;">
+                            Sell something this week. Facebook Marketplace, eBay, your neighbor. 
+                            Pick up one extra shift. Do one gig job. Get this done.
+                            $1,000 is the wall between you and panic.
+                        </p>
+                    </div>
+                `;
+            } else if (step.type === 'surplus') {
+                const killable = step.killable;
+                bodyHTML = `
+                    <p style="font-size: 1.2rem; color: #2c1810; font-weight: 700; margin-bottom: 0.5rem;">
+                        You have $${Math.round(step.surplus).toLocaleString()} left over this month.
+                    </p>
+                    <p style="font-size: 1.05rem; color: #5d4037; margin-bottom: 1.5rem; line-height: 1.7;">
+                        ${killable.length > 0 
+                            ? `You can <strong>completely eliminate ${killable.length} debt${killable.length > 1 ? 's' : ''}</strong> right now. Not chip away at them. Kill them. This month.`
+                            : step.topDebt 
+                                ? `Throw all of it at your highest-rate debt. Every extra dollar there is a dollar that stops costing you ${step.topDebt.rate.toFixed(1)}% a year.`
+                                : `Put it to work. Idle money is wasted money.`}
+                    </p>
+                    ${killable.length > 0 ? `
+                        <div style="background: rgba(139,105,20,0.08); border-left: 3px solid #8b6914; padding: 1rem 1.25rem; border-radius: 0 6px 6px 0; margin-bottom: 1.5rem;">
+                            <div style="font-size: 0.85rem; font-weight: 700; color: #8b6914; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">Kill these today</div>
+                            ${killable.map(d => `
+                                <div style="display: flex; justify-content: space-between; padding: 0.4rem 0; border-bottom: 1px solid rgba(139,105,20,0.15); font-size: 0.95rem; color: #2c1810;">
+                                    <span>${d.type}</span>
+                                    <span style="font-weight: 700;">$${Math.round(d.balance).toLocaleString()} — frees $${Math.round(d.payment)}/mo</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : step.topDebt ? `
+                        <div style="background: rgba(139,105,20,0.08); border-left: 3px solid #8b6914; padding: 1rem 1.25rem; border-radius: 0 6px 6px 0; margin-bottom: 1.5rem;">
+                            <p style="font-size: 1rem; color: #2c1810; margin: 0;">→ $${Math.round(step.surplus).toLocaleString()} extra toward <strong>${step.topDebt.type}</strong> @ ${step.topDebt.rate.toFixed(1)}% APR</p>
+                        </div>
+                    ` : ''}
+                `;
+            }
+            
+            container.innerHTML = `
+                <div style="max-width: 580px; margin: 0 auto; padding: 1.5rem 1rem;">
+                
+                    <!-- Progress -->
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+                        <div style="font-family: Georgia, serif; font-size: 0.8rem; color: #8b6914; text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap;">
+                            Step ${progress} of ${total}
+                        </div>
+                        <div style="flex: 1; height: 4px; background: rgba(139,105,20,0.15); border-radius: 2px;">
+                            <div style="height: 100%; width: ${(progress/total)*100}%; background: #8b6914; border-radius: 2px; transition: width 0.4s;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quote -->
+                    <div style="margin-bottom: 1.75rem;">
+                        <p style="font-family: Georgia, serif; font-size: 1rem; font-style: italic; color: #5d4037; line-height: 1.7; margin: 0;">
+                            "${step.quote}"
+                        </p>
+                        <p style="font-family: Georgia, serif; font-size: 0.85rem; color: #8b6914; margin: 0.25rem 0 0 0;">
+                            — ${step.attr}
+                        </p>
+                    </div>
+                    
+                    <!-- Divider -->
+                    <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.75rem;">
+                        <div style="flex:1; height:1px; background:rgba(139,105,20,0.3);"></div>
+                        <span style="color:#8b6914; font-size:1rem;">✦</span>
+                        <div style="flex:1; height:1px; background:rgba(139,105,20,0.3);"></div>
+                    </div>
+                    
+                    <!-- Body -->
+                    ${bodyHTML}
+                    
+                    <!-- Meta -->
+                    <div style="display: flex; gap: 1.5rem; margin-bottom: 2rem; font-family: Georgia, serif; font-size: 0.9rem; color: #5d4037;">
+                        <span>⏱ ${step.timeLabel}</span>
+                        <span>💰 ${step.savingsLabel}</span>
+                    </div>
+                    
+                    <!-- Buttons -->
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button onclick="rafDone(${stepIndex})" style="flex: 2; min-width: 160px; padding: 0.9rem 1.5rem; background: #2c1810; color: #f5e6c8; border: none; border-radius: 4px; font-family: Georgia, serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#8b6914'" onmouseout="this.style.background='#2c1810'">
+                            ✓ Done — next
+                        </button>
+                        <button onclick="rafSkip(${stepIndex})" style="flex: 1; min-width: 100px; padding: 0.9rem 1rem; background: transparent; color: #5d4037; border: 1px solid rgba(139,105,20,0.4); border-radius: 4px; font-family: Georgia, serif; font-size: 0.9rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#8b6914';this.style.color='#8b6914'" onmouseout="this.style.borderColor='rgba(139,105,20,0.4)';this.style.color='#5d4037'">
+                            Not yet
+                        </button>
+                    </div>
+                    
+                </div>
+            `;
+        }
+        
+        function rafNextStep() {
+            rafCurrentStep++;
+            renderRafStep(rafCurrentStep);
+        }
+        
+        function rafDone(stepIndex) {
+            if (!rafCompletedSteps.includes(stepIndex)) rafCompletedSteps.push(stepIndex);
+            rafCurrentStep = stepIndex + 1;
+            
+            // Show win screen briefly if there's something meaningful saved
+            const step = rafSteps[stepIndex];
+            const saved = step.overage || (step.yearlyInterest ? step.yearlyInterest/12 : 0) || 0;
+            
+            if (saved > 50) {
+                const container = document.getElementById('dofi-step-container');
+                container.innerHTML = `
+                    <div style="text-align: center; max-width: 560px; margin: 0 auto; padding: 3rem 1rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">✦</div>
+                        <p style="font-family: Georgia, serif; font-size: 1.5rem; font-weight: 700; color: #2c1810; margin-bottom: 0.75rem;">
+                            $${Math.round(saved).toLocaleString()}/month back in your pocket.
+                        </p>
+                        <p style="font-family: Georgia, serif; font-size: 1.05rem; color: #5d4037; margin-bottom: 2.5rem; font-style: italic;">
+                            Franklin would approve.
+                        </p>
+                        <button onclick="renderRafStep(${rafCurrentStep})" style="padding: 0.875rem 2rem; background: #2c1810; color: #f5e6c8; border: none; border-radius: 4px; font-family: Georgia, serif; font-size: 1rem; cursor: pointer;" onmouseover="this.style.background='#8b6914'" onmouseout="this.style.background='#2c1810'">
+                            ${rafCurrentStep >= rafSteps.length ? 'See summary' : 'Keep going →'}
+                        </button>
+                    </div>
+                `;
+            } else {
+                renderRafStep(rafCurrentStep);
+            }
+        }
+        
+        function rafSkip(stepIndex) {
+            if (!rafSkippedSteps.includes(stepIndex)) rafSkippedSteps.push(stepIndex);
+            rafCurrentStep = stepIndex + 1;
+            renderRafStep(rafCurrentStep);
+        }
+        
         function openDeclarationFullscreen() {
             const modal = document.getElementById('declaration-fullscreen-modal');
-            const sidebarContent = document.getElementById('bill-of-rights-content');
-            const fullscreenContent = document.getElementById('bill-of-rights-content-fullscreen');
-            const sidebarDate = document.getElementById('declaration-date');
-            const fullscreenDate = document.getElementById('declaration-date-fullscreen');
+            if (!modal) return;
             
-            if (sidebarContent && fullscreenContent) {
-                fullscreenContent.innerHTML = sidebarContent.innerHTML;
-            }
-            if (sidebarDate && fullscreenDate) {
-                fullscreenDate.textContent = sidebarDate.textContent;
-            }
+            // Reset state
+            rafCurrentStep = -1;
+            rafCompletedSteps = [];
+            rafSkippedSteps = [];
+            
+            // Build steps from live data
+            rafSteps = buildRafSteps();
+            
+            // Render opener
+            renderRafStep(-1);
             
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -10376,6 +11114,81 @@ function updatePremiumTeaser() {
                     closeDeclarationFullscreen();
                 }
             });
+            
+            // CRITICAL FIX: Auto-open DoFI FULLSCREEN if everything locked when page loads
+            setTimeout(() => {
+                console.log('════════════════════════════════════════');
+                console.log('🔍 DOFI AUTO-OPEN DEBUG');
+                console.log('════════════════════════════════════════');
+                
+                const isBudgetLocked = localStorage.getItem('raf_budget_locked') === 'true';
+                const incomeConfirmed = localStorage.getItem('raf_income_confirmed') === 'true';
+                const debtConfirmed = localStorage.getItem('raf_debt_confirmed') === 'true';
+                const paycheckEl = document.getElementById('paycheck');
+                const hasIncome = paycheckEl?.value && parseCurrency(paycheckEl.value) > 0;
+                const timelineContainer = document.getElementById('action-timeline-container');
+                
+                console.log('📊 LocalStorage State:');
+                console.log('  - raf_budget_locked:', localStorage.getItem('raf_budget_locked'));
+                console.log('  - raf_income_confirmed:', localStorage.getItem('raf_income_confirmed'));
+                console.log('  - raf_debt_confirmed:', localStorage.getItem('raf_debt_confirmed'));
+                
+                console.log('💰 Income Check:');
+                console.log('  - paycheck element exists:', !!paycheckEl);
+                console.log('  - paycheck value:', paycheckEl?.value);
+                console.log('  - parsed income:', paycheckEl ? parseCurrency(paycheckEl.value) : 'N/A');
+                console.log('  - hasIncome:', hasIncome);
+                
+                console.log('🎯 DoFI Container:');
+                console.log('  - timeline container exists:', !!timelineContainer);
+                console.log('  - timeline classes:', timelineContainer?.className);
+                
+                console.log('🚦 Gate Check:');
+                console.log('  - isBudgetLocked:', isBudgetLocked);
+                console.log('  - incomeConfirmed:', incomeConfirmed);
+                console.log('  - debtConfirmed:', debtConfirmed);
+                console.log('  - hasIncome:', hasIncome);
+                console.log('  - timelineExists:', !!timelineContainer);
+                
+                const allLocked = isBudgetLocked && incomeConfirmed && debtConfirmed && hasIncome && timelineContainer;
+                console.log('✅ ALL CONDITIONS MET?', allLocked);
+                
+                // If EVERYTHING is locked, auto-open fullscreen modal
+                if (allLocked) {
+                    console.log('🎯 YES! AUTO-OPENING DOFI FULLSCREEN!');
+                    console.log('════════════════════════════════════════');
+                    
+                    // First make sure sidebar DoFI is rendered
+                    timelineContainer.classList.remove('hidden');
+                    console.log('  ✓ Removed hidden class from timeline');
+                    
+                    // Sidebar is now just a teaser graphic - no dynamic content needed
+                    console.log('  ✓ Sidebar teaser ready');
+                    
+                    const dateEl = document.getElementById('declaration-date');
+                    if (dateEl) {
+                        const now = new Date();
+                        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                        dateEl.textContent = now.toLocaleDateString('en-US', options);
+                        console.log('  ✓ Set declaration date:', dateEl.textContent);
+                    }
+                    
+                    // Then immediately open fullscreen modal
+                    setTimeout(() => {
+                        console.log('  ✓ Opening fullscreen modal NOW...');
+                        if (typeof openDeclarationFullscreen === 'function') {
+                            openDeclarationFullscreen();
+                            console.log('  ✅ openDeclarationFullscreen() called!');
+                        } else {
+                            console.error('  ❌ openDeclarationFullscreen is not a function!');
+                        }
+                    }, 100); // Small delay to ensure sidebar is rendered first
+                } else {
+                    console.log('❌ NOT ALL CONDITIONS MET - DoFI will not auto-open');
+                    console.log('   Fix the conditions above and it will work');
+                    console.log('════════════════════════════════════════');
+                }
+            }, 500); // Small delay to ensure everything is loaded
         });
 
         const FINANCIAL_STATES = {
@@ -10918,6 +11731,174 @@ function updatePremiumTeaser() {
             window.print();
         }
         
+        function copyActionList() {
+            // Get all the data we need
+            const income = getMonthlyIncome();
+            const yearlyIncome = income * 12;
+            const budgetIssues = [];
+            
+            // Recalculate budget issues for the checklist
+            const categoryThresholds = {
+                'mortgage_rent': { max: income * 0.30, name: 'Housing' },
+                'phone_bill': { max: income * 0.05, name: 'Phone Bill' },
+                'utilities': { max: income * 0.08, name: 'Utilities' },
+                'car_gas': { max: income * 0.05, name: 'Car Gas' },
+                'car_insurance': { max: income * 0.05, name: 'Car Insurance' },
+                'groceries': { max: income * 0.10, name: 'Groceries' },
+                'dining_entertainment': { max: income * 0.10, name: 'Dining/Entertainment' },
+                'subscriptions': { max: income * 0.04, name: 'Subscriptions' },
+                'shopping_fun_money': { max: income * 0.08, name: 'Shopping/Fun' },
+                'gym_membership': { max: income * 0.02, name: 'Gym' }
+            };
+            
+            Object.keys(categoryThresholds).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    const actual = parseCurrency(el.value || 0);
+                    const threshold = categoryThresholds[id];
+                    const percentOver = ((actual - threshold.max) / threshold.max) * 100;
+                    
+                    if (actual > threshold.max && percentOver > 20) {
+                        budgetIssues.push({
+                            category: threshold.name,
+                            actual: actual,
+                            recommended: threshold.max,
+                            overage: actual - threshold.max
+                        });
+                    }
+                }
+            });
+            
+            // Get unsustainable debts
+            const debts = getDebtsByPriority();
+            const unsustainableDebts = debts.filter(d => {
+                const balanceToIncomeRatio = d.balance / yearlyIncome;
+                if (d.type.toLowerCase().includes('credit')) return balanceToIncomeRatio > 0.50;
+                if (d.type.toLowerCase().includes('auto') || d.type.toLowerCase().includes('car')) return balanceToIncomeRatio > 0.50;
+                if (d.type.toLowerCase().includes('student')) return balanceToIncomeRatio > 1.5;
+                if (d.type.toLowerCase().includes('personal')) return balanceToIncomeRatio > 0.75;
+                if (!d.type.toLowerCase().includes('mortgage')) return balanceToIncomeRatio > 1.0;
+                return false;
+            });
+            
+            // Get emergency debts
+            const emergencyDebts = debts.filter(d => {
+                const monthsToPayoff = d.payment > 0 ? d.balance / d.payment : 999;
+                const paymentToIncomeRatio = income > 0 ? (d.payment / income) : 0;
+                if (d.type.toLowerCase().includes('mortgage')) {
+                    return paymentToIncomeRatio > 0.30;
+                }
+                return d.rate >= 15 || (monthsToPayoff > 24 && d.balance > income * 2);
+            });
+            
+            // Build the checklist
+            let checklist = `MY ACTION LIST FOR TODAY\n`;
+            checklist += `Generated: ${new Date().toLocaleDateString()}\n`;
+            checklist += `\n═══════════════════════════════════════\n\n`;
+            
+            let actionNumber = 1;
+            let totalSavings = 0;
+            
+            // Section 1: Stop the bleeding
+            if (budgetIssues.length > 0) {
+                checklist += `STOP THE BLEEDING (Next 30 minutes)\n\n`;
+                budgetIssues.forEach(issue => {
+                    checklist += `[ ] ${actionNumber}. CUT ${issue.category.toUpperCase()}\n`;
+                    checklist += `    Currently: $${Math.round(issue.actual)}/month\n`;
+                    checklist += `    Target: $${Math.round(issue.recommended)}/month\n`;
+                    checklist += `    Savings: $${Math.round(issue.overage)}/month\n`;
+                    
+                    if (issue.category === 'Phone Bill') {
+                        checklist += `    → Call provider and ask for cheaper plan\n`;
+                        checklist += `    → Or switch to Mint Mobile, Visible, etc.\n`;
+                    } else if (issue.category === 'Subscriptions') {
+                        checklist += `    → Cancel Netflix, Spotify, unused apps\n`;
+                    } else if (issue.category === 'Dining/Entertainment') {
+                        checklist += `    → Cook at home, pack lunch\n`;
+                    } else if (issue.category === 'Gym') {
+                        checklist += `    → Cancel gym, workout at home or run outside\n`;
+                    }
+                    
+                    checklist += `\n`;
+                    totalSavings += issue.overage;
+                    actionNumber++;
+                });
+                checklist += `\n`;
+            }
+            
+            // Section 2: Sell unsustainable assets
+            if (unsustainableDebts.length > 0) {
+                checklist += `SELL WHAT YOU CAN'T AFFORD (This Week)\n\n`;
+                unsustainableDebts.forEach(d => {
+                    checklist += `[ ] ${actionNumber}. ${d.type.toUpperCase()}: $${Math.round(d.balance).toLocaleString()}\n`;
+                    
+                    if (d.type.toLowerCase().includes('auto') || d.type.toLowerCase().includes('car')) {
+                        checklist += `    → Get quotes: CarMax.com, Carvana.com\n`;
+                        checklist += `    → List on Facebook Marketplace\n`;
+                        checklist += `    → Buy $5K beater with cash\n`;
+                    } else if (d.type.toLowerCase().includes('credit')) {
+                        checklist += `    → Apply for 0% balance transfer card\n`;
+                        checklist += `    → Google: "best balance transfer cards"\n`;
+                    } else if (d.type.toLowerCase().includes('student')) {
+                        checklist += `    → Apply for income-driven repayment\n`;
+                        checklist += `    → Visit: studentaid.gov\n`;
+                    }
+                    
+                    checklist += `\n`;
+                    actionNumber++;
+                });
+                checklist += `\n`;
+            }
+            
+            // Section 3: Attack emergency debt
+            if (emergencyDebts.length > 0) {
+                checklist += `ATTACK EMERGENCY DEBT (Tomorrow Morning)\n\n`;
+                const target = emergencyDebts[0];
+                checklist += `[ ] ${actionNumber}. CALL ${target.type.toUpperCase()} COMPANY\n`;
+                checklist += `    Balance: $${Math.round(target.balance).toLocaleString()} @ ${target.rate.toFixed(1)}% APR\n`;
+                checklist += `    Costing: $${Math.round(target.balance * (target.rate / 100))}/year in interest\n`;
+                checklist += `    → Ask for lower interest rate\n`;
+                checklist += `    → Mention you're considering balance transfer\n`;
+                checklist += `\n`;
+                actionNumber++;
+            }
+            
+            // Section 4: Emergency fund
+            const emergencyBalance = parseCurrency(document.getElementById('emergency_fund')?.value || 0);
+            if (emergencyBalance < 1000) {
+                checklist += `BUILD $1,000 EMERGENCY FUND (This Week)\n\n`;
+                checklist += `[ ] ${actionNumber}. RAISE $1,000 FAST\n`;
+                checklist += `    Current: $${Math.round(emergencyBalance)}\n`;
+                checklist += `    Need: $${1000 - Math.round(emergencyBalance)}\n`;
+                checklist += `    → Sell unused items on Facebook ($300)\n`;
+                checklist += `    → Work overtime/extra shifts ($400)\n`;
+                checklist += `    → Do gig work: DoorDash, Uber ($300)\n`;
+                checklist += `\n`;
+                actionNumber++;
+            }
+            
+            // Summary
+            checklist += `═══════════════════════════════════════\n\n`;
+            if (totalSavings > 0) {
+                checklist += `TOTAL MONTHLY SAVINGS IF YOU DO THIS:\n`;
+                checklist += `$${Math.round(totalSavings)}/month = $${Math.round(totalSavings * 12)}/year\n\n`;
+            }
+            checklist += `Stop making excuses. Do this TODAY.\n`;
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(checklist).then(() => {
+                const successMsg = document.getElementById('copy-success');
+                if (successMsg) {
+                    successMsg.style.display = 'block';
+                    setTimeout(() => {
+                        successMsg.style.display = 'none';
+                    }, 5000);
+                }
+            }).catch(err => {
+                alert('Could not copy. Please copy manually:\n\n' + checklist);
+            });
+        }
+        
         function renderPathToSovereignty() {
             const content = document.getElementById('bill-of-rights-content');
             const fullscreenContent = document.getElementById('bill-of-rights-content-fullscreen');
@@ -11079,7 +12060,11 @@ function updatePremiumTeaser() {
                                     let action = '';
                                     let maxPercent = 0;
                                     
-                                    if (d.type.toLowerCase().includes('auto') || d.type.toLowerCase().includes('car')) {
+                                    // Check credit BEFORE car/auto (because "card" contains "car")
+                                    if (d.type.toLowerCase().includes('credit')) {
+                                        maxPercent = 50;
+                                        action = 'Balance transfer; Debt consolidation; Stop using';
+                                    } else if (d.type.toLowerCase().includes('auto') || d.type.toLowerCase().includes('car')) {
                                         maxPercent = 50;
                                         action = 'SELL THE CAR - Downgrade to cheaper vehicle';
                                     } else if (d.type.toLowerCase().includes('student')) {
@@ -11088,9 +12073,6 @@ function updatePremiumTeaser() {
                                     } else if (d.type.toLowerCase().includes('personal')) {
                                         maxPercent = 75;
                                         action = 'Consolidate or negotiate settlement';
-                                    } else if (d.type.toLowerCase().includes('credit')) {
-                                        maxPercent = 50;
-                                        action = 'Balance transfer; Debt consolidation; Stop using';
                                     } else {
                                         maxPercent = 100;
                                         action = 'Reduce balance or increase income immediately';
@@ -11225,115 +12207,209 @@ function updatePremiumTeaser() {
             const html = `
                 <div class="declaration-container" style="font-family: Georgia, serif; color: #2c1810;">
                     
-                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: ${phase1Complete ? 'rgba(16, 185, 129, 0.1)' : 'rgba(139, 105, 20, 0.05)'}; border-left: 4px solid ${phase1Complete ? '#10b981' : '#8b6914'}; border-radius: 4px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                            <div>
-                                <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b6914; font-weight: 600;">PHASE ONE • DAYS 0-30</div>
-                                <div style="font-size: 1.1rem; font-weight: 700; color: #2c1810; margin-top: 0.25rem;">FOUNDATION & CONTROL</div>
-                            </div>
-                            <div style="font-size: 1.5rem;">
-                                ${phase1Complete ? '✓' : '🎯'}
-                            </div>
+                    <!-- DAY 1 EMERGENCY ACTIONS -->
+                    <div style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(220, 38, 38, 0.1); border: 3px solid #dc2626; border-radius: 8px;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #dc2626; margin-bottom: 0.5rem;">
+                            🚨 DO THIS SHIT TODAY (Day 1)
                         </div>
-                        <div style="font-size: 0.85rem; font-style: italic; color: #5d4037; margin-bottom: 1rem;">
-                            "Ground your position. Establish baseline control. Stop the chaos."
+                        <div style="font-size: 1rem; color: #5d4037; margin-bottom: 1rem;">
+                            Stop reading. Start doing. No excuses. No "I'll do it tomorrow." TODAY.
                         </div>
-                        <div style="font-size: 0.8rem; line-height: 1.6;">
-                            <div style="margin-bottom: 0.5rem;">
-                                ${phase1Checks.budget ? '✅' : '⬜'} <strong>Zero-Based Budget Locked</strong> — Every dollar allocated (Surplus: $${surplus.toFixed(0)})
+                        
+                        ${budgetIssues.length > 0 ? `
+                            <div style="margin-bottom: 1.5rem; padding: 1rem; background: rgba(251, 146, 60, 0.15); border-left: 4px solid #ea580c; border-radius: 4px;">
+                                <div style="font-size: 1.2rem; font-weight: 700; color: #ea580c; margin-bottom: 0.75rem;">
+                                    1️⃣ STOP THE BLEEDING (Next 30 minutes)
+                                </div>
+                                <div style="font-size: 0.95rem; color: #5d4037; margin-bottom: 0.75rem;">
+                                    You're spending <strong style="color: #dc2626;">$${budgetIssues.reduce((sum, i) => sum + i.overage, 0).toFixed(0)}/month</strong> more than you should. Cut this NOW:
+                                </div>
+                                ${budgetIssues.map(issue => `
+                                    <div style="margin-bottom: 1rem; padding: 0.75rem; background: white; border-radius: 4px;">
+                                        <div style="font-size: 1.1rem; font-weight: 700; color: #2c1810; margin-bottom: 0.5rem;">
+                                            ❌ ${issue.category}: Cut $${issue.overage.toFixed(0)}/month
+                                        </div>
+                                        <div style="font-size: 0.9rem; color: #5d4037; margin-bottom: 0.5rem;">
+                                            You're spending: <span style="color: #dc2626; font-weight: 700;">$${issue.actual.toFixed(0)}</span> | 
+                                            Should be: <span style="color: #10b981; font-weight: 700;">$${issue.recommended.toFixed(0)}</span>
+                                        </div>
+                                        <div style="font-size: 1rem; color: #2c1810; font-weight: 600; margin-bottom: 0.25rem;">
+                                            Do this RIGHT NOW:
+                                        </div>
+                                        <ul style="margin: 0; padding-left: 1.5rem; font-size: 0.95rem; color: #5d4037;">
+                                            ${issue.tips.map(tip => `<li style="margin-bottom: 0.25rem;">${tip}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                `).join('')}
                             </div>
-                            <div style="margin-bottom: 0.5rem;">
-                                ${phase1Checks.cashFlow ? '✅' : '⬜'} <strong>Positive Cash Flow</strong> — Not overspending (${surplus >= 0 ? `+$${surplus.toFixed(0)}` : `$${surplus.toFixed(0)}`})
+                        ` : ''}
+                        
+                        ${unsustainableDebts.length > 0 ? `
+                            <div style="margin-bottom: 1.5rem; padding: 1rem; background: rgba(220, 38, 38, 0.2); border-left: 4px solid #dc2626; border-radius: 4px;">
+                                <div style="font-size: 1.2rem; font-weight: 700; color: #dc2626; margin-bottom: 0.75rem;">
+                                    2️⃣ SELL SHIT YOU CAN'T AFFORD (This Week)
+                                </div>
+                                ${unsustainableDebts.map(d => {
+                                    const balanceToIncomeRatio = (d.balance / yearlyIncome) * 100;
+                                    let action = '';
+                                    if (d.type.toLowerCase().includes('credit')) {
+                                        action = '<strong>Balance transfer to 0% card</strong> - Google "balance transfer credit cards" and apply TODAY';
+                                    } else if (d.type.toLowerCase().includes('auto') || d.type.toLowerCase().includes('car')) {
+                                        action = '<strong>List your car for sale</strong> - CarMax, Carvana, or Facebook Marketplace. Get quotes TODAY. Buy a $5K beater with cash';
+                                    } else if (d.type.toLowerCase().includes('student')) {
+                                        action = '<strong>Apply for income-driven repayment</strong> - studentaid.gov - Do it TODAY. Then get a side hustle';
+                                    } else if (d.type.toLowerCase().includes('personal')) {
+                                        action = '<strong>Call lender to negotiate</strong> - Ask for hardship program or settlement. Do it TODAY';
+                                    } else {
+                                        action = '<strong>Liquidate or negotiate NOW</strong>';
+                                    }
+                                    return `
+                                        <div style="margin-bottom: 1rem; padding: 0.75rem; background: white; border-radius: 4px;">
+                                            <div style="font-size: 1.1rem; font-weight: 700; color: #dc2626; margin-bottom: 0.5rem;">
+                                                ${d.type}: $${d.balance.toFixed(0).toLocaleString()} (${balanceToIncomeRatio.toFixed(0)}% of your income)
+                                            </div>
+                                            <div style="font-size: 1rem; color: #2c1810; margin-bottom: 0.5rem;">
+                                                ${action}
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
                             </div>
-                            <div style="margin-bottom: 0.5rem;">
-                                ${phase1Checks.oneMonth ? '✅' : '⬜'} <strong>1-Month Buffer Established</strong> — $${emergencyBalance.toFixed(0)} / $${oneMonthBuffer.toFixed(0)}
+                        ` : ''}
+                        
+                        ${emergencyDebts.length > 0 ? `
+                            <div style="margin-bottom: 1.5rem; padding: 1rem; background: rgba(239, 68, 68, 0.15); border-left: 4px solid #ef4444; border-radius: 4px;">
+                                <div style="font-size: 1.2rem; font-weight: 700; color: #ef4444; margin-bottom: 0.75rem;">
+                                    3️⃣ ATTACK EMERGENCY DEBT (Starting Tomorrow)
+                                </div>
+                                <div style="font-size: 0.95rem; color: #5d4037; margin-bottom: 1rem;">
+                                    Pay minimums on everything except this one. Throw EVERY extra dollar at:
+                                </div>
+                                <div style="padding: 1rem; background: white; border-radius: 4px; border: 2px solid #ef4444;">
+                                    <div style="font-size: 1.3rem; font-weight: 700; color: #ef4444; margin-bottom: 0.5rem;">
+                                        TARGET: ${emergencyDebts[0].type}
+                                    </div>
+                                    <div style="font-size: 1rem; color: #2c1810; margin-bottom: 0.5rem;">
+                                        Balance: <strong style="color: #dc2626;">$${emergencyDebts[0].balance.toFixed(0).toLocaleString()}</strong> @ ${emergencyDebts[0].rate.toFixed(1)}% APR
+                                    </div>
+                                    <div style="font-size: 1rem; color: #2c1810; margin-bottom: 0.5rem;">
+                                        Bleeding: <strong style="color: #f97316;">$${(emergencyDebts[0].balance * (emergencyDebts[0].rate / 100)).toFixed(0)}/year</strong> in interest
+                                    </div>
+                                    <div style="font-size: 1rem; color: #2c1810; font-weight: 600; margin-top: 0.75rem;">
+                                        Tomorrow morning: Call ${emergencyDebts[0].type.toLowerCase().includes('credit') ? 'credit card company' : 'lender'} and ask for lower rate
+                                    </div>
+                                </div>
                             </div>
-                            <div style="margin-bottom: 0.5rem;">
-                                ${phase1Checks.moneyLeaks ? '✅' : '⬜'} <strong>No Budget Overages</strong> — All spending within recommended limits
+                        ` : ''}
+                        
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; border-radius: 4px;">
+                            <div style="font-size: 1.2rem; font-weight: 700; color: #10b981; margin-bottom: 0.5rem;">
+                                4️⃣ EMERGENCY FUND START (End of Week)
+                            </div>
+                            <div style="font-size: 1rem; color: #2c1810; margin-bottom: 0.75rem;">
+                                Current: <strong>$${emergencyBalance.toFixed(0)}</strong> | 
+                                Goal: <strong>$1,000</strong> (starter emergency fund)
+                            </div>
+                            <div style="font-size: 0.95rem; color: #5d4037;">
+                                <strong>Ways to get $1,000 fast:</strong>
+                                <ul style="margin: 0.5rem 0 0 1.5rem;">
+                                    <li>Sell unused shit on Facebook Marketplace (target: $300)</li>
+                                    <li>Work overtime or pick up extra shifts (target: $400)</li>
+                                    <li>Cancel subscriptions you don't use (save: $50+/month)</li>
+                                    <li>Return recent purchases you don't need (target: $200)</li>
+                                    <li>Do gig work (DoorDash, Uber, TaskRabbit) (target: $250)</li>
+                                </ul>
                             </div>
                         </div>
                         
-                        ${unsustainableDebtHTML}
-                        ${emergencyDebtTableHTML}
-                        ${overBudgetTableHTML}
+                        <!-- STEP 5: SURPLUS ALLOCATOR - only shows if there's surplus -->
+                        <div id="surplus-allocator" style="display: none; margin-bottom: 1.5rem; padding: 1rem; background: rgba(16, 185, 129, 0.15); border-left: 4px solid #10b981; border-radius: 4px;">
+                            <div style="font-size: 1.2rem; font-weight: 700; color: #10b981; margin-bottom: 0.75rem;">
+                                5️⃣ DEPLOY YOUR SURPLUS (This Month)
+                            </div>
+                            <div style="font-size: 0.95rem; color: #5d4037; margin-bottom: 1rem;">
+                                You have <strong style="color: #10b981; font-size: 1.1rem;">$<span id="surplus-amount">0</span></strong> left over after expenses. Here's EXACTLY where it goes:
+                            </div>
+                            <div id="surplus-allocator-content">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
                         
-                        <div style="margin-top: 1rem; height: 8px; background: rgba(139, 105, 20, 0.2); border-radius: 4px; overflow: hidden;">
-                            <div style="height: 100%; width: ${phase1Progress}%; background: linear-gradient(90deg, #8b6914, #d4af37); transition: width 0.3s;"></div>
-                        </div>
-                        <div style="font-size: 0.7rem; color: #5d4037; text-align: right; margin-top: 0.25rem;">
-                            ${phase1Progress.toFixed(0)}% Complete
+                        <!-- COPY ACTION LIST BUTTON -->
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(16, 185, 129, 0.1); border: 2px solid #10b981; border-radius: 8px; text-align: center;">
+                            <button onclick="copyActionList()" style="padding: 1rem 2rem; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); transition: all 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                📋 COPY YOUR ACTION LIST
+                            </button>
+                            <div style="font-size: 0.85rem; color: #5d4037; margin-top: 0.5rem;">
+                                Get a simple checklist you can text yourself or print
+                            </div>
+                            <div id="copy-success" style="display: none; margin-top: 0.5rem; font-size: 0.95rem; color: #10b981; font-weight: 600;">
+                                ✓ Copied! Now paste it somewhere you'll see it every day
+                            </div>
                         </div>
                     </div>
                     
-                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: ${phase2Complete ? 'rgba(16, 185, 129, 0.1)' : phase1Complete ? 'rgba(139, 105, 20, 0.05)' : 'rgba(107, 114, 128, 0.05)'}; border-left: 4px solid ${phase2Complete ? '#10b981' : phase1Complete ? '#ef4444' : '#6b7280'}; border-radius: 4px; opacity: ${phase1Complete ? 1 : 0.5};">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                            <div>
-                                <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b6914; font-weight: 600;">PHASE TWO • DAYS 30-60</div>
-                                <div style="font-size: 1.1rem; font-weight: 700; color: #2c1810; margin-top: 0.25rem;">DEBT NEUTRALIZATION & PROTECTION</div>
-                            </div>
-                            <div style="font-size: 1.5rem;">
-                                ${phase2Complete ? '✓' : phase1Complete ? '🎯' : '🔒'}
-                            </div>
+                    
+                    <!-- MINIMAL ROADMAP - Simple milestones -->
+                    <div style="margin-top: 2rem; margin-bottom: 2rem; padding: 1.5rem; background: rgba(139, 105, 20, 0.05); border-radius: 8px;">
+                        <div style="font-size: 1.2rem; font-weight: 700; color: #8b6914; margin-bottom: 1rem; text-align: center;">
+                            📍 YOUR 90-DAY ROADMAP
                         </div>
-                        <div style="font-size: 0.85rem; font-style: italic; color: #5d4037; margin-bottom: 1rem;">
-                            "Break your chains. Build your fortress. Eliminate vulnerability."
+                        <div style="font-size: 0.9rem; color: #5d4037; text-align: center; margin-bottom: 1.5rem;">
+                            Focus on TODAY's actions above. The phases will take care of themselves.
                         </div>
-                        <div style="font-size: 0.8rem; line-height: 1.6;">
-                            <div style="margin-bottom: 0.5rem;">
-                                ${phase2Checks.threeMonth ? '✅' : '⬜'} <strong>3-6 Month Emergency Fund</strong> — $${emergencyBalance.toFixed(0)} / $${threeMonthBuffer.toFixed(0)}
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <!-- Phase 1 -->
+                            <div style="padding: 1.25rem; background: ${phase1Complete ? 'rgba(16, 185, 129, 0.1)' : 'white'}; border: 2px solid ${phase1Complete ? '#10b981' : '#8b6914'}; border-radius: 8px;">
+                                <div style="font-size: 1.5rem; margin-bottom: 0.75rem; text-align: center;">
+                                    ${phase1Complete ? '✅' : '1️⃣'}
+                                </div>
+                                <div style="font-size: 0.9rem; font-weight: 700; color: #2c1810; margin-bottom: 0.5rem; text-align: center;">
+                                    PHASE 1
+                                </div>
+                                <div style="font-size: 0.75rem; color: #5d4037; text-align: center; margin-bottom: 0.5rem;">
+                                    Days 0-30
+                                </div>
+                                <div style="font-size: 0.85rem; color: #2c1810; text-align: center;">
+                                    Stop bleeding → Build $1K buffer
+                                </div>
                             </div>
-                            <div style="margin-bottom: 0.5rem;">
-                                ${phase2Checks.debtStrategy ? '✅' : '⬜'} <strong>Debt Elimination Active</strong> — Strategy in motion ($${totalDebt.toFixed(0)} total)
+                            
+                            <!-- Phase 2 -->
+                            <div style="padding: 1.25rem; background: ${phase2Complete ? 'rgba(16, 185, 129, 0.1)' : 'white'}; border: 2px solid ${phase2Complete ? '#10b981' : phase1Complete ? '#ef4444' : '#d1d5db'}; border-radius: 8px; opacity: ${phase1Complete ? 1 : 0.6};">
+                                <div style="font-size: 1.5rem; margin-bottom: 0.75rem; text-align: center;">
+                                    ${phase2Complete ? '✅' : phase1Complete ? '2️⃣' : '🔒'}
+                                </div>
+                                <div style="font-size: 0.9rem; font-weight: 700; color: #2c1810; margin-bottom: 0.5rem; text-align: center;">
+                                    PHASE 2
+                                </div>
+                                <div style="font-size: 0.75rem; color: #5d4037; text-align: center; margin-bottom: 0.5rem;">
+                                    Days 30-60
+                                </div>
+                                <div style="font-size: 0.85rem; color: #2c1810; text-align: center;">
+                                    Kill emergency debts → 3-month safety
+                                </div>
                             </div>
-                            <div style="margin-bottom: 0.5rem;">
-                                ${phase2Checks.noHighInterest ? '✅' : '⬜'} <strong>No High-Interest Debt</strong> — All debt under 7% APR (${highInterestDebt} remaining)
+                            
+                            <!-- Phase 3 -->
+                            <div style="padding: 1.25rem; background: ${phase3Complete ? 'rgba(16, 185, 129, 0.1)' : 'white'}; border: 2px solid ${phase3Complete ? '#10b981' : phase2Complete ? '#3b82f6' : '#d1d5db'}; border-radius: 8px; opacity: ${phase2Complete ? 1 : 0.6};">
+                                <div style="font-size: 1.5rem; margin-bottom: 0.75rem; text-align: center;">
+                                    ${phase3Complete ? '✅' : phase2Complete ? '3️⃣' : '🔒'}
+                                </div>
+                                <div style="font-size: 0.9rem; font-weight: 700; color: #2c1810; margin-bottom: 0.5rem; text-align: center;">
+                                    PHASE 3
+                                </div>
+                                <div style="font-size: 0.75rem; color: #5d4037; text-align: center; margin-bottom: 0.5rem;">
+                                    Days 60-90
+                                </div>
+                                <div style="font-size: 0.85rem; color: #2c1810; text-align: center;">
+                                    Build wealth machine → 15% savings
+                                </div>
                             </div>
-                            <div style="margin-bottom: 0.5rem;">
-                                ${phase2Checks.taxOptimized ? '✅' : '⬜'} <strong>Tax Strategy Active</strong> — Pre-tax contributions: $${totalPreTax.toFixed(0)}/mo
-                            </div>
-                        </div>
-                        <div style="margin-top: 1rem; height: 8px; background: rgba(139, 105, 20, 0.2); border-radius: 4px; overflow: hidden;">
-                            <div style="height: 100%; width: ${phase1Complete ? phase2Progress : 0}%; background: linear-gradient(90deg, #ef4444, #dc2626); transition: width 0.3s;"></div>
-                        </div>
-                        <div style="font-size: 0.7rem; color: #5d4037; text-align: right; margin-top: 0.25rem;">
-                            ${phase1Complete ? phase2Progress.toFixed(0) : 0}% Complete
                         </div>
                     </div>
                     
-                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: ${phase3Complete ? 'rgba(16, 185, 129, 0.1)' : phase2Complete ? 'rgba(139, 105, 20, 0.05)' : 'rgba(107, 114, 128, 0.05)'}; border-left: 4px solid ${phase3Complete ? '#10b981' : phase2Complete ? '#3b82f6' : '#6b7280'}; border-radius: 4px; opacity: ${phase2Complete ? 1 : 0.5};">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                            <div>
-                                <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b6914; font-weight: 600;">PHASE THREE • DAYS 60-90</div>
-                                <div style="font-size: 1.1rem; font-weight: 700; color: #2c1810; margin-top: 0.25rem;">WEALTH BUILDING & SOVEREIGNTY</div>
-                            </div>
-                            <div style="font-size: 1.5rem;">
-                                ${phase3Complete ? '✓' : phase2Complete ? '🎯' : '🔒'}
-                            </div>
-                        </div>
-                        <div style="font-size: 0.85rem; font-style: italic; color: #5d4037; margin-bottom: 1rem;">
-                            "Build your arsenal. Compound your freedom. Achieve sovereignty."
-                        </div>
-                        <div style="font-size: 0.8rem; line-height: 1.6;">
-                            <div style="margin-bottom: 0.5rem;">
-                                ${phase3Checks.retirement ? '✅' : '⬜'} <strong>Retirement Maximized</strong> — ${(totalPreTax/grossIncome*100).toFixed(1)}% to 401(k)/HSA (target: 10%+)
-                            </div>
-                            <div style="margin-bottom: 0.5rem;">
-                                ${phase3Checks.savingsRate ? '✅' : '⬜'} <strong>15%+ Savings Rate</strong> — Current: ${savingsRate.toFixed(1)}% (includes all investing)
-                            </div>
-                            <div style="margin-bottom: 0.5rem;">
-                                ${phase3Checks.investing ? '✅' : '⬜'} <strong>Automated Wealth Building</strong> — $${totalInvesting.toFixed(0)}/mo invested
-                            </div>
-                            <div style="margin-bottom: 0.5rem;">
-                                ${phase3Checks.netWorthTracking ? '✅' : '⬜'} <strong>Net Worth Tracking Active</strong> — Quarterly reviews locked in
-                            </div>
-                        </div>
-                        <div style="margin-top: 1rem; height: 8px; background: rgba(139, 105, 20, 0.2); border-radius: 4px; overflow: hidden;">
-                            <div style="height: 100%; width: ${phase2Complete ? phase3Progress : 0}%; background: linear-gradient(90deg, #3b82f6, #2563eb); transition: width 0.3s;"></div>
-                        </div>
-                        <div style="font-size: 0.7rem; color: #5d4037; text-align: right; margin-top: 0.25rem;">
-                            ${phase2Complete ? phase3Progress.toFixed(0) : 0}% Complete
-                        </div>
-                    </div>
                     
                     <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #8b6914;">
                         <div style="font-size: 0.9rem; font-weight: 600; text-align: center; margin-bottom: 1rem; color: #2c1810;">
@@ -12426,31 +13502,8 @@ function updatePremiumTeaser() {
             <div class="absolute inset-4 rounded-lg pointer-events-none" style="border:2px solid rgba(139,105,20,0.4);"></div>
             <div class="absolute inset-8 rounded-lg pointer-events-none" style="border:1px solid rgba(139,105,20,0.2);"></div>
             
-            <div class="relative z-10">
-                
-                <div style="text-align:center; margin-bottom:2.5rem;">
-                    <div style="font-size:3rem; color:rgba(139,105,20,0.55); margin-bottom:0.75rem;">❦</div>
-                    <h2 style="font-family:'Brush Script MT','Lucida Handwriting',cursive; font-size:3.5rem; color:#2c1810; line-height:1.2; text-shadow:2px 3px 4px rgba(0,0,0,0.15); margin-bottom:1.25rem;">Declaration of Financial Independence</h2>
-                    <div style="display:flex; align-items:center; gap:1rem; margin:1.5rem auto; max-width:28rem;">
-                        <div style="flex:1; height:2px; background:linear-gradient(to right,transparent,#8b6914);"></div>
-                        <span style="color:#8b6914; font-size:1.75rem;">✦</span>
-                        <div style="flex:1; height:2px; background:linear-gradient(to left,transparent,#8b6914);"></div>
-                    </div>
-                    <p style="font-family:'Georgia',serif; font-size:1.5rem; font-style:italic; color:#5d4037;">Three Sovereign Moves. 90 Days.</p>
-                </div>
-                
-                <div id="bill-of-rights-content-fullscreen" style="font-size: 1.5rem; line-height: 1.8;"></div>
-                
-                <div style="margin-top:2.5rem; padding-top:1.75rem; border-top:2px solid rgba(139,105,20,0.3); text-align:right;">
-                    <p style="font-family:'Georgia',serif; font-size:1.125rem; font-style:italic; color:#5d4037; margin-bottom:0.75rem;">Signed this day,</p>
-                    <p id="declaration-date-fullscreen" style="font-family:'Georgia',serif; font-size:1.25rem; font-weight:600; color:#3e2723; margin-bottom:1.25rem;"></p>
-                    <div style="font-family:'Brush Script MT',cursive; font-size:2.25rem; color:#1a237e; line-height:1; margin-bottom:0.75rem;">Your Name Here</div>
-                    <div style="height:2px; background:rgba(139,105,20,0.5);"></div>
-                </div>
-                
-                <div style="text-align:center; margin-top:2rem;">
-                    <span style="font-size:2.5rem; color:rgba(139,105,20,0.4);">❦</span>
-                </div>
+            <div class="relative z-10" id="dofi-step-container">
+                <!-- Populated by RAF DoFI engine -->
             </div>
         </div>
     </div>
