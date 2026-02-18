@@ -4201,7 +4201,10 @@
                 </div>
                 <div class="summary-metric">
                     <div class="summary-metric-label">Score</div>
-                    <div class="summary-metric-value text-yellow-400" id="sticky-score">--</div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div class="summary-metric-value text-yellow-400" id="sticky-score">--</div>
+                        <button onclick="toggleScoreInfo()" style="font-size: 0.85rem; color: #60a5fa; background: none; border: none; cursor: pointer; padding: 0.25rem 0.5rem; opacity: 0.7; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'" title="What does this mean?">ℹ️</button>
+                    </div>
                 </div>
                 <div class="summary-metric">
                     <div class="summary-metric-label">Debt</div>
@@ -4587,7 +4590,7 @@
                                         <th>Payment</th>
                                         <th>Rate</th>
                                         <th class="interest-column">Monthly Interest</th>
-                                        <th class="years-column">Years to Payoff</th>
+                                        <th class="years-column">Time to Payoff</th>
                                         <th>Priority</th>
                                         <th></th>
                                     </tr>
@@ -4911,7 +4914,7 @@
                             left: -20px;
                             right: -20px;
                             bottom: -20px;
-                            background-image: url('dofi.jpg');
+                            background-image: url('./DoFI.jpg');
                             background-size: cover;
                             background-position: center;
                             background-repeat: no-repeat;
@@ -6051,6 +6054,12 @@ function getYearsToPayoffClass(years) {
             if (years === Infinity || years >= 100) {
                 return '∞';
             } else if (years > 0) {
+                // If less than 2 years, show in months
+                if (years < 2) {
+                    const months = Math.round(years * 12);
+                    return `${months} mo${months !== 1 ? 's' : ''}`;
+                }
+                // Otherwise show years
                 return `${years.toFixed(1)} yrs`;
             } else {
                 return '--';
@@ -10741,15 +10750,16 @@ function updatePremiumTeaser() {
                     }
                 });
             
-            // Emergency fund
-            if (emergencyBalance < income) {
+            // Emergency fund - 1 month of expenses to start
+            const oneMonthExpenses = income; // Using income as proxy for monthly expenses
+            if (emergencyBalance < oneMonthExpenses) {
                 steps.push({
                     type: 'emergency',
                     quote: FRANKLIN_QUOTES.emergency.quote,
                     attr: FRANKLIN_QUOTES.emergency.attr,
                     current: emergencyBalance,
-                    goal: 1000,
-                    needed: Math.max(0, 1000 - emergencyBalance),
+                    goal: oneMonthExpenses,
+                    needed: Math.max(0, oneMonthExpenses - emergencyBalance),
                     timeLabel: 'This week',
                     savingsLabel: 'One surprise won\'t wreck you anymore'
                 });
@@ -10935,15 +10945,15 @@ function updatePremiumTeaser() {
                     <p style="font-size: 1.05rem; color: #5d4037; margin-bottom: 1.5rem; line-height: 1.7;">
                         ${step.current < 100 
                             ? `That's basically nothing. One flat tire and you're back on a credit card.`
-                            : `That's a start, but you need $1,000 minimum. One surprise shouldn't wreck you.`}
-                        You need <strong>$${Math.round(step.needed).toLocaleString()} more</strong> to hit your first milestone.
+                            : `That's a start, but you need one month of expenses minimum. One surprise shouldn't wreck you.`}
+                        You need <strong>$${Math.round(step.needed).toLocaleString()} more</strong> to cover one month.
                     </p>
                     <div style="background: rgba(139,105,20,0.08); border-left: 3px solid #8b6914; padding: 1rem 1.25rem; border-radius: 0 6px 6px 0; margin-bottom: 1.5rem;">
                         <div style="font-size: 0.85rem; font-weight: 700; color: #8b6914; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">How to get there fast</div>
                         <p style="font-size: 1rem; color: #2c1810; margin: 0; line-height: 1.7;">
                             Sell something this week. Facebook Marketplace, eBay, your neighbor. 
                             Pick up one extra shift. Do one gig job. Get this done.
-                            $1,000 is the wall between you and panic.
+                            One month of expenses is the wall between you and panic.
                         </p>
                     </div>
                 `;
@@ -11097,6 +11107,91 @@ function updatePremiumTeaser() {
             const modal = document.getElementById('declaration-fullscreen-modal');
             modal.classList.remove('active');
             document.body.style.overflow = '';
+        }
+        
+        // Score Explanation Modal Functions
+        function toggleScoreInfo() {
+            const modal = document.getElementById('score-info-modal');
+            const content = document.getElementById('score-breakdown-content');
+            
+            if (modal.style.display === 'none') {
+                // Populate content
+                const scoreData = calculateSovereignScore();
+                
+                let html = `
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div style="font-size: 3rem; font-weight: 700; color: ${getScoreColor(scoreData.total)}; margin-bottom: 0.5rem;">
+                            ${scoreData.total}/100
+                        </div>
+                        <div style="font-size: 1.2rem; font-weight: 600; color: ${getScoreColor(scoreData.total)};">
+                            ${scoreData.rank}
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="font-size: 0.9rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Score Ranges</h4>
+                        <div style="font-size: 0.95rem;">
+                            <div style="padding: 0.5rem; border-left: 3px solid #10b981; margin-bottom: 0.5rem; padding-left: 0.75rem;">
+                                <strong style="color: #10b981;">90-100: SOVEREIGN</strong> — Financial independence achieved
+                            </div>
+                            <div style="padding: 0.5rem; border-left: 3px solid #3b82f6; margin-bottom: 0.5rem; padding-left: 0.75rem;">
+                                <strong style="color: #3b82f6;">75-89: STRONG</strong> — Well-positioned, minor improvements needed
+                            </div>
+                            <div style="padding: 0.5rem; border-left: 3px solid #eab308; margin-bottom: 0.5rem; padding-left: 0.75rem;">
+                                <strong style="color: #eab308;">60-74: STABLE</strong> — Foundation solid, work to do
+                            </div>
+                            <div style="padding: 0.5rem; border-left: 3px solid #f97316; margin-bottom: 0.5rem; padding-left: 0.75rem;">
+                                <strong style="color: #f97316;">40-59: VULNERABLE</strong> — Urgent action required
+                            </div>
+                            <div style="padding: 0.5rem; border-left: 3px solid #dc2626; padding-left: 0.75rem;">
+                                <strong style="color: #dc2626;">0-39: CRISIS</strong> — Emergency measures needed
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 0.9rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Your Breakdown</h4>
+                        ${scoreData.components.map(comp => `
+                            <div style="margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                                    <span style="font-weight: 600;">${comp.name}</span>
+                                    <span style="color: ${comp.score === comp.max ? '#10b981' : comp.score >= comp.max * 0.7 ? '#eab308' : '#dc2626'}; font-weight: 700;">
+                                        ${comp.score}/${comp.max}
+                                    </span>
+                                </div>
+                                <div style="height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+                                    <div style="height: 100%; width: ${comp.fillPercentage}%; background: ${comp.score === comp.max ? '#10b981' : comp.score >= comp.max * 0.7 ? '#eab308' : '#dc2626'}; transition: width 0.3s;"></div>
+                                </div>
+                                <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 0.25rem;">${comp.details}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    ${scoreData.total < 75 ? `
+                        <div style="padding: 1rem; background: rgba(59, 130, 246, 0.1); border-left: 3px solid #3b82f6; border-radius: 4px;">
+                            <div style="font-weight: 600; margin-bottom: 0.5rem;">💡 How to Improve</div>
+                            <div style="font-size: 0.9rem;">
+                                Open your DoFI (Declaration of Financial Independence) for a step-by-step tactical plan to fix what's dragging your score down.
+                            </div>
+                        </div>
+                    ` : ''}
+                `;
+                
+                content.innerHTML = html;
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            } else {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }
+        
+        function getScoreColor(score) {
+            if (score >= 90) return '#10b981';
+            if (score >= 75) return '#3b82f6';
+            if (score >= 60) return '#eab308';
+            if (score >= 40) return '#f97316';
+            return '#dc2626';
         }
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -11865,14 +11960,15 @@ function updatePremiumTeaser() {
             
             // Section 4: Emergency fund
             const emergencyBalance = parseCurrency(document.getElementById('emergency_fund')?.value || 0);
-            if (emergencyBalance < 1000) {
-                checklist += `BUILD $1,000 EMERGENCY FUND (This Week)\n\n`;
-                checklist += `[ ] ${actionNumber}. RAISE $1,000 FAST\n`;
+            const oneMonthGoal = income; // One month of expenses
+            if (emergencyBalance < oneMonthGoal) {
+                checklist += `BUILD 1-MONTH EMERGENCY FUND (This Week)\n\n`;
+                checklist += `[ ] ${actionNumber}. RAISE $${Math.round(oneMonthGoal)} (ONE MONTH EXPENSES)\n`;
                 checklist += `    Current: $${Math.round(emergencyBalance)}\n`;
-                checklist += `    Need: $${1000 - Math.round(emergencyBalance)}\n`;
-                checklist += `    → Sell unused items on Facebook ($300)\n`;
-                checklist += `    → Work overtime/extra shifts ($400)\n`;
-                checklist += `    → Do gig work: DoorDash, Uber ($300)\n`;
+                checklist += `    Need: $${Math.round(oneMonthGoal - emergencyBalance)}\n`;
+                checklist += `    → Sell unused items on Facebook\n`;
+                checklist += `    → Work overtime/extra shifts\n`;
+                checklist += `    → Do gig work: DoorDash, Uber\n`;
                 checklist += `\n`;
                 actionNumber++;
             }
@@ -12308,16 +12404,16 @@ function updatePremiumTeaser() {
                             </div>
                             <div style="font-size: 1rem; color: #2c1810; margin-bottom: 0.75rem;">
                                 Current: <strong>$${emergencyBalance.toFixed(0)}</strong> | 
-                                Goal: <strong>$1,000</strong> (starter emergency fund)
+                                Goal: <strong>$${oneMonthBuffer.toFixed(0)}</strong> (one month expenses)
                             </div>
                             <div style="font-size: 0.95rem; color: #5d4037;">
-                                <strong>Ways to get $1,000 fast:</strong>
+                                <strong>Ways to get there fast:</strong>
                                 <ul style="margin: 0.5rem 0 0 1.5rem;">
-                                    <li>Sell unused shit on Facebook Marketplace (target: $300)</li>
-                                    <li>Work overtime or pick up extra shifts (target: $400)</li>
-                                    <li>Cancel subscriptions you don't use (save: $50+/month)</li>
-                                    <li>Return recent purchases you don't need (target: $200)</li>
-                                    <li>Do gig work (DoorDash, Uber, TaskRabbit) (target: $250)</li>
+                                    <li>Sell unused shit on Facebook Marketplace</li>
+                                    <li>Work overtime or pick up extra shifts</li>
+                                    <li>Cancel subscriptions you don't use</li>
+                                    <li>Return recent purchases you don't need</li>
+                                    <li>Do gig work (DoorDash, Uber, TaskRabbit)</li>
                                 </ul>
                             </div>
                         </div>
@@ -13505,6 +13601,21 @@ function updatePremiumTeaser() {
             <div class="relative z-10" id="dofi-step-container">
                 <!-- Populated by RAF DoFI engine -->
             </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Score Info Modal -->
+<div id="score-info-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 9999; padding: 2rem;" onclick="if(event.target.id==='score-info-modal') toggleScoreInfo()">
+    <div style="max-width: 600px; margin: 2rem auto; background: #1e293b; border-radius: 12px; padding: 2rem; box-shadow: 0 20px 60px rgba(0,0,0,0.5);" onclick="event.stopPropagation()">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h3 style="font-size: 1.5rem; font-weight: 700; color: white; margin: 0;">RAF Score Explained</h3>
+            <button onclick="toggleScoreInfo()" style="font-size: 1.5rem; background: none; border: none; color: #94a3b8; cursor: pointer;">×</button>
+        </div>
+        
+        <div id="score-breakdown-content" style="color: #cbd5e1; line-height: 1.6;">
+            <!-- Populated by JavaScript -->
         </div>
     </div>
 </div>
