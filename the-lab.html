@@ -110,6 +110,14 @@
             position: relative;
             overflow: hidden;
         }
+        
+        /* Allow strategy card icons to hang outside the section border */
+        #debt-section.dashboard-card {
+            overflow: visible;
+        }
+        #debt-section.dashboard-card::before {
+            border-radius: var(--radius-lg);
+        }
 
         .dashboard-card::before {
             content: '';
@@ -381,10 +389,8 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.92);
-            background-image: url('./DoFI.jpg');
             background-size: cover;
             background-position: center;
-            background-blend-mode: overlay;
             backdrop-filter: blur(8px);
             z-index: 9999;
             display: none;
@@ -458,6 +464,63 @@
         .hover-declaration:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(139,105,20,0.12) !important;
+        }
+
+        /* ── Unified Section Lock Toggle ────────────────────────────────── */
+        .section-lock-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+            white-space: nowrap;
+            border: 1.5px solid;
+            font-family: 'Inter', sans-serif;
+            line-height: 1;
+            user-select: none;
+        }
+        /* Unlocked state — neutral slate */
+        .section-lock-btn.state-unlocked {
+            background: rgba(100, 116, 139, 0.12);
+            border-color: rgba(100, 116, 139, 0.35);
+            color: #94a3b8;
+        }
+        .section-lock-btn.state-unlocked:hover {
+            background: rgba(100, 116, 139, 0.22);
+            border-color: rgba(100, 116, 139, 0.6);
+            color: #cbd5e1;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        /* Locked state — green confirmation */
+        .section-lock-btn.state-locked {
+            background: rgba(16, 185, 129, 0.12);
+            border-color: rgba(16, 185, 129, 0.45);
+            color: #34d399;
+        }
+        .section-lock-btn.state-locked:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #f87171;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .section-lock-btn.state-locked:hover .lock-btn-label::before {
+            content: 'Unlock';
+        }
+        .section-lock-btn.state-locked:hover .lock-btn-label {
+            font-size: 0; /* hide static text */
+        }
+        .section-lock-btn i {
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+        /* Pill indicator on section header showing lock state */
+        .section-lock-status {
+            display: none;
         }
 
         .hero-bg { 
@@ -854,6 +917,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
             transition: all 0.5s ease;
+            overflow: visible;
         }
         
         .debt-entry-flow h4 {
@@ -929,10 +993,30 @@
         
         /* Quick Add Presets */
         .quick-add-presets {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            display: flex;
+            flex-wrap: nowrap;
             gap: 12px;
             margin-bottom: 24px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.2) transparent;
+            padding-bottom: 8px;
+            text-align: left;
+        }
+        .quick-add-presets::-webkit-scrollbar {
+            height: 4px;
+        }
+        .quick-add-presets::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .quick-add-presets::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+        }
+        .quick-add-presets .preset-card {
+            flex: 0 0 auto;
+            min-width: 150px;
         }
         
         .preset-card {
@@ -4235,27 +4319,24 @@
 
         <div class="layout-left">
                 
-                <section class="dashboard-card" style="padding: 2.5rem;" id="income-section">
-                    <div class="flex justify-between items-start mb-8 pb-6 border-b-2" style="border-color: rgba(16, 185, 129, 0.2);">
-                        <div>
-                            <h2 style="font-size: 2.25rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 1rem;">
-                                <span style="display: inline-flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: 12px; font-size: 1.5rem; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);">01</span>
-                                <span>MONTHLY INCOME</span>
-                            </h2>
-                            <p style="font-size: 0.9375rem; color: rgba(248, 250, 252, 0.6); margin-left: 4.5rem;">Establish your financial baseline</p>
+                <section class="dashboard-card" style="padding: 2rem;" id="income-section">
+                    <div class="flex justify-between items-center mb-5 pb-4 border-b-2" style="border-color: rgba(16, 185, 129, 0.2);">
+                        <div class="flex items-center gap-3">
+                            <span style="display: inline-flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: 10px; font-size: 1rem; font-weight: 700; font-family: 'Oswald', sans-serif; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">01</span>
+                            <h2 style="font-size: 1.5rem; font-weight: 700;">MONTHLY INCOME</h2>
                         </div>
                         <div class="flex items-center gap-3">
-                            <!-- Lock Button -->
-                            <button id="income-lock-header-btn" onclick="lockIncome()" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.25rem; background: rgba(59, 130, 246, 0.15); border: 1.5px solid #3b82f6; color: #60a5fa; border-radius: 8px; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap;" onmouseover="this.style.background='rgba(59, 130, 246, 0.25)'" onmouseout="this.style.background='rgba(59, 130, 246, 0.15)'">
-                                <i class="fas fa-lock" style="font-size: 0.85rem;"></i>
-                                <span>Lock</span>
+                            <button id="income-lock-header-btn" onclick="lockIncome()" tabindex="0" aria-label="Lock or unlock income section" class="section-lock-btn state-unlocked">
+                                <i class="fas fa-lock-open"></i>
+                                <span>Unlocked</span>
                             </button>
                             <div id="banner-container-income" class="banner-container"></div>
                             <span class="tier-badge tier-free">Free</span>
                         </div>
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                    <!-- Paycheck + Frequency on same row -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div class="relative">
                             <label class="block text-xs uppercase text-gray-400 mb-2">Net Paycheck</label>
                             <div class="currency-input-container">
@@ -4263,7 +4344,7 @@
                                        id="paycheck" 
                                        oninput="formatCurrencyInput(this); handleIncomeChange(this); if(validateBudgetInput(this)) debouncedCalculateAll();" 
                                        placeholder="3,000"
-                                       class="input-underlined p-3 md:p-4 text-lg md:text-xl font-bold w-full touch-target"
+                                       class="input-underlined p-3 text-lg font-bold w-full touch-target"
                                        autocomplete="off"
                                        aria-label="Enter your take-home pay after taxes">
                             </div>
@@ -4271,7 +4352,7 @@
                         <div class="relative">
                             <label class="block text-xs uppercase text-gray-400 mb-2">Frequency</label>
                             <select id="freq" onchange="debouncedCalculateAll()" 
-                                    class="input-underlined p-3 md:p-4 text-sm font-bold text-white uppercase bg-navy-900 w-full touch-target"
+                                    class="input-underlined p-3 text-sm font-bold text-white uppercase bg-navy-900 w-full touch-target"
                                     aria-label="Select how often you receive this paycheck">
                                 <option value="2">2x Per Month (Semi-monthly)</option>
                                 <option value="1">1x Per Month (Monthly)</option>
@@ -4281,82 +4362,50 @@
                         </div>
                     </div>
                     
-                    <div class="mt-6 p-4 bg-blue-900/10 rounded-lg border border-blue-500/20">
-                        <div class="flex items-center gap-2 mb-3">
-                            <i class="fas fa-shield-alt text-blue-400"></i>
-                            <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400">Pre-Tax Wealth Building</h4>
-                        </div>
-                        <p class="text-xs text-gray-400 mb-4">Track investments that come out BEFORE your paycheck hits your account</p>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            <div>
-                                <label class="block text-xs uppercase text-gray-400 mb-2">401(k) / 403(b)</label>
-                                <div class="currency-input-container">
-                                    <input type="text" 
-                                           id="pretax-401k" 
-                                           oninput="formatCurrencyInput(this); debouncedCalculateAll();" 
-                                           placeholder="0"
-                                           class="input-underlined p-2 text-sm font-bold w-full"
-                                           autocomplete="off">
+                    <!-- Pre-Tax Deductions collapsed by default -->
+                    <details class="mb-4">
+                        <summary class="text-xs uppercase text-blue-400 font-semibold cursor-pointer select-none hover:text-blue-300 transition flex items-center gap-2 py-2">
+                            <i class="fas fa-shield-alt"></i>
+                            Pre-tax deductions (optional)
+                        </summary>
+                        <div class="mt-3 p-3 bg-blue-900/10 rounded-lg border border-blue-500/20">
+                            <p class="text-xs text-gray-400 mb-3">Investments that come out BEFORE your paycheck hits your account</p>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div>
+                                    <label class="block text-xs uppercase text-gray-400 mb-1">401(k) / 403(b)</label>
+                                    <div class="currency-input-container">
+                                        <input type="text" id="pretax-401k" oninput="formatCurrencyInput(this); debouncedCalculateAll();" placeholder="0"
+                                               class="input-underlined p-2 text-sm font-bold w-full" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase text-gray-400 mb-1">HSA</label>
+                                    <div class="currency-input-container">
+                                        <input type="text" id="pretax-hsa" oninput="formatCurrencyInput(this); debouncedCalculateAll();" placeholder="0"
+                                               class="input-underlined p-2 text-sm font-bold w-full" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase text-gray-400 mb-1">Other Pre-Tax</label>
+                                    <div class="currency-input-container">
+                                        <input type="text" id="pretax-other" oninput="formatCurrencyInput(this); debouncedCalculateAll();" placeholder="0"
+                                               class="input-underlined p-2 text-sm font-bold w-full" autocomplete="off">
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <label class="block text-xs uppercase text-gray-400 mb-2">HSA</label>
-                                <div class="currency-input-container">
-                                    <input type="text" 
-                                           id="pretax-hsa" 
-                                           oninput="formatCurrencyInput(this); debouncedCalculateAll();" 
-                                           placeholder="0"
-                                           class="input-underlined p-2 text-sm font-bold w-full"
-                                           autocomplete="off">
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-xs uppercase text-gray-400 mb-2">Other Pre-Tax</label>
-                                <div class="currency-input-container">
-                                    <input type="text" 
-                                           id="pretax-other" 
-                                           oninput="formatCurrencyInput(this); debouncedCalculateAll();" 
-                                           placeholder="0"
-                                           class="input-underlined p-2 text-sm font-bold w-full"
-                                           autocomplete="off">
-                                </div>
+                            <div class="mt-2 flex gap-4 text-xs text-gray-400">
+                                <span>Total Pre-Tax: <strong id="pretax-total" class="text-blue-400">$0</strong></span>
+                                <span>Savings Rate: <strong id="savings-rate" class="text-green-400">0%</strong></span>
                             </div>
                         </div>
-                        
-                        <div class="mt-3 p-3 bg-white/5 rounded">
-                            <div class="flex justify-between items-center">
-                                <span class="text-xs text-gray-400">Total Pre-Tax Investing:</span>
-                                <span id="pretax-total" class="text-sm font-bold text-blue-400">$0</span>
-                            </div>
-                            <div class="flex justify-between items-center mt-1">
-                                <span class="text-xs text-gray-400">Your Savings Rate:</span>
-                                <span id="savings-rate" class="text-sm font-bold text-green-400">0%</span>
-                            </div>
-                        </div>
-                    </div>
+                    </details>
                     
-                    <div class="mt-4 p-3 bg-navy-900/30 rounded border border-white/5">
-                        <div class="flex items-center justify-between">
+                    <!-- Summary row - shows after income is entered -->
+                    <div class="p-3 bg-navy-900/30 rounded border border-white/5">
+                        <div class="flex items-center justify-between flex-wrap gap-2">
                             <div>
-                                <div class="text-xs uppercase text-gray-400 mb-1" id="income-summary">Monthly income: $0</div>
+                                <div class="text-xs uppercase text-gray-400 mb-0.5" id="income-summary">Monthly income: $0</div>
                                 <div class="text-[10px] text-gray-600" id="income-status">Enter your paycheck to begin</div>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                
-                                <button id="income-lock-container" onclick="confirmIncome()" class="upgrade-btn px-3 py-1.5 text-xs whitespace-nowrap">
-                                    <i class="fas fa-lock mr-1 text-[10px]"></i>
-                                    <span>Lock Income</span>
-                                </button>
-                                
-                                <div id="income-locked-banner" class="hidden flex items-center gap-2 text-xs">
-                                    <i class="fas fa-check-circle text-green-400"></i>
-                                    <span class="text-gray-400">Locked</span>
-                                </div>
-                                
-                                <button id="edit-income-btn" onclick="editIncome()" class="hidden text-xs text-crimson hover:text-crimson/80 transition">
-                                    <i class="fas fa-edit mr-1"></i>Edit
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -4372,10 +4421,10 @@
                             <p style="font-size: 0.9375rem; color: rgba(248, 250, 252, 0.6); margin-left: 4.5rem;">Neutralize and eliminate liabilities</p>
                         </div>
                         <div class="flex items-center gap-3">
-                            <!-- Lock Button -->
-                            <button id="debt-lock-header-btn" onclick="toggleDebtLock()" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.25rem; background: rgba(59, 130, 246, 0.15); border: 1.5px solid #3b82f6; color: #60a5fa; border-radius: 8px; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap;" onmouseover="this.style.background='rgba(59, 130, 246, 0.25)'" onmouseout="this.style.background='rgba(59, 130, 246, 0.15)'">
-                                <i class="fas fa-lock" style="font-size: 0.85rem;"></i>
-                                <span>Lock</span>
+                            <!-- Unified Lock Button -->
+                            <button id="debt-lock-header-btn" onclick="toggleDebtLock()" aria-label="Lock or unlock debt section" class="section-lock-btn state-unlocked">
+                                <i class="fas fa-lock-open"></i>
+                                <span>Unlocked</span>
                             </button>
                             <div id="banner-container-debt" class="banner-container"></div>
                             <span class="tier-badge tier-free">Free</span>
@@ -4525,6 +4574,55 @@
                     
                     <div id="debt-table-container" class="hidden">
                         
+                        <!-- Dual Strategy Preview Cards -->
+                        <div id="strategy-preview-cards" class="flex gap-8 mb-5" style="overflow:visible;">
+                            <!-- Snowball Card -->
+                            <div style="flex:1; position:relative; padding-left:2.5rem; overflow:visible;">
+                                <span style="
+                                    position:absolute; left:2.5rem; top:50%;
+                                    transform:translate(-50%, -50%);
+                                    font-size:5rem; line-height:1;
+                                    z-index:10; pointer-events:none;
+                                    filter:drop-shadow(0 0 12px rgba(96,165,250,0.6));
+                                ">❄️</span>
+                                <div onclick="sortDebtTable('snowball')" style="
+                                    cursor:pointer; height:100%; text-align:right;
+                                    background:rgba(30,58,138,0.25); border:2px solid rgba(96,165,250,0.4);
+                                    border-radius:14px; padding:1.1rem 1.2rem 1rem 3rem;
+                                    transition:background 0.2s, border-color 0.2s;
+                                " onmouseover="this.style.background='rgba(30,58,138,0.45)'; this.style.borderColor='rgba(96,165,250,0.8)';" onmouseout="this.style.background='rgba(30,58,138,0.25)'; this.style.borderColor='rgba(96,165,250,0.4)';">
+                                    <div style="font-size:1.5rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#93c5fd; margin-bottom:0.2rem; font-family:'Oswald',sans-serif;">Snowball</div>
+                                    <div style="font-size:0.72rem; color:#9ca3af; margin-bottom:0.5rem; line-height:1.3;">Smallest balance first – quick wins for motivation</div>
+                                    <div id="snowball-time" style="font-size:1.2rem; font-weight:700; color:#fff;">—</div>
+                                    <div style="font-size:0.7rem; color:#6b7280;">Total interest: <span id="snowball-interest" style="color:#fb923c; font-weight:600;">—</span></div>
+                                    <div style="margin-top:0.4rem; font-size:0.68rem; color:#60a5fa;">Click to apply ›</div>
+                                </div>
+                            </div>
+
+                            <!-- Avalanche Card -->
+                            <div style="flex:1; position:relative; padding-left:2.5rem; overflow:visible;">
+                                <span style="
+                                    position:absolute; left:2.5rem; top:50%;
+                                    transform:translate(-50%, -50%);
+                                    font-size:5rem; line-height:1;
+                                    z-index:10; pointer-events:none;
+                                    filter:drop-shadow(0 0 12px rgba(255,255,255,0.4));
+                                ">🌊</span>
+                                <div onclick="sortDebtTable('avalanche')" style="
+                                    cursor:pointer; height:100%; text-align:right;
+                                    background:rgba(255,255,255,0.14); border:2px solid rgba(255,255,255,0.5);
+                                    border-radius:14px; padding:1.1rem 1.2rem 1rem 3rem;
+                                    transition:background 0.2s, border-color 0.2s;
+                                " onmouseover="this.style.background='rgba(255,255,255,0.22)'; this.style.borderColor='rgba(255,255,255,0.8)';" onmouseout="this.style.background='rgba(255,255,255,0.14)'; this.style.borderColor='rgba(255,255,255,0.5)';">
+                                    <div style="font-size:1.5rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#ffffff; margin-bottom:0.2rem; font-family:'Oswald',sans-serif;">Avalanche</div>
+                                    <div style="font-size:0.72rem; color:#9ca3af; margin-bottom:0.5rem; line-height:1.3;">Highest interest rate first – saves the most money</div>
+                                    <div id="avalanche-time" style="font-size:1.2rem; font-weight:700; color:#fff;">—</div>
+                                    <div style="font-size:0.7rem; color:#6b7280;">Total interest: <span id="avalanche-interest" style="color:#fb923c; font-weight:600;">—</span></div>
+                                    <div style="margin-top:0.4rem; font-size:0.68rem; color:#e2e8f0;">Click to apply ›</div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
                             <div class="flex items-center gap-2 text-xs">
                                 <div class="w-3 h-3 rounded-full bg-red-500"></div>
@@ -4544,7 +4642,7 @@
                             </div>
                         </div>
                         
-                        <div class="flex gap-3 mb-4">
+                        <div class="flex gap-3 mb-4" style="display:none!important">
                             <button id="sort-snowball" onclick="sortDebtTable('snowball')" 
                                     class="flex-1 px-4 py-2 bg-blue-900/30 border border-blue-500/30 text-blue-300 rounded-lg text-sm font-semibold uppercase tracking-wide hover:bg-blue-900/50 hover:border-blue-500/50 transition">
                                 <i class="fas fa-snowflake mr-2"></i>Snowball (Smallest First)
@@ -4579,6 +4677,17 @@
                             <i class="fas fa-info-circle mr-1"></i>
                             Interest estimates use daily calculation (30-day month) for most debt types. Mortgages use simple monthly.
                         </div>
+                        
+                        <!-- CSV Export/Import -->
+                        <div class="mt-4 flex gap-2 flex-wrap">
+                            <button onclick="exportDebtCSV()" class="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-white/10 border border-white/20 rounded-lg hover:bg-white/15 transition text-gray-300 font-semibold" title="Export debt list as CSV">
+                                <i class="fas fa-download"></i> Export Debt CSV
+                            </button>
+                            <label class="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-white/10 border border-white/20 rounded-lg hover:bg-white/15 transition text-gray-300 font-semibold cursor-pointer" title="Import debt list from CSV">
+                                <i class="fas fa-upload"></i> Import Debt CSV
+                                <input type="file" accept=".csv" class="hidden" onchange="importDebtCSV(this)">
+                            </label>
+                        </div>
                     </div>
 
                 <div class="hidden">
@@ -4600,10 +4709,10 @@
                             <p style="font-size: 0.9375rem; color: rgba(248, 250, 252, 0.6); margin-left: 4.5rem;">Track and optimize your spending</p>
                         </div>
                         <div class="flex items-center gap-3">
-                            <!-- Lock Button -->
-                            <button id="budget-lock-header-btn" onclick="toggleBudgetLock()" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.25rem; background: rgba(59, 130, 246, 0.15); border: 1.5px solid #3b82f6; color: #60a5fa; border-radius: 8px; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap;" onmouseover="this.style.background='rgba(59, 130, 246, 0.25)'" onmouseout="this.style.background='rgba(59, 130, 246, 0.15)'">
-                                <i class="fas fa-lock" style="font-size: 0.85rem;"></i>
-                                <span>Lock</span>
+                            <!-- Unified Lock Button -->
+                            <button id="budget-lock-header-btn" onclick="toggleBudgetLock()" aria-label="Lock or unlock budget section" class="section-lock-btn state-unlocked">
+                                <i class="fas fa-lock-open"></i>
+                                <span>Unlocked</span>
                             </button>
                             <button onclick="recommendBudget()" class="upgrade-btn px-3 py-1.5 text-xs whitespace-nowrap flex items-center gap-1">
                                 <i class="fas fa-bolt text-[10px]"></i>
@@ -4614,20 +4723,6 @@
                         </div>
                     </div>
                     
-                    <div id="budget-lock-banner" class="mb-6 p-4 bg-blue-900/20 rounded-lg border border-blue-500/30 hidden">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <i class="fas fa-check-circle text-green-400 text-xl"></i>
-                                <div>
-                                    <div class="text-sm font-bold text-white">Budget Complete</div>
-                                    <div class="text-xs text-gray-400">All expenses tracked. Your budget is locked.</div>
-                                </div>
-                            </div>
-                            <button onclick="unlockBudget()" class="text-xs bg-white/10 hover:bg-white/20 px-4 py-2 rounded transition">
-                                <i class="fas fa-unlock mr-1"></i>Edit Budget
-                            </button>
-                        </div>
-                    </div>
                     
                     <div id="war-mode-banner" class="mb-6 p-4 bg-gradient-to-r from-red-900/20 to-orange-900/20 rounded-lg border-2 border-red-500/50 hidden">
                         <div class="flex items-center justify-between mb-3">
@@ -4734,19 +4829,6 @@
                     <div class="mt-4 pt-4 border-t border-white/10">
                         <div class="flex items-center justify-between mb-3">
                             <h4 class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Debt Snapshot</h4>
-                            <div class="flex items-center gap-2">
-                                <button id="debt-lock-container" onclick="confirmDebt()" class="upgrade-btn px-2 py-1 text-[10px] whitespace-nowrap">
-                                    <i class="fas fa-lock mr-1 text-[8px]"></i>
-                                    <span>Lock</span>
-                                </button>
-                                <div id="debt-locked-banner" class="hidden flex items-center gap-1 text-[10px]">
-                                    <i class="fas fa-check-circle text-green-400"></i>
-                                    <span class="text-gray-400">Locked</span>
-                                </div>
-                                <button id="edit-debt-btn" onclick="editDebt()" class="hidden text-[10px] text-crimson hover:text-crimson/80 transition">
-                                    <i class="fas fa-edit mr-1"></i>Edit
-                                </button>
-                            </div>
                         </div>
                         
                         <!-- 4-box grid -->
@@ -5487,73 +5569,7 @@
                 totalDefault: 0
             }
         ];
-		
-function updateCategoryPercentage(categoryId) {
-    const categoryValue = parseCurrency(document.getElementById(categoryId)?.value || 0);
-    const monthlyIncome = getMonthlyIncome();
-    
-    if (monthlyIncome > 0 && categoryValue > 0) {
-        const percentage = (categoryValue / monthlyIncome) * 100;
-        const percentageElement = document.getElementById(`${categoryId}_percentage`);
-        if (percentageElement) {
-            percentageElement.textContent = `${percentage.toFixed(1)}%`;
-            
-            const isNeed = budgetCategories.needs.some(c => c.id === categoryId);
-            const isWant = budgetCategories.wants.some(c => c.id === categoryId);
-            
-            percentageElement.style.background = '';
-            percentageElement.style.color = '';
-            percentageElement.style.borderColor = '';
-            
-            if (isNeed) {
-                if (percentage > 15) {
-                    percentageElement.style.background = 'rgba(239, 68, 68, 0.2)';
-                    percentageElement.style.color = '#FCA5A5';
-                    percentageElement.style.borderColor = 'rgba(239, 68, 68, 0.4)';
-                } else if (percentage > 10) {
-                    percentageElement.style.background = 'rgba(245, 158, 11, 0.2)';
-                    percentageElement.style.color = '#FCD34D';
-                    percentageElement.style.borderColor = 'rgba(245, 158, 11, 0.4)';
-                } else {
-                    percentageElement.style.background = 'rgba(59, 130, 246, 0.15)';
-                    percentageElement.style.color = '#60A5FA';
-                    percentageElement.style.borderColor = 'rgba(59, 130, 246, 0.3)';
-                }
-            } else if (isWant) {
-                if (percentage > 10) {
-                    percentageElement.style.background = 'rgba(239, 68, 68, 0.2)';
-                    percentageElement.style.color = '#FCA5A5';
-                    percentageElement.style.borderColor = 'rgba(239, 68, 68, 0.4)';
-                } else if (percentage > 5) {
-                    percentageElement.style.background = 'rgba(245, 158, 11, 0.2)';
-                    percentageElement.style.color = '#FCD34D';
-                    percentageElement.style.borderColor = 'rgba(245, 158, 11, 0.4)';
-                } else {
-                    percentageElement.style.background = 'rgba(139, 92, 246, 0.15)';
-                    percentageElement.style.color = '#A78BFA';
-                    percentageElement.style.borderColor = 'rgba(139, 92, 246, 0.3)';
-                }
-            }
-        }
-    } else {
-        const percentageElement = document.getElementById(`${categoryId}_percentage`);
-        if (percentageElement) {
-            percentageElement.textContent = '0%';
-            percentageElement.className = 'category-percentage';
-        }
-    }
-}
-
-function updateAllCategoryPercentages() {
-    budgetCategories.needs.forEach(category => {
-        updateCategoryPercentage(category.id);
-    });
-    
-    budgetCategories.wants.forEach(category => {
-        updateCategoryPercentage(category.id);
-    });
-}		
-
+        
         const BUDGET_THRESHOLDS = {
             mortgage_rent: { ideal: 28, warning: 33, type: 'needs' },
             utilities: { ideal: 5, warning: 8, type: 'needs' },
@@ -5991,29 +6007,11 @@ function getYearsToPayoffClass(years) {
         }
         
         function calculateTotalYearsToPayoff() {
-            let highestIndividualYears = 0;
-            const debtRows = document.querySelectorAll('#debt-body tr');
-            
-            debtRows.forEach(row => {
-                const balanceInput = row.querySelector('td:nth-child(2) input');
-                const paymentInput = row.querySelector('td:nth-child(3) input');
-                const rateInput = row.querySelector('td:nth-child(4) input');
-                
-                if (balanceInput && paymentInput && rateInput) {
-                    const balance = parseCurrency(balanceInput.value);
-                    const payment = parseCurrency(paymentInput.value);
-                    const rate = parseFloat(rateInput.value) || 0;
-                    
-                    if (balance > 0 && payment > 0) {
-                        const years = calculateYearsToPayoff(balance, payment, rate);
-                        if (years > highestIndividualYears) {
-                            highestIndividualYears = years;
-                        }
-                    }
-                }
-            });
-            
-            return highestIndividualYears;
+            // Use the accurate month-by-month avalanche simulation
+            const result = calculateDebtPayoffTime('avalanche');
+            if (result.totalMonths === 0) return 0;
+            if (result.totalMonths >= 999) return 99;
+            return result.totalMonths / 12;
         }
         
         function updateYearsToPayoff(row) {
@@ -6040,14 +6038,8 @@ function getYearsToPayoffClass(years) {
                 cssClass = getYearsToPayoffClass(years);
                 
                 // Calculate monthly interest based on debt type
-                let monthlyInterest = 0;
-                if (debtType === 'mortgage') { // Fixed: lowercase 'mortgage'
-                    // Simple monthly for mortgages
-                    monthlyInterest = balance * (rate / 100) / 12;
-                } else {
-                    // Daily interest (30-day month) for all other debt types
-                    monthlyInterest = balance * (rate / 100) / 365 * 30;
-                }
+                // Use /12 (standard amortization) for accurate monthly interest cost
+                const monthlyInterest = balance * (rate / 100) / 12;
                 
                 // Update monthly interest display
                 if (interestCell) {
@@ -6055,9 +6047,27 @@ function getYearsToPayoffClass(years) {
                 }
                 
                 if (payment <= monthlyInterest) {
-                    yearsCell.title = `Payment ($${payment}) doesn't cover monthly interest ($${monthlyInterest.toFixed(2)}) - debt will never be paid off`;
+                    const suggestedMin = Math.ceil(monthlyInterest * 1.05); // 5% more than interest
+                    yearsCell.title = `⚠️ Payment ($${payment.toFixed(0)}) doesn't cover monthly interest ($${monthlyInterest.toFixed(2)}) — debt will NEVER be paid off! Try paying at least $${suggestedMin}/month`;
+                    // Add warning class to row
+                    row.classList.add('payment-warning');
+                    // Add/update warning cell if not already present
+                    if (!row.querySelector('.min-payment-warning')) {
+                        const warningDiv = document.createElement('div');
+                        warningDiv.className = 'min-payment-warning';
+                        warningDiv.style.cssText = 'background:#7f1d1d; border:1px solid #dc2626; border-radius:4px; padding:3px 6px; margin-top:4px; font-size:10px; color:#fca5a5;';
+                        warningDiv.innerHTML = `⚠️ Increase payment! Try $${suggestedMin}/mo`;
+                        yearsCell.appendChild(warningDiv);
+                    }
                 } else {
-                    yearsCell.title = `Based on minimum payment of $${payment}/month at ${rate}% APR`;
+                    const isRevolving = rate > 15;
+                    const model = isRevolving
+                        ? `declining minimum (${(payment/balance*100).toFixed(1)}% of remaining balance, matching how credit cards work)`
+                        : `fixed payment of $${payment}/month`;
+                    yearsCell.title = `Time to payoff using ${model} at ${rate}% APR. Actual payoff will be faster with the avalanche/snowball method above.`;
+                    row.classList.remove('payment-warning');
+                    const existingWarning = row.querySelector('.min-payment-warning');
+                    if (existingWarning) existingWarning.remove();
                 }
             } else {
                 yearsText = '--';
@@ -6200,18 +6210,7 @@ function getYearsToPayoffClass(years) {
         function confirmDebt() {
             localStorage.setItem('raf_debt_confirmed', 'true');
             localStorage.setItem('raf_debt_locked', 'true');
-            
-            const btn = document.getElementById('debt-lock-header-btn');
-            if (btn) {
-                // Update button to locked state (green)
-                btn.innerHTML = '<i class="fas fa-check" style="font-size: 0.85rem;"></i><span>Locked</span>';
-                btn.style.background = 'rgba(16, 185, 129, 0.15)';
-                btn.style.border = '1.5px solid #10b981';
-                btn.style.color = '#34d399';
-                btn.onmouseover = function() { this.style.background = 'rgba(16, 185, 129, 0.25)'; };
-                btn.onmouseout = function() { this.style.background = 'rgba(16, 185, 129, 0.15)'; };
-            }
-            
+            setSectionLockBtn('debt-lock-header-btn', true);
             updateNextActionBanner();
             
             showToast('✓ Debt confirmed! Now let\'s set up your budget.');
@@ -7857,24 +7856,12 @@ function getYearsToPayoffClass(years) {
             debtRows.forEach(row => {
                 const balanceInput = row.querySelector('td:nth-child(2) input');
                 const rateInput = row.querySelector('td:nth-child(4) input');
-                const typeSelect = row.querySelector('.debt-type-select');
                 
                 if (balanceInput && rateInput) {
                     const balance = parseCurrency(balanceInput.value);
                     const annualRate = parseFloat(rateInput.value) || 0;
-                    const debtType = typeSelect ? typeSelect.value : '';
-                    
-                    // Use daily calculation for everything except mortgages
-                    let interest = 0;
-                    if (debtType === 'mortgage') { // Fixed: lowercase 'mortgage'
-                        // Simple monthly for mortgages
-                        interest = balance * (annualRate / 100) / 12;
-                    } else {
-                        // Daily interest for Credit Cards, Car Loans, Personal Loans, Student Loans, etc.
-                        // Assume 30-day month (365/12 = 30.4167 but 30 is standard)
-                        interest = balance * (annualRate / 100) / 365 * 30;
-                    }
-                    monthlyInterest += interest;
+                    // Standard monthly interest = balance * APR / 12
+                    monthlyInterest += balance * (annualRate / 100) / 12;
                 }
             });
             
@@ -7882,15 +7869,14 @@ function getYearsToPayoffClass(years) {
         }
 
         /**
-         * Calculate total debt payoff time assuming minimum payments
-         * Uses standard amortization formula for each debt, then sums
-         * Formula: months = -log(1 - (balance * monthlyRate / payment)) / log(1 + monthlyRate)
-         * Returns: {years, months, totalMonths}
+         * Month-by-month simulation of debt payoff using Avalanche method (highest rate first).
+         * Accurately computes total payoff time by simulating actual monthly payments.
+         * Returns: {years, months, totalMonths, totalInterest}
          */
-        function calculateDebtPayoffTime() {
+        function calculateDebtPayoffTime(method) {
             const debtRows = document.querySelectorAll('#debt-body tr');
             if (debtRows.length === 0) {
-                return { years: 0, months: 0, totalMonths: 0 };
+                return { years: 0, months: 0, totalMonths: 0, totalInterest: 0 };
             }
             
             // Collect all debts
@@ -7906,52 +7892,93 @@ function getYearsToPayoffClass(years) {
                     const annualRate = parseFloat(rateInput.value) || 0;
                     
                     if (balance > 0 && payment > 0) {
-                        debts.push({ balance, payment, rate: annualRate });
+                        debts.push({ balance: balance, minPayment: payment, rate: annualRate, totalInterestPaid: 0 });
                     }
                 }
             });
             
             if (debts.length === 0) {
-                return { years: 0, months: 0, totalMonths: 0 };
+                return { years: 0, months: 0, totalMonths: 0, totalInterest: 0 };
             }
             
-            // Sort by interest rate (Avalanche - highest first)
-            debts.sort((a, b) => b.rate - a.rate);
+            // Sort by method: avalanche = highest rate first, snowball = lowest balance first
+            const sortMethod = method || 'avalanche';
+            if (sortMethod === 'snowball') {
+                debts.sort((a, b) => a.balance - b.balance);
+            } else {
+                debts.sort((a, b) => b.rate - a.rate);
+            }
             
+            // Total available = sum of all minimum payments + any budget surplus
+            // (surplus is leftover income after all expenses including debt payments)
+            const budgetSurplus = Math.max(0, calculateSurplus());
+            const totalMonthlyBudget = debts.reduce((sum, d) => sum + d.minPayment, 0) + budgetSurplus;
+            const MAX_MONTHS = 600; // 50-year cap
             let totalMonths = 0;
-            let availablePayment = debts.reduce((sum, d) => sum + d.payment, 0);
+            let totalInterest = 0;
             
-            // Pay off debts one by one using avalanche method
-            for (let i = 0; i < debts.length; i++) {
-                const debt = debts[i];
-                const monthlyRate = debt.rate / 100 / 12;
+            // Month-by-month simulation
+            for (let month = 0; month < MAX_MONTHS; month++) {
+                // Check if all debts are paid off
+                const remaining = debts.filter(d => d.balance > 0);
+                if (remaining.length === 0) break;
                 
-                // Calculate months to pay off THIS debt with current available payment
-                let monthsForThisDebt = 0;
+                totalMonths = month + 1;
                 
-                if (monthlyRate === 0) {
-                    // No interest - simple division
-                    monthsForThisDebt = Math.ceil(debt.balance / availablePayment);
-                } else if (availablePayment > debt.balance * monthlyRate) {
-                    // Can pay it off (payment > minimum required)
-                    monthsForThisDebt = Math.ceil(
-                        -Math.log(1 - (debt.balance * monthlyRate / availablePayment)) / Math.log(1 + monthlyRate)
-                    );
-                } else {
-                    // Payment doesn't even cover interest - never pays off
-                    return { years: 99, months: 0, totalMonths: 999 };
+                // First apply interest to all active debts
+                let interestThisMonth = 0;
+                for (const debt of remaining) {
+                    const monthlyRate = debt.rate / 100 / 12;
+                    const interest = debt.balance * monthlyRate;
+                    debt.balance += interest;
+                    interestThisMonth += interest;
+                }
+                totalInterest += interestThisMonth;
+                
+                // Apply total budget: minimums first, then surplus to highest-priority debt
+                let budget = totalMonthlyBudget;
+                
+                // Pay minimums on all active debts except focus debt
+                let focusDebt = remaining[0];
+                let surplusPayment = budget;
+                
+                // Pay minimums on non-focus debts
+                for (let i = 1; i < remaining.length; i++) {
+                    const debt = remaining[i];
+                    const pay = Math.min(debt.balance, debt.minPayment);
+                    debt.balance = Math.max(0, debt.balance - pay);
+                    surplusPayment -= pay;
                 }
                 
-                totalMonths += monthsForThisDebt;
-                
-                // After this debt is paid off, add its minimum to available payment for next debt
-                // (Snowball effect - but we're already doing avalanche by sorting)
+                // Apply remaining budget to focus debt
+                const focusPay = Math.min(focusDebt.balance, Math.max(0, surplusPayment));
+                focusDebt.balance = Math.max(0, focusDebt.balance - focusPay);
+            }
+            
+            // Check if any debt never gets paid off
+            const unpaidDebts = debts.filter(d => d.balance > 0.01);
+            if (unpaidDebts.length > 0 && totalMonths >= MAX_MONTHS) {
+                return { years: 99, months: 0, totalMonths: 999, totalInterest: totalInterest };
             }
             
             const years = Math.floor(totalMonths / 12);
             const months = totalMonths % 12;
             
-            return { years, months, totalMonths };
+            return { years, months, totalMonths, totalInterest };
+        }
+        
+        /**
+         * Calculate payoff time using Snowball method for comparison display
+         */
+        function calculateSnowballPayoffTime() {
+            return calculateDebtPayoffTime('snowball');
+        }
+        
+        /**
+         * Calculate payoff time using Avalanche method for comparison display
+         */
+        function calculateAvalanchePayoffTime() {
+            return calculateDebtPayoffTime('avalanche');
         }
 
         /**
@@ -8034,6 +8061,46 @@ function getYearsToPayoffClass(years) {
                 const separator = yearText && monthText ? ', ' : '';
                 payoffEl.textContent = (yearText + separator + monthText) || '< 1 mo';
                 payoffEl.className = 'text-lg font-bold text-green-400';
+            }
+            
+            // Also update strategy preview cards
+            updateStrategyPreview();
+        }
+        
+        /**
+         * Update the dual strategy preview cards (Snowball vs Avalanche)
+         */
+        function updateStrategyPreview() {
+            const snowballEl = document.getElementById('snowball-time');
+            const snowballInterestEl = document.getElementById('snowball-interest');
+            const avalancheEl = document.getElementById('avalanche-time');
+            const avalancheInterestEl = document.getElementById('avalanche-interest');
+            
+            if (!snowballEl || !avalancheEl) return;
+            
+            const snowball = calculateDebtPayoffTime('snowball');
+            const avalanche = calculateDebtPayoffTime('avalanche');
+            
+            function formatTime(result) {
+                if (result.totalMonths === 0) return 'No debt';
+                if (result.totalMonths >= 999) return 'Increase payments';
+                const yr = result.years > 0 ? `${result.years} yr${result.years !== 1 ? 's' : ''}` : '';
+                const mo = result.months > 0 ? `${result.months} mo` : '';
+                return [yr, mo].filter(Boolean).join(', ') || '< 1 mo';
+            }
+            
+            snowballEl.textContent = formatTime(snowball);
+            avalancheEl.textContent = formatTime(avalanche);
+            
+            if (snowballInterestEl) {
+                snowballInterestEl.textContent = snowball.totalMonths > 0 && snowball.totalMonths < 999
+                    ? '$' + Math.round(snowball.totalInterest).toLocaleString()
+                    : '—';
+            }
+            if (avalancheInterestEl) {
+                avalancheInterestEl.textContent = avalanche.totalMonths > 0 && avalanche.totalMonths < 999
+                    ? '$' + Math.round(avalanche.totalInterest).toLocaleString()
+                    : '—';
             }
         }
 
@@ -8271,183 +8338,232 @@ function getYearsToPayoffClass(years) {
             }, 500); // Wait 500ms after user stops typing
         }
         
+        // ============================================================
+        // UNIFIED SECTION LOCK SYSTEM
+        // One button per section, same location, same look.
+        // States: unlocked (slate) → locked (green, hover shows red unlock hint)
+        // ============================================================
+
+        function setSectionLockBtn(btnId, isLocked) {
+            const btn = document.getElementById(btnId);
+            if (!btn) return;
+            if (isLocked) {
+                btn.className = 'section-lock-btn state-locked';
+                btn.innerHTML = '<i class="fas fa-lock"></i><span>Locked</span>';
+                btn.title = 'Click to unlock';
+            } else {
+                btn.className = 'section-lock-btn state-unlocked';
+                btn.innerHTML = '<i class="fas fa-lock-open"></i><span>Unlocked</span>';
+                btn.title = 'Click to lock';
+            }
+        }
+
         function lockIncome() {
             const isLocked = localStorage.getItem('raf_income_locked') === 'true';
-            const btn = document.getElementById('income-lock-header-btn');
-            
-            if (!btn) return;
-            
+
             if (isLocked) {
-                // Unlock
+                // → Unlock
                 localStorage.removeItem('raf_income_locked');
                 localStorage.removeItem('raf_income_locked_date');
-                
-                // Update button to unlocked state (blue)
-                btn.innerHTML = '<i class="fas fa-lock" style="font-size: 0.85rem;"></i><span>Lock</span>';
-                btn.style.background = 'rgba(59, 130, 246, 0.15)';
-                btn.style.border = '1.5px solid #3b82f6';
-                btn.style.color = '#60a5fa';
-                btn.onmouseover = function() { this.style.background = 'rgba(59, 130, 246, 0.25)'; };
-                btn.onmouseout = function() { this.style.background = 'rgba(59, 130, 246, 0.15)'; };
-                
-                showToast('Income unlocked');
+                localStorage.removeItem('raf_income_confirmed');
+                setSectionLockBtn('income-lock-header-btn', false);
+                const incomeStatus = document.getElementById('income-status');
+                if (incomeStatus) incomeStatus.textContent = 'Enter your paycheck to begin';
+                showToast('Income unlocked — edit freely');
             } else {
-                // Lock
+                // → Lock (validate first)
+                const paycheckVal = parseCurrency(document.getElementById('paycheck')?.value || 0);
+                if (paycheckVal <= 0) {
+                    showToast('Enter a valid income amount before locking');
+                    return;
+                }
                 localStorage.setItem('raf_income_locked', 'true');
+                localStorage.setItem('raf_income_confirmed', 'true');
                 localStorage.setItem('raf_income_locked_date', new Date().toISOString());
-                
-                // Update button to locked state (green)
-                btn.innerHTML = '<i class="fas fa-check" style="font-size: 0.85rem;"></i><span>Locked</span>';
-                btn.style.background = 'rgba(16, 185, 129, 0.15)';
-                btn.style.border = '1.5px solid #10b981';
-                btn.style.color = '#34d399';
-                btn.onmouseover = function() { this.style.background = 'rgba(16, 185, 129, 0.25)'; };
-                btn.onmouseout = function() { this.style.background = 'rgba(16, 185, 129, 0.15)'; };
-                
+                setSectionLockBtn('income-lock-header-btn', true);
+                const incomeStatus = document.getElementById('income-status');
+                if (incomeStatus) incomeStatus.textContent = '✓ Income locked';
                 showToast('✓ Income locked');
+                setTimeout(() => scrollToSection('debt-section'), 600);
             }
-            
+
+            updateNextActionBanner();
             calculateAll();
         }
-        
+
+        // Keep legacy aliases so any remaining callers don't break
+        function confirmIncome() { lockIncome(); }
+        function editIncome() {
+            localStorage.removeItem('raf_income_locked');
+            localStorage.removeItem('raf_income_confirmed');
+            setSectionLockBtn('income-lock-header-btn', false);
+            const incomeStatus = document.getElementById('income-status');
+            if (incomeStatus) incomeStatus.textContent = 'Enter your paycheck to begin';
+            const paycheckInput = document.getElementById('paycheck');
+            if (paycheckInput) { paycheckInput.focus(); paycheckInput.select(); }
+            updateNextActionBanner();
+            showToast('Income unlocked for editing');
+        }
+
         function toggleDebtLock() {
             const isLocked = localStorage.getItem('raf_debt_locked') === 'true';
-            const btn = document.getElementById('debt-lock-header-btn');
-            
-            if (!btn) return;
-            
+
             if (isLocked) {
-                // Unlock
+                // → Unlock
                 localStorage.removeItem('raf_debt_locked');
+                localStorage.removeItem('raf_debt_confirmed');
                 localStorage.removeItem('raf_debt_locked_date');
-                
-                // Update button to unlocked state (blue)
-                btn.innerHTML = '<i class="fas fa-lock" style="font-size: 0.85rem;"></i><span>Lock</span>';
-                btn.style.background = 'rgba(59, 130, 246, 0.15)';
-                btn.style.border = '1.5px solid #3b82f6';
-                btn.style.color = '#60a5fa';
-                btn.onmouseover = function() { this.style.background = 'rgba(59, 130, 246, 0.25)'; };
-                btn.onmouseout = function() { this.style.background = 'rgba(59, 130, 246, 0.15)'; };
-                
-                showToast('Debt unlocked');
+                setSectionLockBtn('debt-lock-header-btn', false);
+                showToast('Debt unlocked — edit freely');
             } else {
-                // Lock (use existing confirmDebt logic which sets the state)
-                confirmDebt();
-                return;
+                // → Lock
+                localStorage.setItem('raf_debt_locked', 'true');
+                localStorage.setItem('raf_debt_confirmed', 'true');
+                localStorage.setItem('raf_debt_locked_date', new Date().toISOString());
+                setSectionLockBtn('debt-lock-header-btn', true);
+                showToast('✓ Debt locked');
+                setTimeout(() => scrollToSection('budget-section'), 600);
             }
-            
+
+            updateNextActionBanner();
             calculateAll();
         }
-        
+
+        // Keep legacy aliases
+        function confirmDebt() {
+            localStorage.setItem('raf_debt_confirmed', 'true');
+            localStorage.setItem('raf_debt_locked', 'true');
+            setSectionLockBtn('debt-lock-header-btn', true);
+            updateNextActionBanner();
+            showToast('✓ Debt confirmed! Now let\'s set up your budget.');
+            setTimeout(() => scrollToSection('budget-section'), 600);
+        }
+        function editDebt() {
+            localStorage.removeItem('raf_debt_confirmed');
+            localStorage.removeItem('raf_debt_locked');
+            setSectionLockBtn('debt-lock-header-btn', false);
+            updateNextActionBanner();
+            showToast('Debt unlocked for editing');
+        }
+
         function toggleBudgetLock() {
             const isLocked = localStorage.getItem('raf_budget_locked') === 'true';
-            const btn = document.getElementById('budget-lock-header-btn');
-            const banner = document.getElementById('budget-lock-banner');
-            
-            if (!btn) return;
-            
+
             if (isLocked) {
-                // Unlock
+                // → Unlock
                 localStorage.removeItem('raf_budget_locked');
                 localStorage.removeItem('raf_budget_locked_date');
-                
-                // Update button to unlocked state (blue)
-                btn.innerHTML = '<i class="fas fa-lock" style="font-size: 0.85rem;"></i><span>Lock</span>';
-                btn.style.background = 'rgba(59, 130, 246, 0.15)';
-                btn.style.border = '1.5px solid #3b82f6';
-                btn.style.color = '#60a5fa';
-                btn.onmouseover = function() { this.style.background = 'rgba(59, 130, 246, 0.25)'; };
-                btn.onmouseout = function() { this.style.background = 'rgba(59, 130, 246, 0.15)'; };
-                
-                if (banner) banner.classList.add('hidden');
-                
+                setSectionLockBtn('budget-lock-header-btn', false);
                 enableBudgetInputs();
-                showToast('Budget unlocked');
+                showToast('Budget unlocked — edit freely');
+                calculateAll();
             } else {
-                // Lock (use existing lockBudget logic)
+                // → Lock
                 lockBudget();
-                return;
             }
-            
-            calculateAll();
         }
-        
-        
+
         function initLockButtons() {
-            const incomeBtn = document.getElementById('income-lock-header-btn');
-            const debtBtn = document.getElementById('debt-lock-header-btn');
-            const budgetBtn = document.getElementById('budget-lock-header-btn');
-            
             const incomeLocked = localStorage.getItem('raf_income_locked') === 'true';
-            const debtLocked = localStorage.getItem('raf_debt_locked') === 'true';
+            const debtLocked   = localStorage.getItem('raf_debt_locked')   === 'true';
             const budgetLocked = localStorage.getItem('raf_budget_locked') === 'true';
-            
-            // Income button
-            if (incomeBtn) {
-                if (incomeLocked) {
-                    incomeBtn.innerHTML = '<i class="fas fa-check" style="font-size: 0.85rem;"></i><span>Locked</span>';
-                    incomeBtn.style.background = 'rgba(16, 185, 129, 0.15)';
-                    incomeBtn.style.border = '1.5px solid #10b981';
-                    incomeBtn.style.color = '#34d399';
-                    incomeBtn.onmouseover = function() { this.style.background = 'rgba(16, 185, 129, 0.25)'; };
-                    incomeBtn.onmouseout = function() { this.style.background = 'rgba(16, 185, 129, 0.15)'; };
-                }
-            }
-            
-            // Debt button
-            if (debtBtn) {
-                if (debtLocked) {
-                    debtBtn.innerHTML = '<i class="fas fa-check" style="font-size: 0.85rem;"></i><span>Locked</span>';
-                    debtBtn.style.background = 'rgba(16, 185, 129, 0.15)';
-                    debtBtn.style.border = '1.5px solid #10b981';
-                    debtBtn.style.color = '#34d399';
-                    debtBtn.onmouseover = function() { this.style.background = 'rgba(16, 185, 129, 0.25)'; };
-                    debtBtn.onmouseout = function() { this.style.background = 'rgba(16, 185, 129, 0.15)'; };
-                }
-            }
-            
-            // Budget button
-            if (budgetBtn) {
-                if (budgetLocked) {
-                    budgetBtn.innerHTML = '<i class="fas fa-check" style="font-size: 0.85rem;"></i><span>Locked</span>';
-                    budgetBtn.style.background = 'rgba(16, 185, 129, 0.15)';
-                    budgetBtn.style.border = '1.5px solid #10b981';
-                    budgetBtn.style.color = '#34d399';
-                    budgetBtn.onmouseover = function() { this.style.background = 'rgba(16, 185, 129, 0.25)'; };
-                    budgetBtn.onmouseout = function() { this.style.background = 'rgba(16, 185, 129, 0.15)'; };
-                }
+            setSectionLockBtn('income-lock-header-btn', incomeLocked);
+            setSectionLockBtn('debt-lock-header-btn',   debtLocked);
+            setSectionLockBtn('budget-lock-header-btn', budgetLocked);
+            if (incomeLocked) {
+                const incomeStatus = document.getElementById('income-status');
+                if (incomeStatus) incomeStatus.textContent = '✓ Income locked';
             }
         }
         
-        function calculateAll() {
-            autoPopulateHousingFromMortgage();
-            autoPopulateDebtMinimums();
-            
+        function computeCoreMetrics() {
             const pretax401k = parseCurrency(document.getElementById('pretax-401k')?.value || 0);
             const pretaxHSA = parseCurrency(document.getElementById('pretax-hsa')?.value || 0);
             const pretaxOther = parseCurrency(document.getElementById('pretax-other')?.value || 0);
             const totalPreTax = pretax401k + pretaxHSA + pretaxOther;
-            
-            const pretaxTotalEl = document.getElementById('pretax-total');
-            if (pretaxTotalEl) pretaxTotalEl.textContent = `$${totalPreTax.toLocaleString()}`;
-            
+
             const income = getMonthlyIncome();
             const needsTotal = calculateMonthlyEssentials();
-            
+
             let wantsTotal = 0;
             budgetCategories.wants.forEach(category => {
                 wantsTotal += parseCurrency(document.getElementById(category.id)?.value || 0);
             });
-            
+
             const debtPayments = getTotalDebtPayments();
             const savingsTotal = getTotalMonthlySavings();
             const totalExpenses = needsTotal + wantsTotal + savingsTotal + debtPayments;
             const surplus = income - totalExpenses;
-            
+
             const totalSavingsAndInvestments = savingsTotal + totalPreTax;
             const grossIncome = income + totalPreTax; // Approximate gross income
             const savingsRate = grossIncome > 0 ? (totalSavingsAndInvestments / grossIncome) * 100 : 0;
-            
+            const budgetUsage = income > 0 ? (totalExpenses / income) * 100 : 0;
+
+            let goodDebt = 0;
+            let badDebt = 0;
+
+            const debtRows = document.querySelectorAll('#debt-body tr');
+            debtRows.forEach(row => {
+                const typeSelect = row.querySelector('.debt-type-select');
+                const paymentInput = row.querySelector('td:nth-child(3) input');
+
+                if (typeSelect && paymentInput) {
+                    const debtType = typeSelect.value;
+                    const payment = parseCurrency(paymentInput.value);
+
+                    if (debtType === 'mortgage' || debtType === 'student_loan') {
+                        goodDebt += payment;
+                    } else {
+                        badDebt += payment;
+                    }
+                }
+            });
+
+            return {
+                pretax401k,
+                pretaxHSA,
+                pretaxOther,
+                totalPreTax,
+                income,
+                needsTotal,
+                wantsTotal,
+                debtPayments,
+                savingsTotal,
+                totalExpenses,
+                surplus,
+                totalSavingsAndInvestments,
+                grossIncome,
+                savingsRate,
+                budgetUsage,
+                goodDebt,
+                badDebt
+            };
+        }
+
+        function calculateAll() {
+            autoPopulateHousingFromMortgage();
+            autoPopulateDebtMinimums();
+
+            const metrics = computeCoreMetrics();
+            const {
+                totalPreTax,
+                income,
+                needsTotal,
+                wantsTotal,
+                debtPayments,
+                savingsTotal,
+                totalExpenses,
+                surplus,
+                savingsRate,
+                budgetUsage,
+                goodDebt,
+                badDebt
+            } = metrics;
+
+            const pretaxTotalEl = document.getElementById('pretax-total');
+            if (pretaxTotalEl) pretaxTotalEl.textContent = `$${totalPreTax.toLocaleString()}`;
+
             const savingsRateEl = document.getElementById('savings-rate');
             if (savingsRateEl) {
                 savingsRateEl.textContent = `${savingsRate.toFixed(1)}%`;
@@ -8461,42 +8577,20 @@ function getYearsToPayoffClass(years) {
                 }
             }
             
-            const budgetUsage = income > 0 ? (totalExpenses / income) * 100 : 0;
-            
-            let goodDebt = 0;
-            let badDebt = 0;
-            
-            const debtRows = document.querySelectorAll('#debt-body tr');
-            debtRows.forEach(row => {
-                const typeSelect = row.querySelector('.debt-type-select');
-                const paymentInput = row.querySelector('td:nth-child(3) input');
-                
-                if (typeSelect && paymentInput) {
-                    const debtType = typeSelect.value;
-                    const payment = parseCurrency(paymentInput.value);
-                    
-                    if (debtType === 'mortgage' || debtType === 'student_loan') {
-                        goodDebt += payment;
-                    } else {
-                        badDebt += payment;
-                    }
-                }
-            });
-            
             const needsTotalEl = document.getElementById('needs-total-display');
             const wantsTotalEl = document.getElementById('wants-total-display');
             const savingsTotalEl = document.getElementById('savings-total-display');
             const goodDebtEl = document.getElementById('good-debt-display');
             const badDebtEl = document.getElementById('bad-debt-display');
-            
+
             if (needsTotalEl) needsTotalEl.textContent = '$' + Math.round(needsTotal).toLocaleString();
             if (wantsTotalEl) wantsTotalEl.textContent = '$' + Math.round(wantsTotal).toLocaleString();
             if (savingsTotalEl) savingsTotalEl.textContent = '$' + Math.round(savingsTotal).toLocaleString();
             if (goodDebtEl) goodDebtEl.textContent = '$' + Math.round(goodDebt).toLocaleString();
             if (badDebtEl) badDebtEl.textContent = '$' + Math.round(badDebt).toLocaleString();
-            
-    updateAllCategoryPercentages();
-			
+
+            updateAllCategoryPercentages();
+
             try {
                 if (income > 0) {
                     const needsPercentage = (needsTotal / income) * 100;
@@ -8759,7 +8853,30 @@ function getYearsToPayoffClass(years) {
             
             const components = [];
             let totalScore = 0;
-            
+
+            // ── Separate mortgage from consumer debt throughout ──────────────────
+            const allDebtRows = document.querySelectorAll('#debt-body tr');
+            let consumerDebtBalance = 0, consumerDebtPayments = 0, highestConsumerRate = 0;
+            let mortgageBalance = 0, mortgagePayment = 0;
+            allDebtRows.forEach(row => {
+                const typeSelect = row.querySelector('.debt-type-select');
+                const balance = parseCurrency(row.querySelector('td:nth-child(2) input')?.value || 0);
+                const payment = parseCurrency(row.querySelector('td:nth-child(3) input')?.value || 0);
+                const rate = parseFloat(row.querySelector('td:nth-child(4) input')?.value || 0);
+                const isMortgage = typeSelect && typeSelect.value.toLowerCase().includes('mortgage');
+                if (isMortgage) {
+                    mortgageBalance += balance;
+                    mortgagePayment += payment;
+                } else {
+                    consumerDebtBalance += balance;
+                    consumerDebtPayments += payment;
+                    if (rate > highestConsumerRate) highestConsumerRate = rate;
+                }
+            });
+            const consumerDTI = income > 0 ? (consumerDebtPayments / income) * 100 : 0;
+            const annualIncome = income * 12;
+
+            // ── Emergency Fund (30pts) ───────────────────────────────────────────
             const emergencyFundTotal = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
             const monthlyEssentials = calculateMonthlyEssentials();
             const monthsCovered = monthlyEssentials > 0 ? emergencyFundTotal / monthlyEssentials : 0;
@@ -8779,28 +8896,27 @@ function getYearsToPayoffClass(years) {
             });
             totalScore += emergencyScore;
             
-            let debtScore = 25; // Start with perfect score
-            
-            const highestRate = getHighestInterestRate();
-            const dti = calculateDebtToIncomeRatio();
-            const totalYears = calculateTotalYearsToPayoff();
-            const highInterestDebt = calculateTotalHighInterestDebt();
-            const totalDebt = getTotalDebtBalance();
-            
-            if (highestRate > 25) debtScore -= 10;
-            if (dti > 36) debtScore -= 10;
-            if (totalYears > 10) debtScore -= 5;
-            
-            if (totalDebt === 0) debtScore = 25; // Debt-free gets perfect score
-            else if (highestRate <= 10) debtScore += 15;
-            
+            // ── Debt Management (25pts) — consumer debt only, mortgage is fine ──
+            let debtScore = 25;
+            if (consumerDebtBalance === 0) {
+                debtScore = 25; // No consumer debt = perfect
+            } else {
+                if (highestConsumerRate > 25) debtScore -= 10;
+                if (consumerDTI > 20) debtScore -= 8;
+                if (highestConsumerRate > 15) debtScore -= 5;
+                if (consumerDebtBalance > annualIncome) debtScore -= 5;
+            }
             debtScore = Math.max(0, Math.min(25, debtScore));
             
+            const debtDetail = consumerDebtBalance === 0
+                ? 'No consumer debt ✓' + (mortgageBalance > 0 ? ` (mortgage $${Math.round(mortgageBalance/1000)}K excluded)` : '')
+                : `$${Math.round(consumerDebtBalance/1000)}K consumer debt, ${highestConsumerRate}% max rate`;
+
             components.push({
                 name: 'Debt Management',
                 score: debtScore,
                 max: 25,
-                details: `${dti.toFixed(1)}% DTI, ${highestRate}% max rate`,
+                details: debtDetail,
                 fillPercentage: (debtScore / 25) * 100
             });
             totalScore += debtScore;
@@ -8850,7 +8966,6 @@ function getYearsToPayoffClass(years) {
             });
             totalScore += budgetScore;
             
-            let retirementScore = 0;
             if (age > 0 && income > 0) {
                 const annualIncome = income * 12;
                 const targetMultiplier = getRetirementTargetForAge(age);
@@ -8858,28 +8973,49 @@ function getYearsToPayoffClass(years) {
                 const retirementTotal = parseCurrency(document.getElementById('retirement_total')?.value || 0);
                 const progressPercent = retirementTotal > 0 ? (retirementTotal / targetAmount) * 100 : 0;
                 
-                if (progressPercent >= 100) retirementScore = 10;
-                else if (progressPercent >= 75) retirementScore = 8;
-                else if (progressPercent >= 50) retirementScore = 6;
-                else if (progressPercent >= 25) retirementScore = 4;
-                else if (progressPercent > 0) retirementScore = 2;
+                if (progressPercent >= 110) retirementScore = 20;
+                else if (progressPercent >= 100) retirementScore = 18;
+                else if (progressPercent >= 75) retirementScore = 14;
+                else if (progressPercent >= 50) retirementScore = 10;
+                else if (progressPercent >= 25) retirementScore = 6;
+                else if (progressPercent > 0) retirementScore = 3;
                 
                 components.push({
                     name: 'Retirement Progress',
                     score: retirementScore,
-                    max: 10,
-                    details: `${progressPercent.toFixed(0)}% of age ${age} target`,
-                    fillPercentage: (retirementScore / 10) * 100
+                    max: 20,
+                    details: `${progressPercent.toFixed(0)}% of age ${age} target ($${Math.round(targetAmount/1000)}K)`,
+                    fillPercentage: (retirementScore / 20) * 100
                 });
                 totalScore += retirementScore;
             } else {
                 components.push({
                     name: 'Retirement Progress',
                     score: 0,
-                    max: 10,
+                    max: 20,
                     details: 'Age not specified',
                     fillPercentage: 0
                 });
+            }
+            
+            // ── Wealth Floor ──────────────────────────────────────────────────────
+            const retirementTotal2 = parseCurrency(document.getElementById('retirement_total')?.value || 0);
+            const annualIncome2 = income * 12;
+            const retirementTarget2 = age > 0 ? annualIncome2 * getRetirementTargetForAge(age) : 0;
+            const retirementOnTrack = retirementTarget2 > 0 && (retirementTotal2 / retirementTarget2) >= 0.5;
+            const highestRateCheck = getHighestInterestRate();
+            const dtiCheck = calculateDebtToIncomeRatio();
+            const onlyMortgageDebt = highestRateCheck <= 8 && dtiCheck < 40;
+            console.log('SCORE DEBUG', JSON.stringify({
+                totalScore, age, income: Math.round(income),
+                retirementTotal2, retirementTarget2: Math.round(retirementTarget2),
+                retirementOnTrack, highestRateCheck, dtiCheck: Math.round(dtiCheck),
+                onlyMortgageDebt,
+                components: components.map(c => c.name + ':' + c.score + '/' + c.max)
+            }));
+            if (retirementOnTrack && onlyMortgageDebt && totalScore < 40) {
+                totalScore = 40;
+                console.log('Wealth floor applied');
             }
             
             let rank = '';
@@ -8908,7 +9044,7 @@ function getYearsToPayoffClass(years) {
                 rank: rank,
                 rankClass: rankClass,
                 monthsCovered: monthsCovered,
-                dti: dti,
+                dti: dtiCheck,
                 savingsRate: savingsRate,
                 needsPercentage: needsPercentage,
                 wantsPercentage: wantsPercentage
@@ -9937,6 +10073,15 @@ function updatePremiumTeaser() {
             const toggle = document.getElementById('warModeToggle');
             const budgetSection = document.getElementById('budget-section');
             
+            // Check if budget is locked - if so, prevent toggling
+            const isBudgetLocked = localStorage.getItem('raf_budget_locked') === 'true';
+            if (isBudgetLocked) {
+                showToast('⚠️ Budget is locked. Unlock budget to edit or toggle War Mode.');
+                // Revert toggle to previous state
+                toggle.checked = isWarModeActive;
+                return;
+            }
+            
             isWarModeActive = toggle.checked;
             
             if (isWarModeActive) {
@@ -10660,22 +10805,22 @@ function updatePremiumTeaser() {
             localStorage.setItem('raf_budget_locked', 'true');
             localStorage.setItem('raf_budget_locked_date', new Date().toISOString());
             
-            const banner = document.getElementById('budget-lock-banner');
-            const btn = document.getElementById('budget-lock-header-btn');
+            setSectionLockBtn('budget-lock-header-btn', true);
             
-            if (banner) banner.classList.remove('hidden');
-            if (btn) {
-                // Update button to locked state (green)
-                btn.innerHTML = '<i class="fas fa-check" style="font-size: 0.85rem;"></i><span>Locked</span>';
-                btn.style.background = 'rgba(16, 185, 129, 0.15)';
-                btn.style.border = '1.5px solid #10b981';
-                btn.style.color = '#34d399';
-                btn.onmouseover = function() { this.style.background = 'rgba(16, 185, 129, 0.25)'; };
-                btn.onmouseout = function() { this.style.background = 'rgba(16, 185, 129, 0.15)'; };
+            // Disable war mode toggle when budget is locked
+            const warModeToggle = document.getElementById('warModeToggle');
+            if (warModeToggle) {
+                warModeToggle.disabled = true;
+                const warModeContainer = document.getElementById('war-mode-container');
+                if (warModeContainer) {
+                    warModeContainer.style.opacity = '0.5';
+                    warModeContainer.style.cursor = 'not-allowed';
+                    warModeContainer.title = 'Unlock budget to toggle War Mode';
+                }
             }
             
             disableBudgetInputs();
-            showToast('✓ Budget Locked - All expenses finalized');
+            showToast('✓ Budget Locked — All expenses finalized');
             calculateAll();
             
             // Show surplus allocator after locking
@@ -10928,11 +11073,19 @@ function updatePremiumTeaser() {
             localStorage.removeItem('raf_budget_locked');
             localStorage.removeItem('raf_budget_locked_date');
             
-            const banner = document.getElementById('budget-lock-banner');
-            const controls = document.getElementById('budget-lock-controls');
+            setSectionLockBtn('budget-lock-header-btn', false);
             
-            if (banner) banner.classList.add('hidden');
-            if (controls) controls.classList.remove('hidden');
+            // Re-enable war mode toggle
+            const warModeToggle = document.getElementById('warModeToggle');
+            if (warModeToggle) {
+                warModeToggle.disabled = false;
+                const warModeContainer = document.getElementById('war-mode-container');
+                if (warModeContainer) {
+                    warModeContainer.style.opacity = '';
+                    warModeContainer.style.cursor = '';
+                    warModeContainer.title = '';
+                }
+            }
             
             enableBudgetInputs();
             showToast('Budget Unlocked - You can edit again');
@@ -11008,14 +11161,8 @@ function updatePremiumTeaser() {
         
         function checkBudgetLockStatus() {
             const isLocked = localStorage.getItem('raf_budget_locked') === 'true';
-            
+            setSectionLockBtn('budget-lock-header-btn', isLocked);
             if (isLocked) {
-                const banner = document.getElementById('budget-lock-banner');
-                const controls = document.getElementById('budget-lock-controls');
-                
-                if (banner) banner.classList.remove('hidden');
-                if (controls) controls.classList.add('hidden');
-                
                 disableBudgetInputs();
             }
         }
@@ -11185,12 +11332,12 @@ function updatePremiumTeaser() {
         </div>
         <div class="category-info">
             <div class="category-main-label">${mainLabel}</div>
-    </div>
-    <div class="budget-progress-bar-container">
-        <div class="budget-progress-bar" id="${category.id}_progress"></div>
             <div class="category-subtitle">${subtitle}</div>
         </div>
         <div class="category-percentage-badge" id="${category.id}_percentage">0%</div>
+    </div>
+    <div class="budget-progress-bar-container">
+        <div class="budget-progress-bar" id="${category.id}_progress"></div>
     </div>
     <div class="budget-card-input">
         <div class="currency-input-container">
@@ -11782,7 +11929,7 @@ function updatePremiumTeaser() {
                     }
                     
                 } else if (step.type === 'budget') {
-                    months = 0; // Immediate
+                    months = 0; // Immediate - these happen NOW, not after debt payoff
                     description = `Cut ${step.title} from $${Math.round(step.actual).toLocaleString()} to $${Math.round(step.recommended).toLocaleString()}`;
                     impact = `+$${Math.round(step.overage).toLocaleString()}/month back in your pocket`;
                     
@@ -11850,11 +11997,18 @@ function updatePremiumTeaser() {
                     impact = 'Progress toward financial independence';
                 }
                 
-                cumulativeMonths += months;
+                // Immediate-action steps always show NOW and don't push the timeline forward
+                const isImmediate = step.type === 'budget' || step.type === '401k_match' || 
+                                    step.type === 'roth_ira' || step.type === 'no_retirement' ||
+                                    step.type === 'unsustainable';
+                
+                if (!isImmediate) {
+                    cumulativeMonths += months;
+                }
                 
                 // Map to timeline labels
                 let timeLabel = '';
-                if (cumulativeMonths === 0) {
+                if (isImmediate || cumulativeMonths === 0) {
                     timeLabel = 'NOW';
                 } else if (cumulativeMonths <= 1) {
                     timeLabel = 'MONTH 1';
@@ -11865,10 +12019,9 @@ function updatePremiumTeaser() {
                 } else if (cumulativeMonths <= 24) {
                     const years = (cumulativeMonths / 12).toFixed(1);
                     timeLabel = `${years} YEAR${years >= 2 ? 'S' : ''}`;
-                } else if (cumulativeMonths <= 60) {
-                    timeLabel = `${Math.round(cumulativeMonths / 12)} YEARS`;
                 } else {
-                    timeLabel = '5+ YEARS';
+                    const yrs = Math.round(cumulativeMonths / 12);
+                    timeLabel = `${yrs} YEARS`;
                 }
                 
                 timeline.push({
@@ -11910,26 +12063,49 @@ function updatePremiumTeaser() {
             if (stepIndex === -1) {
                 const totalSteps = rafSteps.length;
                 const income = getMonthlyIncome();
-                const totalDebt = getTotalDebtBalance();
-                const debtToIncomeRatio = (totalDebt / (income * 12)) * 100;
+
+                // Consumer debt only — mortgage is a normal asset, not a crisis signal
+                let consumerDebt = 0;
+                document.querySelectorAll('#debt-body tr').forEach(row => {
+                    const typeSelect = row.querySelector('.debt-type-select');
+                    const isMortgage = typeSelect && typeSelect.value.toLowerCase().includes('mortgage');
+                    if (!isMortgage) {
+                        consumerDebt += parseCurrency(row.querySelector('td:nth-child(2) input')?.value || 0);
+                    }
+                });
+                const consumerDebtToIncomeRatio = (consumerDebt / (income * 12)) * 100;
+
                 const emergencyBalance = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
                 const hasEmergencyFund = emergencyBalance >= income;
                 const toxicDebt = rafSteps.filter(s => s.type === 'toxic_debt').length;
+
+                // Check retirement health to avoid crying CRISIS at someone doing well
+                const retirementBalance = parseCurrency(document.getElementById('retirement_total')?.value || 0);
+                const age = parseInt(document.getElementById('age-input')?.value) || 0;
+                const retirementTarget = age > 0 ? (income * 12) * getRetirementTargetForAge(age) : 0;
+                const retirementHealthy = retirementTarget > 0 && (retirementBalance / retirementTarget) >= 0.5;
                 
                 // Determine severity
                 let severity = 'moderate';
                 let opening = '';
                 
-                if (toxicDebt > 0 || debtToIncomeRatio > 100 || !hasEmergencyFund) {
+                const isTrueCrisis = toxicDebt > 0 || consumerDebtToIncomeRatio > 100;
+                const needsAttention = !hasEmergencyFund || consumerDebtToIncomeRatio > 30 || totalSteps > 3;
+
+                if (isTrueCrisis && !retirementHealthy) {
                     severity = 'critical';
                     opening = `Your finances are in <strong style="color: #dc2626;">crisis mode</strong>.<br>`;
                     if (toxicDebt > 0) opening += `You have <strong>${toxicDebt} high-interest debt${toxicDebt > 1 ? 's' : ''}</strong> bleeding you dry.<br>`;
-                    if (!hasEmergencyFund) opening += `No emergency fund. <strong>One surprise away from disaster</strong>.<br>`;
-                    if (debtToIncomeRatio > 100) opening += `Your debt is <strong>${Math.round(debtToIncomeRatio)}% of your annual income</strong>.<br>`;
-                } else if (debtToIncomeRatio > 50 || totalSteps > 5) {
+                    if (consumerDebtToIncomeRatio > 100) opening += `Consumer debt is <strong>${Math.round(consumerDebtToIncomeRatio)}% of your annual income</strong>.<br>`;
+                } else if (needsAttention && !retirementHealthy) {
                     severity = 'serious';
                     opening = `Your finances need <strong style="color: #f97316;">serious attention</strong>.<br>`;
-                    if (totalSteps > 5) opening += `<strong>${totalSteps} things</strong> are broken right now.<br>`;
+                    if (!hasEmergencyFund) opening += `No emergency fund yet — build one.<br>`;
+                    if (totalSteps > 3) opening += `<strong>${totalSteps} areas</strong> to address.<br>`;
+                } else if (!hasEmergencyFund && retirementHealthy) {
+                    severity = 'serious';
+                    opening = `You're building wealth — now protect it.<br>`;
+                    opening += `Missing: an emergency fund. Everything else looks solid.<br>`;
                 } else {
                     severity = 'moderate';
                     opening = `Your numbers are in. Let's make them better.<br>`;
@@ -13958,15 +14134,21 @@ function updatePremiumTeaser() {
             const threeMonthBuffer = monthlyExpenses * 3;
             const sixMonthBuffer = monthlyExpenses * 6;
         
-            const highInterestDebt = totalDebt;  // TODO: Need to filter for >7% only
-            const mortgageDebt = 0;  // TODO: Need to separate mortgage from consumer debt
-            const mortgageRate = 0;  // TODO: Need mortgage rate
-        
-            const hasCollections = false;
-        
-            const isHomesteading = surplus < 0 || hasCollections || highestRate > 25 || annualIncome < 30000;
-            const isFrontier = !isHomesteading && (emergencySavings < oneMonthBuffer || highInterestDebt > 0);
-            const isSettlement = !isHomesteading && !isFrontier && (emergencySavings < sixMonthBuffer || investRate < 15);
+            // Properly separate mortgage from consumer debt
+            const allDebts = getDebtsByPriority();
+            const consumerDebts = allDebts.filter(d => !d.type.toLowerCase().includes('mortgage'));
+            const mortgageDebts = allDebts.filter(d => d.type.toLowerCase().includes('mortgage'));
+            const consumerDebt = consumerDebts.reduce((sum, d) => sum + d.balance, 0);
+            const highInterestConsumerDebt = consumerDebts.filter(d => d.rate > 7).reduce((sum, d) => sum + d.balance, 0);
+            const highestConsumerRate = consumerDebts.length > 0 ? Math.max(...consumerDebts.map(d => d.rate)) : 0;
+            const mortgageBalance = mortgageDebts.reduce((sum, d) => sum + d.balance, 0);
+            const mortgageRate = mortgageDebts.length > 0 ? mortgageDebts[0].rate : 0;
+
+            const retirementOnTrack = retirementTarget > 0 && (retirementBalance / retirementTarget) >= 0.5;
+
+            const isHomesteading = surplus < 0 || hasCollections || highestConsumerRate > 25 || annualIncome < 30000;
+            const isFrontier = !isHomesteading && (emergencySavings < oneMonthBuffer || highInterestConsumerDebt > 0);
+            const isSettlement = !isHomesteading && !isFrontier && (emergencySavings < sixMonthBuffer || (investRate < 15 && !retirementOnTrack));
             const isProsperity = !isHomesteading && !isFrontier && !isSettlement && (investRate < 20 || surplusRate < 25);
             const isLegacy = !isHomesteading && !isFrontier && !isSettlement && !isProsperity;
         
@@ -14874,6 +15056,104 @@ function updatePremiumTeaser() {
         window.nextTip = nextTip;
         window.updateGoalProgress = updateGoalProgress;
         window.setNewGoal = setNewGoal;
+        
+        // ============================================================
+        // CSV Export/Import for Debt Table
+        // ============================================================
+        
+        function exportDebtCSV() {
+            const rows = document.querySelectorAll('#debt-body tr');
+            if (rows.length === 0) {
+                showToast('No debts to export.');
+                return;
+            }
+            let csv = 'Type,Balance,Payment,Rate\n';
+            rows.forEach(row => {
+                const typeSelect = row.querySelector('.debt-type-select');
+                const balanceInput = row.querySelector('td:nth-child(2) input');
+                const paymentInput = row.querySelector('td:nth-child(3) input');
+                const rateInput = row.querySelector('td:nth-child(4) input');
+                const type = typeSelect ? typeSelect.value : '';
+                const balance = balanceInput ? parseCurrency(balanceInput.value) : 0;
+                const payment = paymentInput ? parseCurrency(paymentInput.value) : 0;
+                const rate = rateInput ? (parseFloat(rateInput.value) || 0) : 0;
+                csv += `"${type}",${balance},${payment},${rate}\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'debt-tracker.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Debt list exported as CSV.');
+        }
+        window.exportDebtCSV = exportDebtCSV;
+        
+        function importDebtCSV(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                const lines = text.trim().split('\n');
+                if (lines.length < 2) { showToast('CSV is empty or invalid.'); return; }
+                // Clear existing debts
+                const tbody = document.getElementById('debt-body');
+                if (tbody) tbody.innerHTML = '';
+                // Skip header row
+                for (let i = 1; i < lines.length; i++) {
+                    const parts = lines[i].split(',').map(s => s.trim().replace(/^"|"$/g, ''));
+                    if (parts.length < 4) continue;
+                    const [type, balance, payment, rate] = parts;
+                    if (parseFloat(balance) > 0) {
+                        addDebtRowWithData({
+                            type: type || 'credit_card',
+                            balance: parseFloat(balance) || 0,
+                            payment: parseFloat(payment) || 0,
+                            rate: parseFloat(rate) || 0
+                        }, i - 1);
+                    }
+                }
+                showDebtForm();
+                document.getElementById('debt-entry-flow').style.display = 'none';
+                document.getElementById('debt-table-container').classList.remove('hidden');
+                debouncedCalculateAll();
+                showToast('Debt list imported from CSV.');
+            };
+            reader.readAsText(file);
+            input.value = '';
+        }
+        window.importDebtCSV = importDebtCSV;
+
+        // ============================================================
+        // Additional window exports — functions called from HTML onclick
+        // handlers that were missing from window scope
+        // ============================================================
+        window.toggleBudgetLock = toggleBudgetLock;
+        window.usePreset = usePreset;
+        window.toggleScoreInfo = toggleScoreInfo;
+        window.continueWithoutDebt = continueWithoutDebt;
+        window.quickReduceWants = quickReduceWants;
+        window.showDebtForm = showDebtForm;
+        window.toggleDebtLock = toggleDebtLock;
+        window.recommendBudget = recommendBudget;
+        window.openDeclarationFullscreen = openDeclarationFullscreen;
+        window.returnToDebtChoice = returnToDebtChoice;
+        window.addSimpleDebt = addSimpleDebt;
+        window.sortDebtTable = sortDebtTable;
+        window.cancelDebtEntry = cancelDebtEntry;
+        window.confirmDebt = confirmDebt;
+        window.lockIncome = lockIncome;
+        window.quickPayDebt = quickPayDebt;
+        window.closeDeclarationFullscreen = closeDeclarationFullscreen;
+        window.skipDebtEntry = skipDebtEntry;
+        window.confirmIncome = confirmIncome;
+        window.editIncome = editIncome;
+        window.unlockBudget = unlockBudget;
+        window.quickSave = quickSave;
+        window.editDebt = editDebt;
+        window.quickSnapshot = quickSnapshot;
     </script>
 
 <div id="declaration-fullscreen-modal">
@@ -14883,7 +15163,12 @@ function updatePremiumTeaser() {
                 <i class="fas fa-times"></i>
             </button>
             
-            <div class="absolute inset-0 pointer-events-none" style="opacity:0.5; background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3CfeColorMatrix type=%22saturate%22 values=%220%22/%3E%3C/filter%3E%3Crect width=%22300%22 height=%22300%22 filter=%22url(%23n)%22 opacity=%220.04%22/%3E%3C/svg%3E');"></div>
+            <!-- Distressed flag image ON the document -->
+            <div style="width:100%; margin-bottom:1.5rem; border-radius:8px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.4); position:relative; z-index:5;">
+                <img src="https://realamericanfinance.com/flag_distressed.jpg" alt="Distressed American Flag" style="width:100%; height:140px; object-fit:cover; object-position:center; display:block; opacity:0.9;">
+            </div>
+            
+            <div class="absolute inset-0 pointer-events-none" style="opacity:0.25; background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3CfeColorMatrix type=%22saturate%22 values=%220%22/%3E%3C/filter%3E%3Crect width=%22300%22 height=%22300%22 filter=%22url(%23n)%22 opacity=%220.04%22/%3E%3C/svg%3E');"></div>
             <div class="absolute inset-4 rounded-lg pointer-events-none" style="border:2px solid rgba(139,105,20,0.4);"></div>
             <div class="absolute inset-8 rounded-lg pointer-events-none" style="border:1px solid rgba(139,105,20,0.2);"></div>
             
