@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Academy | Real American Finance</title>
+    <meta name="description" content="The 12-stage financial roadmap from consumer to sovereign. Built on the same system that made colonial Americans wealthy. Free Phase 01 dashboard — no credit card.">
+    <meta property="og:title" content="The Academy | Real American Finance">
+    <meta property="og:description" content="A 12-stage sequential roadmap from consumer to sovereign. The financial operating system that built colonial America — now interactive and free.">
+    <meta property="og:url" content="https://realamericanfinance.com/academy">
+    <meta property="og:type" content="website">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=IM+Fell+English:ital@0;1&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body { background-color: #050B14; }
         .hero-bg { 
@@ -33,6 +38,73 @@
         details summary { cursor: pointer; list-style: none; }
         details summary::-webkit-details-marker { display: none; }
         details[open] summary .group-open\\:hidden { display: none; }
+
+        /* ── Colonial OS Bridge ─────────────────────────────────────────── */
+        :root {
+            --copper: #b87333;
+            --colonial-gold: #c9a227;
+            --colonial-parchment: #f5e6c8;
+            --colonial-ink: #2c1810;
+        }
+        .book-bridge {
+            background: linear-gradient(160deg, rgba(26,15,6,0.85), rgba(42,25,8,0.7));
+            border: 1px solid rgba(201,162,39,0.3);
+            border-left: 3px solid var(--colonial-gold);
+            border-radius: 0 4px 4px 0;
+            padding: 1.1rem 1.25rem;
+            font-family: 'IM Fell English', Georgia, serif;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: rgba(245,230,200,0.85);
+            line-height: 1.65;
+        }
+        .book-bridge-source {
+            font-style: normal;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--colonial-gold);
+            margin-top: 0.5rem;
+            display: block;
+        }
+        .copper-rule {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 0.5rem 0 1.25rem;
+        }
+        .copper-rule-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--copper), transparent);
+        }
+        .copper-rule-ornament { color: var(--copper); font-size: 0.85rem; }
+        .lab-bridge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(201,162,39,0.1);
+            border: 1px solid rgba(201,162,39,0.3);
+            border-radius: 9999px;
+            padding: 0.25rem 0.75rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--colonial-gold);
+            margin-bottom: 0.75rem;
+        }
+        .lab-bridge-pill::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--colonial-gold);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+        }
     </style>
     <script>
         tailwind.config = {
@@ -66,13 +138,17 @@
     <!-- Hero -->
     <section class="hero-bg pt-40 pb-20 border-b border-white/5">
         <div class="container mx-auto px-6 text-center max-w-4xl">
+            <div class="flex justify-center mb-5">
+                <span class="lab-bridge-pill">Colonial OS 1.0 — The Financial Operating System That Built Colonial America</span>
+            </div>
             <h1 class="text-6xl md:text-8xl font-heading font-bold uppercase tracking-tight leading-none mb-6">THE <span class="text-crimson">ACADEMY.</span></h1>
-            <p class="text-lg md:text-xl text-gray-300 font-medium uppercase tracking-[0.2em] leading-relaxed mb-8">A 12-stage sequential roadmap from consumer to sovereign.</p>
+            <p class="text-lg md:text-xl text-gray-300 font-medium uppercase tracking-[0.2em] leading-relaxed mb-3">A 12-stage sequential roadmap from consumer to sovereign.</p>
+            <p class="text-sm mb-8" style="font-family:'IM Fell English',Georgia,serif;font-style:italic;color:rgba(201,162,39,0.75);">"The same principles that turned colonial farmers into landowners — systematized for today."</p>
             
             <ul class="text-left max-w-xl mx-auto space-y-4 text-base md:text-lg mb-10">
-                <li>✓ Escape paycheck-to-paycheck in 90–180 days</li>
+                <li>✓ Break paycheck-to-paycheck in 90–180 days</li>
                 <li>✓ Build 6–24 months Iron Pot runway</li>
-                <li>✓ Automate wealth routing — no more willpower leaks</li>
+                <li>✓ Automate the harvest split — no more willpower leaks</li>
                 <li>✓ Free interactive dashboard starts today</li>
             </ul>
 
@@ -102,16 +178,20 @@
                         <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">The Fuel</span>
                     </div>
                     <h3 class="text-4xl md:text-5xl font-heading font-bold mb-6 uppercase text-white">Iron Pot Millionaire</h3>
-                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">Securing your "Survival Baseline." We forensically audit overhead to decouple your survival from your next paycheck. You stop working for "money" and begin working for "surplus."</p>
+                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">Securing your survival baseline. We forensically audit overhead to decouple your survival from your next paycheck — widening the gap between what you earn and what you spend until surplus becomes structural.</p>
                     <div class="bg-white/5 border-l-4 border-crimson p-6 mb-6">
                         <h4 class="text-xs font-bold uppercase tracking-widest text-crimson mb-2">Tactical Case Study</h4>
-                        <p class="text-sm text-gray-400 italic">"I cut every luxury for 6 months, vaulted 6 months' expenses in cash/gold, now I sleep like a baby."</p>
+                        <p class="text-sm text-gray-400 italic">"Cut every discretionary expense for 6 months. Vaulted 6 months' seed corn in cash. Now the moat holds — I sleep like a baby."</p>
                     </div>
                     <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: From survival to surplus.</p>
                 </div>
                 <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm order-1 lg:order-2">
                     <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
-                    <p class="text-xl font-heading text-white italic leading-snug">"Sovereignty begins when survival is guaranteed."</p>
+                    <p class="text-xl font-heading text-white italic leading-snug mb-6">"Sovereignty begins when survival is guaranteed."</p>
+                    <div class="book-bridge">
+                        The colonial farmer set aside seed corn before touching the harvest. Not discipline — architecture. You don't save what's left. You spend what's left after saving.
+                        <span class="book-bridge-source">🪙 Iron Pot Millionaire · Ch. 2</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -126,16 +206,20 @@
                         <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">The Transmission</span>
                     </div>
                     <h3 class="text-4xl md:text-5xl font-heading font-bold mb-6 uppercase text-white">Wealth Architecture</h3>
-                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">Engineering automated capital routing. We replace the fragility of willpower with "Flow Logic," directing every dollar toward its highest and best use the moment it hits the hub.</p>
+                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">Engineering automated capital routing. We replace the fragility of willpower with the Harvest Split — directing every dollar toward its highest use the moment it lands, before Scarcity Brain can spend it.</p>
                     <div class="bg-white/5 border-l-4 border-crimson p-6 mb-6">
                         <h4 class="text-xs font-bold uppercase tracking-widest text-crimson mb-2">Tactical Case Study</h4>
-                        <p class="text-sm text-gray-400 italic">"Hub-and-spoke automation: 15% to Defense, 20% to Offense, remainder to the Iron Pot. Manual saving is eliminated."</p>
+                        <p class="text-sm text-gray-400 italic">"Harvest Split automation: 15% to moat defense, 20% to Iron Pot offense, remainder to operations. Manual saving is eliminated."</p>
                     </div>
                     <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Discipline replaced by automation.</p>
                 </div>
                 <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
                     <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
-                    <p class="text-xl font-heading text-white italic leading-snug">"The architecture dictates the outcome."</p>
+                    <p class="text-xl font-heading text-white italic leading-snug mb-6">"The architecture dictates the outcome."</p>
+                    <div class="book-bridge">
+                        Colonial farmers allocated the harvest before touching a single coin. Seed corn first. Survival second. Discretionary last. The budget isn't deprivation — it's forcing your brain to see trade-offs it currently ignores.
+                        <span class="book-bridge-source">🪙 Iron Pot Millionaire · Ch. 2</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -150,16 +234,20 @@
                         <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">The Gauges</span>
                     </div>
                     <h3 class="text-4xl md:text-5xl font-heading font-bold mb-6 uppercase text-white">Scenario Planning</h3>
-                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">Financial stress-testing for black swan events. We codify responses in a 'cold' state to ensure that market panic never dictates your strategic direction.</p>
+                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">Financial stress-testing for black swan events. We codify your responses in a cold state — so when the crisis hits, you execute protocol instead of panicking.</p>
                     <div class="bg-white/5 border-l-4 border-crimson p-6 mb-6">
                         <h4 class="text-xs font-bold uppercase tracking-widest text-crimson mb-2">Tactical Case Study</h4>
-                        <p class="text-sm text-gray-400 italic">"Writing a 50% income drop protocol: Activate 'Recession Budget,' pivot to high-leverage Skill X, bridge with Iron Pot."</p>
+                        <p class="text-sm text-gray-400 italic">"50% income drop protocol written cold: activate siege budget, pivot to high-leverage Skill X, bridge with Iron Pot runway."</p>
                     </div>
                     <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Stop worrying, start preparing.</p>
                 </div>
                 <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm order-1 lg:order-2">
                     <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
-                    <p class="text-xl font-heading text-white italic leading-snug">"Panic is a tax on the unprepared."</p>
+                    <p class="text-xl font-heading text-white italic leading-snug mb-6">"Panic is a tax on the unprepared."</p>
+                    <div class="book-bridge">
+                        Paul Revere kept cash not because he was rich — because cash enabled options when others had none. Liquidity is the moat that lets you be bold when the market forces everyone else to be scared.
+                        <span class="book-bridge-source">🪙 Iron Pot Millionaire · Ch. 4</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -174,16 +262,20 @@
                         <span class="font-heading text-xs tracking-[0.3em] uppercase text-gray-500">Line Clearing</span>
                     </div>
                     <h3 class="text-4xl md:text-5xl font-heading font-bold mb-6 uppercase text-white">Debt Neutralization</h3>
-                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">Reclaiming monthly cash flow. Consumer debt is a lien against your future energy; we treat it as an enemy combatant to be neutralized with sniper precision.</p>
+                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">Breaking chains on future income. Every debt payment is labor you already sold at a discount — we apply the colonial debt filter to identify, sequence, and eliminate each obligation until cash flow is fully yours again.</p>
                     <div class="bg-white/5 border-l-4 border-crimson p-6 mb-6">
                         <h4 class="text-xs font-bold uppercase tracking-widest text-crimson mb-2">Tactical Case Study</h4>
-                        <p class="text-sm text-gray-400 italic">"Neutralize a $500/mo car payment. Instantly reallocate $6k/year into offensive capital for Phase 02."</p>
+                        <p class="text-sm text-gray-400 italic">"Activate Siege Protocol on a $500/mo car payment. Break the chain in 14 months. Instantly redirect $6k/year into the Iron Pot."</p>
                     </div>
                     <p class="text-sm font-bold text-white uppercase tracking-widest">The Shift: Funding the future, not the past.</p>
                 </div>
                 <div class="lg:w-2/5 bg-navy-900 p-10 border border-white/10 rounded-sm">
                     <h4 class="text-xs font-heading text-gray-500 mb-4 uppercase tracking-[0.2em]">Core Idea</h4>
-                    <p class="text-xl font-heading text-white italic leading-snug">"Kill the debt. Keep the flow."</p>
+                    <p class="text-xl font-heading text-white italic leading-snug mb-6">"Kill the debt. Keep the flow."</p>
+                    <div class="book-bridge">
+                        When you take on debt, you're not borrowing money. You're selling future hours of your life at a discount to get money now. The borrower is slave to the lender.
+                        <span class="book-bridge-source">🪙 Iron Pot Millionaire · Ch. 3</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -192,14 +284,15 @@
         <div class="bg-navy-900/70 py-16 border-t border-b border-crimson/30">
             <div class="container mx-auto px-6 text-center">
                 <h3 class="font-heading text-3xl uppercase tracking-wider mb-6 text-white">Build Your Foundation – Free Today</h3>
-                <p class="text-lg text-gray-300 mb-6">In The Lab you get the complete interactive Phase 01 dashboard:</p>
+                <p class="text-lg text-gray-300 mb-6">The Lab gives you the complete interactive Phase 01 dashboard:</p>
                 <ul class="text-left max-w-2xl mx-auto text-gray-200 mb-8 space-y-3 text-base list-disc pl-8">
-                    <li>Monthly Income & Surplus Calculation</li>
-                    <li>Debt Reconnaissance + Avalanche Payoff Timeline</li>
-                    <li>Advanced Monthly Budget with Iron Pot & War Mode</li>
-                    <li>Assets & Net Worth Tracker + Basic Scenario Testing</li>
+                    <li>Monthly Harvest Calculation + Moat Growth tracker</li>
+                    <li>Future Labor Sold — Debt tracker + chain-break timeline</li>
+                    <li>Harvest Split budget with Iron Pot & Siege Protocol</li>
+                    <li>The Iron Pot — Assets & Net Worth + Scenario Testing</li>
                 </ul>
-                <p class="text-lg text-gray-300 mb-10">Everything auto-saves, no credit card required.</p>
+                <p class="text-base text-gray-400 mb-2" style="font-family:'IM Fell English',Georgia,serif;font-style:italic;">Colonial OS 1.0 — free forever. No credit card.</p>
+                <p class="text-sm text-gray-500 mb-10">Everything auto-saves to your browser.</p>
                 <a href="https://realamericanfinance.com/the-lab?source=academy-phase1" class="bg-crimson hover:brightness-110 text-white font-heading font-bold py-6 px-12 text-xl uppercase tracking-widest transition rounded-sm inline-block">
                     Enter The Lab – Free Phase 01 Access
                 </a>
@@ -211,7 +304,8 @@
             <summary class="bg-crimson/10 py-12 border-b border-crimson/30 cursor-pointer hover:bg-crimson/15 transition">
                 <div class="container mx-auto px-6 text-center">
                     <h2 class="font-heading text-3xl md:text-4xl tracking-[0.4em] uppercase text-white mb-4">Phase 02: The Expansion</h2>
-                    <p class="text-lg text-gray-300 mb-4 max-w-3xl mx-auto">High-leverage earning, tax optimization, jurisdictional positioning & estate governance</p>
+                    <p class="text-lg text-gray-300 mb-3 max-w-3xl mx-auto">High-leverage earning, tax optimization, jurisdictional positioning & estate governance</p>
+                    <p class="text-sm mb-4" style="font-family:'IM Fell English',Georgia,serif;font-style:italic;color:rgba(201,162,39,0.7);">"Your ancestors had five income streams. You're insane for having one." — Ch. 6</p>
                     <p class="text-md text-gray-400 italic">Tools launching progressively in Premium tier</p>
                     <p class="text-crimson font-bold mt-6 group-open:hidden">Click to preview Phase 02 pillars →</p>
                 </div>
@@ -318,7 +412,8 @@
             <summary class="bg-crimson/15 py-12 border-b border-crimson/40 cursor-pointer hover:bg-crimson/20 transition">
                 <div class="container mx-auto px-6 text-center">
                     <h2 class="font-heading text-3xl md:text-4xl tracking-[0.4em] uppercase text-white mb-4">Phase 03: The Sovereignty</h2>
-                    <p class="text-lg text-gray-300 mb-4 max-w-3xl mx-auto">Direct ownership, proven cash flow acquisition, antifragility & perpetual autonomy</p>
+                    <p class="text-lg text-gray-300 mb-3 max-w-3xl mx-auto">Direct ownership, proven cash flow acquisition, antifragility & perpetual autonomy</p>
+                    <p class="text-sm mb-4" style="font-family:'IM Fell English',Georgia,serif;font-style:italic;color:rgba(201,162,39,0.7);">"Leave a legacy, not debt. Don't die like Jefferson." — Ch. 10</p>
                     <p class="text-md text-gray-400 italic">Full sovereignty tools – Mastery tier</p>
                     <p class="text-crimson font-bold mt-6 group-open:hidden">Click to preview Phase 03 pillars →</p>
                 </div>
@@ -406,6 +501,21 @@
                         </div>
                     </section>
 
+                    <!-- Book Bridge Strip -->
+                    <div class="py-14 border-t border-white/10" style="background:linear-gradient(160deg,rgba(26,15,6,0.6),rgba(42,25,8,0.4));">
+                        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-8 max-w-4xl">
+                            <div class="text-6xl">🪙</div>
+                            <div class="flex-1">
+                                <p class="text-xs font-heading uppercase tracking-[0.3em] mb-2" style="color:var(--colonial-gold);">The Book Behind The System</p>
+                                <h4 class="text-2xl font-heading font-bold uppercase text-white mb-2">Iron Pot Millionaire</h4>
+                                <p class="text-sm leading-relaxed mb-4" style="font-family:'IM Fell English',Georgia,serif;font-style:italic;color:rgba(245,230,200,0.8);">The 12 pillars above are built on principles that turned illiterate colonial farmers into landowners. The book tells the story. The Lab and Academy are the operating system. Every metric, every protocol, every phase — same source code.</p>
+                                <a href="https://realamericanfinance.com/book" class="inline-flex items-center gap-2 font-heading text-xs uppercase tracking-widest hover:brightness-110 transition py-2 px-5 rounded-sm" style="background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.4);color:var(--colonial-gold);">
+                                    Get the Book →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Final CTA – Mastery only -->
                     <div class="bg-navy-900 py-20 border-t border-white/10">
                         <div class="container mx-auto px-6 text-center">
@@ -430,7 +540,8 @@
                         <span class="font-cursive text-5xl leading-none text-white">Real American Finance</span>
                         <span class="font-heading text-xs tracking-[0.5em] text-crimson uppercase font-bold mt-2">Sovereignty Through Discipline</span>
                     </a>
-                    <p class="text-gray-400 max-w-md leading-relaxed mb-8">The architecture for the modern operator. We engineer autonomy through capital flow and jurisdictional strategy.</p>
+                    <p class="text-gray-400 max-w-md leading-relaxed mb-4">The architecture for the modern operator. We engineer autonomy through capital flow and jurisdictional strategy.</p>
+                    <p class="text-sm" style="font-family:'IM Fell English',Georgia,serif;font-style:italic;color:rgba(201,162,39,0.6);">Built on the financial operating system that built colonial America.</p>
                 </div>
                 <div>
                     <h4 class="font-heading text-sm tracking-[0.3em] uppercase text-white mb-8">The Ecosystem</h4>
