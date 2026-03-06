@@ -7099,7 +7099,7 @@
             background: rgba(255,255,255,0.025);
             border: 1px solid rgba(255,255,255,0.07);
             border-radius: 10px;
-            padding: 0.75rem 0.9rem 0.65rem;
+            padding: 0.55rem 0.9rem 0.5rem;
             transition: border-color 0.15s, background 0.15s;
             position: relative;
             overflow: hidden;
@@ -7142,9 +7142,12 @@
         #debt-paydown-impact {
             padding: 0 0.1rem;
             border-top: 1px solid rgba(178,34,52,0.15);
-            padding-top: 0.4rem;
+            padding-top: 0.5rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-weight: 500;
         }
-        #debt-paydown-impact strong { font-style: normal; }
+        #debt-paydown-impact strong { font-style: normal; font-size: 1.0rem; }
 
                 /* ── PAST DUE ─────────────────────────────────────────────── */
         .past-due-toggle {
@@ -7184,17 +7187,17 @@
         }
 
                 .bcc-label {
-            font-family: 'Oswald', sans-serif; font-size: 0.92rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.08em;
-            color: rgba(255,255,255,0.85); line-height: 1.2;
+            font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            color: rgba(255,255,255,0.95); line-height: 1.2;
         }
         .bcc-subtitle {
-            font-family: Georgia, serif; font-size: 0.75rem;
-            color: rgba(255,255,255,0.4); font-style: italic; line-height: 1.3;
+            font-family: Georgia, serif; font-size: 0.88rem;
+            color: rgba(255,255,255,0.5); font-style: italic; line-height: 1.3;
         }
         .bcc-pct {
-            font-family: 'Oswald', sans-serif; font-size: 0.90rem; font-weight: 700;
-            letter-spacing: 0.04em; flex-shrink: 0; min-width: 2.5rem; text-align: right;
+            font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700;
+            letter-spacing: 0.03em; flex-shrink: 0; min-width: 2.8rem; text-align: right;
             transition: color 0.3s;
         }
 
@@ -7213,9 +7216,12 @@
         }
         .bcc-input-wrap { flex: 1; }
         .bcc-input {
-            font-size: 1.5rem !important; font-weight: 800 !important;
+            font-size: 1.35rem !important; font-weight: 800 !important;
             text-align: right !important; width: 100%;
             color: rgba(255,255,255,0.9) !important;
+            padding: 0 !important;
+            line-height: 1.0 !important;
+            height: 1.7rem !important;
         }
         .bcc-pastdue-btn {
             background: transparent; border: none; cursor: pointer;
@@ -10321,7 +10327,7 @@ function getYearsToPayoffClass(years) {
                         <input type="number" 
                                step="0.1" 
                                class="debt-input text-right w-16" 
-                               oninput="updateDebtPriority(this); debouncedCalculateAll(); autoLockDebt();" 
+                               oninput="updateDebtPriority(this); debouncedCalculateAll(); recalcSavingsAllocation(); autoLockDebt();" 
                                placeholder="0"
                                aria-label="Interest rate">
                         <span class="text-xs">%</span>
@@ -13996,23 +14002,61 @@ function toggleScoreBreakdown() {
 
             } else if (hasMortgage) {
                 // ── Stage 4a: EF funded, no consumer debt, mortgage exists ────────
-                // Priority: 401k to employer match → extra mortgage paydown → invest remainder
-                // Mortgage rate vs expected market return (7% long-run) determines split:
-                //   rate > 6%:  40% paydown / 60% invest  (high rate — guaranteed return)
-                //   rate 4-6%:  20% paydown / 80% invest  (moderate — lean toward market)
-                //   rate < 4%:  0% paydown  / 100% invest (low rate — market beats it)
-                k401kMo = Math.min(savingsPool, 1917); // IRS monthly limit
-                const afterK = savingsPool - k401kMo;
-                if (mortgageRate > 6) {
-                    debtPaydownMo = Math.round(afterK * 0.40);
-                    investMo      = afterK - debtPaydownMo;
-                } else if (mortgageRate >= 4) {
-                    debtPaydownMo = Math.round(afterK * 0.20);
-                    investMo      = afterK - debtPaydownMo;
+                //
+                // 401k: match only if retirement on track; max if behind.
+                //   Fidelity milestones: 40→3x | 45→4x | 50→6x | 55→7x | 60→8x salary
+                //
+                // Paydown vs invest: determined by two factors:
+                //   1. Mortgage rate vs market (after-tax ~6% breakeven)
+                //   2. Investment saturation — if already well-funded, paydown dominates
+                //
+                //   rate > 6%, investments >= 6x income → 80% paydown / 20% invest
+                //   rate > 6%, investments <  6x income → 55% paydown / 45% invest
+                //   rate 4-6%, investments >= 6x income → 40% paydown / 60% invest
+                //   rate 4-6%, investments <  6x income → 25% paydown / 75% invest
+                //   rate < 4%                           →  0% paydown / 100% invest
+
+                const _age           = parseInt(document.getElementById('age-input')?.value) || 0;
+                const _annualIncome  = income * 12;
+
+                // Retirement trajectory
+                const _retireBalance = parseCurrency(document.getElementById('retirement_total')?.value || 0);
+                const _targetMult    = _age <= 40 ? 3 : _age <= 45 ? 4 : _age <= 50 ? 6 :
+                                       _age <= 55 ? 7 : _age <= 60 ? 8 : 10;
+                const _retireRatio   = _annualIncome > 0
+                    ? _retireBalance / (_annualIncome * _targetMult) : 0;
+
+                // Investment saturation: retirement + brokerage vs annual income
+                const _investBalance  = parseCurrency(document.getElementById('investments_total')?.value || 0);
+                const _totalInvested  = _retireBalance + _investBalance;
+                const _investMultiple = _annualIncome > 0 ? _totalInvested / _annualIncome : 0;
+                const _investSaturated = _investMultiple >= 6; // 6x income = well-stocked
+
+                // 401k cap
+                const _matchOnly   = Math.round(income * 0.04);
+                const _k401kTarget = _retireRatio >= 1.0
+                    ? _matchOnly
+                    : _retireRatio >= 0.75
+                        ? Math.min(savingsPool * 0.40, 1917)
+                        : Math.min(savingsPool, 1917);
+                k401kMo = Math.min(_k401kTarget, savingsPool);
+                const afterK = Math.max(0, savingsPool - k401kMo);
+
+                // Effective rate fallback
+                const _effectiveRate = mortgageRate > 0 ? mortgageRate : 6.5;
+
+                // Paydown percentage — investment saturation shifts weight to paydown
+                let _paydownPct;
+                if (_effectiveRate > 6) {
+                    _paydownPct = _investSaturated ? 0.80 : 0.55;
+                } else if (_effectiveRate >= 4) {
+                    _paydownPct = _investSaturated ? 0.40 : 0.25;
                 } else {
-                    debtPaydownMo = 0;
-                    investMo      = afterK;
+                    _paydownPct = 0;
                 }
+
+                debtPaydownMo = Math.round(afterK * _paydownPct);
+                investMo      = afterK - debtPaydownMo;
                 efMo = 0;
 
             } else {
@@ -14250,7 +14294,8 @@ function toggleScoreBreakdown() {
             Object.entries(allDefaults).forEach(([id, val]) => {
                 const el = document.getElementById(id);
                 if (!el) return;
-                if (id === 'mortgage_rent' && el.dataset.userSet === 'true') return;
+                // Never overwrite a field the user has manually edited
+                if (el.dataset.userSet === 'true') return;
                 el.value = Math.round(val).toLocaleString();
                 formatCurrencyInput(el);
             });
@@ -14372,7 +14417,7 @@ function toggleScoreBreakdown() {
             }
             
             disableBudgetInputs();
-            showToast('✓ Harvest Split Locked — The seed corn is safe');
+            showToast('✓ Budget locked — auto-engine won\'t overwrite your choices. You can still edit freely.');
             
             // Colonial celebration toast
             const surplus = calculateSurplus();
@@ -14660,35 +14705,8 @@ function toggleScoreBreakdown() {
         }
         
         function disableBudgetInputs() {
-            const isWarMode = document.getElementById('warModeToggle')?.checked;
-            
-            if (budgetCategories.needs) {
-                budgetCategories.needs.forEach(cat => {
-                    const input = document.getElementById(cat.id);
-                    if (input) {
-                        input.disabled = true;
-                        input.style.opacity = '0.6';
-                    }
-                });
-            }
-            
-            if (budgetCategories.wants && !isWarMode) {
-                budgetCategories.wants.forEach(cat => {
-                    const input = document.getElementById(cat.id);
-                    if (input) {
-                        input.disabled = true;
-                        input.style.opacity = '0.6';
-                    }
-                });
-            }
-            
-            ['emergency_monthly', 'lifestyle_monthly', 'other_monthly'].forEach(id => {
-                const input = document.getElementById(id);
-                if (input && !(id === 'lifestyle_monthly' && isWarMode)) {
-                    input.disabled = true;
-                    input.style.opacity = '0.6';
-                }
-            });
+            // Budget inputs are ALWAYS editable — locking only protects from auto-engine overwrites.
+            // This function intentionally does nothing.
         }
         
         function enableBudgetInputs() {
@@ -14936,7 +14954,7 @@ function toggleScoreBreakdown() {
             <div class="currency-input-container bcc-input-wrap">
                 <input type="text"
                        id="${category.id}"
-                       oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) { markUserSet(this); debouncedCalculateAll(); updateCategoryPercentage('${category.id}') }"
+                       oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) { markUserSet(this); debouncedCalculateAll(); recalcSavingsAllocation(); updateCategoryPercentage('${category.id}') }"
                        class="input-underlined bcc-input"
                        value="${getCategoryValue(category.id)}"
                        placeholder="0"
@@ -14986,7 +15004,7 @@ function toggleScoreBreakdown() {
         <div class="bcc-input-row">
             <div class="currency-input-container bcc-input-wrap">
                 <input type="text" id="${category.id}"
-                       oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) { markUserSet(this); debouncedCalculateAll(); updateCategoryPercentage('${category.id}') }"
+                       oninput="formatCurrencyInput(this); if(validateBudgetInput(this)) { markUserSet(this); debouncedCalculateAll(); recalcSavingsAllocation(); updateCategoryPercentage('${category.id}') }"
                        class="input-underlined bcc-input"
                        value="${getCategoryValue(category.id)}"
                        placeholder="0"
@@ -15014,9 +15032,12 @@ function toggleScoreBreakdown() {
         }
 
         function clearCategory(input) {
+            if (!input) return;
+            delete input.dataset.userSet;  // allow auto-engine to refill this field
             input.value = '';
             formatCurrencyInput(input);
-            showToast(`Cleared ${input.id.replace('_', ' ')}`);
+            recalcSavingsAllocation();
+            debouncedCalculateAll();
         }
 
         function debouncedCalculateAll() {
