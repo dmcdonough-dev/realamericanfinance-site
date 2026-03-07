@@ -6,7 +6,7 @@
     <title>The Lab | Real American Finance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Oswald:wght@300;400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ============================================================================
@@ -18,20 +18,20 @@
             /* ══ Design Tokens — 4 surfaces, 3 text, 2 accents ══ */
 
             /* Surfaces — flag blue family */
-            --s0: #061a38;          /* page background            */
-            --s1: #0a3161;          /* cards                      */
-            --s2: #0f4080;          /* elevated / hover           */
-            --s3: #1a52a0;          /* active / selected          */
+            --s0: #080f1a;          /* page background — midnight navy */
+            --s1: #0d1929;          /* cards                      */
+            --s2: #122036;          /* elevated / hover           */
+            --s3: #1a2f4a;          /* active / selected          */
 
             /* Borders — one value for everything */
-            --border:        rgba(255,255,255,0.10);
+            --border:        rgba(255,255,255,0.08);
             --border-accent: rgba(201,162,39,0.28);
-            --border-red:    rgba(178,34,52,0.35);
+            --border-red:    rgba(178,34,52,0.50);
 
             /* Text */
             --t0:  #FFFFFF;                  /* primary                    */
-            --t1:  rgba(255,255,255,0.85);   /* secondary                  */
-            --t2:  rgba(255,255,255,0.60);   /* faint / labels             */
+            --t1:  rgba(255,255,255,0.92);   /* secondary                  */
+            --t2:  rgba(255,255,255,0.70);   /* faint / labels             */
 
             /* Accents */
             --red:    #B22234;
@@ -48,17 +48,17 @@
             --crimson-bright:#D4293F;
             --gold-bright:   #C9A227;
             --gold-dim:      #8B6914;
-            --flag-blue:     #0a3161;
-            --flag-blue-dark:#061a38;
+            --flag-blue:     #0d1929;
+            --flag-blue-dark:#080f1a;
             --flag-red:      #B22234;
             --cream:         #FFFFFF;
             --cream-dim:     rgba(255,255,255,0.85);
             --cream-faint:   rgba(255,255,255,0.60);
             --white:         #FFFFFF;
-            --navy-950:      #061a38;
-            --navy-900:      #0a3161;
-            --navy-800:      #0f4080;
-            --navy-700:      #1a52a0;
+            --navy-950:      #080f1a;
+            --navy-900:      #0d1929;
+            --navy-800:      #122036;
+            --navy-700:      #1a2f4a;
             --washed-blue:   #7a9fd4;
             --success:       #4a9e6b;
             --warning:       #C9A227;
@@ -95,12 +95,20 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background-color: var(--s0);
             background-image:
+                /* Subtle diagonal grain — echoes the flag texture */
                 repeating-linear-gradient(
                     -45deg,
-                    transparent, transparent 60px,
-                    rgba(245,245,240,0.012) 60px, rgba(245,245,240,0.012) 61px
+                    transparent, transparent 80px,
+                    rgba(178,34,52,0.022) 80px, rgba(178,34,52,0.008) 81px
                 ),
-                linear-gradient(160deg, #22213E 0%, #0a3161 50%, #061a38 100%);
+                repeating-linear-gradient(
+                    45deg,
+                    transparent, transparent 120px,
+                    rgba(255,255,255,0.006) 120px, rgba(255,255,255,0.002) 121px
+                ),
+                /* Very subtle crimson vignette from bottom-left — like the flag's darkness */
+                radial-gradient(ellipse 140% 80% at 0% 100%, rgba(120,10,20,0.15) 0%, transparent 60%),
+                linear-gradient(170deg, #0d1929 0%, #0a1220 50%, #080f1a 100%);
             color: var(--cream);
             line-height: 1.6;
             min-height: 100vh;
@@ -124,11 +132,12 @@
 
         /* Patriot Cards */
         .dashboard-card {
-            background: linear-gradient(145deg, rgba(15,64,128,0.85), rgba(10,49,97,0.95));
-            border: 1px solid rgba(201,162,39,0.18);
+            background: linear-gradient(165deg, rgba(13,25,41,0.97), rgba(8,15,26,0.99));
+            border: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid rgba(255,255,255,0.10);
             border-radius: var(--radius-lg);
-            backdrop-filter: blur(24px) saturate(160%);
-            box-shadow: var(--shadow-md), inset 0 1px 0 rgba(201,162,39,0.08);
+            backdrop-filter: blur(24px) saturate(140%);
+            box-shadow: 0 4px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
             transition: all var(--transition-base);
             position: relative;
             overflow: hidden;
@@ -160,7 +169,7 @@
 
         /* Patriot Inputs */
         input, select, textarea {
-            background: rgba(6,26,56,0.6);
+            background: rgba(8,15,26,0.6);
             border: 1.5px solid rgba(255,255,255,0.12);
             color: var(--cream);
             border-radius: var(--radius-md);
@@ -567,7 +576,7 @@
             z-index: 10001;
             display: flex;
             gap: 0.4rem;
-            background: rgba(6,26,56,0.96);
+            background: rgba(8,15,26,0.96);
             border: 1.5px solid rgba(201,162,39,0.5);
             border-radius: 99px;
             padding: 0.35rem;
@@ -605,7 +614,7 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 999;
-            background: linear-gradient(135deg, #0a3161, #0f4080);
+            background: linear-gradient(135deg, #0d1929, #122036);
             border: 1.5px solid rgba(201,162,39,0.6);
             border-radius: 14px;
             padding: 1rem 1.75rem;
@@ -776,6 +785,18 @@
             .mobile-hide { display: none !important; }
         }
 
+        /* ── Footer responsive ── */
+        @media (max-width: 768px) {
+            footer > div > div:first-child {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 2rem !important;
+            }
+        }
+        @media (max-width: 480px) {
+            footer > div > div:first-child {
+                grid-template-columns: 1fr !important;
+            }
+        }
         /* ── Very small phones ── */
         @media (max-width: 390px) {
             .hero-section h1 { font-size: clamp(2.5rem,15vw,4rem) !important; }
@@ -894,7 +915,7 @@
         #score-crown {
             text-align: center;
             padding: 2.5rem 1rem 2rem;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid rgba(178,34,52,0.25);
             margin-bottom: 0.5rem;
         }
         #score-crown-eyebrow {
@@ -965,21 +986,21 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 2.75rem;
-            height: 2.75rem;
-            border-radius: 10px;
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 6px;
             font-family: 'Oswald', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: #FFFFFF;
             flex-shrink: 0;
         }
         .sec-hdr-title {
             font-family: 'Oswald', sans-serif;
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             font-weight: 700;
             color: #FFFFFF;
-            letter-spacing: 0.01em;
+            letter-spacing: -0.01em;
             line-height: 1;
         }
 
@@ -1108,9 +1129,7 @@
         }
 
         /* Section cards — more internal breathing room */
-        #income-section, #debt-section, #budget-section {
-            padding: 3rem !important;
-        }
+        #debt-section, #budget-section { padding: 3rem !important; }
 
         /* ══════════════════════════════════════════════════════
            FLAG BLUE THEME LAYER
@@ -1129,7 +1148,7 @@
 
         /* ── 2. Card depth — flag blue ───────────────────────── */
         .dashboard-card {
-            background: linear-gradient(145deg, rgba(15,64,128,0.9), rgba(10,49,97,0.97)) !important;
+            background: linear-gradient(145deg, rgba(18,32,54,0.9), rgba(13,25,41,0.97)) !important;
             border: none !important;
             box-shadow:
                 0 1px 0 rgba(201,162,39,0.2),
@@ -1147,7 +1166,7 @@
         }
 
         /* ── 3. Generous padding ─────────────────────────────── */
-        #income-section  { padding: 2.75rem !important; }
+        /* income padding handled by #income-body */
         #debt-section    { padding: 2.75rem !important; }
         #budget-section  { padding: 2.75rem !important; }
         .layout-right .dashboard-card { padding: 1.75rem !important; }
@@ -1187,7 +1206,7 @@
 
         /* ── 6. Advisor portraits — initials ─────────────────── */
         .advisor-card {
-            background: linear-gradient(150deg, rgba(15,64,128,0.7) 0%, rgba(10,49,97,0.85) 100%) !important;
+            background: linear-gradient(150deg, rgba(18,32,54,0.7) 0%, rgba(13,25,41,0.85) 100%) !important;
             border-left: 3px solid rgba(178,34,52,0.5) !important;
         }
         .advisor-name   { color: var(--cream) !important; }
@@ -1215,13 +1234,13 @@
 
         /* ── 7. Nav — flag blue with gold border ─────────────── */
         header.fixed {
-            background: rgba(6,26,56,0.96) !important;
+            background: rgba(8,15,26,0.96) !important;
             backdrop-filter: blur(28px) saturate(200%) !important;
             border-bottom: 1px solid rgba(201,162,39,0.2) !important;
             box-shadow: 0 1px 0 rgba(201,162,39,0.08), 0 4px 24px rgba(0,0,0,0.4) !important;
         }
         #setup-progress-rail {
-            background: rgba(6,26,56,0.97) !important;
+            background: rgba(8,15,26,0.97) !important;
             border-bottom: 1px solid rgba(201,162,39,0.15) !important;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
         }
@@ -1262,7 +1281,7 @@
         }
         #budget-section [style*="135deg, #7a9fd4"],
         #budget-section [style*="135deg, #7a9fd4"] {
-            background: linear-gradient(135deg, #1a52a0, #0f4080) !important;
+            background: linear-gradient(135deg, #1a2f4a, #122036) !important;
             box-shadow: 0 4px 16px rgba(26,82,160,0.4) !important;
         }
 
@@ -1323,7 +1342,7 @@
         /* ── Hero section ────────────────────────────────────── */
         section.pb-16 {
             background:
-                linear-gradient(rgba(6,26,56,0.78), rgba(6,26,56,0.88)),
+                linear-gradient(rgba(8,15,26,0.78), rgba(8,15,26,0.88)),
                 url('https://realamericanfinance.com/flag_distressed.jpg') !important;
             background-size: cover !important;
             background-position: center !important;
@@ -1331,7 +1350,7 @@
 
         /* ── Chapter banner ──────────────────────────────────── */
         #chapter-banner {
-            background: rgba(6,26,56,0.7) !important;
+            background: rgba(8,15,26,0.7) !important;
             border-bottom: 1px solid rgba(201,162,39,0.15) !important;
         }
 
@@ -1344,12 +1363,12 @@
 
         /* ── Strategy cards ──────────────────────────────────── */
         .strategy-card {
-            background: rgba(15,64,128,0.5) !important;
+            background: rgba(18,32,54,0.5) !important;
             border-color: rgba(201,162,39,0.15) !important;
         }
 
         /* ── Debt table ──────────────────────────────────────── */
-        .debt-table th { background: rgba(6,26,56,0.6) !important; color: rgba(255,255,255,0.60) !important; }
+        .debt-table th { background: rgba(8,15,26,0.6) !important; color: rgba(255,255,255,0.60) !important; }
         .debt-table td { color: var(--cream-dim) !important; border-bottom-color: rgba(255,255,255,0.06) !important; }
         .debt-table tr:hover td { background: rgba(255,255,255,0.03) !important; }
 
@@ -1358,12 +1377,12 @@
         .budget-category-card:hover { background: rgba(255,255,255,0.07) !important; }
 
         /* ── War mode ────────────────────────────────────────── */
-        .war-mode-toggle-container { background: rgba(15,64,128,0.4) !important; border-color: rgba(178,34,52,0.2) !important; }
+        .war-mode-toggle-container { background: rgba(18,32,54,0.4) !important; border-color: rgba(178,34,52,0.2) !important; }
 
         /* ── Mobile nav ──────────────────────────────────────── */
         @media (max-width: 768px) {
             .mobile-bottom-nav {
-                background: rgba(6,26,56,0.97) !important;
+                background: rgba(8,15,26,0.97) !important;
                 border-top-color: rgba(201,162,39,0.2) !important;
             }
         }
@@ -1622,7 +1641,7 @@
         .sotu-card-name {
             font-family: Georgia, serif;
             font-size: 0.82rem;
-            color: rgba(6,26,56,0.6);
+            color: rgba(8,15,26,0.6);
             line-height: 1.3;
         }
 
@@ -2085,7 +2104,7 @@
         
         /* ===== NEW: 50/30/20 BUDGET RULE STYLES ===== */
         .budget-rule-container {
-            background: rgba(6,26,56,0.85);
+            background: rgba(8,15,26,0.92);
             border-radius: 8px;
             padding: 16px;
             margin-bottom: 16px;
@@ -2246,7 +2265,7 @@
         }
         
         .pricing-content {
-            background: linear-gradient(135deg, #061a38, #11243F);
+            background: linear-gradient(135deg, #080f1a, #11243F);
             border: 2px solid #B22234;
             border-radius: 16px;
             max-width: 1200px;
@@ -2435,7 +2454,7 @@
         /* Debt Entry Flow */
         .debt-entry-flow {
             padding: 32px;
-            background: rgba(6,26,56,0.65);
+            background: rgba(8,15,26,0.65);
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
@@ -2543,7 +2562,7 @@
         }
         
         .preset-card {
-            background: rgba(6,26,56,0.65);
+            background: rgba(8,15,26,0.65);
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             padding: 16px;
@@ -2609,7 +2628,7 @@
         
         /* Debt Progress Bar */
         .debt-progress-container {
-            background: rgba(6,26,56,0.65);
+            background: rgba(8,15,26,0.65);
             border-radius: 8px;
             padding: 20px;
             margin-top: 16px;
@@ -2672,7 +2691,7 @@
         }
         
         .strategy-card {
-            background: rgba(6,26,56,0.65);
+            background: rgba(8,15,26,0.65);
             border: 2px solid rgba(122,159,212, 0.2);
             border-radius: 8px;
             padding: 20px;
@@ -2729,7 +2748,7 @@
         
         /* Comparison Badge */
         .comparison-badge {
-            background: linear-gradient(135deg, rgba(122,159,212, 0.2), rgba(10,49,97, 0.2));
+            background: linear-gradient(135deg, rgba(122,159,212, 0.2), rgba(13,25,41, 0.2));
             border: 2px solid rgba(122,159,212, 0.4);
             border-radius: 8px;
             padding: 16px;
@@ -2918,7 +2937,7 @@
         
         /* AMERICANA TICKER - SUPER VISIBLE DEBUG */
         .ticker-container {
-            background: linear-gradient(to right, #B22234 0%, #FFFFFF 50%, #0f4080 100%);
+            background: linear-gradient(to right, #B22234 0%, #FFFFFF 50%, #122036 100%);
             overflow: hidden;
             position: relative;
             margin-top: 100px;
@@ -3024,7 +3043,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, #B22234, #C9A227, #0f4080);
+            background: linear-gradient(90deg, #B22234, #C9A227, #122036);
         }
         
         .command-stat-card:hover {
@@ -3049,10 +3068,10 @@
         }
         
         .stat-value {
-            font-size: 36px;
+            font-size: 38px;
             font-weight: 900;
             line-height: 1;
-            background: linear-gradient(135deg, #FFFFFF, #C9A227);
+            background: linear-gradient(135deg, #FFFFFF 60%, #C9A227);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -3171,7 +3190,7 @@
         
         /* GOD MODE: Health Bar Redesign */
         .health-bar-container {
-            background: rgba(6,26,56,0.65);
+            background: rgba(8,15,26,0.65);
             border-radius: 12px;
             padding: 20px;
             border: 2px solid rgba(255, 255, 255, 0.05);
@@ -3366,7 +3385,7 @@
         .timeline-node {
             position: relative;
             padding: 20px;
-            background: rgba(6,26,56,0.65);
+            background: rgba(8,15,26,0.65);
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             margin-bottom: 20px;
@@ -3380,7 +3399,7 @@
             transform: translateY(-50%);
             width: 20px;
             height: 20px;
-            background: #0f4080;
+            background: #122036;
             border: 3px solid #C9A227;
             border-radius: 50%;
         }
@@ -3391,7 +3410,7 @@
             top: 0;
             bottom: -20px;
             width: 2px;
-            background: linear-gradient(to bottom, #B22234, #0f4080);
+            background: linear-gradient(to bottom, #B22234, #122036);
         }
         
         .future-projection {
@@ -3401,7 +3420,7 @@
         
         /* Budget Categories */
         .budget-category-card {
-            background: rgba(6,26,56,0.65);
+            background: rgba(8,15,26,0.65);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             padding: 16px;
@@ -3470,7 +3489,7 @@
         }
         
         .dashboard-card { 
-            background: #061a38; 
+            background: #080f1a; 
             border: 1px solid rgba(255,255,255,0.05); 
             border-radius: 12px;
             transition: border-color 0.3s ease;
@@ -3588,7 +3607,7 @@
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         
         html, body { height: 100%; margin: 0; }
-        body { display: flex; flex-direction: column; min-height: 100vh; background: #061a38; }
+        body { display: flex; flex-direction: column; min-height: 100vh; background: #080f1a; }
         main { flex: 1 0 auto; }
         
         .currency-input-container {
@@ -3615,7 +3634,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: #061a38;
+            background: #080f1a;
             border: 1px solid #B22234;
             border-radius: 8px;
             padding: 12px 20px;
@@ -3632,7 +3651,7 @@
         }
         
         .journey-tracker {
-            background: linear-gradient(135deg, #061a38 0%, #11243F 100%);
+            background: linear-gradient(135deg, #080f1a 0%, #11243F 100%);
             border: 1px solid rgba(178, 34, 52, 0.3);
             border-radius: 12px;
             overflow: hidden;
@@ -3677,7 +3696,7 @@
         
         /* ===== FIXED DEBT DROPDOWN STYLES ===== */
         .debt-type-select {
-            background: #061a38 !important;
+            background: #080f1a !important;
             color: white !important;
             border: 1px solid rgba(255, 255, 255, 0.2) !important;
             border-radius: 4px !important;
@@ -3696,7 +3715,7 @@
         }
         
         .debt-type-select option {
-            background: #061a38 !important;
+            background: #080f1a !important;
             color: white !important;
             padding: 8px !important;
         }
@@ -3711,7 +3730,7 @@
         
         /* Dual Input Savings Cards */
         .savings-dual-card {
-            background: rgba(6,26,56,0.85);
+            background: rgba(8,15,26,0.85);
             border-radius: 8px;
             padding: 16px;
             margin-bottom: 16px;
@@ -3814,7 +3833,7 @@
         
         /* Action Card Styling - SIMPLIFIED TO 3 TIERS */
         .action-card {
-            background: rgba(6,26,56,0.85);
+            background: rgba(8,15,26,0.85);
             border-radius: 8px;
             padding: 16px;
             margin-bottom: 12px;
@@ -3852,7 +3871,7 @@
         
         /* Age Input Styling */
         .age-input-container {
-            background: rgba(6,26,56,0.65);
+            background: rgba(8,15,26,0.65);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             padding: 16px;
@@ -3882,7 +3901,7 @@
             top: -8px;
             left: 0;
             transform: translateY(-100%);
-            background: #061a38;
+            background: #080f1a;
             color: white;
             padding: 6px 10px;
             border-radius: 4px;
@@ -4248,7 +4267,7 @@
         
         /* ===== NEW STYLES FOR IMPROVEMENTS ===== */
         .monthly-view-summary {
-            background: rgba(6,26,56,0.85);
+            background: rgba(8,15,26,0.85);
             border-radius: 8px;
             padding: 16px;
             margin-bottom: 16px;
@@ -4552,7 +4571,7 @@
             position: absolute;
             top: 100%;
             left: 0;
-            background: #061a38;
+            background: #080f1a;
             border: 1px solid #B22234;
             border-radius: 6px;
             padding: 8px;
@@ -4714,7 +4733,7 @@
             bottom: 100%;
             left: 50%;
             transform: translateX(-50%);
-            background: #061a38;
+            background: #080f1a;
             color: white;
             padding: 6px 10px;
             border-radius: 4px;
@@ -4735,7 +4754,7 @@
             position: absolute;
             top: 100%;
             right: 0;
-            background: #061a38;
+            background: #080f1a;
             border: 1px solid rgba(178, 34, 52, 0.3);
             border-radius: 8px;
             padding: 8px 0;
@@ -4773,7 +4792,7 @@
         
         /* ===== UNIFIED PROGRESS DASHBOARD STYLES ===== */
         .unified-progress-dashboard {
-            background: rgba(6,26,56,0.85);
+            background: rgba(8,15,26,0.85);
             border-radius: 8px;
             padding: 16px;
             margin-bottom: 16px;
@@ -4830,7 +4849,7 @@
         
         /* ===== UNIFIED ACTION CARD ===== */
         .unified-action-card {
-            background: rgba(6,26,56,0.85);
+            background: rgba(8,15,26,0.85);
             border-radius: 8px;
             padding: 16px;
             margin-bottom: 12px;
@@ -4839,7 +4858,7 @@
         
         /* ===== ENHANCED ACTION CARD STYLES ===== */
         .action-card-enhanced {
-            background: rgba(6,26,56,0.85);
+            background: rgba(8,15,26,0.85);
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 16px;
@@ -5022,7 +5041,7 @@
                 bottom: 0;
                 left: 0;
                 right: 0;
-                background: #061a38;
+                background: #080f1a;
                 border-top: 1px solid rgba(255,255,255,0.1);
                 display: flex;
                 justify-content: space-around;
@@ -5049,7 +5068,7 @@
             font-size: 1rem;
             letter-spacing: 0.05em;
             text-transform: uppercase;
-            background: linear-gradient(135deg, #061a38, #11243F);
+            background: linear-gradient(135deg, #080f1a, #11243F);
             border: 2px solid;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
@@ -5102,7 +5121,7 @@
         }
         
         .sovereign-score-breakdown {
-            background: rgba(6,26,56,0.85);
+            background: rgba(8,15,26,0.85);
             border-radius: 8px;
             padding: 16px;
             margin-top: 12px;
@@ -5673,7 +5692,7 @@
         .book-callout-chapter {
             font-size: 0.75rem;
             font-weight: 700;
-            color: #2c1810;
+            color: rgba(255,255,255,0.9);
             margin-bottom: 0.6rem;
             font-family: 'Inter', sans-serif;
             text-transform: uppercase;
@@ -5682,7 +5701,7 @@
         .book-callout-quote {
             font-size: 0.9rem;
             font-style: italic;
-            color: #2c1810;
+            color: rgba(255,255,255,0.88);
             line-height: 1.55;
             margin-bottom: 0.75rem;
         }
@@ -6220,19 +6239,18 @@
 
         /* ── Type chip grid ── */
         .dew-chips {
-            display: grid; grid-template-columns: repeat(4,1fr); gap: 0.55rem;
-            margin-bottom: 0.9rem;
+            display: flex; flex-wrap: wrap; gap: 0.4rem;
+            margin-bottom: 0.75rem;
         }
-        @media (max-width:600px) { .dew-chips { grid-template-columns: repeat(2,1fr); } }
 
         .dew-chip {
-            display: flex; flex-direction: column; align-items: flex-start;
-            gap: 0.1rem; padding: 0.65rem 0.8rem;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-left: 3px solid rgba(255,255,255,0.06);
-            border-radius: 6px; cursor: pointer; text-align: left; position: relative;
-            transition: background 0.15s, border-color 0.15s, transform 0.12s, box-shadow 0.15s;
+            display: flex; flex-direction: row; align-items: center;
+            gap: 0.4rem; padding: 0.3rem 0.7rem 0.3rem 0.45rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 999px; cursor: pointer; text-align: left; position: relative;
+            transition: background 0.15s, border-color 0.15s, transform 0.1s, box-shadow 0.15s;
+            white-space: nowrap;
         }
         .dew-chip:hover {
             background: rgba(178,34,52,0.09); border-color: rgba(178,34,52,0.35);
@@ -6244,11 +6262,11 @@
             border-left-color: #B22234;
             box-shadow: 0 0 0 1px rgba(178,34,52,0.3);
         }
-        .dew-chip-icon { font-size: 1.05rem; line-height: 1; margin-bottom: 0.15rem; }
+        .dew-chip-icon { font-size: 0.9rem; line-height: 1; flex-shrink: 0; }
         .dew-chip-label {
-            font-family: 'Oswald', sans-serif; font-size: 0.7rem; font-weight: 700;
+            font-family: 'Oswald', sans-serif; font-size: 0.68rem; font-weight: 700;
             text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.78);
-            line-height: 1.2;
+            line-height: 1;
         }
         .dew-chip-apr {
             font-family: Georgia, serif; font-size: 0.56rem; color: rgba(255,255,255,0.25);
@@ -6743,14 +6761,14 @@
         /* Strategy cards */
         .dew-strategy-grid {
             display: grid; grid-template-columns: 1fr 1fr;
-            gap: 1rem; margin-top: 1.25rem;
+            gap: 0.6rem; margin-top: 0.75rem;
         }
         @media(max-width:500px){ .dew-strategy-grid { grid-template-columns: 1fr; } }
 
         .dew-strategy-card {
-            position: relative; border-radius: 12px; padding: 1.3rem 1.3rem 1.1rem;
-            cursor: pointer; overflow: hidden; border: 2px solid transparent;
-            transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+            position: relative; border-radius: 10px; padding: 0.75rem 0.9rem;
+            cursor: pointer; overflow: hidden; border: 1.5px solid transparent;
+            transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
         }
         .dew-strategy-card:hover {
             transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,0,0,0.38);
@@ -7096,8 +7114,9 @@
         .budget-category-card::before { display: none !important; }
         .budget-category-card:hover { background: transparent !important; }
         .bcc-inner {
-            background: rgba(255,255,255,0.025);
+            background: rgba(13,25,41,0.6);
             border: 1px solid rgba(255,255,255,0.07);
+            border-left: 3px solid rgba(178,34,52,0.4);
             border-radius: 10px;
             padding: 0.55rem 0.9rem 0.5rem;
             transition: border-color 0.15s, background 0.15s;
@@ -7149,7 +7168,342 @@
         }
         #debt-paydown-impact strong { font-style: normal; font-size: 1.0rem; }
 
-                /* ── PAST DUE ─────────────────────────────────────────────── */
+        
+
+        /* ══════════════════════════════════════════════════════════════════
+           EMPTY STATE — Activation Moment
+           ══════════════════════════════════════════════════════════════════ */
+
+        /* Score crown empty overlay */
+        #score-crown-empty {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 2;
+            transition: opacity 0.8s ease;
+        }
+        #score-crown-empty.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #score-crown { position: relative; text-align: center; }
+        #score-crown-live {
+            transition: opacity 0.8s ease;
+        }
+        #score-crown-live.hidden { opacity: 0; }
+
+        .empty-crown-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.55rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.35em;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 1rem;
+        }
+        .empty-crown-score {
+            font-family: 'Oswald', sans-serif;
+            font-size: 5.5rem;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: rgba(255,255,255,0.07);
+            position: relative;
+        }
+        
+        .empty-crown-cta {
+            margin-top: 1.25rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .empty-crown-arrow {
+            color: #B22234;
+            animation: arrowBounce 1.4s ease-in-out infinite;
+            font-size: 0.9rem;
+        }
+        @keyframes emptyPulse {
+            0%, 100% { color: rgba(178,34,52,0.15); }
+            50%       { color: rgba(178,34,52,0.45); }
+        }
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateX(0); }
+            50%       { transform: translateX(-5px); }
+        }
+
+        /* Ring ghost arcs when empty */
+        #ring-ghost-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease;
+        }
+        #ring-ghost-overlay.hidden { opacity: 0; }
+        .ring-ghost-svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .ghost-arc {
+            fill: none;
+            stroke-width: 22;
+            stroke-linecap: round;
+            animation: ghostArcPulse 4s ease-in-out infinite;
+        }
+        .ghost-arc-1 { stroke: rgba(178,34,52,0.12); animation-delay: 0s; }
+        .ghost-arc-2 { stroke: rgba(255,255,255,0.06); animation-delay: 0.8s; }
+        .ghost-arc-3 { stroke: rgba(201,162,39,0.08); animation-delay: 1.6s; }
+        @keyframes ghostArcPulse {
+            0%, 100% { opacity: 0.5; }
+            50%       { opacity: 1; }
+        }
+
+        /* Income field pulse — calls attention */
+        .income-awaiting .inc-paycheck-wrap {
+            animation: awaitingPulse 2.5s ease-in-out infinite;
+            border-radius: 8px;
+        }
+        @keyframes awaitingPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(178,34,52,0); }
+            50%       { box-shadow: 0 0 0 6px rgba(178,34,52,0.25); }
+        }
+
+        /* Score count-up animation */
+        @keyframes scoreReveal {
+            from { opacity: 0; transform: scale(0.85); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        #score-crown-live.activating {
+            animation: scoreReveal 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards;
+        }
+
+        /* Ring draw-in animation — triggered by adding class */
+        .harvest-ring-wrap.activating canvas {
+            animation: ringDrawIn 1.2s ease-out forwards;
+        }
+        @keyframes ringDrawIn {
+            from { opacity: 0; transform: scale(0.9) rotate(-10deg); }
+            to   { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        /* ── END EMPTY STATE ─────────────────────────────────────────────── */
+
+
+        /* ══════════════════════════════════════════════════════════════════
+           INCOME SECTION — EARNER CARDS
+           ══════════════════════════════════════════════════════════════════ */
+
+        #income-section { padding: 0 !important; }
+        #income-body { padding: 1.1rem 1.4rem 1.3rem; }
+
+        /* ── EARNER CARD ─────────────────────────────────────────────────── */
+        .earner-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 12px;
+            padding: 0.9rem 1rem;
+            margin-bottom: 0.55rem;
+            transition: border-color 0.2s;
+        }
+        .earner-card:focus-within { border-color: rgba(178,34,52,0.35); }
+
+        /* Top row: label chip + remove */
+        .earner-top {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .earner-dot {
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .earner-name-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.9);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            outline: none;
+            min-width: 0;
+        }
+        .earner-name-input::placeholder { color: rgba(255,255,255,0.2); font-style: normal; }
+        .earner-remove {
+            background: none; border: none; cursor: pointer;
+            color: rgba(255,255,255,0.15); font-size: 1rem; line-height: 1;
+            padding: 0; transition: color 0.15s; flex-shrink: 0;
+        }
+        .earner-remove:hover { color: #B22234; }
+        .earner-card:only-child .earner-remove { visibility: hidden; }
+
+        /* Amount — huge, dominant */
+        .earner-amount-row {
+            display: flex;
+            align-items: baseline;
+            gap: 0.3rem;
+            margin-bottom: 0.85rem;
+        }
+        .earner-dollar {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem; font-weight: 700;
+            color: rgba(255,255,255,0.3);
+            line-height: 1;
+        }
+        .earner-amount-input {
+            background: transparent; border: none; outline: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem; font-weight: 700;
+            color: #fff; line-height: 1;
+            letter-spacing: -0.02em;
+            width: 100%; min-width: 0;
+        }
+        .earner-amount-input::placeholder { color: rgba(255,255,255,0.12); }
+        .earner-mo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.65rem; font-weight: 700;
+            color: rgba(201,162,39,0.7);
+            text-transform: uppercase; letter-spacing: 0.1em;
+            white-space: nowrap; align-self: center;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .earner-mo.visible { opacity: 1; }
+
+        /* Frequency tiles — the key insight */
+        .earner-freq-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.62rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.2em;
+            color: rgba(255,255,255,0.25);
+            margin-bottom: 0.45rem;
+        }
+        .earner-freq-tiles {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+        .freq-tile {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 8px;
+            padding: 0.55rem 0.3rem 0.5rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+            user-select: none;
+        }
+        .freq-tile:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.14);
+        }
+        .freq-tile.active {
+            background: rgba(178,34,52,0.18);
+            border-color: rgba(178,34,52,0.55);
+        }
+        /* The visual rhythm — pay marks */
+        .freq-marks {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+            height: 16px;
+            justify-content: center;
+        }
+        .freq-mark {
+            width: 4px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.15s;
+        }
+        .freq-tile.active .freq-mark { background: #B22234; }
+        /* Different heights = pay amounts vary by frequency */
+        .freq-mark-lg { height: 14px; }
+        .freq-mark-md { height: 10px; }
+        .freq-mark-sm { height: 6px; }
+
+        .freq-tile-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.68rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            color: rgba(255,255,255,0.4);
+            text-align: center; line-height: 1.2;
+            transition: color 0.15s;
+        }
+        .freq-tile.active .freq-tile-name { color: #fff; }
+
+        /* ── ADD EARNER ──────────────────────────────────────────────────── */
+        .inc-add-earner {
+            width: 100%;
+            display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+            padding: 0.6rem;
+            background: transparent;
+            border: 1px dashed rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: rgba(255,255,255,0.3);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.62rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.18s;
+            margin-bottom: 0.7rem;
+        }
+        .inc-add-earner:hover {
+            border-color: rgba(178,34,52,0.4);
+            color: rgba(178,34,52,0.8);
+            background: rgba(178,34,52,0.05);
+        }
+        .inc-add-earner span { font-size: 1rem; line-height: 1; }
+
+        /* ── HOUSEHOLD TOTAL ─────────────────────────────────────────────── */
+        .inc-total-bar {
+            background: linear-gradient(135deg, rgba(178,34,52,0.12), rgba(8,15,26,0.6));
+            border: 1px solid rgba(178,34,52,0.2);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+        .inc-total-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.65rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.25em;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 0.2rem;
+        }
+        .inc-total-val {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.4rem; font-weight: 700;
+            color: #fff; line-height: 1;
+            letter-spacing: -0.02em;
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+        }
+        .inc-total-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.62rem; color: rgba(255,255,255,0.28);
+            margin-top: 0.2rem;
+        }
+        /* ── END INCOME SECTION ─────────────────────────────────────────── */
+        /* ── PAST DUE ─────────────────────────────────────────────── */
         .past-due-toggle {
             display: flex; flex-direction: column; align-items: center;
             cursor: pointer; gap: 2px;
@@ -7189,11 +7543,11 @@
                 .bcc-label {
             font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 700;
             text-transform: uppercase; letter-spacing: 0.05em;
-            color: rgba(255,255,255,0.95); line-height: 1.2;
+            color: #FFFFFF; line-height: 1.2;
         }
         .bcc-subtitle {
             font-family: Georgia, serif; font-size: 0.88rem;
-            color: rgba(255,255,255,0.5); font-style: italic; line-height: 1.3;
+            color: rgba(255,255,255,0.55); font-style: italic; line-height: 1.3;
         }
         .bcc-pct {
             font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700;
@@ -7242,7 +7596,7 @@
            ═══════════════════════════════════════════════════════ */
         .harvest-ring-card {
             background: rgba(0,0,0,0.25);
-            border: 1px solid rgba(201,162,39,0.15);
+            border: 1px solid rgba(201,162,39,0.25);
             border-radius: 14px;
             padding: 1.1rem 1rem 0.9rem;
         }
@@ -7263,9 +7617,9 @@
             pointer-events: none;
         }
         .harvest-ring-label {
-            font-family: 'Oswald', sans-serif; font-size: 0.44rem; font-weight: 700;
+            font-family: 'Oswald', sans-serif; font-size: 0.48rem; font-weight: 700;
             text-transform: uppercase; letter-spacing: 0.22em;
-            color: rgba(255,255,255,0.3); margin-bottom: 0.2rem;
+            color: rgba(255,255,255,0.5); margin-bottom: 0.2rem;
         }
         .harvest-ring-val {
             font-family: 'Oswald', sans-serif; font-size: 1.8rem; font-weight: 700;
@@ -7412,9 +7766,455 @@
             color: rgba(255,255,255,0.18); font-style: italic;
         }
 
-</style>
+
+        /* ── MINIMUM PAYMENT TRAP ────────────────────────────────────────── */
+        .min-payment-trap {
+            background: linear-gradient(135deg, rgba(127,29,29,0.35), rgba(8,15,26,0.8));
+            border: 1px solid rgba(178,34,52,0.45);
+            border-left: 4px solid #B22234;
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            margin: 0.75rem 0 0.5rem;
+        }
+        .trap-header {
+            display: flex; align-items: center; gap: 0.5rem;
+            margin-bottom: 0.6rem;
+        }
+        .trap-icon {
+            font-size: 1rem; color: #B22234;
+        }
+        .trap-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.12em;
+            color: #fff;
+        }
+        .trap-body p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem; color: rgba(255,255,255,0.75);
+            line-height: 1.55; margin-bottom: 0.45rem;
+        }
+        .trap-body p:last-child { margin-bottom: 0; }
+        .trap-ira-note {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            color: rgba(201,162,39,0.85);
+            background: rgba(201,162,39,0.08);
+            border: 1px solid rgba(201,162,39,0.2);
+            border-radius: 5px;
+            padding: 0.3rem 0.6rem;
+            margin: 0.3rem 0 0.5rem;
+        }
+        .trap-if-more {
+            color: rgba(255,255,255,0.45) !important;
+            font-style: italic;
+        }
+        /* Age at payoff in debt row */
+        .debt-age-payoff {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.65rem; font-weight: 700;
+            color: #B22234;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+        }
+        /* ── END MINIMUM PAYMENT TRAP ───────────────────────────────────── */
+
+        /* ── DEBT INTEREST BURN BAR (permanent) ─────────────────────────── */
+        .debt-interest-burn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(249,115,22,0.08);
+            border: 1px solid rgba(249,115,22,0.22);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            margin: 0 0 0.6rem;
+        }
+        .dib-left { flex: 1; min-width: 0; }
+        .dib-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.48rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.2em;
+            color: rgba(249,115,22,0.6);
+            margin-bottom: 0.15rem;
+        }
+        .dib-amount {
+            display: flex; align-items: baseline; gap: 0.15rem;
+        }
+        #dib-monthly {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem; font-weight: 700;
+            color: #f97316; line-height: 1; letter-spacing: -0.02em;
+        }
+        .dib-per {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.65rem; font-weight: 700;
+            color: rgba(249,115,22,0.5);
+            text-transform: uppercase;
+        }
+        .dib-year {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 0.1rem;
+        }
+        #dib-yearly { color: rgba(249,115,22,0.7); font-weight: 600; }
+        .dib-bar-wrap {
+            width: 4px; height: 60px;
+            background: rgba(249,115,22,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex; align-items: flex-end;
+        }
+        .dib-bar-fill {
+            width: 100%;
+            background: linear-gradient(180deg, #f97316, #ef4444);
+            border-radius: 3px;
+            transition: height 0.6s cubic-bezier(0.34,1.56,0.64,1);
+            height: 0%;
+        }
+        /* ── END DEBT BURN BAR ───────────────────────────────────────────── */
+
+        /* ═══════════════════════════════════════════════════════════════════
+           REAL AMERICAN FINANCE — BEAUTY UPGRADE
+           Vision: War room × colonial manuscript × Bloomberg terminal
+           One dramatic overhead lamp. Cards that feel cast in iron.
+           Numbers that glow like they mean something.
+        ═══════════════════════════════════════════════════════════════════ */
+
+        /* ── 1. FONT UPGRADE ──────────────────────────────────────────── */
+        body {
+            font-family: 'Crimson Pro', 'IM Fell English', Georgia, serif !important;
+            letter-spacing: 0.01em;
+        }
+        /* Preserve Oswald where it belongs */
+        .sec-hdr-title, .harvest-ring-label, .harvest-ring-val,
+        .harvest-stat-label, .harvest-stat-val, .sec-hdr-num,
+        button, .btn, .upgrade-btn, .section-lock-btn,
+        .earner-freq-label, .earner-freq-tile, .inc-total-label,
+        .dew-strat-name, .pab-move-label,
+        input[type="text"], input[type="number"], select,
+        .debt-table th, .summary-metric-label {
+            font-family: 'Oswald', sans-serif !important;
+        }
+        /* Crimson Pro for body readouts and labels */
+        .bcc-label, .bcc-sublabel, .advisor-quote, .inc-quote-text,
+        .dew-burn-label, .trap-body p, .pab-move-why,
+        .summary-metric-value, .harvest-ring-status {
+            font-family: 'Crimson Pro', Georgia, serif !important;
+            font-size: 1.05em;
+        }
+
+        /* ── 2. DRAMATIC BACKGROUND — single overhead lamp ───────────── */
+        body {
+            background-color: #060c15 !important;
+            background-image:
+                /* The lamp — crimson overhead source, gold halo */
+                radial-gradient(ellipse 100% 55% at 50% -2%,
+                    rgba(178,34,52,0.26) 0%,
+                    rgba(201,162,39,0.09) 30%,
+                    transparent 62%
+                ),
+                /* Deep side vignettes — frame the content like a stage */
+                radial-gradient(ellipse 40% 100% at -2% 50%,
+                    rgba(4,9,18,0.92) 0%, transparent 70%
+                ),
+                radial-gradient(ellipse 40% 100% at 102% 50%,
+                    rgba(4,9,18,0.85) 0%, transparent 70%
+                ),
+                /* Grain — makes it feel physical, printed, real */
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"),
+                linear-gradient(175deg, #0c1827 0%, #080f1a 45%, #060c15 100%) !important;
+            background-attachment: fixed !important;
+        }
+
+        /* ── 3. CARDS — cast iron, single light source ────────────────── */
+        .dashboard-card,
+        section.dashboard-card {
+            background: linear-gradient(160deg,
+                rgba(17,30,50,0.98) 0%,
+                rgba(11,19,32,0.99) 55%,
+                rgba(8,14,24,1) 100%
+            ) !important;
+            border: 1px solid rgba(255,255,255,0.065) !important;
+            border-top: 1px solid rgba(255,255,255,0.12) !important;
+            border-bottom: 1px solid rgba(0,0,0,0.45) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.08),    /* overhead light edge */
+                inset 0 -1px 0 rgba(0,0,0,0.6),           /* floor shadow */
+                0 8px 48px rgba(0,0,0,0.65),
+                0 2px 12px rgba(0,0,0,0.35) !important;
+        }
+        /* Gold hairline on the top edge of each card — the lamp reflects */
+        .dashboard-card::before,
+        section.dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 8%; right: 8%;
+            height: 1px;
+            background: linear-gradient(90deg,
+                transparent,
+                rgba(201,162,39,0.3) 30%,
+                rgba(201,162,39,0.3) 70%,
+                transparent
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ── 4. SECTION HEADERS — color-coded by section ─────────────── */
+        /* Income = gold, Debt = crimson, Budget = colonial blue */
+        #income-section .section-header-bar {
+            border-bottom-color: rgba(201,162,39,0.3) !important;
+        }
+        #income-section .sec-hdr-num {
+            box-shadow: 0 0 12px rgba(201,162,39,0.35), inset 0 1px 0 rgba(255,255,255,0.15) !important;
+        }
+        #debt-section .section-header-bar {
+            border-bottom-color: rgba(178,34,52,0.35) !important;
+        }
+        #debt-section .sec-hdr-num {
+            box-shadow: 0 0 12px rgba(178,34,52,0.4), inset 0 1px 0 rgba(255,255,255,0.15) !important;
+        }
+        #budget-section .section-header-bar {
+            border-bottom-color: rgba(122,159,212,0.3) !important;
+        }
+        #budget-section .sec-hdr-num {
+            box-shadow: 0 0 12px rgba(122,159,212,0.35), inset 0 1px 0 rgba(255,255,255,0.15) !important;
+        }
+        /* Section title — tighten, sharpen */
+        .sec-hdr-title {
+            font-size: 1.4rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.12em !important;
+            text-transform: uppercase !important;
+        }
+
+        /* ── 5. NUMBERS THAT GLOW ─────────────────────────────────────── */
+        /* Income total */
+        #income-summary {
+            text-shadow: 0 0 20px rgba(201,162,39,0.45), 0 0 40px rgba(201,162,39,0.2) !important;
+        }
+        /* Harvest ring center value */
+        #center-remaining {
+            text-shadow: 0 0 16px rgba(255,255,255,0.3) !important;
+        }
+        /* Sovereign score number */
+        #score-crown-num {
+            text-shadow: 0 0 24px rgba(201,162,39,0.5), 0 0 48px rgba(201,162,39,0.2) !important;
+        }
+        /* Stat bar values */
+        .harvest-stat-val {
+            text-shadow: 0 0 12px rgba(255,255,255,0.2) !important;
+        }
+
+        /* ── 6. HEADER — elevated, purposeful ────────────────────────── */
+        header {
+            background: linear-gradient(180deg,
+                rgba(6,12,21,0.97) 0%,
+                rgba(8,15,26,0.94) 100%
+            ) !important;
+            border-bottom: 1px solid rgba(201,162,39,0.15) !important;
+            box-shadow: 0 1px 0 rgba(201,162,39,0.08), 0 4px 24px rgba(0,0,0,0.5) !important;
+        }
+        /* Brand name — more presence */
+        header .text-3xl {
+            font-size: 2.2rem !important;
+            text-shadow: 0 0 20px rgba(201,162,39,0.25) !important;
+        }
+
+        /* ── 7. HARVEST RING CARD — the crown jewel ──────────────────── */
+        .harvest-ring-card {
+            background: linear-gradient(160deg,
+                rgba(14,25,42,0.97) 0%,
+                rgba(8,15,26,0.99) 100%
+            ) !important;
+            border: 1px solid rgba(201,162,39,0.3) !important;
+            border-top: 1px solid rgba(201,162,39,0.45) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(201,162,39,0.15),
+                0 0 40px rgba(201,162,39,0.08),
+                0 8px 40px rgba(0,0,0,0.6) !important;
+        }
+        /* Status line — make it feel like a terminal readout */
+        .harvest-ring-status {
+            font-family: 'Oswald', monospace !important;
+            font-size: 0.6rem !important;
+            letter-spacing: 0.25em !important;
+            text-transform: uppercase !important;
+            color: rgba(201,162,39,0.6) !important;
+            margin-bottom: 0.75rem !important;
+        }
+
+        /* ── 8. BUDGET CATEGORY CARDS — textured, alive ──────────────── */
+        .budget-category-card {
+            background: rgba(255,255,255,0.03) !important;
+            border: 1px solid rgba(255,255,255,0.06) !important;
+            border-left-width: 3px !important;
+            transition: all 0.18s ease !important;
+            position: relative;
+        }
+        .budget-category-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 60%);
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        .budget-category-card:hover {
+            background: rgba(255,255,255,0.055) !important;
+            border-color: rgba(255,255,255,0.12) !important;
+            transform: translateX(2px) !important;
+            box-shadow: -2px 0 12px rgba(201,162,39,0.1) !important;
+        }
+        /* Category values — bold, Oswald */
+        .bcc-val {
+            font-family: 'Oswald', sans-serif !important;
+            font-size: 1.1rem !important;
+            font-weight: 600 !important;
+        }
+
+        /* ── 9. STICKY SUMMARY BAR — elevated ────────────────────────── */
+        .financial-summary-sticky {
+            background: linear-gradient(180deg,
+                rgba(6,12,21,0.97) 0%,
+                rgba(8,15,26,0.95) 100%
+            ) !important;
+            border-bottom: 1px solid rgba(201,162,39,0.12) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.5) !important;
+        }
+        .summary-metric-value {
+            text-shadow: 0 0 10px rgba(201,162,39,0.25) !important;
+        }
+
+        /* ── 10. DEBT TABLE — war room readout ───────────────────────── */
+        .debt-table thead tr {
+            background: linear-gradient(90deg,
+                rgba(178,34,52,0.15) 0%,
+                rgba(8,15,26,0) 100%
+            ) !important;
+            border-bottom: 1px solid rgba(178,34,52,0.3) !important;
+        }
+        .debt-table th {
+            letter-spacing: 0.15em !important;
+            font-size: 0.58rem !important;
+            color: rgba(178,34,52,0.8) !important;
+        }
+        .debt-table tbody tr:hover {
+            background: rgba(178,34,52,0.05) !important;
+        }
+
+        /* ── 11. EARNER CARDS — tactile, premium ─────────────────────── */
+        .earner-card {
+            background: linear-gradient(150deg,
+                rgba(17,30,50,0.95) 0%,
+                rgba(11,19,32,0.98) 100%
+            ) !important;
+            border-color: rgba(255,255,255,0.08) !important;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.07),
+                        0 4px 20px rgba(0,0,0,0.4) !important;
+        }
+
+        /* ── 12. TOTAL BAR — commanding ──────────────────────────────── */
+        .inc-total-bar {
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08),
+                        0 4px 24px rgba(178,34,52,0.2) !important;
+        }
+
+        /* ── 13. PRIORITY ACTION BAR — the war room verdict ──────────── */
+        #pab-primary {
+            box-shadow: inset 0 1px 0 rgba(201,162,39,0.12),
+                        0 4px 30px rgba(0,0,0,0.5) !important;
+        }
+        #pab-impact-num {
+            text-shadow: 0 0 20px rgba(201,162,39,0.5) !important;
+        }
+
+        /* ── 14. UPGRADE BUTTON — premium CTA ────────────────────────── */
+        .upgrade-btn {
+            box-shadow: 0 0 16px rgba(178,34,52,0.4),
+                        inset 0 1px 0 rgba(255,255,255,0.15) !important;
+            letter-spacing: 0.1em !important;
+        }
+        .upgrade-btn:hover {
+            box-shadow: 0 0 24px rgba(178,34,52,0.6),
+                        inset 0 1px 0 rgba(255,255,255,0.2) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        /* ── 15. SCROLLBAR — part of the aesthetic ────────────────────── */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #060c15; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(178,34,52,0.5), rgba(201,162,39,0.3));
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, rgba(178,34,52,0.8), rgba(201,162,39,0.5));
+        }
+
+        /* ── 16. SELECTION COLOR ─────────────────────────────────────── */
+        ::selection {
+            background: rgba(178,34,52,0.4);
+            color: #fff;
+        }
+
+        /* ── 17. TOAST — more dramatic ────────────────────────────────── */
+        #colonial-toast {
+            backdrop-filter: blur(16px) saturate(180%) !important;
+            border-color: rgba(201,162,39,0.3) !important;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.6),
+                        0 0 0 1px rgba(201,162,39,0.1) !important;
+        }
+
+        /* ── 18. SECTION COLLAPSE ANIMATION — buttery ────────────────── */
+        .section-body {
+            transition: all 0.32s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        .section-chevron {
+            transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        /* ── 19. INPUT FIELDS — premium feel ─────────────────────────── */
+        input[type="text"], input[type="number"], select {
+            background: rgba(255,255,255,0.04) !important;
+            border-color: rgba(255,255,255,0.1) !important;
+            transition: all 0.18s ease !important;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            background: rgba(255,255,255,0.07) !important;
+            border-color: rgba(201,162,39,0.4) !important;
+            box-shadow: 0 0 0 3px rgba(201,162,39,0.08),
+                        inset 0 1px 0 rgba(255,255,255,0.05) !important;
+            outline: none !important;
+        }
+
+        /* ── 20. SCORE CROWN — the hero element ──────────────────────── */
+        #score-crown {
+            position: relative;
+        }
+        #score-crown::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg,
+                rgba(201,162,39,0.12) 0%,
+                transparent 50%,
+                rgba(178,34,52,0.08) 100%
+            );
+            border-radius: 18px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        </style>
 </head>
-<body class="bg-navy-950 text-white font-sans selection:bg-crimson flex flex-col min-h-screen">
+<body class="text-white font-sans selection:bg-crimson flex flex-col min-h-screen">
     
 
 
@@ -7526,7 +8326,7 @@
 
         <div class="layout-left">
                 
-                <section class="dashboard-card" style="padding: 2rem;" id="income-section">
+                <section class="dashboard-card" style="padding: 2rem;" id="income-section" class="income-awaiting">
                     <div class="section-header-bar" onclick="toggleSection('income')">
                         <div class="sec-hdr-left">
                             <div class="sec-hdr-num" style="background:linear-gradient(135deg,#C9A227,#8B6914);">01</div>
@@ -7540,91 +8340,31 @@
                     </div>
                     <div class="section-body" id="income-body">
 
-                    <!-- Harvest header — the number that drives everything -->
-                    <div class="inc-harvest-header">
-                        <div class="inc-harvest-eyebrow">Your Harvest</div>
-                        <div class="inc-harvest-subline">Every number below is a percentage of this. Get this right first.</div>
+                    <div id="income-earner-list"></div>
+
+                    <button class="inc-add-earner" id="inc-add-earner-btn" onclick="incAddStream()">
+                        <span>+</span> Add another earner or income source
+                    </button>
+
+                    <div class="inc-total-bar">
+                        <div class="inc-total-label">Household Monthly Income</div>
+                        <div class="inc-total-val" id="income-summary">-</div>
+                        <div class="inc-total-sub" id="income-status">enter your pay above</div>
                     </div>
 
-                    <!-- Core: paycheck + frequency side by side, monthly readout live -->
-                    <div class="inc-core-row">
-
-                        <div class="inc-paycheck-field">
-                            <label class="inc-field-label">
-                                Net Paycheck
-                                <span class="inc-field-hint">take-home after taxes</span>
-                            </label>
-                            <div class="currency-input-container inc-paycheck-wrap">
-                                <input type="text"
-                                       id="paycheck"
-                                       oninput="formatCurrencyInput(this); handleIncomeChange(this); if(validateBudgetInput(this)) debouncedCalculateAll(); autoLockIncome(); incUpdateReadout();"
-                                       placeholder="3,000"
-                                       class="input-underlined inc-paycheck-input"
-                                       autocomplete="off"
-                                       aria-label="Enter your take-home pay after taxes">
-                            </div>
-                        </div>
-
-                        <div class="inc-freq-field">
-                            <label class="inc-field-label">Frequency</label>
-                            <div class="inc-freq-chips" id="inc-freq-chips">
-                                <button class="inc-freq-chip active" data-val="2"  onclick="incSetFreq(2,  this)">2×/mo</button>
-                                <button class="inc-freq-chip"        data-val="1"  onclick="incSetFreq(1,  this)">Monthly</button>
-                                <button class="inc-freq-chip"        data-val="26" onclick="incSetFreq(26, this)">Bi-wkly</button>
-                                <button class="inc-freq-chip"        data-val="4"  onclick="incSetFreq(4,  this)">Weekly</button>
-                            </div>
-                            <!-- Hidden select kept for JS compatibility -->
-                            <select id="freq" onchange="debouncedCalculateAll()" class="inc-freq-hidden" aria-hidden="true" tabindex="-1">
-                                <option value="2">2x Per Month</option>
-                                <option value="1">Monthly</option>
-                                <option value="4">Weekly</option>
-                                <option value="26">Bi-weekly</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <!-- Monthly total — full-width live readout strip -->
-                    <div class="inc-monthly-strip" id="inc-monthly-strip">
-                        <div class="inc-monthly-strip-left">
-                            <span class="inc-monthly-strip-label">Monthly Income</span>
-                            <span class="inc-monthly-strip-val" id="income-summary">—</span>
-                            <span class="inc-monthly-strip-status" id="income-status">enter your paycheck above</span>
-                        </div>
-                        <div class="inc-monthly-strip-right" id="inc-benchmark-line">
-                            <span class="inc-benchmark-text">US median household: $5,400/mo</span>
-                        </div>
-                    </div>
-
-                    <!-- Pre-tax deductions -->
                     <details class="inc-pretax" id="pretax-details-block">
                         <summary class="inc-pretax-summary">
                             <i class="fas fa-shield-alt inc-pretax-icon"></i>
                             <span>Pre-tax deductions</span>
                             <span class="inc-pretax-badge" id="pretax-total-inline"></span>
-                            <span class="inc-pretax-chevron">›</span>
+                            <span class="inc-pretax-chevron">&#x203a;</span>
                         </summary>
                         <div class="inc-pretax-body">
-                            <p class="inc-pretax-note">Invested before taxes — reduces your taxable income and boosts real returns</p>
+                            <p class="inc-pretax-note">Invested before taxes - reduces taxable income and boosts real returns</p>
                             <div class="inc-pretax-fields">
-                                <div>
-                                    <label class="inc-pretax-label">401(k) / 403(b)</label>
-                                    <div class="currency-input-container">
-                                        <input type="text" id="pretax-401k" oninput="formatCurrencyInput(this); debouncedCalculateAll(); updatePretaxInline();" placeholder="0" class="input-underlined" autocomplete="off">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="inc-pretax-label">HSA</label>
-                                    <div class="currency-input-container">
-                                        <input type="text" id="pretax-hsa" oninput="formatCurrencyInput(this); debouncedCalculateAll(); updatePretaxInline();" placeholder="0" class="input-underlined" autocomplete="off">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="inc-pretax-label">Other</label>
-                                    <div class="currency-input-container">
-                                        <input type="text" id="pretax-other" oninput="formatCurrencyInput(this); debouncedCalculateAll(); updatePretaxInline();" placeholder="0" class="input-underlined" autocomplete="off">
-                                    </div>
-                                </div>
+                                <div><label class="inc-pretax-label">401(k) / 403(b)</label><div class="currency-input-container"><input type="text" id="pretax-401k" oninput="formatCurrencyInput(this); debouncedCalculateAll(); updatePretaxInline();" placeholder="0" class="input-underlined" autocomplete="off"></div></div>
+                                <div><label class="inc-pretax-label">HSA</label><div class="currency-input-container"><input type="text" id="pretax-hsa" oninput="formatCurrencyInput(this); debouncedCalculateAll(); updatePretaxInline();" placeholder="0" class="input-underlined" autocomplete="off"></div></div>
+                                <div><label class="inc-pretax-label">Other</label><div class="currency-input-container"><input type="text" id="pretax-other" oninput="formatCurrencyInput(this); debouncedCalculateAll(); updatePretaxInline();" placeholder="0" class="input-underlined" autocomplete="off"></div></div>
                             </div>
                             <div class="inc-pretax-totals">
                                 <span>Total pre-tax: <strong id="pretax-total" class="text-blue-400">$0</strong></span>
@@ -7633,22 +8373,19 @@
                         </div>
                     </details>
 
-                    <button id="income-lock-header-btn" onclick="lockIncome()" style="display:none;" aria-label="Lock income section" class="section-lock-btn state-unlocked"></button>
-
-                    <!-- Hidden advisor card — kept for JS advisor system -->
+                    <input type="hidden" id="paycheck" value="">
+                    <select id="freq" class="inc-freq-hidden" aria-hidden="true" tabindex="-1">
+                        <option value="2">2x Per Month</option><option value="1">Monthly</option>
+                        <option value="4">Weekly</option><option value="26">Bi-weekly</option>
+                    </select>
+                    <button id="income-lock-header-btn" onclick="lockIncome()" style="display:none;" class="section-lock-btn state-unlocked"></button>
                     <div class="advisor-card hidden" id="advisor-income" style="display:none;">
                         <div style="display:flex;align-items:flex-start;gap:0.85rem;">
-                            <div class="advisor-portrait" data-initials="MH">🪙</div>
-                            <div>
-                                <div class="advisor-name">Margaret Hutchinson</div>
-                                <div class="advisor-role">Philadelphia Widow, 1772 — Died with $2.4M in an iron pot</div>
-                                <div class="advisor-quote">"She made roughly $18,000 per year running a boarding house. She never got a raise. She never had a windfall. She just kept her harvest and spent less than she earned."</div>
-                            </div>
+                            <div class="advisor-portrait" data-initials="MH">&#x1FA99;</div>
+                            <div><div class="advisor-name">Margaret Hutchinson</div><div class="advisor-role">Philadelphia Widow, 1772</div><div class="advisor-quote">"She never got a raise. She never had a windfall. She just kept her harvest."</div></div>
                         </div>
                     </div>
-
-    <!-- intro-income target kept for JS -->
-    <span id="intro-income" style="display:none;"></span>
+                    <span id="intro-income" style="display:none;"></span>
 
 </div><!-- /income-body -->
                 </section>
@@ -7879,6 +8616,32 @@
                             </table>
                         </div>
 
+                        
+                        
+                        <!-- Persistent interest burn — all debts combined -->
+                        <div id="debt-burn-total" style="display:none;" class="dew-burn-meter" style="margin-bottom:0.5rem;">
+                            <div class="dew-burn-bar-track">
+                                <div class="dew-burn-bar-fill" id="debt-burn-bar"></div>
+                            </div>
+                            <div class="dew-burn-label">
+                                Interest burning <strong class="dew-burn-monthly" id="debt-burn-monthly">$0</strong>/mo
+                                &nbsp;·&nbsp; <span class="dew-burn-yearly" id="debt-burn-yearly">$0</span>/yr lost to interest
+                            </div>
+                        </div>
+
+<!-- Minimum payment trap warning -->
+                        <div id="debt-interest-burn" class="debt-interest-burn" style="display:none;">
+                            <div class="dib-left">
+                                <div class="dib-label">Interest burning</div>
+                                <div class="dib-amount"><span id="dib-monthly">$0</span><span class="dib-per">/mo</span></div>
+                                <div class="dib-year"><span id="dib-yearly">$0</span>/yr gone to interest</div>
+                            </div>
+                            <div class="dib-bar-wrap">
+                                <div class="dib-bar-fill" id="dib-bar"></div>
+                            </div>
+                        </div>
+                        <div id="min-payment-trap" class="min-payment-trap" style="display:none;"></div>
+
                         <div id="strategy-preview-cards" class="dew-strategy-grid">
                             <div class="dew-strategy-card dew-snowball" onclick="sortDebtTable('snowball')">
                                 <div class="dew-strat-glyph">❄️</div>
@@ -8029,7 +8792,7 @@
         <div id="priority-action-bar" style="display:none; margin-bottom:1.5rem;">
             <!-- Primary verdict -->
             <div id="pab-primary" style="
-                background: linear-gradient(135deg, rgba(10,49,97,0.95), rgba(6,26,56,0.98));
+                background: linear-gradient(135deg, rgba(13,25,41,0.95), rgba(8,15,26,0.98));
                 border: 1.5px solid rgba(201,162,39,0.5);
                 border-radius: 16px 16px 0 0;
                 padding: 1.25rem 1.75rem;
@@ -8052,7 +8815,7 @@
 
             <!-- Supporting moves -->
             <div id="pab-secondary" style="
-                background: rgba(6,26,56,0.7);
+                background: rgba(8,15,26,0.7);
                 border: 1.5px solid rgba(201,162,39,0.3);
                 border-top: none;
                 border-radius: 0 0 16px 16px;
@@ -8087,10 +8850,24 @@
 
                 <!-- SCORE CROWN — floats free, no card box -->
                 <div id="score-crown">
-                    <div id="score-crown-eyebrow">Sovereign Score</div>
-                    <div id="score-crown-num">—<span id="score-crown-denom">/100</span></div>
-                    <div id="score-crown-rank">—</div>
+
+                    <!-- Empty state overlay — hides when income entered -->
+                    <div id="score-crown-empty">
+                        <div class="empty-crown-label">Sovereign Score</div>
+                        <div class="empty-crown-score">—</div>
+                        <div class="empty-crown-cta">
+                            <span class="empty-crown-arrow">←</span>
+                            Enter your income to begin
+                        </div>
+                    </div>
+
+                    <!-- Live score — hidden until income entered -->
+                    <div id="score-crown-live" class="hidden">
+                        <div id="score-crown-eyebrow">Sovereign Score</div>
+                        <div id="score-crown-num">—<span id="score-crown-denom">/100</span></div>
+                        <div id="score-crown-rank">—</div>
                     <div id="score-crown-bar"><div id="score-crown-bar-fill" style="width:0%"></div></div>
+                    </div><!-- /score-crown-live -->
 
                 </div>
 
@@ -8111,10 +8888,25 @@
 
                 <div class="harvest-ring-card">
                     <!-- OS Status line -->
-                    <div class="harvest-ring-status" id="os-status-display">› Scanning financial OS...</div>
+                    <div class="harvest-ring-status" id="os-status-display">Scanning financial OS...</div>
 
                     <!-- Ring: full-width, commanding -->
-                    <div class="harvest-ring-wrap">
+                    <div class="harvest-ring-wrap" id="harvest-ring-wrap">
+                        <!-- Ghost arcs — visible before income is entered -->
+                        <div id="ring-ghost-overlay">
+                            <svg class="ring-ghost-svg" viewBox="0 0 280 280">
+                                <!-- Three ghost arcs at different radii/spans -->
+                                <path class="ghost-arc ghost-arc-1"
+                                    d="M 140 29 A 111 111 0 0 1 236 195"
+                                    stroke-dasharray="240 100"/>
+                                <path class="ghost-arc ghost-arc-2"
+                                    d="M 55 195 A 111 111 0 0 1 140 29"
+                                    stroke-dasharray="160 180"/>
+                                <path class="ghost-arc ghost-arc-3"
+                                    d="M 200 62 A 111 111 0 0 1 80 62"
+                                    stroke-dasharray="80 260"/>
+                            </svg>
+                        </div>
                         <canvas id="budgetChart" width="280" height="280"></canvas>
                         <div class="harvest-ring-center">
                             <div class="harvest-ring-label" id="center-label">Surplus</div>
@@ -8167,7 +8959,7 @@
                     </div>
                     <div class="book-callout-attribution" id="book-callout-attribution">— Iron Pot Millionaire, Foreword</div>
                     <div style="margin-top: 0.9rem; padding-top: 0.75rem; border-top: 1px solid rgba(139,105,20,0.25);">
-                        <div id="book-callout-body" style="font-size: 0.72rem; color: #2c1810; font-family: 'Inter', sans-serif; line-height: 1.5; margin-bottom: 0.6rem;">
+                        <div id="book-callout-body" style="font-size: 0.72rem; color: rgba(255,255,255,0.82); font-family: 'Inter', sans-serif; line-height: 1.5; margin-bottom: 0.6rem;">
                             This tool is the companion app to the book. Every metric you see here is built on colonial principles that turned illiterate farmers into landowners.
                         </div>
                         <a class="book-callout-cta" id="book-callout-cta" href="https://realamericanfinance.com/book" target="_blank">
@@ -8178,7 +8970,7 @@
 
                 <!-- DoFI destination teaser — visible from the start -->
                 <div id="dofi-progress-teaser" style="
-                    background: linear-gradient(135deg, rgba(10,49,97,0.6), rgba(6,26,56,0.8));
+                    background: linear-gradient(135deg, rgba(13,25,41,0.6), rgba(8,15,26,0.8));
                     border: 1px solid rgba(201,162,39,0.2);
                     border-radius: 12px;
                     padding: 1rem 1.25rem;
@@ -8316,7 +9108,7 @@
                     colors: { 
                         navy: { 
                             950: '#050B14', 
-                            900: '#061a38', 
+                            900: '#080f1a', 
                             800: '#11243F' 
                         }, 
                         crimson: '#B22234' 
@@ -9023,7 +9815,10 @@ function getYearsToPayoffClass(years) {
             
             if (balance > 0 && payment > 0) {
                 const years = calculateYearsToPayoff(balance, payment, rate);
-                yearsText = formatYearsForDisplay(years);
+                const userAge = parseInt(document.getElementById('age-input')?.value) || 0;
+                const ageAtPayoff = userAge > 0 ? Math.round(userAge + years) : null;
+                const ageStr = ageAtPayoff ? `<div class="debt-age-payoff">Age ${ageAtPayoff}</div>` : '';
+                yearsText = formatYearsForDisplay(years) + ageStr;
                 cssClass = getYearsToPayoffClass(years);
                 
                 // Calculate monthly interest based on debt type
@@ -10406,18 +11201,28 @@ function getYearsToPayoffClass(years) {
         function removeDebtRow(rowId) {
             const row = document.getElementById(rowId);
             if (row) row.remove();
-            // Show empty state if no rows left
             const tbody = document.getElementById('debt-body');
             const emptyRow = document.getElementById('debt-empty-row');
             if (emptyRow && tbody && tbody.querySelectorAll('tr:not(#debt-empty-row)').length === 0) {
                 emptyRow.style.display = '';
             }
-            
             autoPopulateHousingFromMortgage();
             autoPopulateDebtMinimums();
+            // Clear extra debt payment if no non-mortgage debt remains
+            const nonMortgageRows = Array.from(document.querySelectorAll('#debt-body tr.debt-row')).filter(r => {
+                const t = r.querySelector('.debt-type-select')?.value || '';
+                return !t.toLowerCase().includes('mortgage');
+            });
+            if (nonMortgageRows.length === 0) {
+                const paydownEl = document.getElementById('debt_paydown_monthly');
+                if (paydownEl && paydownEl.dataset.userSet !== 'true') {
+                    paydownEl.value = '';
+                    formatCurrencyInput && formatCurrencyInput(paydownEl);
+                }
+            }
+            syncMortgageRentField();
             debouncedCalculateAll();
-        
-            syncMortgageRentField();}
+        }
 
         
         // ── Debt rate thresholds by type ─────────────────────────────────────
@@ -10446,26 +11251,14 @@ function getYearsToPayoffClass(years) {
         }
         // ─────────────────────────────────────────────────────────────────────
 
-        function getMonthlyIncome() {
-            const paycheckVal = parseCurrency(document.getElementById('paycheck').value);
-            const freqVal = parseFloat(document.getElementById('freq').value) || 2;
-            
-            let monthlyIncome;
-            if (freqVal === 1) monthlyIncome = paycheckVal;
-            else if (freqVal === 2) monthlyIncome = paycheckVal * 2;
-            else if (freqVal === 4) monthlyIncome = paycheckVal * 4.33;
-            else if (freqVal === 26) monthlyIncome = paycheckVal * 2.166;
-            else monthlyIncome = paycheckVal * 2;
-            
-            return monthlyIncome;
-        }
+        // getMonthlyIncome() — overridden by multi-stream engine above
         
         // ═══════════════════════════════════════════════════════════════
         // getAppState() — single source of truth for setup progress
         // Called by updateProgressRail() and calculateAll()
         // ═══════════════════════════════════════════════════════════════
         function getAppState() {
-            const paycheckVal = parseCurrency(document.getElementById('paycheck')?.value || 0);
+            const paycheckVal = sumAllStreams();
             const hasIncome   = paycheckVal > 0;
             const incomeLocked  = localStorage.getItem('raf_income_locked')  === 'true';
             const debtLocked    = localStorage.getItem('raf_debt_locked')    === 'true';
@@ -11195,6 +11988,9 @@ function getYearsToPayoffClass(years) {
         let incomeChangeTimeout;
         function handleIncomeChange(input) {
             clearTimeout(incomeChangeTimeout);
+            // Trigger activation check immediately on any income input
+            const _immediateIncome = parseCurrency(input.value || 0);
+            if (_immediateIncome > 0 && !_labActivated) activateLab();
             incomeChangeTimeout = setTimeout(() => {
                 const newIncome = parseCurrency(input.value || 0);
                 if (newIncome <= 0) return;
@@ -11236,7 +12032,7 @@ function getYearsToPayoffClass(years) {
                 // and savings logic all produce wrong results. A 10x change is a correction,
                 // not a lifestyle adjustment.
                 const changeRatio = newMonthlyIncome / baseIncome;
-                if (changeRatio < 0.5 || changeRatio > 2.0) {
+                if (changeRatio < 0.55 || changeRatio > 1.85) {
                     smartFillBudget(newMonthlyIncome);
                     debouncedCalculateAll();
                     autoLockIncome();
@@ -11278,7 +12074,7 @@ function getYearsToPayoffClass(years) {
                 // Update base income
                 localStorage.setItem('raf_budget_base_income', newMonthlyIncome.toString());
                 showToast('💰 Budget scaled to new income');
-            }, 500); // Wait 500ms after user stops typing
+            }, 0); // Fires immediately after debouncedCalculateAll's 80ms
         }
         
         // ============================================================
@@ -11786,23 +12582,21 @@ function getYearsToPayoffClass(years) {
             
             updateDebtSummary();
             
-            updateFinancialHealth();
-            
-            updateAchievements();
-            
-            updateStreak();
-            
-            updateTimeMachine();
-            
-            updateNextActionBanner();
-            
-            // Update surplus allocator if budget is locked
-            if (localStorage.getItem('raf_budget_locked') === 'true') {
-                updateSurplusAllocator();
-            }
-
-        
-            if (typeof updateDebtSummaryBar === "function") updateDebtSummaryBar();}
+            // Defer cosmetic/advisory updates — don't block number rendering
+            setTimeout(() => {
+                updateFinancialHealth();
+                updateAchievements();
+                updateStreak();
+                updateTimeMachine();
+                updateNextActionBanner();
+                if (localStorage.getItem('raf_budget_locked') === 'true') {
+                    updateSurplusAllocator();
+                }
+                if (typeof updateDebtSummaryBar === 'function') updateDebtSummaryBar();
+            // Re-run savings allocation on every calc pass — keeps savings zero-based
+            // recalcSavingsAllocation respects userSet flags so manual entries are preserved
+            recalcSavingsAllocation();
+            }, 40);}
 
         function getDeductibleTotal() {
             return parseCurrency(document.getElementById('deductible_auto')?.value   || 0)
@@ -12146,23 +12940,23 @@ function getYearsToPayoffClass(years) {
                 let osLabel, osClass, osQuote;
                 const s = scoreData.total;
                 if (s >= 90) {
-                    osLabel = '› IRON POT STATUS — Colonial OS 1.0 Running';
+                    osLabel = 'IRON POT STATUS — Colonial OS 1.0 Running';
                     osClass = 'os-status-iron-pot';
                     osQuote = '"She spent less than she made and hid the difference in a pot. Year after year. Decade after decade."';
                 } else if (s >= 75) {
-                    osLabel = '› COLONIAL OS 1.0 — Active';
+                    osLabel = 'COLONIAL OS 1.0 — Active';
                     osClass = 'os-status-colonial';
                     osQuote = '"Rather go to bed without dinner than to rise in debt." — Franklin';
                 } else if (s >= 55) {
-                    osLabel = '› TRANSITIONING — Uninstalling Consumer Malware';
+                    osLabel = 'TRANSITIONING — Uninstalling Consumer Malware';
                     osClass = 'os-status-transitioning';
                     osQuote = '"You\'re starting to think like Margaret Hutchinson."';
                 } else if (s >= 35) {
-                    osLabel = '› CONSUMER MODE — Malware Partially Active';
+                    osLabel = 'CONSUMER MODE — Malware Partially Active';
                     osClass = 'os-status-consumer';
                     osQuote = '"You\'re running the program that was designed to keep you broke."';
                 } else {
-                    osLabel = '› CONSUMER MALWARE 2025 — DETECTED';
+                    osLabel = 'CONSUMER MALWARE 2025 — DETECTED';
                     osClass = 'os-status-malware';
                     osQuote = '"You\'re not losing because you lack tools. You\'re running the wrong software."';
                 }
@@ -12367,14 +13161,361 @@ function toggleScoreBreakdown() {
                 impactEl.innerHTML = `
                     ⚔️ Targeting <strong style="color:#e05a5a">${target.label}</strong> @ ${target.rate}% &nbsp;·&nbsp;
                     Paid off <strong style="color:#e05a5a">${dateStr}</strong> &nbsp;·&nbsp;
-                    <strong style="color:#22c55e">-${yearsSaved} yrs</strong> &nbsp;·&nbsp;
-                    <strong style="color:#22c55e">$${interestSaved.toLocaleString()} saved</strong> in interest
+                    <strong style="color:#22c55e">${yearsSaved} yrs sooner</strong> &nbsp;·&nbsp;
+                    <strong style="color:#22c55e">$${interestSaved.toLocaleString()} saved</strong>
                 `.trim();
             }
         }
         window.updateDebtPaydownImpact = updateDebtPaydownImpact;
         // ── END DEBT PAYDOWN ENGINE ───────────────────────────────────────────────
 
+
+
+
+        // ══════════════════════════════════════════════════════════════════
+        // INCOME STREAMS ENGINE — earner cards
+        // ══════════════════════════════════════════════════════════════════
+
+        const FREQ_TO_MONTHLY = { 'daily':21.67,'4':4.33,'26':2.166,'2':2,'1':1,'annual':0.0833 };
+        const STREAM_COLORS   = ['#B22234','#4a9e6b','#7aa8e8','#C9A227','#a06bcd','#e87a4a'];
+
+        // Frequency tile definitions: value, short label, mark pattern
+        const FREQ_TILES = [
+            { val:'4',  label:'Every\nWeek',     marks:[{h:'lg'},{h:'lg'},{h:'lg'},{h:'lg'}] },
+            { val:'26', label:'Every\n2 Weeks',  marks:[{h:'lg'},{h:'sm'},{h:'lg'},{h:'sm'}] },
+            { val:'2',  label:'Twice\na Month',  marks:[{h:'lg'},{h:'sm'},{h:'lg'},{h:'sm'}] },
+            { val:'1',  label:'Once\na Month',   marks:[{h:'lg'},{h:'sm'},{h:'sm'},{h:'sm'}] },
+        ];
+
+        let incomeStreams = [{ id:'s0', label:'', amount:'', freq:'2' }];
+        let _streamsInitialized = false;
+
+        function sumAllStreams() {
+            return incomeStreams.reduce((tot, s) => {
+                const amt = parseCurrency(s.amount || '0');
+                const mult = FREQ_TO_MONTHLY[String(s.freq)] ?? 2;
+                return tot + amt * mult;
+            }, 0);
+        }
+
+        function calcStreamMonthly(s) {
+            return parseCurrency(s.amount||'0') * (FREQ_TO_MONTHLY[String(s.freq)] ?? 2);
+        }
+
+        function syncCompatFields() {
+            const s0 = incomeStreams[0] || {};
+            const pEl = document.getElementById('paycheck');
+            const fEl = document.getElementById('freq');
+            if (pEl) pEl.value = s0.amount || '';
+            if (fEl) { const f = String(s0.freq); fEl.value = (f==='daily'||f==='annual') ? '1' : f||'2'; }
+        }
+
+        function getMonthlyIncome() {
+            return sumAllStreams();
+        }
+
+        // ── Render a single earner card ───────────────────────────────────
+        function renderEarnerCard(s, idx) {
+            const color = STREAM_COLORS[idx % STREAM_COLORS.length];
+            const monthly = calcStreamMonthly(s);
+            const moStr = monthly > 0 ? '$' + Math.round(monthly).toLocaleString() + '/mo' : '';
+            const ph = idx===0 ? 'Primary Income' : idx===1 ? 'Partner / Spouse' : 'Side Hustle';
+
+            const tilesHTML = FREQ_TILES.map(t => {
+                const isActive = String(s.freq) === String(t.val);
+                const marks = t.marks.map(m =>
+                    '<div class="freq-mark freq-mark-' + m.h + '"></div>'
+                ).join('');
+                const label = t.label.replace('\n', '<br>');
+                return '<div class="freq-tile' + (isActive?' active':'') + '" ' +
+                    'onclick="earnerFreqSelect(\'' + s.id + '\',\'' + t.val + '\',this)">' +
+                    '<div class="freq-marks">' + marks + '</div>' +
+                    '<div class="freq-tile-name">' + label + '</div>' +
+                    '</div>';
+            }).join('');
+
+            const card = document.createElement('div');
+            card.className = 'earner-card';
+            card.id = 'earner-card-' + s.id;
+            card.innerHTML =
+                '<div class="earner-top">' +
+                    '<div class="earner-dot" style="background:' + color + '"></div>' +
+                    '<input class="earner-name-input" type="text" placeholder="' + ph + '" ' +
+                        'value="' + escHtml(s.label||'') + '" ' +
+                        'oninput="onStreamLabel(\'' + s.id + '\',this.value)">' +
+                    '<button class="earner-remove" onclick="incRemoveStream(\'' + s.id + '\')" title="Remove">&#xd7;</button>' +
+                '</div>' +
+                '<div class="earner-amount-row">' +
+                    '<span class="earner-dollar">$</span>' +
+                    '<input class="earner-amount-input" type="text" placeholder="0" ' +
+                        'value="' + escHtml(s.amount||'') + '" ' +
+                        'oninput="formatCurrencyInput(this);earnerAmountChange(\'' + s.id + '\',this)" ' +
+                        'autocomplete="off" inputmode="numeric">' +
+                    '<span class="earner-mo' + (monthly>0?' visible':'') + '" id="earner-mo-' + s.id + '">' + moStr + '</span>' +
+                '</div>' +
+                '<div class="earner-freq-label">How often do you get paid?</div>' +
+                '<div class="earner-freq-tiles" id="earner-tiles-' + s.id + '">' + tilesHTML + '</div>';
+
+            return card;
+        }
+
+        function renderAllEarnerCards() {
+            const list = document.getElementById('income-earner-list');
+            if (!list) return;
+            list.innerHTML = '';
+            incomeStreams.forEach((s, i) => list.appendChild(renderEarnerCard(s, i)));
+        }
+
+        // ── Event handlers ─────────────────────────────────────────────────
+        function earnerAmountChange(sid, input) {
+            const s = incomeStreams.find(x=>x.id===sid);
+            if (s) s.amount = input.value;
+            const m = s ? calcStreamMonthly(s) : 0;
+            const moEl = document.getElementById('earner-mo-' + sid);
+            if (moEl) {
+                moEl.textContent = m > 0 ? '$' + Math.round(m).toLocaleString() + '/mo' : '';
+                moEl.classList.toggle('visible', m > 0);
+            }
+            if (sid === 's0') syncCompatFields();
+            onStreamsChanged();
+        }
+
+        function earnerFreqSelect(sid, val, tileEl) {
+            const s = incomeStreams.find(x=>x.id===sid);
+            if (s) s.freq = String(val);
+            // Update tiles in this card
+            const tilesWrap = document.getElementById('earner-tiles-' + sid);
+            if (tilesWrap) tilesWrap.querySelectorAll('.freq-tile').forEach(t => {
+                t.classList.toggle('active', t.dataset && false); // reset below
+            });
+            tileEl.closest('.earner-freq-tiles').querySelectorAll('.freq-tile').forEach(t => {
+                const isActive = FREQ_TILES.find(ft => ft.val === val) &&
+                    t === tileEl;
+                t.classList.toggle('active', t === tileEl);
+            });
+            // Update /mo display
+            const m = s ? calcStreamMonthly(s) : 0;
+            const moEl = document.getElementById('earner-mo-' + sid);
+            if (moEl) {
+                moEl.textContent = m > 0 ? '$' + Math.round(m).toLocaleString() + '/mo' : '';
+                moEl.classList.toggle('visible', m > 0);
+            }
+            if (sid === 's0') syncCompatFields();
+            onStreamsChanged();
+        }
+
+        function onStreamLabel(sid, val) {
+            const s = incomeStreams.find(x=>x.id===sid);
+            if (s) s.label = val;
+            saveToLocalStorage();
+        }
+
+        function onStreamAmount(sid, val) {
+            const s = incomeStreams.find(x=>x.id===sid);
+            if (s) s.amount = val;
+            if (sid==='s0') syncCompatFields();
+            onStreamsChanged();
+        }
+
+        function onStreamFreq(sid, val) {
+            const s = incomeStreams.find(x=>x.id===sid);
+            if (s) s.freq = String(val);
+            if (sid==='s0') syncCompatFields();
+            onStreamsChanged();
+        }
+
+        function onStreamsChanged() {
+            syncCompatFields();
+            incUpdateReadout();
+
+            const householdTotal = sumAllStreams();
+            if (householdTotal <= 0) { debouncedCalculateAll(); saveToLocalStorage(); return; }
+
+            const baseIncome = parseFloat(localStorage.getItem('raf_budget_base_income') || 0);
+            const wasAutoGenerated = localStorage.getItem('raf_budget_auto_generated') === 'true';
+
+            if (!wasAutoGenerated || baseIncome <= 0) {
+                // First-ever fill
+                smartFillBudget(householdTotal);
+            } else {
+                // Income changed — check how much
+                const changeRatio = householdTotal / baseIncome;
+                if (changeRatio < 0.55 || changeRatio > 1.85) {
+                    // Large swing (e.g. added/removed a whole stream) — rebuild clean
+                    smartFillBudget(householdTotal);
+                } else if (Math.abs(changeRatio - 1) >= 0.05) {
+                    // Moderate change — ratio-scale all non-userSet fields
+                    const allIds = [];
+                    if (typeof budgetCategories !== 'undefined') {
+                        ['needs','wants'].forEach(t => {
+                            (budgetCategories[t]||[]).forEach(cat => allIds.push(cat.id));
+                        });
+                    }
+                    allIds.push('emergency_fund_monthly','retirement_monthly','investments_monthly');
+                    allIds.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (!el || !el.value) return;
+                        if (el.dataset.userSet === 'true') return;
+                        const v = parseCurrency(el.value);
+                        if (v > 0) { el.value = Math.round(v * changeRatio).toLocaleString(); formatCurrencyInput(el); }
+                    });
+                    recalcSavingsAllocation();
+                }
+                // else < 5% change — recalcSavingsAllocation absorbs it
+                else {
+                    recalcSavingsAllocation();
+                }
+            }
+
+            localStorage.setItem('raf_budget_base_income', householdTotal.toString());
+            debouncedCalculateAll();
+            autoLockIncome();
+            saveToLocalStorage();
+        }
+
+        function incAddStream() {
+            if (incomeStreams.length >= 6) return;
+            _streamsInitialized = true;
+            const id = 's' + Date.now();
+            incomeStreams.push({ id, label:'', amount:'', freq:'2' });
+            renderAllEarnerCards();
+            // Focus new card amount
+            setTimeout(() => {
+                const el = document.getElementById('earner-card-' + id);
+                if (el) el.querySelector('.earner-amount-input')?.focus();
+            }, 60);
+            if (incomeStreams.length >= 6) {
+                const b = document.getElementById('inc-add-earner-btn');
+                if (b) b.style.display = 'none';
+            }
+        }
+
+        function incRemoveStream(id) {
+            if (incomeStreams.length <= 1) return;
+            incomeStreams = incomeStreams.filter(s => s.id !== id);
+            renderAllEarnerCards();
+            const b = document.getElementById('inc-add-earner-btn');
+            if (b) b.style.display = '';
+            onStreamsChanged();
+        }
+
+        function initIncomeStreams(saved) {
+            if (saved && saved.length > 0) {
+                incomeStreams = saved;
+            } else {
+                incomeStreams = [{ id:'s0', label:'', amount:'', freq:'2' }];
+            }
+            _streamsInitialized = true;
+            renderAllEarnerCards();
+        }
+
+        function escHtml(s) {
+            return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        function renderPayCal() {}
+        function initPayCal()  {}
+
+        window.earnerAmountChange = earnerAmountChange;
+        window.earnerFreqSelect   = earnerFreqSelect;
+        window.onStreamLabel      = onStreamLabel;
+        window.onStreamAmount     = onStreamAmount;
+        window.onStreamFreq       = onStreamFreq;
+        window.incAddStream       = incAddStream;
+        window.incRemoveStream    = incRemoveStream;
+        window.initIncomeStreams   = initIncomeStreams;
+        window.getMonthlyIncome   = getMonthlyIncome;
+        window.sumAllStreams       = sumAllStreams;
+        window.renderPayCal       = renderPayCal;
+        window.initPayCal         = initPayCal;
+        // ══════════════════════════════════════════════════════════════════
+        // END INCOME STREAMS ENGINE
+        // ══════════════════════════════════════════════════════════════════
+
+        // ══════════════════════════════════════════════════════════════════
+        // EMPTY STATE ACTIVATION ENGINE
+        // ══════════════════════════════════════════════════════════════════
+
+        let _labActivated = false;
+
+        function isLabActivated() {
+            return _labActivated || (sumAllStreams() > 0);
+        }
+
+        function activateLab() {
+            if (_labActivated) return;
+            _labActivated = true;
+
+            // 1. Dissolve empty state, reveal live score
+            const emptyEl  = document.getElementById('score-crown-empty');
+            const liveEl   = document.getElementById('score-crown-live');
+            const ghostEl  = document.getElementById('ring-ghost-overlay');
+            const wrapEl   = document.getElementById('harvest-ring-wrap');
+
+            if (emptyEl)  emptyEl.classList.add('hidden');
+            if (ghostEl)  ghostEl.classList.add('hidden');
+
+            if (liveEl) {
+                liveEl.classList.remove('hidden');
+                // Slight delay so CSS transition starts from opacity:0
+                requestAnimationFrame(() => {
+                    liveEl.classList.add('activating');
+                });
+            }
+
+            // 2. Ring draw-in
+            if (wrapEl) {
+                wrapEl.classList.add('activating');
+                setTimeout(() => wrapEl.classList.remove('activating'), 1400);
+            }
+
+            // 3. Stop income field pulse
+            const incomeSection = document.getElementById('income-section');
+            if (incomeSection) incomeSection.classList.remove('income-awaiting');
+
+            // 4. Colonial activation toast
+            setTimeout(() => {
+                colonialToast(
+                    'The Iron Pot is open. Your financial OS is now live.',
+                    'Colonial OS — Activated'
+                );
+            }, 600);
+        }
+
+        function checkActivationState() {
+            const hasIncome = sumAllStreams() > 0;
+            const emptyEl   = document.getElementById('score-crown-empty');
+            const liveEl    = document.getElementById('score-crown-live');
+            const ghostEl   = document.getElementById('ring-ghost-overlay');
+            const incomeSection = document.getElementById('income-section');
+
+            if (hasIncome) {
+                if (!_labActivated) activateLab();
+            } else {
+                // Show empty state
+                _labActivated = false;
+                if (emptyEl)  emptyEl.classList.remove('hidden');
+                if (liveEl)   { liveEl.classList.add('hidden'); liveEl.classList.remove('activating'); }
+                if (ghostEl)  ghostEl.classList.remove('hidden');
+                if (incomeSection) incomeSection.classList.add('income-awaiting');
+            }
+        }
+
+        // Run on load to set correct initial state
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(checkActivationState, 150);
+            // Init streams on fresh load (no saved data)
+            if (!localStorage.getItem('raf_lab_data')) {
+                initIncomeStreams([]);
+            }
+            setTimeout(initPayCal, 200);
+        });
+
+        window.activateLab         = activateLab;
+        window.checkActivationState = checkActivationState;
+        // ══════════════════════════════════════════════════════════════════
+        // END EMPTY STATE ACTIVATION ENGINE
+        // ══════════════════════════════════════════════════════════════════
         // ══════════════════════════════════════════════════════════════════════
         // PAST DUE ENGINE
         // Tracks overdue debts and bills. Surfaces them as CRITICAL DoFI actions.
@@ -13460,33 +14601,50 @@ function toggleScoreBreakdown() {
             const toggle = document.getElementById('warModeToggle');
             const budgetSection = document.getElementById('budget-section');
             
-            // Check if budget is locked - if so, prevent toggling
-            const isBudgetLocked = localStorage.getItem('raf_budget_locked') === 'true';
-            if (isBudgetLocked) {
-                showToast('⚠️ Budget is locked. Unlock budget to edit or toggle War Mode.');
-                // Revert toggle to previous state
-                toggle.checked = isWarModeActive;
-                return;
+            // Siege mode bypasses budget lock — it's a deliberate mode switch, not an accidental edit
+            // Temporarily unlock inputs so zeroOutWantsOnly / restoreOriginalCategoryValues can write
+            const wasBudgetLocked = localStorage.getItem('raf_budget_locked') === 'true';
+            if (wasBudgetLocked) {
+                document.querySelectorAll('#wants-categories input').forEach(el => {
+                    el.readOnly = false;
+                    el.disabled = false;
+                });
             }
             
             isWarModeActive = toggle.checked;
             
             if (isWarModeActive) {
                 budgetSection.classList.add('war-mode-active');
-                showToast('WAR MODE ACTIVATED: All WANTS set to zero');
+                showToast('⚔️ Siege Protocol active — wants zeroed, surplus attacks debt');
                 saveOriginalCategoryValues();
                 zeroOutWantsOnly();
             } else {
                 budgetSection.classList.remove('war-mode-active');
-                showToast('War Mode deactivated');
+                showToast('Siege Protocol deactivated');
                 restoreOriginalCategoryValues();
+                // Re-apply budget lock if it was active before siege
+                if (wasBudgetLocked) {
+                    setTimeout(() => {
+                        document.querySelectorAll('#budget-body input').forEach(el => {
+                            if (!el.classList.contains('war-mode-disabled')) {
+                                el.readOnly = true;
+                            }
+                        });
+                    }, 50);
+                }
             }
             
             const warModeLabel = document.querySelector('.war-mode-label');
             if (warModeLabel) {
                 warModeLabel.classList.toggle('active', isWarModeActive);
             }
-            
+
+            // Re-apply lock state to wants after siege mode writes
+            if (wasBudgetLocked && !isWarModeActive) {
+                // Restoring values — wants should be editable again but budget stays locked
+                // (lock only prevents external edits, siege mode manages its own state)
+            }
+
             debouncedCalculateAll();
         }
 
@@ -13922,11 +15080,6 @@ function toggleScoreBreakdown() {
 
         function recalcSavingsAllocation() {
             // Re-evaluate which savings stage we're in and redistribute savings pool.
-            // Called when EF balance or retirement/investment totals change.
-            // Does NOT touch needs or wants — only the three savings monthly fields.
-            // NOTE: intentionally no guards — budget lock protects expense fields, not savings stage.
-            // The savings allocation must always respond to balance changes.
-
             const income = getMonthlyIncome();
             if (income <= 0) return;
 
@@ -13942,6 +15095,9 @@ function toggleScoreBreakdown() {
                 wantsTotal += parseCurrency(document.getElementById(cat.id)?.value || 0);
             });
             const debtPayments = getTotalDebtPayments();
+            // Also subtract extra debt paydown from budget savings section
+            // savingsPool = everything left after expenses — recalcSavingsAllocation owns ALL savings fields
+            // Do NOT subtract existing savings field values — we're about to overwrite them
             const savingsPool = Math.max(0, income - needsTotal - wantsTotal - debtPayments);
 
             // EF status
@@ -14107,6 +15263,153 @@ function toggleScoreBreakdown() {
         }
         window.recalcSavingsAllocation = recalcSavingsAllocation;
 
+        // ── MINIMUM PAYMENT TRAP WARNING ──────────────────────────────────
+        function updateMinPaymentTrap() {
+            const container = document.getElementById('min-payment-trap');
+            if (!container) return;
+
+            const age = parseInt(document.getElementById('age-input')?.value) || 0;
+            const rows = document.querySelectorAll('#debt-body tr.debt-row');
+
+            let worstDebt = null;
+            let worstYears = 0;
+
+            rows.forEach(row => {
+                const balance  = parseCurrency(row.querySelector('td:nth-child(2) input')?.value || 0);
+                const payment  = parseCurrency(row.querySelector('td:nth-child(3) input')?.value || 0);
+                const rate     = parseFloat(row.querySelector('td:nth-child(4) input')?.value) || 0;
+                const typeEl   = row.querySelector('.debt-type-select');
+                const label    = typeEl ? typeEl.options[typeEl.selectedIndex]?.text : 'Debt';
+                if (balance <= 0 || payment <= 0 || rate <= 0) return;
+
+                const years = calculateYearsToPayoff(balance, payment, rate);
+                if (years > worstYears) {
+                    worstYears = years;
+                    // Total interest paid over life of debt (approx)
+                    const monthlyRate = rate / 100 / 12;
+                    let bal = balance, totalPaid = 0, months = 0;
+                    const isRevolving = rate > 15;
+                    while (bal > 0 && months < 600) {
+                        const interest = bal * monthlyRate;
+                        let pay = isRevolving ? Math.max(payment, bal * (payment / balance)) : payment;
+                        if (pay > bal + interest) pay = bal + interest;
+                        totalPaid += pay;
+                        bal -= (pay - interest);
+                        months++;
+                        if (bal < 0.01) { bal = 0; break; }
+                    }
+                    const totalInterest = Math.round(totalPaid - balance);
+                    worstDebt = { label, balance, payment, rate, years, totalInterest, months };
+                }
+            });
+
+            if (!worstDebt || worstYears < 3) {
+                container.style.display = 'none';
+                return;
+            }
+
+            const ageAtPayoff = age > 0 ? Math.round(age + worstYears) : null;
+            const yearsRounded = Math.round(worstYears);
+            const irasAge = 59.5;
+            const iraNote = ageAtPayoff && ageAtPayoff >= irasAge && age < irasAge
+                ? `<div class="trap-ira-note">That's when you can first withdraw from an IRA without penalty.</div>` : '';
+
+            const ageLine = ageAtPayoff
+                ? `You'll be <strong style="color:#B22234">age ${ageAtPayoff}</strong> when it's gone.`
+                : `That's <strong style="color:#B22234">${yearsRounded} years</strong> from now.`;
+
+            container.style.display = 'block';
+            container.innerHTML = `
+                <div class="trap-header">
+                    <span class="trap-icon">⚠</span>
+                    <span class="trap-title">Minimum Payment Trap</span>
+                </div>
+                <div class="trap-body">
+                    <p>Paying only the minimum on this debt, it takes
+                    <strong style="color:#B22234">${yearsRounded} years</strong> to pay off.
+                    ${ageLine}</p>
+                    ${iraNote}
+                    <p>In that time you'll pay <strong style="color:#e87a4a">$${worstDebt.totalInterest.toLocaleString()}</strong>
+                    in interest on a <strong>$${Math.round(worstDebt.balance).toLocaleString()}</strong> balance —
+                    <strong>${Math.round(worstDebt.totalInterest / worstDebt.balance * 100)}%</strong> extra.</p>
+                    <p class="trap-if-more">And that's if you <em>never charge another dollar to it.</em></p>
+                </div>`;
+        }
+        window.updateMinPaymentTrap = updateMinPaymentTrap;
+        // ── PERSISTENT DEBT INTEREST BURN ────────────────────────────────
+        function updateDebtBurnTotal() {
+            const container = document.getElementById('debt-burn-total');
+            const barEl     = document.getElementById('debt-burn-bar');
+            const moEl      = document.getElementById('debt-burn-monthly');
+            const yrEl      = document.getElementById('debt-burn-yearly');
+            if (!container) return;
+
+            let totalMonthlyInterest = 0;
+            let totalBalance = 0;
+
+            document.querySelectorAll('#debt-body tr.debt-row').forEach(row => {
+                const balance = parseCurrency(row.querySelector('td:nth-child(2) input')?.value || 0);
+                const rate    = parseFloat(row.querySelector('td:nth-child(4) input')?.value) || 0;
+                if (balance > 0 && rate > 0) {
+                    totalMonthlyInterest += balance * (rate / 100) / 12;
+                    totalBalance += balance;
+                }
+            });
+
+            if (totalMonthlyInterest < 1) {
+                container.style.display = 'none';
+                return;
+            }
+
+            container.style.display = 'block';
+            if (moEl) moEl.textContent = '$' + Math.round(totalMonthlyInterest).toLocaleString();
+            if (yrEl) yrEl.textContent = '$' + Math.round(totalMonthlyInterest * 12).toLocaleString();
+
+            // Bar width: interest as % of monthly income (capped at 100%)
+            const income = getMonthlyIncome();
+            const pct = income > 0 ? Math.min(100, (totalMonthlyInterest / income) * 100) : 50;
+            if (barEl) barEl.style.width = pct + '%';
+        }
+        window.updateDebtBurnTotal = updateDebtBurnTotal;
+        // ── END DEBT BURN TOTAL ───────────────────────────────────────────
+
+
+        // ── PERMANENT DEBT INTEREST BURN BAR ──────────────────────────────
+        function updateDebtBurnBar() {
+            const container = document.getElementById('debt-interest-burn');
+            if (!container) return;
+            const rows = document.querySelectorAll('#debt-body tr.debt-row');
+            let totalMonthlyInterest = 0;
+            let totalBalance = 0;
+            rows.forEach(row => {
+                const bal  = parseCurrency(row.querySelector('td:nth-child(2) input')?.value || 0);
+                const rate = parseFloat(row.querySelector('td:nth-child(4) input')?.value) || 0;
+                if (bal > 0 && rate > 0) {
+                    totalMonthlyInterest += bal * (rate / 100) / 12;
+                    totalBalance += bal;
+                }
+            });
+            if (totalMonthlyInterest <= 0) {
+                container.style.display = 'none';
+                return;
+            }
+            container.style.display = 'flex';
+            const mo = Math.round(totalMonthlyInterest);
+            const yr = mo * 12;
+            document.getElementById('dib-monthly').textContent = '$' + mo.toLocaleString();
+            document.getElementById('dib-yearly').textContent  = '$' + yr.toLocaleString();
+            // Bar: % of income going to interest
+            const income = getMonthlyIncome();
+            const pct = income > 0 ? Math.min(100, (totalMonthlyInterest / income) * 100) : 50;
+            const bar = document.getElementById('dib-bar');
+            if (bar) bar.style.width = pct + '%';
+        }
+        window.updateDebtBurnBar = updateDebtBurnBar;
+        // ── END DEBT BURN BAR ──────────────────────────────────────────────
+
+        // ── END MINIMUM PAYMENT TRAP ───────────────────────────────────────
+
+
         function getHousingEstimate(income) {
             // Tiered housing estimate based on net monthly income.
             // 28% gross rule doesn't hold at low or high incomes.
@@ -14217,11 +15520,20 @@ function toggleScoreBreakdown() {
             // 2. EF partial + consumer debt  → split: 70% EF, 30% extra debt, 0% retire
             // 3. EF done, consumer debt      → all savings to extra debt payoff, 0% retire
             // 4. EF done, no consumer debt   → 401k first (up to limit), then invest
-            const needsSum = Object.values(needsDefaults).reduce((a,b) => a+b, 0);
+            // Include actual mortgage payment in needsSum when computing savingsPool
+            // mortgage_rent was set to 0 above (no double-count in debtPayments), but
+            // the real payment still eats income — we must account for it here.
+            let actualMortgagePayment = 0;
+            document.querySelectorAll('#debt-body tr').forEach(row => {
+                const typeEl = row.querySelector('.debt-type-select');
+                if (typeEl && typeEl.value.toLowerCase().includes('mortgage')) {
+                    actualMortgagePayment += parseCurrency(row.querySelector('td:nth-child(3) input')?.value || 0);
+                }
+            });
+            const needsSum = Object.values(needsDefaults).reduce((a,b) => a+b, 0) + actualMortgagePayment;
             const wantsSum = Object.values(wantsDefaults).reduce((a,b) => a+b, 0);
             const minSavings     = income * 0.10;
-            // Factor in ALL debt payments — mortgage_rent is 0 when mortgage is in debt table
-            // so no double-counting risk here
+            // Factor in ALL debt payments — getTotalDebtPayments excludes mortgage (already in needsSum)
             const actualDebtPayments = getTotalDebtPayments();
             const budgetForWants = Math.max(0, income - needsSum - minSavings - actualDebtPayments);
             const wantsScale     = (wantsSum > 0 && wantsSum > budgetForWants)
@@ -14315,9 +15627,10 @@ function toggleScoreBreakdown() {
                 const gap = income - writtenNeeds - writtenWants - writtenSavings - writtenDebt;
                 if (gap > 0) {
                     // Push surplus into the active savings bucket (stage-appropriate)
+                    const _hasMortgageAbsorb = actualMortgagePayment > 0;
                     const absorbId = !efFunded ? 'emergency_fund_monthly' :
                                      hasConsumerDebt ? 'debt_paydown_monthly' :
-                                     hasMortgage ? 'debt_paydown_monthly' :
+                                     _hasMortgageAbsorb ? 'debt_paydown_monthly' :
                                      'investments_monthly';
                     const absorbEl = document.getElementById(absorbId);
                     if (absorbEl) {
@@ -14330,6 +15643,9 @@ function toggleScoreBreakdown() {
 
             debouncedCalculateAll();
             setTimeout(() => { updateNextActionEnhanced(); snapshotBudget(); }, 150);
+            if (typeof updateMinPaymentTrap === 'function') setTimeout(updateMinPaymentTrap, 60);
+            if (typeof updateDebtBurnBar === 'function') setTimeout(updateDebtBurnBar, 60);
+            if (typeof updateDebtBurnTotal === 'function') setTimeout(updateDebtBurnTotal, 60);
             autoLockBudget();
 
             const isHighIncome = income >= 10000;
@@ -15040,17 +16356,22 @@ function toggleScoreBreakdown() {
             debouncedCalculateAll();
         }
 
+        let _saveTimeout = null;
+        function debouncedSave() {
+            clearTimeout(_saveTimeout);
+            _saveTimeout = setTimeout(saveToLocalStorage, 1000);
+        }
+
         function debouncedCalculateAll() {
             clearTimeout(calculationTimeout);
             calculationTimeout = setTimeout(() => {
                 try {
                     calculateAll();
-                    saveToLocalStorage();
+                    debouncedSave();
                 } catch (error) {
                     console.error('Calculation error:', error);
-                    showToast('Error calculating results. Please check your inputs.');
                 }
-            }, 300);
+            }, 80);
         }
 
         function refreshNextAction() {
@@ -15528,7 +16849,7 @@ function toggleScoreBreakdown() {
                     gap: 0.75rem;
                 ">
                     <span style="font-size:1.2rem; flex-shrink:0;">🎯</span>
-                    <p style="margin:0; font-size:0.82rem; color:#2c1810; line-height:1.5;">
+                    <p style="margin:0; font-size:0.82rem; color:rgba(255,255,255,0.8); line-height:1.5;">
                         <strong style="color:#C9A227;">Enter your age</strong> in the right panel for a more personalized battle plan — retirement timelines, mortgage payoff windows, and investment targets all sharpen significantly when we know where you are in the journey.
                     </p>
                 </div>` : '';
@@ -15614,7 +16935,10 @@ function toggleScoreBreakdown() {
             
             
             // Track available monthly payment as we snowball
-            let availableForDebt = Math.max(0, surplus); // Start with actual surplus
+            // Also include budget's dedicated extra debt payment field
+            const _budgetExtraDebt = typeof parseCurrency === 'function'
+                ? parseCurrency(document.getElementById('debt_paydown_monthly')?.value || 0) : 0;
+            let availableForDebt = Math.max(0, surplus + _budgetExtraDebt); // Start with actual surplus + extra debt payment
             
             // Group steps by priority and calculate completion times
             steps.forEach((step, index) => {
@@ -15781,20 +17105,19 @@ function toggleScoreBreakdown() {
                 
                 // Map to timeline labels
                 let timeLabel = '';
-                if (isImmediate || cumulativeMonths === 0) {
-                    timeLabel = 'NOW';
-                } else if (cumulativeMonths <= 1) {
-                    timeLabel = 'MONTH 1';
-                } else if (cumulativeMonths <= 6) {
-                    timeLabel = `MONTH ${Math.round(cumulativeMonths)}`;
-                } else if (cumulativeMonths <= 12) {
-                    timeLabel = `${Math.round(cumulativeMonths)} MONTHS`;
-                } else if (cumulativeMonths <= 24) {
-                    const years = (cumulativeMonths / 12).toFixed(1);
-                    timeLabel = `${years} YEAR${years >= 2 ? 'S' : ''}`;
-                } else {
-                    const yrs = Math.round(cumulativeMonths / 12);
-                    timeLabel = `${yrs} YEARS`;
+                {
+                    // Convert cumulativeMonths to an actual calendar date
+                    const _d = new Date();
+                    _d.setMonth(_d.getMonth() + Math.round(cumulativeMonths));
+                    const _mo = _d.toLocaleString('en-US', { month: 'short' });
+                    const _yr = _d.getFullYear();
+                    if (isImmediate || cumulativeMonths === 0) {
+                        timeLabel = 'RIGHT NOW';
+                    } else if (cumulativeMonths <= 2) {
+                        timeLabel = `${_mo} ${_yr}`;
+                    } else {
+                        timeLabel = `${_mo} ${_yr}`;
+                    }
                 }
                 
                 timeline.push({
@@ -17208,7 +18531,7 @@ function toggleScoreBreakdown() {
                             // ── HERO: #1 opportunity OR celebration ──────────────────────
                             if (topPointsLeft <= 7) {
                                 // Strong user — celebrate, don't diagnose
-                                html += '<div style="border:1.5px solid #4a9e6b; border-radius:12px; overflow:hidden; margin-bottom:1.25rem; background:linear-gradient(135deg,rgba(6,26,56,0.9),rgba(3,10,25,0.95));">' +
+                                html += '<div style="border:1.5px solid #4a9e6b; border-radius:12px; overflow:hidden; margin-bottom:1.25rem; background:linear-gradient(135deg,rgba(8,15,26,0.9),rgba(3,10,25,0.95));">' +
                                     '<div style="background:#4a9e6b; padding:0.35rem 1rem; display:flex; align-items:center; justify-content:space-between;">' +
                                         '<span style="font-family:\'Oswald\',sans-serif; font-size:0.55rem; font-weight:700; text-transform:uppercase; letter-spacing:0.25em; color:rgba(0,0,0,0.7);">Colonial OS Active</span>' +
                                         '<span style="font-size:0.8rem;">✅</span>' +
@@ -17227,7 +18550,7 @@ function toggleScoreBreakdown() {
                                 '</div>';
                             } else {
                                 // Deficit user — show biggest opportunity hero card
-                                html += '<div style="border:1.5px solid ' + barColor + '; border-radius:12px; overflow:hidden; margin-bottom:1.25rem; background:linear-gradient(135deg, rgba(6,26,56,0.9), rgba(3,10,25,0.95));">' +
+                                html += '<div style="border:1.5px solid ' + barColor + '; border-radius:12px; overflow:hidden; margin-bottom:1.25rem; background:linear-gradient(135deg, rgba(8,15,26,0.9), rgba(3,10,25,0.95));">' +
 
                                     '<div style="background:' + barColor + '; padding:0.35rem 1rem; display:flex; align-items:center; justify-content:space-between;">' +
                                         '<span style="font-family:\'Oswald\',sans-serif; font-size:0.55rem; font-weight:700; text-transform:uppercase; letter-spacing:0.25em; color:rgba(0,0,0,0.7);">Your Biggest Opportunity</span>' +
@@ -17896,6 +19219,7 @@ function toggleScoreBreakdown() {
                 warMode: isWarModeActive,
                 paycheck: document.getElementById('paycheck').value,
                 freq: document.getElementById('freq').value,
+                incomeStreams: incomeStreams.map(s=>({...s})),
                 age: document.getElementById('age-input').value,
                 pretax: {
                     pretax401k: document.getElementById('pretax-401k')?.value || '',
@@ -17973,6 +19297,15 @@ function toggleScoreBreakdown() {
             if (!saved) return; // Fresh session, nothing to restore
             try {
                 const data = JSON.parse(saved);
+                // Restore income streams (multi-stream engine)
+                if (data.incomeStreams && data.incomeStreams.length > 0) {
+                    initIncomeStreams(data.incomeStreams);
+                } else if (data.paycheck) {
+                    // Legacy single-paycheck save — migrate to streams
+                    initIncomeStreams([{ id:'s0', label:'', amount: data.paycheck, freq: data.freq||'2' }]);
+                } else {
+                    initIncomeStreams([]);
+                }
                 if (data.paycheck) document.getElementById('paycheck').value = data.paycheck;
                 if (data.freq)     document.getElementById('freq').value     = data.freq;
                 if (data.age)      { const el = document.getElementById('age-input'); if (el) el.value = data.age; }
@@ -18024,6 +19357,8 @@ function toggleScoreBreakdown() {
                     // Always ensure budget inputs are editable after restore
                     enableBudgetInputs();
                 }, 50);
+                setTimeout(checkActivationState, 300);
+                setTimeout(renderPayCal, 350);
             } catch(e) {
                 console.error('autoRestoreData error:', e);
             }
@@ -18128,6 +19463,7 @@ function toggleScoreBreakdown() {
         function clearAllData() {
             if (confirm('Are you sure you want to clear all data? This cannot be undone.')) {
                 document.getElementById('paycheck').value = '';
+                initIncomeStreams([]);
                 document.getElementById('freq').value = '2';
                 document.getElementById('age-input').value = '';
                 
@@ -20242,13 +21578,13 @@ ${budgetLines.length === 0 ? '  Not entered' : budgetLines.map(l => `  ${l.name}
         function autoLockIncome() {
             // Already locked? Skip.
             if (localStorage.getItem('raf_income_locked') === 'true') return;
-            const paycheck = parseCurrency(document.getElementById('paycheck')?.value || 0);
+            const paycheck = sumAllStreams();
             if (paycheck <= 0) return;
 
             clearTimeout(_autoLockTimers.income);
             _autoLockTimers.income = setTimeout(() => {
                 // Re-check — user might have cleared it
-                const val = parseCurrency(document.getElementById('paycheck')?.value || 0);
+                const val = sumAllStreams();
                 if (val <= 0) return;
                 if (localStorage.getItem('raf_income_locked') === 'true') return;
                 lockIncome();
@@ -20920,28 +22256,145 @@ ${budgetLines.length === 0 ? '  Not entered' : budgetLines.map(l => `  ${l.name}
 
 
 
-<footer style="
-    background: linear-gradient(180deg, rgba(6,26,56,0) 0%, rgba(6,26,56,0.95) 30%);
-    border-top: 1px solid rgba(201,162,39,0.15);
-    padding: 2.5rem 2rem 2rem;
-    text-align: center;
-    margin-top: 3rem;
-">
-    <div style="max-width: 700px; margin: 0 auto;">
-        <div style="font-family:'Oswald',sans-serif; font-size:0.55rem; font-weight:700; text-transform:uppercase; letter-spacing:0.35em; color:rgba(201,162,39,0.5); margin-bottom:0.75rem;">
-            Colonial OS 1.0 &nbsp;·&nbsp; Iron Pot Millionaire
-        </div>
-        <div style="font-family:Georgia,serif; font-size:0.78rem; font-style:italic; color:rgba(255,255,255,0.3); line-height:1.7; margin-bottom:1.25rem;">
-            "Rather go to bed without dinner than to rise in debt." — Benjamin Franklin
-        </div>
-        <div style="display:flex; justify-content:center; gap:1.5rem; flex-wrap:wrap; margin-bottom:1.25rem;">
-            <a href="https://realamericanfinance.com/book" target="_blank" style="font-size:0.7rem; color:rgba(201,162,39,0.6); text-decoration:none; font-family:'Inter',sans-serif; transition:color 0.2s;" onmouseover="this.style.color='rgba(201,162,39,1)'" onmouseout="this.style.color='rgba(201,162,39,0.6)'">Get the Book →</a>
-            <a href="https://realamericanfinance.com" target="_blank" style="font-size:0.7rem; color:rgba(255,255,255,0.25); text-decoration:none; font-family:'Inter',sans-serif; transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.25)'">RealAmericanFinance.com</a>
-        </div>
-        <div style="font-size:0.62rem; color:rgba(255,255,255,0.15); font-family:'Inter',sans-serif;">
-            © 2025 Real American Finance · This tool is for educational purposes only, not financial advice.
+
+    <!-- ══════════════════════════════════════════════════════════════
+         BOTTOM CTA STRIP — Always visible above footer
+         ══════════════════════════════════════════════════════════════ -->
+    <div style="
+        background: linear-gradient(135deg, #0e0e10, #1a0508);
+        border-top: 2px solid rgba(178,34,52,0.5);
+        border-bottom: 1px solid rgba(178,34,52,0.2);
+        padding: 2.5rem 2rem;
+        text-align: center;
+        margin-top: 2rem;
+    ">
+        <div style="max-width:700px; margin:0 auto;">
+            <div style="font-family:'Oswald',sans-serif; font-size:0.6rem; font-weight:700;
+                text-transform:uppercase; letter-spacing:0.35em; color:#B22234; margin-bottom:0.75rem;">
+                Real American Finance
+            </div>
+            <div style="font-family:'Oswald',sans-serif; font-size:1.9rem; font-weight:700;
+                color:#fff; line-height:1.1; margin-bottom:0.5rem;">
+                THE LAB IS JUST THE BEGINNING.
+            </div>
+            <div style="font-family:'Inter',sans-serif; font-size:0.85rem;
+                color:rgba(255,255,255,0.5); margin-bottom:1.75rem; line-height:1.6;">
+                The budget tool is free. The system that built it — the courses, the community,
+                the strategy sessions — that's The Academy.
+            </div>
+            <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+                <a href="https://realamericanfinance.com/academy" target="_blank" style="
+                    padding: 0.85rem 2rem;
+                    background: #B22234; color: #fff;
+                    font-family:'Oswald',sans-serif; font-size:0.9rem; font-weight:700;
+                    text-transform:uppercase; letter-spacing:0.12em;
+                    text-decoration:none; border-radius:4px;
+                    transition:background 0.2s; display:inline-block;
+                " onmouseover="this.style.background='#D4293F'" onmouseout="this.style.background='#B22234'">
+                    ENTER THE ACADEMY
+                </a>
+                <a href="https://realamericanfinance.com/strategy" target="_blank" style="
+                    padding: 0.85rem 2rem;
+                    background: transparent; color: #fff;
+                    font-family:'Oswald',sans-serif; font-size:0.9rem; font-weight:700;
+                    text-transform:uppercase; letter-spacing:0.12em;
+                    text-decoration:none; border-radius:4px;
+                    border: 2px solid rgba(255,255,255,0.3);
+                    transition:border-color 0.2s; display:inline-block;
+                " onmouseover="this.style.borderColor='rgba(255,255,255,0.8)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.3)'">
+                    STRATEGY BRIEFING
+                </a>
+            </div>
         </div>
     </div>
+
+<footer style="
+    background: #060c16;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 4rem 2rem 2rem;
+    margin-top: 0;
+">
+    <div style="max-width:1200px; margin:0 auto;">
+
+        <!-- Top grid: logo/description + 4 link columns -->
+        <div style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr 1fr; gap:3rem; margin-bottom:3rem;">
+
+            <!-- Brand column -->
+            <div>
+                <a href="https://realamericanfinance.com" target="_blank" style="text-decoration:none; display:inline-block; margin-bottom:1rem;">
+                    <div style="font-family:'Great Vibes',cursive; font-size:1.6rem; color:#fff; line-height:1;">Real American Finance</div>
+                    <div style="font-family:'Oswald',sans-serif; font-size:0.55rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-top:0.2rem;">Discipline &nbsp;·&nbsp; Autonomy &nbsp;·&nbsp; Wealth</div>
+                </a>
+                <p style="font-family:'Inter',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.4); line-height:1.7; margin:0 0 1.25rem;">
+                    Providing tactical frameworks for financial autonomy. We do not offer investment advice; we build systems for the self-reliant.
+                </p>
+                <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:6px; padding:0.85rem 1rem;">
+                    <div style="font-family:'Oswald',sans-serif; font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:rgba(255,255,255,0.35); margin-bottom:0.4rem;">Strategic Disclaimer</div>
+                    <p style="font-family:'Inter',sans-serif; font-size:0.7rem; color:rgba(255,255,255,0.3); line-height:1.6; margin:0;">
+                        All materials provided are for educational purposes. Execution of these pillars requires individual discretion. Real American Finance assumes no liability for market outcomes.
+                    </p>
+                </div>
+            </div>
+
+            <!-- The Academy -->
+            <div>
+                <div style="font-family:'Oswald',sans-serif; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:#fff; margin-bottom:1rem;">The Academy</div>
+                <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.65rem;">
+                    <li><a href="https://realamericanfinance.com/academy" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">The 12 Pillars</a></li>
+                    <li><a href="https://realamericanfinance.com/strategy" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Strategic Consult</a></li>
+                    <li><a href="https://realamericanfinance.com/login" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Member Portal</a></li>
+                </ul>
+            </div>
+
+            <!-- Intelligence -->
+            <div>
+                <div style="font-family:'Oswald',sans-serif; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:#fff; margin-bottom:1rem;">Intelligence</div>
+                <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.65rem;">
+                    <li><a href="https://realamericanfinance.com/media" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">The Podcast</a></li>
+                    <li><a href="https://realamericanfinance.com/media" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Case Studies</a></li>
+                    <li><a href="https://realamericanfinance.com/media" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Media Archive</a></li>
+                </ul>
+            </div>
+
+            <!-- Provisioning -->
+            <div>
+                <div style="font-family:'Oswald',sans-serif; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:#fff; margin-bottom:1rem;">Provisioning</div>
+                <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.65rem;">
+                    <li><a href="https://realamericanfinance.com/shop" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Apparel</a></li>
+                    <li><a href="https://realamericanfinance.com/the-lab" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Tactical Tools</a></li>
+                    <li><a href="https://realamericanfinance.com/shop" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Equipment</a></li>
+                </ul>
+            </div>
+
+            <!-- Inquiries -->
+            <div>
+                <div style="font-family:'Oswald',sans-serif; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:#fff; margin-bottom:1rem;">Inquiries</div>
+                <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.65rem;">
+                    <li><a href="https://realamericanfinance.com" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Direct Liaison</a></li>
+                    <li><a href="https://realamericanfinance.com/strategy" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Schedule Strategy</a></li>
+                    <li><a href="https://realamericanfinance.com" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Institutional</a></li>
+                </ul>
+            </div>
+
+        </div><!-- /top grid -->
+
+        <!-- Divider -->
+        <div style="border-top:1px solid rgba(255,255,255,0.07); padding-top:1.5rem;
+            display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+
+            <div style="font-family:'Inter',sans-serif; font-size:0.72rem; color:rgba(255,255,255,0.25);">
+                © 2026 Real American Finance. Own Your Outcomes. Stay Sovereign.
+            </div>
+
+            <div style="display:flex; gap:1.5rem; flex-wrap:wrap;">
+                <a href="https://realamericanfinance.com/privacy-policy" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.72rem; color:rgba(255,255,255,0.25); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.25)'">Privacy Policy</a>
+                <a href="https://realamericanfinance.com/terms" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.72rem; color:rgba(255,255,255,0.25); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.25)'">Terms of Engagement</a>
+                <a href="https://realamericanfinance.com/disclaimer" target="_blank" style="font-family:'Inter',sans-serif; font-size:0.72rem; color:rgba(255,255,255,0.25); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.25)'">Full Disclaimer</a>
+            </div>
+
+        </div>
+
+    </div><!-- /max-width -->
 </footer>
 
 <!-- Metric Detail Modal -->
@@ -20982,6 +22435,168 @@ ${budgetLines.length === 0 ? '  Not entered' : budgetLines.map(l => `  ${l.name}
         <div class="rp-footnote">Your data never leaves this browser.</div>
     </div>
 </div>
+
+
+    <!-- ══════════════════════════════════════════════════════════════
+         PRICING MODAL — OWN YOUR OUTCOMES
+         ══════════════════════════════════════════════════════════════ -->
+    <div id="pricing-modal" class="pricing-modal" onclick="if(event.target===this)closePricingModal()">
+        <div class="pricing-content">
+
+            <!-- Header -->
+            <div style="text-align:center; margin-bottom:2rem; position:relative;">
+                <button onclick="closePricingModal()" style="
+                    position:absolute; top:0; right:0;
+                    background:transparent; border:none; cursor:pointer;
+                    color:rgba(255,255,255,0.4); font-size:1.5rem; line-height:1;
+                    transition:color 0.2s;
+                " onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div style="font-family:'Oswald',sans-serif; font-size:0.65rem; font-weight:700;
+                    text-transform:uppercase; letter-spacing:0.35em; color:#B22234; margin-bottom:0.6rem;">
+                    Real American Finance
+                </div>
+                <div style="font-family:'Oswald',sans-serif; font-size:2.4rem; font-weight:700;
+                    color:#fff; line-height:1.1; margin-bottom:0.5rem;">
+                    OWN YOUR<br><span style="color:#B22234;">OUTCOMES.</span>
+                </div>
+                <div style="font-family:'Inter',sans-serif; font-size:0.88rem;
+                    color:rgba(255,255,255,0.55); letter-spacing:0.2em; text-transform:uppercase;">
+                    DISCIPLINE &nbsp;·&nbsp; AUTONOMY &nbsp;·&nbsp; WEALTH
+                </div>
+            </div>
+
+            <!-- Pricing Grid -->
+            <div class="pricing-grid">
+
+                <!-- Free -->
+                <div class="pricing-card">
+                    <div style="font-family:'Oswald',sans-serif; font-size:0.6rem; font-weight:700;
+                        text-transform:uppercase; letter-spacing:0.3em; color:rgba(255,255,255,0.4);
+                        margin-bottom:0.5rem;">You Are Here</div>
+                    <div style="font-family:'Oswald',sans-serif; font-size:1.6rem; font-weight:700;
+                        color:#fff; margin-bottom:0.3rem;">The Lab</div>
+                    <div style="font-family:'Oswald',sans-serif; font-size:2rem; font-weight:700;
+                        color:#fff; margin-bottom:1.25rem;">FREE</div>
+                    <ul style="list-style:none; padding:0; margin:0 0 1.5rem; display:flex; flex-direction:column; gap:0.6rem;">
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.7);">
+                            <span style="color:#4a9e6b; flex-shrink:0;">✓</span> Colonial OS Budget Engine
+                        </li>
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.7);">
+                            <span style="color:#4a9e6b; flex-shrink:0;">✓</span> DoFI Priority Action System
+                        </li>
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.7);">
+                            <span style="color:#4a9e6b; flex-shrink:0;">✓</span> Sovereign Score™
+                        </li>
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.7);">
+                            <span style="color:#4a9e6b; flex-shrink:0;">✓</span> Debt Avalanche Calculator
+                        </li>
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.7);">
+                            <span style="color:#4a9e6b; flex-shrink:0;">✓</span> Zero-Based Budget Builder
+                        </li>
+                    </ul>
+                    <div style="font-size:0.75rem; color:rgba(255,255,255,0.3); text-align:center;
+                        font-style:italic;">You're already here. Use it well.</div>
+                </div>
+
+                <!-- The Academy — FEATURED -->
+                <div class="pricing-card featured">
+                    <div style="font-family:'Oswald',sans-serif; font-size:0.6rem; font-weight:700;
+                        text-transform:uppercase; letter-spacing:0.3em; color:#C9A227;
+                        margin-bottom:0.5rem;">Most Popular</div>
+                    <div style="font-family:'Oswald',sans-serif; font-size:1.6rem; font-weight:700;
+                        color:#fff; margin-bottom:0.3rem;">The Academy</div>
+                    <div style="display:flex; align-items:baseline; gap:0.4rem; margin-bottom:1.25rem;">
+                        <span style="font-family:'Oswald',sans-serif; font-size:2rem; font-weight:700; color:#fff;">$47</span>
+                        <span style="font-size:0.8rem; color:rgba(255,255,255,0.4);">/month</span>
+                    </div>
+                    <ul style="list-style:none; padding:0; margin:0 0 1.5rem; display:flex; flex-direction:column; gap:0.6rem;">
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.85);">
+                            <span style="color:#C9A227; flex-shrink:0;">✓</span> Everything in Free
+                        </li>
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.85);">
+                            <span style="color:#C9A227; flex-shrink:0;">✓</span> Full Iron Pot Millionaire course
+                        </li>
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.85);">
+                            <span style="color:#C9A227; flex-shrink:0;">✓</span> Live strategy sessions
+                        </li>
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.85);">
+                            <span style="color:#C9A227; flex-shrink:0;">✓</span> Community access
+                        </li>
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.85);">
+                            <span style="color:#C9A227; flex-shrink:0;">✓</span> Monthly financial reviews
+                        </li>
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.85);">
+                            <span style="color:#C9A227; flex-shrink:0;">✓</span> Advanced Lab features (coming)
+                        </li>
+                    </ul>
+                    <a href="https://realamericanfinance.com/academy" target="_blank" style="
+                        display:block; width:100%; padding:0.85rem;
+                        background:#B22234; color:#fff; text-align:center;
+                        font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:700;
+                        text-transform:uppercase; letter-spacing:0.12em;
+                        text-decoration:none; border-radius:6px;
+                        transition:background 0.2s;
+                    " onmouseover="this.style.background='#D4293F'" onmouseout="this.style.background='#B22234'">
+                        Enter The Academy →
+                    </a>
+                </div>
+
+                <!-- Strategy Call -->
+                <div class="pricing-card">
+                    <div style="font-family:'Oswald',sans-serif; font-size:0.6rem; font-weight:700;
+                        text-transform:uppercase; letter-spacing:0.3em; color:rgba(255,255,255,0.4);
+                        margin-bottom:0.5rem;">Highest Impact</div>
+                    <div style="font-family:'Oswald',sans-serif; font-size:1.6rem; font-weight:700;
+                        color:#fff; margin-bottom:0.3rem;">Strategy Briefing</div>
+                    <div style="display:flex; align-items:baseline; gap:0.4rem; margin-bottom:1.25rem;">
+                        <span style="font-family:'Oswald',sans-serif; font-size:2rem; font-weight:700; color:#fff;">1:1</span>
+                        <span style="font-size:0.8rem; color:rgba(255,255,255,0.4);">with our team</span>
+                    </div>
+                    <ul style="list-style:none; padding:0; margin:0 0 1.5rem; display:flex; flex-direction:column; gap:0.6rem;">
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.7);">
+                            <span style="color:#4a9e6b; flex-shrink:0;">✓</span> Everything in Academy
+                        </li>
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.7);">
+                            <span style="color:#4a9e6b; flex-shrink:0;">✓</span> Personal financial plan built with you
+                        </li>
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.7);">
+                            <span style="color:#4a9e6b; flex-shrink:0;">✓</span> Debt elimination road map
+                        </li>
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.7);">
+                            <span style="color:#4a9e6b; flex-shrink:0;">✓</span> Investment strategy review
+                        </li>
+                        <li style="display:flex; gap:0.6rem; align-items:flex-start; font-size:0.82rem; color:rgba(255,255,255,0.7);">
+                            <span style="color:#4a9e6b; flex-shrink:0;">✓</span> Accountability follow-up
+                        </li>
+                    </ul>
+                    <a href="https://realamericanfinance.com/strategy" target="_blank" style="
+                        display:block; width:100%; padding:0.85rem;
+                        background:transparent; color:#fff; text-align:center;
+                        font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:700;
+                        text-transform:uppercase; letter-spacing:0.12em;
+                        text-decoration:none; border-radius:6px;
+                        border:2px solid rgba(255,255,255,0.25);
+                        transition:border-color 0.2s;
+                    " onmouseover="this.style.borderColor='rgba(255,255,255,0.7)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.25)'">
+                        Book Strategy Call →
+                    </a>
+                </div>
+
+            </div><!-- /pricing-grid -->
+
+            <!-- Bottom tagline -->
+            <div style="text-align:center; margin-top:2rem; padding-top:1.5rem;
+                border-top:1px solid rgba(255,255,255,0.08);">
+                <div style="font-family:Georgia,serif; font-size:0.78rem; font-style:italic;
+                    color:rgba(255,255,255,0.3); line-height:1.7;">
+                    "Rather go to bed without dinner than to rise in debt." — Benjamin Franklin
+                </div>
+            </div>
+
+        </div><!-- /pricing-content -->
+    </div><!-- /pricing-modal -->
 
 </body>
 </html>
