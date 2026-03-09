@@ -95,19 +95,24 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background-color: var(--s0);
             background-image:
-                /* Subtle diagonal grain — echoes the flag texture */
+                /* Stars field — top-left canton */
+                radial-gradient(ellipse 35% 40% at 3% 8%,
+                    rgba(13,25,41,0.95) 0%, transparent 100%),
+                /* Flag stripes — subtle, diagonal */
                 repeating-linear-gradient(
                     -45deg,
                     transparent, transparent 80px,
-                    rgba(178,34,52,0.022) 80px, rgba(178,34,52,0.008) 81px
+                    rgba(178,34,52,0.028) 80px, rgba(178,34,52,0.010) 81px
                 ),
                 repeating-linear-gradient(
                     45deg,
                     transparent, transparent 120px,
-                    rgba(255,255,255,0.006) 120px, rgba(255,255,255,0.002) 121px
+                    rgba(255,255,255,0.007) 120px, rgba(255,255,255,0.002) 121px
                 ),
-                /* Very subtle crimson vignette from bottom-left — like the flag's darkness */
-                radial-gradient(ellipse 140% 80% at 0% 100%, rgba(120,10,20,0.15) 0%, transparent 60%),
+                /* Deep crimson vignette bottom-left */
+                radial-gradient(ellipse 140% 80% at 0% 100%, rgba(120,10,20,0.18) 0%, transparent 60%),
+                /* Gold warmth top-right — like morning light on the flag */
+                radial-gradient(ellipse 60% 40% at 100% 0%, rgba(201,162,39,0.04) 0%, transparent 70%),
                 linear-gradient(170deg, #0d1929 0%, #0a1220 50%, #080f1a 100%);
             color: var(--cream);
             line-height: 1.6;
@@ -116,6 +121,142 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+
+        /* ═══════════════════════════════════════════════════════════════
+           PATRIOTIC MAXIMIZATION PASS
+           Palette lock: Navy #080f1a · Crimson #B22234 · Gold #C9A227
+           Every orange removed. Stars added. Stripes honored.
+           ═══════════════════════════════════════════════════════════════ */
+
+        /* ── 1. Stars background texture ────────────────────────────── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.018;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Ctext x='20' y='30' font-size='14' fill='%23ffffff' opacity='0.9'%3E%E2%98%85%3C/text%3E%3Ctext x='70' y='65' font-size='10' fill='%23ffffff' opacity='0.7'%3E%E2%98%85%3C/text%3E%3Ctext x='10' y='90' font-size='8' fill='%23ffffff' opacity='0.5'%3E%E2%98%85%3C/text%3E%3Ctext x='90' y='20' font-size='12' fill='%23ffffff' opacity='0.8'%3E%E2%98%85%3C/text%3E%3Ctext x='50' y='110' font-size='9' fill='%23ffffff' opacity='0.6'%3E%E2%98%85%3C/text%3E%3C/svg%3E");
+            background-size: 120px 120px;
+        }
+
+        /* ── 2. Nav — triple stripe top bar ─────────────────────────── */
+        header.fixed::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg,
+                #B22234 0%, #B22234 33.3%,
+                #ffffff 33.3%, #ffffff 66.6%,
+                #0d1929 66.6%, #0d1929 100%);
+            z-index: 10;
+        }
+        header.fixed {
+            position: fixed !important;
+            border-bottom: 1px solid rgba(178,34,52,0.18) !important;
+        }
+
+        /* ── 3. Score hero — crimson left edge ───────────────────────── */
+        #score-hero {
+            border-left: 3px solid rgba(178,34,52,0.4) !important;
+        }
+
+        /* ── 4. Section header num badges — patriot stripe ──────────── */
+        .sec-hdr-num {
+            position: relative;
+            overflow: hidden;
+        }
+        .sec-hdr-num::after {
+            content: '★';
+            position: absolute;
+            bottom: -3px;
+            right: -3px;
+            font-size: 0.45rem;
+            color: rgba(255,255,255,0.25);
+            line-height: 1;
+        }
+
+        /* ── 5. Dashboard cards — subtle left edge glow ─────────────── */
+        .dashboard-card {
+            border-left: 1px solid rgba(178,34,52,0.15) !important;
+        }
+        .dashboard-card:hover {
+            border-left-color: rgba(178,34,52,0.35) !important;
+        }
+
+        /* ── 6. Ladder & hero command strip — crimson active glow ───── */
+        .ladder-rung.active {
+            background: rgba(178,34,52,0.04);
+        }
+
+        /* ── 7. Input focus — gold not blue ──────────────────────────── */
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--gold) !important;
+            box-shadow: 0 0 0 3px rgba(201,162,39,0.10) !important;
+        }
+
+        /* ── 8. Scrollbar — patriot themed ──────────────────────────── */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #080f1a; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #B22234 0%, #C9A227 50%, #0d1929 100%);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #B22234; }
+
+        /* ── 9. Selection color ──────────────────────────────────────── */
+        ::selection {
+            background: rgba(178,34,52,0.4);
+            color: #ffffff;
+        }
+
+        /* ── 10. Score SOVEREIGN — gold star burst ───────────────────── */
+        #score-crown-live.sovereign-active #score-crown-num {
+            text-shadow: 0 0 40px rgba(201,162,39,0.6), 0 0 80px rgba(201,162,39,0.3);
+        }
+
+        /* ── 11. Sec headers — crimson left rule on hover ────────────── */
+        .section-header-bar {
+            border-left: 2px solid transparent;
+            padding-left: 0.5rem;
+            transition: border-color 0.25s;
+        }
+        .section-header-bar:hover {
+            border-left-color: rgba(178,34,52,0.5);
+        }
+
+        /* ── 12. SOVEREIGN rank badge — gold stars flanking text ─────── */
+        .score-rank-sovereign::before,
+        .score-rank-sovereign::after {
+            content: ' ★ ';
+            font-size: 0.6em;
+            opacity: 0.8;
+        }
+
+        /* ── 13. Hero cmd labels — gold dot prefix ───────────────────── */
+        .hero-cmd-label::before {
+            content: '◆ ';
+            font-size: 0.7em;
+            color: rgba(178,34,52,0.7);
+        }
+
+        /* ── 14. Ladder done line — gold stripe ──────────────────────── */
+        .ladder-rung.done .ladder-rung-line {
+            background: linear-gradient(180deg, #C9A227, rgba(201,162,39,0.2)) !important;
+        }
+
+        /* ── 15. Rail — crimson stripe border-top ────────────────────── */
+        #setup-progress-rail {
+            border-top: 2px solid rgba(178,34,52,0.25) !important;
+        }
+        #setup-progress-rail.rail-complete {
+            border-top-color: rgba(201,162,39,0.4) !important;
+        }
+
+        /* ── Patriot: Override Tailwind orange to crimson ────────────── */
+        .text-gold-400, .text-orange-400 { color: #C9A227 !important; }
+        .bg-orange-400, .border-orange-400 { background-color: rgba(201,162,39,0.15) !important; border-color: rgba(201,162,39,0.4) !important; }
 
         /* Typography */
         h1, h2, h3, h4, h5, h6 {
@@ -149,6 +290,35 @@
         }
         #debt-section.dashboard-card::before {
             border-radius: var(--radius-lg);
+        }
+
+        /* Phase-aware section card accent borders */
+        #income-section,
+        #debt-section,
+        #budget-section {
+            border-left: 3px solid rgba(201,162,39,0.35) !important;
+            transition: border-left-color 0.3s !important;
+        }
+        #income-section:hover,
+        #debt-section:hover,
+        #budget-section:hover {
+            border-left-color: rgba(201,162,39,0.65) !important;
+        }
+        #retirement-section,
+        #protection-section {
+            border-left: 3px solid rgba(74,158,107,0.35) !important;
+        }
+        #retirement-section:hover,
+        #protection-section:hover {
+            border-left-color: rgba(74,158,107,0.65) !important;
+        }
+        #sieve-section,
+        #gauges-section {
+            border-left: 3px solid rgba(122,159,212,0.35) !important;
+        }
+        #sieve-section:hover,
+        #gauges-section:hover {
+            border-left-color: rgba(122,159,212,0.65) !important;
         }
 
         .dashboard-card::before {
@@ -256,9 +426,9 @@
 
         @media (min-width: 1024px) {
             .layout-grid {
-                grid-template-columns: 1.75fr 1fr;
-                gap: var(--space-3xl);
-                max-width: 1600px;
+                grid-template-columns: 1.65fr 1fr;
+                gap: var(--space-2xl);
+                max-width: 1560px;
                 margin: 0 auto;
             }
         }
@@ -278,7 +448,15 @@
             opacity: 0.35;
             pointer-events: none;
             transition: opacity 0.6s ease;
+            /* Sticky sidebar — travels with scroll */
+            position: sticky;
+            top: 112px; /* below sticky bar (~56px) + some breathing room */
+            max-height: calc(100vh - 130px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: none; /* Firefox */
         }
+        .layout-right::-webkit-scrollbar { display: none; } /* Chrome/Safari */
         .layout-right.data-ready {
             opacity: 1;
             pointer-events: auto;
@@ -301,7 +479,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             padding: 1rem 0;
-            margin-bottom: var(--space-2xl);
+            margin-bottom: 0;
         }
 
         .summary-metrics {
@@ -1107,9 +1285,9 @@
             #pab-impact { text-align: left !important; }
 
             /* ── Hero ── */
-            .hero-section { min-height: 60vh !important; padding: 2rem 1.25rem !important; }
-            .hero-section h1 { font-size: clamp(3.5rem,18vw,6rem) !important; }
-            .hero-section .hero-subtitle { font-size: 0.7rem !important; }
+            .hero-section { min-height: 16vh !important; max-height: 180px !important; padding: 1.25rem 1rem !important; }
+            .hero-section h1 { font-size: clamp(1.8rem,10vw,2.8rem) !important; }
+            .hero-section .hero-subtitle { font-size: 0.58rem !important; letter-spacing: 0.2em !important; }
             .hero-scroll-cue { display: none; }
 
             /* ── Sticky summary bar ── */
@@ -1220,7 +1398,7 @@
         }
         /* ── Very small phones ── */
         @media (max-width: 390px) {
-            .hero-section h1 { font-size: clamp(2.5rem,15vw,4rem) !important; }
+            .hero-section h1 { font-size: clamp(1.6rem,10vw,2.4rem) !important; }
             .sotu-grid { grid-template-columns: 1fr !important; }
             #strategy-preview-cards { flex-direction: column !important; }
             .debt-table { min-width: 500px; }
@@ -1740,7 +1918,7 @@
         .score-rank-sovereign { background:rgba(74,158,107,0.15)!important; color:#4a9e6b!important; border-color:rgba(74,158,107,0.3)!important; }
         .score-rank-strong    { background:rgba(122,159,212,0.15)!important; color:#7a9fd4!important; border-color:rgba(122,159,212,0.3)!important; }
         .score-rank-stable    { background:rgba(201,162,39,0.15)!important; color:var(--gold)!important; border-color:rgba(201,162,39,0.3)!important; }
-        .score-rank-vulnerable{ background:rgba(201,100,0,0.15)!important; color:#c96400!important; border-color:rgba(201,100,0,0.3)!important; }
+        .score-rank-vulnerable{ background:rgba(178,34,52,0.12)!important; color:#e07080!important; border-color:rgba(178,34,52,0.30)!important; }
         .score-rank-crisis    { background:rgba(178,34,52,0.15)!important; color:#e07080!important; border-color:rgba(178,34,52,0.3)!important; }
 
         /* ── Accordion chevron ───────────────────────────────── */
@@ -1777,7 +1955,7 @@
 
         /* ── OS status colors ────────────────────────────────── */
         .os-status-malware      { color: #e07080 !important; }
-        .os-status-consumer     { color: #c96400 !important; }
+        .os-status-consumer     { color: #e07080 !important; }
         .os-status-transitioning{ color: var(--gold) !important; }
         .os-status-colonial     { color: #4a9e6b !important; }
         .os-status-iron-pot     { color: #6bbf8e !important; }
@@ -5716,6 +5894,58 @@
             }
         }
 
+
+        /* ══ SECTION 06 — THE SIEVE CSS ══════════════════════════════════ */
+        #sieve-section .section-header-bar { border-bottom: 1px solid rgba(122,159,212,0.15); }
+        #sieve-section:hover { border-color: rgba(122,159,212,0.25) !important; }
+
+        .sieve-opp {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.65rem 0.85rem;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .sieve-opp-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
+        .sieve-opp-body { flex: 1; }
+        .sieve-opp-title { font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 600; color: #f5ead0; }
+        .sieve-opp-detail { font-family: Georgia, serif; font-size: 0.72rem; color: rgba(245,234,208,0.55); margin-top: 0.15rem; line-height: 1.5; }
+        .sieve-opp-saving { font-family: 'Oswald', sans-serif; font-size: 0.75rem; font-weight: 700; color: #4a9e6b; flex-shrink: 0; margin-top: 0.05rem; }
+        .sieve-opp.priority { border-color: rgba(201,162,39,0.25); background: rgba(201,162,39,0.04); }
+        .sieve-opp.done { border-color: rgba(74,158,107,0.2); background: rgba(74,158,107,0.03); opacity: 0.7; }
+
+        /* ══ SECTION 07 — THE GAUGES CSS ══════════════════════════════════ */
+        #gauges-section .section-header-bar { border-bottom: 1px solid rgba(212,129,58,0.15); }
+        #gauges-section:hover { border-color: rgba(212,129,58,0.25) !important; }
+
+        .gauges-scenario-btn {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(245,234,208,0.55);
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 8px;
+            padding: 0.75rem 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .gauges-scenario-btn:hover {
+            color: #f5ead0;
+            border-color: rgba(201,162,39,0.3);
+            background: rgba(201,162,39,0.04);
+        }
+        .gauges-scenario-btn.active {
+            color: #C9A227;
+            border-color: rgba(201,162,39,0.45);
+            background: rgba(201,162,39,0.07);
+        }
+
         /* Tax Optimization Premium Lock */
         .tax-optimization-locked {
             position: relative;
@@ -6809,7 +7039,7 @@
             margin-bottom: 0.75rem;
             font-style: italic;
         }
-        .chip-interest-display strong { color: #f97316; font-style: normal; }
+        .chip-interest-display strong { color: #e07080; font-style: normal; }
         .debt-chip-actions {
             display: flex;
             align-items: center;
@@ -6996,7 +7226,7 @@
         }
         .dew-cost-meter-bar {
             height: 100%; border-radius: 2px; width: 0%;
-            background: linear-gradient(90deg, #f97316, #ef4444);
+            background: linear-gradient(90deg, #e07080, #ef4444);
             transition: width 0.5s cubic-bezier(0.34,1.56,0.64,1);
         }
         .dew-cost-meter-text {
@@ -7005,7 +7235,7 @@
         }
         .dew-cost-monthly {
             font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700;
-            color: #f97316; font-style: normal; line-height: 1;
+            color: #e07080; font-style: normal; line-height: 1;
         }
         .dew-cost-yearly { color: rgba(249,115,22,0.5); font-size: 0.68rem; }
 
@@ -7059,7 +7289,7 @@
             font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 700;
             color: rgba(255,255,255,0.82); line-height: 1;
         }
-        .dsb-danger { color: #f97316; }
+        .dsb-danger { color: #e07080; }
         .dsb-warn   { color: #ef4444; }
 
         /* ── Debt table tweaks ── */
@@ -7070,7 +7300,7 @@
             transition: border-left-color 0.3s;
         }
         .debt-row.priority-emergency { border-left-color: #ef4444 !important; }
-        .debt-row.priority-high      { border-left-color: #f97316 !important; }
+        .debt-row.priority-high      { border-left-color: #e07080 !important; }
         .debt-row.priority-medium    { border-left-color: #3b82f6 !important; }
         .debt-row.priority-low       { border-left-color: #22c55e !important; }
 
@@ -7313,7 +7543,7 @@
         }
         .dew-burn-bar-fill {
             height: 100%; width: 0%; border-radius: 2px;
-            background: linear-gradient(90deg,#f97316,#ef4444);
+            background: linear-gradient(90deg,#e07080,#ef4444);
             transition: width 0.5s cubic-bezier(0.34,1.56,0.64,1);
         }
         .dew-burn-label {
@@ -7322,7 +7552,7 @@
         }
         .dew-burn-monthly {
             font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700;
-            color: #f97316; font-style: normal;
+            color: #e07080; font-style: normal;
         }
         .dew-burn-yearly { color: rgba(249,115,22,0.5); font-size: 0.7rem; }
 
@@ -7376,7 +7606,7 @@
             font-family: 'Oswald', sans-serif; font-size: 1.35rem; font-weight: 700;
             color: rgba(255,255,255,0.95); line-height: 1;
         }
-        .dew-sb-danger .dew-sb-val { color: #f97316; }
+        .dew-sb-danger .dew-sb-val { color: #e07080; }
         .dew-sb-warn   .dew-sb-val { color: #ef4444; }
 
         /* Table top actions */
@@ -7417,7 +7647,7 @@
             transition: border-left-color 0.35s;
         }
         .debt-row.priority-emergency { border-left-color: #ef4444 !important; }
-        .debt-row.priority-high      { border-left-color: #f97316 !important; }
+        .debt-row.priority-high      { border-left-color: #e07080 !important; }
         .debt-row.priority-medium    { border-left-color: #3b82f6 !important; }
         .debt-row.priority-low       { border-left-color: #22c55e !important; }
 
@@ -8558,7 +8788,7 @@
         #dib-monthly {
             font-family: 'Oswald', sans-serif;
             font-size: 1.8rem; font-weight: 700;
-            color: #f97316; line-height: 1; letter-spacing: -0.02em;
+            color: #e07080; line-height: 1; letter-spacing: -0.02em;
         }
         .dib-per {
             font-family: 'Oswald', sans-serif;
@@ -8583,7 +8813,7 @@
         }
         .dib-bar-fill {
             width: 100%;
-            background: linear-gradient(180deg, #f97316, #ef4444);
+            background: linear-gradient(180deg, #e07080, #ef4444);
             border-radius: 3px;
             transition: height 0.6s cubic-bezier(0.34,1.56,0.64,1);
             height: 0%;
@@ -9416,11 +9646,170 @@
             animation: heroScoreReveal 0.7s cubic-bezier(0.34,1.3,0.64,1) forwards !important;
         }
 
+        /* ── Hero Command Strip ─────────────────────────────────────── */
+        #hero-command-strip {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .hero-cmd-cell {
+            flex: 1;
+            padding: 1rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            transition: background 0.2s;
+        }
+        .hero-cmd-cell:hover { background: rgba(255,255,255,0.03); }
+        .hero-cmd-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.45rem;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: rgba(201,162,39,0.55);
+        }
+        .hero-cmd-value {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #f5ead0;
+            line-height: 1.2;
+            letter-spacing: 0.01em;
+        }
+        .hero-cmd-sub {
+            font-family: Georgia, serif;
+            font-size: 0.67rem;
+            color: rgba(245,234,208,0.38);
+            font-style: italic;
+            line-height: 1.3;
+        }
+        .hero-cmd-divider {
+            width: 1px;
+            background: rgba(255,255,255,0.06);
+            flex-shrink: 0;
+        }
+
+        /* ── Activation Ladder ──────────────────────────────────────── */
+        #activation-ladder {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            background: rgba(8,15,26,0.6);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+        .ladder-rung {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.18s;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .ladder-rung:last-child { border-bottom: none; }
+        .ladder-rung:hover { background: rgba(255,255,255,0.025); }
+        .ladder-rung-track {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            padding-top: 2px;
+        }
+        .ladder-rung-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.55rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.35);
+            transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+            flex-shrink: 0;
+        }
+        .ladder-rung-line {
+            width: 1.5px;
+            flex: 1;
+            min-height: 14px;
+            background: rgba(255,255,255,0.06);
+            margin-top: 4px;
+            transition: background 0.4s;
+        }
+        .ladder-rung:last-child .ladder-rung-line { display: none; }
+        .ladder-rung-body { flex: 1; min-width: 0; padding-bottom: 2px; }
+        .ladder-rung-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.38);
+            transition: color 0.3s;
+            line-height: 1.3;
+        }
+        .ladder-rung-unlock {
+            font-family: Georgia, serif;
+            font-size: 0.66rem;
+            color: rgba(245,234,208,0.25);
+            font-style: italic;
+            margin-top: 0.15rem;
+            line-height: 1.35;
+            transition: color 0.3s;
+        }
+
+        /* Pending state — default above */
+        /* Active state */
+        .ladder-rung.active .ladder-rung-dot {
+            background: rgba(178,34,52,0.2);
+            border-color: #B22234;
+            color: #e07080;
+            animation: ladder-pulse 2.2s ease-in-out infinite;
+        }
+        .ladder-rung.active .ladder-rung-title { color: #f5ead0; }
+        .ladder-rung.active .ladder-rung-unlock { color: rgba(245,234,208,0.55); font-style: normal; }
+        @keyframes ladder-pulse {
+            0%,100% { box-shadow: 0 0 0 3px rgba(178,34,52,0.15); }
+            50%      { box-shadow: 0 0 0 7px rgba(178,34,52,0.04); }
+        }
+        /* Done state */
+        .ladder-rung.done .ladder-rung-dot {
+            background: rgba(201,162,39,0.15);
+            border-color: #C9A227;
+            color: #C9A227;
+        }
+        .ladder-rung.done .ladder-rung-line { background: rgba(201,162,39,0.3); }
+        .ladder-rung.done .ladder-rung-title { color: rgba(201,162,39,0.7); }
+        .ladder-rung.done .ladder-rung-unlock { color: rgba(201,162,39,0.35); font-style: normal; }
+
+        /* Locked state */
+        .ladder-rung.locked { cursor: default; }
+        .ladder-rung.locked .ladder-rung-dot { opacity: 0.4; }
+        .ladder-rung.locked .ladder-rung-title { color: rgba(255,255,255,0.2); }
+        .ladder-rung.locked .ladder-rung-unlock { color: rgba(255,255,255,0.15); }
+        .ladder-rung.locked:hover { background: transparent; }
+
         /* Responsive: stack on mobile */
         @media (max-width: 640px) {
             #score-crown-live:not(.hidden) { flex-direction: column; gap: 1.5rem; }
             #score-hero-left { min-width: unset; }
             #score-hero #score-crown-num { font-size: 5rem; }
+            #hero-command-strip { flex-direction: column; }
+            .hero-cmd-divider { width: 100%; height: 1px; }
+            #activation-ladder { display: none; }
         }
 
 
@@ -9640,7 +10029,7 @@
 
 /* Priority colors already set — make them more vivid on the left edge */
 .debt-row.priority-emergency { border-left-color: #ef4444 !important; background: rgba(239,68,68,0.03) !important; }
-.debt-row.priority-high      { border-left-color: #f97316 !important; }
+.debt-row.priority-high      { border-left-color: #e07080 !important; }
 .debt-row.priority-medium    { border-left-color: #3b82f6 !important; }
 .debt-row.priority-low       { border-left-color: #22c55e !important; }
 
@@ -9835,7 +10224,7 @@
 }
 
 #war-mode-banner .text-red-400  { color: #e07080 !important; }
-#war-mode-banner .text-orange-400 { color: #C9A227 !important; }
+#war-mode-banner .text-gold-400 { color: #C9A227 !important; }
 #war-mode-banner .text-green-400 { color: #4a9e6b !important; }
 #war-mode-banner .text-gray-400 {
     font-family: 'Oswald', sans-serif !important;
@@ -10668,7 +11057,7 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
 }
 
 #war-mode-banner .text-red-400    { color: #e07080 !important; -webkit-text-fill-color: #e07080 !important; }
-#war-mode-banner .text-orange-400 { color: #C9A227 !important; -webkit-text-fill-color: #C9A227 !important; }
+#war-mode-banner .text-gold-400 { color: #C9A227 !important; -webkit-text-fill-color: #C9A227 !important; }
 #war-mode-banner .text-green-400  { color: #4a9e6b !important; -webkit-text-fill-color: #4a9e6b !important; }
 
 /* Status line at bottom */
@@ -11402,7 +11791,325 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
     margin-top: 3px !important;
 }
 
-</style>
+
+        /* ══════════════════════════════════════════════════════════════════
+           ACADEMY PHASE MAP — sidebar card
+        ══════════════════════════════════════════════════════════════════ */
+        .phase-map-card {
+            background: linear-gradient(160deg, rgba(13,25,41,0.95), rgba(8,15,26,0.98));
+            border: 1px solid rgba(201,162,39,0.18);
+            border-radius: 12px;
+            padding: 1.25rem;
+            overflow: hidden;
+            position: relative;
+        }
+        .phase-map-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(201,162,39,0.5), rgba(178,34,52,0.4), transparent);
+        }
+        .phase-map-eyebrow {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.46rem;
+            font-weight: 700;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: rgba(201,162,39,0.55);
+            margin-bottom: 0.2rem;
+        }
+        .phase-map-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(245,234,208,0.9);
+            margin-bottom: 1rem;
+            padding-bottom: 0.65rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .phase-block {
+            margin-bottom: 0.85rem;
+        }
+        .phase-block:last-child { margin-bottom: 0; }
+        .phase-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.44rem;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .phase-label-line {
+            flex: 1;
+            height: 1px;
+            opacity: 0.3;
+        }
+        .phase-label.ph1 { color: rgba(74,158,107,0.8); }
+        .phase-label.ph1 .phase-label-line { background: rgba(74,158,107,0.5); }
+        .phase-label.ph2 { color: rgba(122,159,212,0.7); }
+        .phase-label.ph2 .phase-label-line { background: rgba(122,159,212,0.4); }
+        .phase-label.ph3 { color: rgba(178,34,52,0.6); }
+        .phase-label.ph3 .phase-label-line { background: rgba(178,34,52,0.4); }
+        .phase-pillars {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.3rem;
+        }
+        .pillar-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.5rem;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            transition: all 0.25s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+        .pillar-chip.unlocked {
+            background: rgba(74,158,107,0.1);
+            border-color: rgba(74,158,107,0.25);
+        }
+        .pillar-chip.active {
+            background: rgba(201,162,39,0.1);
+            border-color: rgba(201,162,39,0.3);
+            box-shadow: 0 0 8px rgba(201,162,39,0.08);
+        }
+        .pillar-chip.active::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 60%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(201,162,39,0.06), transparent);
+            animation: pillar-shimmer 2.4s ease-in-out infinite;
+        }
+        @keyframes pillar-shimmer {
+            0% { left: -60%; }
+            100% { left: 160%; }
+        }
+        .pillar-chip.locked {
+            background: rgba(255,255,255,0.02);
+            border-color: rgba(255,255,255,0.05);
+            opacity: 0.45;
+        }
+        .pillar-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.45rem;
+            font-weight: 700;
+        }
+        .pillar-chip.unlocked .pillar-dot {
+            background: rgba(74,158,107,0.25);
+            color: #4a9e6b;
+        }
+        .pillar-chip.active .pillar-dot {
+            background: rgba(201,162,39,0.2);
+            color: #C9A227;
+        }
+        .pillar-chip.locked .pillar-dot {
+            background: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.25);
+        }
+        .pillar-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+        .pillar-chip.unlocked .pillar-name { color: rgba(245,234,208,0.85); }
+        .pillar-chip.active .pillar-name { color: rgba(201,162,39,0.95); }
+        .pillar-chip.locked .pillar-name { color: rgba(255,255,255,0.3); }
+        .phase-map-footer {
+            margin-top: 0.9rem;
+            padding-top: 0.7rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .phase-map-progress-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.5rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+        .phase-map-progress-text strong {
+            color: rgba(201,162,39,0.8);
+        }
+        .phase-map-lock-note {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.44rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(178,34,52,0.55);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        
+        /* ══════════════════════════════════════════════════════════════════
+           LAYOUT REDESIGN — v14 Phase Build
+        ══════════════════════════════════════════════════════════════════ */
+
+        /* ── Sticky bar trinity redesign ─────────────────────────────── */
+        .summary-metrics-trinity {
+            display: grid !important;
+            grid-template-columns: 1fr 1.4fr 1fr !important;
+            gap: 0 !important;
+            max-width: 900px !important;
+            margin: 0 auto !important;
+            padding: 0 2rem !important;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .summary-metric-income { border-right: 1px solid rgba(255,255,255,0.07); }
+        .summary-metric-score  { background: rgba(201,162,39,0.04) !important; }
+        .summary-metric-surplus{ border-left:  1px solid rgba(255,255,255,0.07); }
+        .summary-metric-score .summary-metric-value { color: #C9A227 !important; font-size: 1.6rem !important; }
+        .summary-metric-income .summary-metric-value { color: #4a9e6b !important; }
+        .summary-metric-surplus .summary-metric-value { color: #C9A227 !important; }
+
+        /* Secondary metrics row */
+        .sticky-secondary-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 0.35rem 2rem 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .sticky-sec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: opacity 0.2s;
+        }
+        .sticky-sec-item:hover { opacity: 0.8; }
+        .sticky-sec-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.44rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+        .sticky-sec-val {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.65);
+        }
+        .sticky-sec-divider {
+            color: rgba(255,255,255,0.15);
+            font-size: 0.6rem;
+        }
+        .financial-summary-sticky {
+            padding-bottom: 0.6rem !important;
+        }
+
+        /* ── Phase chapter dividers ───────────────────────────────────── */
+        .phase-chapter-divider {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin: 2.5rem 0 1.5rem;
+            padding: 0 0.25rem;
+        }
+        .phase-chapter-first {
+            margin-top: 0;
+        }
+        .phase-chapter-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+        }
+        .phase-chapter-label {
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .phase-chapter-num {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.44rem;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.28);
+        }
+        .phase-chapter-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+        }
+        .phase-chapter-desc {
+            font-family: Georgia, serif;
+            font-size: 0.62rem;
+            font-style: italic;
+            color: rgba(245,234,208,0.28);
+        }
+        /* Phase-specific name colors */
+        #chapter-foundation .phase-chapter-name { color: rgba(201,162,39,0.65); }
+        #chapter-defense    .phase-chapter-name { color: rgba(74,158,107,0.65); }
+        #chapter-optimization .phase-chapter-name { color: rgba(122,159,212,0.65); }
+        #chapter-foundation .phase-chapter-line { background: linear-gradient(90deg, transparent, rgba(201,162,39,0.15), transparent); }
+        #chapter-defense    .phase-chapter-line { background: linear-gradient(90deg, transparent, rgba(74,158,107,0.15), transparent); }
+        #chapter-optimization .phase-chapter-line { background: linear-gradient(90deg, transparent, rgba(122,159,212,0.15), transparent); }
+
+        /* ── Score hero — lift slightly to sit closer to sticky bar ──── */
+        #score-hero {
+            margin-top: 1.5rem !important;
+        }
+
+        /* ── Hero section compact overrides ──────────────────────────── */
+        .hero-section { padding-bottom: 0 !important; }
+        @media (max-width: 768px) {
+            .hero-section { min-height: 18vh !important; max-height: 200px !important; }
+            .phase-chapter-divider { margin: 1.5rem 0 1rem; }
+            .summary-metrics-trinity { max-width: 100% !important; }
+            .sticky-secondary-row { gap: 0.5rem; }
+        }
+
+        /* ── Sidebar sticky override for mobile ──────────────────────── */
+        @media (max-width: 1023px) {
+            .layout-right {
+                position: static !important;
+                max-height: none !important;
+                overflow-y: visible !important;
+            }
+        }
+
+        /* ── Activation ladder — compact now that phase labels do the work */
+        #activation-ladder {
+            background: rgba(255,255,255,0.015);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+
+        </style>
 </head>
 <body class="text-white font-sans selection:bg-crimson flex flex-col min-h-screen">
     
@@ -11460,7 +12167,7 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="flex flex-col group">
                 <span style="font-family: 'Great Vibes';" class="text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
-                <span class="font-heading text-[10px] tracking-[0.4em] text-gray-400 uppercase mt-1 font-bold">Discipline • Autonomy • Wealth</span>
+                <span style="font-family:'Oswald',sans-serif; font-size:0.5rem; font-weight:800; letter-spacing:0.45em; text-transform:uppercase; margin-top:0.2rem; background: linear-gradient(90deg, #B22234 0%, #ffffff 40%, #C9A227 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">★ Discipline &nbsp;·&nbsp; Autonomy &nbsp;·&nbsp; Wealth ★</span>
             </a>
             <div class="flex items-center space-x-4">
                 <span id="autosave-indicator" style="font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.12em;color:#4a9e6b;opacity:0;transition:opacity 0.4s ease;display:flex;align-items:center;gap:4px;">
@@ -11480,18 +12187,20 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
         </nav>
     </header>
 
-    <section id="hero-section" class="hero-section pb-16" style="
-        min-height: 80vh;
+    <section id="hero-section" class="hero-section" style="
+        min-height: 22vh;
+        max-height: 280px;
         display: flex;
         align-items: center;
         justify-content: center;
         background:
-            linear-gradient(rgba(8,15,26,0.80), rgba(8,15,26,0.90)),
+            linear-gradient(rgba(8,15,26,0.72), rgba(8,15,26,0.88)),
             url('https://realamericanfinance.com/flag_distressed.jpg');
         background-size: cover;
-        background-position: center;
+        background-position: center top;
         position: relative;
         overflow: hidden;
+        padding: 2rem 1rem;
     ">
         <!-- Subtle crimson vignette at bottom -->
         <div style="
@@ -11515,19 +12224,22 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
                 font-weight: 700;
                 text-transform: uppercase;
                 letter-spacing: 0.45em;
-                color: rgba(178,34,52,0.85);
+                background: linear-gradient(90deg, #B22234 0%, #ffffff 45%, #C9A227 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
                 margin-bottom: 1.25rem;
-            ">Real American Finance</div>
+            ">★ Real American Finance ★</div>
 
             <!-- Main heading -->
             <h1 style="
                 font-family: 'Oswald', sans-serif;
-                font-size: clamp(4rem, 12vw, 8rem);
+                font-size: clamp(2.4rem, 7vw, 4.5rem);
                 font-weight: 900;
                 line-height: 0.9;
                 letter-spacing: -0.03em;
                 color: #ffffff;
-                margin-bottom: 1.5rem;
+                margin-bottom: 0.75rem;
                 text-shadow: 0 4px 40px rgba(0,0,0,0.5);
             ">THE LAB</h1>
 
@@ -11539,60 +12251,60 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
                 text-transform: uppercase;
                 letter-spacing: 0.35em;
                 color: rgba(255,255,255,0.45);
-                margin-bottom: 2.5rem;
+                margin-bottom: 1rem;
             ">Know your numbers. Break your chains. Build your moat.</div>
 
-            <!-- Scroll cue -->
-            <div class="hero-scroll-cue" style="
-                font-family: 'Oswald', sans-serif;
-                font-size: 0.52rem;
-                letter-spacing: 0.3em;
-                text-transform: uppercase;
-                color: rgba(255,255,255,0.2);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 0.75rem;
-            ">
-                <span style="width:40px;height:1px;background:rgba(255,255,255,0.15);display:inline-block;"></span>
-                Scroll to begin
-                <span style="width:40px;height:1px;background:rgba(255,255,255,0.15);display:inline-block;"></span>
-            </div>
+
         </div>
     </section>
 
-    <main class="container mx-auto px-4 md:px-6 py-6 md:py-10 flex-1">
+    <main class="container mx-auto px-4 md:px-6 py-3 md:py-5 flex-1">
         
+        <!-- Ghost elements so JS writes don't break — hidden from view -->
+        <div style="display:none;">
+            <span id="sticky-savings-rate">0%</span>
+            <span id="sticky-dti">0%</span>
+            <span id="sticky-years">--</span>
+        </div>
+
         <div class="financial-summary-sticky">
-            <div class="summary-metrics">
-                <div class="summary-metric" onclick="showMetricModal('income')" style="cursor:pointer;" title="What is this?">
-                    <div class="summary-metric-label">Income</div>
-                    <div class="summary-metric-value text-green-400" id="sticky-income">$0</div>
+            <div class="summary-metrics summary-metrics-trinity">
+                <div class="summary-metric summary-metric-income" onclick="showMetricModal('income')" style="cursor:pointer;" title="Monthly take-home">
+                    <div class="summary-metric-label">Harvest</div>
+                    <div class="summary-metric-value" id="sticky-income">$0</div>
                 </div>
-                <div class="summary-metric" onclick="showMetricModal('surplus')" style="cursor:pointer;" title="What is this?">
+                <div class="summary-metric summary-metric-score" onclick="toggleScoreInfo()" style="cursor:pointer;" title="Your Sovereign Score">
+                    <div class="summary-metric-label">Sovereign Score</div>
+                    <div class="summary-metric-value" id="sticky-score">--</div>
+                </div>
+                <div class="summary-metric summary-metric-surplus" onclick="showMetricModal('surplus')" style="cursor:pointer;" title="Monthly surplus">
                     <div class="summary-metric-label" id="surplus-label">Undeployed</div>
                     <div class="summary-metric-value" id="sticky-surplus">$0</div>
                 </div>
-                <div class="summary-metric" onclick="toggleScoreInfo()" style="cursor:pointer;" title="What is this?">
-                    <div class="summary-metric-label">Colonial OS Score</div>
-                    <div class="summary-metric-value text-yellow-400" id="sticky-score">--</div>
-                </div>
-                <div class="summary-metric" onclick="showMetricModal('debt')" style="cursor:pointer;" title="What is this?">
-                    <div class="summary-metric-label">Chains (Debt)</div>
-                    <div class="summary-metric-value text-red-400" id="sticky-debt">$0</div>
-                </div>
-                <div class="summary-metric mobile-hide" onclick="showMetricModal('savings')" style="cursor:pointer;" title="What is this?">
-                    <div class="summary-metric-label">Savings Rate</div>
-                    <div class="summary-metric-value text-blue-400" id="sticky-savings-rate">0%</div>
-                </div>
-                <div class="summary-metric mobile-hide" onclick="showMetricModal('dti')" style="cursor:pointer;" title="What is this?">
-                    <div class="summary-metric-label">DTI</div>
-                    <div class="summary-metric-value text-purple-400" id="sticky-dti">0%</div>
-                </div>
+            </div>
+            <!-- Secondary metrics row — compact, always visible below trinity -->
+            <div class="sticky-secondary-row">
+                <span class="sticky-sec-item" onclick="showMetricModal('debt')" style="cursor:pointer;">
+                    <span class="sticky-sec-label">Debt</span>
+                    <span class="sticky-sec-val" id="sticky-debt">$0</span>
+                </span>
+                <span class="sticky-sec-divider">·</span>
+                <span class="sticky-sec-item" onclick="showMetricModal('dti')" style="cursor:pointer;">
+                    <span class="sticky-sec-label">DTI</span>
+                    <span class="sticky-sec-val" id="sticky-dti-visible">0%</span>
+                </span>
+                <span class="sticky-sec-divider">·</span>
+                <span class="sticky-sec-item" onclick="showMetricModal('savings')" style="cursor:pointer;">
+                    <span class="sticky-sec-label">Savings Rate</span>
+                    <span class="sticky-sec-val" id="sticky-savings-visible">0%</span>
+                </span>
             </div>
         </div>
 
 
+
+        <!-- Flag stripe divider -->
+        <div style="width:100%; height:4px; background:linear-gradient(90deg, #B22234 0%, #B22234 33%, #ffffff 33%, #ffffff 66%, #0d2a5e 66%, #0d2a5e 100%); opacity:0.55;"></div>
 
         <!-- ══════════════════════════════════════════════════════
              SCORE HERO — Full-width anchor, above all content
@@ -11611,13 +12323,32 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
             <!-- Live state: after income entered -->
             <div id="score-crown-live" class="hidden">
                 <div id="score-hero-left">
-                    <div id="score-crown-eyebrow">Sovereign Score</div>
-                    <div id="score-crown-num">—<span id="score-crown-denom">/100</span></div>
-                    <div id="score-crown-rank">—</div>
+                    <div id="score-crown-eyebrow">★ Sovereign Score ★</div>
+                    <div id="score-crown-num">--<span id="score-crown-denom">/100</span></div>
+                    <div id="score-crown-rank">--</div>
                     <div id="score-crown-bar"><div id="score-crown-bar-fill" style="width:0%"></div></div>
                 </div>
                 <div id="score-hero-right">
-                    <div id="trajectory-panel">
+                    <div id="hero-command-strip">
+                        <div class="hero-cmd-cell">
+                            <div class="hero-cmd-label">YOUR MOVE</div>
+                            <div class="hero-cmd-value" id="hero-cmd-move-val">--</div>
+                            <div class="hero-cmd-sub" id="hero-cmd-move-sub">enter income to begin</div>
+                        </div>
+                        <div class="hero-cmd-divider"></div>
+                        <div class="hero-cmd-cell">
+                            <div class="hero-cmd-label">BIGGEST GAP</div>
+                            <div class="hero-cmd-value" id="hero-cmd-gap-val">--</div>
+                            <div class="hero-cmd-sub" id="hero-cmd-gap-sub">score component</div>
+                        </div>
+                        <div class="hero-cmd-divider"></div>
+                        <div class="hero-cmd-cell">
+                            <div class="hero-cmd-label">SURPLUS</div>
+                            <div class="hero-cmd-value" id="hero-cmd-surplus-val">--</div>
+                            <div class="hero-cmd-sub" id="hero-cmd-surplus-sub">monthly deployable</div>
+                        </div>
+                    </div>
+                    <div id="trajectory-panel" style="display:none;">
                         <div class="trajectory-label">AT YOUR CURRENT TRAJECTORY</div>
                         <div id="trajectory-lines"></div>
                     </div>
@@ -11625,11 +12356,97 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
             </div>
 
         </div><!-- /score-hero -->
+        <div style="width:100%; height:2px; margin-bottom:0; background:linear-gradient(90deg, transparent 0%, rgba(178,34,52,0.3) 20%, rgba(201,162,39,0.4) 50%, rgba(178,34,52,0.3) 80%, transparent 100%);"></div>
 
-        <div class="layout-grid">
+        <div class="layout-grid" style="margin-top:2rem;">
 
         <div class="layout-left">
-                
+
+                <!-- ── PHASE 01 LABEL ─────────────────────────────────── -->
+                <div class="phase-chapter-divider phase-chapter-first" id="chapter-foundation">
+                    <div class="phase-chapter-line"></div>
+                    <div class="phase-chapter-label">
+                        <span class="phase-chapter-num">Phase 01</span>
+                        <span class="phase-chapter-name">Foundation</span>
+                        <span class="phase-chapter-desc">Know your numbers</span>
+                    </div>
+                    <div class="phase-chapter-line"></div>
+                </div>
+
+                <!-- Activation Ladder -->
+                <div id="activation-ladder">
+                    <div class="ladder-rung active" id="ladder-rung-1" onclick="scrollToSection('income-section')">
+                        <div class="ladder-rung-track">
+                            <div class="ladder-rung-dot" id="ladder-dot-1">01</div>
+                            <div class="ladder-rung-line"></div>
+                        </div>
+                        <div class="ladder-rung-body">
+                            <div class="ladder-rung-title">Your Harvest</div>
+                            <div class="ladder-rung-unlock" id="ladder-unlock-1">Unlocks: Sovereign Score + surplus calculation</div>
+                        </div>
+                    </div>
+                    <div class="ladder-rung locked" id="ladder-rung-2" onclick="scrollToSection('debt-section')">
+                        <div class="ladder-rung-track">
+                            <div class="ladder-rung-dot" id="ladder-dot-2">02</div>
+                            <div class="ladder-rung-line"></div>
+                        </div>
+                        <div class="ladder-rung-body">
+                            <div class="ladder-rung-title">Your Chains</div>
+                            <div class="ladder-rung-unlock" id="ladder-unlock-2">Unlocks: Payoff timeline + War Mode</div>
+                        </div>
+                    </div>
+                    <div class="ladder-rung locked" id="ladder-rung-3" onclick="scrollToSection('budget-section')">
+                        <div class="ladder-rung-track">
+                            <div class="ladder-rung-dot" id="ladder-dot-3">03</div>
+                            <div class="ladder-rung-line"></div>
+                        </div>
+                        <div class="ladder-rung-body">
+                            <div class="ladder-rung-title">Your Split</div>
+                            <div class="ladder-rung-unlock" id="ladder-unlock-3">Unlocks: Harvest ring + 50/30/20 analysis</div>
+                        </div>
+                    </div>
+                    <div class="ladder-rung locked" id="ladder-rung-4" onclick="scrollToSection('retirement-section')">
+                        <div class="ladder-rung-track">
+                            <div class="ladder-rung-dot" id="ladder-dot-4">04</div>
+                            <div class="ladder-rung-line"></div>
+                        </div>
+                        <div class="ladder-rung-body">
+                            <div class="ladder-rung-title">Iron Pot Horizon</div>
+                            <div class="ladder-rung-unlock" id="ladder-unlock-4">Unlocks: FIRE number + retirement trajectory</div>
+                        </div>
+                    </div>
+                    <div class="ladder-rung locked" id="ladder-rung-5" onclick="scrollToSection('protection-section')">
+                        <div class="ladder-rung-track">
+                            <div class="ladder-rung-dot" id="ladder-dot-5">05</div>
+                            <div class="ladder-rung-line"></div>
+                        </div>
+                        <div class="ladder-rung-body">
+                            <div class="ladder-rung-title">Protection Shield</div>
+                            <div class="ladder-rung-unlock" id="ladder-unlock-5">Unlocks: Full Sovereign Score + complete Playbook</div>
+                        </div>
+                    </div>
+                    <div class="ladder-rung locked" id="ladder-rung-6" onclick="scrollToSection('sieve-section')">
+                        <div class="ladder-rung-track">
+                            <div class="ladder-rung-dot" id="ladder-dot-6">06</div>
+                            <div class="ladder-rung-line"></div>
+                        </div>
+                        <div class="ladder-rung-body">
+                            <div class="ladder-rung-title">The Sieve</div>
+                            <div class="ladder-rung-unlock" id="ladder-unlock-6">Unlocks: Tax Efficiency score + bracket optimization</div>
+                        </div>
+                    </div>
+                    <div class="ladder-rung locked" id="ladder-rung-7" onclick="scrollToSection('gauges-section')">
+                        <div class="ladder-rung-track">
+                            <div class="ladder-rung-dot" id="ladder-dot-7">07</div>
+                            <div class="ladder-rung-line" style="display:none;"></div>
+                        </div>
+                        <div class="ladder-rung-body">
+                            <div class="ladder-rung-title">The Gauges</div>
+                            <div class="ladder-rung-unlock" id="ladder-unlock-7">Unlocks: Scenario stress tests + siege protocol</div>
+                        </div>
+                    </div>
+                </div>
+
                 <section class="dashboard-card income-awaiting" style="padding: 2rem;" id="income-section">
                     <div class="section-header-bar">
                         <div class="sec-hdr-left">
@@ -12050,7 +12867,7 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
                             </div>
                             <div class="bg-black/30 p-3 rounded">
                                 <div class="text-xs text-gray-400 mb-1">Monthly Chain Attack</div>
-                                <div id="war-monthly-attack" class="text-xl font-bold text-orange-400">$0</div>
+                                <div id="war-monthly-attack" class="text-xl font-bold text-gold-400">$0</div>
                             </div>
                             <div class="bg-black/30 p-3 rounded">
                                 <div class="text-xs text-gray-400 mb-1">Liberation Date</div>
@@ -12112,6 +12929,17 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
                          so users can fill these in before the sidebar is revealed. -->
                     
                 </section>
+
+        <!-- ── PHASE DIVIDER: FOUNDATION → DEFENSE ────────────────── -->
+        <div class="phase-chapter-divider" id="chapter-defense">
+            <div class="phase-chapter-line"></div>
+            <div class="phase-chapter-label">
+                <span class="phase-chapter-num">Phase 02</span>
+                <span class="phase-chapter-name">Defense</span>
+                <span class="phase-chapter-desc">Protect what you've built</span>
+            </div>
+            <div class="phase-chapter-line"></div>
+        </div>
 
         <!-- ══ SECTION 04: RETIREMENT TARGET ═══════════════════════════ -->
         <section class="dashboard-card" style="padding:2.5rem;" id="retirement-section">
@@ -12385,6 +13213,164 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
         </section>
         <!-- ══ END SECTION 05 ══════════════════════════════════════════ -->
 
+        <!-- ── PHASE DIVIDER: DEFENSE → OPTIMIZATION ───────────────── -->
+        <div class="phase-chapter-divider" id="chapter-optimization">
+            <div class="phase-chapter-line"></div>
+            <div class="phase-chapter-label">
+                <span class="phase-chapter-num">Phase 03</span>
+                <span class="phase-chapter-name">Optimization</span>
+                <span class="phase-chapter-desc">Maximize every dollar</span>
+            </div>
+            <div class="phase-chapter-line"></div>
+        </div>
+
+        <!-- ══ SECTION 06 — THE SIEVE ════════════════════════════════════ -->
+        <section class="dashboard-card" style="padding:2.5rem;" id="sieve-section">
+            <div class="section-header-bar" onclick="toggleSection('sieve-section')">
+                <div class="sec-hdr-left">
+                    <div class="sec-hdr-num" style="background:linear-gradient(135deg,#7a9fd4,#3a5f8a);">06</div>
+                    <div>
+                        <div class="sec-hdr-title">THE SIEVE</div>
+                        <div class="sec-hdr-subtitle">TAX OPTIMIZATION · RETAIN YOUR MARGIN</div>
+                        <div id="sieve-section-collapsed-summary" class="section-collapsed-summary"></div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down section-chevron" id="sieve-section-chevron"></i>
+            </div>
+            <div class="section-body collapsed" id="sieve-section-body">
+                <p style="font-family:Georgia,serif;font-size:0.82rem;color:rgba(245,234,208,0.5);font-style:italic;margin-bottom:1.5rem;line-height:1.6;">"Structural efficiency — treat the IRS as a business expense to be legally minimized for maximum surplus retention." — Ch. 6</p>
+                <div class="prot-grid" style="margin-bottom:1.25rem;">
+                    <div class="prot-field">
+                        <div class="prot-label">FILING STATUS</div>
+                        <select id="sieve-filing-status" class="input-underlined" style="margin-top:0.35rem;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.15);color:#f5ead0;font-family:'Oswald',sans-serif;font-size:0.82rem;width:100%;outline:none;padding:0.2rem 0;" onchange="window._sieveVisited=true;debouncedCalculateAll();updateSievePanel()">
+                            <option value="single">Single</option>
+                            <option value="mfj" selected>Married Filing Jointly</option>
+                            <option value="mfs">Married Filing Separately</option>
+                            <option value="hoh">Head of Household</option>
+                        </select>
+                    </div>
+                    <div class="prot-field">
+                        <div class="prot-label">INCOME TYPE</div>
+                        <select id="sieve-income-type" class="input-underlined" style="margin-top:0.35rem;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.15);color:#f5ead0;font-family:'Oswald',sans-serif;font-size:0.82rem;width:100%;outline:none;padding:0.2rem 0;" onchange="window._sieveVisited=true;debouncedCalculateAll();updateSievePanel()">
+                            <option value="w2" selected>W-2 Employee</option>
+                            <option value="self">Self-Employed / 1099</option>
+                            <option value="mixed">Mixed (W-2 + Self-Employed)</option>
+                            <option value="business">Business Owner</option>
+                        </select>
+                    </div>
+                    <div class="prot-field">
+                        <div class="prot-label">OTHER ANNUAL INCOME</div>
+                        <div class="currency-input-container" style="margin-top:0.35rem;">
+                            <input type="text" id="sieve-other-income" placeholder="0" class="input-underlined" oninput="window._sieveVisited=true;formatCurrencyInput(this);debouncedCalculateAll();updateSievePanel()">
+                        </div>
+                        <div class="prot-sub">Side income, dividends, rental</div>
+                    </div>
+                </div>
+                <div id="sieve-no-income" style="font-family:Georgia,serif;font-size:0.82rem;color:rgba(245,234,208,0.35);font-style:italic;text-align:center;padding:1.5rem 0;">Enter your income to see your tax optimization picture.</div>
+                <div id="sieve-results-panel" style="display:none;">
+                    <div style="background:rgba(122,159,212,0.06);border:1px solid rgba(122,159,212,0.15);border-radius:8px;padding:1rem 1.25rem;margin-bottom:1rem;">
+                        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:0.75rem;">
+                            <div>
+                                <div class="prot-label">EST. TAXABLE INCOME</div>
+                                <div style="font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;color:#f5ead0;" id="sieve-gross-income">--</div>
+                            </div>
+                            <div>
+                                <div class="prot-label">MARGINAL BRACKET</div>
+                                <div style="font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;" id="sieve-marginal-bracket">--</div>
+                            </div>
+                            <div>
+                                <div class="prot-label">EST. EFFECTIVE RATE</div>
+                                <div style="font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;" id="sieve-effective-rate">--</div>
+                            </div>
+                        </div>
+                        <div style="font-family:Georgia,serif;font-size:0.72rem;color:rgba(245,234,208,0.4);font-style:italic;" id="sieve-bracket-context"></div>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div class="prot-category-label" style="margin-bottom:0.75rem;">OPTIMIZATION OPPORTUNITIES</div>
+                        <div id="sieve-opportunities" style="display:flex;flex-direction:column;gap:0.5rem;"></div>
+                    </div>
+                    <div id="sieve-se-alert" class="prot-alert alert-warn" style="display:none;"></div>
+                    <div id="sieve-savings-bar" style="display:none;background:rgba(74,158,107,0.06);border:1px solid rgba(74,158,107,0.2);border-radius:8px;padding:0.85rem 1.1rem;margin-top:0.75rem;">
+                        <div style="font-family:'Oswald',sans-serif;font-size:0.45rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(74,158,107,0.7);margin-bottom:0.3rem;">ESTIMATED ANNUAL TAX SAVINGS — ALL OPPORTUNITIES</div>
+                        <div style="font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:700;color:#4a9e6b;" id="sieve-total-savings">--</div>
+                        <div style="font-family:Georgia,serif;font-size:0.68rem;color:rgba(245,234,208,0.35);font-style:italic;margin-top:0.25rem;">Estimate based on your marginal rate. Consult a CPA for your exact situation.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ══ END SECTION 06 ══════════════════════════════════════════ -->
+
+        <!-- ══ SECTION 07 — THE GAUGES ════════════════════════════════════ -->
+        <section class="dashboard-card" style="padding:2.5rem;" id="gauges-section">
+            <div class="section-header-bar" onclick="toggleSection('gauges-section')">
+                <div class="sec-hdr-left">
+                    <div class="sec-hdr-num" style="background:linear-gradient(135deg,#d4813a,#8a4a10);">07</div>
+                    <div>
+                        <div class="sec-hdr-title">THE GAUGES</div>
+                        <div class="sec-hdr-subtitle">SCENARIO PLANNING · STRESS TEST YOUR PLAN</div>
+                        <div id="gauges-section-collapsed-summary" class="section-collapsed-summary"></div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down section-chevron" id="gauges-section-chevron"></i>
+            </div>
+            <div class="section-body collapsed" id="gauges-section-body">
+                <p style="font-family:Georgia,serif;font-size:0.82rem;color:rgba(245,234,208,0.5);font-style:italic;margin-bottom:1.5rem;line-height:1.6;">"Panic is a tax on the unprepared. Paul Revere kept cash not because he was rich — because cash enabled options when others had none." — Ch. 4</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.65rem;margin-bottom:1.5rem;">
+                    <button class="gauges-scenario-btn active" id="gsb-jobloss" onclick="gaugesSelectScenario('jobloss',this)"><div style="font-size:1.1rem;margin-bottom:0.2rem;">&#9888;</div><div>Job Loss</div><div style="font-size:0.58rem;opacity:0.55;margin-top:0.15rem;">100% income stop</div></button>
+                    <button class="gauges-scenario-btn" id="gsb-incomecut" onclick="gaugesSelectScenario('incomecut',this)"><div style="font-size:1.1rem;margin-bottom:0.2rem;">&#128201;</div><div>Income Cut</div><div style="font-size:0.58rem;opacity:0.55;margin-top:0.15rem;">Partial reduction</div></button>
+                    <button class="gauges-scenario-btn" id="gsb-emergency" onclick="gaugesSelectScenario('emergency',this)"><div style="font-size:1.1rem;margin-bottom:0.2rem;">&#127973;</div><div>Emergency</div><div style="font-size:0.58rem;opacity:0.55;margin-top:0.15rem;">Large one-time cost</div></button>
+                    <button class="gauges-scenario-btn" id="gsb-custom" onclick="gaugesSelectScenario('custom',this)"><div style="font-size:1.1rem;margin-bottom:0.2rem;">&#127897;</div><div>Custom</div><div style="font-size:0.58rem;opacity:0.55;margin-top:0.15rem;">Build your own</div></button>
+                </div>
+                <div id="gauges-custom-controls" style="display:none;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:1rem;margin-bottom:1rem;">
+                    <div class="prot-grid">
+                        <div class="prot-field">
+                            <div class="prot-label">INCOME CHANGE</div>
+                            <div style="display:flex;align-items:center;gap:0.75rem;margin-top:0.5rem;">
+                                <input type="range" id="gauges-income-pct" min="-100" max="100" value="-50" style="flex:1;accent-color:#C9A227;" oninput="document.getElementById('gauges-income-pct-val').textContent=this.value+'%';gaugesRun()">
+                                <span id="gauges-income-pct-val" style="font-family:'Oswald',sans-serif;font-size:0.85rem;color:#C9A227;min-width:3rem;text-align:right;">-50%</span>
+                            </div>
+                        </div>
+                        <div class="prot-field">
+                            <div class="prot-label">ONE-TIME EXPENSE</div>
+                            <div class="currency-input-container" style="margin-top:0.35rem;">
+                                <input type="text" id="gauges-oneoff-expense" placeholder="0" class="input-underlined" oninput="formatCurrencyInput(this);gaugesRun()">
+                            </div>
+                        </div>
+                        <div class="prot-field">
+                            <div class="prot-label">EXPENSE INCREASE</div>
+                            <div style="display:flex;align-items:center;gap:0.75rem;margin-top:0.5rem;">
+                                <input type="range" id="gauges-expense-pct" min="0" max="100" value="20" style="flex:1;accent-color:#B22234;" oninput="document.getElementById('gauges-expense-pct-val').textContent=this.value+'%';gaugesRun()">
+                                <span id="gauges-expense-pct-val" style="font-family:'Oswald',sans-serif;font-size:0.85rem;color:#e07080;min-width:3rem;text-align:right;">20%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="gauges-no-income" style="font-family:Georgia,serif;font-size:0.82rem;color:rgba(245,234,208,0.35);font-style:italic;text-align:center;padding:1.5rem 0;">Enter income and budget data to run stress tests.</div>
+                <div id="gauges-results" style="display:none;">
+                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;">
+                        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.85rem 1rem;">
+                            <div class="prot-label">RUNWAY</div>
+                            <div style="font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;" id="gauges-runway-val">--</div>
+                            <div style="font-family:Georgia,serif;font-size:0.67rem;color:rgba(245,234,208,0.4);font-style:italic;">months before zero</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.85rem 1rem;">
+                            <div class="prot-label">MONTHLY DEFICIT</div>
+                            <div style="font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;" id="gauges-deficit-val">--</div>
+                            <div style="font-family:Georgia,serif;font-size:0.67rem;color:rgba(245,234,208,0.4);font-style:italic;">under scenario</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.85rem 1rem;">
+                            <div class="prot-label">FIRST CUT</div>
+                            <div style="font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:#C9A227;" id="gauges-firstcut-val">--</div>
+                            <div style="font-family:Georgia,serif;font-size:0.67rem;color:rgba(245,234,208,0.4);font-style:italic;">highest-impact reduction</div>
+                        </div>
+                    </div>
+                    <div id="gauges-verdict" style="font-family:Georgia,serif;font-size:0.82rem;line-height:1.65;color:rgba(245,234,208,0.75);background:rgba(178,34,52,0.05);border:1px solid rgba(178,34,52,0.15);border-radius:8px;padding:0.9rem 1.1rem;"></div>
+                </div>
+            </div>
+        </section>
+        <!-- ══ END SECTION 07 ══════════════════════════════════════════ -->
+
+
         <!-- ══ PRIORITY ACTION BAR ══════════════════════════════════════ -->
         <div id="priority-action-bar" style="display:none; margin-bottom:1.5rem;">
             <!-- Primary verdict -->
@@ -12503,11 +13489,6 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
                     </div>
                 </div>
 
-                <div class="dashboard-card p-4">
-                    <div style="font-family:'Oswald',sans-serif;font-size:0.48rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.2rem;">The Iron Pot</div>
-                    <div style="font-family:Georgia,serif;font-size:0.7rem;font-style:italic;color:rgba(255,255,255,0.28);margin-bottom:1rem;">Seed corn &amp; moat — your future self's ammunition</div>
-                    <div id="savings-categories" class="space-y-3"></div>
-                </div>
 
                 <!-- BOOK CALLOUT — Iron Pot Millionaire -->
                 <div class="book-callout" id="book-callout-card">
@@ -12526,6 +13507,12 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
                             Get the Book <i class="fas fa-arrow-right" style="font-size: 0.6rem;"></i>
                         </a>
                     </div>
+                </div>
+
+                <div class="dashboard-card p-4">
+                    <div style="font-family:'Oswald',sans-serif;font-size:0.48rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.2rem;">The Iron Pot</div>
+                    <div style="font-family:Georgia,serif;font-size:0.7rem;font-style:italic;color:rgba(255,255,255,0.28);margin-bottom:1rem;">Seed corn &amp; moat — your future self's ammunition</div>
+                    <div id="savings-categories" class="space-y-3"></div>
                 </div>
 
                 <!-- DoFI destination teaser — visible from the start -->
@@ -12640,6 +13627,104 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
                             class="w-full text-center text-2xl font-bold bg-transparent border-b-2 border-white/20 text-white focus:outline-none"
                             style="appearance:none;-webkit-appearance:none;font-family:'Oswald',sans-serif;">
             </div><!-- /age dashboard-card -->
+
+                <!-- ACADEMY PHASE MAP -->
+                <div class="phase-map-card" id="phase-map-card">
+                    <div class="phase-map-eyebrow">Real American Finance Lab</div>
+                    <div class="phase-map-title">Academy Phase Map</div>
+
+                    <!-- Phase 01: Foundation -->
+                    <div class="phase-block">
+                        <div class="phase-label ph1">
+                            <span>Phase 01</span>
+                            <span style="font-weight:400;opacity:0.7;letter-spacing:0.12em;">Foundation</span>
+                            <div class="phase-label-line"></div>
+                        </div>
+                        <div class="phase-pillars">
+                            <div class="pillar-chip" id="pmap-01" title="The Harvest — income architecture">
+                                <div class="pillar-dot" id="pmap-dot-01">01</div>
+                                <div class="pillar-name">The Harvest</div>
+                            </div>
+                            <div class="pillar-chip" id="pmap-02" title="Wealth Architecture — budget split">
+                                <div class="pillar-dot" id="pmap-dot-02">02</div>
+                                <div class="pillar-name">Wealth Architecture</div>
+                            </div>
+                            <div class="pillar-chip" id="pmap-03" title="Debt Neutralization — payoff engine">
+                                <div class="pillar-dot" id="pmap-dot-03">03</div>
+                                <div class="pillar-name">Debt Neutralization</div>
+                            </div>
+                            <div class="pillar-chip" id="pmap-04" title="Iron Pot Horizon — FIRE number">
+                                <div class="pillar-dot" id="pmap-dot-04">04</div>
+                                <div class="pillar-name">Iron Pot Horizon</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phase 02: Optimization -->
+                    <div class="phase-block">
+                        <div class="phase-label ph2">
+                            <span>Phase 02</span>
+                            <span style="font-weight:400;opacity:0.7;letter-spacing:0.12em;">Optimization</span>
+                            <div class="phase-label-line"></div>
+                        </div>
+                        <div class="phase-pillars">
+                            <div class="pillar-chip" id="pmap-05" title="Protection Shield — insurance & estate">
+                                <div class="pillar-dot" id="pmap-dot-05">05</div>
+                                <div class="pillar-name">Protection Shield</div>
+                            </div>
+                            <div class="pillar-chip" id="pmap-06" title="The Sieve — tax optimization">
+                                <div class="pillar-dot" id="pmap-dot-06">06</div>
+                                <div class="pillar-name">The Sieve</div>
+                            </div>
+                            <div class="pillar-chip locked" id="pmap-07" title="High-Leverage Earning — income expansion">
+                                <div class="pillar-dot" id="pmap-dot-07">07</div>
+                                <div class="pillar-name">High-Leverage Earning</div>
+                            </div>
+                            <div class="pillar-chip locked" id="pmap-08" title="Jurisdictional Freedom — domicile strategy">
+                                <div class="pillar-dot" id="pmap-dot-08">08</div>
+                                <div class="pillar-name">Jurisdictional Freedom</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phase 03: Sovereignty -->
+                    <div class="phase-block">
+                        <div class="phase-label ph3">
+                            <span>Phase 03</span>
+                            <span style="font-weight:400;opacity:0.7;letter-spacing:0.12em;">Sovereignty</span>
+                            <div class="phase-label-line"></div>
+                        </div>
+                        <div class="phase-pillars">
+                            <div class="pillar-chip locked" id="pmap-09" title="Strategic Allocation — portfolio architecture">
+                                <div class="pillar-dot" id="pmap-dot-09">09</div>
+                                <div class="pillar-name">Strategic Allocation</div>
+                            </div>
+                            <div class="pillar-chip locked" id="pmap-10" title="Business Acquisition — ownership engine">
+                                <div class="pillar-dot" id="pmap-dot-10">10</div>
+                                <div class="pillar-name">Business Acquisition</div>
+                            </div>
+                            <div class="pillar-chip locked" id="pmap-11" title="Antifragility Audit — stress & resilience">
+                                <div class="pillar-dot" id="pmap-dot-11">11</div>
+                                <div class="pillar-name">Antifragility Audit</div>
+                            </div>
+                            <div class="pillar-chip locked" id="pmap-12" title="Perpetual Exit — time-autonomy FIRE">
+                                <div class="pillar-dot" id="pmap-dot-12">12</div>
+                                <div class="pillar-name">Perpetual Exit</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="phase-map-footer">
+                        <div class="phase-map-progress-text">
+                            <strong id="pmap-unlocked-count">0</strong> / 12 pillars active
+                        </div>
+                        <div class="phase-map-lock-note">
+                            <i class="fas fa-lock" style="font-size:0.45rem;"></i>
+                            Phase 02-03 coming
+                        </div>
+                    </div>
+                </div>
+
             </div><!-- /space-y-5 -->
         </div><!-- /layout-right -->
         </div><!-- /layout-grid -->
@@ -12683,32 +13768,29 @@ body { font-size: 15px; -webkit-font-smoothing: antialiased; }
                 { text: "Data export/import", icon: "fa-check" },
                 { text: "Mobile optimization", icon: "fa-check" },
                 { text: "Years to Payoff calculator", icon: "fa-check" },
-                { text: "Scenario planning", icon: "fa-times", locked: true },
-                { text: "Advanced debt tools", icon: "fa-times", locked: true },
-                { text: "Investment tracking", icon: "fa-times", locked: true }
+                { text: "Tax bracket calculator", icon: "fa-check" },
+                { text: "Job loss scenario test", icon: "fa-check" },
+                { text: "Activation ladder (7 sections)", icon: "fa-check" }
             ],
             premium: [
                 { text: "Everything in Free", icon: "fa-check" },
-                { text: "Scenario planning engine", icon: "fa-check" },
-                { text: "Job loss simulations", icon: "fa-check" },
-                { text: "Emergency fund optimizer", icon: "fa-check" },
-                { text: "Mortgage acceleration tools", icon: "fa-check" },
-                { text: "50/30/20 auto-budgeting", icon: "fa-check" },
-                { text: "Drag & drop categories", icon: "fa-check" },
-                { text: "Priority alerts & insights", icon: "fa-check" },
-                { text: "Real-time collaboration", icon: "fa-check" },
-                { text: "AI-powered debt optimization", icon: "fa-check" }
+                { text: "The Sieve — full tax optimization", icon: "fa-check" },
+                { text: "The Gauges — 4 stress scenarios", icon: "fa-check" },
+                { text: "Roth vs Traditional guidance", icon: "fa-check" },
+                { text: "SE Tax / Solo 401(k) analysis", icon: "fa-check" },
+                { text: "QBI deduction tracker", icon: "fa-check" },
+                { text: "Tax Efficiency Sovereign Score", icon: "fa-check" },
+                { text: "Playbook: Tax + Scenario insights", icon: "fa-check" }
             ],
             mastery: [
                 { text: "Everything in Premium", icon: "fa-check" },
-                { text: "AI debt optimization", icon: "fa-check" },
-                { text: "Investment portfolio tracking", icon: "fa-check" },
-                { text: "Real estate analyzer", icon: "fa-check" },
-                { text: "Tax optimization strategies", icon: "fa-check" },
-                { text: "Net worth projections", icon: "fa-check" },
-                { text: "Custom financial reports", icon: "fa-check" },
-                { text: "Priority email support", icon: "fa-check" },
-                { text: "Shareable dashboards", icon: "fa-check" }
+                { text: "High-Leverage Earning tracker", icon: "fa-check" },
+                { text: "Jurisdictional positioning tools", icon: "fa-check" },
+                { text: "Estate governance dashboard", icon: "fa-check" },
+                { text: "Antifragility audit", icon: "fa-check" },
+                { text: "Strategic asset allocation", icon: "fa-check" },
+                { text: "Business acquisition analyzer", icon: "fa-check" },
+                { text: "Perpetual Exit trajectory", icon: "fa-check" }
             ]
         };
 
@@ -13509,7 +14591,7 @@ function getYearsToPayoffClass(years) {
             //   market historically returns 7-10% annually
             //   debt below 5% should be held — you're winning the spread
             if (rate >= 20) return { zone: 'crisis',     label: 'CRISIS',          color: '#e07080', advice: 'Drop everything. Avalanche now.' };
-            if (rate >= 8)  return { zone: 'warzone',    label: 'WAR ZONE',        color: '#f97316', advice: 'Beats market. Attack aggressively.' };
+            if (rate >= 8)  return { zone: 'warzone',    label: 'WAR ZONE',        color: '#e07080', advice: 'Beats market. Attack aggressively.' };
             if (rate >= 5)  return { zone: 'split',      label: 'SPLIT ZONE',      color: '#C9A227', advice: 'Market may beat this. Split 55/45.' };
             if (rate >= 2)  return { zone: 'strategic',  label: 'STRATEGIC HOLD',  color: '#4a9e6b', advice: 'Market beats this reliably. Pay min, invest rest.' };
             return              { zone: 'gift',       label: 'FREE MONEY',      color: '#4a9e6b', advice: "0-2% — borrowed cheap. Don't pre-pay. Invest the spread." };
@@ -14541,7 +15623,7 @@ function getYearsToPayoffClass(years) {
                         </div>
                         <div>
                             <div class="text-xs text-gray-400">Net Worth</div>
-                            <div class="text-lg font-bold ${proj.netWorth > 0 ? 'text-green-400' : 'text-orange-400'}">
+                            <div class="text-lg font-bold ${proj.netWorth > 0 ? 'text-green-400' : 'text-gold-400'}">
                                 $${proj.netWorth.toLocaleString()}
                             </div>
                         </div>
@@ -14804,7 +15886,7 @@ function getYearsToPayoffClass(years) {
                     </div>
                 </td>
                 <td class="py-3 px-2 interest-column">
-                    <div class="monthly-interest text-orange-400 font-bold text-sm">$0</div>
+                    <div class="monthly-interest text-gold-400 font-bold text-sm">$0</div>
                 </td>
                 <td class="py-3 px-2 years-column">
                     <div class="years-to-payoff">--</div>
@@ -15084,6 +16166,77 @@ function getYearsToPayoffClass(years) {
                 // Hide DoFI if setup is incomplete
                 if (dofiContainer) dofiContainer.classList.add('hidden');
             }
+
+            // ── Activation Ladder (5 rungs) ───────────────────────────
+            const retBal    = parseCurrency(document.getElementById('retirement_total')?.value || 0);
+            const retMo     = parseCurrency(document.getElementById('retirement_monthly')?.value || 0);
+            const protScore = (typeof calcProtectionScore === 'function') ? calcProtectionScore() : { score: 0, max: 20 };
+            const hasRetirement  = retBal > 0 || retMo > 0;
+            const hasProtection  = protScore.score > 0;
+            // hasSieve: true only when user has actively visited The Sieve section
+            // Uses a flag set by the oninput/onchange handlers on sieve inputs
+            const hasSieve  = !!(window._sieveVisited);
+            const hasGauges = hasSieve && income > 0;
+
+            const setRung = (id, dotId, state) => {
+                const el  = document.getElementById(id);
+                const dot = document.getElementById(dotId);
+                if (!el || !dot) return;
+                el.classList.remove('pending','active','done','locked');
+                el.classList.add(state);
+                const num = id.replace('ladder-rung-','');
+                if (state === 'done') {
+                    dot.innerHTML = '<i class="fas fa-check" style="font-size:0.5rem;"></i>';
+                } else {
+                    dot.textContent = parseInt(num) < 10 ? '0' + num : num;
+                }
+            };
+
+            // Rung states: done if completed, active if current, locked if not yet reachable
+            const r1 = s.incomeState === 'done' ? 'done' : 'active';
+            const r2 = s.debtState   === 'done' ? 'done' : s.incomeState === 'done' ? 'active' : 'locked';
+            const r3 = s.budgetState === 'done' ? 'done' : s.debtState   === 'done' ? 'active' : 'locked';
+            const r4 = hasRetirement ? 'done' : s.budgetState === 'done' ? 'active' : 'locked';
+            const r5 = hasProtection ? 'done' : (hasRetirement || r4 === 'active') ? 'active' : 'locked';
+            const r6 = hasSieve  ? 'done' : (hasProtection || r5 === 'active') ? 'active' : 'locked';
+            const r7 = hasGauges ? 'done' : (hasSieve     || r6 === 'active') ? 'active' : 'locked';
+
+            setRung('ladder-rung-1','ladder-dot-1', r1);
+            setRung('ladder-rung-2','ladder-dot-2', r2);
+            setRung('ladder-rung-3','ladder-dot-3', r3);
+            setRung('ladder-rung-4','ladder-dot-4', r4);
+            setRung('ladder-rung-5','ladder-dot-5', r5);
+            setRung('ladder-rung-6','ladder-dot-6', r6);
+            setRung('ladder-rung-7','ladder-dot-7', r7);
+
+            // Update unlock text to show "complete" when done
+            const unlockDone = [
+                [1, r1, 'Score active · surplus calculated'],
+                [2, r2, 'Payoff timeline + War Mode active'],
+                [3, r3, 'Harvest ring + budget analysis active'],
+                [4, r4, 'FIRE number + retirement trajectory active'],
+                [5, r5, 'Full Sovereign Score · Playbook complete'],
+                [6, r6, 'Tax Efficiency score active · bracket optimized'],
+                [7, r7, 'Scenario stress tests armed · siege protocol ready'],
+            ];
+            const unlockPending = [
+                [1, 'Unlocks: Sovereign Score + surplus calculation'],
+                [2, 'Unlocks: Payoff timeline + War Mode'],
+                [3, 'Unlocks: Harvest ring + 50/30/20 analysis'],
+                [4, 'Unlocks: FIRE number + retirement trajectory'],
+                [5, 'Unlocks: Full Sovereign Score + complete Playbook'],
+                [6, 'Unlocks: Tax Efficiency score + bracket optimization'],
+                [7, 'Unlocks: Scenario stress tests + siege protocol'],
+            ];
+            unlockDone.forEach(([n, state, doneText]) => {
+                const el = document.getElementById('ladder-unlock-' + n);
+                if (!el) return;
+                if (state === 'done') {
+                    el.textContent = '✓ ' + doneText;
+                } else {
+                    el.textContent = unlockPending[n-1][1];
+                }
+            });
         }
 
         function railCtaClick() {
@@ -16336,6 +17489,9 @@ function getYearsToPayoffClass(years) {
             const stickyYears = document.getElementById('sticky-years');
             
             if (stickyDti) stickyDti.textContent = dti.toFixed(1) + '%';
+            // Mirror to visible secondary row
+            const _stickyDtiV = document.getElementById('sticky-dti-visible');
+            if (_stickyDtiV) { _stickyDtiV.textContent = dti.toFixed(1) + '%'; _stickyDtiV.style.color = dti > 36 ? '#e07080' : dti > 20 ? '#C9A227' : '#4a9e6b'; }
 
             // Surplus: color + label swap (Surplus ↔ Deficit)
             const surplusMetric = document.getElementById('sticky-surplus')?.closest('.summary-metric');
@@ -16362,6 +17518,7 @@ function getYearsToPayoffClass(years) {
                 const debtBal = getTotalDebtBalance();
                 stickyDebt.textContent = '$' + debtBal.toLocaleString();
                 stickyDebt.style.color = debtBal > 0 ? '#B22234' : '#4a9e6b';
+                // Also update secondary row debt (same element, already visible)
             }
 
             // DTI: color-coded by health
@@ -16381,6 +17538,8 @@ function getYearsToPayoffClass(years) {
             }
 
             if (stickySavingsRate) stickySavingsRate.textContent = `${savingsRate.toFixed(1)}%`;
+            const _stickySrV = document.getElementById('sticky-savings-visible');
+            if (_stickySrV) { _stickySrV.textContent = savingsRate.toFixed(1) + '%'; _stickySrV.style.color = savingsRate >= 20 ? '#4a9e6b' : savingsRate >= 10 ? '#C9A227' : '#e07080'; }
             
             const totalYearsSticky = calculateTotalYearsToPayoff();
             if (stickyYears) stickyYears.textContent = totalYearsSticky > 0 ? `${totalYearsSticky.toFixed(1)} yrs` : '--';
@@ -16401,6 +17560,9 @@ function getYearsToPayoffClass(years) {
             // New sections — update after score
             if (typeof updateRetirementPanel === 'function') updateRetirementPanel();
             if (typeof updateProtectionPanel === 'function') updateProtectionPanel();
+            if (typeof updateSievePanel === 'function') updateSievePanel();
+            if (typeof updatePhaseMap === 'function') updatePhaseMap();
+            if (typeof gaugesRun === 'function') gaugesRun();
             
             updateGoalProgress();
             
@@ -16636,17 +17798,17 @@ function getYearsToPayoffClass(years) {
             const savingsRate = _grossIncome > 0 ? ((savingsTotal + _totalPreTax) / _grossIncome) * 100 : 0;
             
             let savingsScore = 0;
-            if (savingsRate > 20) savingsScore = 20;
-            else if (savingsRate >= 15) savingsScore = 15;
-            else if (savingsRate >= 10) savingsScore = 10;
-            else if (savingsRate >= 5) savingsScore = 5;
+            if (savingsRate >= 20) savingsScore = 10;
+            else if (savingsRate >= 15) savingsScore = 8;
+            else if (savingsRate >= 10) savingsScore = 5;
+            else if (savingsRate >= 5)  savingsScore = 2;
             
             components.push({
                 name: 'Savings Rate',
                 score: savingsScore,
-                max: 20,
+                max: 10,
                 details: `${savingsRate.toFixed(1)}% of income`,
-                fillPercentage: (savingsScore / 20) * 100
+                fillPercentage: (savingsScore / 10) * 100
             });
             totalScore += savingsScore;
             
@@ -16735,6 +17897,46 @@ function getYearsToPayoffClass(years) {
                 fillPercentage: (protResult.score / protResult.max) * 100
             });
             totalScore += protResult.score;
+
+            // ── Tax Efficiency (10pts) — The Sieve ────────────────────────────────
+            const sieveFilingStatus = document.getElementById('sieve-filing-status')?.value || 'single';
+            const sieveIncomeType   = document.getElementById('sieve-income-type')?.value   || 'w2';
+            const _taxPretax401k = parseCurrency(document.getElementById('pretax-401k')?.value || 0) * 12;
+            const _taxPretaxHSA  = parseCurrency(document.getElementById('pretax-hsa')?.value  || 0) * 12;
+            const annualPretax   = _taxPretax401k + _taxPretaxHSA + (parseCurrency(document.getElementById('pretax-other')?.value || 0) * 12);
+            const gross401k         = _taxPretax401k;
+            const grossHSA          = _taxPretaxHSA;
+            const hdhpActive        = document.querySelector('input[name="prot-hdhp"]:checked')?.value === 'yes';
+            const annualLimit401k_  = (sieveIncomeType === 'self' || sieveIncomeType === 'business') ? 70000 : 23500;
+            const hsaLimit_         = sieveFilingStatus === 'mfj' ? 8550 : 4300;
+
+            let taxScore = 0;
+            // Has any pre-tax contribution
+            if (annualPretax > 0) taxScore += 3;
+            // 401k near max (>= 80%)
+            if (gross401k >= annualLimit401k_ * 0.8) taxScore += 4;
+            else if (gross401k >= annualLimit401k_ * 0.4) taxScore += 2;
+            // HSA used if eligible
+            if (hdhpActive && grossHSA >= hsaLimit_ * 0.8) taxScore += 3;
+            else if (hdhpActive && grossHSA > 0) taxScore += 1;
+            // SE-savvy: self-employed and using solo 401k
+            if ((sieveIncomeType === 'self' || sieveIncomeType === 'business') && gross401k > 0) taxScore = Math.min(10, taxScore + 1);
+
+            taxScore = Math.min(10, taxScore);
+            const taxPct = taxScore / 10;
+            components.push({
+                name: 'Tax Efficiency',
+                score: taxScore,
+                max: 10,
+                details: (() => {
+                    if (taxScore >= 9) return 'Pre-tax accounts maxed — IRS optimally treated as overhead';
+                    if (taxScore >= 6) return 'Good pre-tax utilization — room to increase 401(k) or HSA';
+                    if (taxScore >= 3) return 'Pre-tax contributions started — optimize for full bracket benefit';
+                    return 'No tax-advantaged contributions detected — large untaxed opportunity';
+                })(),
+                fillPercentage: taxPct * 100
+            });
+            totalScore += taxScore;
 
             // ── Wealth Floor ──────────────────────────────────────────────────────
             const retirementTotal2 = parseCurrency(document.getElementById('retirement_total')?.value || 0);
@@ -16833,7 +18035,7 @@ function getYearsToPayoffClass(years) {
                 const scoreColor = scoreData.total >= 90 ? '#4a9e6b'
                                  : scoreData.total >= 75 ? '#7a9fd4'
                                  : scoreData.total >= 60 ? '#C9A227'
-                                 : scoreData.total >= 40 ? '#f97316'
+                                 : scoreData.total >= 40 ? '#e07080'
                                  : '#B22234';
                 stickyScore.style.color = scoreColor;
 
@@ -16859,6 +18061,10 @@ function getYearsToPayoffClass(years) {
                         bar.addEventListener('animationend', () => bar.classList.remove('sticky-bar-flash'), { once: true });
                     }
                     showToast('🏆 Score tier unlocked: ' + newTier + ' (' + scoreData.total + ')');
+                    // SOVEREIGN — 13-star gold burst
+                    if (newTier === 'SOVEREIGN' && typeof triggerSovereignEffect === 'function') {
+                        setTimeout(triggerSovereignEffect, 400);
+                    }
                 }
                 _lastScoreTier = newTier;
             }
@@ -16873,7 +18079,7 @@ function getYearsToPayoffClass(years) {
                 } else if (scoreData.total >= 60) {
                     scoreElement.className = 'financial-health-score text-yellow-400';
                 } else if (scoreData.total >= 40) {
-                    scoreElement.className = 'financial-health-score text-orange-400';
+                    scoreElement.className = 'financial-health-score text-gold-400';
                 } else {
                     scoreElement.className = 'financial-health-score text-red-400';
                 }
@@ -19763,7 +20969,7 @@ function toggleScoreBreakdown() {
                         label: `ATTACK: ${topDebt.type}`,
                         sublabel: `${topDebt.rate.toFixed(1)}% APR — every dollar here beats the market`,
                         amount: remaining,
-                        color: '#f97316',
+                        color: '#e07080',
                         priority: 'AVALANCHE',
                         rationale: `At ${topDebt.rate.toFixed(1)}%, this is a guaranteed ~$${annualInterest}/yr return. S&P averages 7-10%. Math says: kill this first.`
                     });
@@ -21780,6 +22986,526 @@ function toggleScoreBreakdown() {
         // ══════════════════════════════════════════════════════════════════
         // ── Shared top-move logic — used by both exec summary and War Room Phase 1 ──
         // ══════════════════════════════════════════════════════════════════
+
+        // ══════════════════════════════════════════════════════════════════
+        //  THE SIEVE — Section 06 — Tax Optimization
+        // ══════════════════════════════════════════════════════════════════
+
+        // 2025 Federal tax brackets
+        const TAX_BRACKETS = {
+            single: [
+                { min: 0,       max: 11925,  rate: 0.10 },
+                { min: 11925,   max: 48475,  rate: 0.12 },
+                { min: 48475,   max: 103350, rate: 0.22 },
+                { min: 103350,  max: 197300, rate: 0.24 },
+                { min: 197300,  max: 250525, rate: 0.32 },
+                { min: 250525,  max: 626350, rate: 0.35 },
+                { min: 626350,  max: Infinity, rate: 0.37 }
+            ],
+            mfj: [
+                { min: 0,       max: 23850,  rate: 0.10 },
+                { min: 23850,   max: 96950,  rate: 0.12 },
+                { min: 96950,   max: 206700, rate: 0.22 },
+                { min: 206700,  max: 394600, rate: 0.24 },
+                { min: 394600,  max: 501050, rate: 0.32 },
+                { min: 501050,  max: 751600, rate: 0.35 },
+                { min: 751600,  max: Infinity, rate: 0.37 }
+            ],
+            mfs: [
+                { min: 0,       max: 11925,  rate: 0.10 },
+                { min: 11925,   max: 48475,  rate: 0.12 },
+                { min: 48475,   max: 103350, rate: 0.22 },
+                { min: 103350,  max: 197300, rate: 0.24 },
+                { min: 197300,  max: 250525, rate: 0.32 },
+                { min: 250525,  max: 375800, rate: 0.35 },
+                { min: 375800,  max: Infinity, rate: 0.37 }
+            ],
+            hoh: [
+                { min: 0,       max: 17000,  rate: 0.10 },
+                { min: 17000,   max: 64850,  rate: 0.12 },
+                { min: 64850,   max: 103350, rate: 0.22 },
+                { min: 103350,  max: 197300, rate: 0.24 },
+                { min: 197300,  max: 250500, rate: 0.32 },
+                { min: 250500,  max: 626350, rate: 0.35 },
+                { min: 626350,  max: Infinity, rate: 0.37 }
+            ]
+        };
+
+        const STANDARD_DEDUCTION = { single: 15000, mfj: 30000, mfs: 15000, hoh: 22500 };
+
+        function calcTax(income, filing) {
+            const brackets = TAX_BRACKETS[filing] || TAX_BRACKETS.single;
+            let tax = 0;
+            let marginalRate = 0.10;
+            for (const b of brackets) {
+                if (income <= b.min) break;
+                const taxable = Math.min(income, b.max) - b.min;
+                tax += taxable * b.rate;
+                if (income > b.min) marginalRate = b.rate;
+            }
+            return { tax, marginalRate };
+        }
+
+        function updateSievePanel() {
+            const income = getMonthlyIncome();
+            const annualIncome = income * 12;
+            const noIncomeEl = document.getElementById('sieve-no-income');
+            const resultsEl  = document.getElementById('sieve-results-panel');
+
+            if (annualIncome < 1) {
+                if (noIncomeEl) noIncomeEl.style.display = '';
+                if (resultsEl) resultsEl.style.display = 'none';
+                return;
+            }
+            if (noIncomeEl) noIncomeEl.style.display = 'none';
+            if (resultsEl) resultsEl.style.display = '';
+
+            const filing    = document.getElementById('sieve-filing-status')?.value || 'single';
+            const incType   = document.getElementById('sieve-income-type')?.value || 'w2';
+            const otherInc  = parseCurrency(document.getElementById('sieve-other-income')?.value || 0);
+            const pretax401k = parseCurrency(document.getElementById('pretax-401k')?.value || 0) * 12;
+            const pretaxHSA  = parseCurrency(document.getElementById('pretax-hsa')?.value || 0) * 12;
+            const pretaxOther= parseCurrency(document.getElementById('pretax-other')?.value || 0) * 12;
+            const totalPreTax = pretax401k + pretaxHSA + pretaxOther;
+
+            const grossAnnual = annualIncome + otherInc + totalPreTax;
+            const stdDed = STANDARD_DEDUCTION[filing] || 15000;
+            const taxableIncome = Math.max(0, grossAnnual - totalPreTax - stdDed);
+
+            const { tax, marginalRate } = calcTax(taxableIncome, filing);
+            const effectiveRate = grossAnnual > 0 ? tax / grossAnnual : 0;
+
+            // SE tax
+            const seTaxAnnual = (incType === 'self' || incType === 'mixed') ?
+                annualIncome * 0.9235 * 0.153 : 0;
+
+            // Update display
+            const fmt = v => '$' + Math.round(v).toLocaleString();
+            const pct = v => (v * 100).toFixed(0) + '%';
+
+            const el = id => document.getElementById(id);
+            if (el('sieve-gross-income'))    el('sieve-gross-income').textContent = fmt(taxableIncome);
+            if (el('sieve-marginal-bracket')) {
+                el('sieve-marginal-bracket').textContent = pct(marginalRate);
+                el('sieve-marginal-bracket').style.color = marginalRate >= 0.24 ? '#e07080' : marginalRate >= 0.22 ? '#C9A227' : '#4a9e6b';
+            }
+            if (el('sieve-effective-rate')) {
+                el('sieve-effective-rate').textContent = (effectiveRate * 100).toFixed(1) + '%';
+                el('sieve-effective-rate').style.color = '#7a9fd4';
+            }
+
+            // Bracket context message
+            const bracketMsgs = {
+                0.10: 'You are in the lowest federal bracket. Focus on building pre-tax accounts to protect future growth.',
+                0.12: 'Every $1,000 of pre-tax contributions saves you $120. Max your 401(k) and HSA before anything else.',
+                0.22: 'At 22%, the math strongly favors pre-tax. Every $1,000 pre-tax saves $220 in federal taxes alone.',
+                0.24: 'You are in a high-efficiency bracket for Roth conversions in low-income years. Consider a hybrid strategy.',
+                0.32: 'At 32%, aggressive pre-tax contributions and business deductions are your primary weapons.',
+                0.35: 'At 35%, every optimization dollar is worth 35¢. Tax loss harvesting and entity structure matter here.',
+                0.37: 'Top bracket. You need a CPA with an offense mindset — not just a preparer.'
+            };
+            if (el('sieve-bracket-context')) {
+                el('sieve-bracket-context').textContent = bracketMsgs[marginalRate] || '';
+            }
+
+            // Build opportunities
+            const opps = [];
+            const annualLimit401k = incType === 'self' || incType === 'business' ? 70000 : 23500;
+            const current401kAnnual = pretax401k;
+            const unused401k = Math.max(0, annualLimit401k - current401kAnnual);
+            if (unused401k > 0) {
+                const saving = unused401k * marginalRate;
+                opps.push({
+                    icon: '🏛️',
+                    title: `401(k) / Pre-Tax Retirement — ${fmt(unused401k)} headroom`,
+                    detail: `You're contributing ${fmt(current401kAnnual)}/yr. Limit: ${fmt(annualLimit401k)}. Maxing out saves ${fmt(saving)}/yr in federal taxes.`,
+                    saving: fmt(saving) + '/yr',
+                    priority: current401kAnnual === 0,
+                    done: false
+                });
+            } else {
+                opps.push({ icon: '✅', title: '401(k) Maxed', detail: `${fmt(annualLimit401k)}/yr contributed. Pre-tax shelter fully deployed.`, saving: '', done: true });
+            }
+
+            const hsaLimit = filing === 'mfj' ? 8550 : 4300;
+            const currentHSA = pretaxHSA;
+            const unusedHSA = Math.max(0, hsaLimit - currentHSA);
+            const hdhpVal = document.querySelector('input[name="prot-hdhp"]:checked')?.value;
+            if (hdhpVal === 'yes' && unusedHSA > 0) {
+                const saving = unusedHSA * marginalRate;
+                opps.push({
+                    icon: '🏥',
+                    title: `HSA — ${fmt(unusedHSA)} headroom (triple tax-free)`,
+                    detail: `HSA is the only triple-tax-free account in the code. Pre-tax in, tax-free growth, tax-free out for medical. Invested HSA = stealth IRA.`,
+                    saving: fmt(saving) + '/yr',
+                    priority: unusedHSA === hsaLimit,
+                    done: false
+                });
+            }
+
+            const rothLimit = 7000;
+            const rothIncomeCap = filing === 'mfj' ? 236000 : filing === 'mfs' ? 10000 : 150000; // 2025 phase-out start
+            // We track 401k separately via pretax401k. IRA contributions are self-reported and not tracked
+            // in this app, so we show the opportunity based on eligibility only.
+            if (grossAnnual < rothIncomeCap) {
+                if (marginalRate <= 0.22) {
+                    opps.push({
+                        icon: '🌱',
+                        title: `Roth IRA — up to ${fmt(rothLimit)}/yr available`,
+                        detail: `At ${pct(marginalRate)}, Roth is the better choice. Pay tax now at a low rate; all future growth is permanently tax-free. Contribute up to $${(rothLimit/12).toFixed(0)}/mo.`,
+                        saving: 'Tax-free forever',
+                        priority: marginalRate <= 0.12,
+                        done: false
+                    });
+                } else if (marginalRate >= 0.24) {
+                    opps.push({
+                        icon: '🔄',
+                        title: `Traditional IRA — up to ${fmt(rothLimit)}/yr, ${fmt(rothLimit * marginalRate)}/yr saved`,
+                        detail: `At ${pct(marginalRate)}, pre-tax Traditional IRA beats Roth now. Deduct today, pay taxes at a lower rate in retirement. Consider Roth conversions in low-income years.`,
+                        saving: fmt(rothLimit * marginalRate) + '/yr',
+                        priority: false,
+                        done: false
+                    });
+                }
+            } else if (grossAnnual >= rothIncomeCap && filing !== 'mfs') {
+                // Over Roth limit — show backdoor option
+                opps.push({
+                    icon: '🚪',
+                    title: 'Backdoor Roth IRA available',
+                    detail: `Income exceeds the direct Roth contribution limit, but a Backdoor Roth (non-deductible Traditional → Roth conversion) remains available. Worth pursuing at any bracket.`,
+                    saving: 'Tax-free growth',
+                    priority: false,
+                    done: false
+                });
+            }
+
+            if (incType === 'self' || incType === 'mixed' || incType === 'business') {
+                opps.push({
+                    icon: '💼',
+                    title: 'Solo 401(k) or SEP-IRA',
+                    detail: `Self-employed income qualifies for a Solo 401(k) up to ${fmt(annualLimit401k)}/yr — far higher than an employer plan. If you haven't opened one, this is the highest-leverage move available.`,
+                    saving: fmt(Math.min(grossAnnual * 0.25, 70000) * marginalRate) + '/yr est.',
+                    priority: true,
+                    done: false
+                });
+            }
+
+            // QBI deduction for self-employed
+            if (incType === 'self' || incType === 'business') {
+                const qbi = grossAnnual * 0.20;
+                opps.push({
+                    icon: '📋',
+                    title: `Section 199A QBI Deduction — up to ${fmt(qbi)}`,
+                    detail: `Pass-through business owners can deduct up to 20% of qualified business income. Worth ${fmt(qbi * marginalRate)}/yr at your bracket. Requires eligible business structure.`,
+                    saving: fmt(qbi * marginalRate) + '/yr',
+                    priority: false,
+                    done: false
+                });
+            }
+
+            // Render opportunities
+            const oppContainer = el('sieve-opportunities');
+            if (oppContainer) {
+                oppContainer.innerHTML = opps.map(o => `
+                    <div class="sieve-opp ${o.done ? 'done' : o.priority ? 'priority' : ''}">
+                        <div class="sieve-opp-icon">${o.icon}</div>
+                        <div class="sieve-opp-body">
+                            <div class="sieve-opp-title">${o.title}</div>
+                            <div class="sieve-opp-detail">${o.detail}</div>
+                        </div>
+                        ${o.saving && !o.done ? `<div class="sieve-opp-saving">${o.saving}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            // SE tax alert
+            const seAlertEl = el('sieve-se-alert');
+            if (seAlertEl) {
+                if (seTaxAnnual > 0) {
+                    seAlertEl.style.display = '';
+                    seAlertEl.innerHTML = `<strong>Self-Employment Tax:</strong> You owe an additional ${fmt(seTaxAnnual)}/yr (~${(seTaxAnnual/grossAnnual*100).toFixed(1)}% of gross) for Social Security and Medicare. The employer half (${fmt(seTaxAnnual/2)}) is deductible. An S-Corp election may reduce this at higher income levels.`;
+                } else {
+                    seAlertEl.style.display = 'none';
+                }
+            }
+
+            // Total savings estimate
+            const totalSavings = opps
+                .filter(o => !o.done && o.saving && o.saving.includes('/yr'))
+                .reduce((sum, o) => {
+                    const num = parseInt(o.saving.replace(/[^0-9]/g, ''));
+                    return sum + (isNaN(num) ? 0 : num);
+                }, 0);
+
+            const savingsBar = el('sieve-savings-bar');
+            if (savingsBar) {
+                if (totalSavings > 200) {
+                    savingsBar.style.display = '';
+                    const savEl = el('sieve-total-savings');
+                    if (savEl) savEl.textContent = fmt(totalSavings);
+                } else {
+                    savingsBar.style.display = 'none';
+                }
+            }
+
+            // Update collapsed summary
+            const summary = el('sieve-section-collapsed-summary');
+            if (summary) {
+                summary.textContent = pct(marginalRate) + ' bracket · ' + (effectiveRate * 100).toFixed(1) + '% effective' + (totalSavings > 200 ? ' · ' + fmt(totalSavings) + ' savings available' : '');
+            }
+        }
+
+        // ══════════════════════════════════════════════════════════════════
+        //  THE GAUGES — Section 07 — Scenario Planning
+        // ══════════════════════════════════════════════════════════════════
+
+        let _gaugesCurrentScenario = 'jobloss';
+
+        function gaugesSelectScenario(type, btn) {
+            _gaugesCurrentScenario = type;
+            document.querySelectorAll('.gauges-scenario-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            const customControls = document.getElementById('gauges-custom-controls');
+            if (customControls) customControls.style.display = type === 'custom' ? '' : 'none';
+            gaugesRun();
+        }
+
+
+        // ══════════════════════════════════════════════════════════════════
+        //  ACADEMY PHASE MAP — sidebar updater
+        // ══════════════════════════════════════════════════════════════════
+        function updatePhaseMap() {
+            const income  = getMonthlyIncome();
+            const s       = getAppState();
+
+            // Signals for each pillar (same sources as the activation ladder)
+            const hasIncome     = income > 0;
+            const debtDone      = s.debtState === 'done';
+            const budgetDone    = s.budgetState === 'done';
+            const retBal        = parseCurrency(document.getElementById('retirement_total')?.value || 0);
+            const retMo         = parseCurrency(document.getElementById('retirement_monthly')?.value || 0);
+            const hasRetirement = retBal > 0 || retMo > 0;
+            const protScore     = (typeof calcProtectionScore === 'function') ? calcProtectionScore() : { score: 0 };
+            const hasProtection = protScore.score > 0;
+            const hasSieve      = !!(window._sieveVisited);
+
+            // Pillar states: 'unlocked' | 'active' | 'locked'
+            // 'unlocked' = fully done, 'active' = current frontier, 'locked' = not yet reached
+            const pillars = [
+                { id: '01', done: hasIncome,     prev: true },
+                { id: '02', done: budgetDone,    prev: hasIncome },
+                { id: '03', done: debtDone,      prev: hasIncome },
+                { id: '04', done: hasRetirement, prev: budgetDone },
+                { id: '05', done: hasProtection, prev: hasRetirement },
+                { id: '06', done: hasSieve,      prev: hasProtection },
+                { id: '07', done: false,         prev: false, comingSoon: true },
+                { id: '08', done: false,         prev: false, comingSoon: true },
+                { id: '09', done: false,         prev: false, comingSoon: true },
+                { id: '10', done: false,         prev: false, comingSoon: true },
+                { id: '11', done: false,         prev: false, comingSoon: true },
+                { id: '12', done: false,         prev: false, comingSoon: true },
+            ];
+
+            let unlockedCount = 0;
+
+            pillars.forEach(p => {
+                const chip = document.getElementById('pmap-' + p.id);
+                const dot  = document.getElementById('pmap-dot-' + p.id);
+                if (!chip || !dot) return;
+
+                chip.classList.remove('unlocked', 'active', 'locked');
+
+                if (p.comingSoon) {
+                    chip.classList.add('locked');
+                    dot.innerHTML = '<i class="fas fa-lock" style="font-size:0.4rem;opacity:0.5;"></i>';
+                    return;
+                }
+
+                if (p.done) {
+                    chip.classList.add('unlocked');
+                    dot.innerHTML = '<i class="fas fa-check" style="font-size:0.42rem;"></i>';
+                    unlockedCount++;
+                } else if (p.prev) {
+                    // Prev condition met but not yet done — show as active frontier
+                    // Multiple pillars can be active simultaneously (e.g. debt+budget both unlock after income)
+                    chip.classList.add('active');
+                    dot.textContent = p.id;
+                } else {
+                    chip.classList.add('locked');
+                    dot.textContent = p.id;
+                }
+            });
+
+            // Update footer count
+            const countEl = document.getElementById('pmap-unlocked-count');
+            if (countEl) countEl.textContent = unlockedCount;
+
+            // Update lock note — if pillar 06 done, update text
+            const lockNote = document.querySelector('#phase-map-card .phase-map-lock-note');
+            if (lockNote) {
+                if (unlockedCount >= 6) {
+                    lockNote.innerHTML = '<i class="fas fa-rocket" style="font-size:0.45rem;"></i> Phase 03 coming';
+                    lockNote.style.color = 'rgba(122,159,212,0.55)';
+                } else {
+                    lockNote.innerHTML = '<i class="fas fa-lock" style="font-size:0.45rem;"></i> Phase 02-03 coming';
+                    lockNote.style.color = 'rgba(178,34,52,0.55)';
+                }
+            }
+        }
+
+        function gaugesRun() {
+            const income     = getMonthlyIncome();
+            const noIncEl    = document.getElementById('gauges-no-income');
+            const resultsEl  = document.getElementById('gauges-results');
+
+            if (income < 1) {
+                if (noIncEl) noIncEl.style.display = '';
+                if (resultsEl) resultsEl.style.display = 'none';
+                return;
+            }
+            if (noIncEl) noIncEl.style.display = 'none';
+            if (resultsEl) resultsEl.style.display = '';
+
+            const needs      = calculateMonthlyEssentials();
+            const metrics    = computeCoreMetrics();
+            const totalExp   = metrics.totalExpenses;
+            const emFund     = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
+
+            let scenarioIncome = income;
+            let oneOffExpense  = 0;
+            let expenseMultiplier = 1;
+
+            const type = _gaugesCurrentScenario;
+            if (type === 'jobloss') {
+                scenarioIncome = 0;
+            } else if (type === 'incomecut') {
+                scenarioIncome = income * 0.50;
+            } else if (type === 'emergency') {
+                // Income stays same; large one-time hit
+                const carDeductible = parseCurrency(document.getElementById('deductible_auto')?.value || 1000);
+                const healthDed = parseCurrency(document.getElementById('deductible_health')?.value || 3000);
+                oneOffExpense = Math.max(carDeductible, healthDed, 2000);
+            } else if (type === 'custom') {
+                const pct = parseFloat(document.getElementById('gauges-income-pct')?.value || -50) / 100;
+                scenarioIncome = income * (1 + pct);
+                oneOffExpense = parseCurrency(document.getElementById('gauges-oneoff-expense')?.value || 0);
+                const expPct = parseFloat(document.getElementById('gauges-expense-pct')?.value || 20) / 100;
+                expenseMultiplier = 1 + expPct;
+            }
+
+            const scenarioExpenses = totalExp * expenseMultiplier;
+            const monthlyGap = scenarioIncome - scenarioExpenses;
+            const availableReserve = emFund;
+
+            // Runway = how many months before emergency fund hits zero
+            let runwayMonths;
+            const monthlyBurn = -monthlyGap; // positive = burning money
+            if (monthlyBurn <= 0) {
+                runwayMonths = Infinity; // surplus even in scenario
+            } else if (availableReserve <= 0) {
+                runwayMonths = 0;
+            } else {
+                // After one-off expense
+                const reserveAfterOneOff = availableReserve - oneOffExpense;
+                runwayMonths = reserveAfterOneOff > 0 ? reserveAfterOneOff / monthlyBurn : 0;
+                if (oneOffExpense > 0 && monthlyGap >= 0) {
+                    // Only the one-time hit matters
+                    runwayMonths = reserveAfterOneOff > 0 ? Infinity : 0;
+                }
+            }
+
+            // Find biggest want expense to cut
+            let biggestWant = { label: 'Discretionary', amount: 0 };
+            if (typeof budgetCategories !== 'undefined') {
+                budgetCategories.wants.forEach(cat => {
+                    const val = parseCurrency(document.getElementById(cat.id)?.value || 0);
+                    if (val > biggestWant.amount) biggestWant = { label: cat.label, amount: val };
+                });
+            }
+
+            // Update UI
+            const el = id => document.getElementById(id);
+            const fmt = v => '$' + Math.round(v).toLocaleString();
+
+            // Runway
+            const runwayEl = el('gauges-runway-val');
+            if (runwayEl) {
+                if (runwayMonths === Infinity) {
+                    runwayEl.textContent = '∞';
+                    runwayEl.style.color = '#4a9e6b';
+                } else if (runwayMonths >= 6) {
+                    runwayEl.textContent = Math.floor(runwayMonths) + ' mo';
+                    runwayEl.style.color = '#C9A227';
+                } else {
+                    runwayEl.textContent = runwayMonths < 1 ? '< 1 mo' : Math.floor(runwayMonths) + ' mo';
+                    runwayEl.style.color = '#e07080';
+                }
+            }
+
+            // Deficit
+            const deficitEl = el('gauges-deficit-val');
+            if (deficitEl) {
+                if (monthlyGap >= 0) {
+                    deficitEl.textContent = '+' + fmt(monthlyGap);
+                    deficitEl.style.color = '#4a9e6b';
+                } else {
+                    deficitEl.textContent = fmt(monthlyGap);
+                    deficitEl.style.color = '#e07080';
+                }
+            }
+
+            // First cut
+            const firstCutEl = el('gauges-firstcut-val');
+            if (firstCutEl) {
+                firstCutEl.textContent = biggestWant.amount > 0 ?
+                    biggestWant.label + ' (' + fmt(biggestWant.amount) + '/mo)' : 'Debt minimums';
+            }
+
+            // Verdict
+            const verdictEl = el('gauges-verdict');
+            if (verdictEl) {
+                let msg = '';
+                const runwayLabel = runwayMonths === Infinity ? 'indefinitely' : Math.floor(runwayMonths) + ' months';
+                if (type === 'jobloss') {
+                    if (runwayMonths === Infinity) {
+                        msg = `<strong>Protocol:</strong> Your budget runs a surplus even with zero income — meaning your emergency fund alone covers all expenses indefinitely. You have achieved genuine financial optionality. This is what Iron Pot looks like.`;
+                    } else if (runwayMonths >= 6) {
+                        msg = `<strong>Protocol — Siege Mode:</strong> Your ${fmt(availableReserve)} moat buys you ${runwayLabel} at current burn. Zero all wants immediately. File for unemployment. The goal: extend runway past 12 months. You have time — use it to find your next position from a position of strength, not desperation.`;
+                    } else if (runwayMonths >= 2) {
+                        msg = `<strong>Protocol — Emergency Siege:</strong> ${runwayLabel} of runway. Activate now: zero all wants, pause all savings, pay only minimums on debt. Call every creditor for hardship deferrals. Your survival baseline is ${fmt(needs)}/mo. Every dollar above that is optional.`;
+                    } else {
+                        msg = `<strong>Critical — Immediate Action Required:</strong> Less than 2 months of runway. Activate Siege Protocol today: cut everything above survival baseline (${fmt(needs)}/mo). Contact creditors. Explore income bridge options. Your Iron Pot is dangerously thin — survival is the mission.`;
+                    }
+                } else if (type === 'incomecut') {
+                    if (monthlyGap >= 0) {
+                        msg = `<strong>Resilient:</strong> Even at 50% income, you run a surplus of ${fmt(monthlyGap)}/mo. Your Iron Pot holds. Consider using this scenario as a floor to size your emergency fund — 6 months at reduced-income burn rates gives you a truly stress-tested moat.`;
+                    } else {
+                        msg = `<strong>Protocol — Income Cut:</strong> A 50% income reduction creates a ${fmt(-monthlyGap)}/mo deficit. Your ${fmt(availableReserve)} emergency fund gives you ${runwayLabel}. Priority: identify which wants (${fmt(metrics.wantsTotal)}/mo total) can be cut first. The colonists called this a siege winter — you spend what you must to survive, nothing more.`;
+                    }
+                } else if (type === 'emergency') {
+                    if (availableReserve >= oneOffExpense) {
+                        msg = `<strong>Moat Holds:</strong> A ${fmt(oneOffExpense)} emergency is within your ${fmt(availableReserve)} Iron Pot. You absorb it without disrupting cash flow. This is why the moat exists. After paying, rebuild it before touching wants.`;
+                    } else {
+                        msg = `<strong>Warning — Moat Breach:</strong> A ${fmt(oneOffExpense)} emergency exceeds your ${fmt(availableReserve)} Iron Pot by ${fmt(oneOffExpense - availableReserve)}. The gap gets financed — at whatever rate you can find. This is exactly how the debt spiral begins. Priority: widen the moat before this scenario becomes reality.`;
+                    }
+                } else {
+                    msg = `<strong>Custom Scenario:</strong> Under these conditions, you ${monthlyGap >= 0 ? 'maintain a ' + fmt(monthlyGap) + '/mo surplus' : 'run a ' + fmt(-monthlyGap) + '/mo deficit'}. Emergency fund runway: ${runwayLabel}. ${monthlyBurn > 0 && availableReserve < monthlyBurn * 3 ? 'Your moat is thin for this level of exposure — consider building reserves.' : 'Your reserves can absorb this scenario.'}`;
+                }
+                verdictEl.innerHTML = msg;
+            }
+
+            // Update collapsed summary
+            const summary = el('gauges-section-collapsed-summary');
+            if (summary) {
+                const scenarioName = { jobloss: 'Job Loss', incomecut: 'Income Cut', emergency: 'Emergency', custom: 'Custom' }[type] || type;
+                summary.textContent = scenarioName + ' · ' + (runwayMonths === Infinity ? '∞ runway' : Math.floor(runwayMonths) + ' mo runway');
+            }
+        }
+
+        // ── Hook both into calculateAll ──────────────────────────────────
+        // Called at bottom of calculateAll via existing pattern
+
+
         //  RETIREMENT TARGET — Section 04
         // ══════════════════════════════════════════════════════════════════
         function updateRetirementPanel() {
@@ -22427,6 +24153,65 @@ function toggleScoreBreakdown() {
                 }
                 wrProtEl.innerHTML = protBody;
                 wrProtEl.style.display = '';
+            }
+
+            // TAX SIEVE INSIGHT
+            const wrSieveEl = document.getElementById('wr-sieve-insight');
+            if (wrSieveEl) {
+                const sieveIncome   = getMonthlyIncome();
+                const sieveFiling   = document.getElementById('sieve-filing-status')?.value || 'single';
+                const sieveType     = document.getElementById('sieve-income-type')?.value   || 'w2';
+                const sieve401k     = parseCurrency(document.getElementById('pretax-401k')?.value || 0) * 12;
+                const sieveHSA      = parseCurrency(document.getElementById('pretax-hsa')?.value  || 0) * 12;
+                const sievePretax   = sieve401k + sieveHSA;
+                const sieveLimit401 = (sieveType === 'self' || sieveType === 'business') ? 70000 : 23500;
+                const sieveHSALim   = sieveFiling === 'mfj' ? 8550 : 4300;
+                const hdhpOk        = document.querySelector('input[name="prot-hdhp"]:checked')?.value === 'yes';
+                const sieveGross    = sieveIncome * 12;
+                const sieveBracket  = sieveGross > 0 ? calcTax(Math.max(0, sieveGross - (STANDARD_DEDUCTION[sieveFiling]||15000)), sieveFiling).marginalRate : 0;
+                const leftOnTable   = (sieveLimit401 - sieve401k) * sieveBracket + (hdhpOk ? (sieveHSALim - sieveHSA) * sieveBracket : 0);
+
+                let sieveBody = '<div class="wr-section-label">Tax Efficiency — ' + (sievePretax > 0 ? '$' + Math.round(sievePretax/1000) + 'K pre-tax deployed' : 'Not configured') + '</div>';
+                if (sieveGross > 0) {
+                    sieveBody += '<div style="font-size:0.78rem;color:rgba(245,234,208,0.75);margin-bottom:0.4rem;">Marginal bracket: <strong style="color:#7a9fd4;">' + Math.round(sieveBracket*100) + '%</strong>';
+                    if (leftOnTable > 100) {
+                        sieveBody += ' &nbsp;·&nbsp; <span style="color:#C9A227;">$' + Math.round(leftOnTable).toLocaleString() + '/yr left on the table</span> in unused pre-tax headroom.</div>';
+                        sieveBody += '<div style="background:rgba(201,162,39,0.07);border-left:3px solid #C9A227;padding:0.5rem 0.75rem;border-radius:0 4px 4px 0;font-size:0.75rem;color:rgba(255,220,100,0.8);line-height:1.5;">Every dollar of pre-tax contribution avoids tax at your ' + Math.round(sieveBracket*100) + '% marginal rate. Fill Section 06 — The Sieve to see your full optimization map.</div>';
+                    } else {
+                        sieveBody += ' &nbsp;·&nbsp; <span style="color:#4a9e6b;">Pre-tax accounts well utilized.</span></div>';
+                    }
+                } else {
+                    sieveBody += '<div style="font-size:0.75rem;color:rgba(245,234,208,0.4);font-style:italic;">Enter income to see tax analysis.</div>';
+                }
+                wrSieveEl.innerHTML = sieveBody;
+                wrSieveEl.style.display = '';
+            }
+
+            // GAUGES / SCENARIO INSIGHT
+            const wrGaugesEl = document.getElementById('wr-gauges-insight');
+            if (wrGaugesEl) {
+                const gIncome  = getMonthlyIncome();
+                const gNeeds   = calculateMonthlyEssentials();
+                const gEmFund  = parseCurrency(document.getElementById('emergency_fund_total')?.value || 0);
+                const gRunway  = gNeeds > 0 ? gEmFund / gNeeds : 0;
+                const gJobLoss = gIncome > 0 ? -(computeCoreMetrics().totalExpenses) : 0;
+
+                let gaugesBody = '<div class="wr-section-label">Scenario Readiness — Job-Loss Stress Test</div>';
+                if (gIncome > 0) {
+                    const gColor = gRunway >= 6 ? '#4a9e6b' : gRunway >= 3 ? '#C9A227' : '#e07080';
+                    gaugesBody += '<div style="font-size:0.78rem;color:rgba(245,234,208,0.75);margin-bottom:0.4rem;">Iron Pot runway at zero income: <strong style="color:' + gColor + ';">' + gRunway.toFixed(1) + ' months</strong></div>';
+                    if (gRunway < 3) {
+                        gaugesBody += '<div style="background:rgba(178,34,52,0.1);border-left:3px solid #B22234;padding:0.5rem 0.75rem;border-radius:0 4px 4px 0;font-size:0.75rem;color:rgba(255,180,180,0.85);line-height:1.5;">Less than 3 months of runway. A single job loss or major emergency puts you in debt-spiral risk. Widen the moat first — before optimizing anything else.</div>';
+                    } else if (gRunway < 6) {
+                        gaugesBody += '<div style="background:rgba(201,162,39,0.07);border-left:3px solid #C9A227;padding:0.5rem 0.75rem;border-radius:0 4px 4px 0;font-size:0.75rem;color:rgba(255,220,100,0.8);line-height:1.5;">3–6 month runway. Adequate for short-term disruptions but vulnerable to extended job search or medical crisis. Target: 6 months minimum.</div>';
+                    } else {
+                        gaugesBody += '<div style="background:rgba(74,158,107,0.06);border-left:3px solid #4a9e6b;padding:0.5rem 0.75rem;border-radius:0 4px 4px 0;font-size:0.75rem;color:rgba(160,220,180,0.85);line-height:1.5;">Iron Pot moat holds ' + gRunway.toFixed(1) + ' months at full-expense burn. You can weather a job loss from a position of strength — not desperation.</div>';
+                    }
+                } else {
+                    gaugesBody += '<div style="font-size:0.75rem;color:rgba(245,234,208,0.4);font-style:italic;">Enter income to see scenario analysis.</div>';
+                }
+                wrGaugesEl.innerHTML = gaugesBody;
+                wrGaugesEl.style.display = '';
             }
 
             // RENDER
@@ -23243,8 +25028,8 @@ function toggleScoreBreakdown() {
                             <div style="padding: 0.5rem; border-left: 3px solid #eab308; margin-bottom: 0.5rem; padding-left: 0.75rem;">
                                 <strong style="color: #eab308;">60-74: STABLE</strong> — Foundation solid, work to do
                             </div>
-                            <div style="padding: 0.5rem; border-left: 3px solid #f97316; margin-bottom: 0.5rem; padding-left: 0.75rem;">
-                                <strong style="color: #f97316;">40-59: VULNERABLE</strong> — Urgent action required
+                            <div style="padding: 0.5rem; border-left: 3px solid #B22234; margin-bottom: 0.5rem; padding-left: 0.75rem;">
+                                <strong style="color: #e07080;">40-59: VULNERABLE</strong> — Urgent action required
                             </div>
                             <div style="padding: 0.5rem; border-left: 3px solid #B22234; padding-left: 0.75rem;">
                                 <strong style="color: #B22234;">0-39: CRISIS</strong> — Emergency measures needed
@@ -23430,7 +25215,7 @@ function toggleScoreBreakdown() {
             if (score >= 90) return '#4a9e6b';
             if (score >= 75) return '#7a9fd4';
             if (score >= 60) return '#eab308';
-            if (score >= 40) return '#f97316';
+            if (score >= 40) return '#e07080';
             return '#B22234';
         }
         
@@ -23985,7 +25770,7 @@ function toggleScoreBreakdown() {
             const _ind = document.getElementById('autosave-indicator');
             if (_ind) { _ind.classList.add('saving'); clearTimeout(window._autosaveTimer); window._autosaveTimer = setTimeout(() => _ind.classList.remove('saving'), 1200); }
             const data = {
-                version: 'raf_lab_v13_sovereign_score', // UPDATED VERSION
+                version: 'raf_lab_v14_phase_map',
                 timestamp: new Date().toISOString(),
                 warMode: isWarModeActive,
                 paycheck: document.getElementById('paycheck').value,
@@ -24042,6 +25827,21 @@ function toggleScoreBreakdown() {
                 hasBeneficiary:    document.querySelector('input[name="prot-beneficiary"]:checked')?.value || ''
             };
             
+            // Save Sieve (Tax) fields
+            data.sieve = {
+                filingStatus: document.getElementById('sieve-filing-status')?.value || '',
+                incomeType:   document.getElementById('sieve-income-type')?.value   || '',
+                otherIncome:  document.getElementById('sieve-other-income')?.value  || ''
+            };
+
+            // Save Gauges (Scenario) fields
+            data.gauges = {
+                scenario:      _gaugesCurrentScenario || 'jobloss',
+                incomePct:     document.getElementById('gauges-income-pct')?.value      || '-50',
+                oneoffExpense: document.getElementById('gauges-oneoff-expense')?.value  || '',
+                expensePct:    document.getElementById('gauges-expense-pct')?.value     || '20'
+            };
+
             if (isWarModeActive) {
                 data.originalValues = originalCategoryValues;
             }
@@ -24171,6 +25971,36 @@ function toggleScoreBreakdown() {
                         const el = document.getElementById('prot-ben-' + data.protection.hasBeneficiary);
                         if (el) el.checked = true;
                     }
+                }
+                // Restore Sieve (Tax) fields
+                if (data.sieve) {
+                    if (data.sieve.filingStatus || data.sieve.incomeType || data.sieve.otherIncome) {
+                        window._sieveVisited = true;
+                    }
+                    const fsEl = document.getElementById('sieve-filing-status');
+                    const itEl = document.getElementById('sieve-income-type');
+                    const oiEl = document.getElementById('sieve-other-income');
+                    if (fsEl && data.sieve.filingStatus) fsEl.value = data.sieve.filingStatus;
+                    if (itEl && data.sieve.incomeType)   itEl.value = data.sieve.incomeType;
+                    if (oiEl && data.sieve.otherIncome)  oiEl.value = data.sieve.otherIncome;
+                }
+                // Restore Gauges (Scenario) fields
+                if (data.gauges) {
+                    _gaugesCurrentScenario = data.gauges.scenario || 'jobloss';
+                    const ipEl  = document.getElementById('gauges-income-pct');
+                    const oeEl  = document.getElementById('gauges-oneoff-expense');
+                    const epEl  = document.getElementById('gauges-expense-pct');
+                    const ipvEl = document.getElementById('gauges-income-pct-val');
+                    const epvEl = document.getElementById('gauges-expense-pct-val');
+                    if (ipEl && data.gauges.incomePct)     { ipEl.value = data.gauges.incomePct;    if (ipvEl) ipvEl.textContent = data.gauges.incomePct + '%'; }
+                    if (oeEl && data.gauges.oneoffExpense) oeEl.value = data.gauges.oneoffExpense;
+                    if (epEl && data.gauges.expensePct)    { epEl.value = data.gauges.expensePct;   if (epvEl) epvEl.textContent = data.gauges.expensePct + '%'; }
+                    // Re-highlight active scenario button
+                    document.querySelectorAll('.gauges-scenario-btn').forEach(b => b.classList.remove('active'));
+                    const activeBtn = document.getElementById('gsb-' + _gaugesCurrentScenario);
+                    if (activeBtn) activeBtn.classList.add('active');
+                    const cc = document.getElementById('gauges-custom-controls');
+                    if (cc) cc.style.display = _gaugesCurrentScenario === 'custom' ? '' : 'none';
                 }
                 setTimeout(() => {
                     calculateAll();
@@ -24352,7 +26182,7 @@ function toggleScoreBreakdown() {
 
         function exportData() {
             const data = {
-                version: 'raf_lab_v13_sovereign_score', // UPDATED VERSION
+                version: 'raf_lab_v14_phase_map',
                 timestamp: new Date().toISOString(),
                 warMode: isWarModeActive,
                 income: {
@@ -25477,6 +27307,8 @@ function toggleScoreBreakdown() {
 
             // ── Trajectory panel
             updateTrajectoryPanel(score);
+            // ── Hero command strip
+            updateHeroCallouts();
 
             // ── Inline rubric bars ──────────────────────────────────
             if (score.components) {
@@ -25502,6 +27334,107 @@ function toggleScoreBreakdown() {
                     }
                     if (pEl) pEl.textContent = c.score + '/' + c.max;
                 });
+            }
+        }
+
+        // ── Patriot: SOVEREIGN gold-star burst ────────────────────────
+        function triggerSovereignEffect() {
+            const crown = document.getElementById('score-crown-live');
+            if (!crown) return;
+            crown.classList.add('sovereign-active');
+
+            // Burst 13 stars (one per original colony) from the score number
+            const numEl = document.getElementById('score-crown-num');
+            if (!numEl) return;
+            const rect = numEl.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 13; i++) {
+                const star = document.createElement('div');
+                const angle = (i / 13) * 360;
+                const dist  = 60 + Math.random() * 40;
+                const dx    = Math.cos(angle * Math.PI / 180) * dist;
+                const dy    = Math.sin(angle * Math.PI / 180) * dist;
+                const size  = 10 + Math.random() * 8;
+                star.style.cssText = `
+                    position:fixed; z-index:9999; pointer-events:none;
+                    left:${cx}px; top:${cy}px;
+                    font-size:${size}px; color:#C9A227;
+                    transform:translate(-50%,-50%);
+                    transition: transform 1.2s cubic-bezier(0.22,1,0.36,1), opacity 1s ease;
+                    opacity:1; text-shadow:0 0 8px rgba(201,162,39,0.8);
+                `;
+                star.textContent = '★';
+                document.body.appendChild(star);
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        star.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`;
+                        star.style.opacity = '0';
+                    });
+                });
+                setTimeout(() => star.remove(), 1400);
+            }
+        }
+
+        // ── Hero Command Strip callouts ────────────────────────────────
+        function updateHeroCallouts() {
+            const income = getMonthlyIncome();
+            if (income <= 0) return;
+
+            const scoreData  = calculateSovereignScore();
+            const surplus    = calculateSurplus();
+            const debtRows   = [];
+            document.querySelectorAll('#debt-body tr').forEach(row => debtRows.push(row));
+            const debtPay    = parseCurrency(document.getElementById('debt_paydown')?.value || 0);
+            const monthlyNeeds = calculateMonthlyEssentials ? calculateMonthlyEssentials() : 0;
+            const savingsRate  = income > 0 ? ((parseCurrency(document.getElementById('retirement_monthly')?.value||0)
+                + parseCurrency(document.getElementById('emergency_fund_monthly')?.value||0)
+                + parseCurrency(document.getElementById('investments_monthly')?.value||0)) / income * 100) : 0;
+
+            // YOUR MOVE
+            const moveEl    = document.getElementById('hero-cmd-move-val');
+            const moveSubEl = document.getElementById('hero-cmd-move-sub');
+            if (moveEl) {
+                try {
+                    const move = buildTopMove({ income, monthlySurplus: surplus, monthlyNeeds, savingsRate, debtRows, debtPay });
+                    moveEl.textContent = move.action || '--';
+                    moveEl.style.color = '#f5ead0';
+                    if (moveSubEl) moveSubEl.textContent = move.timeline || move.impact || 'highest-leverage action';
+                } catch(e) {
+                    moveEl.textContent = 'Enter budget data';
+                    moveEl.style.color = 'rgba(245,234,208,0.4)';
+                }
+            }
+
+            // BIGGEST GAP — lowest score/max ratio among components
+            const gapEl    = document.getElementById('hero-cmd-gap-val');
+            const gapSubEl = document.getElementById('hero-cmd-gap-sub');
+            if (gapEl && scoreData.components && scoreData.components.length > 0) {
+                const worst = [...scoreData.components].sort((a,b) => (a.score/a.max) - (b.score/b.max))[0];
+                gapEl.textContent = worst.name;
+                gapEl.style.color = (worst.score / worst.max) < 0.4 ? '#e07080' : '#C9A227';
+                if (gapSubEl) gapSubEl.textContent = worst.score + '/' + worst.max + ' pts — ' + (worst.details || 'needs attention');
+            }
+
+            // SURPLUS
+            const surplusEl    = document.getElementById('hero-cmd-surplus-val');
+            const surplusSubEl = document.getElementById('hero-cmd-surplus-sub');
+            if (surplusEl) {
+                const abs = Math.abs(Math.round(surplus));
+                if (surplus > 10) {
+                    surplusEl.textContent = '$' + abs.toLocaleString() + '/mo';
+                    surplusEl.style.color = '#4a9e6b';
+                    if (surplusSubEl) surplusSubEl.textContent = 'available to deploy';
+                } else if (surplus < -10) {
+                    surplusEl.textContent = '-$' + abs.toLocaleString() + '/mo';
+                    surplusEl.style.color = '#e07080';
+                    if (surplusSubEl) surplusSubEl.textContent = 'spending exceeds income';
+                } else {
+                    surplusEl.textContent = 'ZERO-BASED';
+                    surplusEl.style.color = '#C9A227';
+                    if (surplusSubEl) surplusSubEl.textContent = 'every dollar deployed';
+                }
             }
         }
 
@@ -27004,6 +28937,12 @@ ${budgetLines.length === 0 ? '  Not entered' : budgetLines.map(l => `  ${l.name}
             <!-- PROTECTION ASSESSMENT INSIGHT -->
             <div id="wr-protection-insight" style="display:none; margin-bottom:1.5rem;"></div>
 
+            <!-- TAX SIEVE INSIGHT -->
+            <div id="wr-sieve-insight" style="display:none; margin-bottom:1.5rem;"></div>
+
+            <!-- GAUGES / SCENARIO INSIGHT -->
+            <div id="wr-gauges-insight" style="display:none; margin-bottom:1.5rem;"></div>
+
             <!-- PHASED ACTION ROADMAP -->
             <div id="wr-roadmap" style="display:none;">
                 <div class="wr-section-label">Action Roadmap</div>
@@ -27230,43 +29169,75 @@ ${budgetLines.length === 0 ? '  Not entered' : budgetLines.map(l => `  ${l.name}
         </div>
     
     <!-- ADVISOR PANE -->
-    <div id="dofi-pane-advisor" class="declaration-scroll-container" style="display:none; background:#0a0f1e; margin-top:50px; height:calc(100vh - 50px);">
-        <div style="max-width:680px; margin:0 auto; padding:1.5rem 1rem 6rem; display:flex; flex-direction:column; min-height:100%;">
+    <div id="dofi-pane-advisor" class="declaration-scroll-container" style="display:none; background:#080f1a; margin-top:50px; height:calc(100vh - 50px); overflow-y:auto;">
+        <div style="max-width:680px; margin:0 auto; padding:3rem 1.5rem 6rem; display:flex; flex-direction:column; align-items:center; min-height:100%; justify-content:center;">
 
-            <button class="close-declaration-btn" onclick="closeDeclarationFullscreen(event)" title="Close" style="align-self:flex-end; margin-bottom:1rem;">
+            <button class="close-declaration-btn" onclick="closeDeclarationFullscreen(event)" title="Close" style="align-self:flex-end; margin-bottom:2rem;">
                 <i class="fas fa-times"></i>
             </button>
 
-            <!-- Header -->
-            <div style="margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid rgba(201,162,39,0.2);">
-                <div style="font-family:'Oswald',sans-serif; font-size:0.55rem; font-weight:700; text-transform:uppercase; letter-spacing:0.25em; color:#C9A227; margin-bottom:0.35rem;">Real American Finance</div>
-                <h2 style="font-family:'Oswald',sans-serif; font-size:1.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; color:#f5ead0; margin:0 0 0.35rem;">Your Financial Advisor</h2>
-                <p style="font-family:Georgia,serif; font-size:0.82rem; color:rgba(245,234,208,0.5); margin:0; line-height:1.5;">Knows your full financial picture. Ask anything — debt payoff order, budget trade-offs, what to do with a windfall. No hold music. No judgment.</p>
+            <!-- Advisor portrait -->
+            <div style="width:72px; height:72px; border-radius:50%; background:linear-gradient(135deg,rgba(201,162,39,0.15),rgba(201,162,39,0.05)); border:1px solid rgba(201,162,39,0.3); display:flex; align-items:center; justify-content:center; font-size:2rem; margin-bottom:1.75rem;">
+                🧠
             </div>
 
-            <!-- Starter questions -->
-            <div id="advisor-starters" style="margin-bottom:1.25rem;">
-                <div style="font-family:'Oswald',sans-serif; font-size:0.5rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:rgba(201,162,39,0.6); margin-bottom:0.6rem;">Common questions</div>
-                <div style="display:flex; flex-wrap:wrap; gap:0.5rem;" id="advisor-starter-chips"></div>
+            <!-- Eyebrow -->
+            <div style="font-family:'Oswald',sans-serif; font-size:0.48rem; font-weight:700; letter-spacing:0.3em; text-transform:uppercase; color:rgba(201,162,39,0.6); margin-bottom:0.6rem; text-align:center;">
+                Real American Finance Lab
             </div>
 
-            <!-- Chat history -->
-            <div id="advisor-chat" style="flex:1; display:flex; flex-direction:column; gap:1rem; margin-bottom:1rem; min-height:200px;"></div>
+            <!-- Headline -->
+            <h2 style="font-family:'Oswald',sans-serif; font-size:2rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#f5ead0; margin:0 0 1rem; text-align:center; line-height:1.15;">
+                Ask the Advisor
+            </h2>
 
-            <!-- Input bar -->
-            <div style="position:sticky; bottom:0; padding:0.75rem 0; background:linear-gradient(0deg, #0a0f1e 80%, transparent);">
-                <div style="display:flex; gap:0.5rem; align-items:flex-end; background:rgba(255,255,255,0.05); border:1px solid rgba(201,162,39,0.25); border-radius:8px; padding:0.6rem 0.75rem;">
-                    <textarea id="advisor-input" placeholder="Ask about your finances..." rows="1"
-                        style="flex:1; background:transparent; border:none; outline:none; font-family:Georgia,serif; font-size:0.9rem; color:#f5ead0; resize:none; line-height:1.5; max-height:120px; overflow-y:auto;"
-                        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();advisorSend();}"
-                        oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';"></textarea>
-                    <button onclick="advisorSend()" id="advisor-send-btn"
-                        style="flex-shrink:0; padding:0.5rem 1rem; background:linear-gradient(135deg,#C9A227,#8B6914); color:#fff; border:none; border-radius:6px; font-family:'Oswald',sans-serif; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; cursor:pointer; transition:opacity 0.2s;">
-                        Send
-                    </button>
+            <!-- Coming soon badge -->
+            <div style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(178,34,52,0.12); border:1px solid rgba(178,34,52,0.3); border-radius:20px; padding:0.35rem 1rem; margin-bottom:1.75rem;">
+                <span style="width:6px; height:6px; border-radius:50%; background:#B22234; animation:pulse 1.5s infinite; flex-shrink:0;"></span>
+                <span style="font-family:'Oswald',sans-serif; font-size:0.52rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#e07080;">In Development</span>
+            </div>
+
+            <!-- Description -->
+            <p style="font-family:Georgia,serif; font-size:0.9rem; color:rgba(245,234,208,0.55); line-height:1.75; text-align:center; max-width:480px; margin:0 0 2.5rem; font-style:italic;">
+                A financial advisor that already knows your numbers — income, debts, savings rate, protection gaps, retirement trajectory. Ask anything. Get a direct answer with no hedging, no hold music, and no upsell.
+            </p>
+
+            <!-- What it will do -->
+            <div style="width:100%; max-width:480px; margin-bottom:2.5rem;">
+                <div style="font-family:'Oswald',sans-serif; font-size:0.48rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:0.85rem; text-align:center;">What you'll be able to ask</div>
+                <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                    <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.65rem 0.9rem; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:6px;">
+                        <span style="color:#C9A227; flex-shrink:0; margin-top:0.05rem;">◆</span>
+                        <span style="font-family:Georgia,serif; font-size:0.78rem; color:rgba(245,234,208,0.6); line-height:1.5; font-style:italic;">"Should I pay off my car or build my emergency fund first?"</span>
+                    </div>
+                    <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.65rem 0.9rem; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:6px;">
+                        <span style="color:#C9A227; flex-shrink:0; margin-top:0.05rem;">◆</span>
+                        <span style="font-family:Georgia,serif; font-size:0.78rem; color:rgba(245,234,208,0.6); line-height:1.5; font-style:italic;">"I got a $4,000 bonus. What's the exact move?"</span>
+                    </div>
+                    <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.65rem 0.9rem; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:6px;">
+                        <span style="color:#C9A227; flex-shrink:0; margin-top:0.05rem;">◆</span>
+                        <span style="font-family:Georgia,serif; font-size:0.78rem; color:rgba(245,234,208,0.6); line-height:1.5; font-style:italic;">"Am I actually on track to retire at 58, or am I lying to myself?"</span>
+                    </div>
+                    <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.65rem 0.9rem; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:6px;">
+                        <span style="color:#C9A227; flex-shrink:0; margin-top:0.05rem;">◆</span>
+                        <span style="font-family:Georgia,serif; font-size:0.78rem; color:rgba(245,234,208,0.6); line-height:1.5; font-style:italic;">"Where in my budget is the most waste right now?"</span>
+                    </div>
                 </div>
-                <div style="font-size:0.6rem; color:rgba(255,255,255,0.2); text-align:center; margin-top:0.4rem;">Powered by Claude · Your numbers stay in your browser</div>
             </div>
+
+            <!-- Divider -->
+            <div style="width:100%; max-width:480px; height:1px; background:linear-gradient(90deg,transparent,rgba(201,162,39,0.2),transparent); margin-bottom:2rem;"></div>
+
+            <!-- Iron Pot quote -->
+            <div style="text-align:center; max-width:420px;">
+                <div style="font-family:Georgia,serif; font-size:0.82rem; color:rgba(245,234,208,0.35); line-height:1.7; font-style:italic; margin-bottom:0.5rem;">
+                    "She didn't have a broker, a planner, or a 401k. She had one advisor — the iron pot that never lied to her about what was left."
+                </div>
+                <div style="font-family:'Oswald',sans-serif; font-size:0.45rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:rgba(201,162,39,0.3);">
+                    — Iron Pot Millionaire
+                </div>
+            </div>
+
         </div>
     </div>
 
