@@ -28,19 +28,6 @@
             transform: translateY(-5px);
             background: rgba(178, 34, 52, 0.1);
         }
-        .newsletter-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        .newsletter-input:focus {
-            border-color: #B22234;
-            box-shadow: 0 0 0 2px rgba(178, 34, 52, 0.2);
-        }
-        .testimonial-card {
-            background: linear-gradient(135deg, #0A1A2F 0%, #11243F 100%);
-            border-left: 4px solid #B22234;
-        }
         .animate-fade-in {
             animation: fadeIn 0.8s ease-out;
         }
@@ -70,22 +57,24 @@
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson">
 
+    <!-- HEADER: Navigation with anchor links to sections -->
     <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex flex-col group">
+            <a href="#" class="flex flex-col group">
                 <span style="font-family: 'Great Vibes';" class="text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
                 <span class="font-heading text-[10px] tracking-[0.4em] text-gray-400 uppercase mt-1 font-bold">Discipline • Autonomy • Wealth</span>
             </a>
             <ul class="hidden lg:flex space-x-8 font-heading text-xs tracking-[0.2em] uppercase font-bold text-gray-400">
-                <li><a href="academy.html" class="hover:text-white transition">The Academy</a></li>
-                <li><a href="media.html" class="hover:text-white transition">Media</a></li>
-                <li><a href="the-lab.html" class="hover:text-white transition">Tools</a></li>
-                <li><a href="shop.html" class="hover:text-white transition">Shop</a></li>
-                <li><a href="strategy.html" class="bg-crimson px-5 py-2 text-white hover:bg-red-700 transition">Strategy Call</a></li>
+                <li><a href="#what-you-get" class="hover:text-white transition">The Reset</a></li>
+                <li><a href="#how-it-works" class="hover:text-white transition">How It Works</a></li>
+                <li><a href="#who-its-for" class="hover:text-white transition">Who It's For</a></li>
+                <li><a href="#pricing" class="hover:text-white transition">Pricing</a></li>
+                <li><a href="#booking" class="bg-crimson px-5 py-2 text-white hover:bg-red-700 transition">Book Your Reset</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- SECTION 1 — HERO (ORIGINAL HEADLINE PRESERVED) -->
     <section class="hero-bg min-h-screen flex items-center justify-center pt-20 text-center">
         <div class="container mx-auto px-6">
             <div class="max-w-5xl mx-auto">
@@ -93,210 +82,114 @@
                     OWN YOUR <br><span class="text-crimson">OUTCOMES.</span>
                 </h1>
                 
-                <p class="text-lg md:text-xl text-white font-heading font-bold uppercase tracking-[0.5em] mb-12 drop-shadow-md">
-                    Discipline • Autonomy • Wealth
+                <p class="text-lg md:text-xl text-white font-heading font-bold uppercase tracking-[0.3em] mb-12 drop-shadow-md max-w-3xl mx-auto">
+                    A premium Financial Reset that gives you clarity, structure, and a working system — not just advice.
                 </p>
 
                 <div class="flex flex-wrap gap-6 justify-center">
-                    <a href="academy.html" class="bg-white text-navy-950 px-10 py-5 font-heading font-bold uppercase tracking-widest hover:bg-crimson hover:text-white transition text-lg shadow-xl">Enter the Academy</a>
-                    <a href="strategy.html" class="border-2 border-white px-10 py-5 font-heading font-bold uppercase tracking-widest hover:bg-white hover:text-navy-950 transition text-lg backdrop-blur-sm">Strategy Briefing</a>
+                    <a href="#booking" class="bg-white text-navy-950 px-10 py-5 font-heading font-bold uppercase tracking-widest hover:bg-crimson hover:text-white transition text-lg shadow-xl">Book Your Financial Reset</a>
+                    <a href="#how-it-works" class="border-2 border-white px-10 py-5 font-heading font-bold uppercase tracking-widest hover:bg-white hover:text-navy-950 transition text-lg backdrop-blur-sm">How It Works</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- NEW: Strategic Tools Section -->
-    <section class="py-20 bg-navy-900 animate-fade-in" id="tools-section">
+    <!-- SECTION 2 — What You Get -->
+    <section class="py-20 bg-navy-900 animate-fade-in" id="what-you-get">
         <div class="container mx-auto px-6">
             <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase mb-4">What You Get</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Everything you need to take control of your financial life</p>
+                </div>
                 
-                <!-- The Lab Promotion -->
-                <div class="tool-preview rounded-2xl p-8 mb-16 border-2 border-crimson/30 pulse-glow">
-                    <div class="flex flex-col lg:flex-row items-center gap-10">
-                        <div class="lg:w-2/3">
-                            <span class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-3 block">TACTICAL FINANCIAL TOOL</span>
-                            <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase mb-6 leading-tight">
-                                THE LAB:<br><span class="text-crimson">Your Financial Battle Station</span>
-                            </h2>
-                            <p class="text-gray-300 mb-8 leading-relaxed text-lg max-w-2xl">
-                                Interactive budgeting, debt reconnaissance, and War Mode for deficit situations. 
-                                Free web version + premium mobile app. No subscriptions. Your data stays with you.
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-4 mb-8">
-                                <div class="flex items-center gap-2">
-                                    <i class="fas fa-shield-alt text-crimson"></i>
-                                    <span class="text-sm">War Mode for deficits</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <i class="fas fa-chart-line text-crimson"></i>
-                                    <span class="text-sm">Debt priority tracking</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <i class="fas fa-mobile-alt text-crimson"></i>
-                                    <span class="text-sm">Mobile app available</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex flex-wrap gap-4">
-                                <a href="the-lab.html" 
-                                   class="bg-crimson hover:bg-red-700 px-8 py-4 font-heading font-bold uppercase tracking-widest text-white transition text-sm shadow-lg hover:shadow-xl hover:-translate-y-1">
-                                    <i class="fas fa-flask mr-3"></i>Launch The Lab (Free)
-                                </a>
-                                <button onclick="document.getElementById('app-modal').classList.remove('hidden')" 
-                                   class="bg-white/10 hover:bg-white/20 border border-white/20 px-8 py-4 font-heading font-bold uppercase tracking-widest transition text-sm hover:-translate-y-1">
-                                    <i class="fas fa-mobile-alt mr-3"></i>Get Mobile App ($4.99)
-                                </button>
-                            </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="pillar-card rounded-xl p-8 text-center">
+                        <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-clock text-2xl text-crimson"></i>
                         </div>
-                        
-                        <div class="lg:w-1/3">
-                            <!-- Tool Preview Visualization -->
-                            <div class="bg-navy-950 border border-white/10 rounded-xl p-6 aspect-square flex flex-col items-center justify-center relative overflow-hidden">
-                                <div class="absolute inset-0 bg-gradient-to-br from-crimson/5 to-transparent"></div>
-                                
-                                <!-- Mini Chart Visualization -->
-                                <div class="relative w-48 h-48 mb-6">
-                                    <canvas id="previewChart"></canvas>
-                                    <div class="absolute inset-0 flex items-center justify-center">
-                                        <div class="text-center">
-                                            <div class="text-3xl font-bold text-green-400">$1,240</div>
-                                            <div class="text-xs uppercase tracking-widest text-gray-400 mt-1">Monthly Surplus</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="text-center">
-                                    <div class="text-xs uppercase tracking-widest text-gray-400 mb-2">Live Budget Dashboard</div>
-                                    <div class="flex justify-center gap-2">
-                                        <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-                                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                                        <div class="w-3 h-3 rounded-full bg-purple-500"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Brand Pillars Grid -->
-                <div class="mb-20">
-                    <div class="text-center mb-12">
-                        <h3 class="text-3xl font-heading font-bold uppercase mb-4">The Three Pillars</h3>
-                        <p class="text-gray-400 max-w-2xl mx-auto">The foundation of financial sovereignty</p>
+                        <h3 class="text-xl font-heading font-bold uppercase mb-4">3‑Hour Live Session</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">Intensive one-on-one deep dive. No fluff, no filler—just focused work on your unique financial situation.</p>
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="pillar-card rounded-xl p-8 text-center">
-                            <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
-                                <i class="fas fa-dumbbell text-2xl text-crimson"></i>
-                            </div>
-                            <h4 class="text-xl font-heading font-bold uppercase mb-4">Discipline</h4>
-                            <p class="text-gray-300 text-sm leading-relaxed">
-                                Consistent systems that build wealth automatically. 
-                                Not willpower—proven frameworks that work when you're tired, stressed, or distracted.
-                            </p>
+                    <div class="pillar-card rounded-xl p-8 text-center">
+                        <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-chart-pie text-2xl text-crimson"></i>
                         </div>
-                        
-                        <div class="pillar-card rounded-xl p-8 text-center">
-                            <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
-                                <i class="fas fa-user-shield text-2xl text-crimson"></i>
-                            </div>
-                            <h4 class="text-xl font-heading font-bold uppercase mb-4">Autonomy</h4>
-                            <p class="text-gray-300 text-sm leading-relaxed">
-                                Financial decisions on your terms. No gurus, no gatekeepers. 
-                                Tools and education that put you in control of your financial destiny.
-                            </p>
-                        </div>
-                        
-                        <div class="pillar-card rounded-xl p-8 text-center">
-                            <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
-                                <i class="fas fa-gem text-2xl text-crimson"></i>
-                            </div>
-                            <h4 class="text-xl font-heading font-bold uppercase mb-4">Wealth</h4>
-                            <p class="text-gray-300 text-sm leading-relaxed">
-                                Tools that actually work. Not theoretical advice—practical systems 
-                                for building real wealth that withstands market cycles and personal challenges.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Social Proof Section -->
-                <div class="mb-16">
-                    <div class="text-center mb-12">
-                        <h3 class="text-3xl font-heading font-bold uppercase mb-4">Field Reports</h3>
-                        <p class="text-gray-400 max-w-2xl mx-auto">Real results from those implementing the framework</p>
+                        <h3 class="text-xl font-heading font-bold uppercase mb-4">Full Financial Breakdown</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">Complete audit of income, expenses, assets, and liabilities. See exactly where you stand.</p>
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="testimonial-card rounded-xl p-8">
-                            <div class="flex items-center mb-6">
-                                <div class="w-12 h-12 rounded-full bg-crimson/20 flex items-center justify-center mr-4">
-                                    <i class="fas fa-user text-crimson"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold">Mike R., Texas</div>
-                                    <div class="text-xs text-gray-500 uppercase tracking-widest">Former $42k in debt</div>
-                                </div>
-                            </div>
-                            <p class="text-gray-300 italic mb-4">
-                                "War Mode helped me eliminate $42,000 in credit card debt in 18 months. 
-                                The visual dashboard made it impossible to ignore my spending habits."
-                            </p>
-                            <div class="text-xs text-gray-500">Using The Lab since 2023</div>
+                    <div class="pillar-card rounded-xl p-8 text-center">
+                        <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-chart-line text-2xl text-crimson"></i>
                         </div>
-                        
-                        <div class="testimonial-card rounded-xl p-8">
-                            <div class="flex items-center mb-6">
-                                <div class="w-12 h-12 rounded-full bg-crimson/20 flex items-center justify-center mr-4">
-                                    <i class="fas fa-user text-crimson"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold">Sarah K., Ohio</div>
-                                    <div class="text-xs text-gray-500 uppercase tracking-widest">Built 6-month emergency fund</div>
-                                </div>
-                            </div>
-                            <p class="text-gray-300 italic mb-4">
-                                "The debt priority system showed me exactly which loans to attack first. 
-                                Saved $8,200 in interest payments by following the avalanche method."
-                            </p>
-                            <div class="text-xs text-gray-500">Academy Member since 2024</div>
+                        <h3 class="text-xl font-heading font-bold uppercase mb-4">Budget + Debt Payoff Plan</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">Custom budget that works for your lifestyle plus a prioritized debt elimination strategy.</p>
+                    </div>
+                    
+                    <div class="pillar-card rounded-xl p-8 text-center">
+                        <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-piggy-bank text-2xl text-crimson"></i>
                         </div>
+                        <h3 class="text-xl font-heading font-bold uppercase mb-4">Savings + Automation Setup</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">Build your emergency fund and automate your wealth-building systems so you never have to think about it.</p>
+                    </div>
+                    
+                    <div class="pillar-card rounded-xl p-8 text-center">
+                        <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-calendar-alt text-2xl text-crimson"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold uppercase mb-4">30‑Day Action Plan</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">Day-by-day roadmap for the first month. Clear steps, clear deadlines, clear accountability.</p>
+                    </div>
+                    
+                    <div class="pillar-card rounded-xl p-8 text-center">
+                        <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-phone-alt text-2xl text-crimson"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold uppercase mb-4">Two Follow‑Up Calls</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">Check-ins at week 2 and week 4 to ensure you're on track and answer any questions.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Newsletter Signup -->
-                <div class="bg-gradient-to-r from-navy-800 to-navy-900 border border-white/10 rounded-2xl p-8 md:p-12">
-                    <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
-                        <div class="lg:w-2/3">
-                            <h3 class="text-2xl font-heading font-bold uppercase mb-4">Weekly Sovereignty Strategies</h3>
-                            <p class="text-gray-300 mb-6">
-                                Get tactical financial frameworks delivered to your inbox. No spam, no fluff—just actionable systems for building wealth on your terms.
-                            </p>
-                            <div class="flex items-center gap-3 text-sm text-gray-400">
-                                <i class="fas fa-lock"></i>
-                                <span>Your email is never sold or shared</span>
-                            </div>
+    <!-- SECTION 3 — How It Works -->
+    <section class="py-20 bg-navy-950" id="how-it-works">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase mb-4">How It Works</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Three phases from chaos to clarity</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="pillar-card rounded-xl p-8 text-center relative">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-crimson text-white w-10 h-10 rounded-full flex items-center justify-center font-heading font-bold">1</div>
+                        <div class="mt-6">
+                            <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6"><i class="fas fa-stethoscope text-2xl text-crimson"></i></div>
+                            <h3 class="text-xl font-heading font-bold uppercase mb-4">Diagnose</h3>
+                            <p class="text-gray-300 text-sm leading-relaxed">Full breakdown of income, debt, spending, and cash flow. We uncover exactly where your money is going and why.</p>
                         </div>
-                        
-                        <div class="lg:w-1/3 w-full">
-                            <form class="space-y-4" id="newsletter-form">
-                                <div>
-                                    <input type="email" 
-                                           placeholder="strategic.email@domain.com" 
-                                           required
-                                           class="newsletter-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-500 focus:outline-none">
-                                </div>
-                                <button type="submit" 
-                                        class="bg-crimson hover:bg-red-700 w-full px-6 py-3 font-heading font-bold uppercase tracking-widest text-white transition rounded-lg">
-                                    <i class="fas fa-paper-plane mr-2"></i>Subscribe
-                                </button>
-                            </form>
-                            <p class="text-xs text-gray-500 mt-3 text-center">
-                                Unsubscribe anytime. First email: "The War Mode Mindset"
-                            </p>
+                    </div>
+                    
+                    <div class="pillar-card rounded-xl p-8 text-center relative">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-crimson text-white w-10 h-10 rounded-full flex items-center justify-center font-heading font-bold">2</div>
+                        <div class="mt-6">
+                            <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6"><i class="fas fa-hard-hat text-2xl text-crimson"></i></div>
+                            <h3 class="text-xl font-heading font-bold uppercase mb-4">Rebuild</h3>
+                            <p class="text-gray-300 text-sm leading-relaxed">Build your budget, debt payoff plan, savings buckets, and automation systems. A working structure you can live with.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pillar-card rounded-xl p-8 text-center relative">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-crimson text-white w-10 h-10 rounded-full flex items-center justify-center font-heading font-bold">3</div>
+                        <div class="mt-6">
+                            <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6"><i class="fas fa-rocket text-2xl text-crimson"></i></div>
+                            <h3 class="text-xl font-heading font-bold uppercase mb-4">Reset</h3>
+                            <p class="text-gray-300 text-sm leading-relaxed">30‑day action plan plus two follow‑up calls to lock in the habits. You walk away with a system that runs itself.</p>
                         </div>
                     </div>
                 </div>
@@ -304,198 +197,124 @@
         </div>
     </section>
 
-    <!-- App Download Modal -->
-    <div id="app-modal" class="hidden fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-6">
-        <div class="bg-navy-900 border-2 border-crimson rounded-2xl p-8 max-w-md w-full relative">
-            <button onclick="document.getElementById('app-modal').classList.add('hidden')" 
-                    class="absolute top-4 right-4 text-2xl hover:text-crimson transition">&times;</button>
-            
-            <div class="text-center mb-6">
-                <i class="fas fa-mobile-alt text-5xl text-crimson mb-4"></i>
-                <h3 class="text-2xl font-heading font-bold uppercase mb-2">The Lab Mobile App</h3>
-                <p class="text-gray-300 mb-6">Take your financial battle station anywhere</p>
-            </div>
-            
-            <div class="space-y-4 mb-8">
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-bell text-crimson"></i>
-                    <span>Push notifications for bills & War Mode</span>
-                </div>
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-cloud text-crimson"></i>
-                    <span>Offline access & cloud backup</span>
-                </div>
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-file-pdf text-crimson"></i>
-                    <span>PDF report generation</span>
-                </div>
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-sync-alt text-crimson"></i>
-                    <span>Sync across all devices</span>
-                </div>
-            </div>
-            
-            <div class="text-center">
-                <div class="text-3xl font-bold mb-2">$4.99</div>
-                <div class="text-sm text-gray-400 mb-6">One-time purchase • No subscriptions</div>
-                
-                <div class="flex flex-col gap-3">
-                    <a href="#" class="bg-crimson hover:bg-red-700 py-3 rounded-lg font-bold transition text-center">
-                        <i class="fab fa-apple mr-2"></i>Download on App Store
-                    </a>
-                    <a href="#" class="bg-white/10 hover:bg-white/20 py-3 rounded-lg font-bold transition text-center">
-                        <i class="fab fa-google-play mr-2"></i>Get it on Google Play
-                    </a>
+    <!-- SECTION 4 — Who It's For -->
+    <section class="py-20 bg-navy-900" id="who-its-for">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase mb-4">Who It's For</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">This is built for people who want results, not theories</p>
                 </div>
                 
-                <p class="text-xs text-gray-500 mt-6">
-                    Already have the web version? Your data can be exported and imported.
-                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="pillar-card rounded-xl p-8 flex items-start gap-5"><i class="fas fa-briefcase text-crimson text-3xl mt-1"></i><div><h3 class="text-xl font-heading font-bold uppercase mb-2">Busy professionals</h3><p class="text-gray-300 text-sm">You have the income but not the system. We build one that works with your schedule, not against it.</p></div></div>
+                    <div class="pillar-card rounded-xl p-8 flex items-start gap-5"><i class="fas fa-cloud-rain text-crimson text-3xl mt-1"></i><div><h3 class="text-xl font-heading font-bold uppercase mb-2">People overwhelmed by money</h3><p class="text-gray-300 text-sm">You know you need a plan but don't know where to start. We simplify everything into clear action steps.</p></div></div>
+                    <div class="pillar-card rounded-xl p-8 flex items-start gap-5"><i class="fas fa-robot text-crimson text-3xl mt-1"></i><div><h3 class="text-xl font-heading font-bold uppercase mb-2">Anyone who wants a simple, automated system</h3><p class="text-gray-300 text-sm">You want your finances to run on autopilot. We'll set up the automation so you don't have to think about it.</p></div></div>
+                    <div class="pillar-card rounded-xl p-8 flex items-start gap-5"><i class="fas fa-bolt text-crimson text-3xl mt-1"></i><div><h3 class="text-xl font-heading font-bold uppercase mb-2">People who want clarity fast</h3><p class="text-gray-300 text-sm">You don't want to spend months figuring it out yourself. Get clarity and a plan in one 3-hour session.</p></div></div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <footer class="bg-navy-950 border-t-8 border-crimson pt-20 pb-8">
+    <!-- SECTION 5 — What You Don't Do -->
+    <section class="py-20 bg-navy-950" id="what-you-dont-do">
         <div class="container mx-auto px-6">
-            <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-20">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-navy-900/50 border-l-4 border-crimson rounded-xl p-8">
+                    <div class="flex items-start gap-4">
+                        <i class="fas fa-shield-alt text-crimson text-3xl mt-1"></i>
+                        <div>
+                            <h3 class="text-2xl font-heading font-bold uppercase mb-4">What You Don't Do</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="flex items-center gap-3"><i class="fas fa-chart-line text-gray-500"></i><span class="text-gray-300">No investment advice</span></div>
+                                <div class="flex items-center gap-3"><i class="fas fa-chart-pie text-gray-500"></i><span class="text-gray-300">No portfolio management</span></div>
+                                <div class="flex items-center gap-3"><i class="fas fa-file-invoice-dollar text-gray-500"></i><span class="text-gray-300">No tax prep</span></div>
+                                <div class="flex items-center gap-3"><i class="fas fa-gavel text-gray-500"></i><span class="text-gray-300">No legal advice</span></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-6 pt-4 border-t border-white/10">The Financial Reset is a strategic financial planning session. We provide frameworks, systems, and education — not licensed advice in investing, law, or taxation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6 — Pricing -->
+    <section class="py-20 bg-navy-900" id="pricing">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="tool-preview rounded-2xl p-10 border-2 border-crimson/30 pulse-glow text-center">
+                    <span class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-3 block">One investment. Lifetime clarity.</span>
+                    <h2 class="text-5xl md:text-7xl font-heading font-bold uppercase mb-4">$1,000</h2>
+                    <p class="text-xl text-gray-300 mb-8">The Financial Reset</p>
+                    <div class="w-24 h-1 bg-crimson mx-auto mb-8"></div>
+                    <p class="text-gray-300 text-lg max-w-md mx-auto">"You leave with a working financial system, not just advice."</p>
+                    <div class="mt-10"><a href="#booking" class="bg-crimson hover:bg-red-700 px-12 py-5 font-heading font-bold uppercase tracking-widest text-white transition text-lg shadow-xl inline-block">Book Your Reset</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7 — Booking -->
+    <section class="py-20 bg-navy-950" id="booking">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gradient-to-r from-navy-800 to-navy-900 border border-white/10 rounded-2xl p-8 md:p-12 text-center">
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold uppercase mb-6">Ready for Your Reset?</h2>
+                    <p class="text-gray-300 mb-8 text-lg">Two steps to get started. You'll receive your dashboard and prep instructions after booking.</p>
+                    <div class="flex flex-col sm:flex-row gap-6 justify-center mb-8">
+                        <a href="#" class="bg-crimson hover:bg-red-700 px-10 py-4 font-heading font-bold uppercase tracking-widest text-white transition text-center rounded-lg"><i class="fas fa-calendar-check mr-3"></i>Schedule Your Session</a>
+                        <a href="#" class="bg-white/10 hover:bg-white/20 border border-white/20 px-10 py-4 font-heading font-bold uppercase tracking-widest text-white transition text-center rounded-lg"><i class="fas fa-file-alt mr-3"></i>Complete Intake Form</a>
+                    </div>
+                    <div class="text-sm text-gray-400 flex items-center justify-center gap-2"><i class="fas fa-lock"></i><span>All information is confidential. Payment due at booking.</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER (preserved original styling) -->
+    <footer class="bg-navy-950 border-t-8 border-crimson pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16">
                 <div class="lg:w-1/2">
-                    <a href="index.html" class="flex flex-col mb-6">
+                    <a href="#" class="flex flex-col mb-6">
                         <span style="font-family: 'Great Vibes';" class="text-5xl leading-none">Real American Finance</span>
                         <span class="font-heading text-xs tracking-[0.5em] text-gray-500 uppercase font-bold mt-2">Discipline • Autonomy • Wealth</span>
                     </a>
-                    <p class="text-gray-400 max-w-md text-sm leading-relaxed italic">
-                        Providing tactical frameworks for financial autonomy. We do not offer investment advice; we build systems for the self-reliant.
-                    </p>
+                    <p class="text-gray-400 max-w-md text-sm leading-relaxed italic">Providing tactical frameworks for financial autonomy. We do not offer investment advice; we build systems for the self-reliant.</p>
                 </div>
-                
                 <div class="lg:w-1/3 w-full">
                     <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-white font-bold mb-4">Strategic Disclaimer</h4>
-                    <div class="bg-white/5 border border-white/10 p-5 rounded-sm">
-                        <p class="text-[11px] text-gray-500 uppercase tracking-widest leading-relaxed font-bold">
-                            All materials provided are for educational purposes. Execution of these pillars requires individual discretion. Real American Finance assumes no liability for market outcomes.
-                        </p>
-                    </div>
+                    <div class="bg-white/5 border border-white/10 p-5 rounded-sm"><p class="text-[11px] text-gray-500 uppercase tracking-widest leading-relaxed font-bold">All materials provided are for educational purposes. Execution of these pillars requires individual discretion. Real American Finance assumes no liability for market outcomes.</p></div>
                 </div>
             </div>
-
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-20 border-t border-white/5 pt-12">
-                <div>
-                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">The Academy</h4>
-                    <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
-                        <li><a href="academy.html" class="hover:text-white transition">The 12 Pillars</a></li>
-                        <li><a href="strategy.html" class="hover:text-white transition">Strategic Consult</a></li>
-                        <li><a href="#" class="hover:text-white transition">Member Portal</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Intelligence</h4>
-                    <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
-                        <li><a href="media.html" class="hover:text-white transition">The Podcast</a></li>
-                        <li><a href="media.html" class="hover:text-white transition">Case Studies</a></li>
-                        <li><a href="media.html" class="hover:text-white transition">Media Archive</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Provisioning</h4>
-                    <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
-                        <li><a href="shop.html" class="hover:text-white transition">Apparel</a></li>
-                        <li><a href="the-lab.html" class="hover:text-white transition">Tactical Tools</a></li>
-                        <li><a href="shop.html" class="hover:text-white transition">Equipment</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-heading text-sm tracking-[0.2em] uppercase mb-8 border-l-2 border-crimson pl-3 font-bold">Inquiries</h4>
-                    <ul class="space-y-4 text-xs font-bold uppercase tracking-widest text-gray-500">
-                        <li><a href="mailto:hq@realamericanfinance.com" class="hover:text-white transition">Direct Liaison</a></li>
-                        <li><a href="strategy.html" class="text-crimson hover:text-red-400 transition">Schedule Strategy</a></li>
-                        <li><a href="#" class="hover:text-white transition">Institutional</a></li>
-                    </ul>
-                </div>
-            </div>
-
             <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-4">
-                <p class="text-[9px] text-gray-700 uppercase tracking-[0.5em] font-bold">
-                    © 2026 Real American Finance. Own Your Outcomes. Stay Sovereign.
-                </p>
-                <div class="flex gap-6">
-                    <a href="#" class="text-[9px] text-gray-800 uppercase tracking-widest hover:text-white transition">Privacy Policy</a>
-                    <a href="#" class="text-[9px] text-gray-800 uppercase tracking-widest hover:text-white transition">Terms of Engagement</a>
-                </div>
+                <p class="text-[9px] text-gray-700 uppercase tracking-[0.5em] font-bold">© 2026 Real American Finance. Own Your Outcomes. Stay Sovereign.</p>
+                <div class="flex gap-6"><a href="#" class="text-[9px] text-gray-800 uppercase tracking-widest hover:text-white transition">Privacy Policy</a><a href="#" class="text-[9px] text-gray-800 uppercase tracking-widest hover:text-white transition">Terms of Engagement</a></div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Initialize mini chart
         document.addEventListener('DOMContentLoaded', function() {
-            // Mini preview chart
-            const ctx = document.getElementById('previewChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [1200, 850, 650, 1240],
-                        backgroundColor: ['#3B82F6', '#EF4444', '#10B981', '#22C55E'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    cutout: '75%',
-                    plugins: { legend: { display: false } },
-                    responsive: true,
-                    maintainAspectRatio: true
-                }
-            });
-
-            // Newsletter form handler
-            document.getElementById('newsletter-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = this.querySelector('input[type="email"]').value;
-                
-                // Show success message
-                const button = this.querySelector('button');
-                const originalText = button.innerHTML;
-                button.innerHTML = '<i class="fas fa-check mr-2"></i>Subscribed!';
-                button.classList.remove('bg-crimson', 'hover:bg-red-700');
-                button.classList.add('bg-green-600');
-                
-                // Reset after 3 seconds
-                setTimeout(() => {
-                    button.innerHTML = originalText;
-                    button.classList.remove('bg-green-600');
-                    button.classList.add('bg-crimson', 'hover:bg-red-700');
-                    this.reset();
-                }, 3000);
-                
-                // In a real implementation, you would send this to your email service
-                console.log('Newsletter signup:', email);
-            });
-
-            // Animate elements on scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-fade-in');
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        const headerOffset = 100;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
                     }
                 });
-            }, observerOptions);
-
-            // Observe elements for animation
-            document.querySelectorAll('.pillar-card, .testimonial-card').forEach(el => {
-                observer.observe(el);
             });
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                document.getElementById('app-modal').classList.add('hidden');
-            }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('animate-fade-in'); observer.unobserve(entry.target); } });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            document.querySelectorAll('.pillar-card, .tool-preview, .bg-gradient-to-r').forEach(el => observer.observe(el));
         });
     </script>
 </body>
