@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real American Finance | Own Your Outcomes</title>
-    <!-- Use FormSubmit.co for email delivery to dmcdonough@gmail.com via fetch API -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -53,13 +52,54 @@
             opacity: 1;
             visibility: visible;
         }
-        /* Success banner animation */
-        .success-banner {
-            transform: translateY(-100%);
-            transition: transform 0.4s ease-out;
+        /* BIG OBVIOUS SUCCESS MODAL */
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
-        .success-banner.show {
-            transform: translateY(0);
+        .success-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .success-content {
+            text-align: center;
+            animation: bounceIn 0.5s ease-out;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            80% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .checkmark-circle {
+            width: 120px;
+            height: 120px;
+            background: #10B981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            animation: pulse 0.8s ease-out;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .checkmark-circle i {
+            font-size: 60px;
+            color: white;
         }
     </style>
     <script>
@@ -76,18 +116,22 @@
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson">
 
-    <!-- SUCCESS BANNER (hidden by default, slides down on successful form submission) -->
-    <div id="success-banner" class="success-banner fixed top-0 left-0 right-0 z-[200] bg-green-600 text-white py-3 px-4 text-center shadow-lg">
-        <div class="container mx-auto flex items-center justify-center gap-3">
-            <i class="fas fa-check-circle text-xl"></i>
-            <span class="font-heading text-sm uppercase tracking-widest">✓ Request received! We'll email you within 24 hours to schedule your session.</span>
-            <button onclick="hideSuccessBanner()" class="ml-4 text-white/80 hover:text-white">
-                <i class="fas fa-times"></i>
+    <!-- BIG OBVIOUS SUCCESS MODAL -->
+    <div id="big-success-modal" class="success-modal">
+        <div class="success-content">
+            <div class="checkmark-circle">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2 class="text-4xl md:text-6xl font-heading font-bold uppercase mb-4 text-white">REQUEST RECEIVED!</h2>
+            <p class="text-xl text-gray-300 mb-2">We've received your booking request.</p>
+            <p class="text-lg text-gray-400 mb-8">Check your email within 24 hours to schedule your session.</p>
+            <button onclick="closeSuccessModal()" class="bg-crimson hover:bg-red-700 px-10 py-4 font-heading font-bold uppercase tracking-widest text-white transition text-lg rounded-lg cursor-pointer">
+                Got it
             </button>
         </div>
     </div>
 
-    <!-- HEADER: Navigation with anchor links -->
+    <!-- HEADER -->
     <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="flex flex-col group">
@@ -104,7 +148,7 @@
         </nav>
     </header>
 
-    <!-- SECTION 1 — HERO (Original Headline Preserved) -->
+    <!-- SECTION 1 — HERO -->
     <section class="hero-bg min-h-screen flex items-center justify-center pt-20 text-center">
         <div class="container mx-auto px-6">
             <div class="max-w-5xl mx-auto">
@@ -122,7 +166,7 @@
         </div>
     </section>
 
-    <!-- SECTION 2 — What You Get (6 pillars) -->
+    <!-- SECTION 2 — What You Get -->
     <section class="py-20 bg-navy-900 animate-fade-in" id="what-you-get">
         <div class="container mx-auto px-6">
             <div class="max-w-6xl mx-auto">
@@ -142,7 +186,7 @@
         </div>
     </section>
 
-    <!-- SECTION 3 — How It Works (3 steps) -->
+    <!-- SECTION 3 — How It Works -->
     <section class="py-20 bg-navy-950" id="how-it-works">
         <div class="container mx-auto px-6">
             <div class="max-w-6xl mx-auto">
@@ -183,7 +227,7 @@
         </div>
     </section>
 
-    <!-- SECTION 6 — Pricing (clean, no button) -->
+    <!-- SECTION 6 — Pricing -->
     <section class="py-20 bg-navy-900" id="pricing">
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto">
@@ -192,7 +236,7 @@
         </div>
     </section>
 
-    <!-- SECTION 7 — Booking Section (single button) -->
+    <!-- SECTION 7 — Booking Section -->
     <section class="py-20 bg-navy-950" id="booking">
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto">
@@ -201,12 +245,11 @@
         </div>
     </section>
 
-    <!-- MODAL: Updated Financial Reset Booking Form (AJAX submission to FormSubmit) -->
+    <!-- MODAL: Booking Form -->
     <div id="booking-modal" class="modal closed fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-navy-900 border-2 border-crimson rounded-2xl max-w-5xl w-full my-8 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeBookingModal()" class="sticky top-0 float-right m-4 text-3xl hover:text-crimson transition z-10 bg-navy-900/80 rounded-full w-10 h-10 flex items-center justify-center">&times;</button>
             <div class="p-6 md:p-10 pt-0">
-                <!-- HEADER matching The Financial Reset -->
                 <div class="text-center mb-8">
                     <h2 class="text-3xl md:text-4xl font-heading font-bold uppercase mb-2">The <span class="text-crimson">Financial Reset</span></h2>
                     <p class="text-gray-400 text-sm uppercase tracking-widest">3-Hour Strategic Financial Planning Session</p>
@@ -214,12 +257,11 @@
                 </div>
 
                 <div class="grid lg:grid-cols-5 gap-8">
-                    <!-- LEFT COLUMN: Session Deliverables (matches index.html "What You Get") -->
                     <div class="lg:col-span-2 space-y-6">
                         <div>
                             <h3 class="text-lg font-heading font-bold uppercase mb-4 text-crimson">Session Deliverables</h3>
                             <ul class="space-y-3">
-                                <li class="flex gap-3"><span class="text-crimson font-bold min-w-[28px]">01</span><p class="text-xs text-gray-400"><span class="text-white font-bold">3‑Hour Live Session</span> — Intensive one-on-one deep dive. No fluff.</p></li>
+                                <li class="flex gap-3"><span class="text-crimson font-bold min-w-[28px]">01</span><p class="text-xs text-gray-400"><span class="text-white font-bold">3‑Hour Live Session</span> — Intensive one-on-one deep dive.</p></li>
                                 <li class="flex gap-3"><span class="text-crimson font-bold min-w-[28px]">02</span><p class="text-xs text-gray-400"><span class="text-white font-bold">Full Financial Breakdown</span> — Complete audit of income, expenses, assets, liabilities.</p></li>
                                 <li class="flex gap-3"><span class="text-crimson font-bold min-w-[28px]">03</span><p class="text-xs text-gray-400"><span class="text-white font-bold">Budget + Debt Payoff Plan</span> — Custom budget + prioritized debt elimination.</p></li>
                                 <li class="flex gap-3"><span class="text-crimson font-bold min-w-[28px]">04</span><p class="text-xs text-gray-400"><span class="text-white font-bold">Savings + Automation Setup</span> — Emergency fund + wealth-building automation.</p></li>
@@ -227,23 +269,16 @@
                                 <li class="flex gap-3"><span class="text-crimson font-bold min-w-[28px]">06</span><p class="text-xs text-gray-400"><span class="text-white font-bold">Two Follow‑Up Calls</span> — Week 2 and week 4 check-ins.</p></li>
                             </ul>
                         </div>
-                        <!-- Bonus Box -->
                         <div class="bg-crimson/10 border border-crimson/20 p-5 rounded-sm">
                             <div class="flex items-center mb-2"><i class="fas fa-gem text-crimson mr-2"></i><h3 class="font-heading text-xs tracking-widest uppercase font-bold">Immediate Bonus</h3></div>
                             <p class="text-xs text-gray-300 uppercase tracking-widest">Upon booking, you'll receive the <span class="text-white font-bold">Iron Pot Millionaire Asset Tracker</span> to begin your audit immediately.</p>
                         </div>
-                        <div class="border border-white/10 p-4 rounded-sm bg-white/5">
-                            <p class="text-xs text-gray-400 italic mb-2">"The session identified $2,800/month in hidden leaks. The blueprint paid for itself 50x over."</p>
-                            <p class="text-[10px] uppercase tracking-widest text-gray-600">— J.D., SYSTEMS ARCHITECT</p>
-                        </div>
                     </div>
 
-                    <!-- RIGHT COLUMN: AJAX Form Submission (no redirect, modal closes, shows success banner) -->
                     <div class="lg:col-span-3">
                         <div class="bg-navy-950 border border-white/10 p-6 rounded-lg relative">
                             <div class="absolute -top-3 left-4 bg-crimson px-3 py-0.5 text-[9px] font-heading font-bold uppercase tracking-widest">Booking Request</div>
                             <form id="financial-reset-form" class="space-y-5 mt-4">
-                                <!-- FormSubmit required fields (hidden) -->
                                 <input type="text" name="_honey" style="display:none">
                                 <input type="hidden" name="_captcha" value="false">
                                 <input type="hidden" name="_subject" value="NEW: Financial Reset Booking Request">
@@ -258,11 +293,11 @@
                                 </div>
                                 <div>
                                     <label class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-2">What's your biggest financial challenge? *</label>
-                                    <textarea name="BiggestChallenge" rows="2" required placeholder="e.g., credit card debt, no savings, inconsistent income, can't stick to a budget..." class="w-full bg-navy-950 border border-white/10 p-3 focus:border-crimson outline-none transition text-white text-sm resize-none"></textarea>
+                                    <textarea name="BiggestChallenge" rows="2" required placeholder="e.g., credit card debt, no savings, inconsistent income..." class="w-full bg-navy-950 border border-white/10 p-3 focus:border-crimson outline-none transition text-white text-sm resize-none"></textarea>
                                 </div>
                                 <div>
                                     <label class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-2">Best time for a call *</label>
-                                    <input type="text" name="BestCallTime" required placeholder="e.g., Weekdays after 5pm EST, weekends anytime" class="w-full bg-navy-950 border border-white/10 p-3 focus:border-crimson outline-none transition text-white text-sm">
+                                    <input type="text" name="BestCallTime" required placeholder="e.g., Weekdays after 5pm EST" class="w-full bg-navy-950 border border-white/10 p-3 focus:border-crimson outline-none transition text-white text-sm">
                                 </div>
                                 <div class="bg-white/5 border border-white/10 p-3 rounded-sm">
                                     <div class="flex items-center">
@@ -270,7 +305,7 @@
                                         <label class="text-[9px] uppercase tracking-widest text-gray-500">I agree to the confidential, educational nature of this session. *</label>
                                     </div>
                                 </div>
-                                <button type="submit" id="submit-booking-btn" class="w-full bg-crimson py-4 font-heading font-bold uppercase tracking-[0.3em] hover:bg-red-700 transition flex items-center justify-center gap-2 text-sm group">Submit Booking Request <i class="fas fa-arrow-right group-hover:translate-x-1 transition"></i></button>
+                                <button type="submit" id="submit-booking-btn" class="w-full bg-crimson py-4 font-heading font-bold uppercase tracking-[0.3em] hover:bg-red-700 transition flex items-center justify-center gap-2 text-sm group">Submit Booking Request <i class="fas fa-arrow-right"></i></button>
                                 <div id="form-status-message" class="text-center text-xs hidden"></div>
                                 <p class="text-[9px] text-center text-gray-600 uppercase tracking-widest"><i class="fas fa-lock mr-1"></i> Encrypted request • You'll receive a confirmation within 24 hours</p>
                             </form>
@@ -293,7 +328,6 @@
     </footer>
 
     <script>
-        // Modal controls
         function openBookingModal() {
             const modal = document.getElementById('booking-modal');
             modal.classList.remove('closed');
@@ -306,22 +340,19 @@
             modal.classList.add('closed');
             document.body.style.overflow = 'auto';
         }
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeBookingModal(); });
+        function openSuccessModal() {
+            const modal = document.getElementById('big-success-modal');
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeSuccessModal() {
+            const modal = document.getElementById('big-success-modal');
+            modal.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeBookingModal(); closeSuccessModal(); } });
         
-        // Success banner functions
-        function showSuccessBanner() {
-            const banner = document.getElementById('success-banner');
-            banner.classList.add('show');
-            // Auto-hide after 5 seconds
-            setTimeout(() => {
-                banner.classList.remove('show');
-            }, 5000);
-        }
-        function hideSuccessBanner() {
-            document.getElementById('success-banner').classList.remove('show');
-        }
-
-        // AJAX form submission to FormSubmit (no redirect, modal closes, shows success banner)
+        // AJAX form submission to FormSubmit
         const form = document.getElementById('financial-reset-form');
         const submitBtn = document.getElementById('submit-booking-btn');
         const statusDiv = document.getElementById('form-status-message');
@@ -329,15 +360,11 @@
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Disable button and show loading state
-            const originalBtnText = submitBtn.innerHTML;
             submitBtn.innerHTML = 'SENDING...';
             submitBtn.disabled = true;
             statusDiv.classList.add('hidden');
             
-            // Collect form data
             const formData = new FormData(form);
-            // Add the required _next parameter to avoid redirect (keep user on same page)
             formData.append('_next', 'https://realamericanfinance.com/');
             
             try {
@@ -347,29 +374,25 @@
                 });
                 
                 if (response.ok) {
-                    // Success: reset form, close modal, show success banner
                     form.reset();
                     closeBookingModal();
-                    showSuccessBanner();
+                    openSuccessModal();
                 } else {
-                    // Server error
-                    statusDiv.textContent = '❌ Submission failed. Please try again or email us directly.';
+                    statusDiv.textContent = '❌ Submission failed. Please try again.';
                     statusDiv.classList.remove('hidden');
                     statusDiv.classList.add('text-red-400');
                 }
             } catch (error) {
-                console.error('Form submit error:', error);
-                statusDiv.textContent = '❌ Network error. Please check your connection and try again.';
+                statusDiv.textContent = '❌ Network error. Please check your connection.';
                 statusDiv.classList.remove('hidden');
                 statusDiv.classList.add('text-red-400');
             } finally {
-                // Re-enable button
-                submitBtn.innerHTML = originalBtnText;
+                submitBtn.innerHTML = 'Submit Booking Request <i class="fas fa-arrow-right"></i>';
                 submitBtn.disabled = false;
             }
         });
 
-        // Smooth scroll and animations
+        // Smooth scroll
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
