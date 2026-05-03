@@ -115,7 +115,7 @@
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson">
 
-    <!-- BIG OBVIOUS SUCCESS MODAL -->
+    <!-- SUCCESS MODAL (appears after form submit) -->
     <div id="big-success-modal" class="success-modal">
         <div class="success-content">
             <div class="checkmark-circle">
@@ -146,7 +146,7 @@
         </nav>
     </header>
 
-    <!-- SECTION 1 — HERO -->
+    <!-- HERO -->
     <section class="hero-bg min-h-screen flex items-center justify-center pt-20 text-center">
         <div class="container mx-auto px-6">
             <div class="max-w-5xl mx-auto">
@@ -164,7 +164,7 @@
         </div>
     </section>
 
-    <!-- SECTION 2 — What You Get (UPDATED: Savings now covers 401k, Roth, IRA, brokerages) -->
+    <!-- WHAT YOU GET -->
     <section class="py-20 bg-navy-900 animate-fade-in" id="what-you-get">
         <div class="container mx-auto px-6">
             <div class="max-w-6xl mx-auto">
@@ -184,7 +184,7 @@
         </div>
     </section>
 
-    <!-- SECTION 3 — Who It's For (UPDATED: removed busy pros and clarity fast, kept 2 cards) -->
+    <!-- WHO IT'S FOR (simplified) -->
     <section class="py-20 bg-navy-950" id="who-its-for">
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto">
@@ -200,7 +200,7 @@
         </div>
     </section>
 
-    <!-- SECTION 4 — What We Don't Do (updated title) -->
+    <!-- WHAT WE DON'T DO -->
     <section class="py-20 bg-navy-900" id="what-we-dont-do">
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto">
@@ -209,7 +209,7 @@
         </div>
     </section>
 
-    <!-- SECTION 5 — PRICE + BOOKING COMBINED (UPDATED: $999, expanded info) -->
+    <!-- PRICE + BOOKING (combined, $999, no weird trackers) -->
     <section class="py-20 bg-navy-950" id="pricing-booking">
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto">
@@ -219,7 +219,6 @@
                     <p class="text-xl text-gray-300 mb-6">The Financial Reset</p>
                     <div class="w-24 h-1 bg-crimson mx-auto mb-8"></div>
                     
-                    <!-- Expanded pricing details -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 text-left max-w-3xl mx-auto">
                         <div class="text-center md:text-left">
                             <i class="fas fa-video text-crimson text-xl mb-2"></i>
@@ -239,7 +238,6 @@
                     </div>
                     
                     <div class="bg-white/5 rounded-lg p-5 mb-8 max-w-md mx-auto">
-                        <p class="text-sm text-gray-300 mb-2"><i class="fas fa-gem text-crimson mr-2"></i> Includes Iron Pot Millionaire Asset Tracker</p>
                         <p class="text-xs text-gray-500">One-time payment • No subscriptions • 100% confidential</p>
                     </div>
                     
@@ -261,7 +259,7 @@
         </div>
     </section>
 
-    <!-- MODAL: Booking Form (unchanged, works perfectly) -->
+    <!-- MODAL: Booking Form -->
     <div id="booking-modal" class="modal closed fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-navy-900 border-2 border-crimson rounded-2xl max-w-5xl w-full my-8 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeBookingModal()" class="sticky top-0 float-right m-4 text-3xl hover:text-crimson transition z-10 bg-navy-900/80 rounded-full w-10 h-10 flex items-center justify-center">&times;</button>
@@ -273,6 +271,7 @@
                 </div>
 
                 <div class="grid lg:grid-cols-5 gap-8">
+                    <!-- LEFT COLUMN: Session Deliverables -->
                     <div class="lg:col-span-2 space-y-6">
                         <div>
                             <h3 class="text-lg font-heading font-bold uppercase mb-4 text-crimson">Session Deliverables</h3>
@@ -285,12 +284,9 @@
                                 <li class="flex gap-3"><span class="text-crimson font-bold min-w-[28px]">06</span><p class="text-xs text-gray-400"><span class="text-white font-bold">Two Follow‑Up Calls</span> — Week 2 and week 4 check-ins.</p></li>
                             </ul>
                         </div>
-                        <div class="bg-crimson/10 border border-crimson/20 p-5 rounded-sm">
-                            <div class="flex items-center mb-2"><i class="fas fa-gem text-crimson mr-2"></i><h3 class="font-heading text-xs tracking-widest uppercase font-bold">Immediate Bonus</h3></div>
-                            <p class="text-xs text-gray-300 uppercase tracking-widest">Upon booking, you'll receive the <span class="text-white font-bold">Iron Pot Millionaire Asset Tracker</span> to begin your audit immediately.</p>
-                        </div>
                     </div>
 
+                    <!-- RIGHT COLUMN: Booking Form -->
                     <div class="lg:col-span-3">
                         <div class="bg-navy-950 border border-white/10 p-6 rounded-lg relative">
                             <div class="absolute -top-3 left-4 bg-crimson px-3 py-0.5 text-[9px] font-heading font-bold uppercase tracking-widest">Booking Request</div>
