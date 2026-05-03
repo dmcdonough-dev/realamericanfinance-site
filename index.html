@@ -278,12 +278,12 @@
         </div>
     </div>
 
-    <!-- FOOTER - CLEAN: TWO SECTIONS with proper "About the Founder" heading -->
+    <!-- FOOTER - CLEAN: Two columns, evenly aligned. Left: Brand + About the Founder. Right: Quick Links (top) + Legal & Disclaimer (bottom) -->
     <footer class="bg-navy-950 border-t-8 border-crimson pt-16 pb-8">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
                 
-                <!-- SECTION 1: About the Brand + Founder (with clear heading) -->
+                <!-- LEFT COLUMN: Brand + About the Founder -->
                 <div>
                     <a href="#" class="flex flex-col mb-4">
                         <span style="font-family: 'Great Vibes';" class="text-4xl leading-none">Real American Finance</span>
@@ -301,19 +301,33 @@
                     </p>
                 </div>
 
-                <!-- SECTION 2: Legal & Disclaimer (combined) -->
-                <div>
-                    <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-4">Legal & Disclaimer</h4>
-                    <div class="space-y-3">
-                        <p class="text-[10px] text-gray-500 leading-relaxed">
-                            Real American Finance is not a registered investment advisor, broker-dealer, or tax preparer. 
-                            All content, tools, and sessions are for informational and educational use only. 
-                            You assume full responsibility for your financial decisions.
-                        </p>
-                        <p class="text-[10px] text-gray-500 leading-relaxed pt-2 border-t border-white/10">
-                            All materials provided are for educational purposes. Execution of these pillars requires individual discretion. 
-                            Real American Finance assumes no liability for market outcomes.
-                        </p>
+                <!-- RIGHT COLUMN: Quick Links (top) + Legal & Disclaimer (bottom) -->
+                <div class="flex flex-col justify-between">
+                    <!-- TOP RIGHT: Quick Links -->
+                    <div class="mb-8">
+                        <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-4">Quick Links</h4>
+                        <div class="flex flex-wrap gap-6">
+                            <a href="#what-you-get" class="text-[10px] text-gray-500 uppercase tracking-widest hover:text-white transition">The Reset</a>
+                            <a href="#who-its-for" class="text-[10px] text-gray-500 uppercase tracking-widest hover:text-white transition">Who It's For</a>
+                            <a href="#pricing-booking" class="text-[10px] text-gray-500 uppercase tracking-widest hover:text-white transition">Pricing</a>
+                            <button onclick="openBookingModal()" class="text-[10px] text-gray-500 uppercase tracking-widest hover:text-white transition cursor-pointer">Schedule Session</button>
+                        </div>
+                    </div>
+                    
+                    <!-- BOTTOM RIGHT: Legal & Disclaimer -->
+                    <div>
+                        <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-4">Legal & Disclaimer</h4>
+                        <div class="space-y-3">
+                            <p class="text-[10px] text-gray-500 leading-relaxed">
+                                Real American Finance is not a registered investment advisor, broker-dealer, or tax preparer. 
+                                All content, tools, and sessions are for informational and educational use only. 
+                                You assume full responsibility for your financial decisions.
+                            </p>
+                            <p class="text-[10px] text-gray-500 leading-relaxed pt-2 border-t border-white/10">
+                                All materials provided are for educational purposes. Execution of these pillars requires individual discretion. 
+                                Real American Finance assumes no liability for market outcomes.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
