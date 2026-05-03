@@ -278,46 +278,47 @@
         </div>
     </div>
 
-    <!-- FOOTER WITH PROFESSIONAL BIO AND CREDENTIALS -->
+    <!-- FOOTER - CLEAN: ONLY TWO SECTIONS (About/Founder + Legal/Disclaimer) -->
     <footer class="bg-navy-950 border-t-8 border-crimson pt-16 pb-8">
         <div class="container mx-auto px-6">
-            <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16">
-                <div class="lg:w-2/3">
-                    <a href="#" class="flex flex-col mb-6">
-                        <span style="font-family: 'Great Vibes';" class="text-5xl leading-none">Real American Finance</span>
-                        <span class="font-heading text-xs tracking-[0.5em] text-gray-500 uppercase font-bold mt-2">Discipline • Autonomy • Wealth</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+                
+                <!-- SECTION 1: About the Brand + Founder (combined) -->
+                <div>
+                    <a href="#" class="flex flex-col mb-4">
+                        <span style="font-family: 'Great Vibes';" class="text-4xl leading-none">Real American Finance</span>
+                        <span class="font-heading text-[9px] tracking-[0.4em] text-gray-500 uppercase font-bold mt-1">Discipline • Autonomy • Wealth</span>
                     </a>
-                    <p class="text-gray-400 max-w-md text-sm leading-relaxed italic">Providing tactical frameworks for financial autonomy. We do not offer investment advice; we build systems for the self-reliant.</p>
+                    <p class="text-gray-400 text-xs leading-relaxed mb-4">
+                        Providing tactical frameworks for financial autonomy. We build systems for the self-reliant.
+                    </p>
+                    <div class="pt-3 border-t border-white/10">
+                        <p class="text-[11px] text-gray-500 leading-relaxed">
+                            <span class="text-crimson font-bold">David McDonough</span> holds an MBA from Syracuse University, plus PMP and Lean Six Sigma Black Belt certifications. 
+                            He is a self-made millionaire with over 20 years of real-world experience managing his own finances. 
+                            Based in the Greater Tampa Bay area, he built his wealth through disciplined systems, not gimmicks.
+                        </p>
+                    </div>
                 </div>
-                <div class="lg:w-1/3 w-full">
-                    <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-white font-bold mb-4">Strategic Disclaimer</h4>
-                    <div class="bg-white/5 border border-white/10 p-5 rounded-sm">
-                        <p class="text-[11px] text-gray-500 uppercase tracking-widest leading-relaxed font-bold">All materials provided are for educational purposes. Execution of these pillars requires individual discretion. Real American Finance assumes no liability for market outcomes.</p>
+
+                <!-- SECTION 2: Legal & Disclaimer (combined, both disclaimers merged) -->
+                <div>
+                    <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-4">Legal & Disclaimer</h4>
+                    <div class="space-y-3">
+                        <p class="text-[10px] text-gray-500 leading-relaxed">
+                            Real American Finance is not a registered investment advisor, broker-dealer, or tax preparer. 
+                            All content, tools, and sessions are for informational and educational use only. 
+                            You assume full responsibility for your financial decisions.
+                        </p>
+                        <p class="text-[10px] text-gray-500 leading-relaxed pt-2 border-t border-white/10">
+                            All materials provided are for educational purposes. Execution of these pillars requires individual discretion. 
+                            Real American Finance assumes no liability for market outcomes.
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- PROFESSIONAL DISCLOSURE / ABOUT THE FOUNDER -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 pt-4 border-t border-white/10">
-                <div>
-                    <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-3">About the Founder</h4>
-                    <p class="text-[11px] text-gray-500 leading-relaxed">
-                        David McDonough holds an MBA from Syracuse University, plus PMP and Lean Six Sigma Black Belt certifications. 
-                        He is a self-made millionaire with over 20 years of real-world experience managing his own finances. 
-                        Based in the Greater Tampa Bay area, he built his wealth through disciplined systems, not gimmicks. 
-                        No investment advice — just proven frameworks and a commitment to helping others own their outcomes.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-3">Legal & Regulatory</h4>
-                    <p class="text-[11px] text-gray-500 leading-relaxed">
-                        Real American Finance is not a registered investment advisor, broker-dealer, or tax preparer. 
-                        All content, tools, and sessions are for informational and educational use only. 
-                        You assume full responsibility for your financial decisions.
-                    </p>
-                </div>
-            </div>
-
+            <!-- Copyright row -->
             <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-4">
                 <p class="text-[9px] text-gray-700 uppercase tracking-[0.5em] font-bold">© 2026 Real American Finance. Own Your Outcomes. Stay Sovereign.</p>
                 <div class="flex gap-6">
