@@ -278,12 +278,12 @@
         </div>
     </div>
 
-    <!-- FOOTER - CLEAN: ONLY TWO SECTIONS (About/Founder + Legal/Disclaimer) -->
+    <!-- FOOTER - CLEAN: TWO SECTIONS with proper "About the Founder" heading -->
     <footer class="bg-navy-950 border-t-8 border-crimson pt-16 pb-8">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
                 
-                <!-- SECTION 1: About the Brand + Founder (combined) -->
+                <!-- SECTION 1: About the Brand + Founder (with clear heading) -->
                 <div>
                     <a href="#" class="flex flex-col mb-4">
                         <span style="font-family: 'Great Vibes';" class="text-4xl leading-none">Real American Finance</span>
@@ -292,16 +292,16 @@
                     <p class="text-gray-400 text-xs leading-relaxed mb-4">
                         Providing tactical frameworks for financial autonomy. We build systems for the self-reliant.
                     </p>
-                    <div class="pt-3 border-t border-white/10">
-                        <p class="text-[11px] text-gray-500 leading-relaxed">
-                            <span class="text-crimson font-bold">David McDonough</span> holds an MBA from Syracuse University, plus PMP and Lean Six Sigma Black Belt certifications. 
-                            He is a self-made millionaire with over 20 years of real-world experience managing his own finances. 
-                            Based in the Greater Tampa Bay area, he built his wealth through disciplined systems, not gimmicks.
-                        </p>
-                    </div>
+                    
+                    <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-3 mt-4 pt-2 border-t border-white/10">About the Founder</h4>
+                    <p class="text-[11px] text-gray-500 leading-relaxed">
+                        David McDonough holds an MBA from Syracuse University, plus PMP and Lean Six Sigma Black Belt certifications. 
+                        He is a self-made millionaire with over 20 years of real-world experience managing his own finances. 
+                        Based in the Greater Tampa Bay area, he built his wealth through disciplined systems, not gimmicks.
+                    </p>
                 </div>
 
-                <!-- SECTION 2: Legal & Disclaimer (combined, both disclaimers merged) -->
+                <!-- SECTION 2: Legal & Disclaimer (combined) -->
                 <div>
                     <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-4">Legal & Disclaimer</h4>
                     <div class="space-y-3">
@@ -349,11 +349,11 @@
             document.body.style.overflow = 'auto';
         }
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeBookingModal(); closeSuccessModal(); } });
-        
+
         const form = document.getElementById('financial-reset-form');
         const submitBtn = document.getElementById('submit-booking-btn');
         const statusDiv = document.getElementById('form-status-message');
-        
+
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             submitBtn.innerHTML = 'SENDING...';
