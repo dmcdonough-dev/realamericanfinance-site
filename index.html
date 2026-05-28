@@ -267,10 +267,15 @@
                             </div>
                         </div>
                         
-                        <!-- Cal.com container for free 15-minute consult - FIXED VERSION -->
+                        <!-- CAL.COM IFRAME - This WILL work -->
                         <div id="freeConsultContainer" class="mt-8 hidden calendar-transition">
-                            <div class="bg-navy-900/50 rounded-xl p-4" id="calComWrapper">
-                                <!-- Cal.com will be injected here dynamically -->
+                            <div class="bg-navy-900/50 rounded-xl p-4 flex justify-center">
+                                <iframe 
+                                    src="https://cal.com/dave-mcdonough-oofttx/15min?embed=true&theme=dark" 
+                                    style="width:100%; height:650px; border:none; border-radius:12px;" 
+                                    frameborder="0"
+                                    loading="lazy">
+                                </iframe>
                             </div>
                         </div>
                         
@@ -340,38 +345,6 @@
     </footer>
 
     <script>
-        // Load Cal.com script once
-        (function() {
-            if (!document.querySelector('script[src="https://app.cal.com/embed.js"]')) {
-                const script = document.createElement('script');
-                script.src = 'https://app.cal.com/embed.js';
-                script.async = true;
-                document.head.appendChild(script);
-                
-                const link = document.createElement('link');
-                link.href = 'https://app.cal.com/embed.css';
-                link.rel = 'stylesheet';
-                document.head.appendChild(link);
-            }
-        })();
-        
-        function loadCalComWidget() {
-            const wrapper = document.getElementById('calComWrapper');
-            if (!wrapper) return;
-            
-            // Clear wrapper and inject fresh embed
-            wrapper.innerHTML = '<div class="cal-inline" data-cal-link="dave-mcdonough-oofttx/15min" data-cal-config=\'{"theme":"dark"}\' style="min-width:320px;height:630px;"></div>';
-            
-            // Trigger Cal.com to scan for new embeds
-            if (window.Cal) {
-                window.Cal("init");
-            } else {
-                window.addEventListener("load", function() {
-                    if (window.Cal) window.Cal("init");
-                });
-            }
-        }
-        
         // Toggle paid calendar embed ($999)
         function toggleCalendar() {
             const paidContainer = document.getElementById('calendlyContainer');
@@ -396,9 +369,7 @@
             }
         }
         
-        // Toggle free 15-minute consult calendar embed (Cal.com)
-        let freeConsultLoaded = false;
-        
+        // Toggle free 15-minute consult - now using simple iframe
         function toggleFreeConsult() {
             const freeContainer = document.getElementById('freeConsultContainer');
             const paidContainer = document.getElementById('calendlyContainer');
@@ -413,13 +384,6 @@
             // Toggle free container
             if (freeContainer.classList.contains('hidden')) {
                 freeContainer.classList.remove('hidden');
-                
-                // Load the widget if not loaded yet
-                if (!freeConsultLoaded) {
-                    loadCalComWidget();
-                    freeConsultLoaded = true;
-                }
-                
                 setTimeout(() => {
                     freeContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
