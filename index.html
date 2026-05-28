@@ -244,7 +244,7 @@
                             <i class="fas fa-calendar-check mr-3"></i>Schedule Your Session ($999)
                         </button>
                         
-                        <!-- Free consultation link -->
+                        <!-- Free consultation link - NOW USING CAL.COM -->
                         <div class="mt-4">
                             <button onclick="toggleFreeConsult(); return false;" class="text-xs text-gray-400 hover:text-crimson transition uppercase tracking-widest cursor-pointer bg-transparent border-none">
                                 <i class="fas fa-comment mr-1"></i> Not sure yet? Book a free 15-minute discovery call →
@@ -267,11 +267,12 @@
                             </div>
                         </div>
                         
-                        <!-- Calendly container for free 15-minute consult (using your live link) -->
+                        <!-- CAL.COM container for free 15-minute consult (replaces Calendly) -->
                         <div id="freeConsultContainer" class="mt-8 hidden calendar-transition">
                             <div class="bg-navy-900/50 rounded-xl p-4">
-                                <div class="calendly-inline-widget" data-url="https://calendly.com/dmcdonough-1n9l/free-15-minute-consult?background_color=0A1A2F&text_color=FFFFFF&primary_color=B22234" style="min-width:320px;height:600px;"></div>
-                                <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+                                <script type="text/javascript" src="https://app.cal.com/embed.js"></script>
+                                <link href="https://app.cal.com/embed.css" rel="stylesheet">
+                                <div class="cal-inline" data-cal-link="dave-mcdonough-oofttx/15min" data-cal-config='{"theme":"dark"}' style="min-width:320px;height:630px;"></div>
                             </div>
                         </div>
                         
@@ -365,7 +366,7 @@
             }
         }
         
-        // Toggle free 15-minute consult calendar embed
+        // Toggle free 15-minute consult calendar embed (NOW USING CAL.COM)
         function toggleFreeConsult() {
             const freeContainer = document.getElementById('freeConsultContainer');
             const paidContainer = document.getElementById('calendlyContainer');
