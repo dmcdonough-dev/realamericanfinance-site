@@ -3,17 +3,70 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Real American Finance | Own Your Outcomes</title>
+
+    <!-- ========== SEO Meta ========== -->
+    <title>6-Month Financial Reset Plan | Build Wealth &amp; Net Worth | Real American Finance</title>
+    <meta name="description" content="Get a 6-month financial reset with a custom budget, debt elimination plan, retirement strategy, and measurable net worth growth. Own your financial outcomes." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://realamericanfinance.com/" />
+
+    <!-- ========== Open Graph / Social ========== -->
+    <meta property="og:title" content="6-Month Financial Reset | Real American Finance" />
+    <meta property="og:description" content="A premium financial planning system to build wealth, automate savings, and grow your net worth over 6 months." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://realamericanfinance.com/" />
+    <meta property="og:image" content="https://realamericanfinance.com/og-image.jpg" />
+    <!-- (Replace og-image.jpg with an actual image URL) -->
+
+    <!-- ========== Structured Data (JSON-LD) ========== -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": "6-Month Financial Reset",
+            "description": "A three-call financial coaching package over six months to build a custom budget, eliminate debt, set up retirement accounts, and measure net worth growth.",
+            "brand": {
+                "@type": "Organization",
+                "name": "Real American Finance"
+            },
+            "offers": {
+                "@type": "Offer",
+                "price": "999",
+                "priceCurrency": "USD",
+                "availability": "https://schema.org/InStock",
+                "url": "https://realamericanfinance.com/"
+            }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Real American Finance",
+            "url": "https://realamericanfinance.com/",
+            "logo": "https://realamericanfinance.com/logo.png",
+            "description": "Financial planning and coaching for self-reliant individuals. Build discipline, autonomy, and wealth.",
+            "founder": {
+                "@type": "Person",
+                "name": "David McDonough"
+            },
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Tampa Bay",
+                "addressRegion": "FL",
+                "addressCountry": "US"
+            }
+        }
+    </script>
+
+    <!-- ========== Styles & Fonts ========== -->
     <script src="https://cdn.tailwindcss.com">
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <style>
-        .hero-bg {
-            background: linear-gradient(rgba(5, 11, 20, 0.65), rgba(5, 11, 20, 0.65)), url('./flag_distressed.jpg');
-            background-size: cover;
-            background-position: center;
-        }
+        /* custom styles */
         .tool-preview {
             background: linear-gradient(135deg, #0A1A2F 0%, #11243F 100%);
             border: 1px solid rgba(178, 34, 52, 0.3);
@@ -101,7 +154,12 @@
             color: #B22234;
             font-weight: bold;
         }
+        /* ensure hero image covers properly */
+        .hero-image {
+            object-fit: cover;
+        }
     </style>
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -116,10 +174,10 @@
 </head>
 <body class="bg-navy-950 text-white font-sans selection:bg-crimson">
 
-    <!-- HEADER -->
+    <!-- ===== HEADER ===== -->
     <header class="fixed w-full z-50 bg-navy-950/95 border-b border-white/5 backdrop-blur-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="flex flex-col group">
+            <a href="#" class="flex flex-col group" aria-label="Real American Finance Home">
                 <span style="font-family: 'Great Vibes';" class="text-3xl leading-none group-hover:text-crimson transition">Real American Finance</span>
                 <span class="font-heading text-[10px] tracking-[0.4em] text-gray-400 uppercase mt-1 font-bold">Discipline • Autonomy • Wealth</span>
             </a>
@@ -132,308 +190,321 @@
         </nav>
     </header>
 
-    <!-- HERO -->
-    <section class="hero-bg min-h-screen flex items-center justify-center pt-20 text-center">
-        <div class="container mx-auto px-6">
-            <div class="max-w-5xl mx-auto">
-                <h1 class="text-7xl md:text-9xl font-heading font-bold uppercase tracking-tight leading-[0.85] mb-8 drop-shadow-2xl">
-                    OWN YOUR <br /><span class="text-crimson">OUTCOMES.</span>
-                </h1>
-                <p class="text-lg md:text-xl text-white font-heading font-bold uppercase tracking-[0.3em] mb-12 drop-shadow-md max-w-3xl mx-auto">
-                    A 6‑month Financial Reset that builds clarity, systems, and measurable net worth growth — not just advice.
-                </p>
-                <div class="flex flex-wrap gap-6 justify-center">
-                    <button onclick="toggleCalendar(); return false;" class="bg-white text-navy-950 px-10 py-5 font-heading font-bold uppercase tracking-widest hover:bg-crimson hover:text-white transition text-lg shadow-xl cursor-pointer inline-block">Schedule Your Session</button>
-                    <a href="#what-you-get" class="border-2 border-white px-10 py-5 font-heading font-bold uppercase tracking-widest hover:bg-white hover:text-navy-950 transition text-lg backdrop-blur-sm">What You Get</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
 
-    <!-- WHAT YOU GET — 6 boxes, generic & scannable -->
-    <section class="py-20 bg-navy-900 animate-fade-in" id="what-you-get">
-        <div class="container mx-auto px-6">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase mb-4">The 6‑Month Financial Reset</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto">Three calls over six months. A complete system to take control, build wealth, and measure your net worth growth.</p>
-                </div>
+        <!-- ===== HERO ===== -->
+        <section class="relative min-h-screen flex items-center justify-center pt-20 text-center overflow-hidden">
+            <!-- Hero image with alt text for SEO -->
+            <img src="./flag_distressed.jpg" alt="American flag symbolizing financial independence and freedom" class="absolute inset-0 w-full h-full hero-image -z-10" loading="eager" />
+            <!-- dark overlay -->
+            <div class="absolute inset-0 bg-navy-950/65 -z-10"></div>
 
-                <!-- Timeline hint -->
-                <div class="flex flex-wrap justify-center gap-4 mb-12 text-xs text-gray-500 uppercase tracking-[0.2em] font-heading">
-                    <span class="flex items-center gap-2"><i class="fas fa-circle text-crimson text-[6px]"></i> Call 1</span>
-                    <span class="text-gray-700">— 3 months —</span>
-                    <span class="flex items-center gap-2"><i class="fas fa-circle text-crimson text-[6px]"></i> Call 2</span>
-                    <span class="text-gray-700">— 3 months —</span>
-                    <span class="flex items-center gap-2"><i class="fas fa-circle text-crimson text-[6px]"></i> Call 3</span>
-                </div>
-
-                <!-- 6 boxes – generic content -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                    <!-- 1. Initial Deep Dive -->
-                    <div class="pillar-card rounded-xl p-8 text-center step-connector">
-                        <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-clock text-2xl text-crimson"></i>
-                        </div>
-                        <h3 class="text-xl font-heading font-bold uppercase mb-2">3‑Hour Deep Dive</h3>
-                        <p class="text-xs text-gray-400 font-medium">Full financial audit</p>
-                        <ul>
-                            <li>Income &amp; expense review</li>
-                            <li>Debt &amp; asset inventory</li>
-                            <li>Retirement account snapshot</li>
-                        </ul>
-                    </div>
-
-                    <!-- 2. Custom Budget -->
-                    <div class="pillar-card rounded-xl p-8 text-center step-connector">
-                        <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-chart-pie text-2xl text-crimson"></i>
-                        </div>
-                        <h3 class="text-xl font-heading font-bold uppercase mb-2">Custom Budget</h3>
-                        <p class="text-xs text-gray-400 font-medium">Cash flow &amp; automation</p>
-                        <ul>
-                            <li>Track every dollar</li>
-                            <li>High‑yield savings setup</li>
-                            <li>Automate savings &amp; bills</li>
-                        </ul>
-                    </div>
-
-                    <!-- 3. Debt Strategy -->
-                    <div class="pillar-card rounded-xl p-8 text-center step-connector">
-                        <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-chart-line text-2xl text-crimson"></i>
-                        </div>
-                        <h3 class="text-xl font-heading font-bold uppercase mb-2">Debt Elimination</h3>
-                        <p class="text-xs text-gray-400 font-medium">Prioritized payoff plan</p>
-                        <ul>
-                            <li>Snowball or avalanche method</li>
-                            <li>Refinance opportunities</li>
-                            <li>Emergency fund target</li>
-                        </ul>
-                    </div>
-
-                    <!-- 4. Retirement & Investments -->
-                    <div class="pillar-card rounded-xl p-8 text-center step-connector">
-                        <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-piggy-bank text-2xl text-crimson"></i>
-                        </div>
-                        <h3 class="text-xl font-heading font-bold uppercase mb-2">Retirement &amp; ETFs</h3>
-                        <p class="text-xs text-gray-400 font-medium">Tax‑efficient growth</p>
-                        <ul>
-                            <li>401(k), IRA, Roth decisions</li>
-                            <li>Simple ETF portfolio</li>
-                            <li>Insurance check (term vs. whole)</li>
-                        </ul>
-                    </div>
-
-                    <!-- 5. 3‑Month Follow‑Up -->
-                    <div class="pillar-card rounded-xl p-8 text-center step-connector">
-                        <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-calendar-alt text-2xl text-crimson"></i>
-                        </div>
-                        <h3 class="text-xl font-heading font-bold uppercase mb-2">Progress Check‑In</h3>
-                        <p class="text-xs text-gray-400 font-medium">Review &amp; adjust</p>
-                        <ul>
-                            <li>Contribution tracking</li>
-                            <li>Debt reduction update</li>
-                            <li>Net worth baseline</li>
-                        </ul>
-                    </div>
-
-                    <!-- 6. 6‑Month Net Worth Review -->
-                    <div class="pillar-card rounded-xl p-8 text-center">
-                        <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-arrow-trend-up text-2xl text-crimson"></i>
-                        </div>
-                        <h3 class="text-xl font-heading font-bold uppercase mb-2">Net Worth Review</h3>
-                        <p class="text-xs text-gray-400 font-medium">Measure your growth</p>
-                        <ul>
-                            <li>See your net worth increase</li>
-                            <li>Celebrate wins</li>
-                            <li>Plan next milestones</li>
-                        </ul>
-                    </div>
-
-                </div>
-
-                <!-- Referral note (generic) -->
-                <div class="mt-12 text-center">
-                    <p class="text-gray-400 text-sm max-w-2xl mx-auto">
-                        <i class="fas fa-gift text-crimson mr-2"></i>
-                        <strong>Referral perk:</strong> Refer a friend who books a session → <strong class="text-white">20% off</strong> your invoice.
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="max-w-5xl mx-auto">
+                    <h1 class="text-7xl md:text-9xl font-heading font-bold uppercase tracking-tight leading-[0.85] mb-8 drop-shadow-2xl">
+                        OWN YOUR <br /><span class="text-crimson">OUTCOMES.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-white font-heading font-bold uppercase tracking-[0.3em] mb-12 drop-shadow-md max-w-3xl mx-auto">
+                        A 6‑month Financial Reset that builds clarity, systems, and measurable net worth growth — not just advice.
                     </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- WHO IT'S FOR (unchanged, generic) -->
-    <section class="py-20 bg-navy-950" id="who-its-for">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase mb-4">Who It's For</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto">This is built for people who want results, not theories</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-                    <div class="pillar-card rounded-xl p-8 flex items-start gap-5">
-                        <i class="fas fa-cloud-rain text-crimson text-3xl mt-1"></i>
-                        <div>
-                            <h3 class="text-xl font-heading font-bold uppercase mb-2">Overwhelmed by money</h3>
-                            <p class="text-gray-300 text-sm">You know you need a plan but don't know where to start. We simplify everything into clear action steps.</p>
-                        </div>
-                    </div>
-                    <div class="pillar-card rounded-xl p-8 flex items-start gap-5">
-                        <i class="fas fa-robot text-crimson text-3xl mt-1"></i>
-                        <div>
-                            <h3 class="text-xl font-heading font-bold uppercase mb-2">Want a simple, automated system</h3>
-                            <p class="text-gray-300 text-sm">You want your finances to run on autopilot. We'll set up the automation so you don't have to think about it.</p>
-                        </div>
-                    </div>
-                    <div class="pillar-card rounded-xl p-8 flex items-start gap-5 md:col-span-2 max-w-md mx-auto">
-                        <i class="fas fa-bullseye text-crimson text-3xl mt-1"></i>
-                        <div>
-                            <h3 class="text-xl font-heading font-bold uppercase mb-2">Ready to build measurable wealth</h3>
-                            <p class="text-gray-300 text-sm">You want to see your net worth grow and have a clear system to track it. Accountability and follow‑up are non‑negotiable.</p>
-                        </div>
+                    <div class="flex flex-wrap gap-6 justify-center">
+                        <button onclick="toggleCalendar(); return false;" class="bg-white text-navy-950 px-10 py-5 font-heading font-bold uppercase tracking-widest hover:bg-crimson hover:text-white transition text-lg shadow-xl cursor-pointer inline-block">Schedule Your Session</button>
+                        <a href="#what-you-get" class="border-2 border-white px-10 py-5 font-heading font-bold uppercase tracking-widest hover:bg-white hover:text-navy-950 transition text-lg backdrop-blur-sm">What You Get</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- WHAT WE DON'T DO (unchanged) -->
-    <section class="py-20 bg-navy-900" id="what-we-dont-do">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto">
-                <div class="bg-navy-900/50 border-l-4 border-crimson rounded-xl p-8">
-                    <div class="flex items-start gap-4">
-                        <i class="fas fa-shield-alt text-crimson text-3xl mt-1"></i>
-                        <div>
-                            <h3 class="text-2xl font-heading font-bold uppercase mb-4">What We Don't Do</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="flex items-center gap-3">
-                                    <i class="fas fa-chart-line text-gray-500"></i>
-                                    <span class="text-gray-300">No investment advice</span>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <i class="fas fa-chart-pie text-gray-500"></i>
-                                    <span class="text-gray-300">No portfolio management</span>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <i class="fas fa-file-invoice-dollar text-gray-500"></i>
-                                    <span class="text-gray-300">No tax prep</span>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <i class="fas fa-gavel text-gray-500"></i>
-                                    <span class="text-gray-300">No legal advice</span>
-                                </div>
+        <!-- ===== WHAT YOU GET ===== -->
+        <section class="py-20 bg-navy-900 animate-fade-in" id="what-you-get">
+            <div class="container mx-auto px-6">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase mb-4">The 6‑Month Financial Reset</h2>
+                        <p class="text-gray-400 max-w-2xl mx-auto">Three calls over six months. A complete system to take control, build wealth, and measure your net worth growth.</p>
+                    </div>
+
+                    <!-- timeline -->
+                    <div class="flex flex-wrap justify-center gap-4 mb-12 text-xs text-gray-500 uppercase tracking-[0.2em] font-heading">
+                        <span class="flex items-center gap-2"><i class="fas fa-circle text-crimson text-[6px]"></i> Call 1</span>
+                        <span class="text-gray-700">— 3 months —</span>
+                        <span class="flex items-center gap-2"><i class="fas fa-circle text-crimson text-[6px]"></i> Call 2</span>
+                        <span class="text-gray-700">— 3 months —</span>
+                        <span class="flex items-center gap-2"><i class="fas fa-circle text-crimson text-[6px]"></i> Call 3</span>
+                    </div>
+
+                    <!-- 6 boxes -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                        <div class="pillar-card rounded-xl p-8 text-center step-connector">
+                            <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-clock text-2xl text-crimson"></i>
                             </div>
-                            <p class="text-xs text-gray-500 mt-6 pt-4 border-t border-white/10">The Financial Reset is a strategic financial planning session. We provide frameworks, systems, and education — not licensed advice in investing, law, or taxation.</p>
+                            <h3 class="text-xl font-heading font-bold uppercase mb-2">3‑Hour Deep Dive</h3>
+                            <p class="text-xs text-gray-400 font-medium">Full financial audit</p>
+                            <ul>
+                                <li>Income &amp; expense review</li>
+                                <li>Debt &amp; asset inventory</li>
+                                <li>Retirement account snapshot</li>
+                            </ul>
+                        </div>
+
+                        <div class="pillar-card rounded-xl p-8 text-center step-connector">
+                            <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-chart-pie text-2xl text-crimson"></i>
+                            </div>
+                            <h3 class="text-xl font-heading font-bold uppercase mb-2">Custom Budget</h3>
+                            <p class="text-xs text-gray-400 font-medium">Cash flow &amp; automation</p>
+                            <ul>
+                                <li>Track every dollar</li>
+                                <li>High‑yield savings setup</li>
+                                <li>Automate savings &amp; bills</li>
+                            </ul>
+                        </div>
+
+                        <div class="pillar-card rounded-xl p-8 text-center step-connector">
+                            <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-chart-line text-2xl text-crimson"></i>
+                            </div>
+                            <h3 class="text-xl font-heading font-bold uppercase mb-2">Debt Elimination</h3>
+                            <p class="text-xs text-gray-400 font-medium">Prioritized payoff plan</p>
+                            <ul>
+                                <li>Snowball or avalanche method</li>
+                                <li>Refinance opportunities</li>
+                                <li>Emergency fund target</li>
+                            </ul>
+                        </div>
+
+                        <div class="pillar-card rounded-xl p-8 text-center step-connector">
+                            <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-piggy-bank text-2xl text-crimson"></i>
+                            </div>
+                            <h3 class="text-xl font-heading font-bold uppercase mb-2">Retirement &amp; ETFs</h3>
+                            <p class="text-xs text-gray-400 font-medium">Tax‑efficient growth</p>
+                            <ul>
+                                <li>401(k), IRA, Roth decisions</li>
+                                <li>Simple ETF portfolio</li>
+                                <li>Insurance check (term vs. whole)</li>
+                            </ul>
+                        </div>
+
+                        <div class="pillar-card rounded-xl p-8 text-center step-connector">
+                            <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-calendar-alt text-2xl text-crimson"></i>
+                            </div>
+                            <h3 class="text-xl font-heading font-bold uppercase mb-2">Progress Check‑In</h3>
+                            <p class="text-xs text-gray-400 font-medium">Review &amp; adjust</p>
+                            <ul>
+                                <li>Contribution tracking</li>
+                                <li>Debt reduction update</li>
+                                <li>Net worth baseline</li>
+                            </ul>
+                        </div>
+
+                        <div class="pillar-card rounded-xl p-8 text-center">
+                            <div class="w-16 h-16 rounded-full bg-crimson/20 flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-arrow-trend-up text-2xl text-crimson"></i>
+                            </div>
+                            <h3 class="text-xl font-heading font-bold uppercase mb-2">Net Worth Review</h3>
+                            <p class="text-xs text-gray-400 font-medium">Measure your growth</p>
+                            <ul>
+                                <li>See your net worth increase</li>
+                                <li>Celebrate wins</li>
+                                <li>Plan next milestones</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <!-- referral -->
+                    <div class="mt-12 text-center">
+                        <p class="text-gray-400 text-sm max-w-2xl mx-auto">
+                            <i class="fas fa-gift text-crimson mr-2"></i>
+                            <strong>Referral perk:</strong> Refer a friend who books a session → <strong class="text-white">20% off</strong> your invoice.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== WHO IT'S FOR ===== -->
+        <section class="py-20 bg-navy-950" id="who-its-for">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase mb-4">Who It's For</h2>
+                        <p class="text-gray-400 max-w-2xl mx-auto">This is built for people who want results, not theories</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                        <div class="pillar-card rounded-xl p-8 flex items-start gap-5">
+                            <i class="fas fa-cloud-rain text-crimson text-3xl mt-1"></i>
+                            <div>
+                                <h3 class="text-xl font-heading font-bold uppercase mb-2">Overwhelmed by money</h3>
+                                <p class="text-gray-300 text-sm">You know you need a plan but don't know where to start. We simplify everything into clear action steps.</p>
+                            </div>
+                        </div>
+                        <div class="pillar-card rounded-xl p-8 flex items-start gap-5">
+                            <i class="fas fa-robot text-crimson text-3xl mt-1"></i>
+                            <div>
+                                <h3 class="text-xl font-heading font-bold uppercase mb-2">Want a simple, automated system</h3>
+                                <p class="text-gray-300 text-sm">You want your finances to run on autopilot. We'll set up the automation so you don't have to think about it.</p>
+                            </div>
+                        </div>
+                        <div class="pillar-card rounded-xl p-8 flex items-start gap-5 md:col-span-2 max-w-md mx-auto">
+                            <i class="fas fa-bullseye text-crimson text-3xl mt-1"></i>
+                            <div>
+                                <h3 class="text-xl font-heading font-bold uppercase mb-2">Ready to build measurable wealth</h3>
+                                <p class="text-gray-300 text-sm">You want to see your net worth grow and have a clear system to track it. Accountability and follow‑up are non‑negotiable.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- PRICING + BOOKING (unchanged) -->
-    <section class="py-20 bg-navy-950" id="pricing-booking">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto">
-                <div class="tool-preview rounded-2xl p-10 border-2 border-crimson/30 pulse-glow text-center">
-                    <span class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-3 block">One investment. Six months of transformation.</span>
-                    <h2 class="text-6xl md:text-8xl font-heading font-bold uppercase mb-4">$999</h2>
-                    <p class="text-xl text-gray-300 mb-6">The 6‑Month Financial Reset</p>
-                    <div class="w-24 h-1 bg-crimson mx-auto mb-8"></div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 text-left max-w-3xl mx-auto">
-                        <div class="text-center md:text-left">
-                            <i class="fas fa-video text-crimson text-xl mb-2"></i>
-                            <p class="text-xs uppercase tracking-widest text-gray-400 font-bold">3 Calls Over 6 Months</p>
-                            <p class="text-[11px] text-gray-500 mt-1">Deep dive + 2 follow‑ups</p>
-                        </div>
-                        <div class="text-center md:text-left">
-                            <i class="fas fa-file-alt text-crimson text-xl mb-2"></i>
-                            <p class="text-xs uppercase tracking-widest text-gray-400 font-bold">Full Financial System</p>
-                            <p class="text-[11px] text-gray-500 mt-1">Budget, debt, investments, net worth</p>
-                        </div>
-                        <div class="text-center md:text-left">
-                            <i class="fas fa-arrow-trend-up text-crimson text-xl mb-2"></i>
-                            <p class="text-xs uppercase tracking-widest text-gray-400 font-bold">Measurable Net Worth Growth</p>
-                            <p class="text-[11px] text-gray-500 mt-1">Track your progress, see results</p>
+        <!-- ===== WHAT WE DON'T DO ===== -->
+        <section class="py-20 bg-navy-900" id="what-we-dont-do">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-navy-900/50 border-l-4 border-crimson rounded-xl p-8">
+                        <div class="flex items-start gap-4">
+                            <i class="fas fa-shield-alt text-crimson text-3xl mt-1"></i>
+                            <div>
+                                <h2 class="text-2xl font-heading font-bold uppercase mb-4">What We Don't Do</h2>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-chart-line text-gray-500"></i>
+                                        <span class="text-gray-300">No investment advice</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-chart-pie text-gray-500"></i>
+                                        <span class="text-gray-300">No portfolio management</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-file-invoice-dollar text-gray-500"></i>
+                                        <span class="text-gray-300">No tax prep</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-gavel text-gray-500"></i>
+                                        <span class="text-gray-300">No legal advice</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-6 pt-4 border-t border-white/10">The Financial Reset is a strategic financial planning session. We provide frameworks, systems, and education — not licensed advice in investing, law, or taxation.</p>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <div class="bg-white/5 rounded-lg p-5 mb-8 max-w-md mx-auto">
-                        <p class="text-xs text-gray-500">One‑time payment • No subscriptions • 100% secure checkout</p>
-                    </div>
+        <!-- ===== PRICING + BOOKING ===== -->
+        <section class="py-20 bg-navy-950" id="pricing-booking">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto">
+                    <div class="tool-preview rounded-2xl p-10 border-2 border-crimson/30 pulse-glow text-center">
+                        <span class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-3 block">One investment. Six months of transformation.</span>
+                        <h2 class="text-6xl md:text-8xl font-heading font-bold uppercase mb-4">$999</h2>
+                        <p class="text-xl text-gray-300 mb-6">The 6‑Month Financial Reset</p>
+                        <div class="w-24 h-1 bg-crimson mx-auto mb-8"></div>
 
-                    <p class="text-gray-300 text-md max-w-md mx-auto mb-8 italic">"You don't just get advice — you get a working system and a clear measure of success."</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 text-left max-w-3xl mx-auto">
+                            <div class="text-center md:text-left">
+                                <i class="fas fa-video text-crimson text-xl mb-2"></i>
+                                <p class="text-xs uppercase tracking-widest text-gray-400 font-bold">3 Calls Over 6 Months</p>
+                                <p class="text-[11px] text-gray-500 mt-1">Deep dive + 2 follow‑ups</p>
+                            </div>
+                            <div class="text-center md:text-left">
+                                <i class="fas fa-file-alt text-crimson text-xl mb-2"></i>
+                                <p class="text-xs uppercase tracking-widest text-gray-400 font-bold">Full Financial System</p>
+                                <p class="text-[11px] text-gray-500 mt-1">Budget, debt, investments, net worth</p>
+                            </div>
+                            <div class="text-center md:text-left">
+                                <i class="fas fa-arrow-trend-up text-crimson text-xl mb-2"></i>
+                                <p class="text-xs uppercase tracking-widest text-gray-400 font-bold">Measurable Net Worth Growth</p>
+                                <p class="text-[11px] text-gray-500 mt-1">Track your progress, see results</p>
+                            </div>
+                        </div>
 
-                    <div class="pt-4 border-t border-white/10">
-                        <p class="text-gray-300 mb-6 text-lg">Ready to start your Reset?</p>
-                        <button onclick="toggleCalendar()" id="showCalendarBtn" class="bg-crimson hover:bg-red-700 px-12 py-5 font-heading font-bold uppercase tracking-widest text-white transition text-center rounded-lg text-lg shadow-xl cursor-pointer w-full sm:w-auto inline-block">
-                            <i class="fas fa-calendar-check mr-3"></i>Schedule Your Session ($999)
-                        </button>
+                        <div class="bg-white/5 rounded-lg p-5 mb-8 max-w-md mx-auto">
+                            <p class="text-xs text-gray-500">One‑time payment • No subscriptions • 100% secure checkout</p>
+                        </div>
 
-                        <div class="mt-4">
-                            <button onclick="toggleFreeConsult(); return false;" class="text-xs text-gray-400 hover:text-crimson transition uppercase tracking-widest cursor-pointer bg-transparent border-none">
-                                <i class="fas fa-comment mr-1"></i> Not sure yet? Book a free 15‑minute discovery call →
+                        <p class="text-gray-300 text-md max-w-md mx-auto mb-8 italic">"You don't just get advice — you get a working system and a clear measure of success."</p>
+
+                        <div class="pt-4 border-t border-white/10">
+                            <p class="text-gray-300 mb-6 text-lg">Ready to start your Reset?</p>
+                            <button onclick="toggleCalendar()" id="showCalendarBtn" class="bg-crimson hover:bg-red-700 px-12 py-5 font-heading font-bold uppercase tracking-widest text-white transition text-center rounded-lg text-lg shadow-xl cursor-pointer w-full sm:w-auto inline-block">
+                                <i class="fas fa-calendar-check mr-3"></i>Schedule Your Session ($999)
                             </button>
-                        </div>
 
-                        <div class="mt-4 text-center">
-                            <div class="inline-flex items-center gap-2 text-xs text-gray-500 bg-white/5 px-4 py-2 rounded-full">
-                                <i class="fas fa-lock text-crimson"></i>
-                                <span>Payment required at booking — secure checkout via Stripe</span>
+                            <div class="mt-4">
+                                <button onclick="toggleFreeConsult(); return false;" class="text-xs text-gray-400 hover:text-crimson transition uppercase tracking-widest cursor-pointer bg-transparent border-none">
+                                    <i class="fas fa-comment mr-1"></i> Not sure yet? Book a free 15‑minute discovery call →
+                                </button>
                             </div>
-                            <div class="mt-2 text-[11px] text-gray-600">
-                                <i class="fas fa-user-friends text-crimson mr-1"></i> Refer a friend and get 20% off your invoice
-                            </div>
-                        </div>
 
-                        <!-- Calendly (paid) -->
-                        <div id="calendlyContainer" class="mt-8 hidden calendar-transition">
-                            <div class="bg-navy-900/50 rounded-xl p-4">
-                                <div class="calendly-inline-widget" data-url="https://calendly.com/dmcdonough-1n9l/30min?hide_event_type_details=1&background_color=0A1A2F&text_color=FFFFFF&primary_color=B22234" style="min-width:320px;height:700px;"></div>
-                                <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+                            <div class="mt-4 text-center">
+                                <div class="inline-flex items-center gap-2 text-xs text-gray-500 bg-white/5 px-4 py-2 rounded-full">
+                                    <i class="fas fa-lock text-crimson"></i>
+                                    <span>Payment required at booking — secure checkout via Stripe</span>
+                                </div>
+                                <div class="mt-2 text-[11px] text-gray-600">
+                                    <i class="fas fa-user-friends text-crimson mr-1"></i> Refer a friend and get 20% off your invoice
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Cal.com (free consult) -->
-                        <div id="freeConsultContainer" class="mt-8 hidden calendar-transition">
-                            <div class="bg-navy-900/50 rounded-xl p-4 flex justify-center">
-                                <iframe src="https://cal.com/dave-mcdonough-oofttx/15min?embed=true&theme=dark" style="width:100%; height:650px; border:none; border-radius:12px;" frameborder="0" loading="lazy">
-                                </iframe>
+                            <!-- Calendly (paid) -->
+                            <div id="calendlyContainer" class="mt-8 hidden calendar-transition">
+                                <div class="bg-navy-900/50 rounded-xl p-4">
+                                    <div class="calendly-inline-widget" data-url="https://calendly.com/dmcdonough-1n9l/30min?hide_event_type_details=1&background_color=0A1A2F&text_color=FFFFFF&primary_color=B22234" style="min-width:320px;height:700px;"></div>
+                                    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async>
+                                    </script>
+                                </div>
                             </div>
-                        </div>
 
-                        <p class="text-xs text-gray-500 mt-6">After payment, you'll receive your dashboard and calendar invite immediately.</p>
-                        <div class="flex items-center justify-center gap-2 mt-4 text-gray-500 text-xs">
-                            <i class="fas fa-credit-card"></i>
-                            <span>PayPal • Credit Card • Debit Card accepted</span>
+                            <!-- Cal.com (free consult) -->
+                            <div id="freeConsultContainer" class="mt-8 hidden calendar-transition">
+                                <div class="bg-navy-900/50 rounded-xl p-4 flex justify-center">
+                                    <iframe src="https://cal.com/dave-mcdonough-oofttx/15min?embed=true&theme=dark" style="width:100%; height:650px; border:none; border-radius:12px;" frameborder="0" loading="lazy">
+                                    </iframe>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-gray-500 mt-6">After payment, you'll receive your dashboard and calendar invite immediately.</p>
+                            <div class="flex items-center justify-center gap-2 mt-4 text-gray-500 text-xs">
+                                <i class="fas fa-credit-card"></i>
+                                <span>PayPal • Credit Card • Debit Card accepted</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- FOOTER (unchanged) -->
+    </main>
+
+    <!-- ===== FOOTER ===== -->
     <footer class="bg-navy-950 border-t-8 border-crimson pt-16 pb-8">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
                 <div>
-                    <a href="#" class="flex flex-col mb-4">
+                    <a href="#" class="flex flex-col mb-4" aria-label="Real American Finance Home">
                         <span style="font-family: 'Great Vibes';" class="text-4xl leading-none">Real American Finance</span>
                         <span class="font-heading text-[9px] tracking-[0.4em] text-gray-500 uppercase font-bold mt-1">Discipline • Autonomy • Wealth</span>
                     </a>
                     <p class="text-gray-400 text-xs leading-relaxed mb-4">
                         Providing tactical frameworks for financial autonomy. We build systems for the self‑reliant.
                     </p>
-                    <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-3 mt-4 pt-2 border-t border-white/10">About the Founder</h4>
+                    <!-- contact / location for local SEO -->
+                    <p class="text-[10px] text-gray-600">
+                        <i class="fas fa-map-pin text-crimson mr-1"></i> Greater Tampa Bay, FL
+                    </p>
+                    <p class="text-[10px] text-gray-600 mt-1">
+                        <i class="fas fa-envelope text-crimson mr-1"></i>
+                        <a href="mailto:dave@realamericanfinance.com" class="hover:text-white transition">dave@realamericanfinance.com</a>
+                    </p>
+                    <h4 class="font-heading text-xs tracking-[0.3em] uppercase text-crimson font-bold mb-3 mt-6 pt-2 border-t border-white/10">About the Founder</h4>
                     <p class="text-[11px] text-gray-500 leading-relaxed">
                         David McDonough holds an MBA from Syracuse University, plus PMP and Lean Six Sigma Black Belt certifications.
                         He is a self‑made millionaire with over 20 years of real‑world experience managing his own finances.
@@ -476,7 +547,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPTS (unchanged) -->
+    <!-- ===== SCRIPTS ===== -->
     <script>
         function toggleCalendar() {
             const paidContainer = document.getElementById('calendlyContainer');
